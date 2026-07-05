@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
 import { isUserRole, PRIVILEGED_STAFF_ROLES, type UserRole } from '@/lib/auth/rbac'
@@ -11,7 +12,12 @@ import {
 } from './visibility-rules'
 import type {
   CompanyProfileRecord,
+  CompanyPageContext,
+  MentorCareerEntry,
+  MentorActiveWorkshop,
+  MentorPageContext,
   MentorProfileRecord,
+  MentorReviewRecord,
   ProfileRecord,
   ProfileViewer,
 } from './types'
@@ -20,6 +26,16 @@ type UntypedClient = SupabaseClient<Record<string, unknown>>
 
 function asUntyped(supabase: SupabaseClient<Database>): UntypedClient {
   return supabase as unknown as UntypedClient
+}
+
+/** Service-role client for page-level gate orchestration (bypasses RLS). */
+async function getOrchestrationClient(): Promise<UntypedClient> {
+  try {
+    return asUntyped(createAdminClient())
+  } catch {
+    const supabase = await createClient()
+    return asUntyped(supabase)
+  }
 }
 
 const PROFILE_SELECT = `
@@ -79,6 +95,13 @@ function mapProfileRow(row: Record<string, unknown>): ProfileRecord | null {
     created_at: String(row.created_at),
     updated_at: String(row.updated_at),
   }
+}
+
+export function stripSensitiveProfileFields(
+  profile: ProfileRecord,
+  viewer: ProfileViewer,
+): ProfileRecord {
+  return stripSensitiveFields(profile, viewer)
 }
 
 function stripSensitiveFields(profile: ProfileRecord, viewer: ProfileViewer): ProfileRecord {
@@ -161,8 +184,8 @@ export async function getCurrentViewer(): Promise<ProfileViewer> {
 
 /** Raw profile row — no visibility filtering (page orchestrates gates). */
 export async function fetchProfileRawById(profileId: string): Promise<ProfileRecord | null> {
-  const supabase = await createClient()
-  const { data, error } = await asUntyped(supabase)
+  const client = await getOrchestrationClient()
+  const { data, error } = await client
     .from('profiles')
     .select(PROFILE_SELECT)
     .eq('id', profileId)
@@ -192,8 +215,7 @@ export async function fetchProfilePageContext(profileId: string): Promise<Profil
   const profile = await fetchProfileRawById(profileId)
   if (!profile) return null
 
-  const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = await getOrchestrationClient()
 
   const { data: skillRows } = await client
     .from('profile_skills')
@@ -202,7 +224,7 @@ export async function fetchProfilePageContext(profileId: string): Promise<Profil
 
   const skills: ProfileSkillRow[] = (skillRows ?? [])
     .map((row) => {
-      const nested = (row as { skills?: ProfileSkillRow | null }).skills
+      const nested = (row as unknown as { skills?: ProfileSkillRow | null }).skills
       if (!nested?.id) return null
       return {
         id: nested.id,
@@ -288,9 +310,9 @@ export async function fetchProfile(
 }
 
 export async function fetchCompany(companyId: string): Promise<CompanyProfileRecord | null> {
-  const supabase = await createClient()
+  const client = await getOrchestrationClient()
 
-  const { data, error } = await asUntyped(supabase)
+  const { data, error } = await client
     .from('companies')
     .select(
       `
@@ -309,7 +331,11 @@ export async function fetchCompany(companyId: string): Promise<CompanyProfileRec
       is_verified,
       is_on_honor_roll,
       last_activity_at,
-      domains
+      domains,
+      commitment_score,
+      avg_response_days,
+      response_rate_pct,
+      total_jobs_posted_12mo
     `,
     )
     .eq('id', companyId)
@@ -317,7 +343,10 @@ export async function fetchCompany(companyId: string): Promise<CompanyProfileRec
 
   if (error || !data) return null
 
-  const row = data as Record<string, unknown>
+  return mapCompanyRow(data as Record<string, unknown>)
+}
+
+function mapCompanyRow(row: Record<string, unknown>): CompanyProfileRecord {
   return {
     id: String(row.id),
     name: String(row.name),
@@ -335,25 +364,72 @@ export async function fetchCompany(companyId: string): Promise<CompanyProfileRec
     is_on_honor_roll: Boolean(row.is_on_honor_roll),
     last_activity_at: (row.last_activity_at as string | null) ?? null,
     domains: (row.domains as string[]) ?? [],
+    commitment_score: Number(row.commitment_score ?? 0),
+    avg_response_days: row.avg_response_days != null ? Number(row.avg_response_days) : null,
+    response_rate_pct: row.response_rate_pct != null ? Number(row.response_rate_pct) : null,
+    total_jobs_posted_12mo: Number(row.total_jobs_posted_12mo ?? 0),
+  }
+}
+
+export async function fetchCompanyPageContext(companyId: string): Promise<CompanyPageContext | null> {
+  const company = await fetchCompany(companyId)
+  if (!company) return null
+
+  return {
+    company,
+    /** Job Board integration — Section 12 Step 10 placeholder. */
+    activeJobsCount: 0,
   }
 }
 
 export async function fetchMentor(userId: string): Promise<MentorProfileRecord | null> {
   const viewer = await getCurrentViewer()
-  const supabase = await createClient()
+  const mentor = await fetchMentorRawById(userId)
+  if (!mentor) return null
 
-  const { data: mentorRow, error: mentorError } = await asUntyped(supabase)
-    .from('mentor_profiles')
-    .select('user_id, status, headline, bio_short, bio_long, avg_response_hours, career_history')
-    .eq('user_id', userId)
-    .maybeSingle()
+  const isStaff = viewer.isAdmin || isPrivilegedStaffRole(viewer.role)
+  if (mentor.status !== 'approved' && !isStaff) return null
 
-  if (mentorError || !mentorRow) return null
+  return mentor
+}
 
-  const profile = await fetchProfile(userId, { viewer })
-  if (!profile) return null
+const MENTOR_SELECT = `
+  user_id,
+  status,
+  headline,
+  bio_short,
+  bio_long,
+  avg_response_hours,
+  career_history,
+  rating_avg,
+  sessions_count,
+  expertise_sectors,
+  years_experience,
+  active_workshop
+` as const
 
-  const row = mentorRow as Record<string, unknown>
+function parseCareerHistory(raw: unknown): MentorCareerEntry[] {
+  if (!Array.isArray(raw)) return []
+  return raw.filter((item): item is MentorCareerEntry => item !== null && typeof item === 'object')
+}
+
+function parseActiveWorkshop(raw: unknown): MentorActiveWorkshop | null {
+  if (!raw || typeof raw !== 'object') return null
+  const w = raw as Record<string, unknown>
+  if (typeof w.title !== 'string' || !w.title.trim()) return null
+  return {
+    title: w.title,
+    title_ar: (w.title_ar as string | null) ?? null,
+    scheduled_at: (w.scheduled_at as string | null) ?? null,
+    spots_remaining: w.spots_remaining != null ? Number(w.spots_remaining) : null,
+    url: (w.url as string | null) ?? null,
+  }
+}
+
+function mapMentorRow(
+  row: Record<string, unknown>,
+  profile: MentorProfileRecord['profile'],
+): MentorProfileRecord {
   return {
     user_id: String(row.user_id),
     status: String(row.status),
@@ -361,16 +437,111 @@ export async function fetchMentor(userId: string): Promise<MentorProfileRecord |
     bio_short: (row.bio_short as string | null) ?? null,
     bio_long: (row.bio_long as string | null) ?? null,
     avg_response_hours: row.avg_response_hours != null ? Number(row.avg_response_hours) : null,
-    career_history: row.career_history ?? [],
-    profile: {
-      id: profile.id,
-      full_name: profile.full_name,
-      headline: profile.headline,
-      avatar_url: profile.avatar_url,
-      visibility: profile.visibility,
-      profile_state: profile.profile_state,
-      suspended_at: profile.suspended_at,
-      deleted_at: profile.deleted_at,
-    },
+    career_history: parseCareerHistory(row.career_history),
+    rating_avg: row.rating_avg != null ? Number(row.rating_avg) : null,
+    sessions_count: Number(row.sessions_count ?? 0),
+    expertise_sectors: (row.expertise_sectors as string[]) ?? [],
+    years_experience: row.years_experience != null ? Number(row.years_experience) : null,
+    active_workshop: parseActiveWorkshop(row.active_workshop),
+    profile,
   }
+}
+
+/** Raw mentor row — page orchestrates approval gate (Section 6.10). */
+export async function fetchMentorRawById(userId: string): Promise<MentorProfileRecord | null> {
+  const client = await getOrchestrationClient()
+  const { data, error } = await client
+    .from('mentor_profiles')
+    .select(MENTOR_SELECT)
+    .eq('user_id', userId)
+    .maybeSingle()
+
+  if (error || !data) return null
+
+  const profile = await fetchProfileRawById(userId)
+  if (!profile) return null
+
+  return mapMentorRow(data as Record<string, unknown>, {
+    id: profile.id,
+    full_name: profile.full_name,
+    headline: profile.headline,
+    avatar_url: profile.avatar_url,
+    visibility: profile.visibility,
+    profile_state: profile.profile_state,
+    suspended_at: profile.suspended_at,
+    deleted_at: profile.deleted_at,
+  })
+}
+
+export async function fetchMentorReviews(
+  mentorId: string,
+  limit = 3,
+): Promise<MentorReviewRecord[]> {
+  const client = await getOrchestrationClient()
+  const { data, error } = await client
+    .from('mentor_reviews')
+    .select('id, rating, body, created_at, reviewer_id, profiles:reviewer_id (full_name)')
+    .eq('mentor_id', mentorId)
+    .order('created_at', { ascending: false })
+    .limit(limit)
+
+  if (error) return []
+
+  return (data ?? []).map((row) => {
+    const record = row as Record<string, unknown>
+    const nested = record.profiles as { full_name?: string | null } | null
+    return {
+      id: String(record.id),
+      rating: Number(record.rating),
+      body: (record.body as string | null) ?? null,
+      created_at: String(record.created_at),
+      reviewer_name: nested?.full_name ?? null,
+    }
+  })
+}
+
+export async function fetchMentorPageContext(userId: string): Promise<MentorPageContext | null> {
+  const mentor = await fetchMentorRawById(userId)
+  if (!mentor) return null
+
+  const reviews = await fetchMentorReviews(userId, 3)
+  return { mentor, reviews }
+}
+
+export type SkillCatalogRow = {
+  id: string
+  name: string
+  name_ar: string | null
+}
+
+export async function fetchSkillsCatalog(): Promise<SkillCatalogRow[]> {
+  const client = await getOrchestrationClient()
+  const { data, error } = await client.from('skills').select('id, name, name_ar').order('name')
+
+  if (error) return []
+  return (data ?? []) as SkillCatalogRow[]
+}
+
+export async function fetchProfileSkillIds(profileId: string): Promise<string[]> {
+  const client = await getOrchestrationClient()
+  const { data } = await client.from('profile_skills').select('skill_id').eq('profile_id', profileId)
+  return (data ?? []).map((row) => String((row as { skill_id: string }).skill_id))
+}
+
+export async function fetchOwnProfilePageContext(): Promise<ProfilePageContext | null> {
+  const viewer = await getCurrentViewer()
+  if (!viewer.userId) return null
+  return fetchProfilePageContext(viewer.userId)
+}
+
+export async function fetchOwnCompanyPageContext(): Promise<CompanyPageContext | null> {
+  const viewer = await getCurrentViewer()
+  if (!viewer.companyId) return null
+  return fetchCompanyPageContext(viewer.companyId)
+}
+
+export async function fetchOwnMentorPageContext(): Promise<MentorPageContext | null> {
+  const viewer = await getCurrentViewer()
+  if (!viewer.userId) return null
+  return fetchMentorPageContext(viewer.userId)
 }

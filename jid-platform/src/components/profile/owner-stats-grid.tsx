@@ -4,21 +4,20 @@ import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 
 export type OwnerStatsData = {
-  companiesViewed: number
-  activeApplications: number
+  totalViews: number
+  distinctCompanies30d: number
   completionPct: number
 }
 
 /**
  * Internal-only stats panel. Parent must pass `stats` only when `showStats` gate passed.
- * This component does not accept a visibility flag — callers use `resolveOwnerStats` first.
  */
 export function OwnerStatsGrid({ stats }: { stats: OwnerStatsData }) {
   const t = useTranslations('profile.components')
 
   const items = [
-    { label: t('statsCompaniesViewed'), value: stats.companiesViewed },
-    { label: t('statsActiveApplications'), value: stats.activeApplications },
+    { label: t('statsTotalViews'), value: stats.totalViews },
+    { label: t('statsDistinctCompanies30d'), value: stats.distinctCompanies30d },
     { label: t('statsCompletion'), value: `${stats.completionPct}%` },
   ]
 
@@ -37,11 +36,6 @@ export function OwnerStatsGrid({ stats }: { stats: OwnerStatsData }) {
   )
 }
 
-/**
- * Prop-driven gate for owner stats (Section 13).
- * Returns null unless `showStats === true` AND stats payload is present.
- * Non-owner parents must pass `showStats={false}` — stats never render.
- */
 export function resolveOwnerStats(
   showStats: boolean,
   stats: OwnerStatsData | undefined,

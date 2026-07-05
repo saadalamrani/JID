@@ -67,6 +67,40 @@ export type CompanyProfileRecord = {
   is_on_honor_roll: boolean
   last_activity_at: string | null
   domains: string[]
+  commitment_score: number
+  avg_response_days: number | null
+  response_rate_pct: number | null
+  total_jobs_posted_12mo: number
+}
+
+export type CompanyPageContext = {
+  company: CompanyProfileRecord
+  /** Placeholder until Job Board module ships. */
+  activeJobsCount: number
+}
+
+export type MentorCareerEntry = {
+  title?: string
+  company?: string
+  start_year?: number
+  end_year?: number | null
+  description?: string
+}
+
+export type MentorActiveWorkshop = {
+  title: string
+  title_ar?: string | null
+  scheduled_at?: string | null
+  spots_remaining?: number | null
+  url?: string | null
+}
+
+export type MentorReviewRecord = {
+  id: string
+  rating: number
+  body: string | null
+  created_at: string
+  reviewer_name: string | null
 }
 
 export type MentorProfileRecord = {
@@ -76,7 +110,12 @@ export type MentorProfileRecord = {
   bio_short: string | null
   bio_long: string | null
   avg_response_hours: number | null
-  career_history: unknown
+  career_history: MentorCareerEntry[]
+  rating_avg: number | null
+  sessions_count: number
+  expertise_sectors: string[]
+  years_experience: number | null
+  active_workshop: MentorActiveWorkshop | null
   profile: Pick<
     ProfileRecord,
     | 'id'
@@ -88,6 +127,11 @@ export type MentorProfileRecord = {
     | 'suspended_at'
     | 'deleted_at'
   >
+}
+
+export type MentorPageContext = {
+  mentor: MentorProfileRecord
+  reviews: MentorReviewRecord[]
 }
 
 export type BadgeCatalogMeta = {

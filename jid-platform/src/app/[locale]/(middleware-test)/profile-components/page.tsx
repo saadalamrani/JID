@@ -106,11 +106,8 @@ export default function ProfileComponentsPreviewPage() {
         <TrustSignals
           badges={MOCK_BADGES}
           showStats
-          stats={{
-            companiesViewed: 12,
-            activeApplications: 3,
-            completionPct: 85,
-          }}
+          profileId="a0000000-0000-4000-8000-000000000002"
+          completionPct={85}
         />
       </section>
 

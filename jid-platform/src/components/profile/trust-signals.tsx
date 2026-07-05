@@ -3,24 +3,17 @@
 import type { ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 import { BadgeDisplay, BadgeDisplayStatic } from '@/components/profile/badge-display'
-import {
-  OwnerStatsGrid,
-  resolveOwnerStats,
-  type OwnerStatsData,
-} from '@/components/profile/owner-stats-grid'
+import { OwnerViewStats } from '@/components/profile/owner-view-stats'
 import type { EarnedUserBadge } from '@/lib/profile/types'
 
 export type TrustSignalsProps = {
   badges: EarnedUserBadge[]
   badgesLoading?: boolean
   locale?: 'ar' | 'en'
-  /**
-   * Owner-only stats gate (Section 13). Must be `false` for every non-owner viewer.
-   * Stats never render when this is not strictly `true`.
-   */
+  /** Owner-only stats gate (Section 13). */
   showStats: boolean
-  stats?: OwnerStatsData
-  /** Async badge slot — wrapped in Suspense via BadgeDisplay. */
+  profileId?: string | null
+  completionPct?: number
   badgeSlot?: ReactNode
 }
 
@@ -29,11 +22,11 @@ export function TrustSignals({
   badgesLoading = false,
   locale = 'ar',
   showStats,
-  stats,
+  profileId,
+  completionPct = 0,
   badgeSlot,
 }: TrustSignalsProps) {
   const t = useTranslations('profile.components')
-  const ownerStats = resolveOwnerStats(showStats, stats)
 
   return (
     <section className="space-y-4" aria-label={t('trustSignals')}>
@@ -46,7 +39,9 @@ export function TrustSignals({
         )}
       </div>
 
-      {ownerStats ? <OwnerStatsGrid stats={ownerStats} /> : null}
+      {showStats && profileId ? (
+        <OwnerViewStats profileId={profileId} completionPct={completionPct} />
+      ) : null}
     </section>
   )
 }

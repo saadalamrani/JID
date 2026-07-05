@@ -106,6 +106,28 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     conditions: ['entity_claim_status'],
   },
 
+  // ── Individual profile owner (before /me portal) ────────────────────────────
+  {
+    id: 'individual-profile',
+    pattern: new RegExp(`^${L}/profile(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+
+  // ── Company profile owner ───────────────────────────────────────────────────
+  {
+    id: 'company-profile-owner',
+    pattern: new RegExp(`^${L}/company/profile(?:/|$)`),
+    allowedRoles: ['company_admin'],
+    conditions: ['entity_claim_status'],
+  },
+
+  // ── Mentor profile owner (pending mentors may edit; no mentor_status gate) ──
+  {
+    id: 'mentor-profile-owner',
+    pattern: new RegExp(`^${L}/mentor/profile(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+
   // ── Individual settings (phone verify before profile_complete gate) ───────────
   {
     id: 'individual-settings',
