@@ -1,0 +1,36 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "close": "Close",
+    "submit": "Submit",
+    "retry": "Retry",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "app": {
+    "name": "JID",
+    "tagline": "Employment & Mentorship Platform",
+    "description": "Connecting talent with opportunities — jobs, mentorship, and career growth"
+  },
+  "home": {
+    "title": "Welcome to JID",
+    "subtitle": "Your platform for employment and career mentorship",
+    "cta": "Get started"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "notFoundDescription": "The page you are looking for could not be found.",
+    "generic": "An unexpected error occurred. Please try again.",
+    "genericDescription": "The application encountered a problem. You can retry or come back later.",
+    "forbidden": "You do not have permission to access this page"
+  }
+}

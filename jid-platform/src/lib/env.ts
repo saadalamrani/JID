@@ -3,8 +3,8 @@ import { z } from 'zod'
 const supabaseUrlSchema = z
   .string()
   .url({ message: 'NEXT_PUBLIC_SUPABASE_URL must be a valid URL' })
-  .refine((url) => url.includes('supabase.co'), {
-    message: 'NEXT_PUBLIC_SUPABASE_URL must point to a Supabase project',
+  .refine((url) => url.includes('supabase.co') || url.includes('127.0.0.1') || url.includes('localhost'), {
+    message: 'NEXT_PUBLIC_SUPABASE_URL must point to a Supabase project (cloud or local)',
   })
 
 const publicEnvSchema = z.object({

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" role="img" aria-label="JID">
+  <rect width="120" height="120" rx="24" fill="#F7F5EF" fill-opacity="0.1"/>
+  <circle cx="60" cy="60" r="28" fill="#E6B43A"/>
+  <text x="60" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#2F3A2E">JID</text>
+</svg>

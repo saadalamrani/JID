@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* JID brand reference tokens */
+    --jid-olive: 100 12% 21%;
+    --jid-gold: 43 76% 56%;
+    --jid-beige: 45 33% 95%;
+    --jid-ink: 100 9% 11%;
+    --jid-line: 100 8% 55%;
+
+    /* shadcn semantic tokens — neutral base + JID brand */
+    --background: 45 33% 95%;
+    --foreground: 100 9% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 100 9% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 100 9% 11%;
+    --primary: 100 12% 21%;
+    --primary-foreground: 45 33% 95%;
+    --secondary: 45 20% 90%;
+    --secondary-foreground: 100 12% 21%;
+    --muted: 45 20% 90%;
+    --muted-foreground: 100 8% 42%;
+    --accent: 43 76% 56%;
+    --accent-foreground: 100 9% 11%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 100 8% 55%;
+    --input: 100 8% 55%;
+    --ring: 43 76% 56%;
+    --radius: 0.5rem;
+
+    --chart-1: 100 12% 21%;
+    --chart-2: 43 76% 56%;
+    --chart-3: 100 8% 55%;
+    --chart-4: 45 20% 75%;
+    --chart-5: 100 9% 35%;
+  }
+
+  .dark {
+    --background: 100 9% 11%;
+    --foreground: 45 33% 95%;
+    --card: 100 10% 14%;
+    --card-foreground: 45 33% 95%;
+    --popover: 100 10% 14%;
+    --popover-foreground: 45 33% 95%;
+    --primary: 43 76% 56%;
+    --primary-foreground: 100 9% 11%;
+    --secondary: 100 12% 21%;
+    --secondary-foreground: 45 33% 95%;
+    --muted: 100 12% 21%;
+    --muted-foreground: 100 8% 65%;
+    --accent: 43 76% 56%;
+    --accent-foreground: 100 9% 11%;
+    --destructive: 0 63% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 100 8% 30%;
+    --input: 100 8% 30%;
+    --ring: 43 76% 56%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  /* CRITICAL: never letter-space Arabic — breaks glyph joining */
+  html[lang='ar'] {
+    letter-spacing: 0;
+  }
+
+  html[lang='ar'] * {
+    letter-spacing: inherit;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  html[lang='ar'] body {
+    font-family: var(--font-arabic), var(--font-latin), system-ui, sans-serif;
+  }
+
+  html[lang='en'] body {
+    font-family: var(--font-latin), var(--font-arabic), system-ui, sans-serif;
+  }
+
+  /* RTL: keep numerals, time, and mono LTR-isolated */
+  [dir='rtl'] .tabular-nums,
+  [dir='rtl'] time,
+  [dir='rtl'] .font-mono {
+    direction: ltr;
+    unicode-bidi: embed;
+    display: inline-block;
+  }
+
+  [dir='rtl'] .font-mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+@layer components {
+  .container-jid {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

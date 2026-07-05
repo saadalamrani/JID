@@ -1,0 +1,1 @@
+cd jid-platform && pnpm exec lint-staged
