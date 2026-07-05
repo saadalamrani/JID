@@ -10,6 +10,7 @@ import {
   isSuspended,
   loadMiddlewareSession,
   localeAwarePath,
+  resolveEntityPendingReviewPath,
 } from '@/lib/auth/middleware-utils'
 import { routing } from '@/lib/i18n/routing'
 import { createClient } from '@/lib/supabase/middleware'
@@ -49,7 +50,7 @@ function conditionRedirectPath(failed: string): string {
     case 'mentor_status':
       return '/mentor/apply'
     case 'entity_claim_status':
-      return '/company/claim'
+      return '/company/pending-review'
     default:
       return '/login'
   }
@@ -82,7 +83,7 @@ export async function middleware(request: NextRequest) {
 
   // ── 2. Suspension check ─────────────────────────────────────────────────────
   if (isSuspended(session.profile)) {
-    return redirectTo(request, '/auth/suspended')
+    return redirectTo(request, '/account/suspended')
   }
 
   // ── 3. Role check — 404 (never 403) ─────────────────────────────────────────
@@ -104,6 +105,10 @@ export async function middleware(request: NextRequest) {
   if (guard.conditions?.length) {
     const conditionResult = checkConditions(guard.conditions, session.conditionContext)
     if (!conditionResult.ok) {
+      if (conditionResult.failed === 'entity_claim_status') {
+        const path = await resolveEntityPendingReviewPath(supabase, session.userId)
+        return redirectTo(request, path)
+      }
       return redirectTo(request, conditionRedirectPath(conditionResult.failed))
     }
   }

@@ -39,6 +39,13 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     sessionMaxAge: 7200,
   },
 
+  // ── Staff accept invite (public — before staff portal guard) ────────────────
+  {
+    id: 'staff-accept-invite',
+    pattern: new RegExp(`^${L}/staff/accept-invite(?:/|$)`),
+    allowedRoles: null,
+  },
+
   // ── Staff portal ────────────────────────────────────────────────────────────
   {
     id: 'staff-portal',
@@ -54,6 +61,23 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     pattern: new RegExp(`^${L}/mentor(?:/|$)`),
     allowedRoles: ['individual'],
     conditions: ['phone_verified', 'mentor_status'],
+  },
+
+  // ── Entity rejected / reapply (before claim approval gate) ───────────────────
+  {
+    id: 'company-rejected',
+    pattern: new RegExp(`^${L}/company/rejected(?:/|$)`),
+    allowedRoles: ['entity'],
+  },
+  {
+    id: 'company-reapply',
+    pattern: new RegExp(`^${L}/company/claim/reapply(?:/|$)`),
+    allowedRoles: ['entity'],
+  },
+  {
+    id: 'university-rejected',
+    pattern: new RegExp(`^${L}/university/rejected(?:/|$)`),
+    allowedRoles: ['entity'],
   },
 
   // ── Entity pending review (before claim approval gate) ──────────────────────
@@ -72,13 +96,13 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   {
     id: 'company-portal',
     pattern: new RegExp(`^${L}/company(?:/|$)`),
-    allowedRoles: ['entity'],
+    allowedRoles: ['entity', 'company_admin'],
     conditions: ['entity_claim_status'],
   },
   {
     id: 'university-portal',
     pattern: new RegExp(`^${L}/university(?:/|$)`),
-    allowedRoles: ['entity'],
+    allowedRoles: ['entity', 'university_admin'],
     conditions: ['entity_claim_status'],
   },
 
@@ -124,6 +148,21 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: null,
   },
   {
+    id: 'auth-forgot-password',
+    pattern: new RegExp(`^${L}/forgot-password(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'auth-reset-password',
+    pattern: new RegExp(`^${L}/reset-password(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'account-suspended',
+    pattern: new RegExp(`^${L}/account/suspended(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
     id: 'auth-public',
     pattern: new RegExp(`^${L}/auth`),
     allowedRoles: null,
@@ -146,6 +185,11 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   {
     id: 'public-mentors',
     pattern: new RegExp(`^${L}/mentors(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'public-profile',
+    pattern: new RegExp(`^${L}/u/[0-9a-f-]{36}(?:/|$)`),
     allowedRoles: null,
   },
   {

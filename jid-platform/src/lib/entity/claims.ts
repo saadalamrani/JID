@@ -17,6 +17,8 @@ export type SubmitClaimInput = ClaimSubmissionFormValues & {
   locale?: 'ar' | 'en'
 }
 
+export { SLA_HOURS } from '@/lib/entity/constants'
+
 export async function submitClaimRequest(supabase: Client, input: SubmitClaimInput) {
   const {
     data: { user },
@@ -36,6 +38,27 @@ export async function submitClaimRequest(supabase: Client, input: SubmitClaimInp
 
   if (!emailDomainMatchesAllowed(input.business_email, company.domains)) {
     throw new Error(buildDomainMismatchMessage(company.domains, locale))
+  }
+
+  const { data: priorRejected } = await supabase
+    .from('claim_requests')
+    .select('can_reapply_after')
+    .eq('user_id', user.id)
+    .eq('status', 'rejected')
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (
+    priorRejected?.can_reapply_after &&
+    new Date(priorRejected.can_reapply_after).getTime() > Date.now()
+  ) {
+    const reapplyDate = new Date(priorRejected.can_reapply_after).toLocaleString(locale === 'ar' ? 'ar-SA' : 'en-US')
+    throw new Error(
+      locale === 'ar'
+        ? `لا يمكن إعادة التقديم قبل ${reapplyDate}`
+        : `You cannot reapply before ${reapplyDate}`,
+    )
   }
 
   const { data, error } = await supabase

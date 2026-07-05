@@ -1,10 +1,16 @@
 -- Entity signup catalog, claim extensions (Section 11 Steps 8-9)
 
-CREATE TYPE public.claim_type_enum AS ENUM ('company', 'university');
+DO $$
+BEGIN
+  CREATE TYPE public.claim_type_enum AS ENUM ('company', 'university');
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END;
+$$;
 
 ALTER TYPE public.claim_status_enum ADD VALUE IF NOT EXISTS 'pending_review';
 
-CREATE TABLE public.companies (
+CREATE TABLE IF NOT EXISTS public.companies (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
   name_ar text,
@@ -15,16 +21,25 @@ CREATE TABLE public.companies (
   CONSTRAINT companies_domains_nonempty_chk CHECK (cardinality(domains) > 0)
 );
 
-CREATE INDEX idx_companies_entity_type ON public.companies (entity_type);
-CREATE INDEX idx_companies_name ON public.companies (name);
-CREATE INDEX idx_companies_name_ar ON public.companies (name_ar);
+CREATE INDEX IF NOT EXISTS idx_companies_entity_type ON public.companies (entity_type);
+CREATE INDEX IF NOT EXISTS idx_companies_name ON public.companies (name);
+CREATE INDEX IF NOT EXISTS idx_companies_name_ar ON public.companies (name_ar);
 
 ALTER TABLE public.claim_requests
   ADD COLUMN IF NOT EXISTS claim_type public.claim_type_enum NOT NULL DEFAULT 'company';
 
-CREATE INDEX idx_claim_requests_claim_type ON public.claim_requests (claim_type);
+CREATE INDEX IF NOT EXISTS idx_claim_requests_claim_type ON public.claim_requests (claim_type);
 
 ALTER TABLE public.companies ENABLE ROW LEVEL SECURITY;
+
+DO $$
+BEGIN
+  ALTER TABLE public.companies
+    ADD CONSTRAINT companies_domains_nonempty_chk CHECK (cardinality(domains) > 0);
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END;
+$$;
 
 CREATE POLICY companies_select_public
   ON public.companies

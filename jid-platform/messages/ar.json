@@ -60,10 +60,55 @@
       "submitting": "جاري تسجيل الدخول...",
       "noAccount": "ليس لديك حساب؟",
       "signupLink": "إنشاء حساب",
+      "forgotPassword": "نسيت كلمة المرور؟",
       "errors": {
         "generic": "بيانات الدخول غير صحيحة. تحقق من البريد وكلمة المرور وحاول مرة أخرى.",
         "suspended": "بيانات الدخول غير صحيحة. تحقق من البريد وكلمة المرور وحاول مرة أخرى."
       }
+    },
+    "forgotPassword": {
+      "title": "استعادة كلمة المرور",
+      "subtitle": "أدخل بريدك لإرسال رابط الاستعادة",
+      "sentSubtitle": "تحقق من بريدك",
+      "email": "البريد الإلكتروني",
+      "submit": "إرسال الرابط",
+      "submitting": "جاري الإرسال...",
+      "sentMessage": "إذا كان البريد مسجلاً، ستصلك رسالة برابط الاستعادة.",
+      "backToLogin": "العودة لتسجيل الدخول",
+      "errors": { "generic": "تعذّر إرسال الرابط. حاول مرة أخرى." }
+    },
+    "resetPassword": {
+      "title": "كلمة مرور جديدة",
+      "subtitle": "اختر كلمة مرور قوية",
+      "loading": "جاري التحميل...",
+      "password": "كلمة المرور الجديدة",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "submit": "تحديث كلمة المرور",
+      "submitting": "جاري التحديث...",
+      "success": "تم تحديث كلمة المرور",
+      "errors": {
+        "generic": "تعذّر تحديث كلمة المرور",
+        "weak": "كلمة المرور لا تستوفي المتطلبات",
+        "mismatch": "كلمتا المرور غير متطابقتين"
+      }
+    },
+    "suspended": {
+      "title": "الحساب موقوف",
+      "message": "تم تعليق حسابك مؤقتاً. تواصل مع الدعم إن كنت تعتقد أن هذا خطأ.",
+      "since": "موقوف منذ",
+      "until": "حتى",
+      "backToLogin": "العودة لتسجيل الدخول"
+    },
+    "sessions": {
+      "title": "الجلسات النشطة",
+      "subtitle": "الأجهزة المتصلة بحسابك",
+      "loading": "جاري التحميل...",
+      "error": "تعذّر تحميل الجلسات",
+      "empty": "لا توجد جلسات نشطة مسجّلة",
+      "unknownDevice": "جهاز غير معروف",
+      "lastActive": "آخر نشاط",
+      "revoke": "إلغاء الجلسة",
+      "revoked": "تم إلغاء الجلسة"
     },
     "mfa": {
       "title": "التحقق بخطوتين",
@@ -148,6 +193,283 @@
       "phoneInvalid": "رقم جوال سعودي غير صالح",
       "otpLength": "رمز التحقق 6 أرقام",
       "otpDigits": "أدخل أرقاماً فقط"
+    }
+  },
+  "entity": {
+    "entityType": {
+      "title": "نوع الحساب المؤسسي",
+      "subtitle": "اختر نوع الجهة التي تمثلها",
+      "hasAccount": "لديك حساب؟",
+      "loginLink": "تسجيل الدخول",
+      "company": {
+        "title": "شركة",
+        "description": "سجّل شركتك وقدّم طلب مطالبة بالملكية"
+      },
+      "university": {
+        "title": "جامعة",
+        "description": "سجّل جامعتك وقدّم طلب مطالبة بالملكية"
+      }
+    },
+    "wizard": {
+      "title": {
+        "company": "تسجيل شركة",
+        "university": "تسجيل جامعة"
+      },
+      "subtitle": {
+        "company": "أنشئ حساباً وقدّم طلب مطالبة بشركتك",
+        "university": "أنشئ حساباً وقدّم طلب مطالبة بجامعتك"
+      },
+      "loading": "جاري التحميل...",
+      "steps": {
+        "account": "الحساب",
+        "entity": "الجهة",
+        "verifyEmail": "تأكيد البريد",
+        "pending": "قيد المراجعة"
+      },
+      "account": {
+        "fullName": "الاسم الكامل",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "passwordHint": "8 أحرف على الأقل، حرف كبير وصغير ورقم ورمز خاص",
+        "acceptTerms": "الشروط والأحكام",
+        "acceptTermsLabel": "أوافق على شروط الاستخدام وسياسة الخصوصية",
+        "submit": "متابعة",
+        "submitting": "جاري الإنشاء...",
+        "error": "تعذّر إنشاء الحساب. حاول مرة أخرى."
+      },
+      "entity": {
+        "tabs": {
+          "existing": "جهة مسجّلة",
+          "new": "جهة جديدة"
+        },
+        "searchLabel": "ابحث عن الشركة",
+        "searchPlaceholder": "اختر شركة من القائمة",
+        "searchInputPlaceholder": "ابحث بالاسم...",
+        "searchEmpty": "لا توجد نتائج",
+        "loading": "جاري البحث...",
+        "approvedDomains": "النطاقات المعتمدة",
+        "back": "رجوع",
+        "continue": "متابعة",
+        "submitting": "جاري الحفظ...",
+        "newName": "الاسم بالإنجليزية",
+        "newNameAr": "الاسم بالعربية",
+        "newDomains": "نطاقات البريد المعتمدة",
+        "newDomainsHint": "افصل بين النطاقات بفاصلة، مثل: example.com, mail.example.sa",
+        "changeCompany": "تغيير الجهة المختارة"
+      },
+      "claim": {
+        "domainHint": "يجب أن يكون بريدك المؤسسي من أحد نطاقات الجهة المعتمدة",
+        "businessEmail": "البريد المؤسسي",
+        "claimantName": "اسم مقدّم الطلب",
+        "claimantTitle": "المسمى الوظيفي",
+        "submit": "إرسال طلب المطالبة",
+        "submitting": "جاري الإرسال...",
+        "submitted": "تم إرسال طلب المطالبة",
+        "submitFailed": "تعذّر إرسال الطلب"
+      },
+      "verifyEmail": {
+        "instructions": "أرسلنا رابط تأكيد إلى بريدك الإلكتروني. افتح الرابط لإكمال التسجيل.",
+        "inbucketHint": "محلياً: راجع صندوق البريد في Inbucket على http://127.0.0.1:54324",
+        "checkNow": "تحققت من بريدي",
+        "checking": "جاري التحقق...",
+        "continueToPending": "متابعة إلى صفحة المراجعة",
+        "spamHint": "تحقق من مجلد البريد المزعج إن لم يصلك الرابط"
+      }
+    },
+    "pendingReview": {
+      "title": "طلبك قيد المراجعة",
+      "subtitle": "فريق جِد يراجع طلب المطالبة بملكية الجهة",
+      "company": "الجهة",
+      "submittedBy": "مقدّم الطلب",
+      "businessEmail": "البريد المؤسسي",
+      "slaLabel": "مهلة المراجعة ({hours} ساعة)",
+      "remainingMessage": "الوقت المتبقي تقريباً: {hours} ساعة",
+      "overdueMessage": "تجاوزت مهلة المراجعة المعتادة",
+      "overdueAlert": "طلبك يستغرق وقتاً أطول من المعتاد. سيقوم فريقنا بمراجعته في أقرب وقت.",
+      "staffNote": "لا حاجة لإعادة إرسال الطلب — سنُعلمك عند اكتمال المراجعة."
+    },
+    "rejected": {
+      "title": "تم رفض مطالبة الملكية",
+      "reason": "سبب الرفض",
+      "requiredDocuments": "المستندات المطلوبة",
+      "blockedUntil": "يمكنك إعادة التقديم بعد {date}",
+      "canReapplyNow": "يمكنك إعادة التقديم الآن",
+      "blockedMessage": "لا يمكن إعادة التقديم حتى انتهاء فترة الانتظار.",
+      "reapplyCta": "إعادة تقديم المطالبة"
+    },
+    "reapply": {
+      "title": "إعادة تقديم المطالبة",
+      "loading": "جاري التحميل...",
+      "blocked": "لا يزال وقت إعادة التقديم لم يحن بعد.",
+      "back": "العودة",
+      "error": "تعذّر تحميل بيانات المطالبة"
+    },
+    "validation": {
+      "fullNameMin": "الاسم يجب أن يكون حرفين على الأقل",
+      "emailInvalid": "بريد إلكتروني غير صالح",
+      "passwordWeak": "كلمة المرور لا تستوفي المتطلبات",
+      "acceptTerms": "يجب الموافقة على الشروط",
+      "companyNameMin": "اسم الجهة يجب أن يكون حرفين على الأقل",
+      "companyNameArMin": "الاسم العربي يجب أن يكون حرفين على الأقل",
+      "domainsRequired": "أدخل نطاقاً واحداً على الأقل",
+      "domainsInvalid": "صيغة النطاقات غير صالحة",
+      "claimantNameMin": "اسم مقدّم الطلب يجب أن يكون حرفين على الأقل",
+      "claimantTitleMin": "المسمى الوظيفي يجب أن يكون حرفين على الأقل"
+    }
+  },
+  "staff": {
+    "dashboard": {
+      "title": "لوحة الموظفين",
+      "subtitle": "مرحباً بك في بوابة فريق جِد",
+      "claimsCard": {
+        "title": "طابور المطالبات",
+        "description": "راجع طلبات مطالبة الشركات والجامعات بالملكية",
+        "cta": "فتح الطابور"
+      }
+    },
+    "claimsQueue": {
+      "title": "طابور مراجعة المطالبات",
+      "subtitle": "طلبات بانتظار مراجعة فريق العمليات",
+      "stats": {
+        "pending": "قيد الانتظار",
+        "overdue": "متأخرة",
+        "completedToday": "مكتملة اليوم"
+      },
+      "listTitle": "الطلبات المعلقة",
+      "backToDashboard": "العودة للوحة التحكم",
+      "error": "تعذّر تحميل الطابور",
+      "list": {
+        "loading": "جاري التحميل...",
+        "empty": "لا توجد مطالبات معلقة حالياً",
+        "pending": "معلّقة",
+        "overdue": "متأخرة"
+      }
+    },
+    "claimReview": {
+      "title": "مراجعة مطالبة {company}",
+      "loading": "جاري التحميل...",
+      "notFound": "المطالبة غير موجودة",
+      "backToQueue": "العودة للطابور",
+      "checklistTitle": "قائمة التحقق اليدوية",
+      "reviewNotes": "ملاحظات المراجعة",
+      "reviewNotesPlaceholder": "أدخل ملاحظاتك الداخلية (مطلوبة للموافقة والرفض)",
+      "rejectionReason": "سبب الرفض",
+      "rejectionReasonPlaceholder": "سبب يُرسل لمقدّم الطلب عند الرفض",
+      "rejectionReasonHint": "مطلوب عند الرفض فقط",
+      "approve": "موافقة",
+      "reject": "رفض",
+      "cancel": "إلغاء",
+      "submitting": "جاري الحفظ...",
+      "approved": "تمت الموافقة على المطالبة",
+      "rejected": "تم رفض المطالبة",
+      "notesRequired": "ملاحظات المراجعة مطلوبة",
+      "rejectionReasonRequired": "سبب الرفض مطلوب",
+      "checklistIncomplete": "أكمل جميع بنود قائمة التحقق قبل الموافقة",
+      "checklist": {
+        "emailDomain": "تطابق نطاق البريد المؤسسي",
+        "emailDomainHint": "النطاقات المعتمدة: {domains}",
+        "commercialRegistry": "التحقق من السجل التجاري",
+        "jobTitle": "منطقية المسمى الوظيفي",
+        "linkedin": "تأكيد LinkedIn"
+      }
+    },
+    "audit": {
+      "title": "سجل التدقيق",
+      "subtitle": "إجراءاتك المسجّلة فقط",
+      "back": "العودة للوحة التحكم",
+      "empty": "لا توجد سجلات",
+      "columns": {
+        "time": "الوقت",
+        "action": "الإجراء",
+        "entity": "الكيان"
+      }
+    }
+  },
+  "sys": {
+    "dashboard": {
+      "title": "لوحة المشرف الأعلى",
+      "subtitle": "إدارة المنصة والفريق الداخلي",
+      "staffCard": {
+        "title": "فريق العمليات",
+        "description": "عرض الموظفين ودعوة أعضاء جدد",
+        "viewStaff": "عرض الفريق",
+        "inviteStaff": "دعوة موظف"
+      }
+    },
+    "staff": {
+      "title": "فريق العمليات",
+      "subtitle": "الموظفون الحاليون والدعوات المعلقة",
+      "inviteCta": "دعوة موظف جديد",
+      "currentStaff": "الموظفون الحاليون",
+      "pendingInvitations": "دعوات معلقة",
+      "noStaff": "لا يوجد موظفون بعد",
+      "noPending": "لا توجد دعوات معلقة",
+      "unnamed": "بدون اسم",
+      "expires": "تنتهي"
+    },
+    "inviteStaff": {
+      "title": "دعوة موظف",
+      "subtitle": "أرسل دعوة آمنة بالبريد الإلكتروني",
+      "email": "البريد الإلكتروني",
+      "reason": "سبب الدعوة",
+      "reasonHint": "مطلوب — يُسجّل في سجل التدقيق",
+      "submit": "إرسال الدعوة",
+      "submitting": "جاري الإرسال...",
+      "cancel": "إلغاء",
+      "success": "تم إرسال الدعوة"
+    },
+    "acceptInvite": {
+      "title": "قبول دعوة الموظف",
+      "subtitle": "أنشئ حسابك للبريد {email}",
+      "loading": "جاري التحقق من الدعوة...",
+      "invalidSubtitle": "تعذّر استخدام هذه الدعوة",
+      "invalidToken": "الرابط غير صالح أو منتهي الصلاحية أو مُستخدم مسبقاً",
+      "fullName": "الاسم الكامل",
+      "password": "كلمة المرور",
+      "passwordHint": "8 أحرف على الأقل مع حرف كبير وصغير ورقم ورمز",
+      "submit": "إنشاء الحساب ومتابعة",
+      "submitting": "جاري الإنشاء...",
+      "mfaTitle": "إعداد المصادقة الثنائية",
+      "mfaSubtitle": "مطلوب قبل الوصول إلى بوابة الموظفين",
+      "errors": {
+        "generic": "تعذّر إكمال التسجيل"
+      }
+    },
+    "validation": {
+      "emailInvalid": "بريد إلكتروني غير صالح",
+      "reasonMin": "سبب الدعوة يجب أن يكون 3 أحرف على الأقل",
+      "fullNameMin": "الاسم يجب أن يكون حرفين على الأقل",
+      "passwordWeak": "كلمة المرور لا تستوفي المتطلبات"
+    },
+    "audit": {
+      "title": "سجل التدقيق الكامل",
+      "subtitle": "جميع إجراءات المنصة",
+      "back": "العودة للوحة التحكم",
+      "empty": "لا توجد سجلات",
+      "columns": {
+        "time": "الوقت",
+        "actor": "الفاعل",
+        "action": "الإجراء",
+        "entity": "الكيان"
+      }
+    }
+  },
+  "profile": {
+    "components": {
+      "editProfile": "تعديل الملف",
+      "trustSignals": "إشارات الثقة",
+      "badgesTitle": "الشارات",
+      "badgesEmpty": "لا توجد شارات بعد",
+      "completionLabel": "اكتمال الملف",
+      "statsCompaniesViewed": "شركات شاهدت ملفك",
+      "statsActiveApplications": "طلبات نشطة",
+      "statsCompletion": "الاكتمال",
+      "studentStatusStudent": "طالب",
+      "studentStatusGraduate": "خريج",
+      "studentStatusAlumni": "خريج سابق",
+      "foundedYear": "تأسست {year}",
+      "avgResponseHours": "متوسط الاستجابة {hours} س",
+      "previewTitle": "معاينة مكوّنات الملف"
     }
   }
 }

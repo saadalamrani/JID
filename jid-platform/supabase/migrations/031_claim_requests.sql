@@ -1,15 +1,21 @@
 -- Entity ownership claim workflow
 -- Section 11 Step 1
 
-CREATE TYPE public.claim_status_enum AS ENUM (
-  'pending',
-  'under_review',
-  'approved',
-  'rejected',
-  'cancelled'
-);
+DO $$
+BEGIN
+  CREATE TYPE public.claim_status_enum AS ENUM (
+    'pending',
+    'under_review',
+    'approved',
+    'rejected',
+    'cancelled'
+  );
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END;
+$$;
 
-CREATE TABLE public.claim_requests (
+CREATE TABLE IF NOT EXISTS public.claim_requests (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id uuid NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
   company_id uuid NOT NULL,
@@ -27,10 +33,15 @@ CREATE TABLE public.claim_requests (
   CONSTRAINT claim_requests_business_email_format_chk CHECK (business_email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$')
 );
 
-CREATE INDEX idx_claim_requests_user_id ON public.claim_requests (user_id);
+ALTER TABLE public.claim_requests
+  ADD COLUMN IF NOT EXISTS claim_type public.claim_type_enum NOT NULL DEFAULT 'company';
 
-CREATE INDEX idx_claim_requests_company_id ON public.claim_requests (company_id);
+CREATE INDEX IF NOT EXISTS idx_claim_requests_user_id ON public.claim_requests (user_id);
 
-CREATE INDEX idx_claim_requests_status ON public.claim_requests (status);
+CREATE INDEX IF NOT EXISTS idx_claim_requests_company_id ON public.claim_requests (company_id);
 
-CREATE INDEX idx_claim_requests_created_at ON public.claim_requests (created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_claim_requests_status ON public.claim_requests (status);
+
+CREATE INDEX IF NOT EXISTS idx_claim_requests_created_at ON public.claim_requests (created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_claim_requests_claim_type ON public.claim_requests (claim_type);

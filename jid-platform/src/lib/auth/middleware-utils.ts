@@ -142,7 +142,7 @@ async function buildConditionContext(
     mentorStatus = await resolveMentorStatus(supabase, profile.id)
   }
 
-  if (profile.role === 'entity') {
+  if (profile.role === 'entity' || profile.role === 'company_admin' || profile.role === 'university_admin') {
     entityClaimStatus = await resolveEntityClaimStatus(supabase, profile.id)
   }
 
@@ -177,6 +177,35 @@ async function resolveEntityClaimStatus(
   return data.status as EntityClaimStatus
 }
 
+export async function resolveEntityPendingReviewPath(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+): Promise<string> {
+  const { data } = await supabase
+    .from('claim_requests')
+    .select('claim_type, status')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (!data?.status) {
+    return '/signup/entity-type'
+  }
+
+  if (data.status === 'rejected') {
+    return data.claim_type === 'university' ? '/university/rejected' : '/company/rejected'
+  }
+
+  if (!['pending_review', 'pending', 'under_review'].includes(data.status)) {
+    return '/signup/entity-type'
+  }
+
+  return data.claim_type === 'university'
+    ? '/university/pending-review'
+    : '/company/pending-review'
+}
+
 export function isSessionExpired(
   sessionIssuedAt: number | null,
   sessionMaxAge: number,
@@ -187,8 +216,10 @@ export function isSessionExpired(
 }
 
 export function isSuspended(profile: MiddlewareProfile): boolean {
-  if (!profile.locked_until) return false
-  return new Date(profile.locked_until).getTime() > Date.now()
+  if (profile.locked_until && new Date(profile.locked_until).getTime() > Date.now()) {
+    return true
+  }
+  return false
 }
 
 export function getClientIp(request: NextRequest): string | null {

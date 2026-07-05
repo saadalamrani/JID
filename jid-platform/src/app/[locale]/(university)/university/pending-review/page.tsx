@@ -1,9 +1,9 @@
 import { PendingReviewView } from '@/components/entity/pending-review-view'
 import { getLatestClaimForUser } from '@/lib/entity/claims'
-import { redirect } from '@/lib/i18n/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
 
-export default async function CompanyPendingReviewPage() {
+export default async function UniversityPendingReviewPage() {
   const supabase = await createClient()
   const {
     data: { user },

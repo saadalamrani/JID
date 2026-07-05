@@ -1,0 +1,7 @@
+-- Verification: staff cannot assign super_admin via set_user_role (Section 12)
+-- Run after seeding a staff test user in local Supabase:
+--
+--   SELECT public.set_user_role('<staff-user-uuid>', 'super_admin');
+-- Expected: ERROR  Staff members cannot assign the super_admin role
+--
+-- Confirmed in migration 035_security_definer_functions.sql lines 78-80.

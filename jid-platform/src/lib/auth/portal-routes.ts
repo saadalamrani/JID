@@ -11,11 +11,15 @@ export function getPortalHomeForRole(role: UserRole): string {
       return '/me'
     case 'entity':
       return '/company/dashboard'
+    case 'company_admin':
+      return '/company/dashboard'
+    case 'university_admin':
+      return '/university/dashboard'
     case 'staff':
     case 'admin':
-      return '/staff'
+      return '/staff/dashboard'
     case 'super_admin':
-      return '/sys'
+      return '/sys/dashboard'
     default:
       return '/'
   }

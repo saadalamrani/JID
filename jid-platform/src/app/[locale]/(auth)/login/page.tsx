@@ -17,6 +17,7 @@ import {
 } from '@/lib/auth/mfa'
 import { resolvePostLoginDestination, requiresMfaAtLogin } from '@/lib/auth/portal-routes'
 import { fetchProfileForUser, isProfileSuspended } from '@/lib/auth/session'
+import { recordActiveSessionFromBrowser } from '@/lib/auth/sessions'
 import { createClient } from '@/lib/supabase/client'
 import {
   loginSchema,
@@ -112,6 +113,7 @@ function LoginPageContent() {
         }
       }
 
+      await recordActiveSessionFromBrowser(supabase)
       router.push(resolvePostLoginDestination(profile.role, { next: nextParam }))
     } catch {
       await new Promise((resolve) =>
@@ -128,12 +130,19 @@ function LoginPageContent() {
       title={t('title')}
       subtitle={t('subtitle')}
       footer={
-        <p>
-          {t('noAccount')}{' '}
-          <Link href="/signup" className="font-medium text-jid-olive underline-offset-4 hover:underline">
-            {t('signupLink')}
-          </Link>
-        </p>
+        <div className="space-y-2">
+          <p>
+            <Link href="/forgot-password" className="text-sm text-jid-olive hover:underline">
+              {t('forgotPassword')}
+            </Link>
+          </p>
+          <p>
+            {t('noAccount')}{' '}
+            <Link href="/signup" className="font-medium text-jid-olive underline-offset-4 hover:underline">
+              {t('signupLink')}
+            </Link>
+          </p>
+        </div>
       }
     >
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>

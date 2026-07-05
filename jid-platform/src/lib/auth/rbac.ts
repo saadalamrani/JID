@@ -5,6 +5,8 @@
 export const USER_ROLES = [
   'individual',
   'entity',
+  'company_admin',
+  'university_admin',
   'staff',
   'admin',
   'super_admin',
@@ -16,6 +18,8 @@ export type UserRole = (typeof USER_ROLES)[number]
 export const ROLE_RANK: Record<UserRole, number> = {
   individual: 1,
   entity: 2,
+  company_admin: 2,
+  university_admin: 2,
   staff: 3,
   admin: 4,
   super_admin: 5,

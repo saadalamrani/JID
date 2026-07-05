@@ -4,10 +4,22 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { getPublicEnv } from '@/lib/env'
 import type { Database } from '@/lib/supabase/types'
 
+function resolveEntityCallbackPath(
+  claimType: string | null | undefined,
+  claimStatus: string | null | undefined,
+): string {
+  const pending = claimStatus && ['pending_review', 'pending', 'under_review'].includes(claimStatus)
+  if (pending) {
+    return claimType === 'university' ? '/university/pending-review' : '/company/pending-review'
+  }
+  return claimType === 'university' ? '/signup/university' : '/signup/company'
+}
+
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
-  const next = requestUrl.searchParams.get('next') ?? '/settings/verify-phone'
+  const nextParam = requestUrl.searchParams.get('next')
+  const type = requestUrl.searchParams.get('type')
 
   if (!code) {
     return NextResponse.redirect(new URL('/login?error=missing_code', requestUrl.origin))
@@ -55,5 +67,33 @@ export async function GET(request: NextRequest) {
       .eq('id', user.id)
   }
 
-  return NextResponse.redirect(new URL(next, requestUrl.origin))
+  let destination = nextParam ?? '/settings/verify-phone'
+
+  if (type === 'recovery' || nextParam === '/reset-password') {
+    destination = '/reset-password'
+  } else if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle()
+
+    if (profile?.role === 'entity') {
+      const { data: claim } = await supabase
+        .from('claim_requests')
+        .select('claim_type, status')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+
+      destination = resolveEntityCallbackPath(claim?.claim_type, claim?.status)
+    }
+  }
+
+  if (!destination.startsWith('/') || destination.startsWith('//')) {
+    destination = '/settings/verify-phone'
+  }
+
+  return NextResponse.redirect(new URL(destination, requestUrl.origin))
 }

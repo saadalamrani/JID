@@ -60,10 +60,55 @@
       "submitting": "Signing in...",
       "noAccount": "Don't have an account?",
       "signupLink": "Create account",
+      "forgotPassword": "Forgot password?",
       "errors": {
         "generic": "Invalid credentials. Check your email and password and try again.",
         "suspended": "Invalid credentials. Check your email and password and try again."
       }
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter your email to receive a reset link",
+      "sentSubtitle": "Check your email",
+      "email": "Email",
+      "submit": "Send reset link",
+      "submitting": "Sending...",
+      "sentMessage": "If the email is registered, you will receive a reset link shortly.",
+      "backToLogin": "Back to sign in",
+      "errors": { "generic": "Could not send reset link. Try again." }
+    },
+    "resetPassword": {
+      "title": "New password",
+      "subtitle": "Choose a strong password",
+      "loading": "Loading...",
+      "password": "New password",
+      "confirmPassword": "Confirm password",
+      "submit": "Update password",
+      "submitting": "Updating...",
+      "success": "Password updated",
+      "errors": {
+        "generic": "Could not update password",
+        "weak": "Password does not meet requirements",
+        "mismatch": "Passwords do not match"
+      }
+    },
+    "suspended": {
+      "title": "Account suspended",
+      "message": "Your account has been temporarily suspended. Contact support if you believe this is an error.",
+      "since": "Suspended since",
+      "until": "Until",
+      "backToLogin": "Back to sign in"
+    },
+    "sessions": {
+      "title": "Active sessions",
+      "subtitle": "Devices connected to your account",
+      "loading": "Loading...",
+      "error": "Could not load sessions",
+      "empty": "No active sessions recorded",
+      "unknownDevice": "Unknown device",
+      "lastActive": "Last active",
+      "revoke": "Revoke",
+      "revoked": "Session revoked"
     },
     "mfa": {
       "title": "Two-factor authentication",
@@ -148,6 +193,283 @@
       "phoneInvalid": "Invalid Saudi mobile number",
       "otpLength": "Code must be 6 digits",
       "otpDigits": "Digits only"
+    }
+  },
+  "entity": {
+    "entityType": {
+      "title": "Entity account type",
+      "subtitle": "Choose the type of organization you represent",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "company": {
+        "title": "Company",
+        "description": "Register your company and submit an ownership claim"
+      },
+      "university": {
+        "title": "University",
+        "description": "Register your university and submit an ownership claim"
+      }
+    },
+    "wizard": {
+      "title": {
+        "company": "Company signup",
+        "university": "University signup"
+      },
+      "subtitle": {
+        "company": "Create an account and submit a company ownership claim",
+        "university": "Create an account and submit a university ownership claim"
+      },
+      "loading": "Loading...",
+      "steps": {
+        "account": "Account",
+        "entity": "Entity",
+        "verifyEmail": "Verify email",
+        "pending": "Pending review"
+      },
+      "account": {
+        "fullName": "Full name",
+        "email": "Email",
+        "password": "Password",
+        "passwordHint": "At least 8 characters with upper, lower, number, and special character",
+        "acceptTerms": "Terms",
+        "acceptTermsLabel": "I agree to the terms of use and privacy policy",
+        "submit": "Continue",
+        "submitting": "Creating account...",
+        "error": "Could not create account. Please try again."
+      },
+      "entity": {
+        "tabs": {
+          "existing": "Existing entity",
+          "new": "New entity"
+        },
+        "searchLabel": "Search for company",
+        "searchPlaceholder": "Select from the list",
+        "searchInputPlaceholder": "Search by name...",
+        "searchEmpty": "No results",
+        "loading": "Searching...",
+        "approvedDomains": "Approved domains",
+        "back": "Back",
+        "continue": "Continue",
+        "submitting": "Saving...",
+        "newName": "Name (English)",
+        "newNameAr": "Name (Arabic)",
+        "newDomains": "Approved email domains",
+        "newDomainsHint": "Separate domains with commas, e.g. example.com, mail.example.sa",
+        "changeCompany": "Change selected entity"
+      },
+      "claim": {
+        "domainHint": "Your business email must use one of the entity's approved domains",
+        "businessEmail": "Business email",
+        "claimantName": "Your name",
+        "claimantTitle": "Job title",
+        "submit": "Submit claim request",
+        "submitting": "Submitting...",
+        "submitted": "Claim request submitted",
+        "submitFailed": "Could not submit claim"
+      },
+      "verifyEmail": {
+        "instructions": "We sent a confirmation link to your email. Open it to complete signup.",
+        "inbucketHint": "Locally: check Inbucket at http://127.0.0.1:54324",
+        "checkNow": "I've verified my email",
+        "checking": "Checking...",
+        "continueToPending": "Continue to review status",
+        "spamHint": "Check your spam folder if you don't see the email"
+      }
+    },
+    "pendingReview": {
+      "title": "Your request is under review",
+      "subtitle": "The JID team is reviewing your entity ownership claim",
+      "company": "Entity",
+      "submittedBy": "Submitted by",
+      "businessEmail": "Business email",
+      "slaLabel": "Review SLA ({hours}h)",
+      "remainingMessage": "Approximate time remaining: {hours} hours",
+      "overdueMessage": "Review is taking longer than usual",
+      "overdueAlert": "Your request is taking longer than our standard SLA. Our team will review it as soon as possible.",
+      "staffNote": "No need to resubmit — we'll notify you when the review is complete."
+    },
+    "rejected": {
+      "title": "Ownership claim rejected",
+      "reason": "Rejection reason",
+      "requiredDocuments": "Required documents",
+      "blockedUntil": "You can reapply after {date}",
+      "canReapplyNow": "You can reapply now",
+      "blockedMessage": "Reapplication is blocked until the waiting period ends.",
+      "reapplyCta": "Reapply for ownership"
+    },
+    "reapply": {
+      "title": "Reapply for ownership",
+      "loading": "Loading...",
+      "blocked": "The reapplication window has not opened yet.",
+      "back": "Back",
+      "error": "Could not load claim data"
+    },
+    "validation": {
+      "fullNameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Invalid email address",
+      "passwordWeak": "Password does not meet requirements",
+      "acceptTerms": "You must accept the terms",
+      "companyNameMin": "Entity name must be at least 2 characters",
+      "companyNameArMin": "Arabic name must be at least 2 characters",
+      "domainsRequired": "Enter at least one domain",
+      "domainsInvalid": "Invalid domain format",
+      "claimantNameMin": "Name must be at least 2 characters",
+      "claimantTitleMin": "Job title must be at least 2 characters"
+    }
+  },
+  "staff": {
+    "dashboard": {
+      "title": "Staff dashboard",
+      "subtitle": "Welcome to the JID operations portal",
+      "claimsCard": {
+        "title": "Claims queue",
+        "description": "Review company and university ownership claims",
+        "cta": "Open queue"
+      }
+    },
+    "claimsQueue": {
+      "title": "Claim review queue",
+      "subtitle": "Claims awaiting staff review",
+      "stats": {
+        "pending": "Pending",
+        "overdue": "Overdue",
+        "completedToday": "Completed today"
+      },
+      "listTitle": "Pending claims",
+      "backToDashboard": "Back to dashboard",
+      "error": "Could not load queue",
+      "list": {
+        "loading": "Loading...",
+        "empty": "No pending claims right now",
+        "pending": "Pending",
+        "overdue": "Overdue"
+      }
+    },
+    "claimReview": {
+      "title": "Review claim — {company}",
+      "loading": "Loading...",
+      "notFound": "Claim not found",
+      "backToQueue": "Back to queue",
+      "checklistTitle": "Manual review checklist",
+      "reviewNotes": "Review notes",
+      "reviewNotesPlaceholder": "Enter internal notes (required for approve and reject)",
+      "rejectionReason": "Rejection reason",
+      "rejectionReasonPlaceholder": "Reason sent to the claimant when rejecting",
+      "rejectionReasonHint": "Required when rejecting",
+      "approve": "Approve",
+      "reject": "Reject",
+      "cancel": "Cancel",
+      "submitting": "Saving...",
+      "approved": "Claim approved",
+      "rejected": "Claim rejected",
+      "notesRequired": "Review notes are required",
+      "rejectionReasonRequired": "Rejection reason is required",
+      "checklistIncomplete": "Complete all checklist items before approving",
+      "checklist": {
+        "emailDomain": "Business email domain match",
+        "emailDomainHint": "Approved domains: {domains}",
+        "commercialRegistry": "Commercial registry verified",
+        "jobTitle": "Job title sanity check",
+        "linkedin": "LinkedIn confirmation"
+      }
+    },
+    "audit": {
+      "title": "Audit log",
+      "subtitle": "Your recorded actions only",
+      "back": "Back to dashboard",
+      "empty": "No records",
+      "columns": {
+        "time": "Time",
+        "action": "Action",
+        "entity": "Entity"
+      }
+    }
+  },
+  "sys": {
+    "dashboard": {
+      "title": "Super admin dashboard",
+      "subtitle": "Platform and internal team management",
+      "staffCard": {
+        "title": "Operations team",
+        "description": "View staff and invite new members",
+        "viewStaff": "View team",
+        "inviteStaff": "Invite staff"
+      }
+    },
+    "staff": {
+      "title": "Operations team",
+      "subtitle": "Current staff and pending invitations",
+      "inviteCta": "Invite new staff",
+      "currentStaff": "Current staff",
+      "pendingInvitations": "Pending invitations",
+      "noStaff": "No staff members yet",
+      "noPending": "No pending invitations",
+      "unnamed": "Unnamed",
+      "expires": "Expires"
+    },
+    "inviteStaff": {
+      "title": "Invite staff member",
+      "subtitle": "Send a secure email invitation",
+      "email": "Email",
+      "reason": "Invitation reason",
+      "reasonHint": "Required — recorded in the audit log",
+      "submit": "Send invitation",
+      "submitting": "Sending...",
+      "cancel": "Cancel",
+      "success": "Invitation sent"
+    },
+    "acceptInvite": {
+      "title": "Accept staff invitation",
+      "subtitle": "Create your account for {email}",
+      "loading": "Validating invitation...",
+      "invalidSubtitle": "This invitation cannot be used",
+      "invalidToken": "Link is invalid, expired, or already used",
+      "fullName": "Full name",
+      "password": "Password",
+      "passwordHint": "At least 8 characters with upper, lower, number, and special character",
+      "submit": "Create account and continue",
+      "submitting": "Creating...",
+      "mfaTitle": "Set up two-factor authentication",
+      "mfaSubtitle": "Required before accessing the staff portal",
+      "errors": {
+        "generic": "Could not complete registration"
+      }
+    },
+    "validation": {
+      "emailInvalid": "Invalid email address",
+      "reasonMin": "Reason must be at least 3 characters",
+      "fullNameMin": "Name must be at least 2 characters",
+      "passwordWeak": "Password does not meet requirements"
+    },
+    "audit": {
+      "title": "Full audit log",
+      "subtitle": "All platform actions",
+      "back": "Back to dashboard",
+      "empty": "No records",
+      "columns": {
+        "time": "Time",
+        "actor": "Actor",
+        "action": "Action",
+        "entity": "Entity"
+      }
+    }
+  },
+  "profile": {
+    "components": {
+      "editProfile": "Edit profile",
+      "trustSignals": "Trust signals",
+      "badgesTitle": "Badges",
+      "badgesEmpty": "No badges earned yet",
+      "completionLabel": "Profile completion",
+      "statsCompaniesViewed": "Companies viewed you",
+      "statsActiveApplications": "Active applications",
+      "statsCompletion": "Completion",
+      "studentStatusStudent": "Student",
+      "studentStatusGraduate": "Graduate",
+      "studentStatusAlumni": "Alumni",
+      "foundedYear": "Founded {year}",
+      "avgResponseHours": "Avg. response {hours}h",
+      "previewTitle": "Profile components preview"
     }
   }
 }
