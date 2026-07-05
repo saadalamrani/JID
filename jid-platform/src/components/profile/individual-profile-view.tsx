@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { IdentityHeader } from '@/components/profile/identity-header'
 import { CompletionBanner } from '@/components/profile/completion-banner'
 import { CompletionWizard } from '@/components/profile/completion-wizard'

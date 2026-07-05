@@ -106,9 +106,83 @@ export type Database = {
           },
         ]
       }
+      companies: {
+        Row: {
+          about_long_ar: string | null
+          about_long_en: string | null
+          avg_response_days: number | null
+          commitment_score: number
+          created_at: string
+          domains: string[]
+          employee_count_range: string | null
+          entity_state: string
+          entity_type: string
+          founded_year: number | null
+          id: string
+          is_on_honor_roll: boolean
+          is_verified: boolean
+          last_activity_at: string | null
+          name: string
+          name_ar: string | null
+          office_locations: Json
+          response_rate_pct: number | null
+          tagline_ar: string | null
+          tagline_en: string | null
+          total_jobs_posted_12mo: number
+        }
+        Insert: {
+          about_long_ar?: string | null
+          about_long_en?: string | null
+          avg_response_days?: number | null
+          commitment_score?: number
+          created_at?: string
+          domains?: string[]
+          employee_count_range?: string | null
+          entity_state?: string
+          entity_type?: string
+          founded_year?: number | null
+          id?: string
+          is_on_honor_roll?: boolean
+          is_verified?: boolean
+          last_activity_at?: string | null
+          name: string
+          name_ar?: string | null
+          office_locations?: Json
+          response_rate_pct?: number | null
+          tagline_ar?: string | null
+          tagline_en?: string | null
+          total_jobs_posted_12mo?: number
+        }
+        Update: {
+          about_long_ar?: string | null
+          about_long_en?: string | null
+          avg_response_days?: number | null
+          commitment_score?: number
+          created_at?: string
+          domains?: string[]
+          employee_count_range?: string | null
+          entity_state?: string
+          entity_type?: string
+          founded_year?: number | null
+          id?: string
+          is_on_honor_roll?: boolean
+          is_verified?: boolean
+          last_activity_at?: string | null
+          name?: string
+          name_ar?: string | null
+          office_locations?: Json
+          response_rate_pct?: number | null
+          tagline_ar?: string | null
+          tagline_en?: string | null
+          total_jobs_posted_12mo?: number
+        }
+        Relationships: []
+      }
       claim_requests: {
         Row: {
           business_email: string
+          can_reapply_after: string | null
+          claim_type: Database['public']['Enums']['claim_type_enum']
           claimant_name: string
           claimant_title: string | null
           company_id: string
@@ -125,6 +199,8 @@ export type Database = {
         }
         Insert: {
           business_email: string
+          can_reapply_after?: string | null
+          claim_type?: Database['public']['Enums']['claim_type_enum']
           claimant_name: string
           claimant_title?: string | null
           company_id: string
@@ -141,6 +217,8 @@ export type Database = {
         }
         Update: {
           business_email?: string
+          can_reapply_after?: string | null
+          claim_type?: Database['public']['Enums']['claim_type_enum']
           claimant_name?: string
           claimant_title?: string | null
           company_id?: string
@@ -236,6 +314,8 @@ export type Database = {
           phone: string | null
           phone_verified_at: string | null
           role: Database['public']['Enums']['user_role_enum']
+          suspended_at: string | null
+          suspended_reason: string | null
           updated_at: string
         }
         Insert: {
@@ -254,6 +334,8 @@ export type Database = {
           phone?: string | null
           phone_verified_at?: string | null
           role?: Database['public']['Enums']['user_role_enum']
+          suspended_at?: string | null
+          suspended_reason?: string | null
           updated_at?: string
         }
         Update: {
@@ -272,6 +354,8 @@ export type Database = {
           phone?: string | null
           phone_verified_at?: string | null
           role?: Database['public']['Enums']['user_role_enum']
+          suspended_at?: string | null
+          suspended_reason?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -286,6 +370,7 @@ export type Database = {
           id: string
           invite_token: string
           invited_by: string
+          reason: string
           role: Database['public']['Enums']['user_role_enum']
         }
         Insert: {
@@ -297,6 +382,7 @@ export type Database = {
           id?: string
           invite_token: string
           invited_by: string
+          reason: string
           role: Database['public']['Enums']['user_role_enum']
         }
         Update: {
@@ -334,6 +420,10 @@ export type Database = {
         Args: { p_phone: string; p_user_id: string }
         Returns: undefined
       }
+      complete_staff_invite_acceptance: {
+        Args: { p_token: string }
+        Returns: undefined
+      }
       current_user_role: {
         Args: Record<PropertyKey, never>
         Returns: Database['public']['Enums']['user_role_enum']
@@ -345,6 +435,29 @@ export type Database = {
       is_privileged_staff: {
         Args: Record<PropertyKey, never>
         Returns: boolean
+      }
+      record_active_session: {
+        Args: {
+          p_device_label?: string
+          p_expires_at?: string
+          p_ip_address?: unknown
+          p_session_token_hash: string
+          p_user_agent?: string
+        }
+        Returns: undefined
+      }
+      review_claim_request: {
+        Args: {
+          p_claim_id: string
+          p_decision: string
+          p_rejection_reason?: string
+          p_review_notes: string
+        }
+        Returns: undefined
+      }
+      revoke_active_session: {
+        Args: { p_session_id: string }
+        Returns: undefined
       }
       set_user_role: {
         Args: {
@@ -361,6 +474,14 @@ export type Database = {
         }
         Returns: undefined
       }
+      validate_staff_invite_token: {
+        Args: { p_token: string }
+        Returns: {
+          email: string
+          invitation_id: string
+          invite_role: Database['public']['Enums']['user_role_enum']
+        }[]
+      }
       verify_phone_otp: {
         Args: { p_otp: string; p_phone: string; p_user_id: string }
         Returns: boolean
@@ -369,13 +490,17 @@ export type Database = {
     Enums: {
       claim_status_enum:
         | 'pending'
+        | 'pending_review'
         | 'under_review'
         | 'approved'
         | 'rejected'
         | 'cancelled'
+      claim_type_enum: 'company' | 'university'
       user_role_enum:
         | 'individual'
         | 'entity'
+        | 'company_admin'
+        | 'university_admin'
         | 'staff'
         | 'admin'
         | 'super_admin'
