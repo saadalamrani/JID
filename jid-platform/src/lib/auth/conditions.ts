@@ -17,6 +17,7 @@ export type EntityClaimStatus =
   | 'cancelled'
 
 export type ConditionProfile = {
+  id: string
   full_name: string | null
   phone_verified_at: string | null
   role: UserRole
@@ -26,7 +27,17 @@ export type ConditionContext = {
   profile: ConditionProfile
   mentorStatus: MentorStatus
   entityClaimStatus: EntityClaimStatus
+  temporaryCompanyAccess: TemporaryCompanyAccess | null
 }
+
+export type TemporaryCompanyAccess = {
+  companyId: string
+  entityState: string
+  claimRequestedAt: string
+  claimedBy: string
+}
+
+export const TEMPORARY_COMPANY_ACCESS_MS = 24 * 60 * 60 * 1000
 
 export type ConditionFailure = {
   ok: false
@@ -49,6 +60,26 @@ export function isMentorApproved(mentorStatus: MentorStatus): boolean {
 
 export function isEntityClaimApproved(entityClaimStatus: EntityClaimStatus): boolean {
   return entityClaimStatus === 'approved'
+}
+
+/**
+ * Section 5.5 — 24h temporary company portal access while claim is pending review.
+ */
+export function hasTemporaryCompanyAccess(context: ConditionContext): boolean {
+  const access = context.temporaryCompanyAccess
+  if (!access) return false
+  if (access.claimedBy !== context.profile.id) return false
+  if (access.entityState !== 'pending_review') return false
+
+  const requestedAt = new Date(access.claimRequestedAt).getTime()
+  if (Number.isNaN(requestedAt)) return false
+
+  const elapsed = Date.now() - requestedAt
+  return elapsed >= 0 && elapsed < TEMPORARY_COMPANY_ACCESS_MS
+}
+
+export function isEntityClaimApprovedOrTemporary(context: ConditionContext): boolean {
+  return isEntityClaimApproved(context.entityClaimStatus) || hasTemporaryCompanyAccess(context)
 }
 
 /**
@@ -80,7 +111,7 @@ export function checkConditions(
         break
 
       case 'entity_claim_status':
-        if (!isEntityClaimApproved(context.entityClaimStatus)) {
+        if (!isEntityClaimApprovedOrTemporary(context)) {
           return { ok: false, failed: condition }
         }
         break

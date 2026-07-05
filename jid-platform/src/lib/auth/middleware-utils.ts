@@ -69,6 +69,7 @@ export function getDevTestSession(request: NextRequest): MiddlewareSession | nul
       profile,
       mentorStatus,
       entityClaimStatus,
+      temporaryCompanyAccess: null,
     },
     sessionIssuedAt: Math.floor(Date.now() / 1000),
     isAal2: aal2,
@@ -137,6 +138,7 @@ async function buildConditionContext(
 ): Promise<ConditionContext> {
   let mentorStatus: MentorStatus = 'none'
   let entityClaimStatus: EntityClaimStatus = 'none'
+  let temporaryCompanyAccess: ConditionContext['temporaryCompanyAccess'] = null
 
   if (profile.role === 'individual') {
     mentorStatus = await resolveMentorStatus(supabase, profile.id)
@@ -144,12 +146,14 @@ async function buildConditionContext(
 
   if (profile.role === 'entity' || profile.role === 'company_admin' || profile.role === 'university_admin') {
     entityClaimStatus = await resolveEntityClaimStatus(supabase, profile.id)
+    temporaryCompanyAccess = await resolveTemporaryCompanyAccess(supabase, profile.id)
   }
 
   return {
     profile,
     mentorStatus,
     entityClaimStatus,
+    temporaryCompanyAccess,
   }
 }
 
@@ -175,6 +179,27 @@ async function resolveEntityClaimStatus(
 
   if (!data?.status) return 'none'
   return data.status as EntityClaimStatus
+}
+
+async function resolveTemporaryCompanyAccess(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+): Promise<ConditionContext['temporaryCompanyAccess']> {
+  const { data } = await supabase
+    .from('companies')
+    .select('id, entity_state, claim_requested_at, claimed_by')
+    .eq('claimed_by', userId)
+    .eq('entity_state', 'pending_review')
+    .maybeSingle()
+
+  if (!data?.claim_requested_at || !data.claimed_by) return null
+
+  return {
+    companyId: data.id,
+    entityState: data.entity_state,
+    claimRequestedAt: data.claim_requested_at,
+    claimedBy: data.claimed_by,
+  }
 }
 
 export async function resolveEntityPendingReviewPath(

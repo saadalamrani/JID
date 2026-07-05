@@ -111,24 +111,45 @@ export type Database = {
           about_long_ar: string | null
           about_long_en: string | null
           avg_response_days: number | null
+          broken_since: string | null
+          career_portal_url: string | null
+          city: string | null
+          claim_requested_at: string | null
+          claimed_by: string | null
           commitment_score: number
+          cover_url: string | null
           created_at: string
+          description_ar: string | null
+          description_en: string | null
           domains: string[]
           employee_count_range: string | null
           entity_state: string
           entity_type: string
           founded_year: number | null
           id: string
+          is_active: boolean
           is_on_honor_roll: boolean
           is_verified: boolean
           last_activity_at: string | null
+          last_audit_at: string | null
+          link_status: Database['public']['Enums']['link_status_enum']
+          linkedin_url: string | null
+          logo_url: string | null
+          manual_order: number
           name: string
           name_ar: string | null
           office_locations: Json
+          ownership_type: Database['public']['Enums']['ownership_enum'] | null
+          region_id: string | null
           response_rate_pct: number | null
+          sector_id: string | null
+          slug: string | null
           tagline_ar: string | null
           tagline_en: string | null
           total_jobs_posted_12mo: number
+          twitter_url: string | null
+          updated_at: string
+          website_url: string | null
         }
         Insert: {
           about_long_ar?: string | null
@@ -188,8 +209,11 @@ export type Database = {
           company_id: string
           company_name: string
           created_at: string
+          domain_verified: boolean
           evidence_urls: string[]
           id: string
+          rejection_reason: string | null
+          required_documents: string[]
           review_notes: string | null
           reviewed_at: string | null
           reviewed_by: string | null
@@ -413,6 +437,98 @@ export type Database = {
           },
         ]
       }
+      link_audit_log: {
+        Row: {
+          checked_at: string
+          company_id: string
+          created_at: string
+          error_message: string | null
+          http_status: number | null
+          id: string
+          link_type: string | null
+          status: Database['public']['Enums']['link_status_enum']
+          url: string
+        }
+        Insert: {
+          checked_at?: string
+          company_id: string
+          created_at?: string
+          error_message?: string | null
+          http_status?: number | null
+          id?: string
+          link_type?: string | null
+          status?: Database['public']['Enums']['link_status_enum']
+          url: string
+        }
+        Update: {
+          checked_at?: string
+          company_id?: string
+          created_at?: string
+          error_message?: string | null
+          http_status?: number | null
+          id?: string
+          link_type?: string | null
+          status?: Database['public']['Enums']['link_status_enum']
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'link_audit_log_company_id_fkey'
+            columns: ['company_id']
+            isOneToOne: false
+            referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      regions: {
+        Row: {
+          created_at: string
+          id: string
+          name_ar: string | null
+          name_en: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name_ar?: string | null
+          name_en: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name_ar?: string | null
+          name_en?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      sectors: {
+        Row: {
+          created_at: string
+          id: string
+          name_ar: string | null
+          name_en: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name_ar?: string | null
+          name_en: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name_ar?: string | null
+          name_en?: string
+          slug?: string
+        }
+        Relationships: []
+      }
     }
     Views: Record<string, never>
     Functions: {
@@ -496,6 +612,8 @@ export type Database = {
         | 'rejected'
         | 'cancelled'
       claim_type_enum: 'company' | 'university'
+      link_status_enum: 'healthy' | 'broken' | 'pending'
+      ownership_enum: 'government' | 'semi_government' | 'private'
       user_role_enum:
         | 'individual'
         | 'entity'

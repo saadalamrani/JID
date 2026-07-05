@@ -301,7 +301,7 @@ VALUES
     'شركة التقنية المعتمدة',
     ARRAY['approved-tech.jid.local'],
     'company',
-    'claimed',
+    'approved',
     true,
     'Hiring Saudi tech talent',
     'نوظف الكفاءات التقنية السعودية',

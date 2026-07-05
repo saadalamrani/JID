@@ -85,12 +85,12 @@ console.log('Company page scratch checks\n')
 const unclaimed = baseCompany({ id: UNCLAIMED_ID, entity_state: 'unclaimed' })
 const claimed = baseCompany({
   id: CLAIMED_ID,
-  entity_state: 'claimed',
+  entity_state: 'approved',
   commitment_score: 82.5,
   is_verified: true,
 })
 const suspended = baseCompany({ id: SUSPENDED_ID, entity_state: 'suspended' })
-const university = baseCompany({ entity_type: 'university', entity_state: 'claimed' })
+const university = baseCompany({ entity_type: 'university', entity_state: 'approved' })
 
 assert('anonymous sees unclaimed company', shouldRenderPublicPage(unclaimed, anonymous))
 assert('anonymous sees claimed company', shouldRenderPublicPage(claimed, anonymous))

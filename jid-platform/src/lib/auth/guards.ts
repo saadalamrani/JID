@@ -195,6 +195,11 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: null,
   },
   {
+    id: 'public-catalog',
+    pattern: new RegExp(`^${L}/catalog(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
     id: 'public-companies',
     pattern: new RegExp(`^${L}/companies(?:/|$)`),
     allowedRoles: null,
