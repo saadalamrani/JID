@@ -1,0 +1,84 @@
+import type { SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/lib/supabase/types'
+import {
+  buildDomainMismatchMessage,
+  emailDomainMatchesAllowed,
+} from '@/lib/entity/domains'
+import { getCompanyById } from '@/lib/entity/companies'
+import type { EntitySignupType } from '@/lib/entity/constants'
+import type { ClaimSubmissionFormValues } from '@/lib/validations/entity'
+
+type Client = SupabaseClient<Database>
+
+export type SubmitClaimInput = ClaimSubmissionFormValues & {
+  companyId: string
+  companyName: string
+  claimType: EntitySignupType
+  locale?: 'ar' | 'en'
+}
+
+export async function submitClaimRequest(supabase: Client, input: SubmitClaimInput) {
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser()
+
+  if (userError || !user) {
+    throw new Error('Authentication required')
+  }
+
+  const company = await getCompanyById(supabase, input.companyId)
+  if (!company) {
+    throw new Error('Company not found')
+  }
+
+  const locale = input.locale ?? 'ar'
+
+  if (!emailDomainMatchesAllowed(input.business_email, company.domains)) {
+    throw new Error(buildDomainMismatchMessage(company.domains, locale))
+  }
+
+  const { data, error } = await supabase
+    .from('claim_requests')
+    .insert({
+      user_id: user.id,
+      company_id: input.companyId,
+      company_name: input.companyName,
+      business_email: input.business_email.trim().toLowerCase(),
+      claimant_name: input.claimant_name.trim(),
+      claimant_title: input.claimant_title.trim(),
+      evidence_urls: [],
+      status: 'pending_review',
+      claim_type: input.claimType,
+    })
+    .select('id, status, created_at')
+    .single()
+
+  if (error || !data) {
+    throw new Error(error?.message ?? 'Failed to submit claim')
+  }
+
+  return data
+}
+
+export async function getLatestClaimForUser(supabase: Client, userId: string) {
+  const { data, error } = await supabase
+    .from('claim_requests')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (error) throw new Error(error.message)
+  return data
+}
+
+export function hoursSince(dateIso: string): number {
+  return (Date.now() - new Date(dateIso).getTime()) / (1000 * 60 * 60)
+}
+
+export function slaProgressPercent(createdAt: string, slaHours: number): number {
+  const elapsed = hoursSince(createdAt)
+  return Math.min(100, Math.round((elapsed / slaHours) * 100))
+}

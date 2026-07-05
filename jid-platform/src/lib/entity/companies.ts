@@ -1,0 +1,82 @@
+import type { SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/lib/supabase/types'
+import { parseDomainsInput } from '@/lib/entity/domains'
+import type { EntitySignupType } from '@/lib/entity/constants'
+
+export type CompanyRecord = {
+  id: string
+  name: string
+  name_ar: string | null
+  domains: string[]
+  entity_type: EntitySignupType
+  is_verified: boolean
+}
+
+type Client = SupabaseClient<Database>
+
+export async function searchCompanies(
+  supabase: Client,
+  query: string,
+  entityType: EntitySignupType,
+): Promise<CompanyRecord[]> {
+  const trimmed = query.trim()
+  let builder = supabase
+    .from('companies')
+    .select('id, name, name_ar, domains, entity_type, is_verified')
+    .eq('entity_type', entityType)
+    .eq('is_verified', true)
+    .order('name', { ascending: true })
+    .limit(20)
+
+  if (trimmed) {
+    builder = builder.or(`name.ilike.%${trimmed}%,name_ar.ilike.%${trimmed}%`)
+  }
+
+  const { data, error } = await builder
+  if (error) throw new Error(error.message)
+  return (data ?? []) as CompanyRecord[]
+}
+
+export async function getCompanyById(
+  supabase: Client,
+  companyId: string,
+): Promise<CompanyRecord | null> {
+  const { data, error } = await supabase
+    .from('companies')
+    .select('id, name, name_ar, domains, entity_type, is_verified')
+    .eq('id', companyId)
+    .maybeSingle()
+
+  if (error) throw new Error(error.message)
+  return (data as CompanyRecord | null) ?? null
+}
+
+export async function createUnverifiedCompany(
+  supabase: Client,
+  input: {
+    name: string
+    name_ar: string
+    domainsInput: string
+    entityType: EntitySignupType
+  },
+): Promise<CompanyRecord> {
+  const domains = parseDomainsInput(input.domainsInput)
+  if (domains.length === 0) {
+    throw new Error('Invalid domains')
+  }
+
+  const { data, error } = await supabase
+    .from('companies')
+    .insert({
+      name: input.name,
+      name_ar: input.name_ar,
+      domains,
+      entity_type: input.entityType,
+      is_verified: false,
+    })
+    .select('id, name, name_ar, domains, entity_type, is_verified')
+    .single()
+
+  if (error || !data) throw new Error(error?.message ?? 'Failed to create company')
+  return data as CompanyRecord
+}

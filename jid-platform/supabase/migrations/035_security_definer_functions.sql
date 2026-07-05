@@ -101,6 +101,8 @@ BEGIN
     RAISE EXCEPTION 'Target user not found';
   END IF;
 
+  PERFORM set_config('jid.allow_role_change', 'on', true);
+
   UPDATE public.profiles
   SET
     role = p_new_role,

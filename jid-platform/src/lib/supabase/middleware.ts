@@ -1,5 +1,5 @@
 import { createServerClient } from '@supabase/ssr'
-import { type NextRequest, NextResponse } from 'next/server'
+import type { NextRequest, NextResponse } from 'next/server'
 import { getPublicEnv } from '@/lib/env'
 import type { Database } from './types'
 

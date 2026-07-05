@@ -1,0 +1,165 @@
+/**
+ * Unified route guards — Section 5 / Section 11 Step 4
+ *
+ * Order matters: first match wins. More specific patterns are listed before broader ones.
+ * Patterns include optional locale prefix (`/en` or `/ar`; default Arabic has no prefix).
+ */
+
+import type { UserRole } from './rbac'
+
+export type RouteCondition =
+  | 'phone_verified'
+  | 'profile_complete'
+  | 'mentor_status'
+  | 'entity_claim_status'
+
+export type RouteGuard = {
+  readonly id: string
+  readonly pattern: RegExp
+  /** `null` = public route (no session required). */
+  readonly allowedRoles: readonly UserRole[] | null
+  readonly conditions?: readonly RouteCondition[]
+  readonly requires2FA?: boolean
+  readonly auditLog?: boolean
+  /** Maximum session age in seconds for this route. */
+  readonly sessionMaxAge?: number
+}
+
+/** Optional locale segment: `/en`, `/ar`, or omitted (default `ar`). */
+const L = '(?:/(?:ar|en))?'
+
+export const ROUTE_GUARDS: readonly RouteGuard[] = [
+  // ── Super admin portal ──────────────────────────────────────────────────────
+  {
+    id: 'super-admin-portal',
+    pattern: new RegExp(`^${L}/sys(?:/|$)`),
+    allowedRoles: ['super_admin'],
+    requires2FA: true,
+    auditLog: true,
+    sessionMaxAge: 7200,
+  },
+
+  // ── Staff portal ────────────────────────────────────────────────────────────
+  {
+    id: 'staff-portal',
+    pattern: new RegExp(`^${L}/staff(?:/|$)`),
+    allowedRoles: ['staff', 'admin', 'super_admin'],
+    requires2FA: true,
+    auditLog: true,
+  },
+
+  // ── Mentor portal ───────────────────────────────────────────────────────────
+  {
+    id: 'mentor-portal',
+    pattern: new RegExp(`^${L}/mentor(?:/|$)`),
+    allowedRoles: ['individual'],
+    conditions: ['phone_verified', 'mentor_status'],
+  },
+
+  // ── Entity pending review (before claim approval gate) ──────────────────────
+  {
+    id: 'company-pending-review',
+    pattern: new RegExp(`^${L}/company/pending-review(?:/|$)`),
+    allowedRoles: ['entity'],
+  },
+  {
+    id: 'university-pending-review',
+    pattern: new RegExp(`^${L}/university/pending-review(?:/|$)`),
+    allowedRoles: ['entity'],
+  },
+
+  // ── Company / university entity portals ─────────────────────────────────────
+  {
+    id: 'company-portal',
+    pattern: new RegExp(`^${L}/company(?:/|$)`),
+    allowedRoles: ['entity'],
+    conditions: ['entity_claim_status'],
+  },
+  {
+    id: 'university-portal',
+    pattern: new RegExp(`^${L}/university(?:/|$)`),
+    allowedRoles: ['entity'],
+    conditions: ['entity_claim_status'],
+  },
+
+  // ── Individual settings (phone verify before profile_complete gate) ───────────
+  {
+    id: 'individual-settings',
+    pattern: new RegExp(`^${L}/settings(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+
+  // ── Individual portal ───────────────────────────────────────────────────────
+  {
+    id: 'individual-onboarding',
+    pattern: new RegExp(`^${L}/me/onboarding(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+  {
+    id: 'individual-portal',
+    pattern: new RegExp(`^${L}/me(?:/|$)`),
+    allowedRoles: ['individual'],
+    conditions: ['profile_complete'],
+  },
+
+  // ── Public routes ───────────────────────────────────────────────────────────
+  {
+    id: 'auth-login-mfa',
+    pattern: new RegExp(`^${L}/login/mfa(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'auth-login',
+    pattern: new RegExp(`^${L}/login(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'auth-signup',
+    pattern: new RegExp(`^${L}/signup(?:/.*)?$`),
+    allowedRoles: null,
+  },
+  {
+    id: 'auth-verify-email-sent',
+    pattern: new RegExp(`^${L}/verify-email-sent(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'auth-public',
+    pattern: new RegExp(`^${L}/auth`),
+    allowedRoles: null,
+  },
+  {
+    id: 'public-jobs',
+    pattern: new RegExp(`^${L}/jobs(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'public-companies',
+    pattern: new RegExp(`^${L}/companies(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'public-universities',
+    pattern: new RegExp(`^${L}/universities(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'public-mentors',
+    pattern: new RegExp(`^${L}/mentors(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'public-legal',
+    pattern: new RegExp(`^${L}/(?:about|contact|privacy|terms)(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'public-home',
+    pattern: new RegExp(`^${L}/?$`),
+    allowedRoles: null,
+  },
+] as const
+
+export function findMatchingGuard(pathname: string): RouteGuard | null {
+  return ROUTE_GUARDS.find((guard) => guard.pattern.test(pathname)) ?? null
+}

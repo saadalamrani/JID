@@ -62,6 +62,11 @@ BEGIN
   old_rank := (role_ranks ->> OLD.role::text)::integer;
   new_rank := (role_ranks ->> NEW.role::text)::integer;
 
+  -- Allow privileged role changes via set_user_role() SECURITY DEFINER path
+  IF current_setting('jid.allow_role_change', true) = 'on' THEN
+    RETURN NEW;
+  END IF;
+
   IF new_rank > old_rank THEN
     RAISE EXCEPTION 'Role escalation is not permitted via direct profile update';
   END IF;

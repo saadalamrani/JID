@@ -32,5 +32,122 @@
     "generic": "An unexpected error occurred. Please try again.",
     "genericDescription": "The application encountered a problem. You can retry or come back later.",
     "forbidden": "You do not have permission to access this page"
+  },
+  "auth": {
+    "signup": {
+      "title": "Create individual account",
+      "subtitle": "Join JID and start your career journey",
+      "fullName": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "passwordHint": "At least 8 characters with upper, lower, number, and special character",
+      "acceptTerms": "Terms",
+      "acceptTermsLabel": "I agree to the Terms of Service and Privacy Policy",
+      "submit": "Create account",
+      "submitting": "Creating...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "errors": {
+        "generic": "Could not create account. Please try again."
+      }
+    },
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Welcome back to JID",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Create account",
+      "errors": {
+        "generic": "Invalid credentials. Check your email and password and try again.",
+        "suspended": "Invalid credentials. Check your email and password and try again."
+      }
+    },
+    "mfa": {
+      "title": "Two-factor authentication",
+      "subtitle": "Enter the code from your authenticator app",
+      "prompt": "Enter the 6-digit code",
+      "verify": "Verify",
+      "verifying": "Verifying...",
+      "verified": "Verified successfully",
+      "loading": "Loading...",
+      "redirectHint": "You will be redirected to {portal}",
+      "errors": {
+        "verifyFailed": "Invalid verification code",
+        "noFactor": "No authenticator factor found"
+      },
+      "setup": {
+        "title": "Set up two-factor authentication",
+        "subtitle": "Scan the QR code with your authenticator app",
+        "instructions": "Use Google Authenticator or a similar app to scan the code below.",
+        "qrAlt": "Two-factor authentication QR code",
+        "manualSecret": "Or enter the key manually",
+        "confirmPrompt": "Enter the code from your app to confirm",
+        "confirm": "Enable two-factor authentication",
+        "verifying": "Enabling...",
+        "enrolled": "Two-factor authentication enabled",
+        "loading": "Preparing setup...",
+        "retry": "Retry",
+        "errors": {
+          "enrollFailed": "Could not set up two-factor authentication",
+          "verifyFailed": "Invalid confirmation code"
+        }
+      }
+    },
+    "verifyEmail": {
+      "title": "Verify your email",
+      "subtitle": "One last step before signing in",
+      "instructions": "We sent a confirmation link to your email. Open it to complete registration.",
+      "inbucketHint": "Locally: check Inbucket at http://127.0.0.1:54324",
+      "backToLogin": "Back to sign in"
+    },
+    "verifyPhone": {
+      "title": "Verify phone number",
+      "subtitle": "Enter your Saudi mobile number to receive a code",
+      "phoneLabel": "Mobile number",
+      "phoneHint": "Example: 5XXXXXXXX",
+      "sendOtp": "Send verification code",
+      "sending": "Sending...",
+      "otpSent": "Verification code sent",
+      "otpSentTo": "Code sent to",
+      "changePhone": "Change number",
+      "verify": "Verify code",
+      "verifying": "Verifying...",
+      "verified": "Phone number verified",
+      "expiresIn": "Expires in {time}",
+      "expired": "Code expired",
+      "resend": "Resend code",
+      "resendIn": "Resend in {time}",
+      "ttlNote": "Code valid for {minutes} minutes",
+      "errors": {
+        "sendFailed": "Could not send code",
+        "verifyFailed": "Invalid code",
+        "expired": "Code has expired",
+        "rateLimit": "Rate limit exceeded. Try again later."
+      }
+    },
+    "password": {
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong",
+        "requirements": "Must include upper, lower, number, and special character"
+      }
+    },
+    "validation": {
+      "fullNameMin": "Name must be at least 2 characters",
+      "fullNameArabic": "Name must be in Arabic",
+      "emailInvalid": "Invalid email address",
+      "passwordWeak": "Password does not meet requirements",
+      "passwordRequired": "Password is required",
+      "acceptTerms": "You must accept the terms",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Invalid Saudi mobile number",
+      "otpLength": "Code must be 6 digits",
+      "otpDigits": "Digits only"
+    }
   }
 }
