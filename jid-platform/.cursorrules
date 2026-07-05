@@ -1,0 +1,76 @@
+# JID Platform — Cursor Rules
+# منصة جِد | Next.js 14.2.15 + TypeScript + Supabase
+
+## Project Identity
+- Product: JID (جِد) — Arabic-first employment & mentorship platform
+- Stack: Next.js 14.2.15 App Router, TypeScript (strict), Tailwind CSS, Supabase (Postgres/Auth/Realtime/Storage)
+- Package manager: pnpm (never npm or yarn)
+- Database: Supabase — NEVER use Firebase
+
+## TypeScript Rules
+- `strict: true` and `noUncheckedIndexedAccess: true` are mandatory — never weaken tsconfig
+- No `any` — use `unknown` + type guards or Zod parsing
+- Prefer `type` imports: `import type { Foo } from '...'`
+- All env vars must go through `src/lib/env.ts` Zod schema — never read `process.env` directly in app code
+- Path alias: always use `@/` imports (e.g. `@/lib/env`, `@/config/design-tokens`)
+
+## React & Next.js Conventions
+- Default to Server Components — add `'use client'` only when browser APIs, hooks, or interactivity require it
+- Use `next/navigation` (not `next/router`) for routing
+- Use `next/image` for all images; Supabase storage URLs are pre-configured in next.config.mjs
+- Never expose `SUPABASE_SERVICE_ROLE_KEY` to client code or `NEXT_PUBLIC_` vars
+- Colocate server actions in `actions.ts` files next to their route segment
+
+## Styling & Design System
+- Use JID design tokens from `src/config/design-tokens.ts` — never hardcode hex colors in components
+- Tailwind classes: `jid-olive`, `jid-gold`, `jid-beige`, `jid-ink`, `jid-line` (and their scales)
+- RTL is the default: root layout must have `lang="ar" dir="rtl"`
+- Fonts: IBM Plex Sans Arabic (primary), Archivo (Latin fallback)
+- Background: `jid-beige`, text: `jid-ink`, accent/CTA: `jid-gold`, borders: `jid-line`
+
+## Supabase Rules
+- Browser client: `src/lib/supabase/client.ts` (createBrowserClient from @supabase/ssr)
+- Server client: `src/lib/supabase/server.ts` (createServerClient with cookies)
+- Admin/service client: `src/lib/supabase/admin.ts` — server-only, uses service role key
+- All tables must have RLS enabled; policies must match the access model
+- Realtime: use `supabase.channel().on('postgres_changes', ...)` for live subscriptions
+- Migrations live in `supabase/migrations/` — never alter applied migrations
+
+## File Structure
+```
+src/
+  app/           # App Router pages & layouts (route groups: (auth), (individual), (entity), (staff), (admin))
+  components/    # UI components (ui/ for shadcn primitives, feature folders for domain)
+  lib/           # Utilities, Supabase clients, env, validations
+  config/        # Design tokens, constants
+  hooks/         # Client-side hooks only
+  i18n/          # next-intl configuration
+  types/         # Shared TypeScript types
+supabase/
+  migrations/    # SQL migrations (ordered, never edit applied ones)
+  functions/     # Edge Functions
+scripts/         # Dev/CI scripts (check-env.ts, seed scripts)
+```
+
+## i18n
+- Use `next-intl` for all user-facing strings
+- Default locale: `ar` (Arabic RTL)
+- Message files: `messages/ar.json`, `messages/en.json`
+
+## Security
+- Never commit `.env.local` or secrets
+- Run `pnpm check-env` before starting dev server
+- Validate all user input with Zod schemas in `src/lib/validations/`
+- Audit sensitive actions to `audit_logs` table
+
+## Git & Commits
+- Conventional commits enforced by commitlint (feat/fix/docs/chore/etc.)
+- Pre-commit: lint-staged runs prettier + eslint
+- Branch naming: `feat/`, `fix/`, `chore/` prefixes
+
+## What NOT to Do
+- Do not use Firebase (database is Supabase)
+- Do not create pages/components without being asked in the current phase
+- Do not bypass RLS with service role key in client code
+- Do not use inline styles for colors — use Tailwind + design tokens
+- Do not use `console.log` in production code — use structured logging or remove
