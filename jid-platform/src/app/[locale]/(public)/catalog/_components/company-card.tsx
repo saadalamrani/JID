@@ -132,7 +132,7 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
             className={cn(
               'inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5',
               'font-arabic text-sm font-medium',
-              'bg-jid-line/20 text-jid-ink-400',
+              'bg-jid-line/30 text-jid-ink-500',
               'pointer-events-none',
             )}
             aria-disabled="true"

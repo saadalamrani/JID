@@ -56,6 +56,112 @@ export type Database = {
           },
         ]
       }
+      application_intents: {
+        Row: {
+          created_at: string
+          id: string
+          job_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          job_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          job_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'application_intents_job_id_fkey'
+            columns: ['job_id']
+            isOneToOne: false
+            referencedRelation: 'jobs'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'application_intents_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      applications: {
+        Row: {
+          applicant_id: string
+          company_id: string
+          contact_email: string | null
+          cover_letter: string | null
+          created_at: string
+          expires_at: string | null
+          id: string
+          job_id: string
+          last_company_action_at: string | null
+          resume_url: string | null
+          status: Database['public']['Enums']['application_status_enum']
+          submitted_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          applicant_id: string
+          company_id?: string
+          contact_email?: string | null
+          cover_letter?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          job_id: string
+          last_company_action_at?: string | null
+          resume_url?: string | null
+          status?: Database['public']['Enums']['application_status_enum']
+          submitted_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          applicant_id?: string
+          company_id?: string
+          contact_email?: string | null
+          cover_letter?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          job_id?: string
+          last_company_action_at?: string | null
+          resume_url?: string | null
+          status?: Database['public']['Enums']['application_status_enum']
+          submitted_at?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'applications_applicant_id_fkey'
+            columns: ['applicant_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'applications_company_id_fkey'
+            columns: ['company_id']
+            isOneToOne: false
+            referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'applications_job_id_fkey'
+            columns: ['job_id']
+            isOneToOne: false
+            referencedRelation: 'jobs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       audit_logs: {
         Row: {
           action: string
@@ -481,6 +587,116 @@ export type Database = {
           },
         ]
       }
+      jobs: {
+        Row: {
+          applicant_count: number
+          application_deadline: string
+          city: string | null
+          closed_at: string | null
+          company_id: string
+          created_at: string
+          created_by: string | null
+          description_ar: string | null
+          description_en: string | null
+          experience_level: Database['public']['Enums']['experience_level_enum']
+          id: string
+          is_remote: boolean
+          published_at: string | null
+          region_id: string | null
+          salary_currency: string
+          salary_max: number | null
+          salary_min: number | null
+          sector_id: string | null
+          slug: string | null
+          status: Database['public']['Enums']['job_status_enum']
+          title_ar: string
+          title_en: string | null
+          updated_at: string
+          view_count: number
+        }
+        Insert: {
+          applicant_count?: number
+          application_deadline: string
+          city?: string | null
+          closed_at?: string | null
+          company_id: string
+          created_at?: string
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          experience_level?: Database['public']['Enums']['experience_level_enum']
+          id?: string
+          is_remote?: boolean
+          published_at?: string | null
+          region_id?: string | null
+          salary_currency?: string
+          salary_max?: number | null
+          salary_min?: number | null
+          sector_id?: string | null
+          slug?: string | null
+          status?: Database['public']['Enums']['job_status_enum']
+          title_ar: string
+          title_en?: string | null
+          updated_at?: string
+          view_count?: number
+        }
+        Update: {
+          applicant_count?: number
+          application_deadline?: string
+          city?: string | null
+          closed_at?: string | null
+          company_id?: string
+          created_at?: string
+          created_by?: string | null
+          description_ar?: string | null
+          description_en?: string | null
+          experience_level?: Database['public']['Enums']['experience_level_enum']
+          id?: string
+          is_remote?: boolean
+          published_at?: string | null
+          region_id?: string | null
+          salary_currency?: string
+          salary_max?: number | null
+          salary_min?: number | null
+          sector_id?: string | null
+          slug?: string | null
+          status?: Database['public']['Enums']['job_status_enum']
+          title_ar?: string
+          title_en?: string | null
+          updated_at?: string
+          view_count?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'jobs_company_id_fkey'
+            columns: ['company_id']
+            isOneToOne: false
+            referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'jobs_created_by_fkey'
+            columns: ['created_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'jobs_region_id_fkey'
+            columns: ['region_id']
+            isOneToOne: false
+            referencedRelation: 'regions'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'jobs_sector_id_fkey'
+            columns: ['sector_id']
+            isOneToOne: false
+            referencedRelation: 'sectors'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       regions: {
         Row: {
           created_at: string
@@ -529,6 +745,41 @@ export type Database = {
         }
         Relationships: []
       }
+      user_verified_emails: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          is_primary: boolean
+          user_id: string
+          verified_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          is_primary?: boolean
+          user_id: string
+          verified_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          is_primary?: boolean
+          user_id?: string
+          verified_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'user_verified_emails_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
     }
     Views: Record<string, never>
     Functions: {
@@ -543,6 +794,14 @@ export type Database = {
       current_user_role: {
         Args: Record<PropertyKey, never>
         Returns: Database['public']['Enums']['user_role_enum']
+      }
+      expire_passed_jobs: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      expire_stale_applications: {
+        Args: Record<PropertyKey, never>
+        Returns: number
       }
       is_admin_or_above: {
         Args: Record<PropertyKey, never>
@@ -590,6 +849,10 @@ export type Database = {
         }
         Returns: undefined
       }
+      transition_closing_soon: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
       validate_staff_invite_token: {
         Args: { p_token: string }
         Returns: {
@@ -604,6 +867,15 @@ export type Database = {
       }
     }
     Enums: {
+      application_status_enum:
+        | 'draft'
+        | 'submitted'
+        | 'under_review'
+        | 'shortlisted'
+        | 'rejected'
+        | 'invited'
+        | 'withdrawn'
+        | 'expired'
       claim_status_enum:
         | 'pending'
         | 'pending_review'
@@ -612,6 +884,8 @@ export type Database = {
         | 'rejected'
         | 'cancelled'
       claim_type_enum: 'company' | 'university'
+      experience_level_enum: 'intern' | 'entry' | 'mid' | 'senior' | 'lead' | 'executive'
+      job_status_enum: 'draft' | 'published' | 'closing_soon' | 'closed' | 'expired'
       link_status_enum: 'healthy' | 'broken' | 'pending'
       ownership_enum: 'government' | 'semi_government' | 'private'
       user_role_enum:

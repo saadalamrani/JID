@@ -190,6 +190,11 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: null,
   },
   {
+    id: 'public-opportunities',
+    pattern: new RegExp(`^${L}/opportunities(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
     id: 'public-jobs',
     pattern: new RegExp(`^${L}/jobs(?:/|$)`),
     allowedRoles: null,
