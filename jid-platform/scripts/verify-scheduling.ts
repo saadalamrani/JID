@@ -24,7 +24,9 @@ const scheduleDialog = read(
 const scheduleBubble = read(
   'src/app/[locale]/(authenticated)/conversations/_components/schedule-bubble-message.tsx',
 )
-const radarCard = read('src/components/radar/meeting-radar-card.tsx')
+const mentorshipTimeline = read('src/components/radar/mentorship-timeline.tsx')
+const meetingCard = read('src/components/radar/meeting-card.tsx')
+const feedbackCard = read('src/components/radar/feedback-prompt-card.tsx')
 const chatInput = read(
   'src/app/[locale]/(authenticated)/conversations/_components/chat-input-bar.tsx',
 )
@@ -61,8 +63,14 @@ check(feedbackLib.includes('feedback_rating'), 'feedback stores rating')
 check(feedbackLib.includes("status: 'completed'"), 'feedback completes meeting')
 check(!feedbackLib.includes("from('radar_items')"), 'feedback does not update radar_items')
 
-check(radarCard.includes('isMeetingFeedbackDue'), 'radar card time-based feedback morph')
-check(radarCard.includes('isMeetingUpcoming'), 'radar card shows upcoming state')
-check(migration.includes('TODO: verify compatibility when Radar module is built') || confirmLib.includes('TODO: verify compatibility when Radar module is built'), 'radar bridge TODO comment')
+check(mentorshipTimeline.includes('partitionTimelineMeetings'), 'mentorship timeline partitions sections')
+check(mentorshipTimeline.includes('needsFeedback'), 'mentorship timeline feedback section')
+check(meetingCard.includes('mentor?.profile?.full_name'), 'meeting card uses mentor.profile.full_name')
+check(meetingCard.includes('layoutId={`meeting-${meeting.id}`}'), 'meeting card shared layoutId')
+check(feedbackCard.includes('layoutId={`meeting-${meeting.id}`}'), 'feedback card shared layoutId')
+check(feedbackCard.includes('dismissForLater'), 'feedback card dismissForLater action')
+check(feedbackCard.includes('submitFeedback'), 'feedback card submitFeedback action')
+check(read('src/lib/timeline/feedback-actions.ts').includes('dismissForLater'), 'dismiss API client')
+check(read('supabase/migrations/064_radar_reconciliation.sql').includes('should_show_feedback'), 'server feedback flag migration')
 
 console.log('\nScheduling verification complete.')

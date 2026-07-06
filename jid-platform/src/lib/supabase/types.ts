@@ -104,6 +104,8 @@ export type Database = {
           job_id: string
           last_company_action_at: string | null
           last_seen_by_user_at: string | null
+          status_changed_at: string | null
+          status_changed_by: string | null
           resume_url: string | null
           status: Database['public']['Enums']['application_status_enum']
           submitted_at: string | null
@@ -120,6 +122,8 @@ export type Database = {
           job_id: string
           last_company_action_at?: string | null
           last_seen_by_user_at?: string | null
+          status_changed_at?: string | null
+          status_changed_by?: string | null
           resume_url?: string | null
           status?: Database['public']['Enums']['application_status_enum']
           submitted_at?: string | null
@@ -136,6 +140,8 @@ export type Database = {
           job_id?: string
           last_company_action_at?: string | null
           last_seen_by_user_at?: string | null
+          status_changed_at?: string | null
+          status_changed_by?: string | null
           resume_url?: string | null
           status?: Database['public']['Enums']['application_status_enum']
           submitted_at?: string | null

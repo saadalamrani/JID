@@ -11,6 +11,7 @@ import { OwnershipBadge } from '@/app/[locale]/(public)/catalog/_components/owne
 import { DeadlineBar } from './deadline-bar'
 import { JidPartnerBadge } from './jid-partner-badge'
 import { JobActionButton } from './job-action-button'
+import { JobSaveButton } from './job-save-button'
 import { Pill } from './pill'
 
 type JobCardProps = {
@@ -50,6 +51,12 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
           )}
           aria-label={`عرض تفاصيل ${title}`}
         />
+      ) : null}
+
+      {!previewMode ? (
+        <div className="absolute end-3 top-3 z-30">
+          <JobSaveButton jobId={job.id} />
+        </div>
       ) : null}
 
       <header className="relative z-20 flex items-start gap-3 pointer-events-none">

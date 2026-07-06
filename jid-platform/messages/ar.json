@@ -1074,9 +1074,52 @@
   },
   "radar": {
     "title": "الرادار",
-    "subtitle": "الجلسات القادمة والمتابعات.",
+    "subtitle": "تتبّع طلباتك والجلسات الإرشادية القادمة.",
+    "loading": "جارٍ تحميل الرادار…",
+    "error": "تعذّر تحميل بيانات الرادار. حاول مرة أخرى.",
+    "errorTitle": "حدث خطأ",
+    "retry": "إعادة المحاولة",
+    "backToProfile": "العودة للملف الشخصي",
     "emptyTitle": "لا شيء على رادارك",
     "emptyBody": "ستظهر هنا الجلسات المؤكدة وطلبات التقييم.",
+    "companyStatusUpdate": "حدّثت الشركة حالة طلبك",
+    "mobile": {
+      "cardActions": "إجراءات البطاقة",
+      "moveTitle": "نقل البطاقة",
+      "moveTo": "نقل إلى {column}",
+      "noMoves": "هذي البطاقة تتحرك تلقائياً — لا يمكن نقلها يدوياً.",
+      "timelineTab": "📅 المواعيد",
+      "timelineSheetTitle": "المواعيد والجلسات",
+      "timelineNavLabel": "تنقل الرادار"
+    },
+    "columns": {
+      "saved": "محفوظ",
+      "applied": "مُقدَّم",
+      "under_review": "قيد المراجعة",
+      "archived": "الأرشيف"
+    },
+    "emptyColumn": {
+      "saved": {
+        "message": "لم تحفظ أي فرصة بعد.",
+        "cta": "تصفّح الفرص"
+      },
+      "applied": {
+        "message": "لم تُقدّم على أي فرصة بعد."
+      },
+      "under_review": {
+        "message": "لا توجد طلبات قيد المراجعة."
+      },
+      "archived": {
+        "message": "لا توجد نتائج نهائية بعد."
+      }
+    },
+    "timeline": {
+      "title": "الجلسات القادمة",
+      "empty": "لا توجد جلسات إرشاد قادمة.",
+      "needsFeedback": "تقييم الجلسات",
+      "upcoming": "القادمة",
+      "unknownMentor": "مرشد"
+    },
     "meeting": {
       "upcomingTitle": "جلسة إرشاد قادمة",
       "duration": "{minutes} دقيقة",
@@ -1087,6 +1130,8 @@
       "feedbackSubmit": "إرسال التقييم",
       "feedbackSuccess": "شكراً على تقييمك.",
       "feedbackError": "تعذّر إرسال التقييم.",
+      "feedbackDismissed": "يمكنك التقييم لاحقاً من الرادار.",
+      "dismissForLater": "لاحقاً",
       "ratingLabel": "{value} نجوم"
     }
   }

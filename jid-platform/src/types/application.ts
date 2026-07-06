@@ -57,6 +57,9 @@ export type UserApplication = {
   contact_email: string | null
   submitted_at: string | null
   last_company_action_at: string | null
+  last_seen_by_user_at: string | null
+  status_changed_at: string | null
+  status_changed_by: string | null
   expires_at: string | null
   created_at: string
   updated_at: string

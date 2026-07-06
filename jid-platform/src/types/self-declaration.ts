@@ -10,7 +10,12 @@ export type SelfDeclarationState = (typeof SELF_DECLARATION_STATES)[number]
 
 export type JobDeclarationStatus = {
   declared: boolean
+  saved: boolean
   primaryEmail: string | null
+}
+
+export type SaveApplicationResult = {
+  saved: boolean
 }
 
 export type DeclareApplicationResult = {

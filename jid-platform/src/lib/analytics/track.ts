@@ -32,7 +32,25 @@ export const MENTORSHIP_ANALYTICS_EVENTS = [
   'mentor_notification_requested',
 ] as const
 
-export const ANALYTICS_EVENTS = [...JOB_ANALYTICS_EVENTS, ...MENTORSHIP_ANALYTICS_EVENTS] as const
+/** Section 15 — Opportunity Radar analytics events. */
+export const RADAR_ANALYTICS_EVENTS = [
+  'radar_viewed',
+  'radar_card_dragged',
+  'radar_card_drag_blocked',
+  'radar_status_updated_by_company',
+  'radar_glow_seen',
+  'radar_meeting_opened',
+  'radar_meeting_joined',
+  'radar_feedback_submitted',
+  'radar_feedback_dismissed',
+  'mode_switched',
+] as const
+
+export const ANALYTICS_EVENTS = [
+  ...JOB_ANALYTICS_EVENTS,
+  ...MENTORSHIP_ANALYTICS_EVENTS,
+  ...RADAR_ANALYTICS_EVENTS,
+] as const
 
 export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number]
 

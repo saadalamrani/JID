@@ -17,6 +17,8 @@ const STATUS_CONFIG: Record<
   { icon: typeof Clock; className: string }
 > = {
   draft: { icon: Clock, className: 'bg-jid-line/40 text-jid-ink/60' },
+  saved: { icon: Clock, className: 'bg-jid-beige text-jid-ink/70' },
+  pending: { icon: Clock, className: 'bg-sky-50 text-sky-800' },
   submitted: { icon: Clock, className: 'bg-sky-50 text-sky-800' },
   under_review: { icon: Clock, className: 'bg-amber-50 text-amber-900' },
   shortlisted: { icon: UserCheck, className: 'bg-emerald-50 text-emerald-800' },

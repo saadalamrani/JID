@@ -1,11 +1,10 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
+import { radarApplicationsQueryKey } from '@/lib/queries/radar'
 import type { UserApplicationsResult } from '@/types/application'
 
-export function userApplicationsQueryKey(userId: string) {
-  return ['applications', 'user', userId] as const
-}
+export const userApplicationsQueryKey = radarApplicationsQueryKey
 
 /** Client fetch for Radar — RLS limits to applicant_id = auth user. */
 export async function fetchUserApplicationsClient(
@@ -26,6 +25,9 @@ export async function fetchUserApplicationsClient(
       contact_email,
       submitted_at,
       last_company_action_at,
+      last_seen_by_user_at,
+      status_changed_at,
+      status_changed_by,
       expires_at,
       created_at,
       updated_at,

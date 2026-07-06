@@ -21,13 +21,6 @@ export class ProposeMeetingError extends Error {
 const MEETING_SELECT =
   'id, mentor_id, mentee_id, status, scheduled_at, duration_minutes, meeting_url, notes, medium, feedback_rating, feedback_submitted_at' as const
 
-function unwrapMeeting(
-  ref: MeetingSummary | MeetingSummary[] | null,
-): MeetingSummary | null {
-  if (!ref) return null
-  return Array.isArray(ref) ? (ref[0] ?? null) : ref
-}
-
 export async function proposeMeetingSchedule(
   mentorId: string,
   conversationId: string,

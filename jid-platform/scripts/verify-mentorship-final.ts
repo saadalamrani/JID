@@ -60,8 +60,8 @@ check(
 
 check(
   'profile-switcher-no-job-gating',
-  !read('src/middleware.ts').includes('jid_profile_mode') &&
-    !read('src/lib/auth/guards.ts').includes('jid_profile_mode'),
+  !read('src/middleware.ts').includes('jid_active_mode') &&
+    !read('src/lib/auth/guards.ts').includes('jid_active_mode'),
   'Profile Switcher does not gate Job Board / Radar / CV Builder',
 )
 

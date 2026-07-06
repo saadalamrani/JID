@@ -1074,9 +1074,52 @@
   },
   "radar": {
     "title": "Radar",
-    "subtitle": "Upcoming sessions and follow-ups.",
+    "subtitle": "Track applications and upcoming mentorship sessions.",
+    "loading": "Loading your radar…",
+    "error": "Could not load radar data. Please try again.",
+    "errorTitle": "Something went wrong",
+    "retry": "Try again",
+    "backToProfile": "Back to profile",
     "emptyTitle": "Nothing on your radar",
     "emptyBody": "Confirmed meetings and feedback prompts will appear here.",
+    "companyStatusUpdate": "The company updated your application status",
+    "mobile": {
+      "cardActions": "Card actions",
+      "moveTitle": "Move card",
+      "moveTo": "Move to {column}",
+      "noMoves": "This card moves automatically and cannot be moved manually.",
+      "timelineTab": "📅 Sessions",
+      "timelineSheetTitle": "Sessions & meetings",
+      "timelineNavLabel": "Radar navigation"
+    },
+    "columns": {
+      "saved": "Saved",
+      "applied": "Applied",
+      "under_review": "Under review",
+      "archived": "Archived"
+    },
+    "emptyColumn": {
+      "saved": {
+        "message": "You haven't saved any opportunities yet.",
+        "cta": "Browse opportunities"
+      },
+      "applied": {
+        "message": "You haven't applied to any jobs yet."
+      },
+      "under_review": {
+        "message": "No applications under review."
+      },
+      "archived": {
+        "message": "No final outcomes yet."
+      }
+    },
+    "timeline": {
+      "title": "Upcoming sessions",
+      "empty": "No upcoming mentorship sessions.",
+      "needsFeedback": "Session feedback",
+      "upcoming": "Upcoming",
+      "unknownMentor": "Mentor"
+    },
     "meeting": {
       "upcomingTitle": "Upcoming mentorship session",
       "duration": "{minutes} minutes",
@@ -1087,6 +1130,8 @@
       "feedbackSubmit": "Submit feedback",
       "feedbackSuccess": "Thank you for your feedback.",
       "feedbackError": "Could not submit feedback.",
+      "feedbackDismissed": "You can rate this session later from Radar.",
+      "dismissForLater": "Later",
       "ratingLabel": "{value} stars"
     }
   }

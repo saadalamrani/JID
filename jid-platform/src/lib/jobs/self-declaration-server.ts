@@ -51,16 +51,23 @@ export async function getJobDeclarationStatus(
 ): Promise<JobDeclarationStatus> {
   const { data } = await supabase
     .from('applications')
-    .select('id')
+    .select('id, status')
     .eq('job_id', jobId)
     .eq('applicant_id', userId)
-    .in('status', [...ACTIVE_APPLICATION_STATUSES])
     .maybeSingle()
 
   const primaryEmail = await getPrimaryVerifiedEmail(supabase, userId, authEmail)
 
+  const status = data?.status
+  const saved = status === 'saved'
+  const declared =
+    Boolean(data?.id) &&
+    status != null &&
+    ([...ACTIVE_APPLICATION_STATUSES] as readonly string[]).includes(status)
+
   return {
-    declared: Boolean(data?.id),
+    declared,
+    saved,
     primaryEmail,
   }
 }
@@ -84,10 +91,7 @@ export async function insertApplicationIntent(
 
 /**
  * Self-declaration ("Apply") for Job Board.
- *
- * TODO (Radar Day 4): Add a "Save for later" button on JobCard that upserts
- * status='saved'. This function upserts saved → pending on declare so Radar's
- * Saved column can transition to Applied without violating UNIQUE(job_id, applicant_id).
+ * Upserts saved → pending on declare (Radar Saved → Applied column).
  */
 export async function insertApplicationDeclaration(
   supabase: Client,
@@ -111,6 +115,45 @@ export async function insertApplicationDeclaration(
 
   if (!error) {
     return { declared: true }
+  }
+
+  throw new Error(error.message)
+}
+
+/** Bookmark — upsert applications row with status='saved' (separate from Apply). */
+export async function insertApplicationSave(
+  supabase: Client,
+  userId: string,
+  jobId: string,
+): Promise<{ saved: boolean }> {
+  const now = new Date().toISOString()
+
+  const { data: existing } = await supabase
+    .from('applications')
+    .select('status')
+    .eq('job_id', jobId)
+    .eq('applicant_id', userId)
+    .maybeSingle()
+
+  if (
+    existing?.status &&
+    ([...ACTIVE_APPLICATION_STATUSES] as readonly string[]).includes(existing.status)
+  ) {
+    return { saved: false }
+  }
+
+  const { error } = await supabase.from('applications').upsert(
+    {
+      job_id: jobId,
+      applicant_id: userId,
+      status: 'saved',
+      updated_at: now,
+    },
+    { onConflict: 'job_id,applicant_id' },
+  )
+
+  if (!error) {
+    return { saved: true }
   }
 
   throw new Error(error.message)

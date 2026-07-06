@@ -54,6 +54,7 @@ export async function submitMeetingFeedback(
       feedback_rating: parsed.feedback_rating,
       feedback_comment: parsed.feedback_comment?.trim() || null,
       feedback_submitted_at: now,
+      should_show_feedback: false,
       status: 'completed',
       completed_at: now,
       updated_at: now,

@@ -3,6 +3,7 @@
 import type { ReactNode } from 'react'
 import { usePathname } from '@/lib/i18n/navigation'
 import { EncryptionKeyBootstrap } from '@/components/shared/encryption-key-bootstrap'
+import { ProfileModeTransition } from '@/components/shared/profile-mode-transition'
 import { ProfileSwitcher } from '@/components/shared/profile-switcher'
 import { Link } from '@/lib/i18n/navigation'
 import { siteConfig } from '@/config/site'
@@ -49,7 +50,7 @@ export function AuthenticatedAppShell({
           </div>
         </header>
       ) : null}
-      {children}
+      <ProfileModeTransition>{children}</ProfileModeTransition>
     </>
   )
 }

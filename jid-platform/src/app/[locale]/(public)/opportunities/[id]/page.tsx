@@ -18,7 +18,7 @@ async function resolveDeclarationStatus(jobId: string): Promise<JobDeclarationSt
   } = await supabase.auth.getUser()
 
   if (!user) {
-    return { declared: false, primaryEmail: null }
+    return { declared: false, saved: false, primaryEmail: null }
   }
 
   return getJobDeclarationStatus(supabase, user.id, jobId, user.email)

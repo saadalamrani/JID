@@ -6,7 +6,7 @@ export async function fetchJobDeclarationStatus(jobId: string): Promise<JobDecla
   })
 
   if (response.status === 401) {
-    return { declared: false, primaryEmail: null }
+    return { declared: false, saved: false, primaryEmail: null }
   }
 
   if (!response.ok) {
@@ -49,4 +49,22 @@ export async function declareApplication(jobId: string): Promise<DeclareApplicat
   }
 
   return response.json() as Promise<DeclareApplicationResult>
+}
+
+export async function saveJobApplication(jobId: string): Promise<{ saved: boolean }> {
+  const response = await fetch(`/api/jobs/${jobId}/save`, {
+    method: 'POST',
+    credentials: 'include',
+  })
+
+  if (response.status === 401) {
+    throw new Error('Authentication required')
+  }
+
+  if (!response.ok) {
+    const body = (await response.json().catch(() => null)) as { error?: string } | null
+    throw new Error(body?.error ?? 'Failed to save job')
+  }
+
+  return response.json() as Promise<{ saved: boolean }>
 }
