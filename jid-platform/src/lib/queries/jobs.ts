@@ -20,6 +20,7 @@ import {
   dbStatusToPublicStatus,
   publicStatusToDbStatus,
 } from '@/types/job'
+import { computeDeadlineDaysLeft } from '@/lib/jobs/deadline'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
 
@@ -40,6 +41,7 @@ type CompanyRow = {
   logo_url: string | null
   ownership_type: OwnershipType | null
   commitment_score: number
+  career_portal_url: string | null
 } | null
 
 type JobListRow = {
@@ -95,7 +97,8 @@ const JOB_LIST_SELECT = `
     slug,
     logo_url,
     ownership_type,
-    commitment_score
+    commitment_score,
+    career_portal_url
   ),
   sector:sectors(slug, name_en, name_ar),
   region:regions(slug, name_en, name_ar)
@@ -130,7 +133,8 @@ const JOB_DETAIL_SELECT = `
     slug,
     logo_url,
     ownership_type,
-    commitment_score
+    commitment_score,
+    career_portal_url
   ),
   sector:sectors(slug, name_en, name_ar),
   region:regions(slug, name_en, name_ar)
@@ -165,6 +169,7 @@ function mapCompanyRef(row: CompanyRow): JobCompanyRef {
     logo_url: null,
     ownership_type: null,
     commitment_score: 0,
+    career_portal_url: null,
   }
 
   return {
@@ -174,6 +179,7 @@ function mapCompanyRef(row: CompanyRow): JobCompanyRef {
     name_ar: company.name_ar,
     logo_url: company.logo_url,
     ownership_type: company.ownership_type,
+    career_portal_url: company.career_portal_url,
   }
 }
 
@@ -195,9 +201,11 @@ function mapJobCard(row: JobListRow): JobCardData | null {
     salary_max: row.salary_max,
     salary_currency: row.salary_currency,
     application_deadline: row.application_deadline,
+    deadlineDaysLeft: computeDeadlineDaysLeft(row.application_deadline),
     published_at: row.published_at,
     applicant_count: row.applicant_count,
     hasJidPartnerBadge: computeHasJidPartnerBadge(company.commitment_score),
+    applyUrl: company.career_portal_url?.trim() || null,
     company: mapCompanyRef(company),
     sector: mapSectorRef(normalizeEmbed(row.sector)),
     region: mapRegionRef(normalizeEmbed(row.region)),
@@ -278,10 +286,18 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
     query = query.in('companies.ownership_type', filters.ownership)
   }
 
-  query = query
-    .order('published_at', { ascending: false, nullsFirst: false })
-    .order('application_deadline', { ascending: true })
-    .range(from, to)
+  const sort = filters.sort ?? DEFAULT_JOB_FILTERS.sort
+  if (sort === 'published_at_desc') {
+    query = query
+      .order('published_at', { ascending: false, nullsFirst: false })
+      .order('application_deadline', { ascending: true })
+  } else {
+    query = query
+      .order('application_deadline', { ascending: true })
+      .order('published_at', { ascending: false, nullsFirst: false })
+  }
+
+  query = query.range(from, to)
 
   const { data, error, count } = await query
 

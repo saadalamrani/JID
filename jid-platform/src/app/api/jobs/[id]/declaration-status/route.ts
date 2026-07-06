@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server'
-import { insertApplicationIntent } from '@/lib/jobs/self-declaration-server'
+import { getJobDeclarationStatus } from '@/lib/jobs/self-declaration-server'
 import { createClient } from '@/lib/supabase/server'
 
-type JobIntentRouteProps = {
+type DeclarationStatusRouteProps = {
   params: { id: string }
 }
 
-export async function POST(_request: Request, { params }: JobIntentRouteProps) {
+export async function GET(_request: Request, { params }: DeclarationStatusRouteProps) {
   try {
     const supabase = await createClient()
     const {
@@ -18,10 +18,10 @@ export async function POST(_request: Request, { params }: JobIntentRouteProps) {
       return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
     }
 
-    await insertApplicationIntent(supabase, user.id, params.id)
-    return NextResponse.json({ ok: true })
+    const status = await getJobDeclarationStatus(supabase, user.id, params.id, user.email)
+    return NextResponse.json(status)
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Application intent failed'
+    const message = error instanceof Error ? error.message : 'Declaration status failed'
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

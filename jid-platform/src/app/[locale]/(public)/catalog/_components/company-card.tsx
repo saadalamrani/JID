@@ -1,52 +1,17 @@
 'use client'
 
-import { Building2, ExternalLink } from 'lucide-react'
-import { useState } from 'react'
+import { ExternalLink } from 'lucide-react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Link as LocaleLink } from '@/lib/i18n/navigation'
 import { formatRelativeTime } from '@/lib/utils/format-relative-time'
 import type { CompanyCardData } from '@/types/catalog'
 import { cn } from '@/lib/utils'
+import { CompanyLogo } from './company-logo'
 import { OwnershipBadge } from './ownership-badge'
 
 type CompanyCardProps = {
   company: CompanyCardData
   className?: string
-}
-
-function CompanyLogo({ name, logoUrl }: { name: string; logoUrl: string | null }) {
-  const [failed, setFailed] = useState(false)
-  const initials = name.trim().slice(0, 2) || '؟'
-
-  if (!logoUrl || failed) {
-    return (
-      <div
-        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-jid-line/40 bg-jid-beige text-jid-olive"
-        aria-hidden
-      >
-        {failed ? (
-          <span className="font-arabic text-sm font-semibold">{initials}</span>
-        ) : (
-          <Building2 className="h-5 w-5" />
-        )}
-      </div>
-    )
-  }
-
-  return (
-    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-jid-line/40 bg-white">
-      <Image
-        src={logoUrl}
-        alt=""
-        fill
-        sizes="48px"
-        loading="lazy"
-        className="object-contain p-1"
-        onError={() => setFailed(true)}
-      />
-    </div>
-  )
 }
 
 export function CompanyCard({ company, className }: CompanyCardProps) {

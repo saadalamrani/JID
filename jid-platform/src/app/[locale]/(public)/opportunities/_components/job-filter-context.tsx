@@ -1,0 +1,230 @@
+'use client'
+
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+  type ReactNode,
+} from 'react'
+import { useJobsQuery } from '@/lib/hooks/use-jobs-query'
+import { useCatalogRegions, useCatalogSectors } from '@/hooks/use-catalog-metadata'
+import type { CatalogRegionRef, CatalogSectorRef, OwnershipType } from '@/types/catalog'
+import type {
+  JobCardData,
+  JobExperienceChipId,
+  JobFilterState,
+  JobsListResult,
+  UrgencyFilter,
+} from '@/types/job'
+import {
+  DEFAULT_JOB_FILTER_STATE,
+  jobFilterStateToFilters,
+} from '@/types/job'
+
+type JobFilterContextValue = {
+  filters: JobFilterState
+  queryFilters: ReturnType<typeof jobFilterStateToFilters>
+  resultCount: number
+  isLoading: boolean
+  isFetching: boolean
+  error: Error | null
+  jobs: JobCardData[]
+  regions: CatalogRegionRef[]
+  sectors: CatalogSectorRef[]
+  toggleExperienceChip: (chipId: JobExperienceChipId) => void
+  toggleOwnership: (type: OwnershipType) => void
+  toggleRegion: (slug: string) => void
+  toggleSector: (slug: string) => void
+  toggleUrgency: (value: UrgencyFilter) => void
+  removeExperienceChip: (chipId: JobExperienceChipId) => void
+  removeOwnership: (type: OwnershipType) => void
+  removeRegion: (slug: string) => void
+  removeSector: (slug: string) => void
+  removeUrgency: (value: UrgencyFilter) => void
+  clearAll: () => void
+  hasActiveFilters: boolean
+}
+
+const JobFilterContext = createContext<JobFilterContextValue | null>(null)
+
+type JobFilterProviderProps = {
+  children: ReactNode
+  initialData?: JobsListResult
+}
+
+export function JobFilterProvider({ children, initialData }: JobFilterProviderProps) {
+  const [filters, setFilters] = useState<JobFilterState>(DEFAULT_JOB_FILTER_STATE)
+
+  const queryFilters = useMemo(() => jobFilterStateToFilters(filters), [filters])
+
+  const { data, isLoading, isFetching, error } = useJobsQuery(queryFilters, {
+    initialData,
+  })
+
+  const { data: regions = [] } = useCatalogRegions()
+  const { data: sectors = [] } = useCatalogSectors()
+
+  const jobs = data?.jobs ?? []
+  const resultCount = data?.count ?? initialData?.count ?? 0
+
+  const toggleInList = useCallback(<T,>(list: T[], value: T): T[] => {
+    return list.includes(value) ? list.filter((item) => item !== value) : [...list, value]
+  }, [])
+
+  const toggleExperienceChip = useCallback(
+    (chipId: JobExperienceChipId) => {
+      setFilters((prev) => ({
+        ...prev,
+        experienceChips: toggleInList(prev.experienceChips, chipId),
+      }))
+    },
+    [toggleInList],
+  )
+
+  const toggleOwnership = useCallback(
+    (type: OwnershipType) => {
+      setFilters((prev) => ({
+        ...prev,
+        ownership: toggleInList(prev.ownership, type),
+      }))
+    },
+    [toggleInList],
+  )
+
+  const toggleRegion = useCallback(
+    (slug: string) => {
+      setFilters((prev) => ({
+        ...prev,
+        regions: toggleInList(prev.regions, slug),
+      }))
+    },
+    [toggleInList],
+  )
+
+  const toggleSector = useCallback(
+    (slug: string) => {
+      setFilters((prev) => ({
+        ...prev,
+        sectors: toggleInList(prev.sectors, slug),
+      }))
+    },
+    [toggleInList],
+  )
+
+  const toggleUrgency = useCallback(
+    (value: UrgencyFilter) => {
+      setFilters((prev) => ({
+        ...prev,
+        urgency: toggleInList(prev.urgency, value),
+      }))
+    },
+    [toggleInList],
+  )
+
+  const removeExperienceChip = useCallback((chipId: JobExperienceChipId) => {
+    setFilters((prev) => ({
+      ...prev,
+      experienceChips: prev.experienceChips.filter((item) => item !== chipId),
+    }))
+  }, [])
+
+  const removeOwnership = useCallback((type: OwnershipType) => {
+    setFilters((prev) => ({
+      ...prev,
+      ownership: prev.ownership.filter((item) => item !== type),
+    }))
+  }, [])
+
+  const removeRegion = useCallback((slug: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      regions: prev.regions.filter((item) => item !== slug),
+    }))
+  }, [])
+
+  const removeSector = useCallback((slug: string) => {
+    setFilters((prev) => ({
+      ...prev,
+      sectors: prev.sectors.filter((item) => item !== slug),
+    }))
+  }, [])
+
+  const removeUrgency = useCallback((value: UrgencyFilter) => {
+    setFilters((prev) => ({
+      ...prev,
+      urgency: prev.urgency.filter((item) => item !== value),
+    }))
+  }, [])
+
+  const clearAll = useCallback(() => {
+    setFilters(DEFAULT_JOB_FILTER_STATE)
+  }, [])
+
+  const hasActiveFilters =
+    filters.experienceChips.length > 0 ||
+    filters.ownership.length > 0 ||
+    filters.regions.length > 0 ||
+    filters.sectors.length > 0 ||
+    filters.urgency.length > 0
+
+  const value = useMemo<JobFilterContextValue>(
+    () => ({
+      filters,
+      queryFilters,
+      resultCount,
+      isLoading,
+      isFetching,
+      error: error as Error | null,
+      jobs,
+      regions,
+      sectors,
+      toggleExperienceChip,
+      toggleOwnership,
+      toggleRegion,
+      toggleSector,
+      toggleUrgency,
+      removeExperienceChip,
+      removeOwnership,
+      removeRegion,
+      removeSector,
+      removeUrgency,
+      clearAll,
+      hasActiveFilters,
+    }),
+    [
+      filters,
+      queryFilters,
+      resultCount,
+      isLoading,
+      isFetching,
+      error,
+      jobs,
+      regions,
+      sectors,
+      toggleExperienceChip,
+      toggleOwnership,
+      toggleRegion,
+      toggleSector,
+      toggleUrgency,
+      removeExperienceChip,
+      removeOwnership,
+      removeRegion,
+      removeSector,
+      removeUrgency,
+      clearAll,
+      hasActiveFilters,
+    ],
+  )
+
+  return <JobFilterContext.Provider value={value}>{children}</JobFilterContext.Provider>
+}
+
+export function useJobFilters() {
+  const context = useContext(JobFilterContext)
+  if (!context) {
+    throw new Error('useJobFilters must be used within JobFilterProvider')
+  }
+  return context
+}
