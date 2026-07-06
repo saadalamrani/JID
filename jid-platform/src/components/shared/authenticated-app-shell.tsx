@@ -1,0 +1,51 @@
+'use client'
+
+import type { ReactNode } from 'react'
+import { usePathname } from '@/lib/i18n/navigation'
+import { ProfileSwitcher } from '@/components/shared/profile-switcher'
+import { Link } from '@/lib/i18n/navigation'
+import { siteConfig } from '@/config/site'
+import type { ProfileMode } from '@/lib/mentor-mode/constants'
+
+type AuthenticatedAppShellProps = {
+  children: ReactNode
+  isAuthenticated: boolean
+  hasMentorRole: boolean
+  initialMode: ProfileMode
+}
+
+const PORTAL_PREFIXES = ['/staff', '/sys', '/login', '/signup', '/forgot-password', '/reset-password']
+
+function shouldHideTopBar(pathname: string): boolean {
+  const normalized = pathname.replace(/^\/(ar|en)/, '') || '/'
+  return PORTAL_PREFIXES.some(
+    (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
+  )
+}
+
+/** Single authenticated top bar — ProfileSwitcher integration point (Section 4.1). */
+export function AuthenticatedAppShell({
+  children,
+  isAuthenticated,
+  hasMentorRole,
+  initialMode,
+}: AuthenticatedAppShellProps) {
+  const pathname = usePathname()
+  const showBar = isAuthenticated && !shouldHideTopBar(pathname)
+
+  return (
+    <>
+      {showBar ? (
+        <header className="sticky top-0 z-40 border-b border-jid-line bg-white/95 backdrop-blur-sm">
+          <div className="container-jid flex h-14 items-center justify-between gap-4">
+            <Link href="/" className="font-arabic text-lg font-semibold text-jid-olive">
+              {siteConfig.name}
+            </Link>
+            <ProfileSwitcher hasMentorRole={hasMentorRole} initialMode={initialMode} />
+          </div>
+        </header>
+      ) : null}
+      {children}
+    </>
+  )
+}

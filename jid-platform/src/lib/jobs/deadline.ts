@@ -50,3 +50,11 @@ export function formatDeadlineDaysLabel(daysLeft: number): string {
   if (daysLeft <= 10) return `${daysLeft} أيام متبقية`
   return `${daysLeft} يومًا متبقيًا`
 }
+
+/** Section 10 — full calendar date for aria-label (Riyadh). */
+export function formatDeadlineFullDate(applicationDeadline: string): string {
+  return new Intl.DateTimeFormat('ar-SA', {
+    timeZone: TIMEZONE,
+    dateStyle: 'full',
+  }).format(new Date(applicationDeadline))
+}

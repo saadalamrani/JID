@@ -68,3 +68,86 @@ export type UserApplicationsResult = {
 export function isApplicationStatus(value: string): value is ApplicationStatus {
   return (APPLICATION_STATUSES as readonly string[]).includes(value)
 }
+
+/** Section 5.2 — triage filter tabs. */
+export const TRIAGE_FILTER_TABS = [
+  'all',
+  'under_review',
+  'interview',
+  'accepted',
+  'rejected',
+] as const
+export type TriageFilterTab = (typeof TRIAGE_FILTER_TABS)[number]
+
+export const TRIAGE_FILTER_TAB_LABELS: Record<TriageFilterTab, string> = {
+  all: 'الكل',
+  under_review: 'قيد المراجعة',
+  interview: 'مقابلة',
+  accepted: 'مقبول',
+  rejected: 'مرفوض',
+}
+
+export function triageTabToStatuses(tab: TriageFilterTab): ApplicationStatus[] | null {
+  switch (tab) {
+    case 'all':
+      return null
+    case 'under_review':
+      return ['submitted', 'under_review']
+    case 'interview':
+      return ['invited']
+    case 'accepted':
+      return ['shortlisted']
+    case 'rejected':
+      return ['rejected']
+    default:
+      return null
+  }
+}
+
+export const TRIAGE_BULK_ACTIONS = ['accept', 'reject', 'interview'] as const
+export type TriageBulkAction = (typeof TRIAGE_BULK_ACTIONS)[number]
+
+export function triageActionToStatus(action: TriageBulkAction): ApplicationStatus {
+  switch (action) {
+    case 'accept':
+      return 'shortlisted'
+    case 'reject':
+      return 'rejected'
+    case 'interview':
+      return 'invited'
+  }
+}
+
+export type TriageApplicantProfile = {
+  id: string
+  full_name: string | null
+  headline: string | null
+  avatar_url: string | null
+  /** Section 5.3 spec name — SSOT is profiles.show_profile_to_companies (048). */
+  show_profile_to_recruiters: boolean
+}
+
+export type TriageApplicant = {
+  id: string
+  applicant_id: string
+  status: ApplicationStatus
+  contact_email: string | null
+  submitted_at: string | null
+  last_company_action_at: string | null
+  applicant: TriageApplicantProfile | null
+}
+
+export type JobTriageHeader = {
+  id: string
+  title_ar: string
+  title_en: string | null
+  application_deadline: string
+  daysUntilClose: number
+  applicantCount: number
+  acceptedCount: number
+}
+
+export type JobApplicantsResult = {
+  job: JobTriageHeader
+  applicants: TriageApplicant[]
+}

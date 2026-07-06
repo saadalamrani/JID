@@ -666,5 +666,110 @@
       "saved": "Privacy settings saved",
       "saveFailed": "Could not save privacy settings"
     }
+  },
+  "settings": {
+    "emails": {
+      "title": "Manage email addresses",
+      "subtitle": "Add additional emails for applications and notifications.",
+      "loading": "Loading...",
+      "empty": "No verified email addresses yet.",
+      "primary": "Primary",
+      "addLabel": "New email address",
+      "sendOtp": "Send verification code",
+      "verified": "Email verified",
+      "back": "Back to profile"
+    },
+    "jobPrivacy": {
+      "title": "Job privacy",
+      "subtitle": "Control what recruiters see when you apply to opportunities.",
+      "loading": "Loading...",
+      "showToRecruiters": "Show profile to recruiters",
+      "showToRecruitersHint": "Allows verified companies to open your profile when reviewing your application.",
+      "allowDirectContact": "Allow direct contact",
+      "allowDirectContactHint": "Companies may contact you directly through the platform.",
+      "showApplicationHistory": "Show application history",
+      "showApplicationHistoryHint": "Your past application status is visible when applying again.",
+      "save": "Save",
+      "saved": "Settings saved",
+      "back": "Back to profile"
+    }
+  },
+  "mentorship": {
+    "profileSwitcher": {
+      "groupLabel": "Profile mode",
+      "mentee": "Mentee",
+      "mentor": "Mentor"
+    },
+    "becomeMentor": {
+      "pageTitle": "Become a mentor",
+      "pageSubtitle": "Share your experience and guide job seekers on JID.",
+      "steps": {
+        "professional": "Professional",
+        "expertise": "Expertise",
+        "bio": "Bio",
+        "verification": "Verification",
+        "review": "Review"
+      },
+      "back": "Back",
+      "next": "Next",
+      "submit": "Submit application",
+      "submitting": "Submitting…",
+      "submitSuccess": "Your mentor application was submitted for review.",
+      "submitError": "Could not submit your application.",
+      "expertiseMaxError": "Maximum 5 expertise areas.",
+      "step1": {
+        "title": "Professional information",
+        "subtitle": "Tell us about your current role and experience.",
+        "headline": "Professional headline",
+        "headlinePlaceholder": "e.g. Product leader helping early-career talent",
+        "jobTitle": "Current job title",
+        "jobTitlePlaceholder": "e.g. Senior Product Manager",
+        "company": "Current company",
+        "companyPlaceholder": "e.g. Acme Corp",
+        "yearsExperience": "Years of experience"
+      },
+      "step2": {
+        "title": "Expertise areas",
+        "subtitle": "Add up to 5 areas where you can mentor others.",
+        "areasLabel": "Expertise tags",
+        "areasHint": "Press Enter to add each tag (max 5).",
+        "areasPlaceholder": "e.g. Product management",
+        "addTag": "Add"
+      },
+      "step3": {
+        "title": "Mentor bio",
+        "subtitle": "Write a short bio and choose languages and preferred mediums.",
+        "bioLabel": "Bio",
+        "bioCount": "{count}/500",
+        "bioPlaceholder": "Describe how you mentor and what mentees can expect…",
+        "languagesLabel": "Languages",
+        "languagesHint": "Select all languages you can mentor in.",
+        "mediumsLabel": "Preferred mediums",
+        "mediumsHint": "How do you prefer to meet mentees?"
+      },
+      "step4": {
+        "title": "Verification",
+        "subtitle": "We verify mentors via LinkedIn — no document uploads required.",
+        "noUploadsNote": "File uploads are not required at this stage. Staff may request additional verification later.",
+        "linkedinLabel": "LinkedIn profile URL",
+        "linkedinPlaceholder": "https://www.linkedin.com/in/your-profile"
+      },
+      "step5": {
+        "title": "Review your application",
+        "subtitle": "This is how your mentor card will appear after approval.",
+        "previewStatus": "Pending review",
+        "detailsTitle": "Application details",
+        "currentRole": "Current role",
+        "languages": "Languages",
+        "mediums": "Preferred mediums",
+        "linkedin": "LinkedIn"
+      },
+      "pending": {
+        "title": "Application under review",
+        "body": "Your mentor application has been submitted. Staff will review it and you will be notified when a decision is made.",
+        "statusLabel": "Status: {status}",
+        "submittedAt": "Submitted {date}"
+      }
+    }
   }
 }

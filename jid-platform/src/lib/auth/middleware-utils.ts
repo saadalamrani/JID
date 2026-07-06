@@ -158,11 +158,31 @@ async function buildConditionContext(
 }
 
 async function resolveMentorStatus(
-  _supabase: SupabaseClient<Database>,
-  _userId: string,
+  supabase: SupabaseClient<Database>,
+  userId: string,
 ): Promise<MentorStatus> {
-  // Mentor profiles table arrives in a later sprint; default until then.
-  return 'none'
+  const { data } = await supabase
+    .from('mentor_profiles')
+    .select('status')
+    .eq('user_id', userId)
+    .maybeSingle()
+
+  if (!data?.status) return 'none'
+
+  switch (data.status) {
+    case 'approved':
+      return 'approved'
+    case 'rejected':
+      return 'rejected'
+    case 'suspended':
+      return 'suspended'
+    case 'pending_review':
+    case 'pending':
+    case 'under_review':
+      return 'pending'
+    default:
+      return 'none'
+  }
 }
 
 async function resolveEntityClaimStatus(

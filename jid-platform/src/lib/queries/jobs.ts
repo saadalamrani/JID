@@ -8,6 +8,7 @@ import type {
   JobCardData,
   JobCompanyRef,
   JobDbStatus,
+  JobDetailFetchResult,
   JobFilters,
   JobRegionRef,
   JobsListResult,
@@ -18,6 +19,7 @@ import {
   DEFAULT_JOB_FILTERS,
   JID_PARTNER_BADGE_MIN_SCORE,
   dbStatusToPublicStatus,
+  isJobUuid,
   publicStatusToDbStatus,
 } from '@/types/job'
 import { computeDeadlineDaysLeft } from '@/lib/jobs/deadline'
@@ -59,6 +61,7 @@ type JobListRow = {
   application_deadline: string
   published_at: string | null
   applicant_count: number
+  external_apply_url: string | null
   company: CompanyRow | CompanyRow[]
   sector: SectorRow | SectorRow[]
   region: RegionRow | RegionRow[]
@@ -68,6 +71,7 @@ type JobDetailRow = JobListRow & {
   company_id: string
   description_ar: string | null
   description_en: string | null
+  required_skills: string[] | null
   closed_at: string | null
   view_count: number
   created_at: string
@@ -90,6 +94,7 @@ const JOB_LIST_SELECT = `
   application_deadline,
   published_at,
   applicant_count,
+  external_apply_url,
   company:companies!inner(
     id,
     name,
@@ -112,6 +117,7 @@ const JOB_DETAIL_SELECT = `
   title_en,
   description_ar,
   description_en,
+  required_skills,
   experience_level,
   status,
   city,
@@ -124,6 +130,7 @@ const JOB_DETAIL_SELECT = `
   closed_at,
   applicant_count,
   view_count,
+  external_apply_url,
   created_at,
   updated_at,
   company:companies!inner(
@@ -205,7 +212,8 @@ function mapJobCard(row: JobListRow): JobCardData | null {
     published_at: row.published_at,
     applicant_count: row.applicant_count,
     hasJidPartnerBadge: computeHasJidPartnerBadge(company.commitment_score),
-    applyUrl: company.career_portal_url?.trim() || null,
+    applyUrl:
+      row.external_apply_url?.trim() || company.career_portal_url?.trim() || null,
     company: mapCompanyRef(company),
     sector: mapSectorRef(normalizeEmbed(row.sector)),
     region: mapRegionRef(normalizeEmbed(row.region)),
@@ -221,11 +229,84 @@ function mapJobDetail(row: JobDetailRow): Job | null {
     company_id: row.company_id,
     description_ar: row.description_ar,
     description_en: row.description_en,
+    required_skills: row.required_skills ?? [],
     closed_at: row.closed_at,
     view_count: row.view_count,
     created_at: row.created_at,
     updated_at: row.updated_at,
   }
+}
+
+function isJobPubliclyAvailable(row: JobDetailRow): boolean {
+  const publicStatus = dbStatusToPublicStatus(row.status)
+  if (!publicStatus) return false
+  return new Date(row.application_deadline).getTime() >= Date.now()
+}
+
+async function fetchJobDetailRow(
+  client: UntypedClient,
+  ref: string,
+): Promise<JobDetailRow | null> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let query: any = client.from('jobs').select(JOB_DETAIL_SELECT)
+
+  if (isJobUuid(ref)) {
+    query = query.eq('id', ref)
+  } else {
+    query = query.eq('slug', ref)
+  }
+
+  const { data, error } = await query.maybeSingle()
+  if (error) throw new Error(error.message)
+  if (!data) return null
+  return data as unknown as JobDetailRow
+}
+
+export async function fetchJobDetailByRef(ref: string): Promise<JobDetailFetchResult> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+  const row = await fetchJobDetailRow(client, ref)
+
+  if (!row) {
+    return { kind: 'not_found' }
+  }
+
+  if (!isJobPubliclyAvailable(row)) {
+    return { kind: 'unavailable' }
+  }
+
+  const job = mapJobDetail(row)
+  if (!job) {
+    return { kind: 'unavailable' }
+  }
+
+  return { kind: 'ok', job }
+}
+
+export async function fetchRelatedCompanyJobs(
+  companyId: string,
+  excludeJobId: string,
+  limit = 4,
+): Promise<JobCardData[]> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+  const dbStatuses = resolveDbStatuses(DEFAULT_JOB_FILTERS.status)
+
+  const { data, error } = await client
+    .from('jobs')
+    .select(JOB_LIST_SELECT)
+    .eq('company_id', companyId)
+    .neq('id', excludeJobId)
+    .in('status', dbStatuses)
+    .gte('application_deadline', new Date().toISOString())
+    .order('published_at', { ascending: false, nullsFirst: false })
+    .limit(limit)
+
+  if (error) throw new Error(error.message)
+
+  return ((data ?? []) as unknown as JobListRow[])
+    .map(mapJobCard)
+    .filter((job): job is JobCardData => job !== null)
 }
 
 function resolveDbStatuses(statuses: PublicJobStatus[] | undefined): JobDbStatus[] {
@@ -318,21 +399,6 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
 }
 
 export async function fetchJobById(id: string): Promise<Job | null> {
-  const supabase = await createClient()
-  const client = asUntyped(supabase)
-
-  const dbStatuses = resolveDbStatuses(DEFAULT_JOB_FILTERS.status)
-
-  const { data, error } = await client
-    .from('jobs')
-    .select(JOB_DETAIL_SELECT)
-    .eq('id', id)
-    .in('status', dbStatuses)
-    .gte('application_deadline', new Date().toISOString())
-    .maybeSingle()
-
-  if (error) throw new Error(error.message)
-  if (!data) return null
-
-  return mapJobDetail(data as unknown as JobDetailRow)
+  const result = await fetchJobDetailByRef(id)
+  return result.kind === 'ok' ? result.job : null
 }

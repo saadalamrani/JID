@@ -666,5 +666,110 @@
       "saved": "تم حفظ إعدادات الخصوصية",
       "saveFailed": "تعذّر حفظ إعدادات الخصوصية"
     }
+  },
+  "settings": {
+    "emails": {
+      "title": "إدارة البريد الإلكتروني",
+      "subtitle": "أضف عناوين بريد إضافية للتقديم والإشعارات.",
+      "loading": "جاري التحميل...",
+      "empty": "لا توجد عناوين بريد مُحقَّقة بعد.",
+      "primary": "أساسي",
+      "addLabel": "بريد إلكتروني جديد",
+      "sendOtp": "إرسال رمز التحقق",
+      "verified": "تم التحقق من البريد",
+      "back": "العودة للملف"
+    },
+    "jobPrivacy": {
+      "title": "خصوصية التوظيف",
+      "subtitle": "تحكّم بما تراه جهات التوظيف عند التقديم على الفرص.",
+      "loading": "جاري التحميل...",
+      "showToRecruiters": "إظهار الملف لجهات التوظيف",
+      "showToRecruitersHint": "يسمح للشركات الموثّقة بفتح ملفك عند مراجعة طلبك.",
+      "allowDirectContact": "السماح بالتواصل المباشر",
+      "allowDirectContactHint": "يمكن للشركات التواصل معك مباشرة عبر المنصة.",
+      "showApplicationHistory": "إظهار سجل التقديمات",
+      "showApplicationHistoryHint": "تظهر حالة طلباتك السابقة للجهة عند التقديم مجدداً.",
+      "save": "حفظ",
+      "saved": "تم حفظ الإعدادات",
+      "back": "العودة للملف"
+    }
+  },
+  "mentorship": {
+    "profileSwitcher": {
+      "groupLabel": "وضع الملف",
+      "mentee": "باحث",
+      "mentor": "مرشد"
+    },
+    "becomeMentor": {
+      "pageTitle": "التقديم كمرشد",
+      "pageSubtitle": "شارك خبرتك وساعد الباحثين عن عمل على منصة جِد.",
+      "steps": {
+        "professional": "المهني",
+        "expertise": "الخبرات",
+        "bio": "النبذة",
+        "verification": "التحقق",
+        "review": "المراجعة"
+      },
+      "back": "رجوع",
+      "next": "التالي",
+      "submit": "إرسال الطلب",
+      "submitting": "جارٍ الإرسال…",
+      "submitSuccess": "تم إرسال طلب المرشد للمراجعة.",
+      "submitError": "تعذّر إرسال الطلب.",
+      "expertiseMaxError": "الحد الأقصى 5 مجالات خبرة.",
+      "step1": {
+        "title": "المعلومات المهنية",
+        "subtitle": "أخبرنا عن دورك الحالي وخبرتك.",
+        "headline": "العنوان المهني",
+        "headlinePlaceholder": "مثال: قائد منتجات يساعد المبتدئين",
+        "jobTitle": "المسمى الوظيفي الحالي",
+        "jobTitlePlaceholder": "مثال: مدير منتجات أول",
+        "company": "الشركة الحالية",
+        "companyPlaceholder": "مثال: شركة أكمي",
+        "yearsExperience": "سنوات الخبرة"
+      },
+      "step2": {
+        "title": "مجالات الخبرة",
+        "subtitle": "أضف حتى 5 مجالات يمكنك الإرشاد فيها.",
+        "areasLabel": "وسوم الخبرة",
+        "areasHint": "اضغط Enter لإضافة كل وسم (حد أقصى 5).",
+        "areasPlaceholder": "مثال: إدارة المنتجات",
+        "addTag": "إضافة"
+      },
+      "step3": {
+        "title": "نبذة المرشد",
+        "subtitle": "اكتب نبذة قصيرة واختر اللغات ووسائل التواصل المفضلة.",
+        "bioLabel": "النبذة",
+        "bioCount": "{count}/500",
+        "bioPlaceholder": "صف أسلوب إرشادك وما يمكن للباحثين توقعه…",
+        "languagesLabel": "اللغات",
+        "languagesHint": "اختر كل اللغات التي يمكنك الإرشاد بها.",
+        "mediumsLabel": "وسائل التواصل المفضلة",
+        "mediumsHint": "كيف تفضل التواصل مع الباحثين؟"
+      },
+      "step4": {
+        "title": "التحقق",
+        "subtitle": "نتحقق من المرشدين عبر LinkedIn — لا حاجة لرفع ملفات.",
+        "noUploadsNote": "لا يلزم رفع ملفات في هذه المرحلة. قد يطلب الفريق تحققاً إضافياً لاحقاً.",
+        "linkedinLabel": "رابط ملف LinkedIn",
+        "linkedinPlaceholder": "https://www.linkedin.com/in/your-profile"
+      },
+      "step5": {
+        "title": "مراجعة الطلب",
+        "subtitle": "هكذا سيظهر ملفك كمرشد بعد الموافقة.",
+        "previewStatus": "قيد المراجعة",
+        "detailsTitle": "تفاصيل الطلب",
+        "currentRole": "الدور الحالي",
+        "languages": "اللغات",
+        "mediums": "وسائل التواصل",
+        "linkedin": "LinkedIn"
+      },
+      "pending": {
+        "title": "الطلب قيد المراجعة",
+        "body": "تم إرسال طلب المرشد. سيراجعه الفريق وسيصلك إشعار عند اتخاذ القرار.",
+        "statusLabel": "الحالة: {status}",
+        "submittedAt": "أُرسل {date}"
+      }
+    }
   }
 }

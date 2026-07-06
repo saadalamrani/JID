@@ -69,6 +69,8 @@ async function main() {
       slug,
       title_ar: fixture.title,
       title_en: `Deadline fixture ${fixture.days}d`,
+      description_ar: `وصف اختبار للفرصة بموعد نهائي خلال ${fixture.days} يومًا.`,
+      required_skills: ['التواصل', 'إكسل', 'العمل الجماعي'],
       experience_level: fixture.level,
       status: fixture.days <= 3 ? 'closing_soon' : 'published',
       sector_id: sector?.id ?? null,

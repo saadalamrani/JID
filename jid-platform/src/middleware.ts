@@ -48,7 +48,7 @@ function conditionRedirectPath(failed: string): string {
     case 'phone_verified':
       return '/settings/verify-phone'
     case 'mentor_status':
-      return '/mentor/apply'
+      return '/settings/become-mentor'
     case 'entity_claim_status':
       return '/company/pending-review'
     default:

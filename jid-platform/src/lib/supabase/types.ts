@@ -697,6 +697,493 @@ export type Database = {
           },
         ]
       }
+      conversations: {
+        Row: {
+          created_at: string
+          id: string
+          last_message_at: string | null
+          mentee_id: string
+          mentor_id: string
+          mentorship_request_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          mentee_id: string
+          mentor_id: string
+          mentorship_request_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_message_at?: string | null
+          mentee_id?: string
+          mentor_id?: string
+          mentorship_request_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'conversations_mentee_id_fkey'
+            columns: ['mentee_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'conversations_mentor_id_fkey'
+            columns: ['mentor_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'conversations_mentorship_request_id_fkey'
+            columns: ['mentorship_request_id']
+            isOneToOne: true
+            referencedRelation: 'mentorship_requests'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      mentor_notification_requests: {
+        Row: {
+          created_at: string
+          id: string
+          mentor_id: string
+          notified_at: string | null
+          requester_id: string
+          status: Database['public']['Enums']['mentor_notification_status_enum']
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          mentor_id: string
+          notified_at?: string | null
+          requester_id: string
+          status?: Database['public']['Enums']['mentor_notification_status_enum']
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          mentor_id?: string
+          notified_at?: string | null
+          requester_id?: string
+          status?: Database['public']['Enums']['mentor_notification_status_enum']
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_notification_requests_mentor_id_fkey'
+            columns: ['mentor_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mentor_notification_requests_requester_id_fkey'
+            columns: ['requester_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      mentor_profiles: {
+        Row: {
+          active_workshop: Json | null
+          application_message: string | null
+          application_submitted_at: string | null
+          avg_response_hours: number | null
+          bio_long: string | null
+          bio_short: string | null
+          career_history: Json
+          created_at: string
+          expertise_areas: string[]
+          expertise_sectors: string[]
+          headline: string | null
+          is_accepting_requests: boolean
+          languages: string[]
+          linkedin_url: string | null
+          max_active_mentees: number
+          preferred_mediums: string[]
+          rating_avg: number | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          sessions_count: number
+          slug: string | null
+          status: string
+          updated_at: string
+          user_id: string
+          years_experience: number | null
+        }
+        Insert: {
+          active_workshop?: Json | null
+          application_message?: string | null
+          application_submitted_at?: string | null
+          avg_response_hours?: number | null
+          bio_long?: string | null
+          bio_short?: string | null
+          career_history?: Json
+          created_at?: string
+          expertise_areas?: string[]
+          expertise_sectors?: string[]
+          headline?: string | null
+          is_accepting_requests?: boolean
+          languages?: string[]
+          linkedin_url?: string | null
+          max_active_mentees?: number
+          preferred_mediums?: string[]
+          rating_avg?: number | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sessions_count?: number
+          slug?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+          years_experience?: number | null
+        }
+        Update: {
+          active_workshop?: Json | null
+          application_message?: string | null
+          application_submitted_at?: string | null
+          avg_response_hours?: number | null
+          bio_long?: string | null
+          bio_short?: string | null
+          career_history?: Json
+          created_at?: string
+          expertise_areas?: string[]
+          expertise_sectors?: string[]
+          headline?: string | null
+          is_accepting_requests?: boolean
+          languages?: string[]
+          linkedin_url?: string | null
+          max_active_mentees?: number
+          preferred_mediums?: string[]
+          rating_avg?: number | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          sessions_count?: number
+          slug?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+          years_experience?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_profiles_reviewed_by_fkey'
+            columns: ['reviewed_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mentor_profiles_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: true
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      mentor_workshops: {
+        Row: {
+          capacity: number
+          created_at: string
+          description: string | null
+          external_url: string | null
+          id: string
+          mentor_id: string
+          scheduled_at: string | null
+          spots_remaining: number
+          status: Database['public']['Enums']['mentor_workshop_status_enum']
+          title: string
+          title_ar: string | null
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number
+          created_at?: string
+          description?: string | null
+          external_url?: string | null
+          id?: string
+          mentor_id: string
+          scheduled_at?: string | null
+          spots_remaining?: number
+          status?: Database['public']['Enums']['mentor_workshop_status_enum']
+          title: string
+          title_ar?: string | null
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number
+          created_at?: string
+          description?: string | null
+          external_url?: string | null
+          id?: string
+          mentor_id?: string
+          scheduled_at?: string | null
+          spots_remaining?: number
+          status?: Database['public']['Enums']['mentor_workshop_status_enum']
+          title?: string
+          title_ar?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_workshops_mentor_id_fkey'
+            columns: ['mentor_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      mentorship_meetings: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          duration_minutes: number | null
+          id: string
+          meeting_url: string | null
+          mentee_id: string
+          mentor_id: string
+          notes: string | null
+          request_id: string | null
+          scheduled_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          meeting_url?: string | null
+          mentee_id: string
+          mentor_id: string
+          notes?: string | null
+          request_id?: string | null
+          scheduled_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          meeting_url?: string | null
+          mentee_id?: string
+          mentor_id?: string
+          notes?: string | null
+          request_id?: string | null
+          scheduled_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'mentorship_meetings_mentee_id_fkey'
+            columns: ['mentee_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mentorship_meetings_mentor_id_fkey'
+            columns: ['mentor_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mentorship_meetings_request_id_fkey'
+            columns: ['request_id']
+            isOneToOne: false
+            referencedRelation: 'mentorship_requests'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      mentorship_requests: {
+        Row: {
+          conversation_id: string | null
+          created_at: string
+          expires_at: string | null
+          focus_area: string | null
+          id: string
+          mentee_id: string
+          mentor_id: string
+          message: string | null
+          responded_at: string | null
+          status: Database['public']['Enums']['mentorship_request_status_enum']
+          updated_at: string
+        }
+        Insert: {
+          conversation_id?: string | null
+          created_at?: string
+          expires_at?: string | null
+          focus_area?: string | null
+          id?: string
+          mentee_id: string
+          mentor_id: string
+          message?: string | null
+          responded_at?: string | null
+          status?: Database['public']['Enums']['mentorship_request_status_enum']
+          updated_at?: string
+        }
+        Update: {
+          conversation_id?: string | null
+          created_at?: string
+          expires_at?: string | null
+          focus_area?: string | null
+          id?: string
+          mentee_id?: string
+          mentor_id?: string
+          message?: string | null
+          responded_at?: string | null
+          status?: Database['public']['Enums']['mentorship_request_status_enum']
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'mentorship_requests_conversation_id_fkey'
+            columns: ['conversation_id']
+            isOneToOne: false
+            referencedRelation: 'conversations'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mentorship_requests_mentee_id_fkey'
+            columns: ['mentee_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mentorship_requests_mentor_id_fkey'
+            columns: ['mentor_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          ciphertext: string
+          conversation_id: string
+          created_at: string
+          id: string
+          nonce: string
+          sender_id: string
+        }
+        Insert: {
+          ciphertext: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          nonce: string
+          sender_id: string
+        }
+        Update: {
+          ciphertext?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          nonce?: string
+          sender_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'messages_conversation_id_fkey'
+            columns: ['conversation_id']
+            isOneToOne: false
+            referencedRelation: 'conversations'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'messages_sender_id_fkey'
+            columns: ['sender_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      radar_items: {
+        Row: {
+          column_name: string | null
+          created_at: string | null
+          id: string
+          reference_id: string | null
+          scheduled_for: string | null
+          status: string | null
+          type: string
+          user_id: string | null
+        }
+        Insert: {
+          column_name?: string | null
+          created_at?: string | null
+          id?: string
+          reference_id?: string | null
+          scheduled_for?: string | null
+          status?: string | null
+          type: string
+          user_id?: string | null
+        }
+        Update: {
+          column_name?: string | null
+          created_at?: string | null
+          id?: string
+          reference_id?: string | null
+          scheduled_for?: string | null
+          status?: string | null
+          type?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_encryption_keys: {
+        Row: {
+          created_at: string
+          key_version: number
+          public_key: string
+          rotated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          key_version?: number
+          public_key: string
+          rotated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          key_version?: number
+          public_key?: string
+          rotated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'user_encryption_keys_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: true
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       regions: {
         Row: {
           created_at: string
@@ -783,6 +1270,10 @@ export type Database = {
     }
     Views: Record<string, never>
     Functions: {
+      check_email_otp_rate_limit: {
+        Args: { p_email: string; p_user_id: string }
+        Returns: undefined
+      }
       check_otp_rate_limit: {
         Args: { p_phone: string; p_user_id: string }
         Returns: undefined
@@ -800,6 +1291,22 @@ export type Database = {
         Returns: number
       }
       expire_stale_applications: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      expire_stale_mentorship_requests: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      enqueue_mentor_pending_request_radar: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      is_mentorship_staff: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      process_due_radar_items: {
         Args: Record<PropertyKey, never>
         Returns: number
       }
@@ -885,8 +1392,22 @@ export type Database = {
         | 'cancelled'
       claim_type_enum: 'company' | 'university'
       experience_level_enum: 'intern' | 'entry' | 'mid' | 'senior' | 'lead' | 'executive'
-      job_status_enum: 'draft' | 'published' | 'closing_soon' | 'closed' | 'expired'
+      job_status_enum:
+        | 'draft'
+        | 'published'
+        | 'closing_soon'
+        | 'closed'
+        | 'expired'
+        | 'pending_review'
       link_status_enum: 'healthy' | 'broken' | 'pending'
+      mentor_notification_status_enum: 'pending' | 'sent' | 'dismissed'
+      mentor_workshop_status_enum: 'draft' | 'published' | 'completed' | 'cancelled'
+      mentorship_request_status_enum:
+        | 'pending'
+        | 'accepted'
+        | 'declined'
+        | 'cancelled'
+        | 'expired'
       ownership_enum: 'government' | 'semi_government' | 'private'
       user_role_enum:
         | 'individual'

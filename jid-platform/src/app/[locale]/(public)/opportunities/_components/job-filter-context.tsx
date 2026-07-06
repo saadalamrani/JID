@@ -4,10 +4,13 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react'
+import { track } from '@/lib/analytics/track'
 import { useJobsQuery } from '@/lib/hooks/use-jobs-query'
 import { useCatalogRegions, useCatalogSectors } from '@/hooks/use-catalog-metadata'
 import type { CatalogRegionRef, CatalogSectorRef, OwnershipType } from '@/types/catalog'
@@ -68,6 +71,22 @@ export function JobFilterProvider({ children, initialData }: JobFilterProviderPr
 
   const jobs = data?.jobs ?? []
   const resultCount = data?.count ?? initialData?.count ?? 0
+
+  const filterTrackReady = useRef(false)
+  useEffect(() => {
+    if (!filterTrackReady.current) {
+      filterTrackReady.current = true
+      return
+    }
+    track('job_filter_applied', {
+      experience_chips: filters.experienceChips,
+      ownership: filters.ownership,
+      regions: filters.regions,
+      sectors: filters.sectors,
+      urgency: filters.urgency,
+      result_count: resultCount,
+    })
+  }, [filters, resultCount])
 
   const toggleInList = useCallback(<T,>(list: T[], value: T): T[] => {
     return list.includes(value) ? list.filter((item) => item !== value) : [...list, value]

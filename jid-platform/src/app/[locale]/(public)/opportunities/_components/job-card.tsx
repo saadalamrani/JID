@@ -17,9 +17,11 @@ type JobCardProps = {
   job: JobCardData
   locale?: 'ar' | 'en'
   className?: string
+  /** Section 6.4 — wizard preview: no navigation overlay, static CTA. */
+  previewMode?: boolean
 }
 
-export function JobCard({ job, locale = 'ar', className }: JobCardProps) {
+export function JobCard({ job, locale = 'ar', className, previewMode = false }: JobCardProps) {
   const title = job.title_ar || job.title_en || '—'
   const companyName = job.company.name_ar || job.company.name_en
   const sectorLabel = job.sector?.name_ar ?? job.sector?.name_en
@@ -34,18 +36,21 @@ export function JobCard({ job, locale = 'ar', className }: JobCardProps) {
     <article
       role="listitem"
       className={cn(
-        'relative flex min-h-[300px] flex-col rounded-xl border border-jid-line/40 bg-white p-4 shadow-sm transition-shadow hover:shadow-md',
+        'relative flex min-h-[300px] flex-col rounded-xl border border-jid-line/40 bg-white p-4 shadow-sm',
+        !previewMode && 'transition-shadow hover:shadow-md',
         className,
       )}
     >
-      <LocaleLink
-        href={detailHref}
-        className={cn(
-          'absolute inset-0 z-10 rounded-xl',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2',
-        )}
-        aria-label={`عرض تفاصيل ${title}`}
-      />
+      {!previewMode ? (
+        <LocaleLink
+          href={detailHref}
+          className={cn(
+            'absolute inset-0 z-10 rounded-xl',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2',
+          )}
+          aria-label={`عرض تفاصيل ${title}`}
+        />
+      ) : null}
 
       <header className="relative z-20 flex items-start gap-3 pointer-events-none">
         <CompanyLogo name={companyName} logoUrl={job.company.logo_url} />
@@ -81,13 +86,26 @@ export function JobCard({ job, locale = 'ar', className }: JobCardProps) {
         </span>
       </p>
 
-      <div className="relative z-30 mt-auto pt-4 pointer-events-auto">
-        <JobActionButton
-          jobId={job.id}
-          jobTitle={title}
-          companyName={companyName}
-          applyUrl={job.applyUrl}
-        />
+      <div className={cn('relative z-30 mt-auto pt-4', previewMode ? 'pointer-events-none' : 'pointer-events-auto')}>
+        {previewMode ? (
+          <span
+            className={cn(
+              'inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5',
+              'font-arabic text-sm font-medium',
+              'bg-jid-line/30 text-jid-ink-500',
+            )}
+            aria-hidden
+          >
+            التقديم على موقع الجهة
+          </span>
+        ) : (
+          <JobActionButton
+            jobId={job.id}
+            jobTitle={title}
+            companyName={companyName}
+            applyUrl={job.applyUrl}
+          />
+        )}
       </div>
     </article>
   )

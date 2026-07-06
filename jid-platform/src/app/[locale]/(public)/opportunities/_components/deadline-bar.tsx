@@ -5,6 +5,7 @@ import { differenceInDays } from 'date-fns'
 import { useEffect, useState } from 'react'
 import {
   formatDeadlineDaysLabel,
+  formatDeadlineFullDate,
   resolveDeadlineUrgencyTier,
   type DeadlineUrgencyTier,
 } from '@/lib/jobs/deadline'
@@ -16,6 +17,7 @@ type DeadlineBarProps = {
   daysLeft: number
   applicationDeadline: string
   className?: string
+  size?: 'compact' | 'large'
 }
 
 const TIER_STYLES: Record<
@@ -66,7 +68,12 @@ function clientDaysLeft(applicationDeadline: string): number {
 }
 
 /** Section 4.4 — deadline urgency bar; tier seeded from server, ticks client-side. */
-export function DeadlineBar({ daysLeft, applicationDeadline, className }: DeadlineBarProps) {
+export function DeadlineBar({
+  daysLeft,
+  applicationDeadline,
+  className,
+  size = 'compact',
+}: DeadlineBarProps) {
   const [displayDaysLeft, setDisplayDaysLeft] = useState(daysLeft)
 
   useEffect(() => {
@@ -83,11 +90,13 @@ export function DeadlineBar({ daysLeft, applicationDeadline, className }: Deadli
   const tier = resolveDeadlineUrgencyTier(displayDaysLeft)
   const styles = TIER_STYLES[tier]
   const label = formatDeadlineDaysLabel(displayDaysLeft)
+  const fullDate = formatDeadlineFullDate(applicationDeadline)
 
   return (
     <div
       className={cn(
-        'flex items-center gap-2 rounded-lg px-3 py-2 font-arabic text-xs font-medium',
+        'flex items-center gap-2 rounded-lg font-arabic font-medium',
+        size === 'large' ? 'px-5 py-4 text-base' : 'px-3 py-2 text-xs',
         styles.bar,
         styles.text,
         styles.pulse && 'animate-pulse',
@@ -95,9 +104,12 @@ export function DeadlineBar({ daysLeft, applicationDeadline, className }: Deadli
       )}
       role="status"
       aria-live="polite"
-      aria-label={`الموعد النهائي: ${label}`}
+      aria-label={`الموعد النهائي: ${fullDate} — ${label}`}
     >
-      <CalendarClock className="h-3.5 w-3.5 shrink-0" aria-hidden />
+      <CalendarClock
+        className={cn('shrink-0', size === 'large' ? 'h-6 w-6' : 'h-3.5 w-3.5')}
+        aria-hidden
+      />
       <span>{label}</span>
     </div>
   )

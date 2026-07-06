@@ -1,5 +1,6 @@
 import { LocaleHtmlAttributes } from '@/components/providers/locale-html-attributes'
 import { QueryProvider } from '@/components/providers/query-provider'
+import { AuthenticatedShellServer } from '@/components/shared/authenticated-shell-server'
 import { Toaster } from '@/components/ui/sonner'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { routing } from '@/lib/i18n/routing'
@@ -33,9 +34,11 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <NextIntlClientProvider messages={messages}>
       <LocaleHtmlAttributes locale={locale as Locale} />
       <QueryProvider>
-        <div dir={localeConfig.direction[locale as Locale]} className="min-h-screen">
-          {children}
-        </div>
+        <AuthenticatedShellServer>
+          <div dir={localeConfig.direction[locale as Locale]} className="min-h-screen">
+            {children}
+          </div>
+        </AuthenticatedShellServer>
         <Toaster richColors closeButton position={locale === 'ar' ? 'top-left' : 'top-right'} />
       </QueryProvider>
     </NextIntlClientProvider>

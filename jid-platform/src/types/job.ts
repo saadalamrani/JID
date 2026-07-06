@@ -11,6 +11,7 @@ export const JOB_DB_STATUSES = [
   'closing_soon',
   'closed',
   'expired',
+  'pending_review',
 ] as const
 export type JobDbStatus = (typeof JOB_DB_STATUSES)[number]
 
@@ -94,6 +95,7 @@ export type Job = {
   title_en: string | null
   description_ar: string | null
   description_en: string | null
+  required_skills: string[]
   experience_level: ExperienceLevel
   status: PublicJobStatus
   city: string | null
@@ -104,6 +106,7 @@ export type Job = {
   application_deadline: string
   published_at: string | null
   closed_at: string | null
+  deadlineDaysLeft: number
   applicant_count: number
   view_count: number
   hasJidPartnerBadge: boolean
@@ -190,6 +193,18 @@ export type JobsListResult = {
   count: number
   page: number
   limit: number
+}
+
+export type JobDetailFetchResult =
+  | { kind: 'ok'; job: Job }
+  | { kind: 'unavailable' }
+  | { kind: 'not_found' }
+
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+
+export function isJobUuid(value: string): boolean {
+  return UUID_RE.test(value)
 }
 
 export function isExperienceLevel(value: string): value is ExperienceLevel {

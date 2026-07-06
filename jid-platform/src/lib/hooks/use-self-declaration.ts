@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type MouseEvent } from 'react'
+import { track } from '@/lib/analytics/track'
 import { useRouter } from '@/lib/i18n/navigation'
 import { createClient } from '@/lib/supabase/client'
 import {
@@ -16,14 +17,23 @@ export const SELF_DECLARATION_FALLBACK_MS = 10_000
 type UseSelfDeclarationOptions = {
   jobId: string
   applyUrl: string | null
+  initialDeclared?: boolean
+  initialPrimaryEmail?: string | null
 }
 
-export function useSelfDeclaration({ jobId, applyUrl }: UseSelfDeclarationOptions) {
+export function useSelfDeclaration({
+  jobId,
+  applyUrl,
+  initialDeclared = false,
+  initialPrimaryEmail = null,
+}: UseSelfDeclarationOptions) {
   const router = useRouter()
-  const [state, setState] = useState<SelfDeclarationState>('not_applied')
+  const [state, setState] = useState<SelfDeclarationState>(
+    initialDeclared ? 'declared' : 'not_applied',
+  )
   const [showInterceptor, setShowInterceptor] = useState(false)
   const [showFallback, setShowFallback] = useState(false)
-  const [primaryEmail, setPrimaryEmail] = useState<string | null>(null)
+  const [primaryEmail, setPrimaryEmail] = useState<string | null>(initialPrimaryEmail)
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
   const [declareError, setDeclareError] = useState<string | null>(null)
   const stateRef = useRef<SelfDeclarationState>(state)
@@ -49,9 +59,11 @@ export function useSelfDeclaration({ jobId, applyUrl }: UseSelfDeclarationOption
       try {
         const status = await fetchJobDeclarationStatus(jobId)
         if (cancelled) return
-        setPrimaryEmail(status.primaryEmail)
+        setPrimaryEmail(status.primaryEmail ?? initialPrimaryEmail)
         if (status.declared) {
           setState('declared')
+        } else if (!initialDeclared) {
+          setState('not_applied')
         }
       } catch {
         // Anonymous or transient errors keep default not_applied.
@@ -63,7 +75,7 @@ export function useSelfDeclaration({ jobId, applyUrl }: UseSelfDeclarationOption
     return () => {
       cancelled = true
     }
-  }, [jobId])
+  }, [jobId, initialDeclared, initialPrimaryEmail])
 
   useEffect(() => {
     const onVisibilityChange = () => {
@@ -91,14 +103,15 @@ export function useSelfDeclaration({ jobId, applyUrl }: UseSelfDeclarationOption
 
   const openInterceptor = useCallback(() => {
     setShowInterceptor(true)
-  }, [])
+    track('job_interceptor_shown', { job_id: jobId })
+  }, [jobId])
 
   const closeInterceptor = useCallback(() => {
     setShowInterceptor(false)
   }, [])
 
   const handleApplyClick = useCallback(
-    async (event: React.MouseEvent<HTMLButtonElement>) => {
+    async (event: MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
 
       if (state === 'declared' || state === 'in_progress') return
@@ -114,6 +127,8 @@ export function useSelfDeclaration({ jobId, applyUrl }: UseSelfDeclarationOption
         // Intent is best-effort analytics — never block the apply flow.
       })
 
+      track('job_apply_clicked', { job_id: jobId })
+
       window.open(applyUrl, '_blank', 'noopener,noreferrer')
       setState('just_clicked')
       setDeclareError(null)
@@ -122,7 +137,7 @@ export function useSelfDeclaration({ jobId, applyUrl }: UseSelfDeclarationOption
   )
 
   const handleFallbackClick = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
+    (event: MouseEvent<HTMLButtonElement>) => {
       event.stopPropagation()
       openInterceptor()
     },
@@ -139,6 +154,7 @@ export function useSelfDeclaration({ jobId, applyUrl }: UseSelfDeclarationOption
         setState('declared')
         setShowInterceptor(false)
         setShowFallback(false)
+        track('job_self_declared', { job_id: jobId })
         return
       }
       setState('just_clicked')

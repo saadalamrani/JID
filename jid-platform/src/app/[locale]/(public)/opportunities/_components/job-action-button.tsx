@@ -10,6 +10,8 @@ type JobActionButtonProps = {
   jobTitle: string
   companyName: string
   applyUrl: string | null
+  initialDeclared?: boolean
+  initialPrimaryEmail?: string | null
   className?: string
 }
 
@@ -19,6 +21,8 @@ export function JobActionButton({
   jobTitle,
   companyName,
   applyUrl,
+  initialDeclared = false,
+  initialPrimaryEmail = null,
   className,
 }: JobActionButtonProps) {
   const {
@@ -31,7 +35,12 @@ export function JobActionButton({
     handleFallbackClick,
     handleConfirmDeclaration,
     closeInterceptor,
-  } = useSelfDeclaration({ jobId, applyUrl })
+  } = useSelfDeclaration({
+    jobId,
+    applyUrl,
+    initialDeclared,
+    initialPrimaryEmail,
+  })
 
   if (state === 'declared') {
     return (

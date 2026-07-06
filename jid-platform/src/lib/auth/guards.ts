@@ -94,6 +94,17 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
 
   // ── Company / university entity portals ─────────────────────────────────────
   {
+    id: 'company-jobs-applicants',
+    pattern: new RegExp(`^${L}/jobs/[^/]+/applicants(?:/|$)`),
+    allowedRoles: ['entity', 'company_admin', 'staff', 'admin', 'super_admin'],
+  },
+  {
+    id: 'company-jobs-new',
+    pattern: new RegExp(`^${L}/jobs/new(?:/|$)`),
+    allowedRoles: ['entity', 'company_admin'],
+    conditions: ['entity_claim_status'],
+  },
+  {
     id: 'company-portal',
     pattern: new RegExp(`^${L}/company(?:/|$)`),
     allowedRoles: ['entity', 'company_admin'],
@@ -107,6 +118,21 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   },
 
   // ── Individual profile owner (before /me portal) ────────────────────────────
+  {
+    id: 'individual-settings-become-mentor',
+    pattern: new RegExp(`^${L}/settings/become-mentor(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+  {
+    id: 'individual-settings-emails',
+    pattern: new RegExp(`^${L}/settings/emails(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+  {
+    id: 'individual-settings-job-privacy',
+    pattern: new RegExp(`^${L}/settings/job-privacy(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
   {
     id: 'individual-profile',
     pattern: new RegExp(`^${L}/profile(?:/|$)`),
