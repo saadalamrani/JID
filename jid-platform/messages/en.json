@@ -435,9 +435,236 @@
     }
   },
   "sys": {
+    "login": {
+      "title": "Super admin sign in",
+      "subtitle": "Platform control — authorized personnel only",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "sessionExpired": "Your session expired after 2 hours. Sign in again.",
+      "errors": {
+        "generic": "Invalid credentials or access denied",
+        "suspended": "This account is suspended"
+      }
+    },
+    "mfa": {
+      "title": "Two-factor verification",
+      "subtitle": "Enter the code from your authenticator app",
+      "setupTitle": "Set up two-factor authentication",
+      "setupSubtitle": "Required before accessing the super admin portal",
+      "loading": "Loading…",
+      "verify": "Verify",
+      "verifying": "Verifying…",
+      "errors": {
+        "noFactor": "No authenticator found — set one up first",
+        "verifyFailed": "Invalid code — try again"
+      }
+    },
+    "shell": {
+      "loading": "Loading platform console…",
+      "errorTitle": "Something went wrong",
+      "error": "The platform console could not load this page.",
+      "retry": "Try again",
+      "backToDashboard": "Back to dashboard"
+    },
+    "nav": {
+      "portalLabel": "Platform console",
+      "ariaLabel": "Super admin navigation",
+      "dangerBadge": "Danger",
+      "sections": {
+        "overview": "Overview",
+        "operations": "Operations",
+        "internal": "Internal",
+        "governance": "Governance",
+        "danger": "Critical"
+      },
+      "items": {
+        "dashboard": "Dashboard",
+        "users": "Users",
+        "entities": "Entities",
+        "claims": "Claims queue",
+        "staff": "Staff",
+        "audit": "Audit log",
+        "flags": "Feature flags",
+        "config": "Configuration",
+        "emergency": "Emergency"
+      }
+    },
+    "topbar": {
+      "unnamed": "Super admin",
+      "roleLabel": "Super admin",
+      "sessionWarning": "Session expires in {time}",
+      "maintenanceActive": "Kill switch active — maintenance mode enabled",
+      "searchPlaceholder": "Search or jump to…",
+      "searchShortcut": "⌘K"
+    },
+    "commandPalette": {
+      "placeholder": "Search users, entities, or actions…",
+      "quickActions": "Quick Actions",
+      "searching": "Searching…",
+      "noResults": "No results found",
+      "groups": {
+        "users": "Users",
+        "entities": "Entities"
+      },
+      "actions": {
+        "dashboard": "Go to dashboard",
+        "users": "Manage users",
+        "entities": "Manage entities",
+        "claims": "Open claims queue",
+        "inviteStaff": "Invite staff member",
+        "audit": "View audit log",
+        "emergency": "Emergency console"
+      }
+    },
+    "flags": {
+      "title": "Feature flags",
+      "subtitle": "Three-layer toggles — global, role, and per-user overrides",
+      "categories": {
+        "modules": "Product modules",
+        "platform": "Platform controls",
+        "pulse": "Pulse experiments"
+      },
+      "row": {
+        "toggleAria": "Toggle {key} globally",
+        "settingsAria": "Configure overrides for {key}",
+        "enableTitle": "Enable {key}",
+        "disableTitle": "Disable {key}",
+        "toggleDescription": "This changes the global kill switch. A reason is required and will be written to the audit log."
+      },
+      "confirm": {
+        "reasonLabel": "Reason (required)",
+        "reasonPlaceholder": "Why is this change being made?",
+        "reasonRequired": "Reason is required for this action",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "failed": "Action failed"
+      },
+      "detail": {
+        "back": "Back to feature flags",
+        "layer1Title": "Layer 1 — Global",
+        "layer1Hint": "Master on/off switch for this feature",
+        "layer2Title": "Layer 2 — Roles",
+        "layer2Hint": "When set, only checked roles receive the feature (overrides global unless a user override exists)",
+        "layer3Title": "Layer 3 — User overrides",
+        "layer3Hint": "Explicit per-user enable/disable — highest precedence",
+        "globalToggleAria": "Global feature toggle",
+        "enabled": "Enabled",
+        "disabled": "Disabled",
+        "saveRoles": "Save role overrides",
+        "saveRolesTitle": "Update role overrides",
+        "confirmGlobal": "Confirm the global toggle change.",
+        "confirmRoles": "Confirm the role override list change.",
+        "confirmAddUser": "Confirm adding or updating this user override.",
+        "confirmRemoveUser": "Confirm removing this user override.",
+        "enableTitle": "Enable globally",
+        "disableTitle": "Disable globally",
+        "addUserTitle": "Add user override",
+        "removeUserTitle": "Remove user override",
+        "userSearchLabel": "User email or ID",
+        "userSearchPlaceholder": "user@example.com or UUID",
+        "userOverrideValueAria": "Override value",
+        "forceEnable": "Force enable",
+        "forceDisable": "Force disable",
+        "addOverride": "Add override",
+        "removeOverride": "Remove",
+        "unnamedUser": "Unnamed user",
+        "saved": "Changes saved",
+        "table": {
+          "user": "User",
+          "override": "Override",
+          "actions": "Actions",
+          "empty": "No user overrides"
+        },
+        "roles": {
+          "individual": "Individual",
+          "entity": "Entity",
+          "company_admin": "Company admin",
+          "university_admin": "University admin",
+          "staff": "Staff",
+          "admin": "Admin",
+          "super_admin": "Super admin"
+        }
+      }
+    },
     "dashboard": {
       "title": "Super admin dashboard",
-      "subtitle": "Platform and internal team management",
+      "subtitle": "Platform health, operations queue, and recent activity",
+      "metrics": {
+        "sectionLabel": "Platform metrics",
+        "lastRefreshed": "Last refreshed {time}",
+        "cards": {
+          "total_users": {
+            "label": "Total users",
+            "hint": "All registered profiles"
+          },
+          "active_sessions_now": {
+            "label": "Active sessions",
+            "hint": "Non-revoked sessions right now"
+          },
+          "pending_claims": {
+            "label": "Pending claims",
+            "hint": "Awaiting staff review"
+          },
+          "overdue_claims": {
+            "label": "Overdue claims",
+            "hint": "Past 72h SLA window"
+          },
+          "audit_events_24h": {
+            "label": "Audit events (24h)",
+            "hint": "Logged platform actions"
+          },
+          "pending_mentor_applications": {
+            "label": "Mentor applications",
+            "hint": "Pending mentor review"
+          }
+        }
+      },
+      "alerts": {
+        "regionLabel": "Platform alerts",
+        "overdueClaims": "{count, plural, one {# claim is overdue} other {# claims are overdue}}",
+        "maintenance": "Maintenance mode is active — public traffic may be limited",
+        "maintenanceWithMessage": "Maintenance mode active — {message}",
+        "highErrorRate": "{count} error events in the last hour (threshold: {threshold})"
+      },
+      "claimsWidget": {
+        "title": "Claims queue",
+        "subtitle": "Next five claims by SLA deadline",
+        "viewAll": "View all",
+        "empty": "No pending claims",
+        "due": "Due",
+        "overdue": "Overdue"
+      },
+      "recentActivity": {
+        "title": "Recent activity",
+        "subtitle": "Last 10 audit events",
+        "viewAll": "Full audit log",
+        "empty": "No audit events yet",
+        "systemActor": "System"
+      },
+      "systemHealth": {
+        "title": "System health",
+        "subtitle": "Background jobs and database connectivity",
+        "cronJob": "Metrics refresh cron",
+        "mvRefresh": "Materialized view",
+        "dbLatency": "Database latency",
+        "connectionPool": "Connection pool",
+        "unknown": "Unknown",
+        "latencyValue": "{ms} ms round-trip",
+        "poolHint": "Based on {ms} ms probe query",
+        "poolUnavailable": "Probe unavailable",
+        "status": {
+          "healthy": "Healthy",
+          "stale": "Stale",
+          "unknown": "Unknown"
+        },
+        "pool": {
+          "healthy": "Healthy",
+          "degraded": "Degraded",
+          "unknown": "Unknown"
+        }
+      },
       "staffCard": {
         "title": "Operations team",
         "description": "View staff and invite new members",
@@ -1307,6 +1534,10 @@
         "empty": "{section} — not started",
         "partial": "{section} — in progress",
         "complete": "{section} — complete"
+      },
+      "mobile": {
+        "editTab": "Edit",
+        "previewTab": "Preview"
       }
     }
   }

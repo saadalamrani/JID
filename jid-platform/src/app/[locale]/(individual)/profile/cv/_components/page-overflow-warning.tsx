@@ -3,6 +3,7 @@
 import { AlertTriangle, Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
+import { track } from '@/lib/analytics/track'
 import { estimatePageCount } from '@/lib/cv/estimate-page-count'
 import { useDebounce } from '@/lib/hooks/use-debounce'
 import type { CvData } from '@/types/cv'
@@ -21,6 +22,7 @@ export function PageOverflowWarning({ data }: PageOverflowWarningProps) {
   const [pageCount, setPageCount] = useState<number | null>(null)
   const [isMeasuring, setIsMeasuring] = useState(false)
   const requestIdRef = useRef(0)
+  const overflowTrackedRef = useRef(false)
 
   useEffect(() => {
     const requestId = ++requestIdRef.current
@@ -40,6 +42,14 @@ export function PageOverflowWarning({ data }: PageOverflowWarningProps) {
         setIsMeasuring(false)
       })
   }, [debouncedData])
+
+  useEffect(() => {
+    if (pageCount == null || pageCount <= OVERFLOW_PAGE_THRESHOLD || overflowTrackedRef.current) {
+      return
+    }
+    overflowTrackedRef.current = true
+    track('cv_overflow_warning_shown', { page_count: pageCount })
+  }, [pageCount])
 
   if (isMeasuring && pageCount == null) {
     return (

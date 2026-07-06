@@ -4,6 +4,7 @@ import { Download, Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useCallback, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { track } from '@/lib/analytics/track'
 import { canExport } from '@/lib/cv/can-export'
 import { downloadCvPdfBlob, renderCvPdfBlob } from '@/lib/cv/export-cv-pdf'
 import { logCvExportClient } from '@/lib/cv/client'
@@ -29,8 +30,13 @@ export function ExportButton({ cv }: ExportButtonProps) {
       const blob = await renderCvPdfBlob(data)
       downloadCvPdfBlob(blob, cv.full_name ?? 'Resume')
       await logCvExportClient(cv.id)
+      track('cv_pdf_generated', { cv_id: cv.id })
     } catch (error) {
       console.error('CV export failed', error)
+      track('cv_pdf_failed', {
+        cv_id: cv.id,
+        error: error instanceof Error ? error.message : 'unknown',
+      })
     } finally {
       setIsExporting(false)
     }

@@ -1725,8 +1725,166 @@ export type Database = {
           },
         ]
       }
+      emergency_actions: {
+        Row: {
+          action_type: string
+          activated_at: string
+          activated_by: string
+          deactivated_at: string | null
+          deactivated_by: string | null
+          id: string
+          is_active: boolean
+          payload: Json
+          reason: string
+        }
+        Insert: {
+          action_type: string
+          activated_at?: string
+          activated_by: string
+          deactivated_at?: string | null
+          deactivated_by?: string | null
+          id?: string
+          is_active?: boolean
+          payload?: Json
+          reason: string
+        }
+        Update: {
+          action_type?: string
+          activated_at?: string
+          activated_by?: string
+          deactivated_at?: string | null
+          deactivated_by?: string | null
+          id?: string
+          is_active?: boolean
+          payload?: Json
+          reason?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'emergency_actions_activated_by_fkey'
+            columns: ['activated_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'emergency_actions_deactivated_by_fkey'
+            columns: ['deactivated_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      feature_flags: {
+        Row: {
+          category: string
+          created_at: string
+          description_ar: string | null
+          description_en: string | null
+          enabled_for_roles: Database['public']['Enums']['user_role_enum'][]
+          is_enabled: boolean
+          key: string
+          label_ar: string
+          label_en: string
+          min_role: Database['public']['Enums']['user_role_enum']
+          updated_at: string
+          updated_by: string | null
+          user_overrides: Json
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          enabled_for_roles?: Database['public']['Enums']['user_role_enum'][]
+          is_enabled?: boolean
+          key: string
+          label_ar: string
+          label_en: string
+          min_role?: Database['public']['Enums']['user_role_enum']
+          updated_at?: string
+          updated_by?: string | null
+          user_overrides?: Json
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description_ar?: string | null
+          description_en?: string | null
+          enabled_for_roles?: Database['public']['Enums']['user_role_enum'][]
+          is_enabled?: boolean
+          key?: string
+          label_ar?: string
+          label_en?: string
+          min_role?: Database['public']['Enums']['user_role_enum']
+          updated_at?: string
+          updated_by?: string | null
+          user_overrides?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'feature_flags_updated_by_fkey'
+            columns: ['updated_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      platform_config: {
+        Row: {
+          description: string | null
+          is_secret: boolean
+          key: string
+          updated_at: string
+          updated_by: string | null
+          value: Json
+        }
+        Insert: {
+          description?: string | null
+          is_secret?: boolean
+          key: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Update: {
+          description?: string | null
+          is_secret?: boolean
+          key?: string
+          updated_at?: string
+          updated_by?: string | null
+          value?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'platform_config_updated_by_fkey'
+            columns: ['updated_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
     }
-    Views: Record<string, never>
+    Views: {
+      mv_sys_dashboard_metrics: {
+        Row: {
+          active_sessions_now: number | null
+          audit_events_24h: number | null
+          id: number | null
+          overdue_claims: number | null
+          pending_claims: number | null
+          pending_mentor_applications: number | null
+          pending_staff_invites: number | null
+          refreshed_at: string | null
+          suspended_users: number | null
+          total_users: number | null
+        }
+        Relationships: []
+      }
+    }
     Functions: {
       check_email_otp_rate_limit: {
         Args: { p_email: string; p_user_id: string }
@@ -1776,6 +1934,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      is_feature_enabled: {
+        Args: { p_flag_key: string }
+        Returns: boolean
+      }
       is_admin_or_above: {
         Args: Record<PropertyKey, never>
         Returns: boolean
@@ -1792,6 +1954,10 @@ export type Database = {
           p_session_token_hash: string
           p_user_agent?: string
         }
+        Returns: undefined
+      }
+      refresh_sys_metrics: {
+        Args: Record<PropertyKey, never>
         Returns: undefined
       }
       review_claim_request: {

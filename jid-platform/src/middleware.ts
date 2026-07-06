@@ -13,6 +13,7 @@ import {
   resolveEntityPendingReviewPath,
 } from '@/lib/auth/middleware-utils'
 import { routing } from '@/lib/i18n/routing'
+import { SYS_LOGIN_PATH, SYS_MFA_PATH, SYS_SESSION_MAX_AGE_SECONDS } from '@/lib/sys/constants'
 import { createClient } from '@/lib/supabase/middleware'
 
 const intlMiddleware = createMiddleware(routing)
@@ -56,6 +57,52 @@ function conditionRedirectPath(failed: string): string {
   }
 }
 
+/** Section 5.1 — super-admin portal guards (order: session → role → MFA → session age). */
+async function handleSuperAdminPortal(
+  request: NextRequest,
+  response: NextResponse,
+  supabase: ReturnType<typeof createClient>,
+  pathname: string,
+): Promise<NextResponse> {
+  const session = await loadMiddlewareSession(supabase, request)
+
+  if (!session) {
+    return redirectTo(request, SYS_LOGIN_PATH, { next: pathname })
+  }
+
+  if (isSuspended(session.profile)) {
+    return redirectTo(request, '/account/suspended')
+  }
+
+  if (!isRoleAllowed(session.role, ['super_admin'])) {
+    return notFoundResponse()
+  }
+
+  if (!session.isAal2) {
+    return redirectTo(request, SYS_MFA_PATH, { next: pathname })
+  }
+
+  if (isSessionExpired(session.sessionIssuedAt, SYS_SESSION_MAX_AGE_SECONDS)) {
+    await supabase.auth.signOut()
+    return redirectTo(request, SYS_LOGIN_PATH, { reason: 'expired' })
+  }
+
+  await logActivity({
+    actorId: session.userId,
+    actorRole: session.role,
+    path: pathname,
+    method: request.method,
+    ipAddress: getClientIp(request),
+    userAgent: request.headers.get('user-agent'),
+  })
+
+  response.headers.set('x-user-id', session.userId)
+  response.headers.set('x-user-role', session.role)
+  response.headers.set('x-pathname', pathname)
+
+  return response
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -65,43 +112,41 @@ export async function middleware(request: NextRequest) {
 
   const guard = findMatchingGuard(pathname)
 
-  // Run i18n first so locale cookies/redirects are applied; auth layers on top.
   const response = intlMiddleware(request)
   const supabase = createClient(request, response)
 
-  // Public route (or no guard match) — refresh session only.
+  response.headers.set('x-pathname', pathname)
+
   if (!guard || guard.allowedRoles === null) {
     await supabase.auth.getUser()
     return response
   }
 
-  // ── 1. Session check ────────────────────────────────────────────────────────
+  if (guard.id === 'super-admin-portal') {
+    return handleSuperAdminPortal(request, response, supabase, pathname)
+  }
+
   const session = await loadMiddlewareSession(supabase, request)
   if (!session) {
     return redirectTo(request, '/login', { next: pathname })
   }
 
-  // ── 2. Suspension check ─────────────────────────────────────────────────────
   if (isSuspended(session.profile)) {
     return redirectTo(request, '/account/suspended')
   }
 
-  // ── 3. Role check — 404 (never 403) ─────────────────────────────────────────
   if (!isRoleAllowed(session.role, guard.allowedRoles)) {
     return notFoundResponse()
   }
 
-  // ── 4. Session max age (e.g. /sys = 2h) ─────────────────────────────────────
   if (guard.sessionMaxAge !== undefined && isSessionExpired(session.sessionIssuedAt, guard.sessionMaxAge)) {
     return redirectTo(request, '/auth/login', { reason: 'session_expired', next: pathname })
   }
 
-  // ── 5. 2FA / AAL2 check ───────────────────────────────────────────────────
   if (guard.requires2FA && !session.isAal2) {
     return redirectTo(request, '/login/mfa', { next: pathname })
   }
 
-  // ── 6. Conditions check ─────────────────────────────────────────────────────
   if (guard.conditions?.length) {
     const conditionResult = checkConditions(guard.conditions, session.conditionContext)
     if (!conditionResult.ok) {
@@ -113,7 +158,6 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // ── 7. Audit logging ────────────────────────────────────────────────────────
   if (guard.auditLog) {
     await logActivity({
       actorId: session.userId,
@@ -125,7 +169,6 @@ export async function middleware(request: NextRequest) {
     })
   }
 
-  // ── 8. Header injection ─────────────────────────────────────────────────────
   response.headers.set('x-user-id', session.userId)
   response.headers.set('x-user-role', session.role)
 

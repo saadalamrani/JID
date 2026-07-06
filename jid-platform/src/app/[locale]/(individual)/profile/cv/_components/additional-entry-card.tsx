@@ -5,6 +5,7 @@ import { Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { FormField } from '@/components/auth/form-field'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -68,6 +69,7 @@ export function AdditionalEntryCard({
     getValues,
     onSave: save,
     enabled: !isTemp,
+    onError: () => toast.error(t('saveError')),
   })
 
   const saveLabel =

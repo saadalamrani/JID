@@ -29,7 +29,19 @@ export type RouteGuard = {
 const L = '(?:/(?:ar|en))?'
 
 export const ROUTE_GUARDS: readonly RouteGuard[] = [
-  // ── Super admin portal ──────────────────────────────────────────────────────
+  // ── Super admin auth (public — before protected portal guard) ───────────────
+  {
+    id: 'sys-login',
+    pattern: new RegExp(`^${L}/sys/login(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'sys-mfa',
+    pattern: new RegExp(`^${L}/sys/mfa(?:/|$)`),
+    allowedRoles: null,
+  },
+
+  // ── Super admin portal (protected) ──────────────────────────────────────────
   {
     id: 'super-admin-portal',
     pattern: new RegExp(`^${L}/sys(?:/|$)`),

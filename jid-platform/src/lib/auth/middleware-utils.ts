@@ -61,6 +61,11 @@ export function getDevTestSession(request: NextRequest): MiddlewareSession | nul
     mfa_enforced: false,
   }
 
+  const issuedAtHeader = request.headers.get('x-jid-test-session-issued-at')
+  const sessionIssuedAt = issuedAtHeader
+    ? Number.parseInt(issuedAtHeader, 10)
+    : Math.floor(Date.now() / 1000)
+
   return {
     userId,
     role: roleHeader,
@@ -71,7 +76,7 @@ export function getDevTestSession(request: NextRequest): MiddlewareSession | nul
       entityClaimStatus,
       temporaryCompanyAccess: null,
     },
-    sessionIssuedAt: Math.floor(Date.now() / 1000),
+    sessionIssuedAt,
     isAal2: aal2,
   }
 }
@@ -118,9 +123,11 @@ export async function loadMiddlewareSession(
   }
 
   const sessionIssuedAt =
-    typeof user.last_sign_in_at === 'string'
-      ? Math.floor(new Date(user.last_sign_in_at).getTime() / 1000)
-      : null
+    request.headers.get('x-jid-test-session-issued-at') !== null
+      ? Number.parseInt(request.headers.get('x-jid-test-session-issued-at') ?? '', 10)
+      : typeof user.last_sign_in_at === 'string'
+        ? Math.floor(new Date(user.last_sign_in_at).getTime() / 1000)
+        : null
 
   return {
     userId: user.id,

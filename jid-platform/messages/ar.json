@@ -435,9 +435,166 @@
     }
   },
   "sys": {
+    "login": {
+      "title": "تسجيل دخول المشرف الأعلى",
+      "subtitle": "التحكم بالمنصة — للمخوّلين فقط",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "تسجيل الدخول",
+      "submitting": "جاري تسجيل الدخول…",
+      "sessionExpired": "انتهت جلستك بعد ساعتين. سجّل الدخول مجدداً.",
+      "errors": {
+        "generic": "بيانات الدخول غير صحيحة أو الوصول مرفوض",
+        "suspended": "هذا الحساب موقوف"
+      }
+    },
+    "mfa": {
+      "title": "التحقق بخطوتين",
+      "subtitle": "أدخل الرمز من تطبيق المصادقة",
+      "setupTitle": "إعداد التحقق بخطوتين",
+      "setupSubtitle": "مطلوب قبل الوصول إلى بوابة المشرف الأعلى",
+      "loading": "جاري التحميل…",
+      "verify": "تحقق",
+      "verifying": "جاري التحقق…",
+      "errors": {
+        "noFactor": "لا يوجد مصادق — أعد الإعداد أولاً",
+        "verifyFailed": "رمز غير صحيح — حاول مجدداً"
+      }
+    },
+    "shell": {
+      "loading": "جاري تحميل لوحة التحكم…",
+      "errorTitle": "حدث خطأ",
+      "error": "تعذّر تحميل هذه الصفحة في لوحة التحكم.",
+      "retry": "إعادة المحاولة",
+      "backToDashboard": "العودة للوحة التحكم"
+    },
+    "nav": {
+      "portalLabel": "لوحة المنصة",
+      "ariaLabel": "تنقل المشرف الأعلى",
+      "dangerBadge": "خطر",
+      "sections": {
+        "overview": "نظرة عامة",
+        "operations": "العمليات",
+        "internal": "داخلي",
+        "governance": "الحوكمة",
+        "danger": "حرج"
+      },
+      "items": {
+        "dashboard": "لوحة التحكم",
+        "users": "المستخدمون",
+        "entities": "الكيانات",
+        "claims": "طابور المطالبات",
+        "staff": "الموظفون",
+        "audit": "سجل التدقيق",
+        "flags": "أعلام الميزات",
+        "config": "الإعدادات",
+        "emergency": "الطوارئ"
+      }
+    },
+    "topbar": {
+      "unnamed": "مشرف أعلى",
+      "roleLabel": "مشرف أعلى",
+      "sessionWarning": "تنتهي الجلسة خلال {time}",
+      "maintenanceActive": "مفتاح الإيقاف مفعّل — وضع الصيانة مُفعّل",
+      "searchPlaceholder": "بحث أو انتقال سريع…",
+      "searchShortcut": "⌘K"
+    },
+    "commandPalette": {
+      "placeholder": "ابحث عن مستخدمين أو كيانات أو إجراءات…",
+      "quickActions": "إجراءات سريعة",
+      "searching": "جاري البحث…",
+      "noResults": "لا توجد نتائج",
+      "groups": {
+        "users": "المستخدمون",
+        "entities": "الكيانات"
+      },
+      "actions": {
+        "dashboard": "الذهاب للوحة التحكم",
+        "users": "إدارة المستخدمين",
+        "entities": "إدارة الكيانات",
+        "claims": "فتح طابور المطالبات",
+        "inviteStaff": "دعوة موظف",
+        "audit": "عرض سجل التدقيق",
+        "emergency": "وحدة الطوارئ"
+      }
+    },
     "dashboard": {
       "title": "لوحة المشرف الأعلى",
-      "subtitle": "إدارة المنصة والفريق الداخلي",
+      "subtitle": "صحة المنصة وطوابير العمليات والنشاط الأخير",
+      "metrics": {
+        "sectionLabel": "مقاييس المنصة",
+        "lastRefreshed": "آخر تحديث {time}",
+        "cards": {
+          "total_users": {
+            "label": "إجمالي المستخدمين",
+            "hint": "جميع الملفات المسجلة"
+          },
+          "active_sessions_now": {
+            "label": "الجلسات النشطة",
+            "hint": "جلسات غير ملغاة الآن"
+          },
+          "pending_claims": {
+            "label": "مطالبات معلقة",
+            "hint": "بانتظار مراجعة الموظفين"
+          },
+          "overdue_claims": {
+            "label": "مطالبات متأخرة",
+            "hint": "تجاوزت نافذة SLA 72 ساعة"
+          },
+          "audit_events_24h": {
+            "label": "أحداث التدقيق (24 س)",
+            "hint": "إجراءات المنصة المسجلة"
+          },
+          "pending_mentor_applications": {
+            "label": "طلبات المرشدين",
+            "hint": "بانتظار مراجعة المرشد"
+          }
+        }
+      },
+      "alerts": {
+        "regionLabel": "تنبيهات المنصة",
+        "overdueClaims": "{count, plural, one {مطالبة واحدة متأخرة} other {# مطالبات متأخرة}}",
+        "maintenance": "وضع الصيانة مفعّل — قد يكون الوصول العام محدوداً",
+        "maintenanceWithMessage": "وضع الصيانة مفعّل — {message}",
+        "highErrorRate": "{count} أحداث خطأ في الساعة الأخيرة (الحد: {threshold})"
+      },
+      "claimsWidget": {
+        "title": "طابور المطالبات",
+        "subtitle": "أقرب خمس مطالبات حسب موعد SLA",
+        "viewAll": "عرض الكل",
+        "empty": "لا توجد مطالبات معلقة",
+        "due": "مستحق",
+        "overdue": "متأخر"
+      },
+      "recentActivity": {
+        "title": "النشاط الأخير",
+        "subtitle": "آخر 10 أحداث تدقيق",
+        "viewAll": "سجل التدقيق الكامل",
+        "empty": "لا توجد أحداث تدقيق بعد",
+        "systemActor": "النظام"
+      },
+      "systemHealth": {
+        "title": "صحة النظام",
+        "subtitle": "المهام الخلفية واتصال قاعدة البيانات",
+        "cronJob": "مهمة تحديث المقاييس",
+        "mvRefresh": "العرض المادي",
+        "dbLatency": "زمن استجابة قاعدة البيانات",
+        "connectionPool": "تجمع الاتصالات",
+        "unknown": "غير معروف",
+        "latencyValue": "{ms} مللي ثانية ذهاباً وإياباً",
+        "poolHint": "بناءً على استعلام تحقق {ms} مللي ثانية",
+        "poolUnavailable": "التحقق غير متاح",
+        "status": {
+          "healthy": "سليم",
+          "stale": "قديم",
+          "unknown": "غير معروف"
+        },
+        "pool": {
+          "healthy": "سليم",
+          "degraded": "متدهور",
+          "unknown": "غير معروف"
+        }
+      },
       "staffCard": {
         "title": "فريق العمليات",
         "description": "عرض الموظفين ودعوة أعضاء جدد",
@@ -1307,6 +1464,10 @@
         "empty": "{section} — لم يبدأ",
         "partial": "{section} — قيد الإكمال",
         "complete": "{section} — مكتمل"
+      },
+      "mobile": {
+        "editTab": "تعديل",
+        "previewTab": "معاينة"
       }
     }
   }

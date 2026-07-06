@@ -7,6 +7,7 @@ import { GripVertical, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { FormField } from '@/components/auth/form-field'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -86,6 +87,7 @@ export function ExperienceEntryCard({
     getValues,
     onSave: save,
     enabled: !isTemp,
+    onError: () => toast.error(t('saveError')),
   })
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({

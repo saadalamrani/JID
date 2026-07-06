@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useCallback, useEffect } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { TagInput } from '@/app/[locale]/(individual)/settings/become-mentor/_components/form-fields'
 import { useAutoSave } from '@/lib/hooks/use-auto-save'
 import { useUpdateCvSkills } from '@/lib/cv/queries'
@@ -54,6 +55,7 @@ export function SectionSkillsForm({ cv }: SectionSkillsFormProps) {
     watch,
     getValues,
     onSave: save,
+    onError: () => toast.error(t('saveError')),
   })
 
   const saveLabel =
