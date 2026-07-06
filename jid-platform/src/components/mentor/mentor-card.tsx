@@ -1,10 +1,11 @@
 'use client'
 
-import { MessageCircle, Star, Users } from 'lucide-react'
+import { Star, Users } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { ProfileAvatar } from '@/components/profile/profile-avatar'
 import { CrownBadge } from '@/components/mentor/crown-badge'
 import { WorkshopChip } from '@/components/mentor/workshop-chip'
+import { RequestSessionButton } from '@/components/mentorship/request-session-button'
 import { Button } from '@/components/ui/button'
 import { Link as LocaleLink } from '@/lib/i18n/navigation'
 import { formatMentorNationality } from '@/lib/mentor/nationality-label'
@@ -122,27 +123,24 @@ export function MentorCard({ mentor, className, previewMode = false }: MentorCar
       </div>
 
       <div className={cn('relative z-30 mt-auto pt-4', previewMode ? 'pointer-events-none' : 'pointer-events-auto')}>
-        {mentor.is_accepting_requests && !previewMode ? (
-          <Button
-            asChild
-            size="sm"
-            className="w-full bg-jid-olive font-arabic hover:bg-jid-olive/90"
-          >
-            <LocaleLink href={profileHref}>
-              <MessageCircle className="h-4 w-4" aria-hidden />
-              {t('requestCta')}
-            </LocaleLink>
-          </Button>
-        ) : (
+        {previewMode ? (
           <Button
             type="button"
             size="sm"
             disabled
             className="w-full bg-jid-olive font-arabic hover:bg-jid-olive/90 disabled:bg-jid-line/40 disabled:text-jid-ink/50"
           >
-            <MessageCircle className="h-4 w-4" aria-hidden />
             {t('requestCta')}
           </Button>
+        ) : (
+          <RequestSessionButton
+            mentorId={mentor.user_id}
+            mentorName={displayName}
+            mentorHeadline={mentor.headline}
+            expertiseAreas={mentor.expertise_areas}
+            isAccepting={mentor.is_accepting_requests}
+            fullWidth
+          />
         )}
       </div>
     </article>

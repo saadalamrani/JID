@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { requireMeUserId } from '@/lib/me/account'
+import { trackServer } from '@/lib/analytics/server'
 
 const desiredFiltersSchema = z.object({
   sectors: z.array(z.string()).default([]),
@@ -37,6 +38,10 @@ export async function POST(request: Request) {
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
+
+    await trackServer('mentor_notification_requested', userId, {
+      mentor_id: body.mentor_id ?? null,
+    })
 
     return NextResponse.json({ id: data.id }, { status: 201 })
   } catch (error) {

@@ -217,6 +217,34 @@ export async function fetchMentors(filters: MentorFilters): Promise<MentorsListR
   }
 }
 
+/** Section 4.15 — top mentors by mentor_score for homepage (score not exposed publicly). */
+export async function fetchFeaturedMentorsByScore(limit = 3): Promise<MentorCardData[]> {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('mentor_profiles')
+    .select(MENTOR_PUBLIC_SELECT)
+    .eq('status', 'approved')
+    .order('mentor_score', { ascending: false, nullsFirst: false })
+    .order('rating_avg', { ascending: false, nullsFirst: false })
+    .limit(limit)
+
+  if (error) {
+    const { data: fallback, error: fallbackError } = await supabase
+      .from('mentor_profiles')
+      .select(MENTOR_PUBLIC_SELECT)
+      .eq('status', 'approved')
+      .order('is_mentor_of_month', { ascending: false })
+      .order('rating_avg', { ascending: false, nullsFirst: false })
+      .limit(limit)
+
+    if (fallbackError) throw new Error(fallbackError.message)
+    return ((fallback ?? []) as MentorListRow[]).map(mapMentorCard)
+  }
+
+  return ((data ?? []) as MentorListRow[]).map(mapMentorCard)
+}
+
 export async function fetchMentorBySlug(slug: string): Promise<MentorPublicDetail | null> {
   const supabase = await createClient()
   const { data, error } = await supabase

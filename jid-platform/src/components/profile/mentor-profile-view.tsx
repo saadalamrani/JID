@@ -61,7 +61,15 @@ export function MentorProfileView({
 
       {reviewsSlot}
 
-      {isMentee ? <MentorRequestCTA mentorId={mentor.user_id} /> : null}
+      {isMentee ? (
+        <MentorRequestCTA
+          mentorId={mentor.user_id}
+          mentorName={displayName}
+          mentorHeadline={mentor.headline}
+          expertiseAreas={mentor.expertise_sectors}
+          isAccepting
+        />
+      ) : null}
     </main>
   )
 }

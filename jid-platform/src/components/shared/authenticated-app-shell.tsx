@@ -2,6 +2,7 @@
 
 import type { ReactNode } from 'react'
 import { usePathname } from '@/lib/i18n/navigation'
+import { EncryptionKeyBootstrap } from '@/components/shared/encryption-key-bootstrap'
 import { ProfileSwitcher } from '@/components/shared/profile-switcher'
 import { Link } from '@/lib/i18n/navigation'
 import { siteConfig } from '@/config/site'
@@ -12,6 +13,7 @@ type AuthenticatedAppShellProps = {
   isAuthenticated: boolean
   hasMentorRole: boolean
   initialMode: ProfileMode
+  userId: string | null
 }
 
 const PORTAL_PREFIXES = ['/staff', '/sys', '/login', '/signup', '/forgot-password', '/reset-password']
@@ -29,12 +31,14 @@ export function AuthenticatedAppShell({
   isAuthenticated,
   hasMentorRole,
   initialMode,
+  userId,
 }: AuthenticatedAppShellProps) {
   const pathname = usePathname()
   const showBar = isAuthenticated && !shouldHideTopBar(pathname)
 
   return (
     <>
+      <EncryptionKeyBootstrap userId={isAuthenticated ? userId : null} />
       {showBar ? (
         <header className="sticky top-0 z-40 border-b border-jid-line bg-white/95 backdrop-blur-sm">
           <div className="container-jid flex h-14 items-center justify-between gap-4">

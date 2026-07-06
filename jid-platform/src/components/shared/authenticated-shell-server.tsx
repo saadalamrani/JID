@@ -25,6 +25,7 @@ export async function AuthenticatedShellServer({ children }: AuthenticatedShellS
       isAuthenticated={Boolean(user)}
       hasMentorRole={hasMentorRole}
       initialMode={initialMode}
+      userId={user?.id ?? null}
     >
       {children}
     </AuthenticatedAppShell>

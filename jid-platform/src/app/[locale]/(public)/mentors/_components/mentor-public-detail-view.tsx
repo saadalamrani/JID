@@ -1,14 +1,14 @@
 'use client'
 
-import { MessageCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { ActiveWorkshopCard } from '@/components/profile/active-workshop-card'
 import { MentorBioSection } from '@/components/profile/mentor-bio-section'
 import { MentorExpertiseSection } from '@/components/profile/mentor-expertise-section'
 import { ProfileAvatar } from '@/components/profile/profile-avatar'
 import { CrownBadge } from '@/components/mentor/crown-badge'
+import { MentorViewedTracker } from '@/components/mentor/mentor-viewed-tracker'
 import { PreferredMediumsIcons } from '@/components/mentor/preferred-mediums-icons'
-import { Button } from '@/components/ui/button'
+import { RequestSessionButton } from '@/components/mentorship/request-session-button'
 import { formatMentorNationality } from '@/lib/mentor/nationality-label'
 import { isLiveActiveWorkshop } from '@/lib/mentor/workshop'
 import type { MentorPublicDetail } from '@/types/mentor'
@@ -27,6 +27,7 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
 
   return (
     <div className="space-y-6">
+      <MentorViewedTracker mentorId={mentor.user_id} slug={mentor.slug} />
       <header className="rounded-xl border border-jid-line bg-white p-6 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
           <div className="relative shrink-0">
@@ -92,15 +93,17 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
             />
             {mentor.is_accepting_requests ? t('accepting') : t('notAccepting')}
           </div>
-          <Button
-            type="button"
-            disabled={!mentor.is_accepting_requests}
-            className="bg-jid-olive font-arabic hover:bg-jid-olive/90 disabled:bg-jid-line/40"
-            onClick={() => console.info('Request mentorship', mentor.user_id)}
-          >
-            <MessageCircle className="h-4 w-4" aria-hidden />
-            {t('requestCta')}
-          </Button>
+          <RequestSessionButton
+            mentorId={mentor.user_id}
+            mentorName={displayName}
+            mentorHeadline={mentor.headline}
+            expertiseAreas={
+              mentor.expertise_areas.length > 0 ? mentor.expertise_areas : mentor.expertise_sectors
+            }
+            isAccepting={mentor.is_accepting_requests}
+            size="default"
+            className="disabled:bg-jid-line/40"
+          />
         </div>
       </div>
     </div>

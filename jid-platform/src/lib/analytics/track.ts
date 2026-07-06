@@ -1,11 +1,11 @@
 'use client'
 
 /**
- * Section 14 — lightweight PostHog capture (no SDK required).
- * Set NEXT_PUBLIC_POSTHOG_KEY + optional NEXT_PUBLIC_POSTHOG_HOST.
+ * Section 11 — mentorship analytics events (PostHog).
+ * Job-board events remain in the same module for a single capture surface.
  */
 
-export const ANALYTICS_EVENTS = [
+export const JOB_ANALYTICS_EVENTS = [
   'job_viewed',
   'job_apply_clicked',
   'job_self_declared',
@@ -15,6 +15,24 @@ export const ANALYTICS_EVENTS = [
   'job_posted',
   'rejection_email_sent',
 ] as const
+
+export const MENTORSHIP_ANALYTICS_EVENTS = [
+  'mentor_discovered',
+  'mentor_viewed',
+  'mentorship_request_submitted',
+  'mentorship_request_accepted',
+  'mentorship_request_declined',
+  'conversation_opened',
+  'meeting_proposed',
+  'meeting_confirmed',
+  'meeting_feedback_submitted',
+  'workshop_created',
+  'workshop_published',
+  'mentor_share_card_downloaded',
+  'mentor_notification_requested',
+] as const
+
+export const ANALYTICS_EVENTS = [...JOB_ANALYTICS_EVENTS, ...MENTORSHIP_ANALYTICS_EVENTS] as const
 
 export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number]
 

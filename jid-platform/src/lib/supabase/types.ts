@@ -804,6 +804,7 @@ export type Database = {
           bio_short: string | null
           career_history: Json
           created_at: string
+          declined_requests_count: number
           expertise_areas: string[]
           expertise_sectors: string[]
           headline: string | null
@@ -835,6 +836,7 @@ export type Database = {
           bio_short?: string | null
           career_history?: Json
           created_at?: string
+          declined_requests_count?: number
           expertise_areas?: string[]
           expertise_sectors?: string[]
           headline?: string | null
@@ -866,6 +868,7 @@ export type Database = {
           bio_short?: string | null
           career_history?: Json
           created_at?: string
+          declined_requests_count?: number
           expertise_areas?: string[]
           expertise_sectors?: string[]
           headline?: string | null
@@ -963,7 +966,11 @@ export type Database = {
           completed_at: string | null
           created_at: string
           duration_minutes: number | null
+          feedback_comment: string | null
+          feedback_rating: number | null
+          feedback_submitted_at: string | null
           id: string
+          medium: string | null
           meeting_url: string | null
           mentee_id: string
           mentor_id: string
@@ -977,7 +984,11 @@ export type Database = {
           completed_at?: string | null
           created_at?: string
           duration_minutes?: number | null
+          feedback_comment?: string | null
+          feedback_rating?: number | null
+          feedback_submitted_at?: string | null
           id?: string
+          medium?: string | null
           meeting_url?: string | null
           mentee_id: string
           mentor_id: string
@@ -991,7 +1002,11 @@ export type Database = {
           completed_at?: string | null
           created_at?: string
           duration_minutes?: number | null
+          feedback_comment?: string | null
+          feedback_rating?: number | null
+          feedback_submitted_at?: string | null
           id?: string
+          medium?: string | null
           meeting_url?: string | null
           mentee_id?: string
           mentor_id?: string
@@ -1029,12 +1044,16 @@ export type Database = {
         Row: {
           conversation_id: string | null
           created_at: string
+          decline_reason: string | null
           expires_at: string | null
           focus_area: string | null
           id: string
+          intent_statement: string | null
           mentee_id: string
+          mentee_snapshot: Json | null
           mentor_id: string
           message: string | null
+          preferred_medium: string | null
           responded_at: string | null
           status: Database['public']['Enums']['mentorship_request_status_enum']
           updated_at: string
@@ -1042,12 +1061,16 @@ export type Database = {
         Insert: {
           conversation_id?: string | null
           created_at?: string
+          decline_reason?: string | null
           expires_at?: string | null
           focus_area?: string | null
           id?: string
+          intent_statement?: string | null
           mentee_id: string
+          mentee_snapshot?: Json | null
           mentor_id: string
           message?: string | null
+          preferred_medium?: string | null
           responded_at?: string | null
           status?: Database['public']['Enums']['mentorship_request_status_enum']
           updated_at?: string
@@ -1055,12 +1078,16 @@ export type Database = {
         Update: {
           conversation_id?: string | null
           created_at?: string
+          decline_reason?: string | null
           expires_at?: string | null
           focus_area?: string | null
           id?: string
+          intent_statement?: string | null
           mentee_id?: string
+          mentee_snapshot?: Json | null
           mentor_id?: string
           message?: string | null
+          preferred_medium?: string | null
           responded_at?: string | null
           status?: Database['public']['Enums']['mentorship_request_status_enum']
           updated_at?: string
@@ -1091,27 +1118,33 @@ export type Database = {
       }
       messages: {
         Row: {
-          ciphertext: string
+          ciphertext: string | null
           conversation_id: string
           created_at: string
           id: string
-          nonce: string
+          meeting_id: string | null
+          message_type: string
+          nonce: string | null
           sender_id: string
         }
         Insert: {
-          ciphertext: string
+          ciphertext?: string | null
           conversation_id: string
           created_at?: string
           id?: string
-          nonce: string
+          meeting_id?: string | null
+          message_type?: string
+          nonce?: string | null
           sender_id: string
         }
         Update: {
-          ciphertext?: string
+          ciphertext?: string | null
           conversation_id?: string
           created_at?: string
           id?: string
-          nonce?: string
+          meeting_id?: string | null
+          message_type?: string
+          nonce?: string | null
           sender_id?: string
         }
         Relationships: [
@@ -1120,6 +1153,13 @@ export type Database = {
             columns: ['conversation_id']
             isOneToOne: false
             referencedRelation: 'conversations'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'messages_meeting_id_fkey'
+            columns: ['meeting_id']
+            isOneToOne: false
+            referencedRelation: 'mentorship_meetings'
             referencedColumns: ['id']
           },
           {
@@ -1321,6 +1361,10 @@ export type Database = {
       process_due_radar_items: {
         Args: Record<PropertyKey, never>
         Returns: number
+      }
+      sync_meeting_radar_on_confirm: {
+        Args: { p_meeting_id: string }
+        Returns: undefined
       }
       is_admin_or_above: {
         Args: Record<PropertyKey, never>

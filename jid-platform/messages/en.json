@@ -881,6 +881,177 @@
       "notAccepting": "Not accepting requests",
       "requestCta": "Request mentorship",
       "mediumsTitle": "Preferred mediums"
+    },
+    "request": {
+      "title": "Request mentorship",
+      "subtitle": "Send a context-rich request to {name}. Your profile snapshot is attached automatically.",
+      "snapshotTitle": "Your profile snapshot",
+      "snapshotNote": "This snapshot is saved with your request and will not change if you update your profile later.",
+      "snapshotUnavailable": "Could not load your profile.",
+      "loadingSnapshot": "Loading profile…",
+      "fieldName": "Name",
+      "fieldHeadline": "Headline",
+      "fieldUniversity": "University",
+      "fieldCollege": "College / major",
+      "fieldCity": "City",
+      "fieldTargetSectors": "Target sectors",
+      "fieldProgramTypes": "Program types",
+      "emptyValue": "—",
+      "unnamed": "Mentee",
+      "focusAreaLabel": "Focus area",
+      "focusAreaPlaceholder": "Choose a focus (optional)",
+      "intentLabel": "What do you hope to get from this mentorship?",
+      "intentPlaceholder": "Describe your goals, challenges, and what you would like help with…",
+      "intentCount": "{count}/{min} characters minimum",
+      "cancel": "Cancel",
+      "submit": "Send request",
+      "submitting": "Sending…",
+      "submitSuccess": "Your mentorship request was sent.",
+      "submitError": "Could not send your request.",
+      "loadError": "Could not load your profile.",
+      "loginRequired": "Sign in to request mentorship.",
+      "preferredMediumLabel": "Preferred medium",
+      "preferredMediumPlaceholder": "How would you like to meet? (optional)"
+    },
+    "hub": {
+      "title": "Mentor hub",
+      "subtitle": "Manage requests, sessions, and your mentor presence.",
+      "tabsAria": "Mentor hub sections",
+      "tabs": {
+        "requests": "Requests",
+        "chats": "Chats",
+        "upcoming": "Upcoming",
+        "workshops": "Workshops",
+        "settings": "Settings"
+      },
+      "kpi": {
+        "ariaLabel": "Mentor performance summary",
+        "pending": "Pending requests",
+        "activeChats": "Active chats",
+        "upcomingMeetings": "Upcoming meetings",
+        "rating": "Average rating"
+      },
+      "requests": {
+        "empty": "No pending requests right now.",
+        "unnamedMentee": "Mentee",
+        "university": "University",
+        "college": "College",
+        "city": "City",
+        "targetSectors": "Target sectors",
+        "accept": "Accept",
+        "accepting": "Accepting…",
+        "decline": "Decline",
+        "declineTitle": "Decline request",
+        "declineDescription": "Please share a brief reason — this is required.",
+        "declinePlaceholder": "Why are you declining this request?",
+        "confirmDecline": "Confirm decline",
+        "declining": "Declining…",
+        "cancel": "Cancel",
+        "accepted": "Request accepted.",
+        "declined": "Request declined.",
+        "reviewError": "Could not update the request."
+      },
+      "stubs": {
+        "chats": {
+          "title": "Chats",
+          "body": "Open your encrypted mentorship conversations.",
+          "openCta": "Open conversations"
+        },
+        "upcoming": {
+          "title": "Upcoming sessions",
+          "body": "View confirmed meetings on your Radar.",
+          "openCta": "Open Radar"
+        },
+        "workshops": {
+          "title": "Workshops",
+          "body": "Workshop management arrives in Day 12."
+        }
+      },
+      "settings": {
+        "acceptingLabel": "Accepting mentorship requests",
+        "acceptingHint": "When off, your card and profile show as unavailable.",
+        "bioLabel": "Mentor bio",
+        "expertiseLabel": "Expertise areas",
+        "expertisePlaceholder": "Add expertise tag",
+        "addExpertise": "Add",
+        "mediumsLabel": "Preferred mediums",
+        "save": "Save settings",
+        "saving": "Saving…",
+        "saveSuccess": "Settings saved.",
+        "saveError": "Could not save settings."
+      }
+    }
+  },
+  "conversations": {
+    "list": {
+      "title": "Messages",
+      "subtitle": "End-to-end encrypted mentorship conversations.",
+      "emptyTitle": "No conversations yet",
+      "emptyBody": "When a mentorship request is accepted, your conversation will appear here.",
+      "unnamed": "User",
+      "noMessagesYet": "No messages yet"
+    },
+    "chat": {
+      "back": "All conversations",
+      "encryptedSubtitle": "End-to-end encrypted",
+      "unnamed": "User",
+      "decrypting": "Decrypting…",
+      "decryptError": "Could not decrypt this message",
+      "inputPlaceholder": "Write a message…",
+      "send": "Send",
+      "sendError": "Could not send message",
+      "keysMissing": "Encryption keys are not ready on this device",
+      "encryptionNoticeTitle": "Encrypted conversation",
+      "encryptionNoticeDismiss": "Got it"
+    },
+    "schedule": {
+      "title": "Meeting proposal",
+      "dialogTitle": "Schedule a session",
+      "dialogDescription": "Propose a time for your mentorship meeting. Your mentee will confirm before it is added to Radar.",
+      "when": "Date & time",
+      "duration": "Duration",
+      "durationValue": "{minutes} min",
+      "medium": "Format",
+      "link": "Meeting link",
+      "linkPlaceholder": "https://…",
+      "notes": "Notes",
+      "notesPlaceholder": "Agenda or preparation notes (optional)",
+      "cancel": "Cancel",
+      "submit": "Send proposal",
+      "submitting": "Sending…",
+      "submitSuccess": "Meeting proposal sent.",
+      "submitError": "Could not send meeting proposal.",
+      "invalidDate": "Choose a valid date and time.",
+      "loading": "Loading meeting details…",
+      "confirmCta": "Confirm meeting",
+      "confirmSuccess": "Meeting confirmed.",
+      "confirmError": "Could not confirm meeting.",
+      "status": {
+        "pending_confirmation": "Awaiting confirmation",
+        "scheduled": "Scheduled",
+        "confirmed": "Confirmed",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "no_show": "No show"
+      }
+    }
+  },
+  "radar": {
+    "title": "Radar",
+    "subtitle": "Upcoming sessions and follow-ups.",
+    "emptyTitle": "Nothing on your radar",
+    "emptyBody": "Confirmed meetings and feedback prompts will appear here.",
+    "meeting": {
+      "upcomingTitle": "Upcoming mentorship session",
+      "duration": "{minutes} minutes",
+      "joinLink": "Join meeting",
+      "feedbackTitle": "How was your session?",
+      "feedbackBody": "Your feedback helps mentors improve and updates their rating.",
+      "feedbackPlaceholder": "Optional comments…",
+      "feedbackSubmit": "Submit feedback",
+      "feedbackSuccess": "Thank you for your feedback.",
+      "feedbackError": "Could not submit feedback.",
+      "ratingLabel": "{value} stars"
     }
   }
 }

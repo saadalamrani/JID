@@ -881,6 +881,177 @@
       "notAccepting": "لا يقبل الطلبات حالياً",
       "requestCta": "طلب إرشاد",
       "mediumsTitle": "وسائل التواصل المفضلة"
+    },
+    "request": {
+      "title": "طلب إرشاد",
+      "subtitle": "أرسل طلباً غنياً بالسياق إلى {name}. يُرفق ملخص ملفك تلقائياً.",
+      "snapshotTitle": "ملخص ملفك الشخصي",
+      "snapshotNote": "يُحفظ هذا الملخص مع طلبك ولن يتغيّر إذا عدّلت ملفك لاحقاً.",
+      "snapshotUnavailable": "تعذّر تحميل ملفك الشخصي.",
+      "loadingSnapshot": "جارٍ تحميل الملف…",
+      "fieldName": "الاسم",
+      "fieldHeadline": "العنوان",
+      "fieldUniversity": "الجامعة",
+      "fieldCollege": "الكلية / التخصص",
+      "fieldCity": "المدينة",
+      "fieldTargetSectors": "القطاعات المستهدفة",
+      "fieldProgramTypes": "أنواع البرامج",
+      "emptyValue": "—",
+      "unnamed": "باحث",
+      "focusAreaLabel": "مجال التركيز",
+      "focusAreaPlaceholder": "اختر مجالاً (اختياري)",
+      "intentLabel": "ماذا تأمل أن تحصل من هذا الإرشاد؟",
+      "intentPlaceholder": "صف أهدافك وتحدياتك وما تود المساعدة فيه…",
+      "intentCount": "{count}/{min} حرفاً كحد أدنى",
+      "cancel": "إلغاء",
+      "submit": "إرسال الطلب",
+      "submitting": "جارٍ الإرسال…",
+      "submitSuccess": "تم إرسال طلب الإرشاد.",
+      "submitError": "تعذّر إرسال الطلب.",
+      "loadError": "تعذّر تحميل ملفك الشخصي.",
+      "loginRequired": "سجّل الدخول لطلب الإرشاد.",
+      "preferredMediumLabel": "وسيلة التواصل المفضلة",
+      "preferredMediumPlaceholder": "كيف تفضل اللقاء؟ (اختياري)"
+    },
+    "hub": {
+      "title": "مركز المرشد",
+      "subtitle": "إدارة الطلبات والجلسات وحضورك كمرشد.",
+      "tabsAria": "أقسام مركز المرشد",
+      "tabs": {
+        "requests": "الطلبات",
+        "chats": "المحادثات",
+        "upcoming": "القادمة",
+        "workshops": "الورش",
+        "settings": "الإعدادات"
+      },
+      "kpi": {
+        "ariaLabel": "ملخص أداء المرشد",
+        "pending": "طلبات قيد الانتظار",
+        "activeChats": "محادثات نشطة",
+        "upcomingMeetings": "اجتماعات قادمة",
+        "rating": "متوسط التقييم"
+      },
+      "requests": {
+        "empty": "لا توجد طلبات قيد الانتظار حالياً.",
+        "unnamedMentee": "باحث",
+        "university": "الجامعة",
+        "college": "الكلية",
+        "city": "المدينة",
+        "targetSectors": "القطاعات المستهدفة",
+        "accept": "قبول",
+        "accepting": "جارٍ القبول…",
+        "decline": "رفض",
+        "declineTitle": "رفض الطلب",
+        "declineDescription": "يرجى ذكر سبب موجز — هذا مطلوب.",
+        "declinePlaceholder": "لماذا ترفض هذا الطلب؟",
+        "confirmDecline": "تأكيد الرفض",
+        "declining": "جارٍ الرفض…",
+        "cancel": "إلغاء",
+        "accepted": "تم قبول الطلب.",
+        "declined": "تم رفض الطلب.",
+        "reviewError": "تعذّر تحديث الطلب."
+      },
+      "stubs": {
+        "chats": {
+          "title": "المحادثات",
+          "body": "افتح محادثات الإرشاد المشفّرة.",
+          "openCta": "فتح المحادثات"
+        },
+        "upcoming": {
+          "title": "الجلسات القادمة",
+          "body": "اعرض الجلسات المؤكدة على الرادار.",
+          "openCta": "فتح الرادار"
+        },
+        "workshops": {
+          "title": "الورش",
+          "body": "إدارة الورش في اليوم 12."
+        }
+      },
+      "settings": {
+        "acceptingLabel": "قبول طلبات الإرشاد",
+        "acceptingHint": "عند الإيقاف، يظهر ملفك كغير متاح.",
+        "bioLabel": "نبذة المرشد",
+        "expertiseLabel": "مجالات الخبرة",
+        "expertisePlaceholder": "أضف وسم خبرة",
+        "addExpertise": "إضافة",
+        "mediumsLabel": "وسائل التواصل المفضلة",
+        "save": "حفظ الإعدادات",
+        "saving": "جارٍ الحفظ…",
+        "saveSuccess": "تم حفظ الإعدادات.",
+        "saveError": "تعذّر حفظ الإعدادات."
+      }
+    }
+  },
+  "conversations": {
+    "list": {
+      "title": "الرسائل",
+      "subtitle": "محادثات الإرشاد المشفّرة من طرف إلى طرف.",
+      "emptyTitle": "لا توجد محادثات بعد",
+      "emptyBody": "عند قبول طلب إرشاد، ستظهر محادثتك هنا.",
+      "unnamed": "مستخدم",
+      "noMessagesYet": "لا رسائل بعد"
+    },
+    "chat": {
+      "back": "كل المحادثات",
+      "encryptedSubtitle": "مشفّرة من طرف إلى طرف",
+      "unnamed": "مستخدم",
+      "decrypting": "جارٍ فك التشفير…",
+      "decryptError": "تعذّر فك تشفير هذه الرسالة",
+      "inputPlaceholder": "اكتب رسالة…",
+      "send": "إرسال",
+      "sendError": "تعذّر إرسال الرسالة",
+      "keysMissing": "مفاتيح التشفير غير جاهزة على هذا الجهاز",
+      "encryptionNoticeTitle": "محادثة مشفّرة",
+      "encryptionNoticeDismiss": "حسناً"
+    },
+    "schedule": {
+      "title": "اقتراح موعد",
+      "dialogTitle": "جدولة جلسة",
+      "dialogDescription": "اقترح موعداً لجلسة الإرشاد. سيؤكد المتدرب قبل إضافتها إلى الرادار.",
+      "when": "التاريخ والوقت",
+      "duration": "المدة",
+      "durationValue": "{minutes} دقيقة",
+      "medium": "الأسلوب",
+      "link": "رابط الاجتماع",
+      "linkPlaceholder": "https://…",
+      "notes": "ملاحظات",
+      "notesPlaceholder": "جدول الأعمال أو ملاحظات التحضير (اختياري)",
+      "cancel": "إلغاء",
+      "submit": "إرسال الاقتراح",
+      "submitting": "جارٍ الإرسال…",
+      "submitSuccess": "تم إرسال اقتراح الموعد.",
+      "submitError": "تعذّر إرسال اقتراح الموعد.",
+      "invalidDate": "اختر تاريخاً ووقتاً صالحين.",
+      "loading": "جارٍ تحميل تفاصيل الموعد…",
+      "confirmCta": "تأكيد الموعد",
+      "confirmSuccess": "تم تأكيد الموعد.",
+      "confirmError": "تعذّر تأكيد الموعد.",
+      "status": {
+        "pending_confirmation": "بانتظار التأكيد",
+        "scheduled": "مجدول",
+        "confirmed": "مؤكد",
+        "completed": "مكتمل",
+        "cancelled": "ملغى",
+        "no_show": "لم يحضر"
+      }
+    }
+  },
+  "radar": {
+    "title": "الرادار",
+    "subtitle": "الجلسات القادمة والمتابعات.",
+    "emptyTitle": "لا شيء على رادارك",
+    "emptyBody": "ستظهر هنا الجلسات المؤكدة وطلبات التقييم.",
+    "meeting": {
+      "upcomingTitle": "جلسة إرشاد قادمة",
+      "duration": "{minutes} دقيقة",
+      "joinLink": "انضم للاجتماع",
+      "feedbackTitle": "كيف كانت جلستك؟",
+      "feedbackBody": "تقييمك يساعد المرشدين على التحسين ويحدّث تقييمهم.",
+      "feedbackPlaceholder": "تعليقات اختيارية…",
+      "feedbackSubmit": "إرسال التقييم",
+      "feedbackSuccess": "شكراً على تقييمك.",
+      "feedbackError": "تعذّر إرسال التقييم.",
+      "ratingLabel": "{value} نجوم"
     }
   }
 }
