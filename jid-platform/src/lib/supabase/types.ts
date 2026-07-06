@@ -706,6 +706,394 @@ export type Database = {
           },
         ]
       }
+      cv_additional: {
+        Row: {
+          category: Database['public']['Enums']['additional_category_enum']
+          created_at: string
+          cv_id: string
+          description: string | null
+          end_date: string | null
+          id: string
+          issuer: string | null
+          sort_order: number
+          start_date: string | null
+          title: string
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          category: Database['public']['Enums']['additional_category_enum']
+          created_at?: string
+          cv_id: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          issuer?: string | null
+          sort_order?: number
+          start_date?: string | null
+          title: string
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          category?: Database['public']['Enums']['additional_category_enum']
+          created_at?: string
+          cv_id?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          issuer?: string | null
+          sort_order?: number
+          start_date?: string | null
+          title?: string
+          updated_at?: string
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'cv_additional_cv_id_fkey'
+            columns: ['cv_id']
+            isOneToOne: false
+            referencedRelation: 'cvs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      cv_education: {
+        Row: {
+          created_at: string
+          cv_id: string
+          degree: string | null
+          end_month: number | null
+          end_year: number | null
+          field_of_study: string | null
+          gpa_scale: number | null
+          gpa_value: number | null
+          graduation_year: number | null
+          honors: string | null
+          id: string
+          institution_city: string | null
+          institution_country: string | null
+          institution_name: string
+          is_current: boolean
+          relevant_coursework: string | null
+          sort_order: number
+          start_month: number | null
+          start_year: number | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cv_id: string
+          degree?: string | null
+          end_month?: number | null
+          end_year?: number | null
+          field_of_study?: string | null
+          gpa_scale?: number | null
+          gpa_value?: number | null
+          graduation_year?: number | null
+          honors?: string | null
+          id?: string
+          institution_city?: string | null
+          institution_country?: string | null
+          institution_name: string
+          is_current?: boolean
+          relevant_coursework?: string | null
+          sort_order?: number
+          start_month?: number | null
+          start_year?: number | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cv_id?: string
+          degree?: string | null
+          end_month?: number | null
+          end_year?: number | null
+          field_of_study?: string | null
+          gpa_scale?: number | null
+          gpa_value?: number | null
+          graduation_year?: number | null
+          honors?: string | null
+          id?: string
+          institution_city?: string | null
+          institution_country?: string | null
+          institution_name?: string
+          is_current?: boolean
+          relevant_coursework?: string | null
+          sort_order?: number
+          start_month?: number | null
+          start_year?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'cv_education_cv_id_fkey'
+            columns: ['cv_id']
+            isOneToOne: false
+            referencedRelation: 'cvs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      cv_experience: {
+        Row: {
+          bullets: string[]
+          company_city: string | null
+          company_country: string | null
+          company_name: string
+          created_at: string
+          cv_id: string
+          employment_type: string | null
+          end_month: number | null
+          end_year: number | null
+          id: string
+          is_current: boolean
+          job_title: string
+          location: string | null
+          sort_order: number
+          start_month: number | null
+          start_year: number | null
+          updated_at: string
+        }
+        Insert: {
+          bullets?: string[]
+          company_city?: string | null
+          company_country?: string | null
+          company_name: string
+          created_at?: string
+          cv_id: string
+          employment_type?: string | null
+          end_month?: number | null
+          end_year?: number | null
+          id?: string
+          is_current?: boolean
+          job_title: string
+          location?: string | null
+          sort_order?: number
+          start_month?: number | null
+          start_year?: number | null
+          updated_at?: string
+        }
+        Update: {
+          bullets?: string[]
+          company_city?: string | null
+          company_country?: string | null
+          company_name?: string
+          created_at?: string
+          cv_id?: string
+          employment_type?: string | null
+          end_month?: number | null
+          end_year?: number | null
+          id?: string
+          is_current?: boolean
+          job_title?: string
+          location?: string | null
+          sort_order?: number
+          start_month?: number | null
+          start_year?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'cv_experience_cv_id_fkey'
+            columns: ['cv_id']
+            isOneToOne: false
+            referencedRelation: 'cvs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      cv_generations: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          cv_id: string
+          error_message: string | null
+          id: string
+          input_snapshot: Json
+          model: string | null
+          output_snapshot: Json | null
+          prompt: string | null
+          section: string
+          status: Database['public']['Enums']['cv_generation_status_enum']
+          tokens_used: number | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          cv_id: string
+          error_message?: string | null
+          id?: string
+          input_snapshot?: Json
+          model?: string | null
+          output_snapshot?: Json | null
+          prompt?: string | null
+          section: string
+          status?: Database['public']['Enums']['cv_generation_status_enum']
+          tokens_used?: number | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          cv_id?: string
+          error_message?: string | null
+          id?: string
+          input_snapshot?: Json
+          model?: string | null
+          output_snapshot?: Json | null
+          prompt?: string | null
+          section?: string
+          status?: Database['public']['Enums']['cv_generation_status_enum']
+          tokens_used?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'cv_generations_cv_id_fkey'
+            columns: ['cv_id']
+            isOneToOne: false
+            referencedRelation: 'cvs'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'cv_generations_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      cv_skills: {
+        Row: {
+          created_at: string
+          cv_id: string
+          id: string
+          proficiency: string | null
+          skill_name: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cv_id: string
+          id?: string
+          proficiency?: string | null
+          skill_name: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cv_id?: string
+          id?: string
+          proficiency?: string | null
+          skill_name?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'cv_skills_cv_id_fkey'
+            columns: ['cv_id']
+            isOneToOne: false
+            referencedRelation: 'cvs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      cvs: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string
+          custom_link_1_label: string | null
+          custom_link_1_url: string | null
+          custom_link_2_label: string | null
+          custom_link_2_url: string | null
+          email: string | null
+          full_name: string | null
+          github_url: string | null
+          id: string
+          is_primary: boolean
+          linkedin_url: string | null
+          locale: string
+          phone: string | null
+          portfolio_url: string | null
+          status: Database['public']['Enums']['cv_status_enum']
+          summary: string | null
+          technical_skills: Json
+          languages: Json
+          template_key: string
+          title: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          custom_link_1_label?: string | null
+          custom_link_1_url?: string | null
+          custom_link_2_label?: string | null
+          custom_link_2_url?: string | null
+          email?: string | null
+          full_name?: string | null
+          github_url?: string | null
+          id?: string
+          is_primary?: boolean
+          linkedin_url?: string | null
+          locale?: string
+          phone?: string | null
+          portfolio_url?: string | null
+          status?: Database['public']['Enums']['cv_status_enum']
+          summary?: string | null
+          technical_skills?: Json
+          languages?: Json
+          template_key?: string
+          title?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          custom_link_1_label?: string | null
+          custom_link_1_url?: string | null
+          custom_link_2_label?: string | null
+          custom_link_2_url?: string | null
+          email?: string | null
+          full_name?: string | null
+          github_url?: string | null
+          id?: string
+          is_primary?: boolean
+          linkedin_url?: string | null
+          locale?: string
+          phone?: string | null
+          portfolio_url?: string | null
+          status?: Database['public']['Enums']['cv_status_enum']
+          summary?: string | null
+          technical_skills?: Json
+          languages?: Json
+          template_key?: string
+          title?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'cvs_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       conversations: {
         Row: {
           created_at: string
@@ -1452,6 +1840,15 @@ export type Database = {
       }
     }
     Enums: {
+      additional_category_enum:
+        | 'certification'
+        | 'award'
+        | 'leadership'
+        | 'volunteer'
+        | 'project'
+        | 'publication'
+        | 'language'
+        | 'other'
       application_status_enum:
         | 'draft'
         | 'saved'
@@ -1471,6 +1868,8 @@ export type Database = {
         | 'rejected'
         | 'cancelled'
       claim_type_enum: 'company' | 'university'
+      cv_generation_status_enum: 'pending' | 'completed' | 'failed'
+      cv_status_enum: 'draft' | 'published' | 'archived'
       experience_level_enum: 'intern' | 'entry' | 'mid' | 'senior' | 'lead' | 'executive'
       job_status_enum:
         | 'draft'

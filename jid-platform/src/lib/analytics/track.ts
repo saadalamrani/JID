@@ -32,6 +32,17 @@ export const MENTORSHIP_ANALYTICS_EVENTS = [
   'mentor_notification_requested',
 ] as const
 
+/** Section 15 — CV builder analytics events. */
+export const CV_ANALYTICS_EVENTS = [
+  'cv_builder_opened',
+  'cv_section_completed',
+  'cv_auto_filled_from_profile',
+  'cv_pdf_generated',
+  'cv_pdf_failed',
+  'cv_overflow_warning_shown',
+  'cv_section_abandoned',
+] as const
+
 /** Section 15 — Opportunity Radar analytics events. */
 export const RADAR_ANALYTICS_EVENTS = [
   'radar_viewed',
@@ -49,6 +60,7 @@ export const RADAR_ANALYTICS_EVENTS = [
 export const ANALYTICS_EVENTS = [
   ...JOB_ANALYTICS_EVENTS,
   ...MENTORSHIP_ANALYTICS_EVENTS,
+  ...CV_ANALYTICS_EVENTS,
   ...RADAR_ANALYTICS_EVENTS,
 ] as const
 

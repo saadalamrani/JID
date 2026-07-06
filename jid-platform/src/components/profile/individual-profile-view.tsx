@@ -1,3 +1,4 @@
+import { CvBuilderCtaCard } from '@/components/profile/cv-builder-cta-card'
 import { IdentityHeader } from '@/components/profile/identity-header'
 import { CompletionBanner } from '@/components/profile/completion-banner'
 import { CompletionWizard } from '@/components/profile/completion-wizard'
@@ -57,6 +58,8 @@ export function IndividualProfileView({
         completionPct={wizardPct}
         badgeSlot={badgeSlot}
       />
+
+      {isOwner ? <CvBuilderCtaCard /> : null}
 
       {displayState === 'empty' ? (
         <CompletionWizard input={wizardInput} />
