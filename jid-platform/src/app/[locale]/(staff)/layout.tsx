@@ -20,6 +20,9 @@ export default function StaffLayout({ children }: StaffLayoutProps) {
             <Link href="/staff/claims/queue" className="text-jid-ink/70 hover:text-jid-ink">
               Claims queue
             </Link>
+            <Link href="/staff/mentor-applications" className="text-jid-ink/70 hover:text-jid-ink">
+              Mentor applications
+            </Link>
             <Link href="/staff/audit" className="text-jid-ink/70 hover:text-jid-ink">
               Audit
             </Link>

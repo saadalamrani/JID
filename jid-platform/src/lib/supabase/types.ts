@@ -752,24 +752,27 @@ export type Database = {
       mentor_notification_requests: {
         Row: {
           created_at: string
+          desired_filters: Json | null
           id: string
-          mentor_id: string
+          mentor_id: string | null
           notified_at: string | null
           requester_id: string
           status: Database['public']['Enums']['mentor_notification_status_enum']
         }
         Insert: {
           created_at?: string
+          desired_filters?: Json | null
           id?: string
-          mentor_id: string
+          mentor_id?: string | null
           notified_at?: string | null
           requester_id: string
           status?: Database['public']['Enums']['mentor_notification_status_enum']
         }
         Update: {
           created_at?: string
+          desired_filters?: Json | null
           id?: string
-          mentor_id?: string
+          mentor_id?: string | null
           notified_at?: string | null
           requester_id?: string
           status?: Database['public']['Enums']['mentor_notification_status_enum']
@@ -805,9 +808,11 @@ export type Database = {
           expertise_sectors: string[]
           headline: string | null
           is_accepting_requests: boolean
+          is_mentor_of_month: boolean
           languages: string[]
           linkedin_url: string | null
           max_active_mentees: number
+          nationality: string | null
           preferred_mediums: string[]
           rating_avg: number | null
           rejection_reason: string | null
@@ -815,6 +820,7 @@ export type Database = {
           reviewed_by: string | null
           sessions_count: number
           slug: string | null
+          specializations: string[]
           status: string
           updated_at: string
           user_id: string
@@ -833,9 +839,11 @@ export type Database = {
           expertise_sectors?: string[]
           headline?: string | null
           is_accepting_requests?: boolean
+          is_mentor_of_month?: boolean
           languages?: string[]
           linkedin_url?: string | null
           max_active_mentees?: number
+          nationality?: string | null
           preferred_mediums?: string[]
           rating_avg?: number | null
           rejection_reason?: string | null
@@ -843,6 +851,7 @@ export type Database = {
           reviewed_by?: string | null
           sessions_count?: number
           slug?: string | null
+          specializations?: string[]
           status?: string
           updated_at?: string
           user_id: string
@@ -861,9 +870,11 @@ export type Database = {
           expertise_sectors?: string[]
           headline?: string | null
           is_accepting_requests?: boolean
+          is_mentor_of_month?: boolean
           languages?: string[]
           linkedin_url?: string | null
           max_active_mentees?: number
+          nationality?: string | null
           preferred_mediums?: string[]
           rating_avg?: number | null
           rejection_reason?: string | null
@@ -871,6 +882,7 @@ export type Database = {
           reviewed_by?: string | null
           sessions_count?: number
           slug?: string | null
+          specializations?: string[]
           status?: string
           updated_at?: string
           user_id?: string

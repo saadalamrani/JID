@@ -91,6 +91,8 @@ export type MentorActiveWorkshop = {
   title: string
   title_ar?: string | null
   scheduled_at?: string | null
+  workshop_date?: string | null
+  is_active?: boolean
   spots_remaining?: number | null
   url?: string | null
 }

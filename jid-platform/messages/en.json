@@ -325,6 +325,11 @@
         "title": "Claims queue",
         "description": "Review company and university ownership claims",
         "cta": "Open queue"
+      },
+      "mentorApplicationsCard": {
+        "title": "Mentor applications",
+        "description": "Review individual mentor applications (separate from entity claims)",
+        "cta": "Open mentor queue"
       }
     },
     "claimsQueue": {
@@ -382,6 +387,45 @@
         "time": "Time",
         "action": "Action",
         "entity": "Entity"
+      }
+    },
+    "mentorApplications": {
+      "title": "Mentor application queue",
+      "subtitle": "Pending mentor profiles awaiting staff approval",
+      "stats": {
+        "pending": "Pending review"
+      },
+      "listTitle": "Pending applications",
+      "backToDashboard": "Back to dashboard",
+      "error": "Could not load applications",
+      "list": {
+        "loading": "Loading...",
+        "empty": "No pending mentor applications",
+        "pendingReview": "Pending review",
+        "unnamed": "Unnamed applicant"
+      },
+      "review": {
+        "title": "Review mentor — {name}",
+        "subtitle": "Approve or reject this mentor application",
+        "unnamed": "Unnamed applicant",
+        "notFound": "Application not found",
+        "linkedin": "LinkedIn",
+        "languages": "Languages",
+        "mediums": "Preferred mediums",
+        "reviewNotes": "Review notes",
+        "reviewNotesPlaceholder": "Internal notes (required for approve and reject)",
+        "rejectionReason": "Rejection reason",
+        "rejectionReasonPlaceholder": "Reason shared with the applicant when rejecting",
+        "rejectionReasonHint": "Required when rejecting",
+        "approve": "Approve",
+        "reject": "Reject",
+        "cancel": "Cancel",
+        "submitting": "Saving...",
+        "approved": "Mentor application approved",
+        "rejected": "Mentor application rejected",
+        "submitError": "Could not save decision",
+        "notesRequired": "Review notes are required",
+        "rejectionReasonRequired": "Rejection reason is required"
       }
     }
   },
@@ -770,6 +814,73 @@
         "statusLabel": "Status: {status}",
         "submittedAt": "Submitted {date}"
       }
+    },
+    "discovery": {
+      "loadError": "Could not load mentors",
+      "resultsCount": "{count} mentors match your filters",
+      "resultsAria": "Mentor discovery results",
+      "hero": {
+        "title": "Find a mentor",
+        "subtitle": "Connect with experienced professionals who accept mentorship requests on JID.",
+        "activeMentors": "Active mentors",
+        "totalSessions": "Mentorship sessions"
+      },
+      "filters": {
+        "sector": "Sector",
+        "sectorEmpty": "Choose sectors",
+        "sectorSelected": "Sectors ({count})",
+        "expertise": "Expertise",
+        "expertiseEmpty": "Choose expertise areas",
+        "expertiseSelected": "Expertise ({count})",
+        "specialization": "Specialization",
+        "specializationEmpty": "Choose specializations",
+        "specializationSelected": "Specializations ({count})",
+        "language": "Language",
+        "languageEmpty": "Choose languages",
+        "languageSelected": "Languages ({count})",
+        "nationality": "Nationality",
+        "nationalityEmpty": "Choose nationalities",
+        "nationalitySelected": "Nationalities ({count})",
+        "availability": "Availability",
+        "acceptingOnly": "Accepting requests only"
+      },
+      "empty": {
+        "coldStartTitle": "Mentors are joining soon",
+        "coldStartBody": "We are building our mentor community. Get notified when mentors matching your interests become available.",
+        "noMatchesTitle": "No mentors match your filters",
+        "noMatchesBody": "Try broadening your filters or reset them to see all mentors.",
+        "notifyCta": "Notify me when mentors are available",
+        "notifySubmitting": "Saving…",
+        "notifyDone": "You will be notified",
+        "notifySuccess": "We will notify you when matching mentors join.",
+        "notifyError": "Could not save your notification request.",
+        "notifyHint": "Sign in to receive notifications when mentors become available.",
+        "loginRequired": "Sign in to request notifications.",
+        "loginCta": "Sign in",
+        "resetFilters": "Reset filters"
+      }
+    },
+    "card": {
+      "unnamed": "Mentor",
+      "years": "{years} yrs experience",
+      "sessions": "{count} sessions",
+      "available": "Available",
+      "unavailable": "Unavailable",
+      "requestCta": "Request mentorship",
+      "viewProfile": "View {name}'s profile",
+      "moreTags": "+{count} more",
+      "workshopChip": "Workshop: {title}",
+      "mentorOfMonth": "Mentor of the month"
+    },
+    "detail": {
+      "unnamed": "Mentor",
+      "years": "{years} years experience",
+      "sessionsLabel": "Sessions completed",
+      "ratingLabel": "Average rating",
+      "accepting": "Accepting requests",
+      "notAccepting": "Not accepting requests",
+      "requestCta": "Request mentorship",
+      "mediumsTitle": "Preferred mediums"
     }
   }
 }

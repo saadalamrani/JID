@@ -454,7 +454,7 @@ ON CONFLICT (id) DO UPDATE SET
 -- ---------------------------------------------------------------------------
 -- Mentor public-view fixtures (Section 12 Step 11)
 -- Test URLs:
---   Approved → /mentors/e0000000-0000-4000-8000-000000000001  (full public profile)
+--   Approved → /mentors/ahmed-al-rashid  (slug) or /mentors/e0000000-0000-4000-8000-000000000001  (uuid fallback)
 --   Pending  → /mentors/e0000000-0000-4000-8000-000000000002  (404; staff sees profile)
 --
 -- Approved mentor login: mentor-approved@test.jid.local / TestProfile1!
@@ -581,6 +581,7 @@ ON CONFLICT (id) DO UPDATE SET
 INSERT INTO public.mentor_profiles (
   user_id,
   status,
+  slug,
   headline,
   bio_short,
   bio_long,
@@ -589,13 +590,21 @@ INSERT INTO public.mentor_profiles (
   rating_avg,
   sessions_count,
   expertise_sectors,
+  expertise_areas,
+  specializations,
+  languages,
+  preferred_mediums,
+  nationality,
   years_experience,
+  is_accepting_requests,
+  is_mentor_of_month,
   active_workshop
 )
 VALUES
   (
     'e0000000-0000-4000-8000-000000000001',
     'approved',
+    'ahmed-al-rashid',
     'Former product leader at Aramco — I help graduates land their first tech role.',
     'I mentor students transitioning from university to their first software or product role.',
     'Over 15 years in product and engineering leadership across energy and telecom. I focus on portfolio reviews, interview prep, and navigating your first 90 days on the job.',
@@ -607,11 +616,20 @@ VALUES
     4.8,
     47,
     ARRAY['Technology', 'Energy', 'Product Management'],
+    ARRAY['Interview Prep', 'Product Management', 'Career Transition', 'Portfolio Review'],
+    ARRAY['New Graduates', 'Tech'],
+    ARRAY['ar', 'en'],
+    ARRAY['video', 'chat'],
+    'SA',
     15,
+    true,
+    true,
     '{
       "title": "Tech Interview Prep Workshop",
       "title_ar": "ورشة التحضير لمقابلات التقنية",
+      "workshop_date": "2026-08-15T17:00:00+00:00",
       "scheduled_at": "2026-08-15T17:00:00+00:00",
+      "is_active": true,
       "spots_remaining": 12,
       "url": "https://jid.local/workshops/interview-prep"
     }'::jsonb
@@ -632,6 +650,7 @@ VALUES
   )
 ON CONFLICT (user_id) DO UPDATE SET
   status = EXCLUDED.status,
+  slug = EXCLUDED.slug,
   headline = EXCLUDED.headline,
   bio_short = EXCLUDED.bio_short,
   bio_long = EXCLUDED.bio_long,
@@ -640,7 +659,14 @@ ON CONFLICT (user_id) DO UPDATE SET
   rating_avg = EXCLUDED.rating_avg,
   sessions_count = EXCLUDED.sessions_count,
   expertise_sectors = EXCLUDED.expertise_sectors,
+  expertise_areas = EXCLUDED.expertise_areas,
+  specializations = EXCLUDED.specializations,
+  languages = EXCLUDED.languages,
+  preferred_mediums = EXCLUDED.preferred_mediums,
+  nationality = EXCLUDED.nationality,
   years_experience = EXCLUDED.years_experience,
+  is_accepting_requests = EXCLUDED.is_accepting_requests,
+  is_mentor_of_month = EXCLUDED.is_mentor_of_month,
   active_workshop = EXCLUDED.active_workshop;
 
 INSERT INTO public.mentor_reviews (id, mentor_id, reviewer_id, rating, body, created_at)

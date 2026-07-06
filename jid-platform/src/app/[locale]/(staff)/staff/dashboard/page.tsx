@@ -27,6 +27,20 @@ export default async function StaffDashboardPage() {
             </Link>
           </CardContent>
         </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('mentorApplicationsCard.title')}</CardTitle>
+            <CardDescription>{t('mentorApplicationsCard.description')}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Link
+              href="/staff/mentor-applications"
+              className="inline-flex text-sm font-medium text-jid-olive underline-offset-4 hover:underline"
+            >
+              {t('mentorApplicationsCard.cta')}
+            </Link>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

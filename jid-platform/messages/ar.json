@@ -325,6 +325,11 @@
         "title": "طابور المطالبات",
         "description": "راجع طلبات مطالبة الشركات والجامعات بالملكية",
         "cta": "فتح الطابور"
+      },
+      "mentorApplicationsCard": {
+        "title": "طلبات المرشدين",
+        "description": "راجع طلبات الأفراد للإرشاد (منفصلة عن مطالبات الكيانات)",
+        "cta": "فتح طابور المرشدين"
       }
     },
     "claimsQueue": {
@@ -382,6 +387,45 @@
         "time": "الوقت",
         "action": "الإجراء",
         "entity": "الكيان"
+      }
+    },
+    "mentorApplications": {
+      "title": "طابور طلبات المرشدين",
+      "subtitle": "ملفات مرشدين بانتظار موافقة فريق العمليات",
+      "stats": {
+        "pending": "قيد المراجعة"
+      },
+      "listTitle": "الطلبات المعلقة",
+      "backToDashboard": "العودة للوحة التحكم",
+      "error": "تعذّر تحميل الطلبات",
+      "list": {
+        "loading": "جاري التحميل...",
+        "empty": "لا توجد طلبات مرشد معلقة",
+        "pendingReview": "قيد المراجعة",
+        "unnamed": "مقدّم بدون اسم"
+      },
+      "review": {
+        "title": "مراجعة مرشد — {name}",
+        "subtitle": "وافق أو ارفض طلب المرشد",
+        "unnamed": "مقدّم بدون اسم",
+        "notFound": "الطلب غير موجود",
+        "linkedin": "LinkedIn",
+        "languages": "اللغات",
+        "mediums": "وسائل التواصل",
+        "reviewNotes": "ملاحظات المراجعة",
+        "reviewNotesPlaceholder": "ملاحظات داخلية (مطلوبة للموافقة والرفض)",
+        "rejectionReason": "سبب الرفض",
+        "rejectionReasonPlaceholder": "سبب يُشارك مع مقدّم الطلب عند الرفض",
+        "rejectionReasonHint": "مطلوب عند الرفض",
+        "approve": "موافقة",
+        "reject": "رفض",
+        "cancel": "إلغاء",
+        "submitting": "جاري الحفظ...",
+        "approved": "تمت الموافقة على طلب المرشد",
+        "rejected": "تم رفض طلب المرشد",
+        "submitError": "تعذّر حفظ القرار",
+        "notesRequired": "ملاحظات المراجعة مطلوبة",
+        "rejectionReasonRequired": "سبب الرفض مطلوب"
       }
     }
   },
@@ -770,6 +814,73 @@
         "statusLabel": "الحالة: {status}",
         "submittedAt": "أُرسل {date}"
       }
+    },
+    "discovery": {
+      "loadError": "تعذّر تحميل المرشدين",
+      "resultsCount": "{count} مرشداً يطابق فلاترك",
+      "resultsAria": "نتائج اكتشاف المرشدين",
+      "hero": {
+        "title": "ابحث عن مرشد",
+        "subtitle": "تواصل مع محترفين ذوي خبرة يقبلون طلبات الإرشاد على جِد.",
+        "activeMentors": "المرشدون النشطون",
+        "totalSessions": "جلسات الإرشاد"
+      },
+      "filters": {
+        "sector": "القطاع",
+        "sectorEmpty": "اختر القطاعات",
+        "sectorSelected": "القطاعات ({count})",
+        "expertise": "مجالات الخبرة",
+        "expertiseEmpty": "اختر مجالات الخبرة",
+        "expertiseSelected": "الخبرات ({count})",
+        "specialization": "التخصص",
+        "specializationEmpty": "اختر التخصصات",
+        "specializationSelected": "التخصصات ({count})",
+        "language": "اللغة",
+        "languageEmpty": "اختر اللغات",
+        "languageSelected": "اللغات ({count})",
+        "nationality": "الجنسية",
+        "nationalityEmpty": "اختر الجنسيات",
+        "nationalitySelected": "الجنسيات ({count})",
+        "availability": "التوفر",
+        "acceptingOnly": "يقبل الطلبات فقط"
+      },
+      "empty": {
+        "coldStartTitle": "المرشدون قادمون قريباً",
+        "coldStartBody": "نبني مجتمع المرشدين على جِد. احصل على إشعار عند توفر مرشدين يطابقون اهتماماتك.",
+        "noMatchesTitle": "لا يوجد مرشدون يطابقون فلاترك",
+        "noMatchesBody": "جرّب توسيع الفلاتر أو إعادة تعيينها لعرض جميع المرشدين.",
+        "notifyCta": "أبلغني عند توفر مرشدين",
+        "notifySubmitting": "جارٍ الحفظ…",
+        "notifyDone": "سنبلغك عند التوفر",
+        "notifySuccess": "سنبلغك عند انضمام مرشدين مطابقين.",
+        "notifyError": "تعذّر حفظ طلب الإشعار.",
+        "notifyHint": "سجّل الدخول لتلقي إشعار عند توفر مرشدين.",
+        "loginRequired": "سجّل الدخول لطلب الإشعار.",
+        "loginCta": "تسجيل الدخول",
+        "resetFilters": "إعادة تعيين الفلاتر"
+      }
+    },
+    "card": {
+      "unnamed": "مرشد",
+      "years": "{years} سنوات خبرة",
+      "sessions": "{count} جلسة",
+      "available": "متاح",
+      "unavailable": "غير متاح",
+      "requestCta": "طلب إرشاد",
+      "viewProfile": "عرض ملف {name}",
+      "moreTags": "+{count} أخرى",
+      "workshopChip": "ورشة: {title}",
+      "mentorOfMonth": "مرشد الشهر"
+    },
+    "detail": {
+      "unnamed": "مرشد",
+      "years": "{years} سنوات خبرة",
+      "sessionsLabel": "الجلسات المكتملة",
+      "ratingLabel": "متوسط التقييم",
+      "accepting": "يقبل الطلبات",
+      "notAccepting": "لا يقبل الطلبات حالياً",
+      "requestCta": "طلب إرشاد",
+      "mediumsTitle": "وسائل التواصل المفضلة"
     }
   }
 }
