@@ -93,7 +93,7 @@ export async function updateMentorWorkshop(
 
   const { data: existing, error: fetchError } = await supabase
     .from('mentor_workshops')
-    .select('id, mentor_id, capacity, spots_remaining')
+    .select('id, mentor_id, capacity, spots_remaining, status, scheduled_at')
     .eq('id', workshopId)
     .maybeSingle()
 
@@ -102,26 +102,21 @@ export async function updateMentorWorkshop(
     throw new WorkshopError('الورشة غير موجودة', 404)
   }
 
-  if (parsed.scheduled_at) {
-    const publishing = parsed.status === 'published' || undefined
-    if (publishing !== false) {
-      try {
-        assertFutureScheduledAt(parsed.scheduled_at)
-      } catch {
-        throw new WorkshopError('يجب أن يكون موعد الورشة في المستقبل', 400)
-      }
+  const willPublish = parsed.status === 'published' || existing.status === 'published'
+
+  if (parsed.scheduled_at && willPublish) {
+    try {
+      assertFutureScheduledAt(parsed.scheduled_at)
+    } catch {
+      throw new WorkshopError('يجب أن يكون موعد الورشة في المستقبل', 400)
     }
   } else if (parsed.status === 'published') {
-    const { data: row } = await supabase
-      .from('mentor_workshops')
-      .select('scheduled_at')
-      .eq('id', workshopId)
-      .maybeSingle()
-    if (!row?.scheduled_at) {
+    const scheduledAt = parsed.scheduled_at ?? existing.scheduled_at
+    if (!scheduledAt) {
       throw new WorkshopError('حدد موعد الورشة قبل النشر', 400)
     }
     try {
-      assertFutureScheduledAt(row.scheduled_at)
+      assertFutureScheduledAt(scheduledAt)
     } catch {
       throw new WorkshopError('يجب أن يكون موعد الورشة في المستقبل', 400)
     }

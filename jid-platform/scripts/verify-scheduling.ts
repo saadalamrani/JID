@@ -52,12 +52,14 @@ check(proposeLib.includes("status: 'pending_confirmation'"), 'proposal creates p
 check(proposeLib.includes("message_type: 'schedule_proposal'"), 'proposal creates schedule message')
 
 check(read('src/app/api/meetings/[id]/confirm/route.ts').includes('confirmMeeting'), 'PATCH confirm API')
-check(confirmLib.includes('sync_meeting_radar_on_confirm'), 'confirmMeeting syncs radar')
+check(!confirmLib.includes('sync_meeting_radar_on_confirm'), 'confirmMeeting does not write radar_items')
+check(confirmLib.includes('expected_end_at'), 'confirmMeeting sets expected_end_at')
 check(confirmLib.includes("status: 'confirmed'"), 'confirmMeeting sets confirmed')
 
 check(read('src/app/api/meetings/[id]/feedback/route.ts').includes('submitMeetingFeedback'), 'POST feedback API')
 check(feedbackLib.includes('feedback_rating'), 'feedback stores rating')
 check(feedbackLib.includes("status: 'completed'"), 'feedback completes meeting')
+check(!feedbackLib.includes("from('radar_items')"), 'feedback does not update radar_items')
 
 check(radarCard.includes('isMeetingFeedbackDue'), 'radar card time-based feedback morph')
 check(radarCard.includes('isMeetingUpcoming'), 'radar card shows upcoming state')

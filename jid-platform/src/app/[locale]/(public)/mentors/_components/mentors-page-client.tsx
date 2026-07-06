@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { track } from '@/lib/analytics/track'
 import { StickyFilterBar } from '@/app/[locale]/(public)/catalog/_components/sticky-filter-bar'
 import type { MentorsListResult } from '@/types/mentor'
 import { AvailabilityFilter } from './availability-filter'
@@ -40,6 +41,12 @@ function MentorResultsSection() {
   useEffect(() => {
     scrollRef.current = document.documentElement
   }, [])
+
+  useEffect(() => {
+    if (!isLoading && mentors.length > 0) {
+      track('mentor_discovered', { count: mentors.length })
+    }
+  }, [isLoading, mentors.length])
 
   if (error) {
     return (

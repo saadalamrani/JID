@@ -103,6 +103,7 @@ export type Database = {
           id: string
           job_id: string
           last_company_action_at: string | null
+          last_seen_by_user_at: string | null
           resume_url: string | null
           status: Database['public']['Enums']['application_status_enum']
           submitted_at: string | null
@@ -118,6 +119,7 @@ export type Database = {
           id?: string
           job_id: string
           last_company_action_at?: string | null
+          last_seen_by_user_at?: string | null
           resume_url?: string | null
           status?: Database['public']['Enums']['application_status_enum']
           submitted_at?: string | null
@@ -133,6 +135,7 @@ export type Database = {
           id?: string
           job_id?: string
           last_company_action_at?: string | null
+          last_seen_by_user_at?: string | null
           resume_url?: string | null
           status?: Database['public']['Enums']['application_status_enum']
           submitted_at?: string | null
@@ -810,6 +813,7 @@ export type Database = {
           headline: string | null
           is_accepting_requests: boolean
           is_mentor_of_month: boolean
+          mentor_score: number | null
           languages: string[]
           linkedin_url: string | null
           max_active_mentees: number
@@ -842,6 +846,7 @@ export type Database = {
           headline?: string | null
           is_accepting_requests?: boolean
           is_mentor_of_month?: boolean
+          mentor_score?: number | null
           languages?: string[]
           linkedin_url?: string | null
           max_active_mentees?: number
@@ -874,6 +879,7 @@ export type Database = {
           headline?: string | null
           is_accepting_requests?: boolean
           is_mentor_of_month?: boolean
+          mentor_score?: number | null
           languages?: string[]
           linkedin_url?: string | null
           max_active_mentees?: number
@@ -966,6 +972,7 @@ export type Database = {
           completed_at: string | null
           created_at: string
           duration_minutes: number | null
+          expected_end_at: string | null
           feedback_comment: string | null
           feedback_rating: number | null
           feedback_submitted_at: string | null
@@ -977,6 +984,7 @@ export type Database = {
           notes: string | null
           request_id: string | null
           scheduled_at: string | null
+          should_show_feedback: boolean
           status: string
           updated_at: string
         }
@@ -984,6 +992,7 @@ export type Database = {
           completed_at?: string | null
           created_at?: string
           duration_minutes?: number | null
+          expected_end_at?: string | null
           feedback_comment?: string | null
           feedback_rating?: number | null
           feedback_submitted_at?: string | null
@@ -995,6 +1004,7 @@ export type Database = {
           notes?: string | null
           request_id?: string | null
           scheduled_at?: string | null
+          should_show_feedback?: boolean
           status?: string
           updated_at?: string
         }
@@ -1002,6 +1012,7 @@ export type Database = {
           completed_at?: string | null
           created_at?: string
           duration_minutes?: number | null
+          expected_end_at?: string | null
           feedback_comment?: string | null
           feedback_rating?: number | null
           feedback_submitted_at?: string | null
@@ -1013,6 +1024,7 @@ export type Database = {
           notes?: string | null
           request_id?: string | null
           scheduled_at?: string | null
+          should_show_feedback?: boolean
           status?: string
           updated_at?: string
         }
@@ -1366,6 +1378,10 @@ export type Database = {
         Args: { p_meeting_id: string }
         Returns: undefined
       }
+      update_feedback_flags: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       is_admin_or_above: {
         Args: Record<PropertyKey, never>
         Returns: boolean
@@ -1432,6 +1448,8 @@ export type Database = {
     Enums: {
       application_status_enum:
         | 'draft'
+        | 'saved'
+        | 'pending'
         | 'submitted'
         | 'under_review'
         | 'shortlisted'

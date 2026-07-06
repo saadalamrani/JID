@@ -24,7 +24,12 @@
   "home": {
     "title": "مرحباً بك في جِد",
     "subtitle": "منصتك للتوظيف والإرشاد المهني",
-    "cta": "ابدأ الآن"
+    "cta": "ابدأ الآن",
+    "featuredMentors": {
+      "title": "مرشدو الشهر",
+      "subtitle": "أفضل المرشدين تقييماً لمساعدتك في مسيرتك.",
+      "browseAll": "تصفح كل المرشدين"
+    }
   },
   "errors": {
     "notFound": "الصفحة غير موجودة",
@@ -964,8 +969,30 @@
         },
         "workshops": {
           "title": "الورش",
-          "body": "إدارة الورش في اليوم 12."
+          "body": "أنشئ وانشر ورش الإرشاد."
         }
+      },
+      "workshops": {
+        "createTitle": "ورشة جديدة",
+        "editTitle": "تعديل الورشة",
+        "titlePlaceholder": "عنوان الورشة (إنجليزي)",
+        "titleArPlaceholder": "عنوان الورشة (عربي)",
+        "descriptionPlaceholder": "الوصف (اختياري)",
+        "urlPlaceholder": "رابط التسجيل (اختياري)",
+        "dateRequired": "اختر التاريخ والوقت.",
+        "saveDraft": "حفظ كمسودة",
+        "publish": "نشر",
+        "cancelEdit": "إلغاء التعديل",
+        "saveSuccess": "تم حفظ الورشة.",
+        "saveError": "تعذّر حفظ الورشة.",
+        "delete": "حذف",
+        "deleteConfirm": "حذف هذه الورشة؟",
+        "deleteSuccess": "تم حذف الورشة.",
+        "deleteError": "تعذّر حذف الورشة.",
+        "edit": "تعديل",
+        "empty": "لا توجد ورش بعد. أنشئ أول ورشة.",
+        "spots": "متبقي {count} / {capacity}",
+        "chipHint": "الورش المنشورة بموعد مستقبلي تظهر كشارة ذهبية على بطاقتك."
       },
       "settings": {
         "acceptingLabel": "قبول طلبات الإرشاد",
@@ -978,8 +1005,17 @@
         "save": "حفظ الإعدادات",
         "saving": "جارٍ الحفظ…",
         "saveSuccess": "تم حفظ الإعدادات.",
-        "saveError": "تعذّر حفظ الإعدادات."
+        "saveError": "تعذّر حفظ الإعدادات.",
+        "shareLabel": "شارك ملفك",
+        "shareHint": "حمّل بطاقة 1200×630 للشبكات الاجتماعية.",
+        "shareFallbackName": "مرشد"
       }
+    },
+    "share": {
+      "downloadCta": "تحميل بطاقة المشاركة",
+      "downloadSuccess": "تم تحميل البطاقة.",
+      "downloadError": "تعذّر إنشاء البطاقة.",
+      "sessions": "{count} جلسة"
     }
   },
   "conversations": {

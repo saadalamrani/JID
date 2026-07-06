@@ -14,11 +14,20 @@ export class ConfirmMeetingError extends Error {
 }
 
 const MEETING_SELECT =
-  'id, mentor_id, mentee_id, status, scheduled_at, duration_minutes, meeting_url, notes, medium, feedback_rating, feedback_submitted_at' as const
+  'id, mentor_id, mentee_id, status, scheduled_at, duration_minutes, meeting_url, notes, medium, feedback_rating, feedback_submitted_at, expected_end_at, should_show_feedback' as const
+
+function computeExpectedEndAt(
+  scheduledAt: string,
+  durationMinutes: number | null,
+): string {
+  const startMs = new Date(scheduledAt).getTime()
+  const durationMs = (durationMinutes ?? 0) * 60 * 1000
+  return new Date(startMs + durationMs).toISOString()
+}
 
 /**
- * Section 4.13 — mentee confirms a proposed meeting, syncs Radar bridge rows,
- * and schedules the post-meeting feedback prompt.
+ * Section 4.13 — mentee confirms a proposed meeting.
+ * Feedback prompt timing is server-driven via should_show_feedback (Section 8.2).
  */
 export async function confirmMeeting(
   meetingId: string,
@@ -46,7 +55,11 @@ export async function confirmMeeting(
 
   const { data: updated, error: updateError } = await supabase
     .from('mentorship_meetings')
-    .update({ status: 'confirmed', updated_at: new Date().toISOString() })
+    .update({
+      status: 'confirmed',
+      expected_end_at: computeExpectedEndAt(meeting.scheduled_at, meeting.duration_minutes),
+      updated_at: new Date().toISOString(),
+    })
     .eq('id', meetingId)
     .eq('status', 'pending_confirmation')
     .select(MEETING_SELECT)
@@ -54,14 +67,6 @@ export async function confirmMeeting(
 
   if (updateError || !updated) {
     throw new ConfirmMeetingError(updateError?.message ?? 'تعذّر تأكيد الموعد', 500)
-  }
-
-  const { error: radarError } = await supabase.rpc('sync_meeting_radar_on_confirm', {
-    p_meeting_id: meetingId,
-  })
-
-  if (radarError) {
-    throw new ConfirmMeetingError(radarError.message, 500)
   }
 
   return updated as MeetingSummary

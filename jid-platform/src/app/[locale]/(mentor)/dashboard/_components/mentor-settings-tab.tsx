@@ -154,6 +154,23 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
         </div>
       </section>
 
+      <section className="rounded-xl border border-jid-line bg-jid-beige/20 p-4">
+        <h3 className="font-arabic text-sm font-medium text-jid-ink">{t('shareLabel')}</h3>
+        <p className="mt-1 font-arabic text-xs text-jid-ink/55">{t('shareHint')}</p>
+        <div className="mt-3">
+          <MentorShareCardButton
+            name={settings.full_name?.trim() || t('shareFallbackName')}
+            headline={settings.bio_long}
+            avatarUrl={settings.avatar_url}
+            ratingAvg={settings.rating_avg}
+            sessionsCount={settings.sessions_count}
+            expertiseAreas={settings.expertise_areas}
+            slug={settings.slug}
+            isMentorOfMonth={settings.is_mentor_of_month}
+          />
+        </div>
+      </section>
+
       <Button
         type="button"
         disabled={saving}

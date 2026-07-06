@@ -18,6 +18,8 @@ export type MeetingSummary = {
   medium: string | null
   feedback_rating: number | null
   feedback_submitted_at: string | null
+  expected_end_at: string | null
+  should_show_feedback: boolean
 }
 
 export type RadarItemRow = {

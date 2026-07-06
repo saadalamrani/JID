@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 import { ProfileAvatar } from '@/components/profile/profile-avatar'
 import { ChatInputBar } from './chat-input-bar'
+import { ConversationOpenedTracker } from './conversation-opened-tracker'
 import { EncryptionNotice, buildEncryptionSystemMessage } from './encryption-notice'
 import { MessageBubble } from './message-bubble'
 import { ScheduleBubbleMessage } from './schedule-bubble-message'
@@ -52,6 +53,7 @@ export function ChatWorkspace({ conversation, userId, initialMessages }: ChatWor
 
   return (
     <div className="flex min-h-[70vh] flex-col rounded-xl border border-jid-line bg-jid-beige/20 shadow-sm">
+      <ConversationOpenedTracker conversationId={conversation.id} />
       <header className="flex items-center gap-3 border-b border-jid-line bg-white px-4 py-3">
         <Link href="/conversations" className="font-arabic text-sm text-jid-olive hover:underline">
           {t('back')}

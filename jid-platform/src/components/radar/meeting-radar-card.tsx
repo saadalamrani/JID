@@ -1,3 +1,8 @@
+/**
+ * @deprecated Radar Day 8 — replace client-side hoursAfter / isMeetingFeedbackDue morph
+ * with server-computed `mentorship_meetings.should_show_feedback` (Section 8.2).
+ * DO NOT DELETE this file until Day 8 Radar card is wired to the flag.
+ */
 'use client'
 
 import { CalendarClock, Loader2, Star } from 'lucide-react'

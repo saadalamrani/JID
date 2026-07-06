@@ -4,6 +4,8 @@
 
 export const APPLICATION_STATUSES = [
   'draft',
+  'saved',
+  'pending',
   'submitted',
   'under_review',
   'shortlisted',
@@ -16,6 +18,8 @@ export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number]
 
 export const APPLICATION_STATUS_LABELS: Record<ApplicationStatus, string> = {
   draft: 'مسودة',
+  saved: 'محفوظ',
+  pending: 'قيد التقديم',
   submitted: 'مُرسل',
   under_review: 'قيد المراجعة',
   shortlisted: 'في القائمة المختصرة',

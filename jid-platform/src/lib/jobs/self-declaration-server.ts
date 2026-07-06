@@ -7,6 +7,7 @@ import type { DeclareApplicationResult, JobDeclarationStatus } from '@/types/sel
 type Client = SupabaseClient<Database>
 
 const ACTIVE_APPLICATION_STATUSES = [
+  'pending',
   'draft',
   'submitted',
   'under_review',
@@ -81,26 +82,35 @@ export async function insertApplicationIntent(
   throw new Error(error.message)
 }
 
+/**
+ * Self-declaration ("Apply") for Job Board.
+ *
+ * TODO (Radar Day 4): Add a "Save for later" button on JobCard that upserts
+ * status='saved'. This function upserts saved → pending on declare so Radar's
+ * Saved column can transition to Applied without violating UNIQUE(job_id, applicant_id).
+ */
 export async function insertApplicationDeclaration(
   supabase: Client,
   userId: string,
   jobId: string,
   contactEmail: string,
 ): Promise<DeclareApplicationResult> {
-  const { error } = await supabase.from('applications').insert({
-    job_id: jobId,
-    applicant_id: userId,
-    status: 'submitted',
-    contact_email: contactEmail,
-    submitted_at: new Date().toISOString(),
-  })
+  const now = new Date().toISOString()
+
+  const { error } = await supabase.from('applications').upsert(
+    {
+      job_id: jobId,
+      applicant_id: userId,
+      status: 'pending',
+      contact_email: contactEmail,
+      submitted_at: now,
+      updated_at: now,
+    },
+    { onConflict: 'job_id,applicant_id' },
+  )
 
   if (!error) {
     return { declared: true }
-  }
-
-  if (error.code === '23505') {
-    return { declared: true, alreadyExists: true }
   }
 
   throw new Error(error.message)

@@ -18,7 +18,7 @@ export class MeetingFeedbackError extends Error {
 }
 
 const MEETING_SELECT =
-  'id, mentor_id, mentee_id, status, scheduled_at, duration_minutes, meeting_url, notes, medium, feedback_rating, feedback_submitted_at' as const
+  'id, mentor_id, mentee_id, status, scheduled_at, duration_minutes, meeting_url, notes, medium, feedback_rating, feedback_submitted_at, expected_end_at, should_show_feedback' as const
 
 export async function submitMeetingFeedback(
   meetingId: string,
@@ -66,14 +66,6 @@ export async function submitMeetingFeedback(
   if (updateError || !updated) {
     throw new MeetingFeedbackError(updateError?.message ?? 'تعذّر حفظ التقييم', 500)
   }
-
-  // TODO: verify compatibility when Radar module is built
-  await supabase
-    .from('radar_items')
-    .update({ status: 'completed' })
-    .eq('reference_id', meetingId)
-    .in('type', ['mentorship_meeting', 'meeting_feedback'])
-    .eq('user_id', userId)
 
   return updated as MeetingSummary
 }

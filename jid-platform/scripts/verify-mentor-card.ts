@@ -57,7 +57,7 @@ check(detailView.includes('MentorBioSection'), 'detail view has bio section')
 check(detailView.includes('MentorExpertiseSection'), 'detail view has expertise grid')
 check(detailView.includes('PreferredMediumsIcons'), 'detail view shows preferred mediums')
 check(detailView.includes('ActiveWorkshopCard'), 'detail view shows workshop when live')
-check(detailView.includes('requestCta'), 'detail view has request CTA')
+check(detailView.includes('RequestSessionButton'), 'detail view has request CTA')
 
 check(seed.includes("is_mentor_of_month"), 'seed sets is_mentor_of_month for testing')
 check(seed.includes("'ahmed-al-rashid'"), 'seed mentor has slug')

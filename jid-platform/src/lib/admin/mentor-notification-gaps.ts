@@ -46,5 +46,5 @@ export async function fetchMentorNotificationGaps(): Promise<NotificationGapRow[
     }
   }
 
-  return [...counts.values()].sort((a, b) => b.request_count - a.request_count)
+  return Array.from(counts.values()).sort((a, b) => b.request_count - a.request_count)
 }

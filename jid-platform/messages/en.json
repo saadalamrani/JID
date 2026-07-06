@@ -24,7 +24,12 @@
   "home": {
     "title": "Welcome to JID",
     "subtitle": "Your platform for employment and career mentorship",
-    "cta": "Get started"
+    "cta": "Get started",
+    "featuredMentors": {
+      "title": "Mentors of the month",
+      "subtitle": "Top-rated mentors ready to guide your career.",
+      "browseAll": "Browse all mentors"
+    }
   },
   "errors": {
     "notFound": "Page not found",
@@ -964,8 +969,30 @@
         },
         "workshops": {
           "title": "Workshops",
-          "body": "Workshop management arrives in Day 12."
+          "body": "Create and publish mentorship workshops."
         }
+      },
+      "workshops": {
+        "createTitle": "New workshop",
+        "editTitle": "Edit workshop",
+        "titlePlaceholder": "Workshop title (English)",
+        "titleArPlaceholder": "Workshop title (Arabic)",
+        "descriptionPlaceholder": "Description (optional)",
+        "urlPlaceholder": "Registration link (optional)",
+        "dateRequired": "Choose a date and time.",
+        "saveDraft": "Save draft",
+        "publish": "Publish",
+        "cancelEdit": "Cancel edit",
+        "saveSuccess": "Workshop saved.",
+        "saveError": "Could not save workshop.",
+        "delete": "Delete",
+        "deleteConfirm": "Delete this workshop?",
+        "deleteSuccess": "Workshop deleted.",
+        "deleteError": "Could not delete workshop.",
+        "edit": "Edit",
+        "empty": "No workshops yet. Create your first one.",
+        "spots": "{count} / {capacity} spots left",
+        "chipHint": "Published workshops with a future date appear as a gold chip on your mentor card."
       },
       "settings": {
         "acceptingLabel": "Accepting mentorship requests",
@@ -978,8 +1005,17 @@
         "save": "Save settings",
         "saving": "Saving…",
         "saveSuccess": "Settings saved.",
-        "saveError": "Could not save settings."
+        "saveError": "Could not save settings.",
+        "shareLabel": "Share your profile",
+        "shareHint": "Download a 1200×630 card for social media.",
+        "shareFallbackName": "Mentor"
       }
+    },
+    "share": {
+      "downloadCta": "Download share card",
+      "downloadSuccess": "Share card downloaded.",
+      "downloadError": "Could not generate share card.",
+      "sessions": "{count} sessions"
     }
   },
   "conversations": {

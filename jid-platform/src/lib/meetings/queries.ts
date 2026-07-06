@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import type { RadarMeetingItem, MeetingSummary } from '@/types/meeting'
 
 const MEETING_SELECT =
-  'id, mentor_id, mentee_id, status, scheduled_at, duration_minutes, meeting_url, notes, medium, feedback_rating, feedback_submitted_at' as const
+  'id, mentor_id, mentee_id, status, scheduled_at, duration_minutes, meeting_url, notes, medium, feedback_rating, feedback_submitted_at, expected_end_at, should_show_feedback' as const
 
 function asMeetingSummary(row: Record<string, unknown>): MeetingSummary {
   return row as MeetingSummary

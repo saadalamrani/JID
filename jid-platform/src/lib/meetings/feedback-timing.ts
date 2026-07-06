@@ -1,5 +1,9 @@
 import { MEETING_FEEDBACK_DELAY_MS } from '@/lib/meetings/constants'
 
+/**
+ * @deprecated Radar Day 8 — replace with `mentorship_meetings.should_show_feedback`
+ * from the server (update_feedback_flags pg_cron). Keep until MeetingRadarCard is rewired.
+ */
 export function meetingFeedbackEligibleAt(
   scheduledAt: string | null,
   durationMinutes: number | null = 0,
