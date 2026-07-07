@@ -1,6 +1,6 @@
 'use client'
 
-import { PULSE_ANALYTICS_EVENTS, type PulseAnalyticsEvent } from '@/lib/analytics/pulse-events'
+import { ONBOARDING_ANALYTICS_EVENTS } from '@/lib/analytics/onboarding-events'
 import { STAFF_ANALYTICS_EVENTS, type StaffAnalyticsEvent } from '@/lib/analytics/staff-events'
 import { SYS_ANALYTICS_EVENTS, type SysAnalyticsEvent } from '@/lib/analytics/sys-events'
 
@@ -80,9 +80,13 @@ export const ANALYTICS_EVENTS = [
   ...RADAR_ANALYTICS_EVENTS,
   ...PULSE_ANALYTICS_EVENTS,
   ...UNIVERSITY_ANALYTICS_EVENTS,
+  ...ONBOARDING_ANALYTICS_EVENTS,
   ...STAFF_ANALYTICS_EVENTS,
   ...SYS_ANALYTICS_EVENTS,
 ] as const
+
+/** Section 20 — public pages + onboarding events. */
+export { ONBOARDING_ANALYTICS_EVENTS, type OnboardingAnalyticsEvent } from '@/lib/analytics/onboarding-events'
 
 export type AnalyticsEvent =
   | (typeof ANALYTICS_EVENTS)[number]

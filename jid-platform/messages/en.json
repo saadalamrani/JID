@@ -268,6 +268,7 @@
     "links": {
       "title": "Related links",
       "privacy": "Privacy policy",
+      "terms": "Terms of service",
       "contact": "Contact us",
       "about": "About JID"
     }
@@ -3105,6 +3106,19 @@
         "shareLabel": "Share your profile",
         "shareHint": "Download a 1200×630 card for social media.",
         "shareFallbackName": "Mentor"
+      },
+      "postApprovalSetup": {
+        "title": "Complete your mentor setup",
+        "description": "Your mentor application was approved. Add expertise areas and preferred meeting mediums so mentees can find you.",
+        "expertiseLabel": "Expertise areas",
+        "expertisePlaceholder": "e.g. Product management",
+        "add": "Add",
+        "mediumsLabel": "Preferred mediums",
+        "validation": "Add at least one expertise area and one medium.",
+        "save": "Save and continue",
+        "saving": "Saving…",
+        "saveSuccess": "Mentor setup complete.",
+        "saveError": "Could not save mentor setup."
       }
     },
     "share": {
@@ -3526,7 +3540,8 @@
         },
         "company": {
           "steps": {
-            "entity": "Company profile"
+            "entity": "Entity profile",
+            "team": "Team invites"
           }
         }
       }
@@ -3592,6 +3607,41 @@
         "cta": "Go to dashboard",
         "completing": "Finishing…",
         "completeFailed": "Could not complete onboarding. Please try again."
+      }
+    },
+    "entity": {
+      "setup": {
+        "title": "Finish setting up your entity",
+        "description": "Your organization is already in the JID catalog. Add branding and a detailed description — we never create a duplicate entity.",
+        "prefilledLabel": "Approved entity",
+        "entityState": "Status",
+        "logoLabel": "Logo URL",
+        "coverLabel": "Cover image URL",
+        "urlHint": "Paste a public image URL (HTTPS).",
+        "descriptionAr": "Description (Arabic)",
+        "descriptionEn": "Description (English)",
+        "continue": "Continue to team invites",
+        "saving": "Saving…",
+        "saveFailed": "Could not save entity profile. Please try again."
+      },
+      "team": {
+        "title": "Invite your team",
+        "description": "Optionally invite up to 3 colleagues by email. You can skip this and add people later.",
+        "intro": "Invitations use the same secure token pattern as staff invites. Colleagues will receive an email when delivery is enabled.",
+        "emailLabel": "Colleague email",
+        "addInvite": "Add another invite",
+        "removeInvite": "Remove invite",
+        "finish": "Finish and go to dashboard",
+        "saving": "Saving…",
+        "saveFailed": "Could not send invitations. Please try again."
+      },
+      "validation": {
+        "urlInvalid": "Enter a valid URL.",
+        "emailInvalid": "Enter a valid email address.",
+        "invitesMax": "You can invite up to 3 colleagues."
+      },
+      "errors": {
+        "inviteFailed": "Could not create team invitations."
       }
     },
     "validation": {

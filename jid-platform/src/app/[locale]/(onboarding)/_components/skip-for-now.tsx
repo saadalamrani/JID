@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
+import { track } from '@/lib/analytics/track'
 import { skipOnboardingAction } from '@/lib/onboarding/actions'
 import { Button } from '@/components/ui/button'
 import {
@@ -22,6 +23,7 @@ export function SkipForNow() {
 
   function handleConfirm() {
     setError(null)
+    track('onboarding_skipped')
     startTransition(async () => {
       const result = await skipOnboardingAction()
       if (!result.ok) {

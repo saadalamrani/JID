@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { useTransition } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
+import { track } from '@/lib/analytics/track'
 import { markOnboardingComplete } from '@/lib/onboarding/actions'
 
 /** Section 11.4 — completion CTA. */
@@ -13,6 +14,7 @@ export function OnboardingCompleteActions() {
 
   function handleContinue() {
     startTransition(async () => {
+      track('onboarding_completed')
       const result = await markOnboardingComplete()
       if (!result.ok) {
         toast.error(t('completeFailed'))

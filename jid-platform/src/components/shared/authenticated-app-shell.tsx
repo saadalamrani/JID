@@ -36,7 +36,7 @@ const PUBLIC_SHELL_PREFIXES = [
 ]
 
 /** Section 10 onboarding shell — dedicated layout, no portal top bar. */
-const ONBOARDING_SHELL_PREFIXES = ['/welcome', '/individual']
+const ONBOARDING_SHELL_PREFIXES = ['/welcome', '/individual', '/company/entity']
 
 function shouldHideTopBar(pathname: string): boolean {
   const normalized = pathname.replace(/^\/(ar|en)/, '') || '/'

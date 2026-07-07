@@ -25,6 +25,7 @@ export const mentorHubSettingsSchema = z.object({
   bio_long: z.string().trim().max(5000).optional().nullable(),
   expertise_areas: z.array(z.string().trim().min(1)).max(5).optional(),
   preferred_mediums: z.array(z.enum(mediumValues)).optional(),
+  finalize_mentor_setup: z.boolean().optional(),
 })
 
 export type MentorHubSettingsInput = z.infer<typeof mentorHubSettingsSchema>

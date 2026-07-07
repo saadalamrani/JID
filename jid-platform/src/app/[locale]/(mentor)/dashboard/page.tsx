@@ -1,9 +1,11 @@
-import { MentorHubDashboard } from './_components/mentor-hub-dashboard'
+import { MentorHubWithSetup } from './_components/mentor-hub-with-setup'
 import { MentorKpiStrip } from './_components/mentor-kpi-strip'
 import { listMentorWorkshops } from '@/lib/mentor-workshops/crud'
 import { fetchMentorHubKpis, fetchMentorHubSettings } from '@/lib/mentor-hub/queries'
+import { needsMentorPostApprovalSetup } from '@/lib/mentor-hub/needs-post-approval-setup'
 import { requireMentorHubAccess } from '@/lib/mentor-hub/require-mentor-hub-access'
 import { fetchMentorPendingRequests } from '@/lib/mentorship/queries'
+import { createClient } from '@/lib/supabase/server'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { notFound } from 'next/navigation'
 
@@ -27,15 +29,30 @@ export default async function MentorDashboardPage({ params }: MentorDashboardPag
     notFound()
   }
 
+  const supabase = await createClient()
+  const { data: profileRow } = await supabase
+    .from('profiles')
+    .select('smart_links')
+    .eq('id', mentorId)
+    .maybeSingle()
+
+  const smartLinks =
+    profileRow?.smart_links && typeof profileRow.smart_links === 'object'
+      ? (profileRow.smart_links as Record<string, unknown>)
+      : null
+
+  const showPostApprovalSetup = needsMentorPostApprovalSetup(settings, smartLinks)
+
   return (
     <main dir={dir} className="container-jid py-8" lang={locale}>
       <div className="space-y-6">
         <MentorKpiStrip kpis={kpis} />
-        <MentorHubDashboard
+        <MentorHubWithSetup
           kpis={kpis}
           pendingRequests={pendingRequests}
           settings={settings}
           workshops={workshops}
+          showPostApprovalSetup={showPostApprovalSetup}
         />
       </div>
     </main>

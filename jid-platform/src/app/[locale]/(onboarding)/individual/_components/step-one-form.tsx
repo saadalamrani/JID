@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { FormField } from '@/components/auth/form-field'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { track } from '@/lib/analytics/track'
 import { saveStepOne } from '@/lib/onboarding/actions'
 import { phoneToNationalInput } from '@/lib/onboarding/phone-display'
 import {
@@ -42,6 +43,7 @@ export function StepOneForm({ defaultFullName, defaultPhone }: StepOneFormProps)
 
   function onSubmit(values: OnboardingStepOneValues) {
     startTransition(async () => {
+      track('onboarding_step_one_saved')
       const result = await saveStepOne(values)
       if (!result.ok) {
         toast.error(

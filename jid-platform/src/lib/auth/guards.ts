@@ -206,6 +206,11 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: ['individual'],
   },
   {
+    id: 'onboarding-company-entity',
+    pattern: new RegExp(`^${L}/company/entity(?:/|$)`),
+    allowedRoles: ['company_admin', 'university_admin'],
+  },
+  {
     id: 'dashboard-redirect',
     pattern: new RegExp(`^${L}/dashboard(?:/|$)`),
     allowedRoles: [

@@ -1,12 +1,13 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { resolveEntityResumePath } from '@/lib/onboarding/entity-resume'
 import { resolveIndividualResumePath } from '@/lib/onboarding/resume'
 import {
   isOnboardingFinished,
   resolveWelcomeDestination,
 } from '@/lib/onboarding/welcome-router'
 import type { UserRole } from '@/lib/auth/rbac'
-import type { IndividualOnboardingProfile } from '@/lib/onboarding/resume'
+import type { EntityOnboardingProfile } from '@/lib/onboarding/entity-resume'
 
 /** Section 10 — corrected welcome router (redirect-only; no Section 10.1 UI). */
 export default async function WelcomePage() {
@@ -39,6 +40,15 @@ export default async function WelcomePage() {
 
   if (snapshot.role === 'individual') {
     redirect(resolveIndividualResumePath(snapshot))
+  }
+
+  if (snapshot.role === 'company_admin' || snapshot.role === 'university_admin') {
+    const entityProfile: EntityOnboardingProfile = {
+      smart_links: snapshot.smart_links,
+      onboarding_completed_at: snapshot.onboarding_completed_at,
+      onboarding_skipped_at: snapshot.onboarding_skipped_at,
+    }
+    redirect(resolveEntityResumePath(entityProfile))
   }
 
   redirect(resolveWelcomeDestination(snapshot.role))

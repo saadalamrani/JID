@@ -10,6 +10,7 @@ import { FormField } from '@/components/auth/form-field'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useCatalogSectors } from '@/hooks/use-catalog-metadata'
+import { track } from '@/lib/analytics/track'
 import { saveStepThree } from '@/lib/onboarding/actions'
 import {
   onboardingStepThreeSchema,
@@ -60,6 +61,7 @@ export function StepThreeForm({ defaultValues }: StepThreeFormProps) {
 
   function onSubmit(values: OnboardingStepThreeValues) {
     startTransition(async () => {
+      track('onboarding_step_three_saved')
       const result = await saveStepThree(values)
       if (!result.ok) {
         toast.error(t('saveFailed'))

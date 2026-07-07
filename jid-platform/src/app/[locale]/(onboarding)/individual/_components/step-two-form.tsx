@@ -9,6 +9,7 @@ import { FormField } from '@/components/auth/form-field'
 import { Button } from '@/components/ui/button'
 import { Combobox } from '@/components/ui/combobox'
 import { Input } from '@/components/ui/input'
+import { track } from '@/lib/analytics/track'
 import { saveStepTwo } from '@/lib/onboarding/actions'
 import { useUniversitiesCatalog } from '@/lib/queries/universities'
 import {
@@ -56,6 +57,7 @@ export function StepTwoForm({ defaultValues }: StepTwoFormProps) {
 
   function onSubmit(values: OnboardingStepTwoValues) {
     startTransition(async () => {
+      track('onboarding_step_two_saved')
       const result = await saveStepTwo(values)
       if (!result.ok) {
         toast.error(t('saveFailed'))

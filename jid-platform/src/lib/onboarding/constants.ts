@@ -5,7 +5,10 @@ export const ONBOARDING_FLOWS = {
     { id: 'step-2', path: '/individual/step-2' },
     { id: 'step-3', path: '/individual/step-3' },
   ],
-  company: [{ id: 'entity', path: '/company/entity' }],
+  company: [
+    { id: 'entity', path: '/company/entity' },
+    { id: 'team', path: '/company/entity/team' },
+  ],
 } as const
 
 export type OnboardingFlowKey = keyof typeof ONBOARDING_FLOWS
@@ -18,6 +21,10 @@ export function resolveOnboardingFlowKey(pathname: string): OnboardingFlowKey | 
 
   if (normalized.startsWith('/individual')) {
     return 'individual'
+  }
+
+  if (normalized.startsWith('/company/entity/team')) {
+    return 'company'
   }
 
   if (normalized.startsWith('/company/entity')) {

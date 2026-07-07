@@ -26,9 +26,15 @@ export function OnboardingProgress() {
   const steps = ONBOARDING_FLOWS[flowKey]
   const currentPath = normalizePath(pathname)
   const onComplete = currentPath.startsWith('/individual/complete')
-  const activeIndex = onComplete
-    ? steps.length
-    : steps.findIndex((step) => currentPath.startsWith(step.path))
+  let activeIndex = -1
+  if (!onComplete) {
+    for (let index = 0; index < steps.length; index++) {
+      const step = steps[index]
+      if (currentPath === step.path || currentPath.startsWith(`${step.path}/`)) {
+        activeIndex = index
+      }
+    }
+  }
 
   return (
     <nav aria-label={t('ariaLabel')} className="w-full sm:w-auto">

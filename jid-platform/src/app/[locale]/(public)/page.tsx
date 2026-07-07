@@ -6,6 +6,7 @@ import { ModulesShowcase } from '@/app/[locale]/(public)/_components/landing/mod
 import { PdplTrustBar } from '@/app/[locale]/(public)/_components/landing/pdpl-trust-bar'
 import { ProblemStatement } from '@/app/[locale]/(public)/_components/landing/problem-statement'
 import { Vision2030Section } from '@/app/[locale]/(public)/_components/landing/vision-2030-section'
+import { trackServer } from '@/lib/analytics/server'
 
 /** Section 5.1 — public landing page (server components only). */
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,6 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function LandingPage() {
+  await trackServer('landing_page_viewed', 'anonymous', { page: 'landing' })
+
   return (
     <>
       <HeroManifesto />

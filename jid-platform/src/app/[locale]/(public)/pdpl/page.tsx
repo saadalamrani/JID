@@ -88,6 +88,11 @@ export default async function PdplPage({ params }: PdplPageProps) {
         </h2>
         <ul className="mt-4 flex flex-wrap gap-4 text-sm font-medium">
           <li>
+            <Link href="/terms" className="text-jid-olive hover:underline">
+              {t('links.terms')}
+            </Link>
+          </li>
+          <li>
             <Link href="/privacy" className="text-jid-olive hover:underline">
               {t('links.privacy')}
             </Link>
