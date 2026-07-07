@@ -1266,6 +1266,7 @@
         "platformPulse": "Platform Pulse",
         "config": "Configuration",
         "sessions": "Sessions",
+        "notifications": "Notifications",
         "emergency": "Emergency"
       }
     },
@@ -1446,6 +1447,43 @@
       "confirmRevokeDescription": "The user will be signed out on this device. A reason is required and logged.",
       "confirmBulkTitle": "Revoke all sessions",
       "confirmBulkDescription": "Last resort — signs out every user on the platform. A reason is required and logged."
+    },
+    "notificationsHealth": {
+      "title": "Notification delivery health",
+      "subtitle": "Email quota, send log, and bounce observability for the unified dispatcher pipeline",
+      "circuitBanner": "⚠️ دائرة الحماية مفعّلة — البريد متوقف مؤقتاً.",
+      "quota": {
+        "daily": "Daily quota",
+        "monthly": "Monthly quota",
+        "used": "Used",
+        "limit": "Limit",
+        "remaining": "Remaining"
+      },
+      "logsTitle": "Send log",
+      "logsSubtitle": "Latest {count} transactional email attempts (newest first)",
+      "logs": {
+        "empty": "No send log entries yet",
+        "columns": {
+          "destination": "Destination",
+          "status": "Status",
+          "category": "Category",
+          "attempted": "Attempted",
+          "sent": "Sent",
+          "error": "Error"
+        }
+      },
+      "bouncesTitle": "Bounces & complaints",
+      "bouncesSubtitle": "Latest {count} suppressed addresses (newest first)",
+      "bounces": {
+        "empty": "No bounces recorded",
+        "columns": {
+          "email": "Email",
+          "type": "Type",
+          "count": "Count",
+          "firstSeen": "First seen",
+          "lastSeen": "Last seen"
+        }
+      }
     },
     "users": {
       "title": "User management",
@@ -2199,6 +2237,67 @@
       "save": "Save",
       "saved": "Settings saved",
       "back": "Back to profile"
+    },
+    "notifications": {
+      "title": "Notification preferences",
+      "subtitle": "Control how you receive updates for each event type.",
+      "securityBanner": "Security notice — security and account notifications cannot be disabled.",
+      "mandatoryBadge": "Mandatory",
+      "updateSaved": "Preference saved",
+      "updateError": "Could not update preference",
+      "matrixMeta": "Matrix covers {count} event categories.",
+      "columns": {
+        "category": "Category",
+        "inApp": "In-app",
+        "email": "Email",
+        "digest": "Daily digest"
+      },
+      "groups": {
+        "auth": "Security & authentication",
+        "account": "Account",
+        "claim": "Company claims",
+        "company": "Company",
+        "job": "Jobs",
+        "legal": "Legal",
+        "mentor": "Mentor applications",
+        "mentorship": "Mentorship sessions",
+        "staff": "Staff tasks",
+        "digest": "Digest"
+      },
+      "categories": {
+        "auth.email_verified": "Email verified",
+        "auth.mfa_disabled": "MFA disabled",
+        "auth.mfa_enabled": "MFA enabled",
+        "auth.new_device_login": "New device login",
+        "auth.password_changed": "Password changed",
+        "auth.password_reset_requested": "Password reset requested",
+        "auth.phone_verified": "Phone verified",
+        "auth.session_revoked": "Session revoked",
+        "account.reinstated": "Account reinstated",
+        "account.suspended": "Account suspended",
+        "claim.approved": "Claim approved",
+        "claim.needs_more_info": "More info needed",
+        "claim.rejected": "Claim rejected",
+        "company.link_broken": "Company link broken",
+        "job.application_expired": "Application expired",
+        "job.application_received": "Application received",
+        "job.application_status_changed": "Application status changed",
+        "job.expiring_soon": "Job expiring soon",
+        "job.posted": "Job posted",
+        "legal.privacy_updated": "Privacy policy updated",
+        "legal.terms_updated": "Terms updated",
+        "mentor.application_approved": "Mentor application approved",
+        "mentor.application_rejected": "Mentor application rejected",
+        "mentorship.feedback_requested": "Feedback requested",
+        "mentorship.meeting_confirmed": "Meeting confirmed",
+        "mentorship.meeting_proposed": "Meeting proposed",
+        "mentorship.meeting_reminder": "Meeting reminder",
+        "mentorship.request_accepted": "Mentorship request accepted",
+        "mentorship.request_declined": "Mentorship request declined",
+        "mentorship.request_received": "Mentorship request received",
+        "staff.claim_assigned": "Claim assigned",
+        "digest.daily_summary": "Daily summary"
+      }
     }
   },
   "mentorship": {
@@ -2618,6 +2717,14 @@
         "skills": "Skills",
         "additional": "Additional"
       },
+      "hints": {
+        "title": "Smart hints",
+        "header": "Lead with your name and a professional email. Keep contact details current for recruiters.",
+        "education": "List degrees in reverse chronological order. Include honors or relevant coursework when they strengthen your profile.",
+        "experience": "Use action verbs and quantify impact where possible. Focus on outcomes, not just duties.",
+        "skills": "Group technical and soft skills clearly. Prioritize skills mentioned in target job descriptions.",
+        "additional": "Add certifications, languages, or volunteer work that differentiates you from other candidates."
+      },
       "header": {
         "fullName": "Full name",
         "city": "City",
@@ -2770,6 +2877,94 @@
         "editTab": "Edit",
         "previewTab": "Preview"
       }
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "bellAria": "Notifications{count, plural, =0 {} other { — {count} unread}}",
+    "markAllAsRead": "Mark all as read",
+    "loading": "Loading…",
+    "loadError": "Could not load notifications",
+    "emptyTitle": "No new notifications",
+    "emptyDescription": "Important updates will appear here as they arrive.",
+    "page": {
+      "title": "Notifications",
+      "subtitle": "Track account, application, and mentorship updates in one place.",
+      "markAllAsRead": "Mark all as read",
+      "emptyTitle": "No notifications in this view",
+      "emptyDescription": "Try changing filters or check back when new updates arrive."
+    },
+    "filters": {
+      "statusLabel": "Status",
+      "status": {
+        "all": "All",
+        "unread": "Unread",
+        "archived": "Archived"
+      },
+      "categoryLabel": "Event type",
+      "categoryAll": "All types",
+      "categories": {
+        "auth": {
+          "email_verified": "Email verified",
+          "mfa_disabled": "MFA disabled",
+          "mfa_enabled": "MFA enabled",
+          "new_device_login": "New device login",
+          "password_changed": "Password changed",
+          "password_reset_requested": "Password reset requested",
+          "phone_verified": "Phone verified",
+          "session_revoked": "Session revoked"
+        },
+        "account": {
+          "reinstated": "Account reinstated",
+          "suspended": "Account suspended"
+        },
+        "claim": {
+          "approved": "Claim approved",
+          "needs_more_info": "More info needed",
+          "rejected": "Claim rejected"
+        },
+        "company": {
+          "link_broken": "Company link broken"
+        },
+        "job": {
+          "application_expired": "Application expired",
+          "application_received": "Application received",
+          "application_status_changed": "Application status changed",
+          "expiring_soon": "Job expiring soon",
+          "posted": "Job posted"
+        },
+        "legal": {
+          "privacy_updated": "Privacy policy updated",
+          "terms_updated": "Terms updated"
+        },
+        "mentor": {
+          "application_approved": "Mentor application approved",
+          "application_rejected": "Mentor application rejected"
+        },
+        "mentorship": {
+          "feedback_requested": "Feedback requested",
+          "meeting_confirmed": "Meeting confirmed",
+          "meeting_proposed": "Meeting proposed",
+          "meeting_reminder": "Meeting reminder",
+          "request_accepted": "Mentorship request accepted",
+          "request_declined": "Mentorship request declined",
+          "request_received": "Mentorship request received"
+        },
+        "staff": {
+          "claim_assigned": "Claim assigned"
+        },
+        "digest": {
+          "daily_summary": "Daily summary"
+        }
+      }
+    }
+  },
+  "universities": {
+    "discover": {
+      "title": "Discover universities",
+      "subtitle": "Explore higher-education institutions on JID.",
+      "body": "University discovery is being expanded. Browse the catalog for accredited institutions in the meantime.",
+      "catalogCta": "Browse university catalog"
     }
   },
   "maintenance": {

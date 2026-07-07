@@ -32,6 +32,7 @@ export const colors = {
   },
   beige: {
     DEFAULT: '#F7F5EF',
+    warm: '#FAF6EE',
     50: '#FDFCFA',
     100: '#F7F5EF',
     200: '#EDE9DF',

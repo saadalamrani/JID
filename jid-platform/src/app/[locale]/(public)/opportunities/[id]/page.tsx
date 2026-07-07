@@ -1,4 +1,6 @@
 import { notFound } from 'next/navigation'
+import { areFeaturesEnabled } from '@/lib/feature-flags/server'
+import { FLAG_KEYS } from '@/lib/feature-flags/keys'
 import { getJobDeclarationStatus } from '@/lib/jobs/self-declaration-server'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { fetchJobDetailByRef, fetchRelatedCompanyJobs } from '@/lib/queries/jobs'
@@ -42,9 +44,13 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
   }
 
   const { job } = result
-  const [declarationStatus, relatedJobs] = await Promise.all([
+  const [declarationStatus, relatedJobs, featureFlags] = await Promise.all([
     resolveDeclarationStatus(job.id),
     fetchRelatedCompanyJobs(job.company_id, job.id, 4),
+    areFeaturesEnabled([
+      FLAG_KEYS.JOBS_SMART_MATCHING,
+      FLAG_KEYS.JOBS_APPLICATION_ANALYTICS,
+    ] as const),
   ])
 
   return (
@@ -54,6 +60,8 @@ export default async function JobDetailPage({ params }: JobDetailPageProps) {
         relatedJobs={relatedJobs}
         declarationStatus={declarationStatus}
         locale={locale}
+        showSmartMatching={featureFlags[FLAG_KEYS.JOBS_SMART_MATCHING]}
+        showApplicationAnalytics={featureFlags[FLAG_KEYS.JOBS_APPLICATION_ANALYTICS]}
       />
     </main>
   )

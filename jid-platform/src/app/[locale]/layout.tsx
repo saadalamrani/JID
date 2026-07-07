@@ -2,6 +2,7 @@ import { LocaleHtmlAttributes } from '@/components/providers/locale-html-attribu
 import { QueryProvider } from '@/components/providers/query-provider'
 import { AuthenticatedShellServer } from '@/components/shared/authenticated-shell-server'
 import { Toaster } from '@/components/ui/sonner'
+import { FeatureFlagsRealtimeInvalidator } from '@/lib/feature-flags/realtime-invalidator'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { routing } from '@/lib/i18n/routing'
 import { NextIntlClientProvider } from 'next-intl'
@@ -34,6 +35,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     <NextIntlClientProvider messages={messages}>
       <LocaleHtmlAttributes locale={locale as Locale} />
       <QueryProvider>
+        <FeatureFlagsRealtimeInvalidator />
         <AuthenticatedShellServer>
           <div dir={localeConfig.direction[locale as Locale]} className="min-h-screen">
             {children}

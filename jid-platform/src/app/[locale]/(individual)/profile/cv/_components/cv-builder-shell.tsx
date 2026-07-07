@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { HintsPanel } from '@/app/[locale]/cv-builder/_components/hints-panel'
 import { useCv } from '@/lib/cv/queries'
 import { useCvBuilderAnalytics } from '@/lib/cv/hooks/use-cv-builder-analytics'
 import { useSectionCompleteness } from '@/lib/cv/hooks/use-section-completeness'
@@ -41,6 +42,8 @@ export function CvBuilderShell({ initialCv, created }: CvBuilderShellProps) {
           {created ? t('createdBanner') : t('resumeBanner')}
         </p>
       </header>
+
+      <HintsPanel />
 
       <div className="hidden min-h-[calc(100vh-12rem)] grid-cols-1 gap-4 xl:grid xl:grid-cols-12">
         <div className="xl:col-span-2">

@@ -469,6 +469,227 @@ export type Database = {
           },
         ]
       }
+      digest_batches: {
+        Row: {
+          created_at: string
+          digest_date: string
+          error_message: string | null
+          id: string
+          metadata: Json
+          notification_count: number
+          recipient_id: string
+          sent_at: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          digest_date: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json
+          notification_count?: number
+          recipient_id: string
+          sent_at?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          digest_date?: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json
+          notification_count?: number
+          recipient_id?: string
+          sent_at?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      email_bounces: {
+        Row: {
+          bounce_count: number
+          bounce_type: string
+          email: string
+          first_bounced_at: string
+          id: string
+          last_bounced_at: string
+          metadata: Json
+        }
+        Insert: {
+          bounce_count?: number
+          bounce_type: string
+          email: string
+          first_bounced_at?: string
+          id?: string
+          last_bounced_at?: string
+          metadata?: Json
+        }
+        Update: {
+          bounce_count?: number
+          bounce_type?: string
+          email?: string
+          first_bounced_at?: string
+          id?: string
+          last_bounced_at?: string
+          metadata?: Json
+        }
+        Relationships: []
+      }
+      email_send_log: {
+        Row: {
+          attempted_at: string | null
+          category: Database['public']['Enums']['notification_category_enum'] | null
+          created_at: string
+          error_message: string | null
+          id: string
+          metadata: Json
+          notification_id: string | null
+          provider_message_id: string | null
+          recipient_email: string
+          recipient_id: string
+          sent_at: string | null
+          status: Database['public']['Enums']['email_send_status_enum']
+        }
+        Insert: {
+          attempted_at?: string | null
+          category?: Database['public']['Enums']['notification_category_enum'] | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json
+          notification_id?: string | null
+          provider_message_id?: string | null
+          recipient_email: string
+          recipient_id: string
+          sent_at?: string | null
+          status?: Database['public']['Enums']['email_send_status_enum']
+        }
+        Update: {
+          attempted_at?: string | null
+          category?: Database['public']['Enums']['notification_category_enum'] | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          metadata?: Json
+          notification_id?: string | null
+          provider_message_id?: string | null
+          recipient_email?: string
+          recipient_id?: string
+          sent_at?: string | null
+          status?: Database['public']['Enums']['email_send_status_enum']
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'email_send_log_notification_id_fkey'
+            columns: ['notification_id']
+            isOneToOne: false
+            referencedRelation: 'notifications'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      notification_preferences: {
+        Row: {
+          category: Database['public']['Enums']['notification_category_enum']
+          email_enabled: boolean
+          in_app_enabled: boolean
+          include_in_digest: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: Database['public']['Enums']['notification_category_enum']
+          email_enabled?: boolean
+          in_app_enabled?: boolean
+          include_in_digest?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: Database['public']['Enums']['notification_category_enum']
+          email_enabled?: boolean
+          in_app_enabled?: boolean
+          include_in_digest?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          action_label_ar: string | null
+          action_label_en: string | null
+          action_url: string | null
+          archived_at: string | null
+          body_ar: string
+          body_en: string
+          category: Database['public']['Enums']['notification_category_enum']
+          created_at: string
+          delivered_via_email: boolean
+          email_message_id: string | null
+          email_sent_at: string | null
+          id: string
+          included_in_digest_id: string | null
+          idempotency_key: string | null
+          metadata: Json
+          priority: Database['public']['Enums']['notification_priority_enum']
+          read_at: string | null
+          recipient_id: string
+          related_resource_id: string | null
+          related_resource_type: string | null
+          title_ar: string
+          title_en: string
+        }
+        Insert: {
+          action_label_ar?: string | null
+          action_label_en?: string | null
+          action_url?: string | null
+          archived_at?: string | null
+          body_ar: string
+          body_en: string
+          category: Database['public']['Enums']['notification_category_enum']
+          created_at?: string
+          delivered_via_email?: boolean
+          email_message_id?: string | null
+          email_sent_at?: string | null
+          id?: string
+          included_in_digest_id?: string | null
+          idempotency_key?: string | null
+          metadata?: Json
+          priority?: Database['public']['Enums']['notification_priority_enum']
+          read_at?: string | null
+          recipient_id: string
+          related_resource_id?: string | null
+          related_resource_type?: string | null
+          title_ar: string
+          title_en: string
+        }
+        Update: {
+          action_label_ar?: string | null
+          action_label_en?: string | null
+          action_url?: string | null
+          archived_at?: string | null
+          body_ar?: string
+          body_en?: string
+          category?: Database['public']['Enums']['notification_category_enum']
+          created_at?: string
+          delivered_via_email?: boolean
+          email_message_id?: string | null
+          email_sent_at?: string | null
+          id?: string
+          included_in_digest_id?: string | null
+          idempotency_key?: string | null
+          metadata?: Json
+          priority?: Database['public']['Enums']['notification_priority_enum']
+          read_at?: string | null
+          recipient_id?: string
+          related_resource_id?: string | null
+          related_resource_type?: string | null
+          title_ar?: string
+          title_en?: string
+        }
+        Relationships: []
+      }
       phone_verification_attempts: {
         Row: {
           attempt_number: number
@@ -2129,6 +2350,10 @@ export type Database = {
         Args: { p_phone: string; p_user_id: string }
         Returns: undefined
       }
+      build_daily_digests: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
       complete_staff_invite_acceptance: {
         Args: { p_token: string }
         Returns: undefined
@@ -2136,6 +2361,78 @@ export type Database = {
       current_user_role: {
         Args: Record<PropertyKey, never>
         Returns: Database['public']['Enums']['user_role_enum']
+      }
+      dispatch_notification: {
+        Args: {
+          p_action_label_ar?: string | null
+          p_action_label_en?: string | null
+          p_action_url?: string | null
+          p_body_ar: string
+          p_body_en: string
+          p_category: Database['public']['Enums']['notification_category_enum']
+          p_idempotency_key?: string | null
+          p_metadata?: Json
+          p_priority?: Database['public']['Enums']['notification_priority_enum']
+          p_recipient_id: string
+          p_related_resource_id?: string | null
+          p_related_resource_type?: string | null
+          p_title_ar: string
+          p_title_en: string
+        }
+        Returns: string | null
+      }
+      get_default_digest_pref: {
+        Args: { cat: Database['public']['Enums']['notification_category_enum'] }
+        Returns: boolean
+      }
+      get_default_email_pref: {
+        Args: { cat: Database['public']['Enums']['notification_category_enum'] }
+        Returns: boolean
+      }
+      get_notification_preference: {
+        Args: {
+          p_category: Database['public']['Enums']['notification_category_enum']
+          p_user_id: string
+        }
+        Returns: {
+          email_enabled: boolean
+          in_app_enabled: boolean
+          include_in_digest: boolean
+          is_mandatory: boolean
+          preference_source: string
+        }[]
+      }
+      is_category_mandatory: {
+        Args: { cat: Database['public']['Enums']['notification_category_enum'] }
+        Returns: boolean
+      }
+      notify_claim_decision: {
+        Args: {
+          p_claim_id: string
+          p_decision: string
+          p_reason?: string | null
+        }
+        Returns: string | null
+      }
+      notify_radar_status_change: {
+        Args: {
+          p_card_id: string
+          p_new_status: string
+          p_old_status: string
+        }
+        Returns: string | null
+      }
+      email_quota_status: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          circuit_open: boolean
+          daily_limit: number
+          monthly_limit: number
+          monthly_remaining: number
+          remaining: number
+          sent_this_month: number
+          sent_today: number
+        }[]
       }
       expire_passed_jobs: {
         Args: Record<PropertyKey, never>
@@ -2303,6 +2600,13 @@ export type Database = {
         | 'message'
       cv_generation_status_enum: 'pending' | 'completed' | 'failed'
       cv_status_enum: 'draft' | 'published' | 'archived'
+      email_send_status_enum:
+        | 'queued'
+        | 'sent'
+        | 'failed'
+        | 'skipped_quota'
+        | 'skipped_prefs'
+        | 'skipped_bounced'
       experience_level_enum: 'intern' | 'entry' | 'mid' | 'senior' | 'lead' | 'executive'
       flag_reason_enum:
         | 'spam'
@@ -2325,6 +2629,40 @@ export type Database = {
       link_status_enum: 'healthy' | 'broken' | 'pending'
       mentor_notification_status_enum: 'pending' | 'sent' | 'dismissed'
       mentor_workshop_status_enum: 'draft' | 'published' | 'completed' | 'cancelled'
+      notification_category_enum:
+        | 'auth.email_verified'
+        | 'auth.mfa_disabled'
+        | 'auth.mfa_enabled'
+        | 'auth.new_device_login'
+        | 'auth.password_changed'
+        | 'auth.password_reset_requested'
+        | 'auth.phone_verified'
+        | 'auth.session_revoked'
+        | 'account.reinstated'
+        | 'account.suspended'
+        | 'claim.approved'
+        | 'claim.needs_more_info'
+        | 'claim.rejected'
+        | 'company.link_broken'
+        | 'job.application_expired'
+        | 'job.application_received'
+        | 'job.application_status_changed'
+        | 'job.expiring_soon'
+        | 'job.posted'
+        | 'legal.privacy_updated'
+        | 'legal.terms_updated'
+        | 'mentor.application_approved'
+        | 'mentor.application_rejected'
+        | 'mentorship.feedback_requested'
+        | 'mentorship.meeting_confirmed'
+        | 'mentorship.meeting_proposed'
+        | 'mentorship.meeting_reminder'
+        | 'mentorship.request_accepted'
+        | 'mentorship.request_declined'
+        | 'mentorship.request_received'
+        | 'staff.claim_assigned'
+        | 'digest.daily_summary'
+      notification_priority_enum: 'low' | 'normal' | 'high' | 'critical'
       mentorship_request_status_enum:
         | 'pending'
         | 'accepted'

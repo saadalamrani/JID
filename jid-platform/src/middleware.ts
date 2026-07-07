@@ -25,6 +25,11 @@ import {
   getMiddlewarePulsePublicEnabled,
   isPulsePath,
 } from '@/lib/features/middleware-pulse-flag'
+import { FLAG_KEYS } from '@/lib/feature-flags/keys'
+import {
+  getMiddlewareFeatureEnabled,
+  isMentorshipDiscoveryPath,
+} from '@/lib/feature-flags/middleware'
 import { createClient } from '@/lib/supabase/middleware'
 
 const intlMiddleware = createMiddleware(routing)
@@ -210,6 +215,18 @@ export async function middleware(request: NextRequest) {
     if (!pulsePublic) {
       const pulseSession = await loadMiddlewareSession(supabase, request)
       const isSuperAdmin = pulseSession?.role === 'super_admin' && pulseSession.isAal2
+      if (!isSuperAdmin) {
+        return notFoundResponse()
+      }
+    }
+  }
+
+  // Mentorship discovery — block /mentorship when flag is off (super_admin may pass through).
+  if (isMentorshipDiscoveryPath(pathname)) {
+    const mentorshipDiscovery = await getMiddlewareFeatureEnabled(FLAG_KEYS.MENTORSHIP_DISCOVERY)
+    if (!mentorshipDiscovery) {
+      const mentorshipSession = await loadMiddlewareSession(supabase, request)
+      const isSuperAdmin = mentorshipSession?.role === 'super_admin' && mentorshipSession.isAal2
       if (!isSuperAdmin) {
         return notFoundResponse()
       }

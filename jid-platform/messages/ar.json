@@ -1256,6 +1256,7 @@
         "platformPulse": "نبض المنصة",
         "config": "الإعدادات",
         "sessions": "الجلسات",
+        "notifications": "الإشعارات",
         "emergency": "الطوارئ"
       }
     },
@@ -1436,6 +1437,43 @@
       "confirmRevokeDescription": "سيُسجَّل خروج المستخدم من هذا الجهاز. يلزم سبب ويُسجَّل.",
       "confirmBulkTitle": "إلغاء جميع الجلسات",
       "confirmBulkDescription": "ملاذ أخير — تسجيل خروج كل مستخدم على المنصة. يلزم سبب ويُسجَّل."
+    },
+    "notificationsHealth": {
+      "title": "صحة تسليم الإشعارات",
+      "subtitle": "حصة البريد وسجل الإرسال والارتدادات لخط أنابيب المُرسِل الموحّد",
+      "circuitBanner": "⚠️ دائرة الحماية مفعّلة — البريد متوقف مؤقتاً.",
+      "quota": {
+        "daily": "الحصة اليومية",
+        "monthly": "الحصة الشهرية",
+        "used": "مُرسَل",
+        "limit": "الحد",
+        "remaining": "متبقٍ"
+      },
+      "logsTitle": "سجل الإرسال",
+      "logsSubtitle": "آخر {count} محاولة بريد (الأحدث أولاً)",
+      "logs": {
+        "empty": "لا توجد سجلات إرسال بعد",
+        "columns": {
+          "destination": "الوجهة",
+          "status": "الحالة",
+          "category": "الفئة",
+          "attempted": "محاولة",
+          "sent": "أُرسل",
+          "error": "خطأ"
+        }
+      },
+      "bouncesTitle": "الارتدادات والشكاوى",
+      "bouncesSubtitle": "آخر {count} عنوان مُستبعد (الأحدث أولاً)",
+      "bounces": {
+        "empty": "لا ارتدادات مسجّلة",
+        "columns": {
+          "email": "البريد",
+          "type": "النوع",
+          "count": "العدد",
+          "firstSeen": "أول ظهور",
+          "lastSeen": "آخر ظهور"
+        }
+      }
     },
     "users": {
       "title": "إدارة المستخدمين",
@@ -2189,6 +2227,67 @@
       "save": "حفظ",
       "saved": "تم حفظ الإعدادات",
       "back": "العودة للملف"
+    },
+    "notifications": {
+      "title": "تفضيلات الإشعارات",
+      "subtitle": "تحكّم في قنوات استلام التحديثات لكل نوع حدث.",
+      "securityBanner": "إشعار أمني — لا يمكن إيقاف إشعارات الأمان والحساب.",
+      "mandatoryBadge": "إلزامي",
+      "updateSaved": "تم حفظ التفضيل",
+      "updateError": "تعذّر تحديث التفضيل",
+      "matrixMeta": "المصفوفة تعرض {count} فئة حدث.",
+      "columns": {
+        "category": "الفئة",
+        "inApp": "في التطبيق",
+        "email": "البريد الإلكتروني",
+        "digest": "الملخص اليومي"
+      },
+      "groups": {
+        "auth": "الأمان والمصادقة",
+        "account": "الحساب",
+        "claim": "مطالبات الشركات",
+        "company": "الشركة",
+        "job": "الوظائف",
+        "legal": "قانوني",
+        "mentor": "طلبات الإرشاد",
+        "mentorship": "جلسات الإرشاد",
+        "staff": "مهام الموظفين",
+        "digest": "الملخص"
+      },
+      "categories": {
+        "auth.email_verified": "تأكيد البريد الإلكتروني",
+        "auth.mfa_disabled": "إيقاف المصادقة الثنائية",
+        "auth.mfa_enabled": "تفعيل المصادقة الثنائية",
+        "auth.new_device_login": "تسجيل دخول من جهاز جديد",
+        "auth.password_changed": "تغيير كلمة المرور",
+        "auth.password_reset_requested": "طلب إعادة تعيين كلمة المرور",
+        "auth.phone_verified": "تأكيد رقم الجوال",
+        "auth.session_revoked": "إنهاء جلسة",
+        "account.reinstated": "إعادة تفعيل الحساب",
+        "account.suspended": "تعليق الحساب",
+        "claim.approved": "موافقة على مطالبة",
+        "claim.needs_more_info": "مطلوب معلومات إضافية",
+        "claim.rejected": "رفض مطالبة",
+        "company.link_broken": "رابط الشركة معطّل",
+        "job.application_expired": "انتهاء صلاحية التقديم",
+        "job.application_received": "استلام طلب توظيف",
+        "job.application_status_changed": "تغيير حالة التقديم",
+        "job.expiring_soon": "وظيفة تنتهي قريباً",
+        "job.posted": "نشر وظيفة",
+        "legal.privacy_updated": "تحديث سياسة الخصوصية",
+        "legal.terms_updated": "تحديث الشروط والأحكام",
+        "mentor.application_approved": "قبول طلب الإرشاد",
+        "mentor.application_rejected": "رفض طلب الإرشاد",
+        "mentorship.feedback_requested": "طلب تقييم جلسة",
+        "mentorship.meeting_confirmed": "تأكيد اجتماع",
+        "mentorship.meeting_proposed": "اقتراح اجتماع",
+        "mentorship.meeting_reminder": "تذكير باجتماع",
+        "mentorship.request_accepted": "قبول طلب إرشاد",
+        "mentorship.request_declined": "رفض طلب إرشاد",
+        "mentorship.request_received": "استلام طلب إرشاد",
+        "staff.claim_assigned": "تعيين مطالبة للمراجعة",
+        "digest.daily_summary": "ملخص يومي"
+      }
     }
   },
   "mentorship": {
@@ -2608,6 +2707,14 @@
         "skills": "المهارات",
         "additional": "إضافي"
       },
+      "hints": {
+        "title": "تلميحات ذكية",
+        "header": "ابدأ باسمك وبريد إلكتروني مهني. حافظ على بيانات التواصل محدّثة ليسهل على أصحاب العمل التواصل معك.",
+        "education": "رتّب الشهادات من الأحدث إلى الأقدم. أضف التميز الأكاديمي أو المقررات ذات الصلة عندما تعزز ملفك.",
+        "experience": "استخدم أفعال الإنجاز وكمّن الأثر حيث أمكن. ركّز على النتائج لا المهام فقط.",
+        "skills": "نظّم المهارات التقنية والشخصية بوضوح. أعطِ أولوية للمهارات المطلوبة في الوظائف المستهدفة.",
+        "additional": "أضف الشهادات أو اللغات أو العمل التطوعي الذي يميّزك عن المرشحين الآخرين."
+      },
       "header": {
         "fullName": "الاسم الكامل",
         "city": "المدينة",
@@ -2760,6 +2867,94 @@
         "editTab": "تعديل",
         "previewTab": "معاينة"
       }
+    }
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "bellAria": "الإشعارات{count, plural, =0 {} other { — {count} غير مقروء}}",
+    "markAllAsRead": "تعليم الكل كمقروء",
+    "loading": "جاري التحميل…",
+    "loadError": "تعذّر تحميل الإشعارات",
+    "emptyTitle": "لا إشعارات جديدة",
+    "emptyDescription": "ستظهر التحديثات المهمة هنا فور وصولها.",
+    "page": {
+      "title": "الإشعارات",
+      "subtitle": "تابع تحديثات حسابك وطلباتك وفرصك في مكان واحد.",
+      "markAllAsRead": "تعليم الكل كمقروء",
+      "emptyTitle": "لا توجد إشعارات في هذا العرض",
+      "emptyDescription": "جرّب تغيير الفلاتر أو عد لاحقاً عند وصول تحديثات جديدة."
+    },
+    "filters": {
+      "statusLabel": "الحالة",
+      "status": {
+        "all": "الكل",
+        "unread": "غير المقروءة",
+        "archived": "المؤرشفة"
+      },
+      "categoryLabel": "نوع الحدث",
+      "categoryAll": "كل الأنواع",
+      "categories": {
+        "auth": {
+          "email_verified": "تأكيد البريد الإلكتروني",
+          "mfa_disabled": "إيقاف المصادقة الثنائية",
+          "mfa_enabled": "تفعيل المصادقة الثنائية",
+          "new_device_login": "تسجيل دخول من جهاز جديد",
+          "password_changed": "تغيير كلمة المرور",
+          "password_reset_requested": "طلب إعادة تعيين كلمة المرور",
+          "phone_verified": "تأكيد رقم الجوال",
+          "session_revoked": "إنهاء جلسة"
+        },
+        "account": {
+          "reinstated": "إعادة تفعيل الحساب",
+          "suspended": "تعليق الحساب"
+        },
+        "claim": {
+          "approved": "موافقة على مطالبة",
+          "needs_more_info": "مطلوب معلومات إضافية",
+          "rejected": "رفض مطالبة"
+        },
+        "company": {
+          "link_broken": "رابط الشركة معطّل"
+        },
+        "job": {
+          "application_expired": "انتهاء صلاحية التقديم",
+          "application_received": "استلام طلب توظيف",
+          "application_status_changed": "تغيير حالة التقديم",
+          "expiring_soon": "وظيفة تنتهي قريباً",
+          "posted": "نشر وظيفة"
+        },
+        "legal": {
+          "privacy_updated": "تحديث سياسة الخصوصية",
+          "terms_updated": "تحديث الشروط والأحكام"
+        },
+        "mentor": {
+          "application_approved": "قبول طلب الإرشاد",
+          "application_rejected": "رفض طلب الإرشاد"
+        },
+        "mentorship": {
+          "feedback_requested": "طلب تقييم جلسة",
+          "meeting_confirmed": "تأكيد اجتماع",
+          "meeting_proposed": "اقتراح اجتماع",
+          "meeting_reminder": "تذكير باجتماع",
+          "request_accepted": "قبول طلب إرشاد",
+          "request_declined": "رفض طلب إرشاد",
+          "request_received": "استلام طلب إرشاد"
+        },
+        "staff": {
+          "claim_assigned": "تعيين مطالبة للمراجعة"
+        },
+        "digest": {
+          "daily_summary": "ملخص يومي"
+        }
+      }
+    }
+  },
+  "universities": {
+    "discover": {
+      "title": "اكتشف الجامعات",
+      "subtitle": "استكشف مؤسسات التعليم العالي على منصة JID.",
+      "body": "ميزة اكتشاف الجامعات قيد التوسّع. يمكنك تصفّح الكتالوج للاطلاع على المؤسسات المعتمدة في الوقت الحالي.",
+      "catalogCta": "تصفّح كتالوج الجامعات"
     }
   },
   "maintenance": {

@@ -2,11 +2,10 @@
 
 import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
+import { RadarRealtimeListener } from '@/app/[locale]/radar/_components/realtime-listener'
 import { fetchUserApplicationsClient, userApplicationsQueryKey } from '@/lib/applications/client'
 import { fetchUpcomingMeetingsClient } from '@/lib/timeline/client'
 import { timelineMeetingsQueryKey } from '@/lib/queries/timeline'
-import { useRealtimeApplications } from '@/lib/hooks/use-realtime-applications'
-import { useRealtimeMeetings } from '@/lib/hooks/use-realtime-meetings'
 import { KanbanBoard } from '@/components/radar/kanban-board'
 import { MobileKanban } from '@/components/radar/mobile-kanban'
 import { RadarMobileTimelineNav } from '@/components/radar/radar-mobile-timeline-nav'
@@ -19,9 +18,6 @@ type RadarPageShellProps = {
 /** Section 5.2 / 5.3 / 11 — responsive Radar (desktop Kanban + mobile tabs). */
 export function RadarPageShell({ userId }: RadarPageShellProps) {
   const t = useTranslations('radar')
-
-  useRealtimeApplications(userId)
-  useRealtimeMeetings(userId)
 
   const applicationsQuery = useQuery({
     queryKey: userApplicationsQueryKey(userId),
@@ -60,6 +56,7 @@ export function RadarPageShell({ userId }: RadarPageShellProps) {
 
   return (
     <>
+      <RadarRealtimeListener userId={userId} />
       <RadarViewedTracker />
       <div className="hidden lg:block">
         <KanbanBoard userId={userId} applications={applications} meetings={meetings} />

@@ -7,6 +7,7 @@ import {
   GraduationCap,
   LayoutDashboard,
   ScrollText,
+  Mail,
   Settings2,
   UserCog,
   Users,
@@ -54,6 +55,7 @@ export const SYS_NAV_SECTIONS: SysNavSection[] = [
       { key: 'platformPulse', href: '/sys/features', icon: Flag },
       { key: 'config', href: '/sys/config', icon: Settings2 },
       { key: 'sessions', href: '/sys/system/sessions', icon: Users },
+      { key: 'notifications', href: '/sys/system/notifications', icon: Mail },
     ],
   },
   {

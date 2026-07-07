@@ -3,6 +3,8 @@
 import { revalidatePath } from 'next/cache'
 import { trackServer } from '@/lib/analytics/server'
 import type { UserRole } from '@/lib/auth/rbac'
+import { broadcastFeatureFlagToggle } from '@/lib/feature-flags/broadcast-server'
+import { invalidateFlagCache } from '@/lib/feature-flags/invalidate'
 import { userRoleSchema } from '@/lib/governance/schemas'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
@@ -118,6 +120,16 @@ function revalidateFlagPaths(key: string) {
   revalidatePath(`/sys/flags/${key}`)
 }
 
+async function publishFeatureFlagChange(key: string, isEnabled: boolean) {
+  invalidateFlagCache(key)
+
+  try {
+    await broadcastFeatureFlagToggle({ key, isEnabled })
+  } catch (error) {
+    console.warn('feature flag realtime broadcast failed:', error)
+  }
+}
+
 /** Section 7.3 — global on/off with mandatory reason + audit diff. */
 export async function toggleFlagGlobally(
   key: string,
@@ -158,6 +170,7 @@ export async function toggleFlagGlobally(
 
   await trackServer('sys.flag_toggled', actor.userId, { flag_key: key, is_enabled: isEnabled })
   revalidateFlagPaths(key)
+  await publishFeatureFlagChange(key, isEnabled)
   return { ok: true }
 }
 
@@ -199,6 +212,7 @@ export async function setRoleOverride(
   if (auditError) return auditError
 
   revalidateFlagPaths(key)
+  await publishFeatureFlagChange(key, before.is_enabled)
   return { ok: true }
 }
 
@@ -250,6 +264,7 @@ export async function setUserOverride(
   if (auditError) return auditError
 
   revalidateFlagPaths(key)
+  await publishFeatureFlagChange(key, before.is_enabled)
   return { ok: true }
 }
 
@@ -294,5 +309,6 @@ export async function removeUserOverride(
   if (auditError) return auditError
 
   revalidateFlagPaths(key)
+  await publishFeatureFlagChange(key, before.is_enabled)
   return { ok: true }
 }

@@ -16,6 +16,8 @@ type JobDetailViewProps = {
   relatedJobs: JobCardData[]
   declarationStatus: JobDeclarationStatus
   locale: 'ar' | 'en'
+  showSmartMatching?: boolean
+  showApplicationAnalytics?: boolean
 }
 
 export function JobDetailView({
@@ -23,6 +25,8 @@ export function JobDetailView({
   relatedJobs,
   declarationStatus,
   locale,
+  showSmartMatching = true,
+  showApplicationAnalytics = true,
 }: JobDetailViewProps) {
   const title = job.title_ar || job.title_en || '—'
   const companyName = job.company.name_ar || job.company.name_en
@@ -62,7 +66,13 @@ export function JobDetailView({
           size="large"
         />
 
-        <JobApplicantCount jobId={job.id} initialCount={job.applicant_count} locale={locale} />
+        {showApplicationAnalytics ? (
+          <JobApplicantCount
+            jobId={job.id}
+            initialCount={job.applicant_count}
+            locale={locale}
+          />
+        ) : null}
 
         <JobActionButton
           jobId={job.id}
@@ -95,7 +105,7 @@ export function JobDetailView({
         </section>
       ) : null}
 
-      <RelatedCompanyJobs jobs={relatedJobs} />
+      {showSmartMatching ? <RelatedCompanyJobs jobs={relatedJobs} /> : null}
     </article>
   )
 }

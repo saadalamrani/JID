@@ -5,6 +5,7 @@ import { usePathname } from '@/lib/i18n/navigation'
 import { EncryptionKeyBootstrap } from '@/components/shared/encryption-key-bootstrap'
 import { ProfileModeTransition } from '@/components/shared/profile-mode-transition'
 import { ProfileSwitcher } from '@/components/shared/profile-switcher'
+import { NotificationsBell } from '@/components/notifications/notifications-bell'
 import { Link } from '@/lib/i18n/navigation'
 import { siteConfig } from '@/config/site'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
@@ -46,7 +47,10 @@ export function AuthenticatedAppShell({
             <Link href="/" className="font-arabic text-lg font-semibold text-jid-olive">
               {siteConfig.name}
             </Link>
-            <ProfileSwitcher hasMentorRole={hasMentorRole} initialMode={initialMode} />
+            <div className="flex items-center gap-3">
+              <NotificationsBell userId={userId} />
+              <ProfileSwitcher hasMentorRole={hasMentorRole} initialMode={initialMode} />
+            </div>
           </div>
         </header>
       ) : null}
