@@ -31,6 +31,20 @@ type ComboboxProps = {
   onSearchChange?: (query: string) => void
 }
 
+function normalizeSearch(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u064B-\u065F\u0670]/g, '')
+    .replace(/[أإآ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ؤ/g, 'و')
+    .replace(/ئ/g, 'ي')
+    .replace(/[^a-z0-9\u0600-\u06FF\s]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 export function Combobox({
   options,
   value,
@@ -60,7 +74,15 @@ export function Combobox({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0" align="start">
-        <Command shouldFilter={!onSearchChange}>
+        <Command
+          shouldFilter={!onSearchChange}
+          filter={(value, search, keywords) => {
+            const haystack = normalizeSearch([value, ...(keywords ?? [])].join(' '))
+            const needle = normalizeSearch(search)
+            if (!needle) return 1
+            return haystack.includes(needle) ? 1 : 0
+          }}
+        >
           <CommandInput
             placeholder={searchPlaceholder}
             onValueChange={onSearchChange}
@@ -72,6 +94,7 @@ export function Combobox({
                 <CommandItem
                   key={option.value}
                   value={option.label}
+                  keywords={[option.description ?? '', option.value]}
                   onSelect={() => {
                     onValueChange(option.value)
                     setOpen(false)

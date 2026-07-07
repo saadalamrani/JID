@@ -9,7 +9,14 @@ import { Button } from '@/components/ui/button'
 import { Combobox, useDebouncedValue } from '@/components/ui/combobox'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { searchCompanies, createUnverifiedCompany, type CompanyRecord } from '@/lib/entity/companies'
+import {
+  searchCompanies,
+  createUnverifiedCompany,
+  ensureUniversityCompany,
+  searchUniversitiesCatalog,
+  type CompanyRecord,
+  type UniversityCatalogRecord,
+} from '@/lib/entity/companies'
 import { formatDomainsList } from '@/lib/entity/domains'
 import type { EntitySignupType } from '@/lib/entity/constants'
 import { createClient } from '@/lib/supabase/client'
@@ -39,6 +46,7 @@ export function StepEntitySelection({
   const [tab, setTab] = useState<'existing' | 'new'>('existing')
   const [search, setSearch] = useState('')
   const [companies, setCompanies] = useState<CompanyRecord[]>([])
+  const [universities, setUniversities] = useState<UniversityCatalogRecord[]>([])
   const [selectedId, setSelectedId] = useState<string | null>(initialCompanyId ?? null)
   const [loading, setLoading] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -56,8 +64,13 @@ export function StepEntitySelection({
       setLoading(true)
       try {
         const supabase = createClient()
-        const results = await searchCompanies(supabase, debouncedSearch, entityType)
-        if (!cancelled) setCompanies(results)
+        if (entityType === 'university') {
+          const results = await searchUniversitiesCatalog(supabase, debouncedSearch)
+          if (!cancelled) setUniversities(results)
+        } else {
+          const results = await searchCompanies(supabase, debouncedSearch, entityType)
+          if (!cancelled) setCompanies(results)
+        }
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -71,12 +84,18 @@ export function StepEntitySelection({
 
   const options = useMemo(
     () =>
-      companies.map((company) => ({
-        value: company.id,
-        label: company.name_ar ?? company.name,
-        description: formatDomainsList(company.domains),
-      })),
-    [companies],
+      entityType === 'university'
+        ? universities.map((u) => ({
+            value: u.id,
+            label: `${u.name_ar} - ${u.name_en}`,
+            description: u.short_code,
+          }))
+        : companies.map((company) => ({
+            value: company.id,
+            label: company.name_ar ?? company.name,
+            description: formatDomainsList(company.domains),
+          })),
+    [companies, entityType, universities],
   )
 
   const selectedCompany = companies.find((company) => company.id === selectedId) ?? null
@@ -87,6 +106,19 @@ export function StepEntitySelection({
   }
 
   async function handleExistingContinue() {
+    if (entityType === 'university') {
+      const selectedUniversity = universities.find((u) => u.id === selectedId)
+      if (!selectedUniversity) return
+      const supabase = createClient()
+      const linked = await ensureUniversityCompany(supabase, selectedUniversity)
+      onContinue({
+        companyId: linked.id,
+        companyName: linked.name_ar ?? linked.name,
+        companyDomains: linked.domains,
+      })
+      return
+    }
+
     if (!selectedCompany) return
     onContinue({
       companyId: selectedCompany.id,
@@ -115,12 +147,16 @@ export function StepEntitySelection({
     }
   }
 
+  const canCreateNew = entityType !== 'university'
+
   return (
     <div className="space-y-4">
-      <Tabs value={tab} onValueChange={(value) => setTab(value as 'existing' | 'new')}>
+      <Tabs value={canCreateNew ? tab : 'existing'} onValueChange={(value) => setTab(value as 'existing' | 'new')}>
         <TabsList>
-          <TabsTrigger value="existing">{t('tabs.existing')}</TabsTrigger>
-          <TabsTrigger value="new">{t('tabs.new')}</TabsTrigger>
+          <TabsTrigger value="existing">
+            {entityType === 'university' ? 'اختر الجامعة' : t('tabs.existing')}
+          </TabsTrigger>
+          {canCreateNew ? <TabsTrigger value="new">{t('tabs.new')}</TabsTrigger> : null}
         </TabsList>
 
         <TabsContent value="existing" className="space-y-4">
@@ -136,7 +172,7 @@ export function StepEntitySelection({
             />
           </FormField>
 
-          {selectedCompany ? (
+          {selectedCompany && entityType !== 'university' ? (
             <div className="rounded-md bg-jid-beige p-3 text-sm text-jid-ink/80">
               <p className="font-medium text-jid-ink">{selectedCompany.name_ar ?? selectedCompany.name}</p>
               <p className="mt-1">
