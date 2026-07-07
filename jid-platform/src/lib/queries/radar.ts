@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
+import { radarApplicationsQueryKey } from '@/lib/queries/radar-query-keys'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
 import type {
@@ -14,10 +15,6 @@ type UntypedClient = SupabaseClient<Record<string, unknown>>
 
 function asUntyped(client: SupabaseClient<Database>): UntypedClient {
   return client as unknown as UntypedClient
-}
-
-export function radarApplicationsQueryKey(userId: string) {
-  return ['radar', 'applications', userId] as const
 }
 
 const USER_APPLICATIONS_SELECT = `

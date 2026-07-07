@@ -5,7 +5,8 @@ import {
 } from '@tanstack/react-query'
 import { getTranslations } from 'next-intl/server'
 import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
-import { fetchUserApplications, radarApplicationsQueryKey } from '@/lib/queries/radar'
+import { fetchUserApplications } from '@/lib/queries/radar'
+import { radarApplicationsQueryKey } from '@/lib/queries/radar-query-keys'
 import { fetchUpcomingMeetings, timelineMeetingsQueryKey } from '@/lib/queries/timeline'
 import { RadarPageShell } from './_components/radar-page-shell'
 

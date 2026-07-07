@@ -1,7 +1,7 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
-import { radarApplicationsQueryKey } from '@/lib/queries/radar'
+import { radarApplicationsQueryKey } from '@/lib/queries/radar-query-keys'
 import type { UserApplicationsResult } from '@/types/application'
 
 export const userApplicationsQueryKey = radarApplicationsQueryKey

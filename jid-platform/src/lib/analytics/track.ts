@@ -1,6 +1,7 @@
 'use client'
 
 import { ONBOARDING_ANALYTICS_EVENTS } from '@/lib/analytics/onboarding-events'
+import { PULSE_ANALYTICS_EVENTS, type PulseAnalyticsEvent } from '@/lib/analytics/pulse-events'
 import { STAFF_ANALYTICS_EVENTS, type StaffAnalyticsEvent } from '@/lib/analytics/staff-events'
 import { SYS_ANALYTICS_EVENTS, type SysAnalyticsEvent } from '@/lib/analytics/sys-events'
 
@@ -61,8 +62,8 @@ export const RADAR_ANALYTICS_EVENTS = [
   'mode_switched',
 ] as const
 
-/** Section 14 — Platform Pulse analytics events. */
-export { PULSE_ANALYTICS_EVENTS, type PulseAnalyticsEvent } from '@/lib/analytics/pulse-events'
+/** Section 14 — Platform Pulse analytics events (re-exported for consumers). */
+export type { PulseAnalyticsEvent } from '@/lib/analytics/pulse-events'
 
 /** University pillar MVP analytics events (Section 10). */
 export const UNIVERSITY_ANALYTICS_EVENTS = [

@@ -2795,38 +2795,58 @@
         "digest": "الملخص"
       },
       "categories": {
-        "auth.email_verified": "تأكيد البريد الإلكتروني",
-        "auth.mfa_disabled": "إيقاف المصادقة الثنائية",
-        "auth.mfa_enabled": "تفعيل المصادقة الثنائية",
-        "auth.new_device_login": "تسجيل دخول من جهاز جديد",
-        "auth.password_changed": "تغيير كلمة المرور",
-        "auth.password_reset_requested": "طلب إعادة تعيين كلمة المرور",
-        "auth.phone_verified": "تأكيد رقم الجوال",
-        "auth.session_revoked": "إنهاء جلسة",
-        "account.reinstated": "إعادة تفعيل الحساب",
-        "account.suspended": "تعليق الحساب",
-        "claim.approved": "موافقة على مطالبة",
-        "claim.needs_more_info": "مطلوب معلومات إضافية",
-        "claim.rejected": "رفض مطالبة",
-        "company.link_broken": "رابط الشركة معطّل",
-        "job.application_expired": "انتهاء صلاحية التقديم",
-        "job.application_received": "استلام طلب توظيف",
-        "job.application_status_changed": "تغيير حالة التقديم",
-        "job.expiring_soon": "وظيفة تنتهي قريباً",
-        "job.posted": "نشر وظيفة",
-        "legal.privacy_updated": "تحديث سياسة الخصوصية",
-        "legal.terms_updated": "تحديث الشروط والأحكام",
-        "mentor.application_approved": "قبول طلب الإرشاد",
-        "mentor.application_rejected": "رفض طلب الإرشاد",
-        "mentorship.feedback_requested": "طلب تقييم جلسة",
-        "mentorship.meeting_confirmed": "تأكيد اجتماع",
-        "mentorship.meeting_proposed": "اقتراح اجتماع",
-        "mentorship.meeting_reminder": "تذكير باجتماع",
-        "mentorship.request_accepted": "قبول طلب إرشاد",
-        "mentorship.request_declined": "رفض طلب إرشاد",
-        "mentorship.request_received": "استلام طلب إرشاد",
-        "staff.claim_assigned": "تعيين مطالبة للمراجعة",
-        "digest.daily_summary": "ملخص يومي"
+        "auth": {
+          "email_verified": "تأكيد البريد الإلكتروني",
+          "mfa_disabled": "إيقاف المصادقة الثنائية",
+          "mfa_enabled": "تفعيل المصادقة الثنائية",
+          "new_device_login": "تسجيل دخول من جهاز جديد",
+          "password_changed": "تغيير كلمة المرور",
+          "password_reset_requested": "طلب إعادة تعيين كلمة المرور",
+          "phone_verified": "تأكيد رقم الجوال",
+          "session_revoked": "إنهاء جلسة"
+        },
+        "account": {
+          "reinstated": "إعادة تفعيل الحساب",
+          "suspended": "تعليق الحساب"
+        },
+        "claim": {
+          "approved": "موافقة على مطالبة",
+          "needs_more_info": "مطلوب معلومات إضافية",
+          "rejected": "رفض مطالبة"
+        },
+        "company": {
+          "link_broken": "رابط الشركة معطّل"
+        },
+        "job": {
+          "application_expired": "انتهاء صلاحية التقديم",
+          "application_received": "استلام طلب توظيف",
+          "application_status_changed": "تغيير حالة التقديم",
+          "expiring_soon": "وظيفة تنتهي قريباً",
+          "posted": "نشر وظيفة"
+        },
+        "legal": {
+          "privacy_updated": "تحديث سياسة الخصوصية",
+          "terms_updated": "تحديث الشروط والأحكام"
+        },
+        "mentor": {
+          "application_approved": "قبول طلب الإرشاد",
+          "application_rejected": "رفض طلب الإرشاد"
+        },
+        "mentorship": {
+          "feedback_requested": "طلب تقييم جلسة",
+          "meeting_confirmed": "تأكيد اجتماع",
+          "meeting_proposed": "اقتراح اجتماع",
+          "meeting_reminder": "تذكير باجتماع",
+          "request_accepted": "قبول طلب إرشاد",
+          "request_declined": "رفض طلب إرشاد",
+          "request_received": "استلام طلب إرشاد"
+        },
+        "staff": {
+          "claim_assigned": "تعيين مطالبة للمراجعة"
+        },
+        "digest": {
+          "daily_summary": "ملخص يومي"
+        }
       }
     }
   },
