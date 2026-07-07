@@ -34,7 +34,7 @@ export async function notifyMentorApplicationApproved(
   }
 
   const { error } = await asUntyped(client).from('email_outbox').insert({
-    template: 'mentor_application_approved',
+    template: 'mentor.application_approved',
     payload,
     status: 'pending',
   })

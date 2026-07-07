@@ -70,9 +70,11 @@ export type FeatureFlagUpdate = z.infer<typeof featureFlagUpdateSchema>
 
 export const platformConfigSchema = z.object({
   key: z.string().min(1).max(128),
-  value: z.record(z.unknown()),
+  value: z.unknown(),
   description: z.string().nullable().optional(),
   is_secret: z.boolean().default(false),
+  category: z.enum(['platform', 'security', 'operations', 'integrations']).default('platform'),
+  value_type: z.enum(['string', 'number', 'boolean', 'json']).default('json'),
   updated_at: z.string().datetime({ offset: true }).optional(),
   updated_by: z.string().uuid().nullable().optional(),
 })

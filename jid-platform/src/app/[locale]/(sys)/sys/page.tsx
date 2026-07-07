@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server'
+import { SysAnalyticsTracker } from '@/components/sys/sys-analytics-tracker'
 import { AlertsBar } from '@/app/[locale]/(sys)/sys/dashboard/_components/alerts-bar'
 import { ClaimsQueueWidget } from '@/app/[locale]/(sys)/sys/dashboard/_components/claims-queue-widget'
 import { DashboardMetrics } from '@/app/[locale]/(sys)/sys/dashboard/_components/dashboard-metrics'
@@ -27,6 +28,7 @@ export default async function SysDashboardPage() {
 
   return (
     <div className="space-y-6">
+      <SysAnalyticsTracker event="sys.dashboard_viewed" />
       <header>
         <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
         <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>

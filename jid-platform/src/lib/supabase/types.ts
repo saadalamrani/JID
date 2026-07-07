@@ -316,6 +316,7 @@ export type Database = {
       }
       claim_requests: {
         Row: {
+          assigned_staff_id: string | null
           business_email: string
           can_reapply_after: string | null
           claim_type: Database['public']['Enums']['claim_type_enum']
@@ -326,17 +327,21 @@ export type Database = {
           created_at: string
           domain_verified: boolean
           evidence_urls: string[]
+          first_viewed_at: string | null
+          first_viewed_by: string | null
           id: string
           rejection_reason: string | null
           required_documents: string[]
           review_notes: string | null
           reviewed_at: string | null
           reviewed_by: string | null
+          sla_due_at: string | null
           status: Database['public']['Enums']['claim_status_enum']
           updated_at: string
           user_id: string
         }
         Insert: {
+          assigned_staff_id?: string | null
           business_email: string
           can_reapply_after?: string | null
           claim_type?: Database['public']['Enums']['claim_type_enum']
@@ -346,15 +351,21 @@ export type Database = {
           company_name: string
           created_at?: string
           evidence_urls?: string[]
+          first_viewed_at?: string | null
+          first_viewed_by?: string | null
           id?: string
+          rejection_reason?: string | null
+          required_documents?: string[]
           review_notes?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          sla_due_at?: string | null
           status?: Database['public']['Enums']['claim_status_enum']
           updated_at?: string
           user_id: string
         }
         Update: {
+          assigned_staff_id?: string | null
           business_email?: string
           can_reapply_after?: string | null
           claim_type?: Database['public']['Enums']['claim_type_enum']
@@ -363,11 +374,17 @@ export type Database = {
           company_id?: string
           company_name?: string
           created_at?: string
+          domain_verified?: boolean
           evidence_urls?: string[]
+          first_viewed_at?: string | null
+          first_viewed_by?: string | null
           id?: string
+          rejection_reason?: string | null
+          required_documents?: string[]
           review_notes?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
+          sla_due_at?: string | null
           status?: Database['public']['Enums']['claim_status_enum']
           updated_at?: string
           user_id?: string
@@ -383,6 +400,69 @@ export type Database = {
           {
             foreignKeyName: 'claim_requests_user_id_fkey'
             columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      content_flags: {
+        Row: {
+          assigned_staff_id: string | null
+          created_at: string
+          details: string | null
+          id: string
+          reason: Database['public']['Enums']['flag_reason_enum']
+          reporter_id: string
+          resolution_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: Database['public']['Enums']['flag_status_enum']
+          target_id: string
+          target_type: Database['public']['Enums']['content_flag_target_type_enum']
+          updated_at: string
+        }
+        Insert: {
+          assigned_staff_id?: string | null
+          created_at?: string
+          details?: string | null
+          id?: string
+          reason: Database['public']['Enums']['flag_reason_enum']
+          reporter_id: string
+          resolution_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database['public']['Enums']['flag_status_enum']
+          target_id: string
+          target_type: Database['public']['Enums']['content_flag_target_type_enum']
+          updated_at?: string
+        }
+        Update: {
+          assigned_staff_id?: string | null
+          created_at?: string
+          details?: string | null
+          id?: string
+          reason?: Database['public']['Enums']['flag_reason_enum']
+          reporter_id?: string
+          resolution_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database['public']['Enums']['flag_status_enum']
+          target_id?: string
+          target_type?: Database['public']['Enums']['content_flag_target_type_enum']
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'content_flags_reporter_id_fkey'
+            columns: ['reporter_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'content_flags_reviewed_by_fkey'
+            columns: ['reviewed_by']
             isOneToOne: false
             referencedRelation: 'profiles'
             referencedColumns: ['id']
@@ -1736,6 +1816,8 @@ export type Database = {
           is_active: boolean
           payload: Json
           reason: string
+          reverted_at: string | null
+          reverted_by: string | null
         }
         Insert: {
           action_type: string
@@ -1747,6 +1829,8 @@ export type Database = {
           is_active?: boolean
           payload?: Json
           reason: string
+          reverted_at?: string | null
+          reverted_by?: string | null
         }
         Update: {
           action_type?: string
@@ -1758,6 +1842,8 @@ export type Database = {
           is_active?: boolean
           payload?: Json
           reason?: string
+          reverted_at?: string | null
+          reverted_by?: string | null
         }
         Relationships: [
           {
@@ -1832,6 +1918,34 @@ export type Database = {
           },
         ]
       }
+      metric_thresholds: {
+        Row: {
+          current_value: number
+          is_met: boolean
+          label_ar: string
+          label_en: string
+          metric_key: string
+          min_value: number
+          updated_at: string
+        }
+        Insert: {
+          current_value?: number
+          label_ar: string
+          label_en: string
+          metric_key: string
+          min_value: number
+          updated_at?: string
+        }
+        Update: {
+          current_value?: number
+          label_ar?: string
+          label_en?: string
+          metric_key?: string
+          min_value?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       platform_config: {
         Row: {
           description: string | null
@@ -1867,6 +1981,72 @@ export type Database = {
           },
         ]
       }
+      public_announcements: {
+        Row: {
+          body_ar: string | null
+          category: Database['public']['Enums']['announcement_category_enum']
+          created_at: string
+          created_by: string | null
+          cta_label_ar: string | null
+          cta_url: string | null
+          expires_at: string
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          starts_at: string
+          title_ar: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          body_ar?: string | null
+          category: Database['public']['Enums']['announcement_category_enum']
+          created_at?: string
+          created_by?: string | null
+          cta_label_ar?: string | null
+          cta_url?: string | null
+          expires_at: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          starts_at?: string
+          title_ar: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          body_ar?: string | null
+          category?: Database['public']['Enums']['announcement_category_enum']
+          created_at?: string
+          created_by?: string | null
+          cta_label_ar?: string | null
+          cta_url?: string | null
+          expires_at?: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          starts_at?: string
+          title_ar?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'public_announcements_created_by_fkey'
+            columns: ['created_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'public_announcements_updated_by_fkey'
+            columns: ['updated_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
     }
     Views: {
       mv_sys_dashboard_metrics: {
@@ -1884,8 +2064,63 @@ export type Database = {
         }
         Relationships: []
       }
+      platform_metrics_snapshot: {
+        Row: {
+          active_jobs: number
+          id: number
+          jid_response_rate_pct: number
+          refreshed_at: string
+          total_candidates: number
+          total_companies: number
+          total_jobs_ever: number
+          total_mentors: number
+          total_sessions: number
+        }
+        Relationships: []
+      }
+      sector_demand_snapshot: {
+        Row: {
+          active_job_count: number | null
+          application_count: number | null
+          name_ar: string | null
+          name_en: string | null
+          refreshed_at: string | null
+          sector_id: string | null
+          sector_slug: string | null
+        }
+        Relationships: []
+      }
+      skills_demand_snapshot: {
+        Row: {
+          active_job_count: number | null
+          application_count: number | null
+          refreshed_at: string | null
+          skill_name: string | null
+        }
+        Relationships: []
+      }
+      v_staff_personal_metrics: {
+        Row: {
+          actions_today: number | null
+          avg_review_hours_7d: number | null
+          claims_approved_today: number | null
+          claims_assigned_open: number | null
+          claims_rejected_today: number | null
+          claims_reviewed: number | null
+          claims_reviewed_today: number | null
+          flags_resolved: number | null
+          flags_resolved_today: number | null
+          staff_user_id: string | null
+          total_actions: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      assign_claim_to_self: {
+        Args: { p_claim_id: string }
+        Returns: undefined
+      }
       check_email_otp_rate_limit: {
         Args: { p_email: string; p_user_id: string }
         Returns: undefined
@@ -1934,6 +2169,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      get_staff_personal_metrics: {
+        Args: Record<PropertyKey, never>
+        Returns: Database['public']['Views']['v_staff_personal_metrics']['Row'][]
+      }
       is_feature_enabled: {
         Args: { p_flag_key: string }
         Returns: boolean
@@ -1960,6 +2199,15 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      review_claim: {
+        Args: {
+          p_claim_id: string
+          p_decision: string
+          p_reason: string
+          p_required_documents?: string[]
+        }
+        Returns: undefined
+      }
       review_claim_request: {
         Args: {
           p_claim_id: string
@@ -1978,6 +2226,10 @@ export type Database = {
           p_new_role: Database['public']['Enums']['user_role_enum']
           p_target_user_id: string
         }
+        Returns: undefined
+      }
+      staff_suspend_user: {
+        Args: { p_reason: string; p_user_id: string }
         Returns: undefined
       }
       suspend_user: {
@@ -2026,6 +2278,12 @@ export type Database = {
         | 'invited'
         | 'withdrawn'
         | 'expired'
+      announcement_category_enum:
+        | 'jobs'
+        | 'mentorship'
+        | 'events'
+        | 'platform'
+        | 'community'
       claim_status_enum:
         | 'pending'
         | 'pending_review'
@@ -2033,10 +2291,30 @@ export type Database = {
         | 'approved'
         | 'rejected'
         | 'cancelled'
+        | 'submitted'
+        | 'needs_more_info'
       claim_type_enum: 'company' | 'university'
+      content_flag_target_type_enum:
+        | 'profile'
+        | 'job'
+        | 'company'
+        | 'mentor_profile'
+        | 'announcement'
+        | 'message'
       cv_generation_status_enum: 'pending' | 'completed' | 'failed'
       cv_status_enum: 'draft' | 'published' | 'archived'
       experience_level_enum: 'intern' | 'entry' | 'mid' | 'senior' | 'lead' | 'executive'
+      flag_reason_enum:
+        | 'spam'
+        | 'harassment'
+        | 'hate_speech'
+        | 'inappropriate_content'
+        | 'misinformation'
+        | 'impersonation'
+        | 'copyright_violation'
+        | 'privacy_violation'
+        | 'other'
+      flag_status_enum: 'pending' | 'under_review' | 'resolved' | 'dismissed'
       job_status_enum:
         | 'draft'
         | 'published'

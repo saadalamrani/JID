@@ -1,5 +1,8 @@
 'use client'
 
+import { STAFF_ANALYTICS_EVENTS, type StaffAnalyticsEvent } from '@/lib/analytics/staff-events'
+import { SYS_ANALYTICS_EVENTS, type SysAnalyticsEvent } from '@/lib/analytics/sys-events'
+
 /**
  * Section 11 — mentorship analytics events (PostHog).
  * Job-board events remain in the same module for a single capture surface.
@@ -62,9 +65,14 @@ export const ANALYTICS_EVENTS = [
   ...MENTORSHIP_ANALYTICS_EVENTS,
   ...CV_ANALYTICS_EVENTS,
   ...RADAR_ANALYTICS_EVENTS,
+  ...STAFF_ANALYTICS_EVENTS,
+  ...SYS_ANALYTICS_EVENTS,
 ] as const
 
-export type AnalyticsEvent = (typeof ANALYTICS_EVENTS)[number]
+export type AnalyticsEvent =
+  | (typeof ANALYTICS_EVENTS)[number]
+  | StaffAnalyticsEvent
+  | SysAnalyticsEvent
 
 const DISTINCT_ID_KEY = 'jid_analytics_distinct_id'
 

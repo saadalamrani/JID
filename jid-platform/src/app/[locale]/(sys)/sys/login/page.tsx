@@ -11,6 +11,7 @@ import { SysAuthShell } from '@/components/sys/sys-auth-shell'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useRouter } from '@/lib/i18n/navigation'
+import { track } from '@/lib/analytics/track'
 import { getMfaAssuranceLevel, needsMfaEnrollment } from '@/lib/auth/mfa'
 import { fetchProfileForUser, isProfileSuspended } from '@/lib/auth/session'
 import { recordActiveSessionFromBrowser } from '@/lib/auth/sessions'
@@ -95,6 +96,8 @@ function SysLoginPageContent() {
         setFormError(t('errors.suspended'))
         return
       }
+
+      track('sys.login_succeeded', { user_id: data.user.id })
 
       const safeNext = sanitizeSysNextPath(nextParam)
       const aal = await getMfaAssuranceLevel(supabase)

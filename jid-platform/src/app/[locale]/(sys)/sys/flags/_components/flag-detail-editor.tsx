@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState, useTransition } from 'react'
+import { useEffect, useMemo, useState, useTransition } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from '@/lib/i18n/navigation'
 import type { FeatureFlag } from '@/lib/governance/schemas'
@@ -44,6 +44,11 @@ export function FlagDetailEditor({ flag, overrideRows }: FlagDetailEditorProps) 
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [pendingAction, setPendingAction] = useState<PendingAction | null>(null)
   const [message, setMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    setGlobalEnabled(flag.is_enabled)
+    setSelectedRoles(flag.enabled_for_roles)
+  }, [flag])
 
   const label = locale === 'ar' ? flag.label_ar : flag.label_en
   const description = locale === 'ar' ? flag.description_ar : flag.description_en

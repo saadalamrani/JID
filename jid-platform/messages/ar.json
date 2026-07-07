@@ -31,6 +31,36 @@
       "browseAll": "تصفح كل المرشدين"
     }
   },
+  "pulse": {
+    "eyebrow": "نبض المنصة",
+    "title": "نبض المنصة",
+    "subtitle": "نظرة حية على زخم التوظيف ونشاط الإرشاد والطلب في سوق العمل عبر جِد",
+    "disabled": {
+      "eyebrow": "غير عام بعد",
+      "title": "نبض المنصة معطّل",
+      "description": "المفتاح العام الرئيسي متوقف. فعّله من لوحة ميزات نبض المنصة عند استيفاء عتبات الجذب.",
+      "featuresLink": "فتح لوحة الميزات"
+    },
+    "placeholders": {
+      "announcements": "لوحة الإعلانات — اليوم 6",
+      "metrics": "مركز المقاييس — اليوم 6",
+      "trends": "اتجاهات السوق",
+      "sectorTrends": "طلب القطاعات — اليوم 7",
+      "skillsTrends": "طلب المهارات — اليوم 7"
+    },
+    "announcements": {
+      "empty": {
+        "ariaLabel": "لا توجد إعلانات للمنصة",
+        "title": "لا توجد إعلانات حالياً",
+        "description": "عد لاحقاً — ستظهر التحديثات الجديدة هنا عند نشرها."
+      }
+    },
+    "trends": {
+      "title": "اتجاهات السوق",
+      "sectorTitle": "طلب القطاعات",
+      "skillsTitle": "طلب المهارات"
+    }
+  },
   "errors": {
     "notFound": "الصفحة غير موجودة",
     "notFoundDescription": "تعذّر العثور على الصفحة المطلوبة.",
@@ -323,18 +353,178 @@
     }
   },
   "staff": {
+    "shell": {
+      "loading": "جاري تحميل بوابة الموظفين…",
+      "errorTitle": "حدث خطأ",
+      "error": "تعذّر تحميل صفحة بوابة الموظفين.",
+      "retry": "إعادة المحاولة",
+      "backToDashboard": "العودة للوحة التحكم"
+    },
+    "nav": {
+      "portalLabel": "بوابة العمليات",
+      "ariaLabel": "تنقل الموظفين",
+      "sections": {
+        "daily": "يومي",
+        "reviews": "المراجعات",
+        "operations": "الإدارة اليومية",
+        "me": "أنا"
+      },
+      "items": {
+        "dashboard": "لوحة التحكم",
+        "claims": "طابور المطالبات",
+        "mentorApplications": "طلبات المرشدين",
+        "announcements": "الإعلانات",
+        "users": "المستخدمون",
+        "entities": "الكيانات",
+        "moderation": "المراجعة",
+        "audit": "سجل تدقيقي"
+      }
+    },
+    "sidebar": {
+      "sessionWarning": "تنتهي الجلسة خلال {time}"
+    },
+    "mfa": {
+      "title": "التحقق بخطوتين",
+      "subtitle": "أدخل الرمز من تطبيق المصادقة",
+      "setupTitle": "إعداد المصادقة بخطوتين",
+      "setupSubtitle": "مطلوب قبل الوصول إلى بوابة الموظفين",
+      "loading": "جاري التحميل…",
+      "verify": "تحقق",
+      "verifying": "جاري التحقق…",
+      "errors": {
+        "noFactor": "لم يُعثر على مصادق — قم بإعداده أولاً",
+        "verifyFailed": "رمز غير صحيح — حاول مرة أخرى"
+      }
+    },
+    "topbar": {
+      "unnamed": "موظف",
+      "roleLabel": "فريق العمليات",
+      "sessionWarning": "تنتهي الجلسة خلال {time}",
+      "sessionRemaining": "الجلسة: متبقي {time}",
+      "notificationsAria": "الإشعارات",
+      "searchPlaceholder": "بحث أو انتقال سريع…",
+      "searchShortcut": "⌘K"
+    },
+    "commandPalette": {
+      "placeholder": "ابحث عن مستخدمين أو كيانات أو مطالبات…",
+      "quickActions": "إجراءات سريعة",
+      "searching": "جاري البحث…",
+      "noResults": "لا توجد نتائج",
+      "groups": {
+        "users": "المستخدمون",
+        "entities": "الكيانات",
+        "claims": "المطالبات"
+      },
+      "actions": {
+        "dashboard": "الذهاب للوحة التحكم",
+        "claims": "فتح طابور المطالبات",
+        "mentorApplications": "طلبات المرشدين",
+        "announcements": "الإعلانات",
+        "users": "المستخدمون",
+        "entities": "الكيانات",
+        "moderation": "المراجعة",
+        "audit": "سجل تدقيقي"
+      }
+    },
     "dashboard": {
       "title": "لوحة الموظفين",
-      "subtitle": "مرحباً بك في بوابة فريق جِد",
-      "claimsCard": {
-        "title": "طابور المطالبات",
-        "description": "راجع طلبات مطالبة الشركات والجامعات بالملكية",
-        "cta": "فتح الطابور"
+      "subtitle": "نظرة عامة على عملياتك اليومية",
+      "personalMetrics": {
+        "sectionLabel": "أداء اليوم",
+        "cards": {
+          "actions_today": {
+            "label": "إجراءات اليوم",
+            "hint": "أحداث التدقيق التي نفذتها اليوم"
+          },
+          "claims_approved_today": {
+            "label": "مطالبات موافق عليها اليوم",
+            "hint": "مطالبات الملكية التي وافقت عليها اليوم"
+          },
+          "claims_rejected_today": {
+            "label": "مطالبات مرفوضة اليوم",
+            "hint": "مطالبات الملكية التي رفضتها اليوم"
+          },
+          "avg_review_hours_7d": {
+            "label": "متوسط وقت المراجعة (7 أيام)",
+            "hint": "متوسط الساعات من التقديم حتى القرار (آخر 7 أيام)"
+          }
+        }
       },
-      "mentorApplicationsCard": {
-        "title": "طلبات المرشدين",
-        "description": "راجع طلبات الأفراد للإرشاد (منفصلة عن مطالبات الكيانات)",
-        "cta": "فتح طابور المرشدين"
+      "assignedClaims": {
+        "title": "مطالباتك المعيّنة",
+        "subtitle": "أقرب 10 حسب موعد SLA",
+        "viewAll": "عرض الطابور",
+        "empty": "لا توجد مطالبات معيّنة لك",
+        "due": "موعد SLA",
+        "overdue": "متأخرة"
+      },
+      "unassignedQueue": {
+        "title": "طابور غير المعيّن",
+        "subtitle": "أقدم المطالبات بانتظار الاستلام",
+        "viewAll": "عرض الطابور",
+        "empty": "لا توجد مطالبات غير معيّنة حالياً"
+      },
+      "recentActions": {
+        "title": "إجراءات حديثة",
+        "subtitle": "آخر 15 حدث تدقيق لك",
+        "viewAll": "سجل التدقيق الكامل",
+        "empty": "لا توجد إجراءات مسجّلة بعد"
+      },
+      "openFlags": {
+        "title": "بلاغات المحتوى المفتوحة",
+        "subtitle": "عناصر بانتظار المراجعة على مستوى المنصة",
+        "hint": "بلاغات بانتظار مراجعة الفريق"
+      }
+    },
+    "claims": {
+      "title": "طابور المطالبات",
+      "subtitle": "مطالبات الملكية وطلبات المرشدين مرتبة حسب SLA",
+      "count": "عرض {count} عنصر (حد أقصى 100)",
+      "nav": {
+        "myQueue": "طابوري",
+        "history": "سجلي"
+      },
+      "filters": {
+        "type": "النوع",
+        "urgency": "الأولوية",
+        "assigned": "التعيين",
+        "typeOptions": {
+          "all": "كل الأنواع",
+          "company": "شركة",
+          "university": "جامعة",
+          "mentor": "مرشد"
+        },
+        "urgencyOptions": {
+          "all": "كل الأولويات",
+          "overdue": "متأخرة",
+          "critical": "حرجة (<12 ساعة)",
+          "normal": "عادية"
+        },
+        "assignedOptions": {
+          "all": "الكل",
+          "unassigned": "غير معيّنة",
+          "assigned": "معيّنة"
+        }
+      },
+      "list": {
+        "empty": "لا توجد مطالبات تطابق الفلاتر"
+      },
+      "card": {
+        "assigned": "معيّنة",
+        "unassigned": "غير معيّنة"
+      },
+      "realtime": {
+        "newClaim": "مطالبة جديدة: {company}"
+      },
+      "myQueue": {
+        "title": "مطالباتي المعيّنة",
+        "subtitle": "المطالبات المعيّنة لك مرتبة حسب SLA",
+        "backToQueue": "← كل المطالبات"
+      },
+      "history": {
+        "title": "سجل مراجعاتي",
+        "subtitle": "المطالبات التي وافقت عليها أو رفضتها",
+        "backToQueue": "← كل المطالبات"
       }
     },
     "claimsQueue": {
@@ -381,13 +571,447 @@
         "commercialRegistry": "التحقق من السجل التجاري",
         "jobTitle": "منطقية المسمى الوظيفي",
         "linkedin": "تأكيد LinkedIn"
+      },
+      "workspace": {
+        "title": "مراجعة مطالبة {company}",
+        "backToQueue": "← العودة لطابور المطالبات",
+        "meta": "الحالة: {status} · تقديم {submitted}",
+        "assigned": "مُعيَّنة لك",
+        "alreadyReviewed": "تمت مراجعة هذه المطالبة مسبقاً ({status}).",
+        "claimDetails": {
+          "title": "تفاصيل المطالبة",
+          "type": "نوع المطالبة",
+          "businessEmail": "البريد المؤسسي",
+          "claimantName": "اسم مقدّم الطلب",
+          "claimantTitle": "المسمى الوظيفي"
+        },
+        "applicant": {
+          "title": "ملف مقدّم الطلب",
+          "name": "الاسم الكامل",
+          "role": "الدور في المنصة",
+          "emailVerified": "البريد موثّق",
+          "phoneVerified": "الهاتف موثّق",
+          "yes": "نعم",
+          "no": "لا",
+          "missing": "الملف غير موجود"
+        },
+        "entity": {
+          "title": "الكيان المستهدف",
+          "name": "اسم الكيان",
+          "state": "حالة الكيان",
+          "domains": "النطاقات المعتمدة",
+          "verified": "موثّق",
+          "linkedin": "LinkedIn",
+          "missing": "سجل الكيان غير موجود"
+        },
+        "checklist": {
+          "title": "قائمة التحقق",
+          "progress": "{completed} من {total} مكتمل",
+          "items": {
+            "domain_match": {
+              "label": "تطابق نطاق البريد مع الكيان",
+              "hint": "النطاقات المعتمدة: {domains}"
+            },
+            "entity_exists": {
+              "label": "الكيان موجود وقابل للمطالبة",
+              "hint": "تأكد من صحة سجل الشركة/الجامعة"
+            },
+            "linkedin_verified": {
+              "label": "التحقق من LinkedIn",
+              "hint": "الملف يدعم الدور المُدّعى في هذا الكيان"
+            },
+            "job_reasonable": {
+              "label": "المسمى الوظيفي معقول",
+              "hint": "يتوافق مع نوع الكيان والمستوى"
+            },
+            "no_duplicates": {
+              "label": "لا مطالبات مكررة معلّقة",
+              "hint": "لا توجد مطالبات مفتوحة متعارضة لنفس المستخدم أو الكيان"
+            }
+          }
+        },
+        "relatedHistory": {
+          "title": "السجل المرتبط",
+          "subtitle": "مطالبات سابقة من نفس المستخدم أو الكيان",
+          "empty": "لا يوجد سجل مرتبط",
+          "relation": {
+            "same_user": "نفس المستخدم",
+            "same_entity": "نفس الكيان"
+          }
+        },
+        "decision": {
+          "decisionLabel": "القرار",
+          "options": {
+            "approved": "موافقة",
+            "rejected": "رفض",
+            "needs_more_info": "يحتاج مزيداً من المعلومات"
+          },
+          "reasonLabel": "سبب المراجعة",
+          "reasonPlaceholder": "اشرح قرارك (10 أحرف على الأقل)",
+          "reasonHint": "مطلوب لجميع القرارات؛ يُسجَّل في سجل التدقيق",
+          "requiredDocumentsLabel": "المستندات المطلوبة (عند الرفض)",
+          "documents": {
+            "commercial_registry": "السجل التجاري",
+            "domain_ownership_proof": "إثبات ملكية النطاق",
+            "authorization_letter": "خطاب تفويض"
+          },
+          "selfReviewBlocked": "لا يمكنك مراجعة مطالبة قدّمتها أنت.",
+          "checklistRequired": "أكمل جميع بنود قائمة التحقق قبل الموافقة.",
+          "submit": "إرسال القرار",
+          "submitting": "جاري الإرسال…",
+          "success": {
+            "approved": "تمت الموافقة على المطالبة",
+            "rejected": "تم رفض المطالبة",
+            "needs_more_info": "تم طلب مزيد من المعلومات"
+          }
+        }
       }
     },
+    "users": {
+      "title": "إدارة المستخدمين",
+      "subtitle": "الأفراد والمرشدون فقط — لا يمكن للموظف تغيير الأدوار أو الوصول لحسابات مميّزة",
+      "suspendedLink": "عرض الموقوفين ←",
+      "filters": {
+        "search": "بحث",
+        "searchPlaceholder": "الاسم…",
+        "role": "الدور",
+        "status": "الحالة",
+        "apply": "تطبيق الفلاتر",
+        "applying": "جاري التطبيق…",
+        "roles": {
+          "all": "الكل",
+          "individual": "فرد",
+          "mentor": "مرشد"
+        },
+        "statuses": {
+          "all": "كل الحالات",
+          "active": "نشط",
+          "suspended": "موقوف"
+        }
+      },
+      "table": {
+        "empty": "لا يوجد مستخدمون مطابقون",
+        "unnamed": "مستخدم بدون اسم",
+        "columns": {
+          "name": "الاسم",
+          "email": "البريد",
+          "role": "الدور",
+          "status": "الحالة",
+          "lastLogin": "آخر دخول",
+          "created": "تاريخ الإنشاء"
+        },
+        "statuses": {
+          "active": "نشط",
+          "suspended": "موقوف"
+        },
+        "roleLabels": {
+          "individual": "فرد",
+          "mentor": "مرشد"
+        }
+      },
+      "pagination": {
+        "summary": "{total} مستخدم · صفحة {page} من {totalPages}",
+        "prev": "السابق",
+        "next": "التالي"
+      },
+      "suspended": {
+        "title": "المستخدمون الموقوفون",
+        "subtitle": "أفراد ومرشدون موقوفون حالياً — أعد التفعيل من صفحة التفاصيل",
+        "back": "← العودة لكل المستخدمين",
+        "count": "{total} موقوف · صفحة {page} من {totalPages}"
+      },
+      "detail": {
+        "back": "← العودة للمستخدمين",
+        "unnamed": "مستخدم بدون اسم",
+        "yes": "نعم",
+        "no": "لا",
+        "infoTitle": "معلومات الملف",
+        "sessionsTitle": "الجلسات النشطة",
+        "sessionsSubtitle": "الأجهزة والجلسات المسجلة في active_sessions",
+        "auditTitle": "السجل الزمني",
+        "auditSubtitle": "أحداث يكون فيها هذا المستخدم الهدف",
+        "auditEmpty": "لا أحداث تدقيق لهذا المستخدم",
+        "systemActor": "النظام",
+        "roleLabels": {
+          "individual": "فرد",
+          "mentor": "مرشد"
+        },
+        "fields": {
+          "id": "معرّف المستخدم",
+          "email": "البريد",
+          "fullName": "الاسم الكامل",
+          "role": "الدور",
+          "phone": "الهاتف",
+          "locale": "اللغة",
+          "emailVerified": "البريد موثّق",
+          "phoneVerified": "الهاتف موثّق",
+          "suspendedAt": "تاريخ الإيقاف",
+          "suspendedReason": "سبب الإيقاف",
+          "lastLogin": "آخر دخول",
+          "lastLoginIp": "آخر IP",
+          "mentorStatus": "طلب المرشد",
+          "createdAt": "تاريخ الإنشاء",
+          "updatedAt": "آخر تحديث"
+        },
+        "sessions": {
+          "device": "الجهاز",
+          "lastActive": "آخر نشاط",
+          "expires": "ينتهي",
+          "status": "الحالة",
+          "empty": "لا جلسات مسجلة",
+          "unknownDevice": "جهاز غير معروف",
+          "active": "نشطة",
+          "revoked": "ملغاة"
+        }
+      },
+      "actions": {
+        "title": "إجراءات الموظف",
+        "subtitle": "إيقاف، إعادة تفعيل، إنهاء الجلسات، أو الإبلاغ — تغيير الأدوار غير متاح هنا",
+        "endSessions": "إنهاء كل الجلسات",
+        "flagContent": "الإبلاغ عن محتوى",
+        "suspend": "إيقاف الحساب",
+        "reinstate": "إعادة تفعيل الحساب",
+        "submitFlag": "إرسال البلاغ",
+        "flagReasonLabel": "سبب البلاغ",
+        "flagDetailsLabel": "تفاصيل (اختياري)",
+        "flagDetailsPlaceholder": "سياق إضافي للمشرفين…",
+        "flagReasons": {
+          "spam": "رسائل مزعجة",
+          "harassment": "تحرش",
+          "hate_speech": "خطاب كراهية",
+          "inappropriate_content": "محتوى غير لائق",
+          "misinformation": "معلومات مضللة",
+          "impersonation": "انتحال شخصية",
+          "copyright_violation": "انتهاك حقوق نشر",
+          "privacy_violation": "انتهاك خصوصية",
+          "other": "أخرى"
+        },
+        "confirm": {
+          "defaultTitle": "تأكيد الإجراء",
+          "defaultDescription": "يتطلب هذا الإجراء سبباً ويُسجَّل في التدقيق.",
+          "logoutTitle": "إنهاء كل الجلسات",
+          "logoutDescription": "سيُسجَّل خروج المستخدم من كل الأجهزة. السبب مطلوب.",
+          "suspendTitle": "إيقاف الحساب",
+          "suspendDescription": "لن يتمكن المستخدم من تسجيل الدخول حتى إعادة التفعيل.",
+          "reinstateTitle": "إعادة تفعيل الحساب",
+          "reinstateDescription": "استعادة الوصول لهذا المستخدم الموقوف.",
+          "flagTitle": "الإبلاغ عن محتوى الملف",
+          "flagDescription": "ينشئ بلاغ مراجعة لفريق العمليات."
+        }
+      }
+    },
+    "entities": {
+      "title": "إدارة الكيانات",
+      "subtitle": "الشركات والجامعات المعتمدة — تصحيح البيانات فقط (وليس سير عمل المطالبات)",
+      "flaggedLink": "كيانات مخالفة لاتفاقية مستوى الخدمة ←",
+      "filters": {
+        "search": "بحث",
+        "searchPlaceholder": "اسم الكيان…",
+        "ownership": "الملكية",
+        "region": "المنطقة",
+        "allRegions": "كل المناطق",
+        "apply": "تطبيق الفلاتر",
+        "applying": "جاري التطبيق…",
+        "ownershipOptions": {
+          "all": "كل أنواع الملكية",
+          "government": "حكومي",
+          "semi_government": "شبه حكومي",
+          "private": "خاص"
+        }
+      },
+      "table": {
+        "empty": "لا توجد كيانات معتمدة تطابق الفلاتر",
+        "columns": {
+          "name": "الاسم",
+          "type": "النوع",
+          "ownership": "الملكية",
+          "region": "المنطقة",
+          "commitment": "الالتزام",
+          "updated": "آخر تحديث"
+        },
+        "types": {
+          "company": "شركة",
+          "university": "جامعة"
+        },
+        "ownership": {
+          "government": "حكومي",
+          "semi_government": "شبه حكومي",
+          "private": "خاص"
+        }
+      },
+      "pagination": {
+        "summary": "{total} كيان · صفحة {page} من {totalPages}"
+      },
+      "flagged": {
+        "title": "كيانات مخالفة لاتفاقية مستوى الخدمة",
+        "subtitle": "درجة الالتزام أقل من {threshold} (عتبة لوحة الوظائف)",
+        "back": "← العودة للكيانات",
+        "count": "{total} مخالف · صفحة {page} من {totalPages}"
+      },
+      "detail": {
+        "back": "← العودة للكيانات",
+        "editMetadata": "تعديل البيانات",
+        "infoTitle": "بيانات الكيان",
+        "yes": "نعم",
+        "no": "لا",
+        "fields": {
+          "id": "معرّف الكيان",
+          "name": "الاسم",
+          "nameAr": "الاسم بالعربية",
+          "type": "النوع",
+          "state": "الحالة",
+          "ownership": "الملكية",
+          "sector": "القطاع",
+          "region": "المنطقة",
+          "claimant": "صاحب المطالبة",
+          "website": "الموقع",
+          "city": "المدينة",
+          "domains": "النطاقات",
+          "verified": "موثّق",
+          "created": "تاريخ الإنشاء",
+          "updated": "آخر تحديث"
+        },
+        "types": {
+          "company": "شركة",
+          "university": "جامعة"
+        },
+        "stats": {
+          "title": "إحصائيات الاستجابة",
+          "viewFallback": "عرض v_company_response_stats غير متوفر — تُعرض أعمدة جدول الشركات.",
+          "lowCommitmentWarning": "درجة الالتزام {score} أقل من {threshold}. قد يظهر هذا الكيان في قائمة المخالفين.",
+          "commitmentScore": "درجة الالتزام",
+          "responseRate": "معدل الاستجابة",
+          "avgResponseDays": "متوسط الاستجابة (أيام)",
+          "jobs12mo": "وظائف منشورة (12 شهر)"
+        },
+        "slaHistory": {
+          "title": "سجل اتفاقية مستوى الخدمة",
+          "subtitle": "طلبات منتهية الصلاحية وأحداث تدقيق ذات صلة",
+          "empty": "لا توجد أحداث مسجّلة",
+          "kinds": {
+            "application_expired": "خرق اتفاقية طلب التوظيف",
+            "audit": "حدث تدقيق"
+          }
+        }
+      },
+      "metadataForm": {
+        "title": "تعديل البيانات — {name}",
+        "subtitle": "يمكن للموظف تصحيح حقول الكتالوج فقط. لا يمكن تغيير entity_state هنا.",
+        "back": "← العودة للكيان",
+        "hint": "التغييرات تُسجّل في التدقيق مع قبل/بعد. سير عمل المطالبات يتحكم في حالة الاعتماد.",
+        "sector": "القطاع",
+        "region": "المنطقة",
+        "logoUrl": "رابط الشعار",
+        "descriptionEn": "الوصف (إنجليزي)",
+        "descriptionAr": "الوصف (عربي)",
+        "none": "— لا شيء —",
+        "reasonLabel": "سبب التغيير",
+        "reasonPlaceholder": "مطلوب — يُسجّل في سجل التدقيق",
+        "reasonRequired": "السبب مطلوب",
+        "submit": "حفظ البيانات",
+        "saving": "جاري الحفظ…",
+        "saved": "تم تحديث البيانات"
+      }
+    },
+    "moderation": {
+      "title": "مراجعة المحتوى",
+      "subtitle": "طابور البلاغات المفتوحة — الأقدم أولاً",
+      "openCount": "{count} بلاغ مفتوح",
+      "list": {
+        "empty": "لا توجد بلاغات مفتوحة — الطابور فارغ"
+      },
+      "card": {
+        "unknownReporter": "مبلّغ غير معروف",
+        "reporter": "أبلغ {name}",
+        "targetTypes": {
+          "profile": "ملف شخصي",
+          "job": "وظيفة",
+          "company": "شركة",
+          "mentor_profile": "ملف مرشد",
+          "announcement": "إعلان",
+          "message": "رسالة"
+        },
+        "reasons": {
+          "spam": "بريد مزعج",
+          "harassment": "تحرش",
+          "hate_speech": "خطاب كراهية",
+          "inappropriate_content": "محتوى غير لائق",
+          "misinformation": "معلومات مضللة",
+          "impersonation": "انتحال شخصية",
+          "copyright_violation": "انتهاك حقوق نشر",
+          "privacy_violation": "انتهاك خصوصية",
+          "other": "أخرى"
+        }
+      },
+      "detail": {
+        "back": "← العودة لطابور المراجعة",
+        "title": "مراجعة البلاغ",
+        "meta": "{type} · {reason} · {status}",
+        "reportTitle": "تفاصيل البلاغ",
+        "reporter": "المبلّغ",
+        "unknownReporter": "غير معروف",
+        "submitted": "تاريخ الإرسال",
+        "details": "التفاصيل",
+        "previewTitle": "معاينة المحتوى المُبلَّغ عنه",
+        "previewMissing": "المورد غير موجود أو لم يعد متاحاً",
+        "openTarget": "فتح في بوابة الموظفين"
+      },
+      "resolution": {
+        "title": "القرار",
+        "subtitle": "جميع القرارات تتطلب ملاحظات وتُسجّل.",
+        "notesLabel": "ملاحظات القرار",
+        "notesPlaceholder": "3 أحرف على الأقل — إلزامي",
+        "notesRequired": "ملاحظات القرار مطلوبة",
+        "resolveHidden": "حل وإخفاء المحتوى",
+        "resolveKeepVisible": "حل (إبقاء ظاهراً)",
+        "dismiss": "رفض البلاغ",
+        "resolvedHidden": "تم الحل — المحتوى مخفي",
+        "resolved": "تم حل البلاغ",
+        "dismissed": "تم رفض البلاغ",
+        "alreadyClosed": "هذا البلاغ مغلق بالفعل ({status}).",
+        "hideTodo": "TODO: ربط isContentFlagHidden() بقوائم الكتالوج/الإرشاد العامة لإخفاء العرض الكامل."
+      }
+    },
+    "validation": {
+      "entityIdInvalid": "معرّف كيان غير صالح",
+      "metadataReasonMin": "يجب أن يكون السبب 3 أحرف على الأقل",
+      "descriptionMax": "الوصف يجب ألا يتجاوز 5000 حرف",
+      "logoUrlInvalid": "أدخل رابط http(s) صالحاً أو اتركه فارغاً",
+      "claimIdInvalid": "معرّف مطالبة غير صالح",
+      "decisionInvalid": "قرار غير صالح",
+      "reasonMin": "يجب أن يكون السبب 10 أحرف على الأقل",
+      "requiredDocumentsMin": "اختر مستنداً واحداً على الأقل",
+      "flagTargetInvalid": "نوع هدف البلاغ غير صالح",
+      "targetIdInvalid": "معرّف الهدف غير صالح",
+      "flagReasonInvalid": "سبب البلاغ غير صالح",
+      "flagDetailsMax": "التفاصيل يجب ألا تتجاوز 1000 حرف",
+      "flagIdInvalid": "معرّف بلاغ غير صالح",
+      "flagStatusInvalid": "حالة بلاغ غير صالحة",
+      "resolutionNotesMin": "ملاحظات القرار يجب أن تكون 3 أحرف على الأقل",
+      "resolutionNotesMax": "ملاحظات القرار يجب ألا تتجاوز 1000 حرف",
+      "userIdInvalid": "معرّف مستخدم غير صالح",
+      "suspendReasonMin": "يجب أن يكون السبب 3 أحرف على الأقل"
+    },
     "audit": {
-      "title": "سجل التدقيق",
-      "subtitle": "إجراءاتك المسجّلة فقط",
+      "title": "سجل تدقيقي",
+      "subtitle": "الإجراءات التي نفّذتها في بوابة العمليات",
+      "scopeBanner": "يعرض هذا السجل إجراءاتك فقط. المشرف الأعلى يرى سجل التدقيق الكامل للمنصة.",
       "back": "العودة للوحة التحكم",
-      "empty": "لا توجد سجلات",
+      "empty": "لا توجد إجراءات مسجّلة بعد",
+      "loadMore": "تحميل أحداث أقدم",
+      "filters": {
+        "actionType": "نوع الإجراء",
+        "allActions": "كل الإجراءات",
+        "from": "من",
+        "to": "إلى",
+        "apply": "تطبيق الفلاتر",
+        "applying": "جاري التطبيق…"
+      },
+      "row": {
+        "target": "الهدف",
+        "showChanges": "عرض قبل/بعد",
+        "hideChanges": "إخفاء التغييرات"
+      },
       "columns": {
         "time": "الوقت",
         "action": "الإجراء",
@@ -396,13 +1020,17 @@
     },
     "mentorApplications": {
       "title": "طابور طلبات المرشدين",
-      "subtitle": "ملفات مرشدين بانتظار موافقة فريق العمليات",
+      "subtitle": "ملفات مرشدين بانتظار موافقة فريق العمليات (منفصلة عن مطالبات الكيانات)",
+      "pendingCount": "{count} طلب معلّق",
       "stats": {
         "pending": "قيد المراجعة"
       },
       "listTitle": "الطلبات المعلقة",
       "backToDashboard": "العودة للوحة التحكم",
       "error": "تعذّر تحميل الطلبات",
+      "card": {
+        "unnamed": "مقدّم بدون اسم"
+      },
       "list": {
         "loading": "جاري التحميل...",
         "empty": "لا توجد طلبات مرشد معلقة",
@@ -412,6 +1040,8 @@
       "review": {
         "title": "مراجعة مرشد — {name}",
         "subtitle": "وافق أو ارفض طلب المرشد",
+        "loading": "جاري التحميل…",
+        "backToQueue": "← العودة لطابور المرشدين",
         "unnamed": "مقدّم بدون اسم",
         "notFound": "الطلب غير موجود",
         "linkedin": "LinkedIn",
@@ -431,6 +1061,141 @@
         "submitError": "تعذّر حفظ القرار",
         "notesRequired": "ملاحظات المراجعة مطلوبة",
         "rejectionReasonRequired": "سبب الرفض مطلوب"
+      },
+      "workspace": {
+        "title": "مراجعة مرشد — {name}",
+        "unnamed": "مقدّم بدون اسم",
+        "backToQueue": "← العودة لطابور المرشدين",
+        "submitted": "تقديم {when}",
+        "linkedin": "LinkedIn",
+        "languages": "اللغات",
+        "mediums": "قنوات التواصل المفضلة",
+        "alreadyReviewed": "تمت مراجعة هذا الطلب مسبقاً ({status}).",
+        "checklist": {
+          "title": "قائمة تحقق المرشد",
+          "progress": "{completed} من {total} مكتمل",
+          "items": {
+            "linkedin_role": {
+              "label": "LinkedIn يؤكد الدور المُدّعى",
+              "hint": "الملف يتوافق مع العنوان والخبرة"
+            },
+            "expertise_plausible": {
+              "label": "مجالات الخبرة معقولة",
+              "hint": "القطاعات تتوافق مع المسار المهني"
+            },
+            "bio_quality": {
+              "label": "جودة السيرة كافية",
+              "hint": "نص احترافي ومفصّل (80+ حرف مقترح)"
+            }
+          }
+        },
+        "decision": {
+          "decisionLabel": "القرار",
+          "options": {
+            "approve": "اعتماد المرشد",
+            "reject": "رفض الطلب"
+          },
+          "reviewNotesLabel": "ملاحظات المراجعة",
+          "reviewNotesPlaceholder": "ملاحظات داخلية (مطلوبة)",
+          "rejectionReasonLabel": "سبب الرفض",
+          "rejectionReasonPlaceholder": "سبب يُشارك مع مقدّم الطلب",
+          "selfReviewBlocked": "لا يمكنك مراجعة طلب مرشد قدّمته أنت.",
+          "checklistRequired": "أكمل جميع بنود قائمة التحقق قبل الموافقة.",
+          "submit": "إرسال القرار",
+          "submitting": "جاري الإرسال…",
+          "success": {
+            "approve": "تم اعتماد طلب المرشد",
+            "reject": "تم رفض طلب المرشد"
+          }
+        }
+      }
+    },
+    "announcements": {
+      "title": "الإعلانات",
+      "subtitle": "إدارة إعلانات نبض المنصة العامة",
+      "create": "إعلان جديد",
+      "newTitle": "إنشاء إعلان",
+      "newSubtitle": "الفئة ← المحتوى ← الجدولة",
+      "editTitle": "تعديل الإعلان",
+      "editSubtitle": "تحديث المحتوى وجدول النشر",
+      "filters": {
+        "category": "الفئة",
+        "status": "الحالة",
+        "search": "بحث",
+        "searchPlaceholder": "العنوان أو النص…",
+        "allCategories": "كل الفئات",
+        "allStatuses": "كل الحالات",
+        "apply": "تطبيق التصفية"
+      },
+      "list": {
+        "empty": "لا توجد إعلانات مطابقة",
+        "edit": "تعديل",
+        "featured": "مميز",
+        "schedule": "{start} → {end}",
+        "categories": {
+          "jobs": "وظائف",
+          "mentorship": "إرشاد",
+          "events": "فعاليات",
+          "platform": "منصة",
+          "community": "مجتمع"
+        },
+        "status": {
+          "draft": "مسودة",
+          "published": "منشور",
+          "scheduled": "مجدول",
+          "expired": "منتهٍ"
+        }
+      },
+      "form": {
+        "steps": {
+          "category": "الفئة",
+          "content": "المحتوى",
+          "schedule": "الجدولة"
+        },
+        "categoryHint": "اختر فئة الإعلان",
+        "categories": {
+          "jobs": "وظائف",
+          "mentorship": "إرشاد",
+          "events": "فعاليات",
+          "platform": "منصة",
+          "community": "مجتمع"
+        },
+        "title": "العنوان (عربي)",
+        "body": "النص (عربي، اختياري)",
+        "ctaUrl": "رابط الدعوة (اختياري)",
+        "ctaLabel": "نص الزر (عربي، اختياري)",
+        "startsAt": "يبدأ في",
+        "featured": "مميز",
+        "featuredHint": "إبراز عند النشر",
+        "published": "منشور",
+        "publishedHint": "المسودات مخفية عن العامة",
+        "back": "رجوع",
+        "next": "التالي",
+        "create": "إنشاء الإعلان",
+        "save": "حفظ التغييرات",
+        "saving": "جارٍ الحفظ…",
+        "saveFailed": "تعذّر حفظ الإعلان",
+        "delete": "حذف",
+        "deleteConfirm": "حذف هذا الإعلان نهائياً؟",
+        "expiry": {
+          "label": "ينتهي في",
+          "requiredSr": "حقل إلزامي",
+          "hint": "يجب أن يكون تاريخاً مستقبلياً — يُخفى الإعلان تلقائياً بعد الانتهاء",
+          "required": "تاريخ الانتهاء إلزامي — لا يمكن الحفظ بدونه"
+        }
+      },
+      "validation": {
+        "titleMin": "العنوان 10 أحرف على الأقل",
+        "titleMax": "العنوان 120 حرفاً كحد أقصى",
+        "bodyMax": "النص 500 حرف كحد أقصى",
+        "categoryRequired": "اختر فئة",
+        "startsRequired": "تاريخ البدء مطلوب",
+        "startsInvalid": "تاريخ بدء غير صالح",
+        "expiresRequired": "تاريخ الانتهاء مطلوب",
+        "expiresFuture": "يجب أن يكون الانتهاء في المستقبل",
+        "expiresAfterStart": "يجب أن يكون الانتهاء بعد البدء",
+        "ctaUrlInvalid": "أدخل رابطاً صالحاً",
+        "ctaLabelMax": "نص الزر 30 حرفاً كحد أقصى"
       }
     }
   },
@@ -484,10 +1249,13 @@
         "users": "المستخدمون",
         "entities": "الكيانات",
         "claims": "طابور المطالبات",
+        "mentorApplications": "طلبات المرشدين",
         "staff": "الموظفون",
         "audit": "سجل التدقيق",
         "flags": "أعلام الميزات",
+        "platformPulse": "نبض المنصة",
         "config": "الإعدادات",
+        "sessions": "الجلسات",
         "emergency": "الطوارئ"
       }
     },
@@ -516,6 +1284,457 @@
         "inviteStaff": "دعوة موظف",
         "audit": "عرض سجل التدقيق",
         "emergency": "وحدة الطوارئ"
+      }
+    },
+    "flags": {
+      "title": "أعلام الميزات",
+      "subtitle": "ثلاث طبقات — عام، أدوار، وتجاوزات لكل مستخدم",
+      "categories": {
+        "modules": "وحدات المنتج",
+        "platform": "ضوابط المنصة",
+        "pulse": "تجارب النبض"
+      },
+      "row": {
+        "toggleAria": "تبديل {key} عالمياً",
+        "settingsAria": "إعداد تجاوزات {key}",
+        "enableTitle": "تفعيل {key}",
+        "disableTitle": "تعطيل {key}",
+        "toggleDescription": "يغيّر مفتاح الإيقاف العام. السبب مطلوب ويُسجّل في سجل التدقيق."
+      },
+      "confirm": {
+        "reasonLabel": "السبب (مطلوب)",
+        "reasonPlaceholder": "لماذا يتم هذا التغيير؟",
+        "reasonRequired": "السبب مطلوب لهذا الإجراء",
+        "confirm": "تأكيد",
+        "cancel": "إلغاء",
+        "failed": "فشل الإجراء"
+      },
+      "detail": {
+        "back": "العودة لأعلام الميزات",
+        "layer1Title": "الطبقة 1 — عام",
+        "layer1Hint": "مفتاح التشغيل/الإيقاف الرئيسي",
+        "layer2Title": "الطبقة 2 — الأدوار",
+        "layer2Hint": "عند التحديد، الأدوار المحددة فقط تحصل على الميزة",
+        "layer3Title": "الطبقة 3 — تجاوزات المستخدم",
+        "layer3Hint": "تفعيل/تعطيل صريح لكل مستخدم — أعلى أولوية",
+        "globalToggleAria": "تبديل الميزة العام",
+        "enabled": "مفعّل",
+        "disabled": "معطّل",
+        "saveRoles": "حفظ تجاوزات الأدوار",
+        "saveRolesTitle": "تحديث تجاوزات الأدوار",
+        "confirmGlobal": "أكّد تغيير التبديل العام.",
+        "confirmRoles": "أكّد تغيير قائمة تجاوزات الأدوار.",
+        "confirmAddUser": "أكّد إضافة أو تحديث تجاوز المستخدم.",
+        "confirmRemoveUser": "أكّد إزالة تجاوز المستخدم.",
+        "enableTitle": "تفعيل عالمياً",
+        "disableTitle": "تعطيل عالمياً",
+        "addUserTitle": "إضافة تجاوز مستخدم",
+        "removeUserTitle": "إزالة تجاوز مستخدم",
+        "userSearchLabel": "بريد المستخدم أو المعرّف",
+        "userSearchPlaceholder": "user@example.com أو UUID",
+        "userOverrideValueAria": "قيمة التجاوز",
+        "forceEnable": "فرض التفعيل",
+        "forceDisable": "فرض التعطيل",
+        "addOverride": "إضافة تجاوز",
+        "removeOverride": "إزالة",
+        "unnamedUser": "مستخدم بدون اسم",
+        "saved": "تم حفظ التغييرات",
+        "table": {
+          "user": "المستخدم",
+          "override": "التجاوز",
+          "actions": "إجراءات",
+          "empty": "لا توجد تجاوزات مستخدم"
+        },
+        "roles": {
+          "individual": "فرد",
+          "entity": "جهة",
+          "company_admin": "مسؤول شركة",
+          "university_admin": "مسؤول جامعة",
+          "staff": "موظف",
+          "admin": "مشرف",
+          "super_admin": "مشرف أعلى"
+        }
+      }
+    },
+    "features": {
+      "title": "ميزات نبض المنصة",
+      "subtitle": "التحكم في الظهور العام ومفاتيح أقسام نبض المنصة",
+      "alert": {
+        "title": "توقيت التفعيل مهم",
+        "body": "فعّل المفتاح العام الرئيسي فقط بعد تحقيق عتبات المرشحين والشركات. يمكن تفعيل الأقسام بشكل منفصل، لكن الإطلاق العام المبكر يضعف المصداقية."
+      },
+      "masterTitle": "المفتاح الرئيسي",
+      "masterSubtitle": "يتحكم في ظهور نبض المنصة للعامة",
+      "tractionBelowRecommended": "الجذب دون الحد الموصى به (عتبات المرشحين والشركات لم تُحقَّق بعد).",
+      "sectionsTitle": "مفاتيح الأقسام",
+      "sectionsSubtitle": "تحكم دقيق في الإعلانات والمقاييس والاتجاهات",
+      "thresholdsTitle": "عتبات المقاييس",
+      "thresholdsSubtitle": "الحد الأدنى قبل اعتبار المقياس جاهزاً للعرض",
+      "flagRow": {
+        "masterBadge": "رئيسي",
+        "tractionWarning": "لا يُنصح بالتفعيل العام حتى تحقق عتبات المرشحين والشركات.",
+        "toggleAria": "تبديل {key}"
+      },
+      "thresholdRow": {
+        "minValue": "الحد الأدنى",
+        "currentValue": "القيمة الحالية",
+        "isDisplayed": "معروض",
+        "isHidden": "مخفي",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ…"
+      }
+    },
+    "emergency": {
+      "title": "ضوابط الطوارئ",
+      "subtitle": "مفاتيح إيقاف على مستوى المنصة — كل إجراء يتطلب سبباً ويُسجَّل في التدقيق",
+      "historyTitle": "سجل إجراءات الطوارئ",
+      "banner": {
+        "title": "ضوابط حرجة",
+        "description": "هذه المفاتيح تؤثر على جميع المستخدمين فوراً. استخدمها فقط أثناء الحوادث أو الصيانة المخططة. جميع التغييرات مسجلة وقابلة للعكس."
+      },
+      "killSwitch": {
+        "maintenanceTitle": "وضع الصيانة",
+        "maintenanceDescription": "يحجب كل حركة المرور غير مشرف أعلى على مستوى المنصة",
+        "registrationsTitle": "التسجيلات",
+        "registrationsDescription": "إغلاق تسجيل مستخدمين جدد على مستوى المنصة",
+        "statusOn": "مفعّل",
+        "statusOff": "غير مفعّل",
+        "confirmActivateTitle": "تفعيل مفتاح الإيقاف",
+        "confirmDeactivateTitle": "إلغاء تفعيل مفتاح الإيقاف",
+        "confirmActivateDescription": "سيسري هذا فوراً لجميع المستخدمين. يلزم تقديم سبب.",
+        "confirmDeactivateDescription": "سيُستأنف التشغيل العادي. يلزم تقديم سبب.",
+        "failed": "فشل الإجراء"
+      },
+      "history": {
+        "empty": "لا توجد إجراءات طوارئ مسجلة بعد",
+        "revert": "تراجع",
+        "inactive": "تم التراجع",
+        "reverted": "تراجع {by} في {at}",
+        "confirmRevertTitle": "التراجع عن إجراء الطوارئ",
+        "confirmRevertDescription": "يستعيد الحالة السابقة للمنصة. يلزم تقديم سبب.",
+        "types": {
+          "maintenance_mode": "وضع الصيانة",
+          "registrations_open": "التسجيلات"
+        }
+      }
+    },
+    "sessions": {
+      "title": "الجلسات النشطة",
+      "subtitle": "عرض مباشر للجلسات على المنصة — إلغاء فردي أو جماعي كملاذ أخير",
+      "summary": "{count, plural, one {جلسة نشطة واحدة} other {# جلسات نشطة}}",
+      "bulkRevoke": "إلغاء جميع الجلسات",
+      "revoke": "إلغاء",
+      "empty": "لا توجد جلسات نشطة",
+      "columns": {
+        "user": "المستخدم",
+        "device": "الجهاز",
+        "lastActive": "آخر نشاط",
+        "expires": "تنتهي",
+        "actions": "إجراءات"
+      },
+      "confirmRevokeTitle": "إلغاء الجلسة",
+      "confirmRevokeDescription": "سيُسجَّل خروج المستخدم من هذا الجهاز. يلزم سبب ويُسجَّل.",
+      "confirmBulkTitle": "إلغاء جميع الجلسات",
+      "confirmBulkDescription": "ملاذ أخير — تسجيل خروج كل مستخدم على المنصة. يلزم سبب ويُسجَّل."
+    },
+    "users": {
+      "title": "إدارة المستخدمين",
+      "subtitle": "البحث والتصفية وإدارة جميع مستخدمي المنصة عبر كل الأدوار",
+      "filters": {
+        "search": "بحث",
+        "searchPlaceholder": "الاسم أو البريد…",
+        "role": "الدور",
+        "status": "الحالة",
+        "apply": "تطبيق التصفية",
+        "applying": "جارٍ التطبيق…",
+        "roles": {
+          "all": "كل الأدوار",
+          "individual": "فرد",
+          "mentor": "مرشد",
+          "company_admin": "مشرف شركة",
+          "university_admin": "مشرف جامعة",
+          "staff": "موظف",
+          "admin": "مشرف",
+          "super_admin": "مشرف أعلى"
+        },
+        "statuses": {
+          "all": "كل الحالات",
+          "active": "نشط",
+          "suspended": "موقوف"
+        }
+      },
+      "table": {
+        "empty": "لا يوجد مستخدمون يطابقون التصفية",
+        "unnamed": "مستخدم بدون اسم",
+        "columns": {
+          "name": "الاسم",
+          "email": "البريد",
+          "role": "الدور",
+          "status": "الحالة",
+          "lastLogin": "آخر دخول",
+          "created": "تاريخ الإنشاء"
+        },
+        "statuses": {
+          "active": "نشط",
+          "suspended": "موقوف"
+        },
+        "roleLabels": {
+          "individual": "فرد",
+          "mentor": "مرشد",
+          "entity": "جهة",
+          "company_admin": "مشرف شركة",
+          "university_admin": "مشرف جامعة",
+          "staff": "موظف",
+          "admin": "مشرف",
+          "super_admin": "مشرف أعلى"
+        }
+      },
+      "pagination": {
+        "summary": "{total} مستخدم · صفحة {page} من {totalPages}",
+        "prev": "السابق",
+        "next": "التالي"
+      },
+      "detail": {
+        "back": "← العودة للمستخدمين",
+        "unnamed": "مستخدم بدون اسم",
+        "yes": "نعم",
+        "no": "لا",
+        "infoTitle": "معلومات الملف الشخصي",
+        "sessionsTitle": "الجلسات النشطة",
+        "sessionsSubtitle": "الأجهزة والجلسات المسجلة في active_sessions",
+        "auditTitle": "سجل التدقيق",
+        "auditSubtitle": "آخر 50 حدثاً حيث هذا المستخدم هو الهدف",
+        "auditEmpty": "لا توجد أحداث تدقيق لهذا المستخدم",
+        "systemActor": "النظام",
+        "fields": {
+          "id": "معرف المستخدم",
+          "email": "البريد",
+          "fullName": "الاسم الكامل",
+          "role": "الدور",
+          "phone": "الهاتف",
+          "locale": "اللغة",
+          "mfaEnabled": "المصادقة الثنائية مفعّلة",
+          "mfaEnforced": "المصادقة الثنائية إلزامية",
+          "emailVerified": "البريد موثّق",
+          "phoneVerified": "الهاتف موثّق",
+          "failedLogins": "محاولات دخول فاشلة",
+          "lockedUntil": "مقفل حتى",
+          "suspendedAt": "موقوف منذ",
+          "suspendedReason": "سبب الإيقاف",
+          "lastLogin": "آخر دخول",
+          "lastLoginIp": "آخر IP دخول",
+          "mentorStatus": "طلب المرشد",
+          "createdAt": "تاريخ الإنشاء",
+          "updatedAt": "تاريخ التحديث"
+        },
+        "sessions": {
+          "device": "الجهاز",
+          "lastActive": "آخر نشاط",
+          "expires": "ينتهي",
+          "status": "الحالة",
+          "empty": "لا توجد جلسات",
+          "unknownDevice": "جهاز غير معروف",
+          "active": "نشطة",
+          "revoked": "ملغاة"
+        }
+      },
+      "actions": {
+        "title": "إجراءات إدارية",
+        "subtitle": "نطاق المشرف الأعلى — كل إجراء يتطلب سبباً ويُسجّل في التدقيق",
+        "endSessions": "إنهاء كل الجلسات",
+        "suspend": "إيقاف الحساب",
+        "reinstate": "إعادة تفعيل الحساب",
+        "changeRole": "تغيير الدور",
+        "applyRole": "تطبيق الدور",
+        "mentorBlockedOption": "مرشد (عبر الطلبات)",
+        "superAdminConfirmRequired": "حدّد مربع التأكيد لإيقاف مشرف أعلى آخر",
+        "superAdminConfirmLabel": "أؤكد إيقاف حساب هذا المشرف الأعلى",
+        "roles": {
+          "individual": "فرد",
+          "entity": "جهة",
+          "company_admin": "مشرف شركة",
+          "university_admin": "مشرف جامعة",
+          "staff": "موظف",
+          "admin": "مشرف",
+          "super_admin": "مشرف أعلى"
+        },
+        "confirm": {
+          "defaultTitle": "تأكيد الإجراء",
+          "defaultDescription": "سيُسجّل هذا الإجراء في سجل التدقيق.",
+          "logoutTitle": "إنهاء كل الجلسات",
+          "logoutDescription": "تسجيل خروج إجباري من كل الأجهزة لهذا المستخدم.",
+          "suspendTitle": "إيقاف الحساب",
+          "suspendDescription": "لن يتمكن المستخدم من تسجيل الدخول حتى إعادة التفعيل.",
+          "reinstateTitle": "إعادة تفعيل الحساب",
+          "reinstateDescription": "استعادة الوصول لهذا المستخدم الموقوف.",
+          "roleTitle": "تغيير الدور إلى {role}",
+          "roleDescription": "تحديث دور المستخدم على المنصة."
+        }
+      }
+    },
+    "entities": {
+      "title": "إدارة الجهات",
+      "subtitle": "الشركات والجامعات — عرض موحّد",
+      "companiesTitle": "الشركات",
+      "universitiesTitle": "الجامعات",
+      "filteredSubtitle": "دليل الجهات المصفّى",
+      "viewCompanies": "عرض الشركات فقط",
+      "viewUniversities": "عرض الجامعات فقط",
+      "viewAll": "← عرض كل الجهات",
+      "filters": {
+        "search": "بحث",
+        "searchPlaceholder": "اسم الجهة…",
+        "state": "الحالة",
+        "apply": "تطبيق التصفية",
+        "applying": "جارٍ التطبيق…",
+        "states": {
+          "all": "كل الحالات",
+          "unclaimed": "غير مطالب بها",
+          "pending": "معلقة",
+          "pending_review": "بانتظار المراجعة",
+          "approved": "معتمدة",
+          "suspended": "موقوفة"
+        }
+      },
+      "table": {
+        "empty": "لا توجد جهات تطابق التصفية",
+        "yes": "نعم",
+        "no": "لا",
+        "columns": {
+          "name": "الاسم",
+          "type": "النوع",
+          "state": "الحالة",
+          "verified": "موثّقة",
+          "updated": "آخر تحديث"
+        },
+        "types": {
+          "company": "شركة",
+          "university": "جامعة"
+        },
+        "states": {
+          "unclaimed": "غير مطالب بها",
+          "pending": "معلقة",
+          "pending_review": "بانتظار المراجعة",
+          "approved": "معتمدة",
+          "suspended": "موقوفة"
+        }
+      },
+      "pagination": {
+        "summary": "{total} جهة · صفحة {page} من {totalPages}",
+        "prev": "السابق",
+        "next": "التالي"
+      },
+      "detail": {
+        "back": "← العودة للجهات",
+        "yes": "نعم",
+        "no": "لا",
+        "infoTitle": "معلومات الجهة",
+        "claimsTitle": "سجل المطالبات",
+        "claimsSubtitle": "كل claim_requests لهذه الجهة",
+        "fields": {
+          "id": "معرف الجهة",
+          "name": "الاسم",
+          "nameAr": "الاسم بالعربية",
+          "type": "النوع",
+          "state": "الحالة",
+          "verified": "موثّقة",
+          "claimant": "المطالب",
+          "website": "الموقع",
+          "city": "المدينة",
+          "domains": "النطاقات",
+          "created": "تاريخ الإنشاء",
+          "updated": "تاريخ التحديث"
+        },
+        "types": {
+          "company": "شركة",
+          "university": "جامعة"
+        },
+        "claims": {
+          "claimant": "المطالب",
+          "status": "الحالة",
+          "type": "النوع",
+          "submitted": "تاريخ التقديم",
+          "reviewed": "تاريخ المراجعة",
+          "empty": "لا توجد مطالبات لهذه الجهة"
+        },
+        "actions": {
+          "overrideTitle": "تجاوزات المشرف الأعلى",
+          "overrideSubtitle": "تجاوز مراجعة الموظفين — كل إجراء يُسجّل في التدقيق",
+          "forceApprove": "اعتماد إجباري",
+          "forceReject": "رفض إجباري",
+          "metadataTitle": "تعديل البيانات",
+          "saveMetadata": "حفظ البيانات",
+          "fields": {
+            "name": "الاسم",
+            "nameAr": "الاسم بالعربية",
+            "website": "الموقع",
+            "tagline": "الشعار (إنجليزي)"
+          },
+          "confirm": {
+            "approveTitle": "اعتماد إجباري للجهة",
+            "approveDescription": "تعيين entity_state إلى approved مع تجاوز مراجعة الموظفين.",
+            "rejectTitle": "رفض إجباري للجهة",
+            "rejectDescription": "إعادة الجهة إلى unclaimed ورفض المطالبات المعلقة.",
+            "metadataTitle": "تحديث بيانات الجهة",
+            "metadataDescription": "تعديل مباشر للبيانات بواسطة المشرف الأعلى."
+          }
+        }
+      }
+    },
+    "mentorApplications": {
+      "title": "طلبات المرشدين",
+      "subtitle": "إشراف المشرف الأعلى — كل الطلبات بغض النظر عن حالة مراجعة الموظفين",
+      "staffNote": "طابور الموظفين في /staff/mentor-applications يعرض pending_review فقط.",
+      "filters": {
+        "search": "بحث",
+        "searchPlaceholder": "العنوان…",
+        "status": "الحالة",
+        "apply": "تطبيق التصفية",
+        "applying": "جارٍ التطبيق…",
+        "statuses": {
+          "all": "كل الحالات",
+          "pending_review": "بانتظار المراجعة",
+          "under_review": "قيد المراجعة",
+          "approved": "معتمد",
+          "rejected": "مرفوض",
+          "suspended": "موقوف"
+        }
+      },
+      "table": {
+        "applicant": "المتقدم",
+        "headline": "العنوان",
+        "submitted": "تاريخ التقديم",
+        "actions": "إجراءات",
+        "empty": "لا توجد طلبات تطابق التصفية",
+        "unnamed": "متقدم بدون اسم"
+      },
+      "pagination": {
+        "summary": "{total} طلب · صفحة {page} من {totalPages}",
+        "prev": "السابق",
+        "next": "التالي"
+      },
+      "actions": {
+        "approve": "اعتماد",
+        "reject": "رفض",
+        "overrideRejection": "تجاوز الرفض",
+        "suspend": "إيقاف المرشد",
+        "rejectionReasonPlaceholder": "سبب الرفض (مطلوب)",
+        "statuses": {
+          "pending_review": "بانتظار المراجعة",
+          "under_review": "قيد المراجعة",
+          "approved": "معتمد",
+          "rejected": "مرفوض",
+          "suspended": "موقوف",
+          "pending": "معلق"
+        },
+        "confirm": {
+          "defaultTitle": "تأكيد الإجراء",
+          "defaultDescription": "سيُسجّل إجراء المشرف الأعلى في سجل التدقيق.",
+          "approveTitle": "اعتماد طلب المرشد",
+          "rejectTitle": "رفض طلب المرشد",
+          "overrideTitle": "تجاوز رفض الموظفين",
+          "suspendTitle": "إيقاف مرشد معتمد"
+        }
       }
     },
     "dashboard": {
@@ -611,7 +1830,32 @@
       "noStaff": "لا يوجد موظفون بعد",
       "noPending": "لا توجد دعوات معلقة",
       "unnamed": "بدون اسم",
-      "expires": "تنتهي"
+      "expires": "تنتهي",
+      "detail": {
+        "back": "← العودة للموظفين",
+        "unnamed": "موظف بدون اسم",
+        "yes": "نعم",
+        "no": "لا",
+        "infoTitle": "ملف الموظف",
+        "actionsTitle": "التحكم بالوصول",
+        "actionsSubtitle": "إلغاء الوصول يخفّض المستخدم إلى فرد",
+        "revokeAccess": "إلغاء وصول الموظف",
+        "superAdminConfirmRequired": "حدّد مربع التأكيد لإلغاء وصول مشرف أعلى آخر",
+        "superAdminConfirmLabel": "أؤكد إلغاء وصول هذا المشرف الأعلى",
+        "fields": {
+          "id": "معرف المستخدم",
+          "name": "الاسم الكامل",
+          "role": "الدور",
+          "mfa": "المصادقة الثنائية",
+          "suspended": "موقوف",
+          "created": "تاريخ الانضمام",
+          "lastLogin": "آخر دخول"
+        },
+        "confirm": {
+          "revokeTitle": "إلغاء وصول الموظف",
+          "revokeDescription": "يخفّض المستخدم إلى فرد ويزيل وصول بوابة الموظفين."
+        }
+      }
     },
     "inviteStaff": {
       "title": "دعوة موظف",
@@ -648,15 +1892,62 @@
       "passwordWeak": "كلمة المرور لا تستوفي المتطلبات"
     },
     "audit": {
-      "title": "سجل التدقيق الكامل",
-      "subtitle": "جميع إجراءات المنصة",
+      "title": "سجل التدقيق الشامل",
+      "subtitle": "خط زمني غير قابل للتعديل — تصفية وتصدير",
       "back": "العودة للوحة التحكم",
-      "empty": "لا توجد سجلات",
+      "empty": "لا توجد أحداث تطابق التصفية",
+      "loadMore": "تحميل أحداث أقدم",
+      "filters": {
+        "actor": "الفاعل",
+        "actorPlaceholder": "الاسم أو معرف المستخدم…",
+        "actionType": "نوع الإجراء",
+        "allActions": "كل الإجراءات",
+        "from": "من",
+        "to": "إلى",
+        "apply": "تطبيق التصفية",
+        "applying": "جارٍ التطبيق…",
+        "exportCsv": "تصدير CSV"
+      },
+      "row": {
+        "systemActor": "النظام",
+        "target": "الهدف",
+        "ip": "IP",
+        "showChanges": "عرض التغييرات",
+        "hideChanges": "إخفاء التغييرات"
+      },
       "columns": {
         "time": "الوقت",
         "actor": "الفاعل",
         "action": "الإجراء",
         "entity": "الكيان"
+      }
+    },
+    "config": {
+      "title": "إعدادات المنصة",
+      "subtitle": "إعدادات مُنمّطة — القيم السرية مخفية وكل تعديل يُسجّل",
+      "empty": "لا توجد مفاتيح إعدادات",
+      "categories": {
+        "platform": "المنصة",
+        "security": "الأمان",
+        "operations": "العمليات",
+        "integrations": "التكاملات"
+      },
+      "row": {
+        "edit": "تعديل",
+        "secret": "سري",
+        "currentValue": "القيمة الحالية",
+        "type": "النوع"
+      },
+      "editor": {
+        "back": "← العودة للإعدادات",
+        "category": "الفئة",
+        "valueType": "نوع القيمة",
+        "currentValue": "القيمة الحالية",
+        "newValue": "القيمة الجديدة",
+        "secretHint": "القيم السرية مخفية في القوائم؛ أدخل القيمة الجديدة للتدوير.",
+        "save": "حفظ التغييرات",
+        "confirmTitle": "تحديث الإعداد",
+        "confirmDescription": "السبب مطلوب وسيُسجّل في سجل التدقيق."
       }
     }
   },
@@ -1470,5 +2761,9 @@
         "previewTab": "معاينة"
       }
     }
+  },
+  "maintenance": {
+    "title": "صيانة جارية",
+    "description": "المنصة غير متاحة مؤقتاً أثناء أعمال الصيانة. يرجى المحاولة لاحقاً."
   }
 }

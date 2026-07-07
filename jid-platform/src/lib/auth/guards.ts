@@ -58,6 +58,18 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: null,
   },
 
+  // ── Staff auth (public — before protected portal guard) ───────────────────
+  {
+    id: 'staff-login',
+    pattern: new RegExp(`^${L}/staff/login(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'staff-mfa',
+    pattern: new RegExp(`^${L}/staff/mfa(?:/|$)`),
+    allowedRoles: null,
+  },
+
   // ── Staff portal ────────────────────────────────────────────────────────────
   {
     id: 'staff-portal',
@@ -65,6 +77,7 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: ['staff', 'admin', 'super_admin'],
     requires2FA: true,
     auditLog: true,
+    sessionMaxAge: 28800,
   },
 
   // ── Mentor portal ───────────────────────────────────────────────────────────

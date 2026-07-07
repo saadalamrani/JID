@@ -31,6 +31,36 @@
       "browseAll": "Browse all mentors"
     }
   },
+  "pulse": {
+    "eyebrow": "Platform Pulse",
+    "title": "Platform Pulse",
+    "subtitle": "Live view of hiring momentum, mentorship activity, and market demand across JID",
+    "disabled": {
+      "eyebrow": "Not public yet",
+      "title": "Platform Pulse is disabled",
+      "description": "The master public switch is off. Enable it from the Platform Pulse features panel when traction thresholds are met.",
+      "featuresLink": "Open features panel"
+    },
+    "placeholders": {
+      "announcements": "Announcements billboard — ships Day 6",
+      "metrics": "Metrics stats hub — ships Day 6",
+      "trends": "Market trends",
+      "sectorTrends": "Sector demand — ships Day 7",
+      "skillsTrends": "Skills demand — ships Day 7"
+    },
+    "announcements": {
+      "empty": {
+        "ariaLabel": "No platform announcements",
+        "title": "No announcements right now",
+        "description": "Check back soon — new platform updates will appear here when published."
+      }
+    },
+    "trends": {
+      "title": "Market trends",
+      "sectorTitle": "Sector demand",
+      "skillsTitle": "Skills demand"
+    }
+  },
   "errors": {
     "notFound": "Page not found",
     "notFoundDescription": "The page you are looking for could not be found.",
@@ -323,9 +353,128 @@
     }
   },
   "staff": {
+    "shell": {
+      "loading": "Loading staff portal…",
+      "errorTitle": "Something went wrong",
+      "error": "The staff portal could not load this page.",
+      "retry": "Try again",
+      "backToDashboard": "Back to dashboard"
+    },
+    "nav": {
+      "portalLabel": "Operations portal",
+      "ariaLabel": "Staff navigation",
+      "sections": {
+        "daily": "Daily",
+        "reviews": "Reviews",
+        "operations": "Daily operations",
+        "me": "Me"
+      },
+      "items": {
+        "dashboard": "Dashboard",
+        "claims": "Claims queue",
+        "mentorApplications": "Mentor applications",
+        "announcements": "Announcements",
+        "users": "Users",
+        "entities": "Entities",
+        "moderation": "Moderation",
+        "audit": "My audit log"
+      }
+    },
+    "sidebar": {
+      "sessionWarning": "Session expires in {time}"
+    },
+    "mfa": {
+      "title": "Two-factor verification",
+      "subtitle": "Enter the code from your authenticator app",
+      "setupTitle": "Set up two-factor authentication",
+      "setupSubtitle": "Required before accessing the staff portal",
+      "loading": "Loading…",
+      "verify": "Verify",
+      "verifying": "Verifying…",
+      "errors": {
+        "noFactor": "No authenticator found — set one up first",
+        "verifyFailed": "Invalid code — try again"
+      }
+    },
+    "topbar": {
+      "unnamed": "Staff member",
+      "roleLabel": "Operations staff",
+      "sessionWarning": "Session expires in {time}",
+      "sessionRemaining": "Session: {time} remaining",
+      "notificationsAria": "Notifications",
+      "searchPlaceholder": "Search or jump to…",
+      "searchShortcut": "⌘K"
+    },
+    "commandPalette": {
+      "placeholder": "Search users, entities, or claims…",
+      "quickActions": "Quick Actions",
+      "searching": "Searching…",
+      "noResults": "No results found",
+      "groups": {
+        "users": "Users",
+        "entities": "Entities",
+        "claims": "Claims"
+      },
+      "actions": {
+        "dashboard": "Go to dashboard",
+        "claims": "Open claims queue",
+        "mentorApplications": "Mentor applications",
+        "announcements": "Announcements",
+        "users": "Users",
+        "entities": "Entities",
+        "moderation": "Moderation",
+        "audit": "My audit log"
+      }
+    },
     "dashboard": {
       "title": "Staff dashboard",
-      "subtitle": "Welcome to the JID operations portal",
+      "subtitle": "Your personal operations overview",
+      "personalMetrics": {
+        "sectionLabel": "Today's performance",
+        "cards": {
+          "actions_today": {
+            "label": "Actions today",
+            "hint": "Audit events you performed today"
+          },
+          "claims_approved_today": {
+            "label": "Claims approved today",
+            "hint": "Ownership claims you approved today"
+          },
+          "claims_rejected_today": {
+            "label": "Claims rejected today",
+            "hint": "Ownership claims you rejected today"
+          },
+          "avg_review_hours_7d": {
+            "label": "Avg review time (7d)",
+            "hint": "Mean hours from submission to decision (last 7 days)"
+          }
+        }
+      },
+      "assignedClaims": {
+        "title": "Your assigned claims",
+        "subtitle": "Top 10 by nearest SLA deadline",
+        "viewAll": "View queue",
+        "empty": "No claims assigned to you",
+        "due": "SLA due",
+        "overdue": "Overdue"
+      },
+      "unassignedQueue": {
+        "title": "Unassigned queue",
+        "subtitle": "Oldest unassigned claims awaiting pickup",
+        "viewAll": "View queue",
+        "empty": "No unassigned claims right now"
+      },
+      "recentActions": {
+        "title": "Recent actions",
+        "subtitle": "Your last 15 audit events",
+        "viewAll": "Full audit log",
+        "empty": "No recorded actions yet"
+      },
+      "openFlags": {
+        "title": "Open content flags",
+        "subtitle": "Pending moderation items platform-wide",
+        "hint": "Flags awaiting staff review"
+      },
       "claimsCard": {
         "title": "Claims queue",
         "description": "Review company and university ownership claims",
@@ -335,6 +484,57 @@
         "title": "Mentor applications",
         "description": "Review individual mentor applications (separate from entity claims)",
         "cta": "Open mentor queue"
+      }
+    },
+    "claims": {
+      "title": "Claims queue",
+      "subtitle": "Pending ownership claims and mentor applications sorted by SLA",
+      "count": "Showing {count} items (max 100)",
+      "nav": {
+        "myQueue": "My queue",
+        "history": "My history"
+      },
+      "filters": {
+        "type": "Type",
+        "urgency": "Urgency",
+        "assigned": "Assignment",
+        "typeOptions": {
+          "all": "All types",
+          "company": "Company",
+          "university": "University",
+          "mentor": "Mentor"
+        },
+        "urgencyOptions": {
+          "all": "All urgency",
+          "overdue": "Overdue",
+          "critical": "Critical (<12h)",
+          "normal": "Normal"
+        },
+        "assignedOptions": {
+          "all": "All",
+          "unassigned": "Unassigned",
+          "assigned": "Assigned"
+        }
+      },
+      "list": {
+        "empty": "No claims match your filters"
+      },
+      "card": {
+        "assigned": "Assigned",
+        "unassigned": "Unassigned"
+      },
+      "realtime": {
+        "newClaim": "New claim: {company}"
+      },
+      "myQueue": {
+        "title": "My assigned claims",
+        "subtitle": "Claims assigned to you, sorted by SLA",
+        "backToQueue": "← All claims"
+      },
+      "history": {
+        "title": "My review history",
+        "subtitle": "Claims you have approved or rejected",
+        "backToQueue": "← All claims"
       }
     },
     "claimsQueue": {
@@ -381,13 +581,447 @@
         "commercialRegistry": "Commercial registry verified",
         "jobTitle": "Job title sanity check",
         "linkedin": "LinkedIn confirmation"
+      },
+      "workspace": {
+        "title": "Review claim — {company}",
+        "backToQueue": "← Back to claims queue",
+        "meta": "Status: {status} · Submitted {submitted}",
+        "assigned": "Assigned to you",
+        "alreadyReviewed": "This claim was already reviewed ({status}).",
+        "claimDetails": {
+          "title": "Claim details",
+          "type": "Claim type",
+          "businessEmail": "Business email",
+          "claimantName": "Claimant name",
+          "claimantTitle": "Job title"
+        },
+        "applicant": {
+          "title": "Applicant profile",
+          "name": "Full name",
+          "role": "Platform role",
+          "emailVerified": "Email verified",
+          "phoneVerified": "Phone verified",
+          "yes": "Yes",
+          "no": "No",
+          "missing": "Profile not found"
+        },
+        "entity": {
+          "title": "Target entity",
+          "name": "Entity name",
+          "state": "Entity state",
+          "domains": "Approved domains",
+          "verified": "Verified",
+          "linkedin": "LinkedIn",
+          "missing": "Entity record not found"
+        },
+        "checklist": {
+          "title": "Review checklist",
+          "progress": "{completed} of {total} complete",
+          "items": {
+            "domain_match": {
+              "label": "Business email domain matches entity",
+              "hint": "Approved domains: {domains}"
+            },
+            "entity_exists": {
+              "label": "Entity exists and is claimable",
+              "hint": "Confirm the company/university record is correct"
+            },
+            "linkedin_verified": {
+              "label": "LinkedIn profile verified",
+              "hint": "Profile supports the claimed role at this entity"
+            },
+            "job_reasonable": {
+              "label": "Job title is reasonable",
+              "hint": "Title aligns with entity type and seniority"
+            },
+            "no_duplicates": {
+              "label": "No duplicate pending claims",
+              "hint": "No conflicting open claims for this user or entity"
+            }
+          }
+        },
+        "relatedHistory": {
+          "title": "Related history",
+          "subtitle": "Previous claims from the same user or entity",
+          "empty": "No related claims",
+          "relation": {
+            "same_user": "Same user",
+            "same_entity": "Same entity"
+          }
+        },
+        "decision": {
+          "decisionLabel": "Decision",
+          "options": {
+            "approved": "Approve",
+            "rejected": "Reject",
+            "needs_more_info": "Needs more information"
+          },
+          "reasonLabel": "Review reason",
+          "reasonPlaceholder": "Explain your decision (min. 10 characters)",
+          "reasonHint": "Required for all decisions; stored in audit log",
+          "requiredDocumentsLabel": "Required documents (rejection)",
+          "documents": {
+            "commercial_registry": "Commercial registry",
+            "domain_ownership_proof": "Domain ownership proof",
+            "authorization_letter": "Authorization letter"
+          },
+          "selfReviewBlocked": "You cannot review a claim you submitted.",
+          "checklistRequired": "Complete all checklist items before approving.",
+          "submit": "Submit decision",
+          "submitting": "Submitting…",
+          "success": {
+            "approved": "Claim approved",
+            "rejected": "Claim rejected",
+            "needs_more_info": "Request for more information sent"
+          }
+        }
       }
     },
+    "users": {
+      "title": "User management",
+      "subtitle": "Individuals and mentors only — staff cannot change roles or access privileged accounts",
+      "suspendedLink": "View suspended users →",
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Name…",
+        "role": "Role",
+        "status": "Status",
+        "apply": "Apply filters",
+        "applying": "Applying…",
+        "roles": {
+          "all": "All",
+          "individual": "Individual",
+          "mentor": "Mentor"
+        },
+        "statuses": {
+          "all": "All statuses",
+          "active": "Active",
+          "suspended": "Suspended"
+        }
+      },
+      "table": {
+        "empty": "No users match your filters",
+        "unnamed": "Unnamed user",
+        "columns": {
+          "name": "Name",
+          "email": "Email",
+          "role": "Role",
+          "status": "Status",
+          "lastLogin": "Last login",
+          "created": "Created"
+        },
+        "statuses": {
+          "active": "Active",
+          "suspended": "Suspended"
+        },
+        "roleLabels": {
+          "individual": "Individual",
+          "mentor": "Mentor"
+        }
+      },
+      "pagination": {
+        "summary": "{total} users · page {page} of {totalPages}",
+        "prev": "Previous",
+        "next": "Next"
+      },
+      "suspended": {
+        "title": "Suspended users",
+        "subtitle": "Individuals and mentors currently suspended — reinstate from their detail page",
+        "back": "← Back to all users",
+        "count": "{total} suspended · page {page} of {totalPages}"
+      },
+      "detail": {
+        "back": "← Back to users",
+        "unnamed": "Unnamed user",
+        "yes": "Yes",
+        "no": "No",
+        "infoTitle": "Profile information",
+        "sessionsTitle": "Active sessions",
+        "sessionsSubtitle": "Devices and sessions tracked via active_sessions",
+        "auditTitle": "Audit timeline",
+        "auditSubtitle": "Events where this user is the target resource",
+        "auditEmpty": "No audit events for this user",
+        "systemActor": "System",
+        "roleLabels": {
+          "individual": "Individual",
+          "mentor": "Mentor"
+        },
+        "fields": {
+          "id": "User ID",
+          "email": "Email",
+          "fullName": "Full name",
+          "role": "Role",
+          "phone": "Phone",
+          "locale": "Locale",
+          "emailVerified": "Email verified",
+          "phoneVerified": "Phone verified",
+          "suspendedAt": "Suspended at",
+          "suspendedReason": "Suspension reason",
+          "lastLogin": "Last login",
+          "lastLoginIp": "Last login IP",
+          "mentorStatus": "Mentor application",
+          "createdAt": "Created",
+          "updatedAt": "Updated"
+        },
+        "sessions": {
+          "device": "Device",
+          "lastActive": "Last active",
+          "expires": "Expires",
+          "status": "Status",
+          "empty": "No sessions recorded",
+          "unknownDevice": "Unknown device",
+          "active": "Active",
+          "revoked": "Revoked"
+        }
+      },
+      "actions": {
+        "title": "Staff actions",
+        "subtitle": "Suspend, reinstate, end sessions, or flag content — role changes are not available here",
+        "endSessions": "End all sessions",
+        "flagContent": "Flag content",
+        "suspend": "Suspend account",
+        "reinstate": "Reinstate account",
+        "submitFlag": "Submit flag",
+        "flagReasonLabel": "Flag reason",
+        "flagDetailsLabel": "Details (optional)",
+        "flagDetailsPlaceholder": "Additional context for moderators…",
+        "flagReasons": {
+          "spam": "Spam",
+          "harassment": "Harassment",
+          "hate_speech": "Hate speech",
+          "inappropriate_content": "Inappropriate content",
+          "misinformation": "Misinformation",
+          "impersonation": "Impersonation",
+          "copyright_violation": "Copyright violation",
+          "privacy_violation": "Privacy violation",
+          "other": "Other"
+        },
+        "confirm": {
+          "defaultTitle": "Confirm action",
+          "defaultDescription": "This action requires a reason and is logged.",
+          "logoutTitle": "End all sessions",
+          "logoutDescription": "The user will be signed out on every device. A reason is required.",
+          "suspendTitle": "Suspend account",
+          "suspendDescription": "The user cannot sign in until reinstated.",
+          "reinstateTitle": "Reinstate account",
+          "reinstateDescription": "Restore access for this suspended user.",
+          "flagTitle": "Flag profile content",
+          "flagDescription": "Creates a moderation flag for staff review."
+        }
+      }
+    },
+    "entities": {
+      "title": "Entity moderation",
+      "subtitle": "Approved companies and universities — metadata corrections only (not claim workflow)",
+      "flaggedLink": "SLA-flagged entities →",
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Entity name…",
+        "ownership": "Ownership",
+        "region": "Region",
+        "allRegions": "All regions",
+        "apply": "Apply filters",
+        "applying": "Applying…",
+        "ownershipOptions": {
+          "all": "All ownership types",
+          "government": "Government",
+          "semi_government": "Semi-government",
+          "private": "Private"
+        }
+      },
+      "table": {
+        "empty": "No approved entities match your filters",
+        "columns": {
+          "name": "Name",
+          "type": "Type",
+          "ownership": "Ownership",
+          "region": "Region",
+          "commitment": "Commitment",
+          "updated": "Updated"
+        },
+        "types": {
+          "company": "Company",
+          "university": "University"
+        },
+        "ownership": {
+          "government": "Government",
+          "semi_government": "Semi-government",
+          "private": "Private"
+        }
+      },
+      "pagination": {
+        "summary": "{total} entities · page {page} of {totalPages}"
+      },
+      "flagged": {
+        "title": "SLA-flagged entities",
+        "subtitle": "Commitment score below {threshold} (Job Board threshold)",
+        "back": "← Back to entities",
+        "count": "{total} flagged · page {page} of {totalPages}"
+      },
+      "detail": {
+        "back": "← Back to entities",
+        "editMetadata": "Edit metadata",
+        "infoTitle": "Entity metadata",
+        "yes": "Yes",
+        "no": "No",
+        "fields": {
+          "id": "Entity ID",
+          "name": "Name",
+          "nameAr": "Arabic name",
+          "type": "Type",
+          "state": "State",
+          "ownership": "Ownership",
+          "sector": "Sector",
+          "region": "Region",
+          "claimant": "Claimant",
+          "website": "Website",
+          "city": "City",
+          "domains": "Domains",
+          "verified": "Verified",
+          "created": "Created",
+          "updated": "Updated"
+        },
+        "types": {
+          "company": "Company",
+          "university": "University"
+        },
+        "stats": {
+          "title": "Response stats",
+          "viewFallback": "v_company_response_stats not deployed — showing companies table columns.",
+          "lowCommitmentWarning": "Commitment score {score} is below {threshold}. This entity may appear on the SLA flagged list.",
+          "commitmentScore": "Commitment score",
+          "responseRate": "Response rate",
+          "avgResponseDays": "Avg response (days)",
+          "jobs12mo": "Jobs posted (12mo)"
+        },
+        "slaHistory": {
+          "title": "SLA history",
+          "subtitle": "Expired applications and related audit events",
+          "empty": "No SLA events recorded",
+          "kinds": {
+            "application_expired": "Application SLA breach",
+            "audit": "Audit event"
+          }
+        }
+      },
+      "metadataForm": {
+        "title": "Edit metadata — {name}",
+        "subtitle": "Staff may correct catalog fields only. entity_state cannot be changed here.",
+        "back": "← Back to entity",
+        "hint": "Changes are audited with before/after diff. Claim workflow controls approval state.",
+        "sector": "Sector",
+        "region": "Region",
+        "logoUrl": "Logo URL",
+        "descriptionEn": "Description (EN)",
+        "descriptionAr": "Description (AR)",
+        "none": "— None —",
+        "reasonLabel": "Reason for change",
+        "reasonPlaceholder": "Required — logged in audit trail",
+        "reasonRequired": "Reason is required",
+        "submit": "Save metadata",
+        "saving": "Saving…",
+        "saved": "Metadata updated"
+      }
+    },
+    "moderation": {
+      "title": "Content moderation",
+      "subtitle": "Open flags queue — oldest first",
+      "openCount": "{count} open flags",
+      "list": {
+        "empty": "No open flags — queue is clear"
+      },
+      "card": {
+        "unknownReporter": "Unknown reporter",
+        "reporter": "Reported by {name}",
+        "targetTypes": {
+          "profile": "Profile",
+          "job": "Job",
+          "company": "Company",
+          "mentor_profile": "Mentor profile",
+          "announcement": "Announcement",
+          "message": "Message"
+        },
+        "reasons": {
+          "spam": "Spam",
+          "harassment": "Harassment",
+          "hate_speech": "Hate speech",
+          "inappropriate_content": "Inappropriate content",
+          "misinformation": "Misinformation",
+          "impersonation": "Impersonation",
+          "copyright_violation": "Copyright",
+          "privacy_violation": "Privacy",
+          "other": "Other"
+        }
+      },
+      "detail": {
+        "back": "← Back to moderation queue",
+        "title": "Flag review",
+        "meta": "{type} · {reason} · {status}",
+        "reportTitle": "Report details",
+        "reporter": "Reporter",
+        "unknownReporter": "Unknown",
+        "submitted": "Submitted",
+        "details": "Details",
+        "previewTitle": "Target preview",
+        "previewMissing": "Target resource not found or no longer available",
+        "openTarget": "Open in staff portal"
+      },
+      "resolution": {
+        "title": "Resolution",
+        "subtitle": "All resolutions require notes and are logged.",
+        "notesLabel": "Resolution notes",
+        "notesPlaceholder": "Minimum 3 characters — mandatory",
+        "notesRequired": "Resolution notes are required",
+        "resolveHidden": "Resolve & hide content",
+        "resolveKeepVisible": "Resolve (keep visible)",
+        "dismiss": "Dismiss flag",
+        "resolvedHidden": "Flag resolved — content hidden",
+        "resolved": "Flag resolved",
+        "dismissed": "Flag dismissed",
+        "alreadyClosed": "This flag is already closed ({status}).",
+        "hideTodo": "TODO: Wire isContentFlagHidden() into Catalog/Mentorship public listings for full display gating."
+      }
+    },
+    "validation": {
+      "entityIdInvalid": "Invalid entity ID",
+      "metadataReasonMin": "Reason must be at least 3 characters",
+      "descriptionMax": "Description must be at most 5000 characters",
+      "logoUrlInvalid": "Enter a valid http(s) URL or leave empty",
+      "claimIdInvalid": "Invalid claim ID",
+      "decisionInvalid": "Invalid decision",
+      "reasonMin": "Reason must be at least 10 characters",
+      "requiredDocumentsMin": "Select at least one required document",
+      "flagTargetInvalid": "Invalid flag target type",
+      "targetIdInvalid": "Invalid target ID",
+      "flagReasonInvalid": "Invalid flag reason",
+      "flagDetailsMax": "Details must be at most 1000 characters",
+      "flagIdInvalid": "Invalid flag ID",
+      "flagStatusInvalid": "Invalid flag status",
+      "resolutionNotesMin": "Resolution notes must be at least 3 characters",
+      "resolutionNotesMax": "Resolution notes must be at most 1000 characters",
+      "userIdInvalid": "Invalid user ID",
+      "suspendReasonMin": "Reason must be at least 3 characters"
+    },
     "audit": {
-      "title": "Audit log",
-      "subtitle": "Your recorded actions only",
+      "title": "My audit log",
+      "subtitle": "Actions you performed in the operations portal",
+      "scopeBanner": "This log shows only your actions. Super Admin sees the full platform audit.",
       "back": "Back to dashboard",
-      "empty": "No records",
+      "empty": "No actions recorded yet",
+      "loadMore": "Load older events",
+      "filters": {
+        "actionType": "Action type",
+        "allActions": "All actions",
+        "from": "From",
+        "to": "To",
+        "apply": "Apply filters",
+        "applying": "Applying…"
+      },
+      "row": {
+        "target": "Target",
+        "showChanges": "Show before/after",
+        "hideChanges": "Hide changes"
+      },
       "columns": {
         "time": "Time",
         "action": "Action",
@@ -396,13 +1030,17 @@
     },
     "mentorApplications": {
       "title": "Mentor application queue",
-      "subtitle": "Pending mentor profiles awaiting staff approval",
+      "subtitle": "Pending mentor profiles awaiting staff approval (separate from entity claims)",
+      "pendingCount": "{count} pending applications",
       "stats": {
         "pending": "Pending review"
       },
       "listTitle": "Pending applications",
       "backToDashboard": "Back to dashboard",
       "error": "Could not load applications",
+      "card": {
+        "unnamed": "Unnamed applicant"
+      },
       "list": {
         "loading": "Loading...",
         "empty": "No pending mentor applications",
@@ -412,6 +1050,8 @@
       "review": {
         "title": "Review mentor — {name}",
         "subtitle": "Approve or reject this mentor application",
+        "loading": "Loading…",
+        "backToQueue": "← Back to mentor queue",
         "unnamed": "Unnamed applicant",
         "notFound": "Application not found",
         "linkedin": "LinkedIn",
@@ -431,6 +1071,141 @@
         "submitError": "Could not save decision",
         "notesRequired": "Review notes are required",
         "rejectionReasonRequired": "Rejection reason is required"
+      },
+      "workspace": {
+        "title": "Review mentor — {name}",
+        "unnamed": "Unnamed applicant",
+        "backToQueue": "← Back to mentor queue",
+        "submitted": "Submitted {when}",
+        "linkedin": "LinkedIn",
+        "languages": "Languages",
+        "mediums": "Preferred mediums",
+        "alreadyReviewed": "This application was already reviewed ({status}).",
+        "checklist": {
+          "title": "Mentor review checklist",
+          "progress": "{completed} of {total} complete",
+          "items": {
+            "linkedin_role": {
+              "label": "LinkedIn verifies claimed role",
+              "hint": "Profile matches headline and experience"
+            },
+            "expertise_plausible": {
+              "label": "Expertise areas are plausible",
+              "hint": "Sectors align with career history"
+            },
+            "bio_quality": {
+              "label": "Bio quality is sufficient",
+              "hint": "Bio is substantive and professional (80+ chars suggested)"
+            }
+          }
+        },
+        "decision": {
+          "decisionLabel": "Decision",
+          "options": {
+            "approve": "Approve mentor",
+            "reject": "Reject application"
+          },
+          "reviewNotesLabel": "Review notes",
+          "reviewNotesPlaceholder": "Internal notes (required)",
+          "rejectionReasonLabel": "Rejection reason",
+          "rejectionReasonPlaceholder": "Reason shared with the applicant",
+          "selfReviewBlocked": "You cannot review your own mentor application.",
+          "checklistRequired": "Complete all checklist items before approving.",
+          "submit": "Submit decision",
+          "submitting": "Submitting…",
+          "success": {
+            "approve": "Mentor application approved",
+            "reject": "Mentor application rejected"
+          }
+        }
+      }
+    },
+    "announcements": {
+      "title": "Announcements",
+      "subtitle": "Manage public Platform Pulse announcements",
+      "create": "New announcement",
+      "newTitle": "Create announcement",
+      "newSubtitle": "Category → Content → Schedule",
+      "editTitle": "Edit announcement",
+      "editSubtitle": "Update content and publishing schedule",
+      "filters": {
+        "category": "Category",
+        "status": "Status",
+        "search": "Search",
+        "searchPlaceholder": "Title or body…",
+        "allCategories": "All categories",
+        "allStatuses": "All statuses",
+        "apply": "Apply filters"
+      },
+      "list": {
+        "empty": "No announcements match your filters",
+        "edit": "Edit",
+        "featured": "Featured",
+        "schedule": "{start} → {end}",
+        "categories": {
+          "jobs": "Jobs",
+          "mentorship": "Mentorship",
+          "events": "Events",
+          "platform": "Platform",
+          "community": "Community"
+        },
+        "status": {
+          "draft": "Draft",
+          "published": "Published",
+          "scheduled": "Scheduled",
+          "expired": "Expired"
+        }
+      },
+      "form": {
+        "steps": {
+          "category": "Category",
+          "content": "Content",
+          "schedule": "Schedule"
+        },
+        "categoryHint": "Choose the announcement category",
+        "categories": {
+          "jobs": "Jobs",
+          "mentorship": "Mentorship",
+          "events": "Events",
+          "platform": "Platform",
+          "community": "Community"
+        },
+        "title": "Title (Arabic)",
+        "body": "Body (Arabic, optional)",
+        "ctaUrl": "CTA URL (optional)",
+        "ctaLabel": "CTA label (Arabic, optional)",
+        "startsAt": "Starts at",
+        "featured": "Featured",
+        "featuredHint": "Pin prominently when published",
+        "published": "Published",
+        "publishedHint": "Drafts are hidden from the public site",
+        "back": "Back",
+        "next": "Next",
+        "create": "Create announcement",
+        "save": "Save changes",
+        "saving": "Saving…",
+        "saveFailed": "Could not save announcement",
+        "delete": "Delete",
+        "deleteConfirm": "Delete this announcement permanently?",
+        "expiry": {
+          "label": "Expires at",
+          "requiredSr": "Required field",
+          "hint": "Must be a future date — announcements auto-hide after expiry",
+          "required": "Expiry date is required — cannot save without it"
+        }
+      },
+      "validation": {
+        "titleMin": "Title must be at least 10 characters",
+        "titleMax": "Title must be at most 120 characters",
+        "bodyMax": "Body must be at most 500 characters",
+        "categoryRequired": "Select a category",
+        "startsRequired": "Start date is required",
+        "startsInvalid": "Invalid start date",
+        "expiresRequired": "Expiry date is required",
+        "expiresFuture": "Expiry must be in the future",
+        "expiresAfterStart": "Expiry must be after the start date",
+        "ctaUrlInvalid": "Enter a valid URL",
+        "ctaLabelMax": "CTA label must be at most 30 characters"
       }
     }
   },
@@ -484,10 +1259,13 @@
         "users": "Users",
         "entities": "Entities",
         "claims": "Claims queue",
+        "mentorApplications": "Mentor applications",
         "staff": "Staff",
         "audit": "Audit log",
         "flags": "Feature flags",
+        "platformPulse": "Platform Pulse",
         "config": "Configuration",
+        "sessions": "Sessions",
         "emergency": "Emergency"
       }
     },
@@ -588,6 +1366,387 @@
         }
       }
     },
+    "features": {
+      "title": "Platform Pulse features",
+      "subtitle": "Control public visibility and section toggles for Platform Pulse",
+      "alert": {
+        "title": "Activation timing matters",
+        "body": "Enable the master public switch only after candidate and company traction thresholds are met. Section toggles can be staged independently, but a premature public launch undermines credibility."
+      },
+      "masterTitle": "Master switch",
+      "masterSubtitle": "Controls whether Platform Pulse is visible to the public at all",
+      "tractionBelowRecommended": "Traction is below the recommended minimum (candidates and companies thresholds not yet met).",
+      "sectionsTitle": "Section toggles",
+      "sectionsSubtitle": "Fine-grained controls for announcements, metrics, and trends",
+      "thresholdsTitle": "Metric thresholds",
+      "thresholdsSubtitle": "Minimum values required before metrics are considered display-ready",
+      "flagRow": {
+        "masterBadge": "Master",
+        "tractionWarning": "Public activation is not recommended until candidate and company traction thresholds are met.",
+        "toggleAria": "Toggle {key}"
+      },
+      "thresholdRow": {
+        "minValue": "Minimum value",
+        "currentValue": "Current value",
+        "isDisplayed": "Displayed",
+        "isHidden": "Hidden",
+        "save": "Save",
+        "saving": "Saving…"
+      }
+    },
+    "emergency": {
+      "title": "Emergency controls",
+      "subtitle": "Platform-wide kill switches — every action requires a reason and is audited",
+      "historyTitle": "Emergency action history",
+      "banner": {
+        "title": "Critical controls",
+        "description": "These switches affect all users immediately. Use only during incidents or planned maintenance. All changes are logged and reversible."
+      },
+      "killSwitch": {
+        "maintenanceTitle": "Maintenance mode",
+        "maintenanceDescription": "Blocks all non–super-admin traffic platform-wide",
+        "registrationsTitle": "Registrations",
+        "registrationsDescription": "Close new user signups across the platform",
+        "statusOn": "Active",
+        "statusOff": "Inactive",
+        "confirmActivateTitle": "Activate kill switch",
+        "confirmDeactivateTitle": "Deactivate kill switch",
+        "confirmActivateDescription": "This will take effect immediately for all users. Provide a mandatory reason.",
+        "confirmDeactivateDescription": "This will restore normal operation. Provide a mandatory reason.",
+        "failed": "Action failed"
+      },
+      "history": {
+        "empty": "No emergency actions recorded yet",
+        "revert": "Revert",
+        "inactive": "Reverted",
+        "reverted": "Reverted by {by} at {at}",
+        "confirmRevertTitle": "Revert emergency action",
+        "confirmRevertDescription": "This restores the previous platform state. A reason is required.",
+        "types": {
+          "maintenance_mode": "Maintenance mode",
+          "registrations_open": "Registrations"
+        }
+      }
+    },
+    "sessions": {
+      "title": "Active sessions",
+      "subtitle": "Live view of sessions across the platform — revoke individually or in bulk as a last resort",
+      "summary": "{count, plural, one {# active session} other {# active sessions}}",
+      "bulkRevoke": "Revoke all sessions",
+      "revoke": "Revoke",
+      "empty": "No active sessions",
+      "columns": {
+        "user": "User",
+        "device": "Device",
+        "lastActive": "Last active",
+        "expires": "Expires",
+        "actions": "Actions"
+      },
+      "confirmRevokeTitle": "Revoke session",
+      "confirmRevokeDescription": "The user will be signed out on this device. A reason is required and logged.",
+      "confirmBulkTitle": "Revoke all sessions",
+      "confirmBulkDescription": "Last resort — signs out every user on the platform. A reason is required and logged."
+    },
+    "users": {
+      "title": "User management",
+      "subtitle": "Search, filter, and manage all platform users across every role",
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Name or email…",
+        "role": "Role",
+        "status": "Status",
+        "apply": "Apply filters",
+        "applying": "Applying…",
+        "roles": {
+          "all": "All roles",
+          "individual": "Individual",
+          "mentor": "Mentor",
+          "company_admin": "Company admin",
+          "university_admin": "University admin",
+          "staff": "Staff",
+          "admin": "Admin",
+          "super_admin": "Super admin"
+        },
+        "statuses": {
+          "all": "All statuses",
+          "active": "Active",
+          "suspended": "Suspended"
+        }
+      },
+      "table": {
+        "empty": "No users match your filters",
+        "unnamed": "Unnamed user",
+        "columns": {
+          "name": "Name",
+          "email": "Email",
+          "role": "Role",
+          "status": "Status",
+          "lastLogin": "Last login",
+          "created": "Created"
+        },
+        "statuses": {
+          "active": "Active",
+          "suspended": "Suspended"
+        },
+        "roleLabels": {
+          "individual": "Individual",
+          "mentor": "Mentor",
+          "entity": "Entity",
+          "company_admin": "Company admin",
+          "university_admin": "University admin",
+          "staff": "Staff",
+          "admin": "Admin",
+          "super_admin": "Super admin"
+        }
+      },
+      "pagination": {
+        "summary": "{total} users · page {page} of {totalPages}",
+        "prev": "Previous",
+        "next": "Next"
+      },
+      "detail": {
+        "back": "← Back to users",
+        "unnamed": "Unnamed user",
+        "yes": "Yes",
+        "no": "No",
+        "infoTitle": "Profile information",
+        "sessionsTitle": "Active sessions",
+        "sessionsSubtitle": "Devices and sessions tracked via active_sessions",
+        "auditTitle": "Audit timeline",
+        "auditSubtitle": "Last 50 events where this user is the target resource",
+        "auditEmpty": "No audit events for this user",
+        "systemActor": "System",
+        "fields": {
+          "id": "User ID",
+          "email": "Email",
+          "fullName": "Full name",
+          "role": "Role",
+          "phone": "Phone",
+          "locale": "Locale",
+          "mfaEnabled": "MFA enabled",
+          "mfaEnforced": "MFA enforced",
+          "emailVerified": "Email verified",
+          "phoneVerified": "Phone verified",
+          "failedLogins": "Failed logins",
+          "lockedUntil": "Locked until",
+          "suspendedAt": "Suspended at",
+          "suspendedReason": "Suspension reason",
+          "lastLogin": "Last login",
+          "lastLoginIp": "Last login IP",
+          "mentorStatus": "Mentor application",
+          "createdAt": "Created",
+          "updatedAt": "Updated"
+        },
+        "sessions": {
+          "device": "Device",
+          "lastActive": "Last active",
+          "expires": "Expires",
+          "status": "Status",
+          "empty": "No sessions recorded",
+          "unknownDevice": "Unknown device",
+          "active": "Active",
+          "revoked": "Revoked"
+        }
+      },
+      "actions": {
+        "title": "Administrative actions",
+        "subtitle": "Super admin scope — all actions require a reason and are audited",
+        "endSessions": "End all sessions",
+        "suspend": "Suspend account",
+        "reinstate": "Reinstate account",
+        "changeRole": "Change role",
+        "applyRole": "Apply role",
+        "mentorBlockedOption": "Mentor (via applications)",
+        "superAdminConfirmRequired": "Check the confirmation box to suspend another super administrator",
+        "superAdminConfirmLabel": "I confirm suspending this super administrator account",
+        "roles": {
+          "individual": "Individual",
+          "entity": "Entity",
+          "company_admin": "Company admin",
+          "university_admin": "University admin",
+          "staff": "Staff",
+          "admin": "Admin",
+          "super_admin": "Super admin"
+        },
+        "confirm": {
+          "defaultTitle": "Confirm action",
+          "defaultDescription": "This action will be recorded in the audit log.",
+          "logoutTitle": "End all sessions",
+          "logoutDescription": "Force logout on all devices for this user.",
+          "suspendTitle": "Suspend account",
+          "suspendDescription": "The user will be unable to sign in until reinstated.",
+          "reinstateTitle": "Reinstate account",
+          "reinstateDescription": "Restore access for this suspended user.",
+          "roleTitle": "Change role to {role}",
+          "roleDescription": "Update this user's platform role."
+        }
+      }
+    },
+    "entities": {
+      "title": "Entity management",
+      "subtitle": "Companies and universities — combined catalog view",
+      "companiesTitle": "Companies",
+      "universitiesTitle": "Universities",
+      "filteredSubtitle": "Filtered entity catalog",
+      "viewCompanies": "View companies only",
+      "viewUniversities": "View universities only",
+      "viewAll": "← View all entities",
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Entity name…",
+        "state": "State",
+        "apply": "Apply filters",
+        "applying": "Applying…",
+        "states": {
+          "all": "All states",
+          "unclaimed": "Unclaimed",
+          "pending": "Pending",
+          "pending_review": "Pending review",
+          "approved": "Approved",
+          "suspended": "Suspended"
+        }
+      },
+      "table": {
+        "empty": "No entities match your filters",
+        "yes": "Yes",
+        "no": "No",
+        "columns": {
+          "name": "Name",
+          "type": "Type",
+          "state": "State",
+          "verified": "Verified",
+          "updated": "Updated"
+        },
+        "types": {
+          "company": "Company",
+          "university": "University"
+        },
+        "states": {
+          "unclaimed": "Unclaimed",
+          "pending": "Pending",
+          "pending_review": "Pending review",
+          "approved": "Approved",
+          "suspended": "Suspended"
+        }
+      },
+      "pagination": {
+        "summary": "{total} entities · page {page} of {totalPages}",
+        "prev": "Previous",
+        "next": "Next"
+      },
+      "detail": {
+        "back": "← Back to entities",
+        "yes": "Yes",
+        "no": "No",
+        "infoTitle": "Entity information",
+        "claimsTitle": "Claim history",
+        "claimsSubtitle": "All claim_requests for this entity",
+        "fields": {
+          "id": "Entity ID",
+          "name": "Name",
+          "nameAr": "Arabic name",
+          "type": "Type",
+          "state": "State",
+          "verified": "Verified",
+          "claimant": "Claimant",
+          "website": "Website",
+          "city": "City",
+          "domains": "Domains",
+          "created": "Created",
+          "updated": "Updated"
+        },
+        "types": {
+          "company": "Company",
+          "university": "University"
+        },
+        "claims": {
+          "claimant": "Claimant",
+          "status": "Status",
+          "type": "Type",
+          "submitted": "Submitted",
+          "reviewed": "Reviewed",
+          "empty": "No claims for this entity"
+        },
+        "actions": {
+          "overrideTitle": "Super Admin overrides",
+          "overrideSubtitle": "Bypass normal staff claim review — all actions are audited",
+          "forceApprove": "Force approve",
+          "forceReject": "Force reject",
+          "metadataTitle": "Edit metadata",
+          "saveMetadata": "Save metadata",
+          "fields": {
+            "name": "Name",
+            "nameAr": "Arabic name",
+            "website": "Website",
+            "tagline": "Tagline (EN)"
+          },
+          "confirm": {
+            "approveTitle": "Force approve entity",
+            "approveDescription": "Sets entity_state to approved, bypassing staff review workflow.",
+            "rejectTitle": "Force reject entity",
+            "rejectDescription": "Resets entity to unclaimed and rejects pending claims.",
+            "metadataTitle": "Update entity metadata",
+            "metadataDescription": "Direct metadata edit by Super Admin."
+          }
+        }
+      }
+    },
+    "mentorApplications": {
+      "title": "Mentor applications",
+      "subtitle": "Super Admin oversight — all applications regardless of staff review status",
+      "staffNote": "Staff queue at /staff/mentor-applications shows pending_review only.",
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Headline…",
+        "status": "Status",
+        "apply": "Apply filters",
+        "applying": "Applying…",
+        "statuses": {
+          "all": "All statuses",
+          "pending_review": "Pending review",
+          "under_review": "Under review",
+          "approved": "Approved",
+          "rejected": "Rejected",
+          "suspended": "Suspended"
+        }
+      },
+      "table": {
+        "applicant": "Applicant",
+        "headline": "Headline",
+        "submitted": "Submitted",
+        "actions": "Actions",
+        "empty": "No mentor applications match your filters",
+        "unnamed": "Unnamed applicant"
+      },
+      "pagination": {
+        "summary": "{total} applications · page {page} of {totalPages}",
+        "prev": "Previous",
+        "next": "Next"
+      },
+      "actions": {
+        "approve": "Approve",
+        "reject": "Reject",
+        "overrideRejection": "Override rejection",
+        "suspend": "Suspend mentor",
+        "rejectionReasonPlaceholder": "Rejection reason (required)",
+        "statuses": {
+          "pending_review": "Pending review",
+          "under_review": "Under review",
+          "approved": "Approved",
+          "rejected": "Rejected",
+          "suspended": "Suspended",
+          "pending": "Pending"
+        },
+        "confirm": {
+          "defaultTitle": "Confirm action",
+          "defaultDescription": "This Super Admin action will be recorded in the audit log.",
+          "approveTitle": "Approve mentor application",
+          "rejectTitle": "Reject mentor application",
+          "overrideTitle": "Override staff rejection",
+          "suspendTitle": "Suspend approved mentor"
+        }
+      }
+    },
     "dashboard": {
       "title": "Super admin dashboard",
       "subtitle": "Platform health, operations queue, and recent activity",
@@ -681,7 +1840,32 @@
       "noStaff": "No staff members yet",
       "noPending": "No pending invitations",
       "unnamed": "Unnamed",
-      "expires": "Expires"
+      "expires": "Expires",
+      "detail": {
+        "back": "← Back to staff",
+        "unnamed": "Unnamed staff member",
+        "yes": "Yes",
+        "no": "No",
+        "infoTitle": "Staff profile",
+        "actionsTitle": "Access control",
+        "actionsSubtitle": "Revoking access demotes the user to individual",
+        "revokeAccess": "Revoke staff access",
+        "superAdminConfirmRequired": "Check the confirmation box to revoke another super administrator",
+        "superAdminConfirmLabel": "I confirm revoking this super administrator's staff access",
+        "fields": {
+          "id": "User ID",
+          "name": "Full name",
+          "role": "Role",
+          "mfa": "MFA enabled",
+          "suspended": "Suspended",
+          "created": "Joined",
+          "lastLogin": "Last login"
+        },
+        "confirm": {
+          "revokeTitle": "Revoke staff access",
+          "revokeDescription": "This demotes the user to individual and removes staff portal access."
+        }
+      }
     },
     "inviteStaff": {
       "title": "Invite staff member",
@@ -718,15 +1902,62 @@
       "passwordWeak": "Password does not meet requirements"
     },
     "audit": {
-      "title": "Full audit log",
-      "subtitle": "All platform actions",
+      "title": "Global audit log",
+      "subtitle": "Immutable platform action timeline — filter, paginate, and export",
       "back": "Back to dashboard",
-      "empty": "No records",
+      "empty": "No audit events match your filters",
+      "loadMore": "Load older events",
+      "filters": {
+        "actor": "Actor",
+        "actorPlaceholder": "Name or user ID…",
+        "actionType": "Action type",
+        "allActions": "All actions",
+        "from": "From",
+        "to": "To",
+        "apply": "Apply filters",
+        "applying": "Applying…",
+        "exportCsv": "Export CSV"
+      },
+      "row": {
+        "systemActor": "System",
+        "target": "Target",
+        "ip": "IP",
+        "showChanges": "Show changes",
+        "hideChanges": "Hide changes"
+      },
       "columns": {
         "time": "Time",
         "actor": "Actor",
         "action": "Action",
         "entity": "Entity"
+      }
+    },
+    "config": {
+      "title": "Platform configuration",
+      "subtitle": "Typed platform settings — secret values masked, all edits audited",
+      "empty": "No configuration keys defined",
+      "categories": {
+        "platform": "Platform",
+        "security": "Security",
+        "operations": "Operations",
+        "integrations": "Integrations"
+      },
+      "row": {
+        "edit": "Edit",
+        "secret": "Secret",
+        "currentValue": "Current value",
+        "type": "Type"
+      },
+      "editor": {
+        "back": "← Back to configuration",
+        "category": "Category",
+        "valueType": "Value type",
+        "currentValue": "Current value",
+        "newValue": "New value",
+        "secretHint": "Secret values are masked in lists; enter the new value to rotate.",
+        "save": "Save changes",
+        "confirmTitle": "Update configuration",
+        "confirmDescription": "A reason is required and will be written to the audit log."
       }
     }
   },
@@ -1540,5 +2771,9 @@
         "previewTab": "Preview"
       }
     }
+  },
+  "maintenance": {
+    "title": "Maintenance in progress",
+    "description": "The platform is temporarily unavailable while we perform maintenance. Please check back shortly."
   }
 }

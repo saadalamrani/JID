@@ -4,6 +4,7 @@ import {
   Building2,
   ClipboardList,
   Flag,
+  GraduationCap,
   LayoutDashboard,
   ScrollText,
   Settings2,
@@ -36,6 +37,7 @@ export const SYS_NAV_SECTIONS: SysNavSection[] = [
       { key: 'users', href: '/sys/users', icon: Users },
       { key: 'entities', href: '/sys/entities', icon: Building2 },
       { key: 'claims', href: '/sys/claims', icon: ClipboardList },
+      { key: 'mentorApplications', href: '/sys/mentor-applications', icon: GraduationCap },
     ],
   },
   {
@@ -49,7 +51,9 @@ export const SYS_NAV_SECTIONS: SysNavSection[] = [
     sectionKey: 'governance',
     items: [
       { key: 'flags', href: '/sys/flags', icon: Flag },
+      { key: 'platformPulse', href: '/sys/features', icon: Flag },
       { key: 'config', href: '/sys/config', icon: Settings2 },
+      { key: 'sessions', href: '/sys/system/sessions', icon: Users },
     ],
   },
   {
@@ -57,7 +61,7 @@ export const SYS_NAV_SECTIONS: SysNavSection[] = [
     items: [
       {
         key: 'emergency',
-        href: '/sys/emergency',
+        href: '/sys/system/emergency',
         icon: AlertTriangle,
         danger: true,
       },
@@ -79,5 +83,5 @@ export const SYS_QUICK_ACTIONS: SysQuickAction[] = [
   { key: 'claims', href: '/sys/claims', keywords: ['queue', 'ownership'] },
   { key: 'inviteStaff', href: '/sys/staff/new', keywords: ['invite', 'staff'] },
   { key: 'audit', href: '/sys/audit', keywords: ['log', 'history'] },
-  { key: 'emergency', href: '/sys/emergency', keywords: ['kill', 'danger'] },
+  { key: 'emergency', href: '/sys/system/emergency', keywords: ['kill', 'danger'] },
 ]

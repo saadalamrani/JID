@@ -1,68 +1,45 @@
-'use client'
-
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { MentorApplicationReviewModal } from '@/app/[locale]/(staff)/_components/mentor-application-review-modal'
-import { MentorApplicationsList } from '@/app/[locale]/(staff)/_components/mentor-applications-list'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useMentorApplicationsQueue } from '@/hooks/use-mentor-applications-queue'
-import type { MentorApplicationQueueItem } from '@/lib/staff/mentor-applications'
+import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
+import { MentorApplicationCard } from './_components/mentor-application-card'
+import { listPendingMentorApplications } from '@/lib/staff/mentor-applications'
 
-export default function MentorApplicationsPage() {
-  const t = useTranslations('staff.mentorApplications')
-  const { data, isLoading, isError, error } = useMentorApplicationsQueue()
-  const [selected, setSelected] = useState<MentorApplicationQueueItem | null>(null)
-  const [modalOpen, setModalOpen] = useState(false)
+export const revalidate = 60
 
-  function openReview(application: MentorApplicationQueueItem) {
-    setSelected(application)
-    setModalOpen(true)
-  }
+/**
+ * Section 7 / Mentorship Day 4 — mentor application review queue.
+ * Uses mentor_profiles (status = pending_review), NOT claim_requests.
+ */
+export default async function StaffMentorApplicationsPage() {
+  const t = await getTranslations('staff.mentorApplications')
+  const { applications, stats } = await listPendingMentorApplications()
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-2 text-sm text-jid-ink/70">{t('subtitle')}</p>
-      </div>
-
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-jid-ink/70">{t('stats.pending')}</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-semibold text-jid-ink">
-              {isLoading ? '—' : (data?.stats.pending ?? 0)}
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {isError ? (
-        <p className="text-sm text-red-600">{error instanceof Error ? error.message : t('error')}</p>
-      ) : null}
-
-      <section>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-jid-ink">{t('listTitle')}</h2>
-          <Link href="/staff/dashboard" className="text-sm text-jid-olive hover:underline">
-            {t('backToDashboard')}
-          </Link>
+    <div className="space-y-6">
+      <header className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
+          <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
         </div>
-        <MentorApplicationsList
-          applications={data?.applications ?? []}
-          loading={isLoading}
-          onReview={openReview}
-        />
-      </section>
+        <Link href="/staff" className="text-sm text-jid-olive hover:underline">
+          {t('backToDashboard')}
+        </Link>
+      </header>
 
-      <MentorApplicationReviewModal
-        application={selected}
-        open={modalOpen}
-        onOpenChange={setModalOpen}
-      />
+      <p className="text-sm text-jid-ink/55">{t('pendingCount', { count: stats.pending })}</p>
+
+      {applications.length === 0 ? (
+        <div className="rounded-md border border-dashed border-jid-line p-8 text-center text-sm text-jid-ink/60">
+          {t('list.empty')}
+        </div>
+      ) : (
+        <ul className="space-y-3">
+          {applications.map((application) => (
+            <li key={application.user_id}>
+              <MentorApplicationCard application={application} />
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }

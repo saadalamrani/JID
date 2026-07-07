@@ -1,49 +1,87 @@
+import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { fetchStaffAuditLogs } from '@/lib/auth/audit-logs'
-import { createClient } from '@/lib/supabase/server'
 import { Link } from '@/lib/i18n/navigation'
+import { Info } from 'lucide-react'
+import { StaffAnalyticsTracker } from '@/components/staff/staff-analytics-tracker'
+import { AuditFilters } from '@/app/[locale]/(staff)/staff/audit/_components/audit-filters'
+import { AuditTimeline } from '@/app/[locale]/(staff)/staff/audit/_components/audit-timeline'
+import { fetchStaffPersonalAuditTimeline } from '@/lib/staff/audit-queries'
+import type { StaffAuditFilters } from '@/types/staff-audit'
 
-export default async function StaffAuditPage() {
+type StaffAuditPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}
+
+function readParam(value: string | string[] | undefined): string | undefined {
+  if (Array.isArray(value)) return value[0]
+  return value
+}
+
+/** Section 11 — personal audit log (own actions only). */
+export default async function StaffAuditPage({ searchParams }: StaffAuditPageProps) {
   const t = await getTranslations('staff.audit')
-  const supabase = await createClient()
-  const logs = await fetchStaffAuditLogs(supabase)
+  const params = await searchParams
+
+  const filters: StaffAuditFilters = {
+    actionType: readParam(params.action_type),
+    from: readParam(params.from),
+    to: readParam(params.to),
+    before: readParam(params.before),
+  }
+
+  const result = await fetchStaffPersonalAuditTimeline(filters)
+
+  const nextParams = new URLSearchParams()
+  if (filters.actionType && filters.actionType !== 'all') {
+    nextParams.set('action_type', filters.actionType)
+  }
+  if (filters.from) nextParams.set('from', filters.from)
+  if (filters.to) nextParams.set('to', filters.to)
+  if (result.nextBefore) nextParams.set('before', result.nextBefore)
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <StaffAnalyticsTracker event="staff.audit_viewed" />
+      <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-          <p className="mt-2 text-sm text-jid-ink/70">{t('subtitle')}</p>
+          <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
         </div>
-        <Link href="/staff/dashboard" className="text-sm text-jid-olive hover:underline">
+        <Link href="/staff" className="text-sm text-jid-olive hover:underline">
           {t('back')}
         </Link>
+      </header>
+
+      <div
+        role="status"
+        className="flex gap-3 rounded-lg border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-950"
+      >
+        <Info className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
+        <p>{t('scopeBanner')}</p>
       </div>
 
-      <div className="overflow-x-auto rounded-md border border-jid-line bg-white">
-        <table className="min-w-full text-sm">
-          <thead className="bg-jid-beige/50 text-start">
-            <tr>
-              <th className="px-4 py-3 font-medium">{t('columns.time')}</th>
-              <th className="px-4 py-3 font-medium">{t('columns.action')}</th>
-              <th className="px-4 py-3 font-medium">{t('columns.entity')}</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-jid-line">
-            {logs.map((log) => (
-              <tr key={log.id}>
-                <td className="px-4 py-3 text-jid-ink/70">{new Date(log.created_at).toLocaleString('ar-SA')}</td>
-                <td className="px-4 py-3 font-mono text-xs">{log.action}</td>
-                <td className="px-4 py-3 text-jid-ink/70">
-                  {log.entity_type}
-                  {log.entity_id ? ` · ${log.entity_id.slice(0, 8)}` : ''}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        {logs.length === 0 ? <p className="p-6 text-center text-sm text-jid-ink/60">{t('empty')}</p> : null}
-      </div>
+      <Suspense fallback={<div className="h-28 rounded-lg border border-jid-line bg-white" />}>
+        <AuditFilters />
+      </Suspense>
+
+      {result.events.length === 0 ? (
+        <div className="rounded-lg border border-jid-line bg-white p-8 text-center text-sm text-jid-ink/50">
+          {t('empty')}
+        </div>
+      ) : (
+        <AuditTimeline events={result.events} />
+      )}
+
+      {result.hasMore && result.nextBefore ? (
+        <div className="flex justify-center">
+          <Link
+            href={`/staff/audit?${nextParams.toString()}`}
+            className="rounded-md border border-jid-line bg-white px-4 py-2 text-sm text-jid-olive hover:bg-jid-beige/40"
+          >
+            {t('loadMore')}
+          </Link>
+        </div>
+      ) : null}
     </div>
   )
 }

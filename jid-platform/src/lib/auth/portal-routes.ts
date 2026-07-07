@@ -17,7 +17,7 @@ export function getPortalHomeForRole(role: UserRole): string {
       return '/university/dashboard'
     case 'staff':
     case 'admin':
-      return '/staff/dashboard'
+      return '/staff'
     case 'super_admin':
       return '/sys/dashboard'
     default:

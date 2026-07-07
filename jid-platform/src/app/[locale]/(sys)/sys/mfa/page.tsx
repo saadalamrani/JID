@@ -17,6 +17,7 @@ import {
 } from '@/lib/auth/mfa'
 import { fetchProfileForUser } from '@/lib/auth/session'
 import { useRouter } from '@/lib/i18n/navigation'
+import { track } from '@/lib/analytics/track'
 import { SYS_HOME_PATH, SYS_LOGIN_PATH } from '@/lib/sys/constants'
 import { sanitizeSysNextPath } from '@/lib/sys/routes'
 import { createClient } from '@/lib/supabase/client'
@@ -117,6 +118,8 @@ function SysMfaPageContent() {
         toast.error(t('errors.verifyFailed'))
         return
       }
+
+      track('sys.mfa_verified')
 
       redirectAfterMfa()
     } catch {

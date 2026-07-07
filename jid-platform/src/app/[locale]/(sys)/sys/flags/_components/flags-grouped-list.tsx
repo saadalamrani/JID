@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import type { FeatureFlag, FeatureFlagCategory } from '@/lib/governance/schemas'
-import { FEATURE_FLAG_CATEGORY_ORDER } from '@/lib/sys/feature-flags'
+import { FEATURE_FLAG_CATEGORY_ORDER } from '@/lib/sys/feature-flag-constants'
 import { FlagRow } from './flag-row'
 
 type FlagsGroupedListProps = {

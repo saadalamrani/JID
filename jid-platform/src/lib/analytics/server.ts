@@ -1,10 +1,12 @@
 import 'server-only'
 
 import type { AnalyticsEvent } from '@/lib/analytics/track'
+import type { StaffAnalyticsEvent } from '@/lib/analytics/staff-events'
+import type { SysAnalyticsEvent } from '@/lib/analytics/sys-events'
 
-/** Server-side analytics (Section 14) — best-effort PostHog capture. */
+/** Server-side analytics (Section 14 / 16 / 17) — best-effort PostHog capture. */
 export async function trackServer(
-  event: AnalyticsEvent,
+  event: AnalyticsEvent | StaffAnalyticsEvent | SysAnalyticsEvent,
   distinctId: string,
   properties?: Record<string, unknown>,
 ): Promise<void> {

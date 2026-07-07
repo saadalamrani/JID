@@ -16,6 +16,8 @@ import {
   needsMfaEnrollment,
 } from '@/lib/auth/mfa'
 import { resolvePostLoginDestination, requiresMfaAtLogin } from '@/lib/auth/portal-routes'
+import { PRIVILEGED_STAFF_ROLES, isRoleAllowed } from '@/lib/auth/rbac'
+import { track } from '@/lib/analytics/track'
 import { fetchProfileForUser, isProfileSuspended } from '@/lib/auth/session'
 import { recordActiveSessionFromBrowser } from '@/lib/auth/sessions'
 import { createClient } from '@/lib/supabase/client'
@@ -114,6 +116,9 @@ function LoginPageContent() {
       }
 
       await recordActiveSessionFromBrowser(supabase)
+      if (isRoleAllowed(profile.role, ['staff', 'admin'])) {
+        track('staff.login_succeeded', { user_id: data.user.id })
+      }
       router.push(resolvePostLoginDestination(profile.role, { next: nextParam }))
     } catch {
       await new Promise((resolve) =>

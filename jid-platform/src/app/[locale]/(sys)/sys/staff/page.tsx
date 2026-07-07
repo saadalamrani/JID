@@ -32,7 +32,9 @@ export default async function SysStaffPage() {
             {staff.map((member) => (
               <li key={member.id} className="flex items-center justify-between p-4">
                 <div>
-                  <p className="font-medium text-jid-ink">{member.full_name ?? t('unnamed')}</p>
+                  <Link href={`/sys/staff/${member.id}`} className="font-medium text-jid-olive hover:underline">
+                    {member.full_name ?? t('unnamed')}
+                  </Link>
                   <p className="text-xs text-jid-ink/50">{member.role}</p>
                 </div>
                 <p className="text-xs text-jid-ink/50">

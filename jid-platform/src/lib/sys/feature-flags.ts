@@ -9,12 +9,6 @@ import {
 } from '@/lib/governance/schemas'
 import { createClient } from '@/lib/supabase/server'
 
-export const FEATURE_FLAG_CATEGORY_ORDER: FeatureFlagCategory[] = [
-  'modules',
-  'platform',
-  'pulse',
-]
-
 export type FeatureFlagsByCategory = Record<FeatureFlagCategory, FeatureFlag[]>
 
 function parseUserOverrides(raw: unknown): FeatureFlag['user_overrides'] {

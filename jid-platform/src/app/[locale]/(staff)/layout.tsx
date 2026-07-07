@@ -1,35 +1,34 @@
-import { Link } from '@/lib/i18n/navigation'
+import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import { headers } from 'next/headers'
+import { StaffShell } from '@/components/staff/staff-shell'
+import { isStaffAuthRoute } from '@/lib/staff/routes'
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: { index: false, follow: false },
+  },
+}
 
 type StaffLayoutProps = {
   children: ReactNode
 }
 
-export default function StaffLayout({ children }: StaffLayoutProps) {
-  return (
-    <div className="min-h-screen bg-jid-beige/30">
-      <header className="border-b border-jid-line bg-white">
-        <div className="container-jid flex items-center justify-between py-4">
-          <Link href="/staff/dashboard" className="text-lg font-semibold text-jid-olive">
-            جِد — Staff
-          </Link>
-          <nav className="flex gap-4 text-sm">
-            <Link href="/staff/dashboard" className="text-jid-ink/70 hover:text-jid-ink">
-              Dashboard
-            </Link>
-            <Link href="/staff/claims/queue" className="text-jid-ink/70 hover:text-jid-ink">
-              Claims queue
-            </Link>
-            <Link href="/staff/mentor-applications" className="text-jid-ink/70 hover:text-jid-ink">
-              Mentor applications
-            </Link>
-            <Link href="/staff/audit" className="text-jid-ink/70 hover:text-jid-ink">
-              Audit
-            </Link>
-          </nav>
-        </div>
-      </header>
-      <main className="container-jid py-8">{children}</main>
-    </div>
-  )
+/**
+ * Section 5 — /staff route group.
+ *
+ * Auth routes (`/staff/login`, `/staff/mfa`) bypass the shell guards.
+ * All other `/staff/*` routes run the four guards in `requireStaffShellAccess()`.
+ */
+export default async function StaffLayout({ children }: StaffLayoutProps) {
+  const pathname = headers().get('x-pathname') ?? ''
+
+  if (isStaffAuthRoute(pathname)) {
+    return <div className="min-h-screen bg-white">{children}</div>
+  }
+
+  return <StaffShell>{children}</StaffShell>
 }

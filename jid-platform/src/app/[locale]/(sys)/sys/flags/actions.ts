@@ -1,6 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { trackServer } from '@/lib/analytics/server'
 import type { UserRole } from '@/lib/auth/rbac'
 import { userRoleSchema } from '@/lib/governance/schemas'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -155,6 +156,7 @@ export async function toggleFlagGlobally(
   })
   if (auditError) return auditError
 
+  await trackServer('sys.flag_toggled', actor.userId, { flag_key: key, is_enabled: isEnabled })
   revalidateFlagPaths(key)
   return { ok: true }
 }
