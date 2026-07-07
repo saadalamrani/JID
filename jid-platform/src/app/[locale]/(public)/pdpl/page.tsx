@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { RightItem } from '@/app/[locale]/(public)/pdpl/_components/right-item'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { Link } from '@/lib/i18n/navigation'
+import { trackLegalPageViewed } from '@/lib/analytics/track-legal-page'
 
 const RIGHT_KEYS = [
   'informed',
@@ -27,6 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 /** Section 7 — PDPL notice (server-rendered). */
 export default async function PdplPage({ params }: PdplPageProps) {
+  await trackLegalPageViewed('pdpl')
   const locale = params.locale as Locale
   const dir = localeConfig.direction[locale] ?? 'rtl'
   const t = await getTranslations('pdplPage')

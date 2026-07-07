@@ -5,6 +5,7 @@ import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { Link } from '@/lib/i18n/navigation'
 import { LEGAL_DOCUMENT_VERSION, LEGAL_EFFECTIVE_DATE } from '@/lib/legal/constants'
 import { formatLegalEffectiveDate } from '@/lib/legal/format-effective-date'
+import { trackLegalPageViewed } from '@/lib/analytics/track-legal-page'
 
 type TermsPageProps = {
   params: { locale: string }
@@ -20,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 /** Section 8 — Terms of Service (server-rendered). */
 export default async function TermsPage({ params }: TermsPageProps) {
+  await trackLegalPageViewed('terms')
   const locale = params.locale as Locale
   const dir = localeConfig.direction[locale] ?? 'rtl'
   const t = await getTranslations('termsPage')

@@ -17,10 +17,10 @@ function check(ok: boolean, label: string) {
   if (!ok) process.exitCode = 1
 }
 
-const page = read('src/app/[locale]/(mentor)/dashboard/page.tsx')
+const page = read('src/app/[locale]/(mentor)/mentor/dashboard/page.tsx')
 const guard = read('src/lib/mentor-hub/require-mentor-hub-access.ts')
 const queries = read('src/lib/mentor-hub/queries.ts')
-const card = read('src/app/[locale]/(mentor)/dashboard/_components/pending-request-card.tsx')
+const card = read('src/app/[locale]/(mentor)/mentor/dashboard/_components/pending-request-card.tsx')
 const reviewApi = read('src/app/api/mentor/requests/[id]/route.ts')
 const reviewLib = read('src/lib/mentor-hub/review-request.ts')
 const settingsApi = read('src/app/api/mentor/settings/route.ts')
@@ -37,8 +37,8 @@ check(queries.includes('upcomingMeetingsCount'), 'KPI query includes upcomingMee
 check(queries.includes('ratingAvg'), 'KPI query includes ratingAvg')
 
 check(page.includes('MentorKpiStrip'), 'dashboard renders KPI strip')
-check(read('src/app/[locale]/(mentor)/dashboard/_components/mentor-hub-dashboard.tsx').includes('requests'), 'hub has Requests tab')
-check(read('src/app/[locale]/(mentor)/dashboard/_components/mentor-hub-dashboard.tsx').includes('settings'), 'hub has Settings tab')
+check(read('src/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-hub-dashboard.tsx').includes('requests'), 'hub has Requests tab')
+check(read('src/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-hub-dashboard.tsx').includes('settings'), 'hub has Settings tab')
 
 check(card.includes('mentee_snapshot'), 'pending card shows mentee_snapshot')
 check(card.includes('intent_statement'), 'pending card shows intent quote')
@@ -60,6 +60,6 @@ check(migration.includes('declined_requests_count'), 'migration adds declined_re
 check(migration.includes('decline_reason'), 'migration adds decline_reason')
 check(migration.includes('idx_conversations_mentor_mentee_unique'), 'unique mentor+mentee conversations')
 
-check(!read('src/app/[locale]/(mentor)/dashboard/_components/mentor-hub-stub-tab.tsx').includes('/chats/'), 'chats tab is stub without chat UI route')
+check(!read('src/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-hub-stub-tab.tsx').includes('/chats/'), 'chats tab is stub without chat UI route')
 
 console.log('\nMentor hub verification complete.')

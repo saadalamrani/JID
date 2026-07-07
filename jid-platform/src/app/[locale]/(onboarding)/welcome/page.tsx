@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import { trackServer } from '@/lib/analytics/server'
 import { resolveEntityResumePath } from '@/lib/onboarding/entity-resume'
 import { resolveIndividualResumePath } from '@/lib/onboarding/resume'
 import {
@@ -8,6 +9,7 @@ import {
 } from '@/lib/onboarding/welcome-router'
 import type { UserRole } from '@/lib/auth/rbac'
 import type { EntityOnboardingProfile } from '@/lib/onboarding/entity-resume'
+import type { IndividualOnboardingProfile } from '@/lib/onboarding/resume'
 
 /** Section 10 — corrected welcome router (redirect-only; no Section 10.1 UI). */
 export default async function WelcomePage() {
@@ -19,6 +21,8 @@ export default async function WelcomePage() {
   if (!user) {
     redirect('/login')
   }
+
+  await trackServer('onboarding_welcome_viewed', user.id)
 
   const { data: profile } = await supabase
     .from('profiles')

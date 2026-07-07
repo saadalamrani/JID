@@ -138,7 +138,7 @@ check(
 
 check(
   'Mentor post-approval setup component exists',
-  existsSync(join(ROOT, 'src/app/[locale]/(mentor)/dashboard/_components/mentor-post-approval-setup.tsx')),
+  existsSync(join(ROOT, 'src/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-post-approval-setup.tsx')),
 )
 check(
   'Mentor setup triggers when expertise empty',
@@ -168,6 +168,25 @@ check(
   'Landing tracks landing_page_viewed server-side',
   read('src/app/[locale]/(public)/page.tsx').includes("trackServer('landing_page_viewed'"),
 )
+
+const analyticsSources = [
+  read('src/app/[locale]/(public)/page.tsx'),
+  read('src/lib/analytics/track-legal-page.ts'),
+  read('src/app/[locale]/(onboarding)/welcome/page.tsx'),
+  read('src/app/[locale]/(onboarding)/individual/_components/step-one-form.tsx'),
+  read('src/app/[locale]/(onboarding)/individual/_components/step-two-form.tsx'),
+  read('src/app/[locale]/(onboarding)/individual/_components/step-three-form.tsx'),
+  read('src/app/[locale]/(onboarding)/individual/_components/onboarding-complete-actions.tsx'),
+  read('src/app/[locale]/(onboarding)/_components/skip-for-now.tsx'),
+  read('src/app/[locale]/(onboarding)/company/_components/entity-setup-viewed.tsx'),
+  read('src/app/[locale]/(onboarding)/company/_components/entity-setup-form.tsx'),
+  read('src/app/[locale]/(onboarding)/company/_components/entity-team-form.tsx'),
+  read('src/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-post-approval-setup.tsx'),
+].join('\n')
+
+for (const event of ONBOARDING_ANALYTICS_EVENTS) {
+  check(`Analytics wired: ${event}`, analyticsSources.includes(`'${event}'`))
+}
 
 function main(): void {
   let failed = 0

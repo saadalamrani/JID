@@ -56,7 +56,7 @@ export function ProfileSwitcher({ hasMentorRole: serverHasMentorRole, initialMod
     setMode(mode)
     track('mode_switched', { from: currentMode, to: mode })
     if (mode === 'mentor') {
-      router.push('/dashboard')
+      router.push('/mentor/dashboard')
     }
   }
 
