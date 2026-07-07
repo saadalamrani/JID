@@ -1,4 +1,4 @@
-import { FEATURE_FLAG_KEYS } from '@/lib/features/feature-flag-keys'
+import { FLAG_KEYS } from '@/lib/feature-flags/keys'
 
 let cache: { enabled: boolean; fetchedAt: number } | null = null
 const TTL_MS = 30_000
@@ -18,7 +18,7 @@ export async function getMiddlewarePulsePublicEnabled(): Promise<boolean> {
 
   try {
     const response = await fetch(
-      `${url}/rest/v1/feature_flags?key=eq.${FEATURE_FLAG_KEYS.PLATFORM_PULSE_PUBLIC}&select=is_enabled`,
+      `${url}/rest/v1/feature_flags?key=eq.${FLAG_KEYS.PULSE_PUBLIC}&select=is_enabled`,
       {
         headers: {
           apikey: anonKey,
