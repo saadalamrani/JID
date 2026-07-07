@@ -1,6 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { trackServer } from '@/lib/analytics/server'
 import type { FeatureFlagKey } from '@/lib/features/feature-flag-keys'
 import { createClient } from '@/lib/supabase/server'
 import { requireSuperAdminActor, type SysActionResult } from '@/lib/sys/sys-actions-shared'
@@ -29,6 +30,11 @@ export async function updatePulseFeatureFlag(
     .eq('key', key)
 
   if (error) return { ok: false, error: error.message }
+
+  await trackServer('pulse_admin_flag_toggled', actor.userId, {
+    flag_key: key,
+    is_enabled: isEnabled,
+  })
 
   revalidateFeaturesPath()
   return { ok: true }

@@ -186,6 +186,39 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: ['individual'],
   },
 
+  // ── Onboarding shell (Section 10) ───────────────────────────────────────────
+  {
+    id: 'onboarding-welcome',
+    pattern: new RegExp(`^${L}/welcome(?:/|$)`),
+    allowedRoles: [
+      'individual',
+      'entity',
+      'company_admin',
+      'university_admin',
+      'staff',
+      'admin',
+      'super_admin',
+    ],
+  },
+  {
+    id: 'onboarding-individual',
+    pattern: new RegExp(`^${L}/individual(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+  {
+    id: 'dashboard-redirect',
+    pattern: new RegExp(`^${L}/dashboard(?:/|$)`),
+    allowedRoles: [
+      'individual',
+      'entity',
+      'company_admin',
+      'university_admin',
+      'staff',
+      'admin',
+      'super_admin',
+    ],
+  },
+
   // ── Individual portal ───────────────────────────────────────────────────────
   {
     id: 'individual-onboarding',
@@ -277,7 +310,7 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   },
   {
     id: 'public-legal',
-    pattern: new RegExp(`^${L}/(?:about|contact|privacy|terms)(?:/|$)`),
+    pattern: new RegExp(`^${L}/(?:about|contact|privacy|terms|pdpl)(?:/|$)`),
     allowedRoles: null,
   },
   {

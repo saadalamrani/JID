@@ -2,8 +2,9 @@
 
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Pause, Play } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { CategoryPill } from '@/app/[locale]/(public)/pulse/_components/category-pill'
+import { track } from '@/lib/analytics/track'
 import { Link } from '@/lib/i18n/navigation'
 import type { PulseAnnouncement } from '@/lib/pulse/queries'
 import { cn } from '@/lib/utils'
@@ -27,6 +28,7 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
   const [isPaused, setIsPaused] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
+  const announcedIndexRef = useRef<number | null>(null)
 
   const count = announcements.length
   const current = announcements[activeIndex]
@@ -64,6 +66,29 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
       setActiveIndex(0)
     }
   }, [activeIndex, count])
+
+  useEffect(() => {
+    const slide = announcements[activeIndex]
+    if (!slide) return
+    if (announcedIndexRef.current === activeIndex) return
+    announcedIndexRef.current = activeIndex
+    track('pulse_announcement_viewed', {
+      announcement_id: slide.id,
+      slide_index: activeIndex,
+      slide_count: count,
+      category: slide.category,
+    })
+  }, [activeIndex, announcements, count])
+
+  useEffect(() => {
+    if (!isHovered) return
+    track('pulse_carousel_paused', { reason: 'hover' })
+  }, [isHovered])
+
+  useEffect(() => {
+    if (!isFocused) return
+    track('pulse_carousel_paused', { reason: 'focus' })
+  }, [isFocused])
 
   if (!current) return <AnnouncementEmptyState />
 
@@ -133,7 +158,15 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
             className="inline-flex items-center gap-1.5 rounded-md border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/20"
             aria-pressed={isPaused}
             aria-label={pauseLabel}
-            onClick={() => setIsPaused((value) => !value)}
+            onClick={() => {
+              setIsPaused((value) => {
+                const next = !value
+                if (next) {
+                  track('pulse_carousel_paused', { reason: 'manual' })
+                }
+                return next
+              })
+            }}
           >
             {isPaused ? <Play className="h-4 w-4" aria-hidden /> : <Pause className="h-4 w-4" aria-hidden />}
             <span aria-hidden>{isPaused ? 'تشغيل' : 'إيقاف'}</span>
@@ -171,7 +204,7 @@ function AnnouncementSlide({ announcement, showControlsPadding }: AnnouncementSl
         <CategoryPill category={announcement.category} />
         <h2 className="text-2xl font-semibold leading-snug text-white">{announcement.title_ar}</h2>
         {announcement.body_ar ? (
-          <p className="text-sm leading-relaxed text-white/90">{announcement.body_ar}</p>
+          <p className="text-sm leading-relaxed text-white">{announcement.body_ar}</p>
         ) : null}
         {announcement.cta_url ? (
           <a

@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
   } else if (user) {
     const { data: profile } = await supabase
       .from('profiles')
-      .select('role')
+      .select('role, onboarding_completed_at, onboarding_skipped_at')
       .eq('id', user.id)
       .maybeSingle()
 
@@ -88,6 +88,13 @@ export async function GET(request: NextRequest) {
         .maybeSingle()
 
       destination = resolveEntityCallbackPath(claim?.claim_type, claim?.status)
+    } else if (
+      profile?.role === 'individual' &&
+      !profile.onboarding_completed_at &&
+      !profile.onboarding_skipped_at &&
+      !nextParam
+    ) {
+      destination = '/welcome'
     }
   }
 

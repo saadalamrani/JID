@@ -20,9 +20,42 @@ type AuthenticatedAppShellProps = {
 
 const PORTAL_PREFIXES = ['/staff', '/sys', '/login', '/signup', '/forgot-password', '/reset-password']
 
+/** Routes wrapped by `(public)/layout.tsx` — use PublicNav instead of this bar. */
+const PUBLIC_SHELL_PREFIXES = [
+  '/opportunities',
+  '/catalog',
+  '/mentors',
+  '/pulse',
+  '/universities',
+  '/maintenance',
+  '/privacy',
+  '/terms',
+  '/pdpl',
+  '/contact',
+  '/about',
+]
+
+/** Section 10 onboarding shell — dedicated layout, no portal top bar. */
+const ONBOARDING_SHELL_PREFIXES = ['/welcome', '/individual']
+
 function shouldHideTopBar(pathname: string): boolean {
   const normalized = pathname.replace(/^\/(ar|en)/, '') || '/'
-  return PORTAL_PREFIXES.some(
+  if (normalized === '/' || normalized === '') return true
+  if (
+    PORTAL_PREFIXES.some(
+      (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
+    )
+  ) {
+    return true
+  }
+  if (
+    ONBOARDING_SHELL_PREFIXES.some(
+      (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
+    )
+  ) {
+    return true
+  }
+  return PUBLIC_SHELL_PREFIXES.some(
     (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
   )
 }

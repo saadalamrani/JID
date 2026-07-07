@@ -17,7 +17,11 @@ export function formatArabicNumber(value: number): string {
   return Math.round(value).toLocaleString(AR_LOCALE)
 }
 
-/** Percentage metrics — one decimal place (e.g. response rate). */
+/** Percentage metrics — one decimal place with Arabic digits. */
 export function formatArabicPercentage(value: number): string {
-  return `${value.toFixed(1)}%`
+  const formatted = value.toLocaleString(AR_LOCALE, {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  })
+  return `${formatted}%`
 }

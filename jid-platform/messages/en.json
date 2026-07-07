@@ -31,6 +31,531 @@
       "browseAll": "Browse all mentors"
     }
   },
+  "publicShell": {
+    "nav": {
+      "homeAria": "Home — {name}",
+      "primaryAria": "Primary navigation",
+      "opportunities": "Jobs",
+      "mentors": "Mentors",
+      "catalog": "Company catalog",
+      "pulse": "Platform Pulse",
+      "login": "Log in",
+      "signup": "Sign up",
+      "dashboard": "My dashboard"
+    },
+    "footer": {
+      "groups": {
+        "platform": {
+          "title": "Platform",
+          "opportunities": "Jobs",
+          "mentors": "Mentors",
+          "catalog": "Company catalog",
+          "pulse": "Platform Pulse"
+        },
+        "legal": {
+          "title": "Legal",
+          "privacy": "Privacy policy",
+          "terms": "Terms of service",
+          "pdpl": "PDPL compliance"
+        },
+        "support": {
+          "title": "Support",
+          "contact": "Contact us",
+          "about": "About JID"
+        }
+      },
+      "copyright": "© {year} {name}. All rights reserved."
+    },
+    "cookie": {
+      "ariaLabel": "Cookie consent",
+      "message": "We use cookies to improve your experience on the platform. For details see our",
+      "privacyLink": "privacy policy",
+      "accept": "Accept"
+    }
+  },
+  "landing": {
+    "meta": {
+      "title": "JID — Employment & mentorship platform",
+      "description": "Connecting talent with opportunities — transparent jobs, mentorship, and trusted profiles."
+    },
+    "hero": {
+      "eyebrow": "Employment & mentorship platform",
+      "title": "A job market that deserves transparency — for every applicant and every employer",
+      "subtitle": "JID brings job search, mentorship, and company profiles together — Arabic-first with clear communication standards.",
+      "body": "No empty promises. No unsourced statistics. Just real tools to see where your application stands and who can guide your career.",
+      "primaryCta": "Browse jobs",
+      "secondaryCta": "Create your account"
+    },
+    "problem": {
+      "title": "A real problem that does not need fabricated numbers",
+      "subtitle": "Recurring experiences in Saudi hiring — addressed with practical transparency, not marketing stats.",
+      "cards": {
+        "applicants": {
+          "headline": "The vast majority of applicants",
+          "body": "never receive a clear update on their application outcome"
+        },
+        "waiting": {
+          "headline": "Long waiting periods",
+          "body": "with no clear deadline for a response"
+        },
+        "graduates": {
+          "headline": "A wide segment of graduates",
+          "body": "do not know their application status for weeks"
+        }
+      }
+    },
+    "modules": {
+      "title": "Platform modules",
+      "subtitle": "Eight connected paths — from discovering roles to tracking applications and mentorship.",
+      "explore": "Explore →",
+      "items": {
+        "jobs": {
+          "title": "Job board",
+          "description": "Browse published roles with clear deadlines and structured applications."
+        },
+        "catalog": {
+          "title": "Company catalog",
+          "description": "Discover employers and their public profiles before you apply."
+        },
+        "mentors": {
+          "title": "Mentorship",
+          "description": "Meet approved mentors and request a guidance session."
+        },
+        "pulse": {
+          "title": "Platform Pulse",
+          "description": "Public metrics and announcements reflecting platform activity."
+        },
+        "universities": {
+          "title": "Universities",
+          "description": "Explore academic partnerships and graduate pathways."
+        },
+        "profiles": {
+          "title": "Unified profile",
+          "description": "Build one profile that represents you to companies and mentors."
+        },
+        "radar": {
+          "title": "Opportunity Radar",
+          "description": "Track your applications in one visual pipeline after sign-up."
+        },
+        "cv": {
+          "title": "CV builder",
+          "description": "Build your résumé and export a professional PDF."
+        }
+      }
+    },
+    "pdpl": {
+      "title": "Your privacy under Saudi PDPL principles",
+      "body": "JID is designed around data minimisation, access control, and data-subject rights.",
+      "badge": "PDPL aligned",
+      "cta": "Read our PDPL notice"
+    },
+    "vision2030": {
+      "eyebrow": "Aligned with national ambitions",
+      "title": "Empowering talent and a more transparent labour market",
+      "body": "JID supports a clearer path to opportunity and stronger career journeys — in line with Vision 2030 goals to empower citizens and diversify the economy. This text expresses the platform direction; it is not a verbatim quote from Vision 2030 documents.",
+      "attributionNote": "Platform direction is inspired by Vision 2030 goals — not a direct quotation."
+    },
+    "cta": {
+      "title": "Start where you are",
+      "subtitle": "Job seeker? Create an account. Representing an employer? Find your entity and submit a claim.",
+      "individual": {
+        "title": "For job seekers",
+        "body": "Unified profile, application radar, and mentorship — one account.",
+        "button": "Create individual account"
+      },
+      "entity": {
+        "title": "For employers & universities",
+        "body": "You cannot become an admin by signing up directly — search the catalog and claim your profile.",
+        "button": "Find your entity and claim it"
+      }
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "About JID",
+      "description": "Learn about JID's mission and values — an Arabic-first employment and mentorship platform."
+    },
+    "eyebrow": "About the platform",
+    "title": "About {name}",
+    "intro": "JID is a Saudi platform connecting job seekers, graduates, mentors, and employers — making applications, responses, and guidance clearer for everyone.",
+    "mission": {
+      "title": "Our mission",
+      "body": "We build practical tools that reduce hiring opacity: a unified profile, job board, application radar, and mentorship — without unsourced marketing claims."
+    },
+    "values": {
+      "title": "Our values",
+      "subtitle": "Principles that guide every feature we ship.",
+      "items": {
+        "transparency": {
+          "title": "Transparency",
+          "description": "Clear application states, published deadlines, and honest communication about what the platform can and cannot do."
+        },
+        "privacy": {
+          "title": "Privacy",
+          "description": "Data minimisation, access controls, and respect for data-subject rights under Saudi PDPL."
+        },
+        "empowerment": {
+          "title": "Empowerment",
+          "description": "Tools that help candidates present their skills, mentors contribute, and organisations manage their presence with professional dignity."
+        },
+        "trust": {
+          "title": "Trust",
+          "description": "Verified profiles through claim review and commitment signals — without unverified statistic wars."
+        }
+      }
+    },
+    "links": {
+      "title": "Explore the platform",
+      "opportunities": "Job board",
+      "mentors": "Mentors",
+      "pdpl": "PDPL notice",
+      "contact": "Contact us"
+    }
+  },
+  "pdplPage": {
+    "meta": {
+      "title": "Personal Data Protection — JID",
+      "description": "Your rights under Saudi PDPL and how JID handles your personal data."
+    },
+    "eyebrow": "Privacy & compliance",
+    "title": "Personal Data Protection Law (PDPL)",
+    "intro": "This page explains how JID handles personal data and data-subject rights on the platform.",
+    "legalBasis": "JID practices are designed to align with the Personal Data Protection Law issued by Royal Decree No. (M/19) dated 9/2/1443H.",
+    "legalNote": "This notice is informational and is not a formal compliance certificate. For binding legal advice, consult qualified counsel or SDAIA.",
+    "scope": {
+      "title": "Scope",
+      "body": "The law applies to processing of personal data relating to individuals in the Kingdom. When you use JID, we may process account, profile, application, and communication data — for the purpose stated for each service."
+    },
+    "rights": {
+      "title": "Data-subject rights",
+      "subtitle": "Six fundamental rights under the law, supported by platform processes where applicable:",
+      "items": {
+        "informed": {
+          "title": "Right to be informed",
+          "description": "Know why your data is collected and the legal basis for processing before or at collection."
+        },
+        "access": {
+          "title": "Right of access",
+          "description": "Request access to your personal data held by us within statutory limits."
+        },
+        "rectification": {
+          "title": "Right to rectification",
+          "description": "Request correction of inaccurate data or completion via account settings or by contacting us."
+        },
+        "erasure": {
+          "title": "Right to erasure",
+          "description": "Request deletion when a legal ground exists, subject to remaining legal or contractual obligations."
+        },
+        "withdrawConsent": {
+          "title": "Right to withdraw consent",
+          "description": "Withdraw consent for consent-based processing where available, without affecting prior lawful processing."
+        },
+        "complaint": {
+          "title": "Right to lodge a complaint",
+          "description": "File a complaint with the competent authority — the Saudi Data & AI Authority (SDAIA) — if you believe a violation occurred."
+        }
+      }
+    },
+    "practices": {
+      "title": "Platform practices",
+      "items": {
+        "minimization": "Collect only data necessary to deliver the service.",
+        "access": "Role-based internal access controls.",
+        "retention": "Retain data only as long as needed, then delete or anonymise where applicable.",
+        "breach": "Procedures to address data breaches per regulatory requirements when they occur."
+      }
+    },
+    "links": {
+      "title": "Related links",
+      "privacy": "Privacy policy",
+      "contact": "Contact us",
+      "about": "About JID"
+    }
+  },
+  "privacyPage": {
+    "meta": {
+      "title": "Privacy Policy — JID",
+      "description": "How JID collects, uses, stores, and protects your personal data."
+    },
+    "title": "Privacy Policy",
+    "summary": "This policy describes what personal data JID processes when you use our employment and mentorship platform, why we process it, who we share it with, and the rights available to you under Saudi law.",
+    "versionLabel": "Version {version}",
+    "effectiveDateLabel": "Effective date: {date}",
+    "intro": {
+      "p1": "JID (جِد) operates an Arabic-first platform connecting job seekers, graduates, mentors, universities, and employers in the Kingdom of Saudi Arabia. Protecting your privacy is central to that mission.",
+      "p2": "This Privacy Policy applies to visitors, registered users, entity administrators, mentors, and anyone who contacts us through the platform. By creating an account or continuing to use JID, you acknowledge that you have read this policy."
+    },
+    "collect": {
+      "title": "Data we collect",
+      "intro": "We collect only data that is reasonably necessary to provide the service. Depending on how you use JID, this may include:",
+      "items": {
+        "account": {
+          "label": "Account & identity data",
+          "body": "Name, email address, phone number (when verified), password hash, role, language preference, and authentication session metadata."
+        },
+        "profile": {
+          "label": "Profile & career data",
+          "body": "Headline, biography, skills, education, target sectors, CV content, visibility settings, avatar, and smart links you choose to publish."
+        },
+        "applications": {
+          "label": "Applications & job activity",
+          "body": "Saved and declared applications, application status, self-declaration timestamps, verified application emails, and interaction with job listings."
+        },
+        "mentorship": {
+          "label": "Mentorship data",
+          "body": "Mentor application details, expertise areas, meeting schedules, feedback, and messages exchanged through mentorship features."
+        },
+        "entity": {
+          "label": "Entity & claim data",
+          "body": "Company or university profile information, claim requests, verification documents submitted for review, and staff audit actions related to your organisation."
+        },
+        "technical": {
+          "label": "Technical & usage data",
+          "body": "IP address, browser type, device information, pages viewed, feature-flag evaluations, and aggregated analytics events (where enabled and consented)."
+        },
+        "communications": {
+          "label": "Communications",
+          "body": "Support messages, contact form submissions, notification preferences, and email delivery status received from our email provider."
+        }
+      }
+    },
+    "use": {
+      "title": "How we use your data",
+      "intro": "We process personal data for the following purposes:",
+      "items": {
+        "service": "Providing core platform features: accounts, profiles, job board, application radar, mentorship, and entity catalogues.",
+        "matching": "Connecting candidates with opportunities and mentors, including visibility rules you control in settings.",
+        "notifications": "Sending transactional emails and in-app notifications about applications, claims, meetings, and security events.",
+        "security": "Detecting abuse, enforcing role-based access, preventing fraud, and maintaining audit trails for staff actions.",
+        "analytics": "Measuring product usage in aggregate to improve performance and accessibility, subject to your cookie choices where applicable.",
+        "legal": "Complying with applicable law, responding to lawful requests, and establishing or defending legal claims."
+      },
+      "legalBasis": "Where Saudi PDPL requires a legal basis, we rely on contract performance (to deliver the service you requested), legitimate interests (security and product improvement, balanced against your rights), consent (where we ask explicitly, e.g. optional analytics cookies), and legal obligation where applicable."
+    },
+    "sharing": {
+      "title": "Third-party sharing",
+      "intro": "We do not sell your personal data. We share data only with processors that help us operate JID, under contractual safeguards and the minimum necessary scope:",
+      "supabase": {
+        "title": "Supabase (hosting & database)",
+        "body": "JID is hosted on Supabase cloud infrastructure. Account credentials, profiles, applications, and most platform data are stored in Supabase-managed PostgreSQL databases with Row Level Security policies. Supabase processes data on our instructions as a data processor. Their servers may be located outside the Kingdom; we assess transfers and apply appropriate safeguards as required by applicable law."
+      },
+      "resend": {
+        "title": "Resend (transactional email)",
+        "body": "We use Resend to deliver transactional emails such as verification codes, claim decisions, staff invitations, and notification digests. Resend receives recipient email addresses, message subject lines, and delivery metadata. We do not use Resend to send unsolicited marketing without your consent."
+      },
+      "other": {
+        "title": "Other recipients",
+        "body": "Approved employers may see candidate data you expose through your profile visibility and application choices. Universities may see aggregated student statistics where you opt in. We may also disclose data to competent authorities when required by law, or to professional advisers bound by confidentiality."
+      },
+      "noSale": "We will not rent or sell personal data to data brokers or advertising networks."
+    },
+    "rights": {
+      "title": "Your rights under PDPL",
+      "body": "As a data subject in the Kingdom of Saudi Arabia, you have rights under the Personal Data Protection Law (PDPL), including access, rectification, erasure, and complaint rights. We summarise these rights and how to exercise them on our dedicated <pdplLink>PDPL notice</pdplLink> page.",
+      "items": {
+        "access": "Request access to personal data we hold about you, subject to identity verification and legal exceptions.",
+        "rectification": "Update inaccurate data through account settings or by contacting us.",
+        "erasure": "Request deletion when there is no overriding legal or contractual reason to retain the data.",
+        "portability": "Request a copy of your data in a structured, commonly used format where technically feasible.",
+        "withdraw": "Withdraw consent for consent-based processing without affecting prior lawful processing.",
+        "complaint": "Lodge a complaint with the Saudi Data & AI Authority (SDAIA) if you believe your rights have been violated."
+      }
+    },
+    "retention": {
+      "title": "Retention periods",
+      "intro": "We retain personal data only for as long as necessary for the purposes described in this policy, unless a longer period is required by law:",
+      "items": {
+        "account": {
+          "label": "Active accounts",
+          "body": "Profile and account data are retained while your account is active and for up to 24 months after closure to handle disputes, legal holds, and backup rotation."
+        },
+        "applications": {
+          "label": "Applications & declarations",
+          "body": "Application records and self-declaration history are retained for up to 36 months after the related job closes or the application reaches a terminal status, unless you or the employer requests earlier deletion where permitted."
+        },
+        "logs": {
+          "label": "Security & audit logs",
+          "body": "Authentication, staff audit, and security event logs are retained for 12–24 months depending on severity and regulatory need."
+        },
+        "marketing": {
+          "label": "Marketing & analytics",
+          "body": "Optional analytics identifiers and marketing consents are retained until you withdraw consent or for 13 months of inactivity, whichever is sooner."
+        }
+      },
+      "deletion": "When retention periods expire, we delete or irreversibly anonymise data where technically possible. Backups may persist for a limited additional cycle before automatic purging."
+    },
+    "security": {
+      "title": "Technical & organisational security",
+      "intro": "We implement measures designed to protect personal data against unauthorised access, alteration, disclosure, or destruction, including:",
+      "items": {
+        "encryption": "TLS encryption in transit for all web and API traffic; encryption at rest provided by our cloud infrastructure provider.",
+        "rls": "PostgreSQL Row Level Security (RLS) so users can access only rows permitted by their role and ownership.",
+        "rbac": "Role-based access control across individual, entity, staff, and system portals with middleware route guards.",
+        "sessions": "Hashed session tokens, optional multi-device session review, and automatic expiry of inactive sessions.",
+        "monitoring": "Logging of security-relevant events, bounce handling for email deliverability, and staff audit trails for administrative actions."
+      },
+      "disclaimer": "No method of transmission or storage is completely secure. If you believe your account has been compromised, change your password immediately and contact us."
+    },
+    "amendments": {
+      "title": "Changes to this policy",
+      "p1": "We may update this Privacy Policy to reflect legal, technical, or operational changes. When we make material changes, we will update the version number and effective date at the top of this page and, where appropriate, notify you by email or in-app notice.",
+      "p2": "Continued use of JID after the effective date of an updated policy constitutes acceptance of the revised terms, unless applicable law requires explicit consent for specific processing activities."
+    },
+    "contact": {
+      "title": "Contact us",
+      "body": "For privacy questions, data-subject requests, or to report a concern, contact us through the <contactLink>Contact</contactLink> page or the email address published there. Please include enough detail for us to verify your identity and locate your account.",
+      "response": "We aim to acknowledge requests within 10 business days and respond substantively within the timeframes required by applicable law."
+    }
+  },
+  "termsPage": {
+    "meta": {
+      "title": "Terms of Service — JID",
+      "description": "Rules and conditions for using the JID employment and mentorship platform."
+    },
+    "title": "Terms of Service",
+    "summary": "These Terms govern your access to and use of JID. Please read them carefully before creating an account or using any platform feature.",
+    "versionLabel": "Version {version}",
+    "effectiveDateLabel": "Effective date: {date}",
+    "intro": {
+      "p1": "Welcome to JID (جِد). These Terms of Service (\"Terms\") form a binding agreement between you and the operator of the JID platform regarding your use of our websites, applications, and related services.",
+      "p2": "If you do not agree to these Terms, you must not access or use the platform. If you are using JID on behalf of a company or university, you represent that you have authority to bind that organisation."
+    },
+    "acceptance": {
+      "title": "Acceptance of terms",
+      "p1": "You accept these Terms when you tick the acceptance box during registration, click \"I agree\", or otherwise continue using the platform after we publish an updated version.",
+      "p2": "Your use of JID is also subject to our <privacyLink>Privacy Policy</privacyLink>, which explains how we process personal data. In the event of a direct conflict between these Terms and the Privacy Policy regarding data processing, the Privacy Policy prevails for that subject matter."
+    },
+    "responsibilities": {
+      "title": "User responsibilities",
+      "intro": "You are responsible for your account and for all activity that occurs under it. You agree to:",
+      "items": {
+        "accuracy": "Provide accurate, current, and complete information in your profile, applications, and entity claims.",
+        "credentials": "Keep your login credentials confidential and notify us promptly of any unauthorised use.",
+        "lawful": "Use the platform only for lawful purposes and in compliance with applicable Saudi regulations and professional standards.",
+        "entity": "Ensure that any company or university claim is submitted only by an authorised representative with documentary evidence when requested.",
+        "updates": "Review notifications and update application statuses honestly so other users can rely on the platform's transparency features."
+      }
+    },
+    "conduct": {
+      "title": "Platform conduct rules",
+      "intro": "JID is built on mutual respect and transparency between candidates, mentors, and employers. The following rules apply to all users:",
+      "selfDeclaration": {
+        "title": "Self-declaration & anti-ghosting",
+        "p1": "When you click to apply for an external job listing, JID may ask you to self-declare that you have submitted an application through the employer's own channel. This declaration creates an application record on your Radar so you and the platform can track progress.",
+        "p2": "You must not falsely declare applications you did not submit, nor leave declared applications in a misleading state. Employers and candidates alike are expected to update statuses in good faith — ghosting (ignoring declared applications without status updates) undermines trust and may result in account restrictions.",
+        "items": {
+          "honest": "Declare applications only after you have genuinely applied via the employer's official process.",
+          "noGhosting": "Respond to application status changes and employer communications within a reasonable time where the platform provides those channels.",
+          "status": "Keep your Radar statuses accurate: move applications through saved, pending, under review, shortlisted, rejected, invited, or withdrawn as appropriate.",
+          "withdraw": "Withdraw applications you are no longer pursuing rather than leaving them indefinitely in an active state."
+        }
+      },
+      "prohibited": {
+        "title": "Prohibited conduct",
+        "items": {
+          "harassment": "Harassment, discrimination, threats, or abusive language toward any user.",
+          "spam": "Spam, unsolicited bulk messaging, or fake listings designed to harvest personal data.",
+          "misrepresentation": "Impersonation, falsified credentials, or misrepresentation of affiliation with any entity.",
+          "scraping": "Automated scraping, reverse engineering, or circumvention of access controls without written permission.",
+          "malware": "Uploading malware, attempting unauthorised access, or interfering with platform availability."
+        }
+      }
+    },
+    "ip": {
+      "title": "Intellectual property",
+      "platform": "The JID name, logo, interface design, software, documentation, and original content we provide are owned by us or our licensors and are protected by applicable intellectual property laws. We grant you a limited, non-exclusive, non-transferable licence to use the platform for its intended purpose while your account is in good standing.",
+      "userContent": "You retain ownership of content you submit (profiles, CVs, job descriptions, mentor bios). By submitting content, you grant JID a worldwide, royalty-free licence to host, display, and process that content solely to operate and improve the service, including showing your public profile to users you authorise.",
+      "restrictions": "You may not copy, modify, distribute, or create derivative works from the platform or our branding except as expressly permitted in writing."
+    },
+    "liability": {
+      "title": "Limitation of liability",
+      "p1": "JID is a technology platform that facilitates connections between users. We do not employ candidates, guarantee interviews or offers, or verify every statement made by users unless explicitly stated for a verified badge or approved claim.",
+      "p2": "To the fullest extent permitted by applicable law in the Kingdom of Saudi Arabia:",
+      "items": {
+        "asIs": "The platform is provided \"as is\" and \"as available\" without warranties of uninterrupted or error-free operation.",
+        "thirdParty": "We are not responsible for third-party websites, employer application systems, or content linked from job listings.",
+        "hiring": "Hiring decisions, mentorship outcomes, and disputes between users are solely between the parties involved.",
+        "cap": "Our aggregate liability for any claim arising from these Terms or your use of JID shall not exceed the greater of SAR 500 or the fees you paid us in the twelve months preceding the claim (currently zero for free-tier users)."
+      }
+    },
+    "termination": {
+      "title": "Suspension & termination",
+      "p1": "You may close your account at any time through settings or by contacting us. We may suspend or terminate access immediately if we reasonably believe you have breached these Terms, pose a security risk, or are required to do so by law.",
+      "p2": "Upon termination:",
+      "items": {
+        "user": "Your right to access the platform ceases immediately, subject to any data retention described in the Privacy Policy.",
+        "breach": "We may retain records of violations and audit logs as evidence for dispute resolution or legal compliance.",
+        "suspend": "Suspended users may see a dedicated notice explaining the restriction and, where applicable, how to appeal.",
+        "effect": "Provisions that by their nature should survive termination (intellectual property, liability limits, governing law) remain in effect."
+      }
+    },
+    "governingLaw": {
+      "title": "Governing law & disputes",
+      "p1": "These Terms are governed by the laws of the Kingdom of Saudi Arabia, without regard to conflict-of-law principles. Any dispute arising from or relating to these Terms or the platform shall be subject to the exclusive jurisdiction of the competent courts in the Kingdom of Saudi Arabia, unless mandatory consumer protections require otherwise.",
+      "p2": "Before initiating formal proceedings, we encourage you to contact us through the <contactLink>Contact</contactLink> page so we can attempt to resolve the matter in good faith."
+    }
+  },
+  "contactPage": {
+    "meta": {
+      "title": "Contact Us — JID",
+      "description": "Reach the JID team for support, privacy requests, partnerships, and feedback."
+    },
+    "eyebrow": "Support",
+    "title": "Contact us",
+    "intro": "Questions about your account, a privacy request, or a partnership inquiry? Send us a message and we will respond as soon as we can.",
+    "info": {
+      "email": {
+        "title": "Email",
+        "body": "Use the form and we route your message to the right team. For data-subject requests, choose the Privacy category."
+      },
+      "response": {
+        "title": "Response time",
+        "body": "We aim to acknowledge messages within 2 business days. Complex privacy or claim issues may take longer."
+      },
+      "privacy": {
+        "title": "Data protection",
+        "body": "Messages are stored securely and reviewed only by authorised staff for the purpose of handling your request."
+      },
+      "privacyLink": "Read our <privacyLink>Privacy Policy</privacyLink> and <pdplLink>PDPL notice</pdplLink> for details on how we process personal data."
+    },
+    "form": {
+      "heading": "Send a message",
+      "subheading": "All fields are required unless noted. Rate limit: 3 messages per hour per connection.",
+      "fullName": "Full name",
+      "email": "Email address",
+      "category": "Category",
+      "subject": "Subject",
+      "message": "Message",
+      "messageHint": "Minimum 20 characters. Please include relevant job IDs or account email if applicable.",
+      "submit": "Send message",
+      "submitting": "Sending…",
+      "categories": {
+        "general": "General inquiry",
+        "support": "Technical support",
+        "privacy": "Privacy / PDPL request",
+        "partnership": "Partnership or university",
+        "feedback": "Feedback & suggestions"
+      }
+    },
+    "validation": {
+      "fullNameMin": "Name must be at least 2 characters",
+      "emailInvalid": "Invalid email address",
+      "categoryRequired": "Please select a category",
+      "subjectMin": "Subject must be at least 3 characters",
+      "bodyMin": "Message must be at least 20 characters",
+      "bodyMax": "Message must be 5000 characters or fewer"
+    },
+    "errors": {
+      "rateLimited": "You have sent too many messages. Please try again in about an hour.",
+      "server": "We could not send your message. Please try again later.",
+      "validation": "Please correct the highlighted fields."
+    },
+    "success": {
+      "title": "Message sent",
+      "body": "Thank you for contacting JID. We have received your message and will respond to the email address you provided.",
+      "sendAnother": "Send another message"
+    }
+  },
   "pulse": {
     "eyebrow": "Platform Pulse",
     "title": "Platform Pulse",
@@ -64,6 +589,20 @@
   "errors": {
     "notFound": "Page not found",
     "notFoundDescription": "The page you are looking for could not be found.",
+    "notFoundPage": {
+      "code": "404",
+      "title": "Page not found",
+      "description": "The page you requested does not exist or may have moved. Try the home page or explore open sections of JID below.",
+      "homeCta": "Back to home",
+      "contactCta": "Contact support",
+      "exploreTitle": "Explore JID",
+      "links": {
+        "opportunities": "Job board",
+        "catalog": "Company catalog",
+        "mentors": "Mentors",
+        "contact": "Contact us"
+      }
+    },
     "generic": "An unexpected error occurred. Please try again.",
     "genericDescription": "The application encountered a problem. You can retry or come back later.",
     "forbidden": "You do not have permission to access this page"
@@ -2970,5 +3509,111 @@
   "maintenance": {
     "title": "Maintenance in progress",
     "description": "The platform is temporarily unavailable while we perform maintenance. Please check back shortly."
+  },
+  "onboarding": {
+    "shell": {
+      "subtitle": "Complete your profile to get the most from JID"
+    },
+    "progress": {
+      "ariaLabel": "Onboarding progress",
+      "flows": {
+        "individual": {
+          "steps": {
+            "step-1": "Basic info",
+            "step-2": "Education",
+            "step-3": "Career interests"
+          }
+        },
+        "company": {
+          "steps": {
+            "entity": "Company profile"
+          }
+        }
+      }
+    },
+    "skip": {
+      "label": "Skip for now",
+      "confirmTitle": "Skip onboarding?",
+      "skipConfirm": "You can complete your profile later from settings. Continue to the dashboard?",
+      "cancel": "Cancel",
+      "confirm": "Skip and continue",
+      "confirming": "Skipping…",
+      "error": "Could not skip onboarding. Please try again."
+    },
+    "individual": {
+      "step1": {
+        "title": "Tell us about yourself",
+        "description": "Start with your name and mobile number so employers and mentors can reach you.",
+        "fullNameLabel": "Full name (Arabic)",
+        "fullNameHint": "As it appears on your official documents.",
+        "phoneLabel": "Mobile number",
+        "phoneHint": "Saudi mobile number — we will use this for account security.",
+        "continue": "Continue",
+        "saving": "Saving…",
+        "saveFailed": "Could not save your details. Please try again."
+      },
+      "step2": {
+        "title": "Your education",
+        "description": "Select your university and graduation details. GPA is optional.",
+        "institutionLabel": "University",
+        "institutionHint": "From the accredited universities catalog.",
+        "institutionPlaceholder": "Select university",
+        "institutionSearch": "Search universities",
+        "institutionEmpty": "No universities found",
+        "loading": "Loading…",
+        "graduationYearPlaceholder": "Select graduation year",
+        "gpaOptionalHint": "Optional",
+        "continue": "Continue",
+        "saving": "Saving…",
+        "saveFailed": "Could not save your education details. Please try again."
+      },
+      "step3": {
+        "title": "Career interests",
+        "description": "Help us personalize opportunities — everything here is optional.",
+        "optionalIntro": "You can skip any field and update these later from your profile.",
+        "sectorsLabel": "Target sectors",
+        "sectorsPlaceholder": "Select up to 3 sectors",
+        "sectorsSelected": "{count} sectors selected",
+        "sectorsMax": "You can select up to 3 sectors.",
+        "jobTitlesLabel": "Target job titles",
+        "jobTitlesHint": "Free text — separate titles with commas or new lines.",
+        "jobTitlesPlaceholder": "e.g. Software Engineer, Product Manager",
+        "salaryLegend": "Expected salary range (SAR / month)",
+        "salaryHint": "Optional — helps match relevant opportunities.",
+        "salaryMin": "Minimum",
+        "salaryMax": "Maximum",
+        "continue": "Continue",
+        "saving": "Saving…",
+        "saveFailed": "Could not save your preferences. Please try again."
+      },
+      "complete": {
+        "title": "You're all set!",
+        "description": "Your profile basics are saved. Explore jobs, mentorship, and more on JID.",
+        "cta": "Go to dashboard",
+        "completing": "Finishing…",
+        "completeFailed": "Could not complete onboarding. Please try again."
+      }
+    },
+    "validation": {
+      "fullNameMin": "Name must be at least 2 characters.",
+      "fullNameArabic": "Please enter your name in Arabic.",
+      "phoneRequired": "Mobile number is required.",
+      "phoneInvalid": "Enter a valid Saudi mobile number.",
+      "universityRequired": "Please select a university.",
+      "degreeRequired": "Degree is required.",
+      "degreeMax": "Degree is too long.",
+      "graduationYearRange": "Graduation year is out of range.",
+      "gpaValueRange": "GPA value is out of range.",
+      "gpaScalePositive": "GPA scale must be greater than zero.",
+      "gpaScaleRange": "GPA scale is out of range.",
+      "gpaExceedsScale": "GPA cannot exceed the scale.",
+      "salaryRange": "Maximum salary must be greater than or equal to minimum."
+    },
+    "errors": {
+      "notAuthenticated": "You must be signed in to continue.",
+      "skipFailed": "Could not save your preference. Please try again.",
+      "saveFailed": "Could not save. Please try again.",
+      "completeFailed": "Could not complete onboarding. Please try again."
+    }
   }
 }

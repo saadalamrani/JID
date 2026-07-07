@@ -1,6 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { trackServer } from '@/lib/analytics/server'
 import type { AnnouncementFormInput } from '@/lib/validations/announcement'
 import { announcementFormSchema } from '@/lib/validations/announcement'
 import { createClient } from '@/lib/supabase/server'
@@ -78,6 +79,13 @@ export async function createAnnouncement(
     .single()
 
   if (error) return { ok: false, error: error.message }
+
+  await trackServer('pulse_announcement_created', actor.userId, {
+    announcement_id: data.id,
+    category: parsed.data.category,
+    is_featured: parsed.data.is_featured,
+    is_published: parsed.data.is_published,
+  })
 
   revalidateAnnouncementPaths(data.id)
   return { ok: true, id: data.id }

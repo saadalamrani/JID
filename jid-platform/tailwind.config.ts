@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
+import typographyPlugin from '@tailwindcss/typography'
 import { colors, motion, radii, shadows, spacing, typography } from './src/config/design-tokens'
 
 const fontSize2xl = typography.fontSize['2xl']
@@ -119,9 +120,57 @@ const config: Config = {
         'jid-in-out': motion.easing.inOut,
         'jid-spring': motion.easing.spring,
       },
+      typography: ({ theme }: { theme: (path: string) => string }) => ({
+        jid: {
+          css: {
+            '--tw-prose-body': theme('colors.jid-ink.DEFAULT'),
+            '--tw-prose-headings': theme('colors.jid-olive.DEFAULT'),
+            '--tw-prose-lead': theme('colors.jid-ink.DEFAULT'),
+            '--tw-prose-links': theme('colors.jid-olive.DEFAULT'),
+            '--tw-prose-bold': theme('colors.jid-ink.DEFAULT'),
+            '--tw-prose-counters': theme('colors.jid-gold.DEFAULT'),
+            '--tw-prose-bullets': theme('colors.jid-line.DEFAULT'),
+            '--tw-prose-hr': theme('colors.jid-line.DEFAULT'),
+            '--tw-prose-quotes': theme('colors.jid-olive.DEFAULT'),
+            '--tw-prose-quote-borders': theme('colors.jid-gold.DEFAULT'),
+            '--tw-prose-captions': theme('colors.jid-ink.DEFAULT'),
+            '--tw-prose-code': theme('colors.jid-olive.DEFAULT'),
+            '--tw-prose-pre-code': theme('colors.jid-beige.DEFAULT'),
+            '--tw-prose-pre-bg': theme('colors.jid-olive.800'),
+            '--tw-prose-th-borders': theme('colors.jid-line.DEFAULT'),
+            '--tw-prose-td-borders': theme('colors.jid-line.DEFAULT'),
+            color: theme('colors.jid-ink.DEFAULT'),
+            maxWidth: 'none',
+            lineHeight: '1.75',
+            a: {
+              color: theme('colors.jid-olive.DEFAULT'),
+              fontWeight: '500',
+              textDecoration: 'underline',
+              textUnderlineOffset: '3px',
+              '&:hover': {
+                color: theme('colors.jid-gold.DEFAULT'),
+              },
+            },
+            h2: {
+              marginTop: '2.5em',
+              marginBottom: '0.75em',
+              fontWeight: '600',
+            },
+            h3: {
+              marginTop: '1.75em',
+              marginBottom: '0.5em',
+              fontWeight: '600',
+              color: theme('colors.jid-olive.DEFAULT'),
+            },
+            'ul > li::marker': {
+              color: theme('colors.jid-gold.DEFAULT'),
+            },
+          },
+        },
+      }),
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [tailwindcssAnimate, typographyPlugin],
 }
 
 export default config

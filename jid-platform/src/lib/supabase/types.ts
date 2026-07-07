@@ -469,6 +469,50 @@ export type Database = {
           },
         ]
       }
+      contact_messages: {
+        Row: {
+          body: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          locale: string
+          source: Database['public']['Enums']['contact_message_source_enum']
+          subject: string
+          user_id: string | null
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          locale?: string
+          source?: Database['public']['Enums']['contact_message_source_enum']
+          subject: string
+          user_id?: string | null
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          locale?: string
+          source?: Database['public']['Enums']['contact_message_source_enum']
+          subject?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'contact_messages_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       digest_batches: {
         Row: {
           created_at: string
@@ -751,6 +795,9 @@ export type Database = {
           locked_until: string | null
           mfa_enabled: boolean
           mfa_enforced: boolean
+          onboarding_completed_at: string | null
+          onboarding_skipped_at: string | null
+          onboarding_started_at: string | null
           phone: string | null
           phone_verified_at: string | null
           role: Database['public']['Enums']['user_role_enum']
@@ -771,6 +818,9 @@ export type Database = {
           locked_until?: string | null
           mfa_enabled?: boolean
           mfa_enforced?: boolean
+          onboarding_completed_at?: string | null
+          onboarding_skipped_at?: string | null
+          onboarding_started_at?: string | null
           phone?: string | null
           phone_verified_at?: string | null
           role?: Database['public']['Enums']['user_role_enum']
@@ -791,6 +841,9 @@ export type Database = {
           locked_until?: string | null
           mfa_enabled?: boolean
           mfa_enforced?: boolean
+          onboarding_completed_at?: string | null
+          onboarding_skipped_at?: string | null
+          onboarding_started_at?: string | null
           phone?: string | null
           phone_verified_at?: string | null
           role?: Database['public']['Enums']['user_role_enum']
@@ -2591,6 +2644,7 @@ export type Database = {
         | 'submitted'
         | 'needs_more_info'
       claim_type_enum: 'company' | 'university'
+      contact_message_source_enum: 'onboarding' | 'contact_page' | 'claim_help'
       content_flag_target_type_enum:
         | 'profile'
         | 'job'

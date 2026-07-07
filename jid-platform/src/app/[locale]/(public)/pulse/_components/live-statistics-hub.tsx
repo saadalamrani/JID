@@ -45,6 +45,7 @@ export async function LiveStatisticsHub() {
         {visibleMetrics.map((metric) => (
           <MetricCard
             key={metric.thresholdKey}
+            metricKey={metric.thresholdKey}
             labelAr={metric.labelAr}
             value={metric.value}
             format={metric.format}
