@@ -1,21 +1,28 @@
 import { MetricCard } from '@/app/[locale]/(public)/pulse/_components/metric-card'
 import { formatTimeAr } from '@/lib/pulse/format-helpers'
-import { buildVisibleMetrics } from '@/lib/pulse/metrics-config'
+import { METRICS_CONFIG } from '@/lib/pulse/metrics-config'
 import {
-  fetchPlatformMetricsSnapshot,
-  fetchPulseMetricThresholds,
+  fetchPlatformMetrics,
+  fetchThresholds,
 } from '@/lib/pulse/queries'
 
 /** Section 6.6 — threshold-gated live statistics hub. */
 export async function LiveStatisticsHub() {
   const [snapshot, thresholds] = await Promise.all([
-    fetchPlatformMetricsSnapshot(),
-    fetchPulseMetricThresholds(),
+    fetchPlatformMetrics(),
+    fetchThresholds(),
   ])
 
   if (!snapshot) return null
 
-  const visibleMetrics = buildVisibleMetrics(snapshot, thresholds)
+  const thresholdByKey = new Map(thresholds.map((item) => [item.metric_key, item]))
+  const visibleMetrics = METRICS_CONFIG.filter(
+    (config) => thresholdByKey.get(config.thresholdKey)?.is_displayed === true,
+  ).map((config) => ({
+    ...config,
+    value: Number(snapshot[config.snapshotField] ?? 0),
+  }))
+
   if (visibleMetrics.length === 0) return null
 
   const refreshedLabel = formatTimeAr(snapshot.refreshed_at)

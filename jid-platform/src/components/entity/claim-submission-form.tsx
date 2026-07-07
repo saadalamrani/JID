@@ -8,6 +8,7 @@ import { toast } from 'sonner'
 import { FormField } from '@/components/auth/form-field'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { track } from '@/lib/analytics/track'
 import { submitClaimRequest } from '@/lib/entity/claims'
 import type { EntitySignupType } from '@/lib/entity/constants'
 import { createClient } from '@/lib/supabase/client'
@@ -59,6 +60,9 @@ export function ClaimSubmissionForm({
         claimType,
         locale,
       })
+      if (claimType === 'university') {
+        track('university_claim_submitted', { company_id: companyId })
+      }
       toast.success(t('submitted'))
       onSuccess()
     } catch (error) {

@@ -60,11 +60,21 @@ export const RADAR_ANALYTICS_EVENTS = [
   'mode_switched',
 ] as const
 
+/** University pillar MVP analytics events (Section 10). */
+export const UNIVERSITY_ANALYTICS_EVENTS = [
+  'student_university_selected',
+  'university_dashboard_viewed',
+  'university_signup_initiated',
+  'university_claim_submitted',
+  'university_dashboard_pdf_exported',
+] as const
+
 export const ANALYTICS_EVENTS = [
   ...JOB_ANALYTICS_EVENTS,
   ...MENTORSHIP_ANALYTICS_EVENTS,
   ...CV_ANALYTICS_EVENTS,
   ...RADAR_ANALYTICS_EVENTS,
+  ...UNIVERSITY_ANALYTICS_EVENTS,
   ...STAFF_ANALYTICS_EVENTS,
   ...SYS_ANALYTICS_EVENTS,
 ] as const

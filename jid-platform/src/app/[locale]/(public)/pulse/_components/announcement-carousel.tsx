@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Pause, Play } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { CategoryPill } from '@/app/[locale]/(public)/pulse/_components/category-pill'
+import { Link } from '@/lib/i18n/navigation'
 import type { PulseAnnouncement } from '@/lib/pulse/queries'
 import { cn } from '@/lib/utils'
 
@@ -64,7 +65,7 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
     }
   }, [activeIndex, count])
 
-  if (!current) return null
+  if (!current) return <AnnouncementEmptyState />
 
   const liveAnnouncement = `إعلان ${activeIndex + 1} من ${count}: ${current.title_ar}`
   const pauseLabel = isPaused ? 'استئناف التقليب التلقائي' : 'إيقاف التقليب التلقائي'
@@ -98,6 +99,9 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
           <motion.article
             key={current.id}
             className="absolute inset-0 flex flex-col justify-end"
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${activeIndex + 1} من ${count}`}
             {...motionProps}
             transition={transition}
           >
@@ -179,5 +183,26 @@ function AnnouncementSlide({ announcement, showControlsPadding }: AnnouncementSl
         ) : null}
       </div>
     </div>
+  )
+}
+
+export function AnnouncementEmptyState() {
+  return (
+    <section
+      role="status"
+      aria-live="polite"
+      className="flex min-h-[280px] items-center justify-center rounded-xl border border-jid-line bg-white p-8 text-center"
+    >
+      <div className="max-w-md space-y-3">
+        <h3 className="text-lg font-semibold text-jid-ink">لا توجد إعلانات حالياً</h3>
+        <p className="text-sm text-jid-ink/70">سيتم عرض أحدث إعلانات المنصة هنا بمجرد نشرها.</p>
+        <Link
+          href="/"
+          className="inline-flex items-center justify-center rounded-lg bg-jid-olive px-4 py-2 text-sm font-medium text-white hover:bg-jid-olive/90"
+        >
+          العودة للرئيسية
+        </Link>
+      </div>
+    </section>
   )
 }

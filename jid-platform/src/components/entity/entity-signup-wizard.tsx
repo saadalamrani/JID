@@ -12,6 +12,7 @@ import {
 import { StepVerifyEmail } from '@/components/entity/step-verify-email'
 import { WizardShell } from '@/components/entity/wizard-shell'
 import { siteConfig } from '@/config/site'
+import { track } from '@/lib/analytics/track'
 import type { EntitySignupType, EntityWizardStep } from '@/lib/entity/constants'
 import { getLatestClaimForUser } from '@/lib/entity/claims'
 import {
@@ -65,6 +66,12 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
     },
     [persist, state],
   )
+
+  useEffect(() => {
+    if (entityType === 'university') {
+      track('university_signup_initiated')
+    }
+  }, [entityType])
 
   useEffect(() => {
     async function hydrate() {

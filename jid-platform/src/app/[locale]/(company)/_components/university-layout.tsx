@@ -7,7 +7,7 @@ type UniversityLayoutProps = {
 }
 
 const UNIVERSITY_NAV = [
-  { href: '/dashboard', label: 'لوحة الإحصاءات', icon: BarChart3 },
+  { href: '/company/dashboard', label: 'لوحة الإحصاءات', icon: BarChart3 },
   { href: '/company/profile', label: 'ملف الجامعة', icon: Building2 },
 ] as const
 

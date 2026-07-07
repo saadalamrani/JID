@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Combobox } from '@/components/ui/combobox'
+import { track } from '@/lib/analytics/track'
 import { useCollegesCatalog } from '@/lib/queries/colleges'
 import { useMajorsCatalog } from '@/lib/queries/majors'
 import { useUniversitiesCatalog } from '@/lib/queries/universities'
@@ -71,7 +72,12 @@ export function AcademicInfoStep() {
         <Combobox
           options={universities}
           value={form.watch('academic.university_id') || null}
-          onValueChange={(value) => form.setValue('academic.university_id', value, { shouldDirty: true })}
+          onValueChange={(value) => {
+            form.setValue('academic.university_id', value, { shouldDirty: true })
+            if (value) {
+              track('student_university_selected', { university_id: value, source: 'onboarding_academic' })
+            }
+          }}
           placeholder={universitiesQuery.isLoading ? 'جاري التحميل...' : 'اختر الجامعة'}
           searchPlaceholder="ابحث باسم الجامعة"
           emptyText="لا توجد نتائج"

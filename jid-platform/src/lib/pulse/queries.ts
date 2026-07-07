@@ -99,6 +99,11 @@ export async function fetchPlatformMetricsSnapshot(): Promise<PlatformMetricsSna
   }
 }
 
+/** Section 6.2 data layer alias — canonical name used by Pulse page. */
+export async function fetchPlatformMetrics(): Promise<PlatformMetricsSnapshot | null> {
+  return fetchPlatformMetricsSnapshot()
+}
+
 export async function fetchPulseMetricThresholds(): Promise<PulseMetricThreshold[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
@@ -116,6 +121,11 @@ export async function fetchPulseMetricThresholds(): Promise<PulseMetricThreshold
     current_value: Number(row.current_value),
     is_displayed: row.is_met,
   }))
+}
+
+/** Section 6.2 data layer alias — canonical name used by Pulse page. */
+export async function fetchThresholds(): Promise<PulseMetricThreshold[]> {
+  return fetchPulseMetricThresholds()
 }
 
 export async function fetchSectorDemand(): Promise<SectorDemandRow[]> {

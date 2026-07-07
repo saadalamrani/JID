@@ -29,7 +29,7 @@ export function MetricCard({ labelAr, value, format }: MetricCardProps) {
   useEffect(() => {
     if (!isInView) return
     const controls = animate(motionValue, value, {
-      duration: 1.15,
+      duration: 1.8,
       ease: [0.22, 1, 0.36, 1],
     })
     return () => controls.stop()
