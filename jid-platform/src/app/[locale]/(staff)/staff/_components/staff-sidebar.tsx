@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Clock } from 'lucide-react'
+import { Logo } from '@/components/brand/logo'
 import { Link, usePathname } from '@/lib/i18n/navigation'
 import {
   STAFF_NAV_SECTIONS,
@@ -89,8 +90,9 @@ export function StaffSidebar({ sessionIssuedAt }: StaffSidebarProps) {
   return (
     <aside className="flex w-60 shrink-0 flex-col border-e border-jid-line bg-white">
       <div className="border-b border-jid-line px-5 py-4">
-        <Link href="/staff" className="text-lg font-semibold text-jid-olive">
-          جِد — Staff
+        <Link href="/staff" className="flex items-center gap-2">
+          <Logo size="sm" />
+          <span className="text-lg font-semibold text-jid-olive">— Staff</span>
         </Link>
         <p className="mt-1 text-xs text-jid-ink/50">{t('portalLabel')}</p>
       </div>

@@ -3,9 +3,9 @@ import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { OnboardingProgress } from '@/app/[locale]/(onboarding)/_components/onboarding-progress'
 import { SkipForNow } from '@/app/[locale]/(onboarding)/_components/skip-for-now'
+import { Logo } from '@/components/brand/logo'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { createClient } from '@/lib/supabase/server'
-import { siteConfig } from '@/config/site'
 
 type OnboardingLayoutProps = {
   children: ReactNode
@@ -32,8 +32,8 @@ export default async function OnboardingLayout({ children, params }: OnboardingL
       <header className="border-b border-jid-line/70 bg-white/95 backdrop-blur-sm">
         <div className="container-jid flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="font-arabic text-lg font-semibold text-jid-olive">{siteConfig.name}</p>
-            <p className="text-sm text-jid-ink/60">{t('subtitle')}</p>
+            <Logo size="md" />
+            <p className="mt-2 text-sm text-jid-ink/60">{t('subtitle')}</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
             <OnboardingProgress />

@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from 'tailwindcss-animate'
 import typographyPlugin from '@tailwindcss/typography'
 import { colors, motion, radii, shadows, spacing, typography } from './src/config/design-tokens'
+import { semanticThemePlugin } from './src/config/semantic-theme-plugin'
 
 const fontSize2xl = typography.fontSize['2xl']
 const fontSize3xl = typography.fontSize['3xl']
@@ -64,11 +65,25 @@ const config: Config = {
         'jid-beige': colors.beige,
         'jid-ink': colors.ink,
         'jid-line': colors.line,
+        /** Foundation Day semantic layer — auto-themed via --color-* CSS variables */
+        sem: {
+          background: 'var(--color-background)',
+          surface: 'var(--color-surface)',
+          card: 'var(--color-card)',
+          border: 'var(--color-border)',
+          'text-primary': 'var(--color-text-primary)',
+          'text-secondary': 'var(--color-text-secondary)',
+          gold: 'var(--color-gold)',
+          olive: 'var(--color-olive)',
+          danger: 'var(--color-danger)',
+          warning: 'var(--color-warning)',
+        },
       },
       spacing,
       fontFamily: {
         arabic: ['var(--font-arabic)', ...typography.fontFamily.arabic.slice(1)],
         latin: ['var(--font-latin)', ...typography.fontFamily.latin.slice(1)],
+        display: ['var(--font-latin)', ...typography.fontFamily.latin.slice(1)],
         mono: ['var(--font-mono)', ...typography.fontFamily.mono.slice(1)],
       },
       fontSize: {
@@ -170,7 +185,7 @@ const config: Config = {
       }),
     },
   },
-  plugins: [tailwindcssAnimate, typographyPlugin],
+  plugins: [semanticThemePlugin, tailwindcssAnimate, typographyPlugin],
 }
 
 export default config

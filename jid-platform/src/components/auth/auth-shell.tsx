@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { siteConfig } from '@/config/site'
+import { Logo } from '@/components/brand/logo'
 
 type AuthShellProps = {
   title: string
@@ -13,8 +13,10 @@ export function AuthShell({ title, subtitle, children, footer }: AuthShellProps)
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <p className="text-2xl font-semibold text-jid-olive">{siteConfig.name}</p>
-          <h1 className="mt-4 text-xl font-semibold text-jid-ink">{title}</h1>
+          <div className="flex justify-center">
+            <Logo size="lg" />
+          </div>
+          <h1 className="mt-6 text-xl font-semibold text-jid-ink">{title}</h1>
           {subtitle ? <p className="mt-2 text-sm text-jid-ink/70">{subtitle}</p> : null}
         </div>
 

@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server'
-import { LogoMark } from '@/components/ui/logo-mark'
+import { Logo } from '@/components/brand/logo'
 import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { getPortalHomeForRole } from '@/lib/auth/portal-routes'
@@ -58,7 +58,7 @@ export async function PublicNav() {
             className="shrink-0"
             aria-label={t('homeAria', { name: 'JID' })}
           >
-            <LogoMark />
+            <Logo size="md" />
           </Link>
 
           <nav

@@ -6,6 +6,7 @@
 export const colors = {
   olive: {
     DEFAULT: '#2F3A2E',
+    light: '#A8B39A',
     50: '#F4F5F3',
     100: '#E8EBE6',
     200: '#D1D7CD',
@@ -46,6 +47,7 @@ export const colors = {
   },
   ink: {
     DEFAULT: '#1A1F18',
+    soft: '#6B7568',
     50: '#F5F6F5',
     100: '#E8EAE7',
     200: '#C9CEC8',
@@ -70,6 +72,23 @@ export const colors = {
     800: '#2A2F27',
     900: '#151813',
   },
+} as const
+
+/**
+ * Semantic color tokens — theme-aware roles layered on the raw jid-* palette.
+ * Consumed by semantic-theme-plugin.ts → CSS custom properties (--color-*).
+ */
+export const semanticColors = {
+  background: { light: colors.beige.DEFAULT, dark: colors.olive[900] },
+  surface: { light: colors.beige.warm, dark: colors.olive[800] },
+  card: { light: '#FFFFFF', dark: colors.olive.light },
+  border: { light: colors.line.DEFAULT, dark: 'rgba(247,245,239,0.12)' },
+  textPrimary: { light: '#111111', dark: colors.beige.DEFAULT },
+  textSecondary: { light: colors.ink.soft, dark: 'rgba(247,245,239,0.65)' },
+  gold: colors.gold.DEFAULT,
+  olive: colors.olive.DEFAULT,
+  danger: { light: '#DC2626', dark: '#F87171' },
+  warning: { light: '#D97706', dark: '#FBBF24' },
 } as const
 
 export const spacing = {
@@ -208,6 +227,7 @@ export const shadows = {
 
 export const designTokens = {
   colors,
+  semanticColors,
   spacing,
   typography,
   motion,

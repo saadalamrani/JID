@@ -1,10 +1,12 @@
 import { getTranslations } from 'next-intl/server'
+import { Logo } from '@/components/brand/logo'
 import { siteConfig } from '@/config/site'
 import { Link } from '@/lib/i18n/navigation'
 
 /** Section 4.3 — three-column public footer (platform, legal, support). */
 export async function PublicFooter() {
   const t = await getTranslations('publicShell.footer')
+  const tNav = await getTranslations('publicShell.nav')
   const year = new Date().getFullYear()
 
   const groups = [
@@ -37,6 +39,11 @@ export async function PublicFooter() {
   return (
     <footer className="border-t border-jid-line bg-jid-beige dark:border-jid-gold/20 dark:bg-jid-olive">
       <div className="container-jid py-10">
+        <div className="mb-8">
+          <Link href="/" aria-label={tNav('homeAria', { name: siteConfig.nameEn })}>
+            <Logo size="sm" />
+          </Link>
+        </div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {groups.map((group) => (
             <div key={group.title}>

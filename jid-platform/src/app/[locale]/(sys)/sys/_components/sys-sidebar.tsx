@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Logo } from '@/components/brand/logo'
 import { Link, usePathname } from '@/lib/i18n/navigation'
 import { SYS_NAV_SECTIONS } from '@/lib/sys/nav'
 import { cn } from '@/lib/utils'
@@ -13,8 +14,9 @@ export function SysSidebar() {
   return (
     <aside className="flex w-60 shrink-0 flex-col border-e border-jid-line bg-white">
       <div className="border-b border-jid-line px-5 py-4">
-        <Link href="/sys/dashboard" className="text-lg font-semibold text-jid-olive">
-          جِد — Sys
+        <Link href="/sys/dashboard" className="flex items-center gap-2">
+          <Logo size="sm" />
+          <span className="text-lg font-semibold text-jid-olive">— Sys</span>
         </Link>
         <p className="mt-1 text-xs text-jid-ink/50">{t('portalLabel')}</p>
       </div>

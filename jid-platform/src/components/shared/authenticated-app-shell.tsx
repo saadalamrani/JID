@@ -6,8 +6,8 @@ import { EncryptionKeyBootstrap } from '@/components/shared/encryption-key-boots
 import { ProfileModeTransition } from '@/components/shared/profile-mode-transition'
 import { ProfileSwitcher } from '@/components/shared/profile-switcher'
 import { NotificationsBell } from '@/components/notifications/notifications-bell'
+import { Logo } from '@/components/brand/logo'
 import { Link } from '@/lib/i18n/navigation'
-import { siteConfig } from '@/config/site'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
 
 type AuthenticatedAppShellProps = {
@@ -77,8 +77,8 @@ export function AuthenticatedAppShell({
       {showBar ? (
         <header className="sticky top-0 z-40 border-b border-jid-line bg-white/95 backdrop-blur-sm">
           <div className="container-jid flex h-14 items-center justify-between gap-4">
-            <Link href="/" className="font-arabic text-lg font-semibold text-jid-olive">
-              {siteConfig.name}
+            <Link href="/" aria-label="JID home">
+              <Logo size="sm" />
             </Link>
             <div className="flex items-center gap-3">
               <NotificationsBell userId={userId} />
