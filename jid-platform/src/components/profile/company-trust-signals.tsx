@@ -29,20 +29,20 @@ export function CompanyTrustSignals({
   return (
     <section className="space-y-4" aria-label={t('trustSignalsLabel')}>
       {showCommitmentScore ? (
-        <div className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
+        <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
           <div className="flex items-center justify-between gap-2">
-            <h2 className="text-sm font-medium text-jid-ink/70">{t('commitmentScoreTitle')}</h2>
-            <span className="text-sm font-medium text-jid-olive">
+            <h2 className="text-sm font-medium text-muted-foreground">{t('commitmentScoreTitle')}</h2>
+            <span className="text-sm font-medium text-primary">
               {Math.round(commitmentScore)}%
             </span>
           </div>
-          <p className="mt-1 text-xs text-jid-ink/50">{t('commitmentScoreHint')}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{t('commitmentScoreHint')}</p>
           <ProfileCompletionBar percent={commitmentScore} showLabel={false} className="mt-3" />
         </div>
       ) : null}
 
-      <div className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-        <h2 className="mb-2 text-sm font-medium text-jid-ink/70">{t('badgesTitle')}</h2>
+      <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+        <h2 className="mb-2 text-sm font-medium text-muted-foreground">{t('badgesTitle')}</h2>
         {badges.length > 0 || isOnHonorRoll ? (
           <div className="flex flex-wrap gap-2">
             {isOnHonorRoll ? (
@@ -62,7 +62,7 @@ export function CompanyTrustSignals({
             ))}
           </div>
         ) : (
-          <p className="text-sm text-jid-ink/50">{t('badgesEmpty')}</p>
+          <p className="text-sm text-muted-foreground">{t('badgesEmpty')}</p>
         )}
       </div>
     </section>

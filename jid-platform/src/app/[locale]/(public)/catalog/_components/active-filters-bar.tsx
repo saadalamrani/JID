@@ -70,15 +70,15 @@ export function ActiveFiltersBar() {
         <span
           key={pill.key}
           className={cn(
-            'inline-flex items-center gap-1 rounded-full border border-jid-line bg-white px-2.5 py-1',
-            'font-arabic text-xs text-jid-ink',
+            'inline-flex items-center gap-1 rounded-full border border-border bg-card px-2.5 py-1',
+            'font-arabic text-xs text-foreground',
           )}
         >
           {pill.label}
           <button
             type="button"
             onClick={pill.onRemove}
-            className="rounded-full p-0.5 text-jid-ink/50 hover:bg-jid-beige hover:text-jid-ink"
+            className="rounded-full p-0.5 text-muted-foreground hover:bg-background hover:text-foreground"
             aria-label={`إزالة ${pill.label}`}
           >
             <X className="h-3 w-3" />
@@ -90,7 +90,7 @@ export function ActiveFiltersBar() {
         variant="ghost"
         size="sm"
         onClick={clearAll}
-        className="h-7 font-arabic text-xs text-jid-olive hover:bg-jid-beige hover:text-jid-olive"
+        className="h-7 font-arabic text-xs text-primary hover:bg-background hover:text-primary"
       >
         مسح الكل
       </Button>

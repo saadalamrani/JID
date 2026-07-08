@@ -40,14 +40,14 @@ export function BulletEditor({
   const displayBullets = bullets.length > 0 ? bullets : ['']
 
   return (
-    <fieldset className="space-y-3 rounded-md border border-jid-line/70 p-3">
-      <legend className="px-1 text-xs font-medium text-jid-ink/70">{t('achievementsTitle')}</legend>
-      <p className="text-xs text-jid-ink/55">{t('achievementsHint')}</p>
+    <fieldset className="space-y-3 rounded-md border border-border p-3">
+      <legend className="px-1 text-xs font-medium text-muted-foreground">{t('achievementsTitle')}</legend>
+      <p className="text-xs text-foreground/55">{t('achievementsHint')}</p>
 
       <div className="space-y-2">
         {displayBullets.map((bullet, index) => (
           <div key={`bullet-${index}`} className="flex items-start gap-2">
-            <span className="mt-2.5 text-sm text-jid-ink/40" aria-hidden>
+            <span className="mt-2.5 text-sm text-foreground/40" aria-hidden>
               •
             </span>
             <Input
@@ -61,7 +61,7 @@ export function BulletEditor({
               type="button"
               variant="ghost"
               size="icon"
-              className="shrink-0 text-jid-ink/50 hover:text-destructive"
+              className="shrink-0 text-muted-foreground hover:text-destructive"
               onClick={() => removeBullet(index)}
               disabled={displayBullets.length === 1 && !bullet.trim()}
               aria-label={t('removeBullet', { index: index + 1 })}

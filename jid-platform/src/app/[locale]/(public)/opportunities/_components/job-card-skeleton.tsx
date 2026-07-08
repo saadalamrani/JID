@@ -8,7 +8,7 @@ function ShimmerBlock({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'animate-shimmer rounded-md bg-gradient-to-r from-jid-olive/5 via-jid-olive/10 to-jid-olive/5 bg-[length:200%_100%]',
+        'animate-shimmer rounded-md bg-gradient-to-r from-primary/5 via-jid-olive/10 to-primary/5 bg-[length:200%_100%]',
         className,
       )}
     />
@@ -19,7 +19,7 @@ export function JobCardSkeleton({ className }: JobCardSkeletonProps) {
   return (
     <article
       className={cn(
-        'flex min-h-[300px] flex-col rounded-xl border border-jid-line/40 bg-white p-4 shadow-sm',
+        'flex min-h-[300px] flex-col rounded-xl border border-border/40 bg-card p-4 shadow-sm',
         className,
       )}
       aria-hidden

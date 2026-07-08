@@ -13,7 +13,7 @@ import {
   resolveIndividualResumePath,
   resolveIndividualResumeStep,
 } from '../src/lib/onboarding/resume'
-import { arabicNameSchema, saudiPhoneSchema } from '../src/lib/validations/onboarding'
+import { saudiPhoneSchema } from '../src/lib/validations/onboarding'
 
 const ROOT = process.cwd()
 
@@ -51,7 +51,7 @@ const checks: Array<[string, boolean]> = [
   ['step-one-form exists', existsSync(join(ROOT, 'src/app/[locale]/(onboarding)/individual/_components/step-one-form.tsx'))],
   ['step-two-form uses universities_catalog', read('src/app/[locale]/(onboarding)/individual/_components/step-two-form.tsx').includes('useUniversitiesCatalog')],
   ['step-three-form uses SectorFilter', read('src/app/[locale]/(onboarding)/individual/_components/step-three-form.tsx').includes('SectorFilter')],
-  ['arabicNameSchema exported', validationsSource.includes('export const arabicNameSchema')],
+  ['bilingualNameSchema used in onboarding', validationsSource.includes('bilingualNameSchema')],
   ['saudiPhoneSchema exported', validationsSource.includes('export const saudiPhoneSchema')],
   ['saveStepOne action', actionsSource.includes('export async function saveStepOne')],
   ['saveStepTwo action', actionsSource.includes('export async function saveStepTwo')],

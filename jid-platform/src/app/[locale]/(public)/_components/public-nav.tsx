@@ -50,7 +50,7 @@ export async function PublicNav() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-jid-line bg-jid-beige/95 backdrop-blur-sm dark:border-jid-gold/20 dark:bg-jid-olive/95">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-sm">
       <div className="container-jid flex h-16 items-center justify-between gap-4">
         <div className="flex min-w-0 items-center gap-6">
           <Link
@@ -70,8 +70,8 @@ export async function PublicNav() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'rounded-md px-3 py-2 text-sm font-medium text-jid-ink/80 transition-colors dark:text-jid-beige/80',
-                  'hover:bg-jid-beige hover:text-jid-olive dark:hover:bg-jid-olive dark:hover:text-jid-gold',
+                  'rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors',
+                  'hover:bg-surface hover:text-primary',
                 )}
               >
                 {t(item.labelKey)}
@@ -81,18 +81,18 @@ export async function PublicNav() {
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
-          <div className="inline-flex items-center rounded-lg border border-jid-line/70 bg-jid-beige p-1 dark:border-jid-gold/20 dark:bg-jid-olive">
+          <div className="inline-flex items-center rounded-lg border border-border bg-background p-1">
             <Link
               href="/"
               locale="ar"
-              className="rounded-md px-2 py-1 text-xs font-medium text-jid-ink transition-colors hover:text-jid-olive dark:text-jid-beige dark:hover:text-jid-gold"
+              className="rounded-md px-2 py-1 text-xs font-medium text-foreground transition-colors hover:text-primary"
             >
               AR
             </Link>
             <Link
               href="/"
               locale="en"
-              className="rounded-md px-2 py-1 text-xs font-medium text-jid-ink transition-colors hover:text-jid-olive dark:text-jid-beige dark:hover:text-jid-gold"
+              className="rounded-md px-2 py-1 text-xs font-medium text-foreground transition-colors hover:text-primary"
             >
               EN
             </Link>
@@ -101,18 +101,18 @@ export async function PublicNav() {
           {user ? (
             <Button
               asChild
-              className="bg-jid-olive text-white hover:bg-jid-olive/90"
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
             >
               <Link href={dashboardHref}>{t('dashboard')}</Link>
             </Button>
           ) : (
             <>
-              <Button asChild variant="ghost" className="text-jid-ink">
+              <Button asChild variant="ghost" className="text-foreground">
                 <Link href="/login">{t('login')}</Link>
               </Button>
               <Button
                 asChild
-                className="bg-jid-gold text-jid-ink hover:bg-jid-gold/90"
+                className="bg-accent text-primary-foreground hover:bg-accent/90"
               >
                 <Link href="/signup">{t('signup')}</Link>
               </Button>

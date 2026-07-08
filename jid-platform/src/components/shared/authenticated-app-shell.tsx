@@ -75,7 +75,7 @@ export function AuthenticatedAppShell({
     <>
       <EncryptionKeyBootstrap userId={isAuthenticated ? userId : null} />
       {showBar ? (
-        <header className="sticky top-0 z-40 border-b border-jid-line bg-white/95 backdrop-blur-sm">
+        <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-sm">
           <div className="container-jid flex h-14 items-center justify-between gap-4">
             <Link href="/" aria-label="JID home">
               <Logo size="sm" />

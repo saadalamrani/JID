@@ -63,13 +63,13 @@ export function MfaSetup({ onEnrolled }: MfaSetupProps) {
   }
 
   if (loading) {
-    return <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+    return <p className="text-center text-sm text-muted-foreground">{t('loading')}</p>
   }
 
   if (!enrollment) {
     return (
       <div className="space-y-4 text-center">
-        <p className="text-sm text-jid-ink/70">{t('errors.enrollFailed')}</p>
+        <p className="text-sm text-muted-foreground">{t('errors.enrollFailed')}</p>
         <Button type="button" variant="outline" onClick={startEnrollment}>
           {t('retry')}
         </Button>
@@ -79,9 +79,9 @@ export function MfaSetup({ onEnrolled }: MfaSetupProps) {
 
   return (
     <div className="space-y-6">
-      <p className="text-sm text-jid-ink/80">{t('instructions')}</p>
+      <p className="text-sm text-muted-foreground">{t('instructions')}</p>
 
-      <div className="flex justify-center rounded-lg border border-jid-line bg-white p-4">
+      <div className="flex justify-center rounded-lg border border-border bg-card p-4">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={enrollment.totp.qr_code}
@@ -92,19 +92,19 @@ export function MfaSetup({ onEnrolled }: MfaSetupProps) {
         />
       </div>
 
-      <div className="rounded-md bg-jid-beige p-3 text-center" dir="ltr">
-        <p className="text-xs text-jid-ink/60">{t('manualSecret')}</p>
-        <p className="mt-1 font-mono text-sm tabular-nums text-jid-ink">{enrollment.totp.secret}</p>
+      <div className="rounded-md bg-background p-3 text-center" dir="ltr">
+        <p className="text-xs text-muted-foreground">{t('manualSecret')}</p>
+        <p className="mt-1 font-mono text-sm tabular-nums text-foreground">{enrollment.totp.secret}</p>
       </div>
 
       <div className="space-y-3">
-        <p className="text-center text-sm text-jid-ink/70">{t('confirmPrompt')}</p>
+        <p className="text-center text-sm text-muted-foreground">{t('confirmPrompt')}</p>
         <OtpInput value={code} onChange={setCode} disabled={verifying} autoFocus />
       </div>
 
       <Button
         type="button"
-        className="w-full bg-jid-olive hover:bg-jid-olive/90"
+        className="w-full bg-primary hover:bg-primary/90"
         disabled={verifying || code.length !== 6}
         onClick={handleConfirm}
       >

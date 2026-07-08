@@ -47,7 +47,7 @@ export function ProfileAvatar({
     <div className={cn('relative shrink-0', sizeClasses[size], className)}>
       <div
         className={cn(
-          'flex h-full w-full items-center justify-center overflow-hidden border-2 border-jid-line bg-jid-beige font-semibold text-jid-olive',
+          'flex h-full w-full items-center justify-center overflow-hidden border-2 border-border bg-background font-semibold text-primary',
           rounded,
         )}
       >
@@ -67,12 +67,12 @@ export function ProfileAvatar({
       {isVerified ? (
         <span
           className={cn(
-            'absolute -bottom-0.5 -end-0.5 flex items-center justify-center rounded-full bg-white p-0.5 shadow-sm ring-1 ring-jid-line',
+            'absolute -bottom-0.5 -end-0.5 flex items-center justify-center rounded-full bg-card p-0.5 shadow-sm ring-1 ring-jid-line',
             badgeSizeClasses[size],
           )}
           title="Verified"
         >
-          <BadgeCheck className="h-full w-full text-jid-gold" aria-hidden />
+          <BadgeCheck className="h-full w-full text-accent" aria-hidden />
           <span className="sr-only">Verified</span>
         </span>
       ) : null}

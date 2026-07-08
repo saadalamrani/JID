@@ -33,16 +33,16 @@ export function Step3MentorBio({ draft, errors, onChange }: Step3MentorBioProps)
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="font-arabic text-lg font-semibold text-jid-ink">{t('title')}</h2>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h2 className="font-arabic text-lg font-semibold text-foreground">{t('title')}</h2>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <div className="space-y-2">
         <div className="flex items-center justify-between gap-2">
-          <Label htmlFor="bio_long" className="font-arabic text-jid-ink">
+          <Label htmlFor="bio_long" className="font-arabic text-foreground">
             {t('bioLabel')}
           </Label>
-          <span className="font-arabic text-xs text-jid-ink/50">
+          <span className="font-arabic text-xs text-muted-foreground">
             {t('bioCount', { count: draft.bio_long.length })}
           </span>
         </div>
@@ -53,7 +53,7 @@ export function Step3MentorBio({ draft, errors, onChange }: Step3MentorBioProps)
           rows={6}
           onChange={(event) => onChange({ bio_long: event.target.value })}
           placeholder={t('bioPlaceholder')}
-          className="w-full rounded-md border border-jid-line bg-white px-3 py-2 font-arabic text-sm text-jid-ink outline-none ring-jid-olive/30 focus:ring-2"
+          className="w-full rounded-md border border-border bg-card px-3 py-2 font-arabic text-sm text-foreground outline-none ring-jid-olive/30 focus:ring-2"
         />
         {errors.bio_long ? (
           <p className="font-arabic text-xs text-red-600" role="alert">

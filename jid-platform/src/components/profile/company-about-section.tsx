@@ -42,32 +42,32 @@ export function CompanyAboutSection({ company }: CompanyAboutSectionProps) {
   const offices = formatOfficeLocations(company.office_locations)
 
   return (
-    <section className="space-y-4 rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-      <h2 className="text-sm font-medium text-jid-ink/70">{t('aboutTitle')}</h2>
+    <section className="space-y-4 rounded-xl border border-border bg-card p-5 shadow-sm">
+      <h2 className="text-sm font-medium text-muted-foreground">{t('aboutTitle')}</h2>
 
-      {tagline ? <p className="text-sm font-medium text-jid-olive">{tagline}</p> : null}
+      {tagline ? <p className="text-sm font-medium text-primary">{tagline}</p> : null}
 
       {about ? (
-        <p className="whitespace-pre-wrap text-sm leading-relaxed text-jid-ink/80">{about}</p>
+        <p className="whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground">{about}</p>
       ) : (
-        <p className="text-sm text-jid-ink/50">{t('aboutEmpty')}</p>
+        <p className="text-sm text-muted-foreground">{t('aboutEmpty')}</p>
       )}
 
       <dl className="grid gap-3 sm:grid-cols-2">
         {company.founded_year ? (
-          <div className="flex items-start gap-2 text-sm text-jid-ink/80">
-            <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-jid-olive" aria-hidden />
+          <div className="flex items-start gap-2 text-sm text-muted-foreground">
+            <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
             <div>
-              <dt className="text-jid-ink/50">{t('foundedYearLabel')}</dt>
+              <dt className="text-muted-foreground">{t('foundedYearLabel')}</dt>
               <dd>{company.founded_year}</dd>
             </div>
           </div>
         ) : null}
         {company.employee_count_range ? (
-          <div className="flex items-start gap-2 text-sm text-jid-ink/80">
-            <Users className="mt-0.5 h-4 w-4 shrink-0 text-jid-olive" aria-hidden />
+          <div className="flex items-start gap-2 text-sm text-muted-foreground">
+            <Users className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
             <div>
-              <dt className="text-jid-ink/50">{t('employeeCountLabel')}</dt>
+              <dt className="text-muted-foreground">{t('employeeCountLabel')}</dt>
               <dd>{company.employee_count_range}</dd>
             </div>
           </div>
@@ -76,7 +76,7 @@ export function CompanyAboutSection({ company }: CompanyAboutSectionProps) {
 
       {offices.length > 0 ? (
         <div>
-          <h3 className="mb-2 flex items-center gap-1.5 text-xs font-medium text-jid-ink/50">
+          <h3 className="mb-2 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
             <MapPin className="h-3.5 w-3.5" aria-hidden />
             {t('officeLocationsLabel')}
           </h3>
@@ -84,7 +84,7 @@ export function CompanyAboutSection({ company }: CompanyAboutSectionProps) {
             {offices.map((office) => (
               <li
                 key={office}
-                className="rounded-md border border-jid-line px-2.5 py-1 text-xs text-jid-ink/80"
+                className="rounded-md border border-border px-2.5 py-1 text-xs text-muted-foreground"
               >
                 {office}
               </li>

@@ -69,12 +69,12 @@ const PRIORITY_STYLES: Record<
   { container: string; icon: string }
 > = {
   low: {
-    container: 'bg-jid-beige/60',
-    icon: 'text-jid-ink/45',
+    container: 'bg-muted',
+    icon: 'text-muted-foreground',
   },
   normal: {
-    container: 'bg-jid-olive/10',
-    icon: 'text-jid-olive',
+    container: 'bg-primary/10',
+    icon: 'text-primary',
   },
   high: {
     container: 'bg-amber-100',

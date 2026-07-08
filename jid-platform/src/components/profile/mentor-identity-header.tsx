@@ -40,7 +40,7 @@ export function MentorIdentityHeader({
   return (
     <header
       className={cn(
-        'flex flex-col gap-4 rounded-xl border border-jid-line bg-white p-5 shadow-sm sm:flex-row sm:items-start sm:justify-between',
+        'flex flex-col gap-4 rounded-xl border border-border bg-card p-5 shadow-sm sm:flex-row sm:items-start sm:justify-between',
         className,
       )}
     >
@@ -54,19 +54,19 @@ export function MentorIdentityHeader({
         />
         <div className="min-w-0 flex-1 space-y-2">
           <div>
-            <h1 className="inline-flex items-center gap-2 text-xl font-semibold text-jid-ink">
-              <UserRound className="h-5 w-5 text-jid-olive" aria-hidden />
+            <h1 className="inline-flex items-center gap-2 text-xl font-semibold text-foreground">
+              <UserRound className="h-5 w-5 text-primary" aria-hidden />
               {fullName}
             </h1>
             {headline ? (
-              <p className="mt-1 text-sm font-medium text-jid-olive/90">{headline}</p>
+              <p className="mt-1 text-sm font-medium text-primary/90">{headline}</p>
             ) : null}
             {snippet ? (
-              <p className="mt-2 line-clamp-2 text-sm text-jid-ink/70">{snippet}</p>
+              <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{snippet}</p>
             ) : null}
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-jid-ink/60">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
             {avgResponseHours != null ? (
               <span className="inline-flex items-center gap-1">
                 <Clock className="h-3.5 w-3.5 shrink-0" aria-hidden />
@@ -74,7 +74,7 @@ export function MentorIdentityHeader({
               </span>
             ) : null}
             {status ? (
-              <span className="rounded-full bg-jid-olive/10 px-2.5 py-0.5 text-xs font-medium text-jid-olive">
+              <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                 {status}
               </span>
             ) : null}

@@ -11,15 +11,15 @@ export async function NotificationsList({ notifications }: NotificationsListProp
 
   if (notifications.length === 0) {
     return (
-      <div className="rounded-lg border border-jid-line bg-white px-6 py-12 text-center">
-        <p className="text-sm font-medium text-jid-ink">{t('emptyTitle')}</p>
-        <p className="mt-1 text-xs text-jid-ink/55">{t('emptyDescription')}</p>
+      <div className="rounded-lg border border-border bg-card px-6 py-12 text-center">
+        <p className="text-sm font-medium text-foreground">{t('emptyTitle')}</p>
+        <p className="mt-1 text-xs text-foreground/55">{t('emptyDescription')}</p>
       </div>
     )
   }
 
   return (
-    <ul className="divide-y divide-jid-line overflow-hidden rounded-lg border border-jid-line bg-white">
+    <ul className="divide-y divide-jid-line overflow-hidden rounded-lg border border-border bg-card">
       {notifications.map((notification) => (
         <li key={notification.id}>
           <NotificationRow notification={notification} variant="page" />

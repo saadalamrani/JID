@@ -69,7 +69,7 @@ export function SectionSkillsForm({ cv }: SectionSkillsFormProps) {
 
   return (
     <form className="space-y-6" onSubmit={(event) => event.preventDefault()} noValidate>
-      <p className="text-xs text-jid-ink/50" aria-live="polite">
+      <p className="text-xs text-muted-foreground" aria-live="polite">
         {saveLabel}
       </p>
 

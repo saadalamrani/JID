@@ -39,7 +39,7 @@ export function IndividualProfileView({
   const displayName = profile.full_name ?? '—'
 
   return (
-    <main className="container-jid space-y-6 py-8">
+    <main className="container-jid space-y-6 bg-background py-8">
       <IdentityHeader
         isOwner={isOwner}
         isVerified={badges.some((b) => b.slug === 'verified')}

@@ -37,20 +37,20 @@ export function MentorshipTimeline({ userId, meetings, title }: MentorshipTimeli
   const isEmpty = needsFeedback.length === 0 && upcoming.length === 0
 
   return (
-    <section className="rounded-xl border border-jid-line/50 bg-white p-4">
+    <section className="rounded-xl border border-border/50 bg-card p-4">
       <header className="mb-4 flex items-center gap-2">
-        <CalendarClock className="h-5 w-5 text-jid-olive" aria-hidden />
-        <h2 className="font-arabic text-sm font-semibold text-jid-ink">{title}</h2>
+        <CalendarClock className="h-5 w-5 text-primary" aria-hidden />
+        <h2 className="font-arabic text-sm font-semibold text-foreground">{title}</h2>
       </header>
 
       {isEmpty ? (
-        <p className="font-arabic text-sm text-jid-ink/55">{t('empty')}</p>
+        <p className="font-arabic text-sm text-foreground/55">{t('empty')}</p>
       ) : (
         <LayoutGroup id="radar-mentorship-timeline">
           <div className="space-y-6">
             {needsFeedback.length > 0 ? (
               <div>
-                <h3 className="mb-3 font-arabic text-xs font-semibold uppercase tracking-wide text-jid-ink/50">
+                <h3 className="mb-3 font-arabic text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   {t('needsFeedback')}
                 </h3>
                 <ul className="space-y-3">
@@ -65,7 +65,7 @@ export function MentorshipTimeline({ userId, meetings, title }: MentorshipTimeli
 
             {upcoming.length > 0 ? (
               <div>
-                <h3 className="mb-3 font-arabic text-xs font-semibold uppercase tracking-wide text-jid-ink/50">
+                <h3 className="mb-3 font-arabic text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   {t('upcoming')}
                 </h3>
                 <ul className="space-y-3">

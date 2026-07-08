@@ -15,12 +15,12 @@ export function EmptyColumnState({ columnId }: EmptyColumnStateProps) {
   const t = useTranslations('radar.emptyColumn')
 
   return (
-    <div className="flex min-h-[140px] flex-col items-center justify-center rounded-lg border border-dashed border-jid-line/80 bg-jid-beige/20 px-4 py-8 text-center">
-      <p className="font-arabic text-sm text-jid-ink/60">{t(`${columnId}.message`)}</p>
+    <div className="flex min-h-[140px] flex-col items-center justify-center rounded-lg border border-dashed border-border/80 bg-background/20 px-4 py-8 text-center">
+      <p className="font-arabic text-sm text-muted-foreground">{t(`${columnId}.message`)}</p>
       {columnId === 'saved' ? (
         <Link
           href="/opportunities"
-          className="mt-3 font-arabic text-sm font-medium text-jid-olive underline-offset-2 hover:underline"
+          className="mt-3 font-arabic text-sm font-medium text-primary underline-offset-2 hover:underline"
         >
           {t('saved.cta')}
         </Link>

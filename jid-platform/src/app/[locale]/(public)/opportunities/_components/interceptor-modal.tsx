@@ -41,32 +41,32 @@ export function InterceptorModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-md border-jid-line/50 bg-white font-arabic text-jid-ink"
+        className="max-w-md border-border/50 bg-card font-arabic text-foreground"
         dir="rtl"
         onClick={(event) => event.stopPropagation()}
       >
         <DialogHeader className="space-y-3 text-right sm:text-right">
-          <DialogTitle className="font-arabic text-lg font-semibold text-jid-ink">
+          <DialogTitle className="font-arabic text-lg font-semibold text-foreground">
             هل أكملت التقديم؟
           </DialogTitle>
           <DialogDescription asChild>
-            <div className="space-y-3 text-sm leading-relaxed text-jid-ink/80">
+            <div className="space-y-3 text-sm leading-relaxed text-muted-foreground">
               <p>
-                إذا قدّمت على <span className="font-medium text-jid-ink">{companyName}</span> لفرصة{' '}
-                <span className="font-medium text-jid-ink">{jobTitle}</span>، يمكنك تسجيل ذلك في رادار
+                إذا قدّمت على <span className="font-medium text-foreground">{companyName}</span> لفرصة{' '}
+                <span className="font-medium text-foreground">{jobTitle}</span>، يمكنك تسجيل ذلك في رادار
                 جِد لمتابعة حالة طلبك.
               </p>
               <p>
                 لن نرسل سيرتك الذاتية تلقائياً — نسجّل فقط أنك تقدّمت خارج المنصة لنذكّرك ونتابع مع
                 الجهة عند توفر تحديثات.
               </p>
-              <div className="rounded-lg border border-jid-line/40 bg-jid-beige/50 px-3 py-2">
-                <p className="text-xs text-jid-ink/60">بريدك الموثّق في جِد</p>
-                <p dir="ltr" className="mt-1 font-mono text-sm font-medium text-jid-olive">
+              <div className="rounded-lg border border-border/40 bg-background/50 px-3 py-2">
+                <p className="text-xs text-muted-foreground">بريدك الموثّق في جِد</p>
+                <p dir="ltr" className="mt-1 font-mono text-sm font-medium text-primary">
                   {emailDisplay}
                 </p>
               </div>
-              <p className="text-xs text-jid-ink/60">
+              <p className="text-xs text-muted-foreground">
                 يرى صاحب العمل إعلان تقدّمك فقط — وليس محتوى طلبك على موقعهم.
               </p>
             </div>
@@ -84,7 +84,7 @@ export function InterceptorModal({
             type="button"
             className={cn(
               'w-full font-arabic',
-              'bg-jid-olive text-jid-beige hover:bg-jid-olive-600',
+              'bg-primary text-jid-beige hover:bg-primary-600',
             )}
             disabled={isSubmitting || !primaryEmail}
             onClick={onConfirm}
@@ -94,7 +94,7 @@ export function InterceptorModal({
           <Button
             type="button"
             variant="outline"
-            className="w-full font-arabic border-jid-line text-jid-ink hover:bg-jid-beige"
+            className="w-full font-arabic border-border text-foreground hover:bg-background"
             disabled={isSubmitting}
             onClick={() => onOpenChange(false)}
           >

@@ -9,7 +9,7 @@ import type { CvLanguageEntry, CvLanguageProficiency } from '@/types/cv'
 import { CV_LANGUAGE_PROFICIENCY_LEVELS } from '@/types/cv'
 
 const selectClassName =
-  'flex h-10 w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink'
+  'flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground'
 
 type LanguageEditorProps = {
   languages: CvLanguageEntry[]
@@ -47,15 +47,15 @@ export function LanguageEditor({
   }
 
   return (
-    <fieldset className="space-y-3 rounded-md border border-jid-line/70 p-3">
-      <legend className="px-1 text-xs font-medium text-jid-ink/70">{t('languagesTitle')}</legend>
-      <p className="text-xs text-jid-ink/55">{t('languagesHint')}</p>
+    <fieldset className="space-y-3 rounded-md border border-border p-3">
+      <legend className="px-1 text-xs font-medium text-muted-foreground">{t('languagesTitle')}</legend>
+      <p className="text-xs text-foreground/55">{t('languagesHint')}</p>
 
       <div className="space-y-3">
         {rows.map((row, index) => (
           <div key={`language-${index}`} className="grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
             <div className="space-y-2">
-              <Label htmlFor={`language-name-${index}`} className="text-jid-ink">
+              <Label htmlFor={`language-name-${index}`} className="text-foreground">
                 {t('languageName')}
               </Label>
               <Input
@@ -66,7 +66,7 @@ export function LanguageEditor({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor={`language-proficiency-${index}`} className="text-jid-ink">
+              <Label htmlFor={`language-proficiency-${index}`} className="text-foreground">
                 {t('languageProficiency')}
               </Label>
               <select
@@ -88,7 +88,7 @@ export function LanguageEditor({
               type="button"
               variant="ghost"
               size="icon"
-              className="text-jid-ink/50 hover:text-destructive"
+              className="text-muted-foreground hover:text-destructive"
               onClick={() => removeRow(index)}
               disabled={rows.length === 1 && !row.name.trim()}
               aria-label={t('removeLanguage', { index: index + 1 })}

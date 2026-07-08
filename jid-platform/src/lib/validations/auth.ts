@@ -1,18 +1,10 @@
 import { z } from 'zod'
-import { ARABIC_NAME_REGEX } from '@/lib/utils/validators'
-
-/** Section 4.1 — min 8 chars, upper, lower, digit, special character */
-export const PASSWORD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9])[\S]{8,128}$/
+import { bilingualNameSchema, strongPasswordSchema } from '@/lib/utils/validators'
 
 export const signupSchema = z.object({
-  full_name: z
-    .string()
-    .trim()
-    .min(2, { message: 'auth.validation.fullNameMin' })
-    .regex(ARABIC_NAME_REGEX, { message: 'auth.validation.fullNameArabic' }),
+  full_name: bilingualNameSchema,
   email: z.string().trim().email({ message: 'auth.validation.emailInvalid' }),
-  password: z.string().regex(PASSWORD_REGEX, { message: 'auth.validation.passwordWeak' }),
+  password: strongPasswordSchema,
   accept_terms: z
     .boolean()
     .refine((value) => value === true, { message: 'auth.validation.acceptTerms' }),

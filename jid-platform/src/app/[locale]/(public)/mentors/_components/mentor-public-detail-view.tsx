@@ -28,7 +28,7 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
   return (
     <div className="space-y-6">
       <MentorViewedTracker mentorId={mentor.user_id} slug={mentor.slug} />
-      <header className="rounded-xl border border-jid-line bg-white p-6 shadow-sm">
+      <header className="rounded-xl border border-border bg-card p-6 shadow-sm">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
           <div className="relative shrink-0">
             <ProfileAvatar
@@ -40,13 +40,13 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
           </div>
           <div className="min-w-0 flex-1 space-y-2">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="font-arabic text-2xl font-semibold text-jid-ink">{displayName}</h1>
+              <h1 className="font-arabic text-2xl font-semibold text-foreground">{displayName}</h1>
               {mentor.is_mentor_of_month ? <CrownBadge /> : null}
             </div>
             {mentor.headline ? (
-              <p className="font-arabic text-sm font-medium text-jid-olive/90">{mentor.headline}</p>
+              <p className="font-arabic text-sm font-medium text-primary/90">{mentor.headline}</p>
             ) : null}
-            <p className="font-arabic text-sm text-jid-ink/60">
+            <p className="font-arabic text-sm text-muted-foreground">
               {[nationalityLabel, mentor.years_experience != null ? t('years', { years: mentor.years_experience }) : null]
                 .filter(Boolean)
                 .join(' · ')}
@@ -56,15 +56,15 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
       </header>
 
       <section className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-          <p className="font-arabic text-xs text-jid-ink/50">{t('sessionsLabel')}</p>
-          <p className="mt-1 font-arabic text-2xl font-semibold text-jid-ink">
+        <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+          <p className="font-arabic text-xs text-muted-foreground">{t('sessionsLabel')}</p>
+          <p className="mt-1 font-arabic text-2xl font-semibold text-foreground">
             {mentor.sessions_count}
           </p>
         </div>
-        <div className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-          <p className="font-arabic text-xs text-jid-ink/50">{t('ratingLabel')}</p>
-          <p className="mt-1 font-arabic text-2xl font-semibold text-jid-ink">
+        <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+          <p className="font-arabic text-xs text-muted-foreground">{t('ratingLabel')}</p>
+          <p className="mt-1 font-arabic text-2xl font-semibold text-foreground">
             {mentor.rating_avg != null ? mentor.rating_avg.toFixed(1) : '—'}
           </p>
         </div>
@@ -81,9 +81,9 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
 
       {liveWorkshop ? <ActiveWorkshopCard workshop={liveWorkshop} /> : null}
 
-      <div className="sticky bottom-4 rounded-xl border border-jid-line bg-white p-4 shadow-lg">
+      <div className="sticky bottom-4 rounded-xl border border-border bg-card p-4 shadow-lg">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2 font-arabic text-sm text-jid-ink/70">
+          <div className="flex items-center gap-2 font-arabic text-sm text-muted-foreground">
             <span
               className={cn(
                 'h-2.5 w-2.5 rounded-full',

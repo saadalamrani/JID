@@ -20,52 +20,57 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        background: 'var(--color-background)',
+        foreground: 'var(--color-text-primary)',
+        surface: 'var(--color-surface)',
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: 'var(--color-card)',
+          foreground: 'var(--color-text-primary)',
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: 'var(--color-card)',
+          foreground: 'var(--color-text-primary)',
         },
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: 'var(--color-olive)',
+          foreground: 'var(--color-background)',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: 'var(--color-surface)',
+          foreground: 'var(--color-text-primary)',
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: 'var(--color-surface)',
+          foreground: 'var(--color-text-secondary)',
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+          DEFAULT: 'var(--color-gold)',
+          foreground: 'var(--color-text-primary)',
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: 'var(--color-danger)',
+          foreground: 'var(--color-background)',
         },
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
+        border: 'var(--color-border)',
+        input: 'var(--color-border)',
+        ring: 'var(--color-gold)',
+        text: {
+          primary: 'var(--color-text-primary)',
+          secondary: 'var(--color-text-secondary)',
+        },
         chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
+          '1': 'var(--color-olive)',
+          '2': 'var(--color-gold)',
+          '3': 'var(--color-border)',
+          '4': 'var(--color-surface)',
+          '5': 'var(--color-text-secondary)',
         },
         'jid-olive': colors.olive,
         'jid-gold': colors.gold,
         'jid-beige': colors.beige,
         'jid-ink': colors.ink,
         'jid-line': colors.line,
-        /** Foundation Day semantic layer — auto-themed via --color-* CSS variables */
+        /** @deprecated Prefer semantic tokens (background, surface, foreground, border, primary, accent) */
         sem: {
           background: 'var(--color-background)',
           surface: 'var(--color-surface)',

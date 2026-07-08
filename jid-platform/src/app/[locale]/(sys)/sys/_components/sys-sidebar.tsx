@@ -14,11 +14,11 @@ export function SysSidebar() {
   return (
     <aside className="flex w-60 shrink-0 flex-col border-e border-jid-line bg-white">
       <div className="border-b border-jid-line px-5 py-4">
-        <Link href="/sys/dashboard" className="flex items-center gap-2">
+        <Link href="/sys/dashboard" className="inline-block">
           <Logo size="sm" />
-          <span className="text-lg font-semibold text-jid-olive">— Sys</span>
         </Link>
-        <p className="mt-1 text-xs text-jid-ink/50">{t('portalLabel')}</p>
+        <p className="mt-2 text-sm font-semibold text-jid-olive">Sys</p>
+        <p className="mt-0.5 text-xs text-jid-ink/50">{t('portalLabel')}</p>
       </div>
 
       <nav aria-label={t('ariaLabel')} className="flex-1 overflow-y-auto px-3 py-4">

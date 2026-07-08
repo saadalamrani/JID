@@ -23,12 +23,12 @@ export function EmptyEntryState({
   icon,
 }: EmptyEntryStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-jid-line bg-jid-beige/20 px-6 py-10 text-center">
-      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-jid-beige text-jid-ink/50">
+    <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-background/20 px-6 py-10 text-center">
+      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-background text-muted-foreground">
         {icon ?? <GraduationCap className="h-6 w-6" aria-hidden />}
       </div>
-      <p className="text-sm font-medium text-jid-ink/80">{title}</p>
-      <p className="mt-2 max-w-sm text-xs text-jid-ink/55">{description}</p>
+      <p className="text-sm font-medium text-muted-foreground">{title}</p>
+      <p className="mt-2 max-w-sm text-xs text-foreground/55">{description}</p>
       <Button type="button" className="mt-5" onClick={onAction} disabled={isLoading}>
         {actionLabel}
       </Button>

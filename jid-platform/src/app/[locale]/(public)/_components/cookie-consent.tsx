@@ -41,12 +41,12 @@ export function CookieConsent() {
       role="dialog"
       aria-live="polite"
       aria-label={t('ariaLabel')}
-      className="fixed inset-x-0 bottom-0 z-[60] border-t border-jid-line bg-jid-ink px-4 py-4 text-white shadow-lg"
+      className="fixed inset-x-0 bottom-0 z-[60] border-t border-border bg-jid-ink px-4 py-4 text-primary-foreground shadow-lg"
     >
       <div className="container-jid flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm leading-relaxed text-white/90">
+        <p className="text-sm leading-relaxed text-primary-foreground/90">
           {t('message')}{' '}
-          <Link href="/privacy" className="font-medium text-jid-gold underline-offset-2 hover:underline">
+          <Link href="/privacy" className="font-medium text-accent underline-offset-2 hover:underline">
             {t('privacyLink')}
           </Link>
         </p>
@@ -54,7 +54,7 @@ export function CookieConsent() {
           <Button
             type="button"
             onClick={accept}
-            className="bg-jid-gold text-jid-ink hover:bg-jid-gold/90"
+            className="bg-accent text-foreground hover:bg-accent/10"
           >
             {t('accept')}
           </Button>

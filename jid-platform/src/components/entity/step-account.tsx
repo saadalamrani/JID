@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Controller, useForm } from 'react-hook-form'
 import { FormField } from '@/components/auth/form-field'
 import { PasswordInput } from '@/components/auth/password-input'
-import { PasswordStrengthMeter } from '@/components/auth/password-strength-meter'
+import { PasswordRequirementsPanel } from '@/components/ui/password-requirements-panel'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { entityAccountSchema, type EntityAccountFormValues } from '@/lib/validations/entity'
@@ -71,7 +71,7 @@ export function StepAccount({ defaultValues, submitting, onSubmit }: StepAccount
         hint={t('passwordHint')}
       >
         <PasswordInput id="password" disabled={submitting} {...form.register('password')} />
-        <PasswordStrengthMeter password={passwordValue} />
+        <PasswordRequirementsPanel password={passwordValue} className="mt-2" />
       </FormField>
 
       <FormField

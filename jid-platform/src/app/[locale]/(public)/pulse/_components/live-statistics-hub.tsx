@@ -28,13 +28,13 @@ export async function LiveStatisticsHub() {
 
     return (
       <section
-        className="flex min-h-[280px] flex-col rounded-xl border border-jid-line bg-jid-beige/50 p-4 shadow-sm"
+        className="flex min-h-[280px] flex-col rounded-xl border border-border bg-background/50 p-4 shadow-sm"
         aria-label="إحصائيات المنصة الحية"
       >
-        <header className="mb-4 flex items-center justify-between gap-2 border-b border-jid-line/60 pb-3">
-          <h2 className="text-sm font-semibold text-jid-ink">إحصائيات المنصة</h2>
+        <header className="mb-4 flex items-center justify-between gap-2 border-b border-border pb-3">
+          <h2 className="text-sm font-semibold text-foreground">إحصائيات المنصة</h2>
           {refreshedLabel ? (
-            <p className="text-[11px] text-jid-ink/55">
+            <p className="text-[11px] text-foreground/55">
               آخر تحديث: <time dateTime={snapshot.refreshed_at}>{refreshedLabel}</time>
             </p>
           ) : null}

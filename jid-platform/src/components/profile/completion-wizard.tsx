@@ -25,12 +25,12 @@ export function CompletionWizard({ input, showEmptyShell = true }: CompletionWiz
   const percent = calculateWizardCompletionPct(input)
 
   return (
-    <section className="space-y-6 rounded-xl border border-jid-line bg-white p-6 shadow-sm">
+    <section className="space-y-6 rounded-xl border border-border bg-card p-6 shadow-sm">
       {showEmptyShell ? <ProfileEmptyState /> : null}
 
       <div>
-        <h2 className="text-lg font-semibold text-jid-ink">{t('wizardTitle')}</h2>
-        <p className="mt-1 text-sm text-jid-ink/60">{t('wizardSubtitle')}</p>
+        <h2 className="text-lg font-semibold text-foreground">{t('wizardTitle')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('wizardSubtitle')}</p>
       </div>
 
       <ProfileCompletionBar percent={percent} />
@@ -62,21 +62,21 @@ function WizardTaskRow({
         className={cn(
           'flex items-center justify-between rounded-lg border px-4 py-3 transition-colors',
           done
-            ? 'border-jid-olive/30 bg-jid-olive/5'
-            : 'border-jid-line bg-white hover:border-jid-gold/50 hover:bg-jid-beige/30',
+            ? 'border-jid-olive/30 bg-primary/5'
+            : 'border-border bg-card hover:border-border hover:bg-background/30',
         )}
       >
         <span className="flex items-center gap-3">
           {done ? (
-            <CheckCircle2 className="h-5 w-5 text-jid-olive" aria-hidden />
+            <CheckCircle2 className="h-5 w-5 text-primary" aria-hidden />
           ) : (
             <Circle className="h-5 w-5 text-jid-line" aria-hidden />
           )}
-          <span className={cn('text-sm', done ? 'text-jid-ink/70 line-through' : 'text-jid-ink')}>
+          <span className={cn('text-sm', done ? 'text-muted-foreground line-through' : 'text-foreground')}>
             {t(`wizardTask.${taskId}`)}
           </span>
         </span>
-        <span className="text-xs font-medium text-jid-ink/50">{weight}%</span>
+        <span className="text-xs font-medium text-muted-foreground">{weight}%</span>
       </Link>
     </li>
   )

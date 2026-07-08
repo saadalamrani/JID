@@ -20,7 +20,7 @@ export function RegionMultiSelect() {
 
   return (
     <div className="space-y-2">
-      <p className="font-arabic text-xs font-medium text-jid-ink-400">المنطقة</p>
+      <p className="font-arabic text-xs font-medium text-foreground-400">المنطقة</p>
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger asChild>
           <Button
@@ -29,7 +29,7 @@ export function RegionMultiSelect() {
             aria-label={
               selectedCount > 0 ? `المناطق، ${selectedCount} محددة` : 'اختر المناطق'
             }
-            className="w-full justify-between border-jid-line bg-white font-arabic font-normal text-jid-ink hover:bg-jid-beige"
+            className="w-full justify-between border-border bg-card font-arabic font-normal text-foreground hover:bg-background"
           >
             {selectedCount > 0 ? `المناطق (${selectedCount})` : 'اختر المناطق'}
             <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
@@ -37,9 +37,9 @@ export function RegionMultiSelect() {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"
-          className="max-h-72 w-[var(--radix-dropdown-menu-trigger-width)] overflow-y-auto border-jid-line bg-white"
+          className="max-h-72 w-[var(--radix-dropdown-menu-trigger-width)] overflow-y-auto border-border bg-card"
         >
-          <DropdownMenuLabel className="font-arabic text-jid-ink">المناطق</DropdownMenuLabel>
+          <DropdownMenuLabel className="font-arabic text-foreground">المناطق</DropdownMenuLabel>
           <DropdownMenuSeparator className="bg-jid-line/40" />
           {regions.map((region) => (
             <DropdownMenuCheckboxItem
@@ -47,7 +47,7 @@ export function RegionMultiSelect() {
               checked={filters.regions.includes(region.slug)}
               onCheckedChange={() => toggleRegion(region.slug)}
               onSelect={(event) => event.preventDefault()}
-              className="font-arabic text-jid-ink focus:bg-jid-beige focus:text-jid-ink"
+              className="font-arabic text-foreground focus:bg-background focus:text-foreground"
             >
               {region.name_ar ?? region.name_en}
             </DropdownMenuCheckboxItem>

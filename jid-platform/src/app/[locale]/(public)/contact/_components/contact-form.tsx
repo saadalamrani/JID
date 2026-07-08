@@ -18,7 +18,7 @@ import type { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 const fieldClassName =
-  'flex w-full rounded-lg border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink outline-none transition-colors focus:border-jid-olive focus:ring-2 focus:ring-jid-olive/20'
+  'flex w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-jid-olive focus:ring-2 focus:ring-jid-olive/20'
 
 type ContactFormProps = {
   locale: Locale
@@ -90,13 +90,13 @@ export function ContactForm({ locale, defaultFullName = '', defaultEmail = '' }:
   if (submitted) {
     return (
       <div
-        className="rounded-xl border border-jid-olive/30 bg-jid-olive/5 p-8 text-center"
+        className="rounded-xl border border-jid-olive/30 bg-primary/5 p-8 text-center"
         role="status"
         aria-live="polite"
       >
-        <CheckCircle2 className="mx-auto size-10 text-jid-olive" aria-hidden />
-        <h2 className="mt-4 font-arabic text-xl font-semibold text-jid-ink">{t('success.title')}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-jid-ink/70">{t('success.body')}</p>
+        <CheckCircle2 className="mx-auto size-10 text-primary" aria-hidden />
+        <h2 className="mt-4 font-arabic text-xl font-semibold text-foreground">{t('success.title')}</h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t('success.body')}</p>
         <Button
           type="button"
           variant="outline"

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { ARABIC_NAME_REGEX, SAUDI_PHONE_REGEX } from '@/lib/utils/validators'
+import { bilingualNameSchema, SAUDI_PHONE_REGEX } from '@/lib/utils/validators'
 import { isValidSaudiPhoneE164, normalizeSaudiPhoneE164 } from '@/lib/verification/phone'
 
 const CURRENT_YEAR = new Date().getFullYear()
@@ -9,13 +9,6 @@ function numberFromInput(value: unknown): number | null {
   const num = typeof value === 'number' ? value : Number(value)
   return Number.isFinite(num) ? num : null
 }
-
-/** Sprint 0 — reused by onboarding step 1 (Section 11.1). */
-export const arabicNameSchema = z
-  .string()
-  .trim()
-  .min(2, { message: 'onboarding.validation.fullNameMin' })
-  .regex(ARABIC_NAME_REGEX, { message: 'onboarding.validation.fullNameArabic' })
 
 /** Sprint 0 — reused by onboarding step 1 (Section 11.1). */
 export const saudiPhoneSchema = z
@@ -29,7 +22,7 @@ export const saudiPhoneSchema = z
   .refine(isValidSaudiPhoneE164, { message: 'onboarding.validation.phoneInvalid' })
 
 export const onboardingStepOneSchema = z.object({
-  full_name: arabicNameSchema,
+  full_name: bilingualNameSchema,
   phone: saudiPhoneSchema,
 })
 

@@ -130,14 +130,14 @@ export function NotificationsDropdown({ userId, onMarkedAllRead }: Notifications
 
   return (
     <div className="flex w-[min(100vw-2rem,24rem)] flex-col">
-      <div className="flex items-center justify-between gap-3 border-b border-jid-line px-4 py-3">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('title')}</h2>
+      <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+        <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
         {items.length > 0 ? (
           <Button
             type="button"
             variant="ghost"
             size="sm"
-            className="h-8 px-2 text-xs text-jid-olive hover:text-jid-olive"
+            className="h-8 px-2 text-xs text-primary hover:text-primary"
             onClick={handleMarkAllAsRead}
             disabled={isPending}
           >
@@ -149,7 +149,7 @@ export function NotificationsDropdown({ userId, onMarkedAllRead }: Notifications
 
       <div className="max-h-[min(70vh,24rem)] overflow-y-auto p-2">
         {isLoading ? (
-          <div className="flex items-center justify-center py-10 text-sm text-jid-ink/55">
+          <div className="flex items-center justify-center py-10 text-sm text-foreground/55">
             <Loader2 className="me-2 h-4 w-4 animate-spin" aria-hidden />
             {t('loading')}
           </div>
@@ -157,11 +157,11 @@ export function NotificationsDropdown({ userId, onMarkedAllRead }: Notifications
           <div className="px-3 py-8 text-center text-sm text-red-600">{error}</div>
         ) : items.length === 0 ? (
           <div className="flex flex-col items-center gap-2 px-4 py-10 text-center">
-            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-jid-beige/60 text-jid-ink/35">
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-foreground/35">
               <BellOff className="h-5 w-5" aria-hidden />
             </span>
-            <p className="text-sm font-medium text-jid-ink">{t('emptyTitle')}</p>
-            <p className="text-xs text-jid-ink/55">{t('emptyDescription')}</p>
+            <p className="text-sm font-medium text-foreground">{t('emptyTitle')}</p>
+            <p className="text-xs text-foreground/55">{t('emptyDescription')}</p>
           </div>
         ) : (
           <ul className="space-y-1">

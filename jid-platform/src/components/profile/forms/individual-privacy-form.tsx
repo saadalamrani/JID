@@ -46,12 +46,12 @@ export function IndividualPrivacyForm({ profile }: IndividualPrivacyFormProps) {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="container-jid max-w-2xl space-y-6 py-8">
-      <h1 className="text-xl font-semibold text-jid-ink">{t('title')}</h1>
-      <p className="text-sm text-jid-ink/60">{t('subtitle')}</p>
+      <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
+      <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
 
-      <fieldset className="space-y-4 rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-        <legend className="px-1 text-sm font-medium text-jid-ink/70">{t('visibilityLabel')}</legend>
-        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-jid-line p-4">
+      <fieldset className="space-y-4 rounded-xl border border-border bg-card p-5 shadow-sm">
+        <legend className="px-1 text-sm font-medium text-muted-foreground">{t('visibilityLabel')}</legend>
+        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-4">
           <input
             type="radio"
             value="private"
@@ -59,11 +59,11 @@ export function IndividualPrivacyForm({ profile }: IndividualPrivacyFormProps) {
             {...form.register('visibility')}
           />
           <span>
-            <span className="block text-sm font-medium text-jid-ink">{t('visibilityPrivate')}</span>
-            <span className="mt-1 block text-xs text-jid-ink/60">{t('visibilityPrivateHint')}</span>
+            <span className="block text-sm font-medium text-foreground">{t('visibilityPrivate')}</span>
+            <span className="mt-1 block text-xs text-muted-foreground">{t('visibilityPrivateHint')}</span>
           </span>
         </label>
-        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-jid-line p-4">
+        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-4">
           <input
             type="radio"
             value="discoverable"
@@ -71,8 +71,8 @@ export function IndividualPrivacyForm({ profile }: IndividualPrivacyFormProps) {
             {...form.register('visibility')}
           />
           <span>
-            <span className="block text-sm font-medium text-jid-ink">{t('visibilityDiscoverable')}</span>
-            <span className="mt-1 block text-xs text-jid-ink/60">{t('visibilityDiscoverableHint')}</span>
+            <span className="block text-sm font-medium text-foreground">{t('visibilityDiscoverable')}</span>
+            <span className="mt-1 block text-xs text-muted-foreground">{t('visibilityDiscoverableHint')}</span>
           </span>
         </label>
       </fieldset>
@@ -96,7 +96,7 @@ export function IndividualPrivacyForm({ profile }: IndividualPrivacyFormProps) {
       />
 
       <div className="flex gap-3">
-        <Button type="submit" className="bg-jid-olive hover:bg-jid-olive/90" disabled={form.formState.isSubmitting}>
+        <Button type="submit" className="bg-primary hover:bg-primary/90" disabled={form.formState.isSubmitting}>
           {t('save')}
         </Button>
         <Button type="button" variant="ghost" onClick={() => router.push('/profile')}>
@@ -123,13 +123,13 @@ function ToggleRow({
   return (
     <label
       className={cn(
-        'flex items-start justify-between gap-4 rounded-xl border border-jid-line bg-white p-5 shadow-sm',
+        'flex items-start justify-between gap-4 rounded-xl border border-border bg-card p-5 shadow-sm',
         disabled && 'opacity-60',
       )}
     >
       <span>
-        <span className="block text-sm font-medium text-jid-ink">{title}</span>
-        <span className="mt-1 block text-xs leading-relaxed text-jid-ink/60">{hint}</span>
+        <span className="block text-sm font-medium text-foreground">{title}</span>
+        <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">{hint}</span>
       </span>
       <input
         type="checkbox"

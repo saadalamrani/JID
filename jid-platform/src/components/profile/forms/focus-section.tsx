@@ -15,11 +15,11 @@ export function FocusSection({ id, title, children, className }: FocusSectionPro
     <section
       id={id}
       className={cn(
-        'scroll-mt-24 rounded-xl border border-jid-line bg-white p-5 shadow-sm transition-shadow',
+        'scroll-mt-24 rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow',
         className,
       )}
     >
-      <h2 className="mb-4 text-sm font-medium text-jid-ink/70">{title}</h2>
+      <h2 className="mb-4 text-sm font-medium text-muted-foreground">{title}</h2>
       {children}
     </section>
   )

@@ -17,7 +17,7 @@ export function RequestMentorshipButton({ profileId }: RequestMentorshipButtonPr
       <Button
         type="button"
         size="sm"
-        className="bg-jid-olive hover:bg-jid-olive/90"
+        className="bg-primary hover:bg-primary/90"
         onClick={() => console.info('Request mentorship', profileId)}
       >
         <MessageCircle className="h-4 w-4" aria-hidden />

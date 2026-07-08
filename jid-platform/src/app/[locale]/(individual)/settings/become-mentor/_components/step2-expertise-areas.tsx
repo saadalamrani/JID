@@ -16,8 +16,8 @@ export function Step2ExpertiseAreas({ draft, errors, onChange }: Step2ExpertiseA
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="font-arabic text-lg font-semibold text-jid-ink">{t('title')}</h2>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h2 className="font-arabic text-lg font-semibold text-foreground">{t('title')}</h2>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <TagInput

@@ -2,7 +2,7 @@
 export function StatsHubSkeleton() {
   return (
     <div
-      className="min-h-[280px] animate-pulse rounded-xl border border-jid-line bg-jid-line/10 p-4"
+      className="min-h-[280px] animate-pulse rounded-xl border border-border bg-jid-line/10 p-4"
       aria-hidden
     >
       <div className="h-5 w-28 rounded bg-jid-line/30" />

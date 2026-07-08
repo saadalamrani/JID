@@ -10,7 +10,7 @@ export function StickyFilterBar({ children, className }: StickyFilterBarProps) {
   return (
     <div
       className={cn(
-        'sticky top-0 z-20 -mx-4 border-b border-jid-line/40 bg-jid-beige/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6',
+        'sticky top-0 z-20 -mx-4 border-b border-border/40 bg-background/95 px-4 py-4 backdrop-blur-sm sm:-mx-6 sm:px-6',
         className,
       )}
       role="search"

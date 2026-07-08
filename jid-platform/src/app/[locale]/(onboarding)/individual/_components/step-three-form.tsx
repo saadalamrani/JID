@@ -77,7 +77,7 @@ export function StepThreeForm({ defaultValues }: StepThreeFormProps) {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" noValidate>
-      <p className="text-sm text-jid-ink/60">{t('optionalIntro')}</p>
+      <p className="text-sm text-muted-foreground">{t('optionalIntro')}</p>
 
       <SectorFilter
         label={t('sectorsLabel')}
@@ -93,16 +93,16 @@ export function StepThreeForm({ defaultValues }: StepThreeFormProps) {
           id="target_job_titles"
           rows={3}
           maxLength={500}
-          className="flex w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink"
+          className="flex w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground"
           disabled={isPending}
           placeholder={t('jobTitlesPlaceholder')}
           {...form.register('target_job_titles')}
         />
       </FormField>
 
-      <fieldset className="space-y-3 rounded-md border border-jid-line/70 p-4">
-        <legend className="px-1 text-sm font-medium text-jid-ink">{t('salaryLegend')}</legend>
-        <p className="text-xs text-jid-ink/55">{t('salaryHint')}</p>
+      <fieldset className="space-y-3 rounded-md border border-border p-4">
+        <legend className="px-1 text-sm font-medium text-foreground">{t('salaryLegend')}</legend>
+        <p className="text-xs text-foreground/55">{t('salaryHint')}</p>
         <div className="grid gap-4 sm:grid-cols-2">
           <FormField
             id="salary_min"
@@ -137,7 +137,7 @@ export function StepThreeForm({ defaultValues }: StepThreeFormProps) {
         </div>
       </fieldset>
 
-      <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={isPending}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isPending}>
         {isPending ? t('saving') : t('continue')}
       </Button>
     </form>

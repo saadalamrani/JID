@@ -30,10 +30,10 @@ export function MentorKpiStrip({ kpis, className }: MentorKpiStripProps) {
       {items.map((item) => (
         <div
           key={item.label}
-          className="rounded-xl border border-jid-line bg-white px-4 py-3 shadow-sm"
+          className="rounded-xl border border-border bg-card px-4 py-3 shadow-sm"
         >
-          <p className="font-arabic text-xs text-jid-ink/50">{item.label}</p>
-          <p className="mt-1 font-arabic text-2xl font-semibold text-jid-ink">{item.value}</p>
+          <p className="font-arabic text-xs text-muted-foreground">{item.label}</p>
+          <p className="mt-1 font-arabic text-2xl font-semibold text-foreground">{item.value}</p>
         </div>
       ))}
     </section>

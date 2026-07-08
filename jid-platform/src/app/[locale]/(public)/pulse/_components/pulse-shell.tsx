@@ -18,9 +18,9 @@ export async function PulseShell({ locale, children }: PulseShellProps) {
     <main dir={dir} className="container-jid space-y-10 py-8" lang={locale}>
       <PulseViewedTracker />
       <header className="space-y-2">
-        <p className="text-sm font-medium text-jid-olive">{t('eyebrow')}</p>
-        <h1 className="text-3xl font-semibold tracking-tight text-jid-ink">{t('title')}</h1>
-        <p className="max-w-2xl text-sm text-jid-ink/70">{t('subtitle')}</p>
+        <p className="text-sm font-medium text-primary">{t('eyebrow')}</p>
+        <h1 className="text-3xl font-semibold tracking-tight text-foreground">{t('title')}</h1>
+        <p className="max-w-2xl text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
       {children}
     </main>

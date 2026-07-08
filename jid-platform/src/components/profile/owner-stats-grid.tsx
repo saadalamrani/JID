@@ -23,13 +23,13 @@ export function OwnerStatsGrid({ stats }: { stats: OwnerStatsData }) {
 
   return (
     <div
-      className="grid grid-cols-3 gap-3 rounded-xl border border-jid-line bg-jid-beige/50 p-4"
+      className="grid grid-cols-3 gap-3 rounded-xl border border-border bg-background/50 p-4"
       data-owner-stats="true"
     >
       {items.map((item) => (
         <div key={item.label} className="text-center">
-          <p className={cn('text-lg font-semibold text-jid-olive')}>{item.value}</p>
-          <p className="mt-1 text-xs text-jid-ink/60">{item.label}</p>
+          <p className={cn('text-lg font-semibold text-primary')}>{item.value}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{item.label}</p>
         </div>
       ))}
     </div>

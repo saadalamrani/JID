@@ -54,7 +54,7 @@ export function NotificationsFilters({ className }: NotificationsFiltersProps) {
   }
 
   return (
-    <div className={cn('space-y-4 rounded-lg border border-jid-line bg-white p-4', className)}>
+    <div className={cn('space-y-4 rounded-lg border border-border bg-card p-4', className)}>
       <FilterGroup label={t('statusLabel')}>
         {(['all', 'unread', 'archived'] as const).map((value) => (
           <FilterButton
@@ -68,14 +68,14 @@ export function NotificationsFilters({ className }: NotificationsFiltersProps) {
       </FilterGroup>
 
       <div className="space-y-1.5">
-        <label htmlFor="notifications-category-filter" className="text-xs font-medium text-jid-ink/50">
+        <label htmlFor="notifications-category-filter" className="text-xs font-medium text-muted-foreground">
           {t('categoryLabel')}
         </label>
         <select
           id="notifications-category-filter"
           value={category}
           onChange={(event) => replaceParams({ category: event.target.value })}
-          className="w-full rounded-lg border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink outline-none transition-colors focus:border-jid-olive focus:ring-2 focus:ring-jid-olive/20 sm:max-w-md"
+          className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-jid-olive focus:ring-2 focus:ring-jid-olive/20 sm:max-w-md"
         >
           <option value="all">{t('categoryAll')}</option>
           {NOTIFICATION_CATEGORIES.map((value) => (
@@ -92,7 +92,7 @@ export function NotificationsFilters({ className }: NotificationsFiltersProps) {
 function FilterGroup({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <p className="text-xs font-medium text-jid-ink/50">{label}</p>
+      <p className="text-xs font-medium text-muted-foreground">{label}</p>
       <div className="flex flex-wrap gap-1.5">{children}</div>
     </div>
   )
@@ -114,8 +114,8 @@ function FilterButton({
       className={cn(
         'rounded-full border px-3 py-1.5 text-xs font-medium transition-colors',
         active
-          ? 'border-jid-olive bg-jid-olive/10 text-jid-olive'
-          : 'border-jid-line bg-white text-jid-ink/70 hover:bg-jid-beige/50',
+          ? 'border-jid-olive bg-primary/10 text-primary'
+          : 'border-border bg-card text-muted-foreground hover:bg-background/50',
       )}
     >
       {children}

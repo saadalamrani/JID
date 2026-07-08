@@ -31,7 +31,7 @@ export function TrustSignals({
   return (
     <section className="space-y-4" aria-label={t('trustSignals')}>
       <div>
-        <h2 className="mb-2 text-sm font-medium text-jid-ink/70">{t('badgesTitle')}</h2>
+        <h2 className="mb-2 text-sm font-medium text-muted-foreground">{t('badgesTitle')}</h2>
         {badgeSlot ? (
           <BadgeDisplay>{badgeSlot}</BadgeDisplay>
         ) : (

@@ -53,7 +53,7 @@ function JobResultsSection() {
   }
 
   if (jobs.length === 0) {
-    return <p className="font-arabic text-sm text-jid-ink-400">لا توجد فرص مطابقة للفلاتر.</p>
+    return <p className="font-arabic text-sm text-foreground-400">لا توجد فرص مطابقة للفلاتر.</p>
   }
 
   return <VirtualizedJobGrid jobs={jobs} scrollElementRef={scrollRef} />

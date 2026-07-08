@@ -14,16 +14,16 @@ export function UnclaimedCTA({ companyId }: UnclaimedCTAProps) {
   const t = useTranslations('profile.company.public')
 
   return (
-    <section className="rounded-xl border border-jid-gold/50 bg-jid-gold/10 p-6">
+    <section className="rounded-xl border border-border bg-accent/10 p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex gap-3">
-          <Building2 className="h-8 w-8 shrink-0 text-jid-olive" aria-hidden />
+          <Building2 className="h-8 w-8 shrink-0 text-primary" aria-hidden />
           <div>
-            <h2 className="text-base font-semibold text-jid-ink">{t('unclaimedTitle')}</h2>
-            <p className="mt-1 text-sm text-jid-ink/70">{t('unclaimedMessage')}</p>
+            <h2 className="text-base font-semibold text-foreground">{t('unclaimedTitle')}</h2>
+            <p className="mt-1 text-sm text-muted-foreground">{t('unclaimedMessage')}</p>
           </div>
         </div>
-        <Button asChild className="shrink-0 bg-jid-olive hover:bg-jid-olive/90">
+        <Button asChild className="shrink-0 bg-primary hover:bg-primary/90">
           <Link href={`/companies/${companyId}/claim`}>{t('unclaimedCta')}</Link>
         </Button>
       </div>

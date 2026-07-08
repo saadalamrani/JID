@@ -37,12 +37,12 @@ export function JobDetailView({
   return (
     <article className="space-y-8">
       <JobViewedTracker jobId={job.id} companyId={job.company_id} />
-      <header className="space-y-6 rounded-xl border border-jid-line/40 bg-white p-6 shadow-sm">
+      <header className="space-y-6 rounded-xl border border-border/40 bg-card p-6 shadow-sm">
         <div className="flex flex-wrap items-start gap-4">
           <CompanyLogo name={companyName} logoUrl={job.company.logo_url} />
           <div className="min-w-0 flex-1">
-            <p className="font-arabic text-sm font-medium text-jid-ink/70">{companyName}</p>
-            <h1 className="mt-1 font-arabic text-2xl font-bold text-jid-ink sm:text-3xl">{title}</h1>
+            <p className="font-arabic text-sm font-medium text-muted-foreground">{companyName}</p>
+            <h1 className="mt-1 font-arabic text-2xl font-bold text-foreground sm:text-3xl">{title}</h1>
             <div className="mt-3 flex flex-wrap items-center gap-2">
               {job.company.ownership_type ? (
                 <OwnershipBadge type={job.company.ownership_type} />
@@ -86,17 +86,17 @@ export function JobDetailView({
       </header>
 
       {job.description_ar ? (
-        <section className="rounded-xl border border-jid-line/40 bg-white p-6 shadow-sm">
-          <h2 className="font-arabic text-lg font-semibold text-jid-ink">وصف الفرصة</h2>
-          <div className="mt-4 whitespace-pre-wrap font-arabic text-sm leading-7 text-jid-ink/85">
+        <section className="rounded-xl border border-border/40 bg-card p-6 shadow-sm">
+          <h2 className="font-arabic text-lg font-semibold text-foreground">وصف الفرصة</h2>
+          <div className="mt-4 whitespace-pre-wrap font-arabic text-sm leading-7 text-foreground/85">
             {job.description_ar}
           </div>
         </section>
       ) : null}
 
       {job.required_skills.length > 0 ? (
-        <section className="rounded-xl border border-jid-line/40 bg-white p-6 shadow-sm">
-          <h2 className="font-arabic text-lg font-semibold text-jid-ink">المهارات المطلوبة</h2>
+        <section className="rounded-xl border border-border/40 bg-card p-6 shadow-sm">
+          <h2 className="font-arabic text-lg font-semibold text-foreground">المهارات المطلوبة</h2>
           <div className="mt-4 flex flex-wrap gap-2">
             {job.required_skills.map((skill) => (
               <Pill key={skill}>{skill}</Pill>

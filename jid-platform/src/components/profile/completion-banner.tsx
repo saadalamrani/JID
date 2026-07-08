@@ -16,18 +16,18 @@ export function CompletionBanner({ percent, className }: CompletionBannerProps) 
   return (
     <div
       className={cn(
-        'rounded-xl border border-jid-gold/40 bg-jid-gold/10 p-4',
+        'rounded-xl border border-border bg-accent/10 p-4',
         className,
       )}
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm font-medium text-jid-olive">{t('completionBannerTitle')}</p>
-          <p className="text-xs text-jid-ink/60">{t('completionBannerHint')}</p>
+          <p className="text-sm font-medium text-primary">{t('completionBannerTitle')}</p>
+          <p className="text-xs text-muted-foreground">{t('completionBannerHint')}</p>
         </div>
         <Link
           href="/profile/edit"
-          className="shrink-0 text-sm font-medium text-jid-olive underline-offset-4 hover:underline"
+          className="shrink-0 text-sm font-medium text-primary underline-offset-4 hover:underline"
         >
           {t('completionBannerCta')}
         </Link>

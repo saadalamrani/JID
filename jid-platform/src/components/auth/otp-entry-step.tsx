@@ -111,15 +111,15 @@ export function OtpEntryStep({
 
   return (
     <div className="space-y-6">
-      <div className="text-center text-sm text-jid-ink/70">
+      <div className="text-center text-sm text-muted-foreground">
         <p>{t('otpSentTo')}</p>
-        <p className="mt-1 font-mono tabular-nums text-jid-ink" dir="ltr">
+        <p className="mt-1 font-mono tabular-nums text-foreground" dir="ltr">
           {phone}
         </p>
         <button
           type="button"
           onClick={onChangePhone}
-          className="mt-2 text-jid-olive underline-offset-4 hover:underline"
+          className="mt-2 text-primary underline-offset-4 hover:underline"
         >
           {t('changePhone')}
         </button>
@@ -146,7 +146,7 @@ export function OtpEntryStep({
           )}
         />
 
-        <p className="text-center text-sm text-jid-ink/60">
+        <p className="text-center text-sm text-muted-foreground">
           {otpSecondsLeft > 0
             ? t('expiresIn', { time: formatCountdown(otpSecondsLeft) })
             : t('expired')}
@@ -154,7 +154,7 @@ export function OtpEntryStep({
 
         <Button
           type="submit"
-          className="w-full bg-jid-olive hover:bg-jid-olive/90"
+          className="w-full bg-primary hover:bg-primary/90"
           disabled={submitting || otpSecondsLeft <= 0}
         >
           {submitting ? t('verifying') : t('verify')}
@@ -165,7 +165,7 @@ export function OtpEntryStep({
         <Button
           type="button"
           variant="ghost"
-          className="text-jid-olive"
+          className="text-primary"
           disabled={resending || resendSecondsLeft > 0}
           onClick={handleResend}
         >
@@ -175,7 +175,7 @@ export function OtpEntryStep({
         </Button>
       </div>
 
-      <p className="text-center text-xs text-jid-ink/50">{t('ttlNote', { minutes: OTP_TTL_SECONDS / 60 })}</p>
+      <p className="text-center text-xs text-muted-foreground">{t('ttlNote', { minutes: OTP_TTL_SECONDS / 60 })}</p>
     </div>
   )
 }

@@ -10,7 +10,7 @@ type PublicLayoutProps = {
 /** Section 4.1 — public marketing shell (nav + main + footer + cookie banner). */
 export default function PublicLayout({ children }: PublicLayoutProps) {
   return (
-    <div className="flex min-h-screen flex-col bg-jid-beige">
+    <div className="flex min-h-screen flex-col bg-background">
       <PublicNav />
       <main className="flex-1">{children}</main>
       <PublicFooter />

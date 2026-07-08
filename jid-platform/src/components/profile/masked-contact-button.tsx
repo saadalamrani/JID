@@ -20,7 +20,7 @@ export function MaskedContactButton() {
       type="button"
       variant="outline"
       size="sm"
-      className="border-jid-line"
+      className="border-border"
       onClick={handleClick}
     >
       <Mail className="h-4 w-4" aria-hidden />

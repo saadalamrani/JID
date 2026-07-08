@@ -26,7 +26,7 @@ export function OnboardingCompleteActions() {
     <Button
       type="button"
       size="lg"
-      className="w-full bg-jid-olive hover:bg-jid-olive/90 sm:w-auto"
+      className="w-full bg-primary hover:bg-primary/90 sm:w-auto"
       onClick={handleContinue}
       disabled={isPending}
     >

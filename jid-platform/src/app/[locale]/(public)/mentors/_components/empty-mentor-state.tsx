@@ -65,11 +65,11 @@ export function EmptyMentorState({ variant }: EmptyMentorStateProps) {
 
   return (
     <div className="flex flex-col items-center justify-center px-4 py-16 text-center">
-      <Bell className="h-16 w-16 text-jid-olive/30" strokeWidth={1.25} aria-hidden />
-      <h2 className="mt-6 font-arabic text-xl font-semibold text-jid-ink">
+      <Bell className="h-16 w-16 text-primary/30" strokeWidth={1.25} aria-hidden />
+      <h2 className="mt-6 font-arabic text-xl font-semibold text-foreground">
         {isColdStart ? t('coldStartTitle') : t('noMatchesTitle')}
       </h2>
-      <p className="mt-2 max-w-md font-arabic text-sm text-jid-ink/60">
+      <p className="mt-2 max-w-md font-arabic text-sm text-muted-foreground">
         {isColdStart ? t('coldStartBody') : t('noMatchesBody')}
       </p>
 
@@ -79,7 +79,7 @@ export function EmptyMentorState({ variant }: EmptyMentorStateProps) {
             type="button"
             disabled={submitting || submitted}
             onClick={() => void requestNotification()}
-            className="bg-jid-olive font-arabic text-jid-beige hover:bg-jid-olive/90"
+            className="bg-primary font-arabic text-jid-beige hover:bg-primary/90"
           >
             {submitting ? t('notifySubmitting') : submitted ? t('notifyDone') : t('notifyCta')}
           </Button>
@@ -90,21 +90,21 @@ export function EmptyMentorState({ variant }: EmptyMentorStateProps) {
             type="button"
             variant="outline"
             onClick={clearAll}
-            className="font-arabic border-jid-line"
+            className="font-arabic border-border"
           >
             {t('resetFilters')}
           </Button>
         ) : null}
 
         {isColdStart ? (
-          <Button type="button" variant="outline" asChild className="font-arabic border-jid-line">
+          <Button type="button" variant="outline" asChild className="font-arabic border-border">
             <Link href="/login">{t('loginCta')}</Link>
           </Button>
         ) : null}
       </div>
 
       {isColdStart ? (
-        <p className="mt-4 max-w-sm font-arabic text-xs text-jid-ink/50">{t('notifyHint')}</p>
+        <p className="mt-4 max-w-sm font-arabic text-xs text-muted-foreground">{t('notifyHint')}</p>
       ) : null}
     </div>
   )

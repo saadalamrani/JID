@@ -10,6 +10,7 @@ import { MfaSetup } from '@/components/auth/mfa-setup'
 import { AuthShell } from '@/components/auth/auth-shell'
 import { FormField } from '@/components/auth/form-field'
 import { PasswordInput } from '@/components/auth/password-input'
+import { PasswordRequirementsPanel } from '@/components/ui/password-requirements-panel'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -87,6 +88,8 @@ function AcceptInviteContent() {
       cancelled = true
     }
   }, [token])
+
+  const passwordValue = form.watch('password')
 
   function translateError(message?: string) {
     if (!message?.startsWith('sys.validation.')) return message
@@ -182,6 +185,7 @@ function AcceptInviteContent() {
           hint={t('passwordHint')}
         >
           <PasswordInput id="password" disabled={submitting} {...form.register('password')} />
+          <PasswordRequirementsPanel password={passwordValue} className="mt-2" />
         </FormField>
 
         <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>

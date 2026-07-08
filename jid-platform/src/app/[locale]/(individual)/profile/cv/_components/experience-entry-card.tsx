@@ -27,7 +27,7 @@ const MONTHS = Array.from({ length: 12 }, (_, index) => index + 1)
 const YEARS = Array.from({ length: 56 }, (_, index) => 2100 - index)
 
 const selectClassName =
-  'flex h-10 w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink'
+  'flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground'
 
 function fieldError(message: unknown): string | undefined {
   return typeof message === 'string' ? message : undefined
@@ -114,7 +114,7 @@ export function ExperienceEntryCard({
         transition,
       }}
       className={cn(
-        'rounded-lg border border-jid-line bg-white p-4 shadow-sm',
+        'rounded-lg border border-border bg-card p-4 shadow-sm',
         isDragging && 'z-10 opacity-60',
       )}
     >
@@ -123,7 +123,7 @@ export function ExperienceEntryCard({
           <button
             type="button"
             className={cn(
-              'touch-manipulation rounded p-1 text-jid-ink/40 hover:bg-jid-beige/60 hover:text-jid-ink/70',
+              'touch-manipulation rounded p-1 text-foreground/40 hover:bg-muted hover:text-muted-foreground',
               isTemp ? 'cursor-not-allowed opacity-40' : 'cursor-grab active:cursor-grabbing',
             )}
             aria-label={t('dragHandle', { index: index + 1 })}
@@ -134,10 +134,10 @@ export function ExperienceEntryCard({
             <GripVertical className="h-4 w-4" aria-hidden />
           </button>
           <div className="min-w-0">
-            <p className="truncate text-sm font-medium text-jid-ink">
+            <p className="truncate text-sm font-medium text-foreground">
               {entry.company_name || t('untitledEntry')}
             </p>
-            <p className="text-xs text-jid-ink/50" aria-live="polite">
+            <p className="text-xs text-muted-foreground" aria-live="polite">
               {saveLabel}
             </p>
           </div>
@@ -146,7 +146,7 @@ export function ExperienceEntryCard({
           type="button"
           variant="ghost"
           size="sm"
-          className="shrink-0 text-jid-ink/50 hover:text-destructive"
+          className="shrink-0 text-muted-foreground hover:text-destructive"
           onClick={() => onRemove(entry.id)}
           disabled={isRemoving || isTemp}
           aria-label={t('removeEntry')}
@@ -198,8 +198,8 @@ export function ExperienceEntryCard({
           </FormField>
         </div>
 
-        <fieldset className="space-y-3 rounded-md border border-jid-line/70 p-3">
-          <legend className="px-1 text-xs font-medium text-jid-ink/70">{t('datesTitle')}</legend>
+        <fieldset className="space-y-3 rounded-md border border-border p-3">
+          <legend className="px-1 text-xs font-medium text-muted-foreground">{t('datesTitle')}</legend>
           <div className="grid gap-4 sm:grid-cols-2">
             <FormField
               id={`${entry.id}-start_month`}
@@ -239,10 +239,10 @@ export function ExperienceEntryCard({
             </FormField>
           </div>
 
-          <label className="flex items-center gap-2 text-sm text-jid-ink/80">
+          <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <input
               type="checkbox"
-              className="h-4 w-4 rounded border-jid-line"
+              className="h-4 w-4 rounded border-border"
               {...register('is_current')}
               onChange={(event) => {
                 const checked = event.target.checked

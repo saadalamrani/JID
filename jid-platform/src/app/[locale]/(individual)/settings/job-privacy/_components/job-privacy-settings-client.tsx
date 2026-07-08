@@ -60,14 +60,14 @@ export function JobPrivacySettingsClient() {
   }
 
   if (loading) {
-    return <p className="container-jid py-8 font-arabic text-sm text-jid-ink/60">{t('loading')}</p>
+    return <p className="container-jid py-8 font-arabic text-sm text-muted-foreground">{t('loading')}</p>
   }
 
   return (
     <div className="container-jid max-w-2xl space-y-6 py-8">
       <div>
-        <h1 className="font-arabic text-xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h1 className="font-arabic text-xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <ToggleRow
@@ -94,7 +94,7 @@ export function JobPrivacySettingsClient() {
           type="button"
           onClick={onSave}
           disabled={saving}
-          className="bg-jid-olive font-arabic hover:bg-jid-olive/90"
+          className="bg-primary font-arabic hover:bg-primary/90"
         >
           {t('save')}
         </Button>
@@ -118,10 +118,10 @@ function ToggleRow({
   onChange: (checked: boolean) => void
 }) {
   return (
-    <label className="flex items-start justify-between gap-4 rounded-xl border border-jid-line bg-white p-5 shadow-sm">
+    <label className="flex items-start justify-between gap-4 rounded-xl border border-border bg-card p-5 shadow-sm">
       <span>
-        <span className="block font-arabic text-sm font-medium text-jid-ink">{title}</span>
-        <span className="mt-1 block font-arabic text-xs leading-relaxed text-jid-ink/60">{hint}</span>
+        <span className="block font-arabic text-sm font-medium text-foreground">{title}</span>
+        <span className="mt-1 block font-arabic text-xs leading-relaxed text-muted-foreground">{hint}</span>
       </span>
       <input
         type="checkbox"

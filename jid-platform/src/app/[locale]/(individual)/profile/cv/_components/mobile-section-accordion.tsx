@@ -29,7 +29,7 @@ export function MobileSectionAccordion({ cv, completeness, isLoading }: MobileSe
   return (
     <div className="space-y-2">
       {isLoading ? (
-        <p className="px-1 text-xs text-jid-ink/40">{tBuilder('syncing')}</p>
+        <p className="px-1 text-xs text-foreground/40">{tBuilder('syncing')}</p>
       ) : null}
 
       {CV_BUILDER_SECTIONS.map((section) => {
@@ -38,7 +38,7 @@ export function MobileSectionAccordion({ cv, completeness, isLoading }: MobileSe
         return (
           <div
             key={section}
-            className="overflow-hidden rounded-xl border border-jid-line bg-white shadow-sm"
+            className="overflow-hidden rounded-xl border border-border bg-card shadow-sm"
           >
             <button
               type="button"
@@ -46,7 +46,7 @@ export function MobileSectionAccordion({ cv, completeness, isLoading }: MobileSe
               onClick={() => setActiveSection(section)}
               className={cn(
                 'flex w-full items-center gap-2 px-4 py-3 text-start text-sm transition-colors',
-                isOpen ? 'bg-jid-olive/10 font-medium text-jid-olive' : 'text-jid-ink/80',
+                isOpen ? 'bg-primary/10 font-medium text-primary' : 'text-muted-foreground',
               )}
             >
               <CompletenessIcon status={completeness[section]} section={section} />
@@ -58,7 +58,7 @@ export function MobileSectionAccordion({ cv, completeness, isLoading }: MobileSe
             </button>
 
             {isOpen && cv ? (
-              <div className="border-t border-jid-line px-4 py-4">
+              <div className="border-t border-border px-4 py-4">
                 <SectionFormBody section={section} cv={cv} />
               </div>
             ) : null}
@@ -105,10 +105,10 @@ function CompletenessIcon({
         : t('empty', { section: sectionLabel })
 
   if (status === 'complete') {
-    return <CheckCircle2 className="h-4 w-4 shrink-0 text-jid-olive" aria-label={label} />
+    return <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" aria-label={label} />
   }
   if (status === 'partial') {
-    return <CircleDashed className="h-4 w-4 shrink-0 text-jid-gold" aria-label={label} />
+    return <CircleDashed className="h-4 w-4 shrink-0 text-accent" aria-label={label} />
   }
-  return <Circle className="h-4 w-4 shrink-0 text-jid-ink/30" aria-label={label} />
+  return <Circle className="h-4 w-4 shrink-0 text-foreground/30" aria-label={label} />
 }

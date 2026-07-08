@@ -15,7 +15,7 @@ export function OwnerViewStats({ profileId, completionPct }: OwnerViewStatsProps
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-3 gap-3 rounded-xl border border-jid-line bg-jid-beige/50 p-4">
+      <div className="grid grid-cols-3 gap-3 rounded-xl border border-border bg-background/50 p-4">
         <Skeleton className="h-12 w-full" />
         <Skeleton className="h-12 w-full" />
         <Skeleton className="h-12 w-full" />

@@ -86,7 +86,7 @@ export function OtpInput({
           autoFocus={autoFocus && index === 0}
           className={cn(
             'h-12 w-10 text-center font-mono text-lg tabular-nums',
-            'focus-visible:ring-jid-gold',
+            'focus-visible:ring-accent',
           )}
           onChange={(event) => handleChange(index, event.target.value)}
           onKeyDown={(event) => handleKeyDown(index, event)}

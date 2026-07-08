@@ -33,7 +33,7 @@ export function ReinstateProfileButton({ profileId }: ReinstateProfileButtonProp
     <Button
       type="button"
       size="sm"
-      className="bg-jid-olive hover:bg-jid-olive/90"
+      className="bg-primary hover:bg-primary/90"
       disabled={loading}
       onClick={() => void handleReinstate()}
     >

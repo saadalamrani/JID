@@ -11,7 +11,7 @@ export function OwnerCompanyActions() {
 
   return (
     <ActionButtonStrip ariaLabel={t('ownerActionsLabel')}>
-      <Button asChild size="sm" variant="outline" className="border-jid-line">
+      <Button asChild size="sm" variant="outline" className="border-border">
         <Link href="/company/profile/edit">
           <Pencil className="h-4 w-4" aria-hidden />
           {t('editCompany')}

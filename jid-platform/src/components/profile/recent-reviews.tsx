@@ -12,28 +12,28 @@ export async function RecentReviews({ mentorId }: RecentReviewsProps) {
   const reviews = await fetchMentorReviews(mentorId, 3)
 
   return (
-    <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-      <h2 className="mb-4 text-sm font-medium text-jid-ink/70">{t('reviewsTitle')}</h2>
+    <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
+      <h2 className="mb-4 text-sm font-medium text-muted-foreground">{t('reviewsTitle')}</h2>
 
       {reviews.length === 0 ? (
-        <p className="text-sm text-jid-ink/50">{t('reviewsEmpty')}</p>
+        <p className="text-sm text-muted-foreground">{t('reviewsEmpty')}</p>
       ) : (
         <ul className="space-y-4">
           {reviews.map((review) => (
-            <li key={review.id} className="border-b border-jid-line pb-4 last:border-0 last:pb-0">
+            <li key={review.id} className="border-b border-border pb-4 last:border-0 last:pb-0">
               <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-medium text-jid-ink">
+                <p className="text-sm font-medium text-foreground">
                   {review.reviewer_name ?? t('reviewAnonymous')}
                 </p>
-                <span className="inline-flex items-center gap-1 text-sm text-jid-gold">
+                <span className="inline-flex items-center gap-1 text-sm text-accent">
                   <Star className="h-4 w-4 fill-jid-gold" aria-hidden />
                   {review.rating}/5
                 </span>
               </div>
               {review.body ? (
-                <p className="mt-2 text-sm leading-relaxed text-jid-ink/70">{review.body}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{review.body}</p>
               ) : null}
-              <p className="mt-2 text-xs text-jid-ink/40">
+              <p className="mt-2 text-xs text-foreground/40">
                 {new Date(review.created_at).toLocaleDateString('ar-SA')}
               </p>
             </li>

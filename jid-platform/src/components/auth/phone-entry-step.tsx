@@ -59,7 +59,7 @@ export function PhoneEntryStep({ onSent, onSend }: PhoneEntryStepProps) {
         error={translateError(form.formState.errors.phone?.message)}
       >
         <div className="flex gap-2" dir="ltr">
-          <span className="flex h-10 items-center rounded-md border border-jid-line bg-jid-beige px-3 text-sm text-jid-ink/70">
+          <span className="flex h-10 items-center rounded-md border border-border bg-background px-3 text-sm text-muted-foreground">
             +966
           </span>
           <Input
@@ -75,7 +75,7 @@ export function PhoneEntryStep({ onSent, onSend }: PhoneEntryStepProps) {
         </div>
       </FormField>
 
-      <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
         {submitting ? t('sending') : t('sendOtp')}
       </Button>
     </form>

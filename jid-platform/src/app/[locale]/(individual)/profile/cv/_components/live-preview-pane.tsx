@@ -16,8 +16,8 @@ const PDFViewerPane = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex h-[640px] items-center justify-center rounded-lg border border-jid-line bg-white">
-        <p className="text-sm text-jid-ink/50">…</p>
+      <div className="flex h-[640px] items-center justify-center rounded-lg border border-border bg-card">
+        <p className="text-sm text-muted-foreground">…</p>
       </div>
     ),
   },
@@ -39,14 +39,14 @@ export function LivePreviewPane({ cv, zoomLevel }: LivePreviewPaneProps) {
   const pdfData = useMemo(() => mapCvFullRecordToCvData(debouncedCv), [debouncedCv])
 
   return (
-    <div className="flex h-full min-h-0 flex-col rounded-xl border border-jid-line bg-jid-beige/20 p-4">
+    <div className="flex h-full min-h-0 flex-col rounded-xl border border-border bg-background/20 p-4">
       <div className="mb-3 space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/80">{t('title')}</h2>
+        <h2 className="text-sm font-medium text-muted-foreground">{t('title')}</h2>
         <PreviewToolbar cv={cv} isPreviewStale={isPreviewStale} />
         <PageOverflowWarning data={pdfData} />
       </div>
 
-      <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-jid-line bg-white p-3">
+      <div className="min-h-0 flex-1 overflow-auto rounded-lg border border-border bg-card p-3">
         <div
           className={cn('origin-top transition-transform')}
           style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top center' }}

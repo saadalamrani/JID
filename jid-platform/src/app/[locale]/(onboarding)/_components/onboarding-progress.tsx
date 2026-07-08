@@ -48,9 +48,9 @@ export function OnboardingProgress() {
               <span
                 className={cn(
                   'inline-flex size-7 items-center justify-center rounded-full text-xs font-semibold',
-                  isComplete && 'bg-jid-olive text-white',
-                  isActive && 'border-2 border-jid-olive bg-jid-olive/10 text-jid-olive',
-                  !isComplete && !isActive && 'border border-jid-line bg-white text-jid-ink/50',
+                  isComplete && 'bg-primary text-primary-foreground',
+                  isActive && 'border-2 border-jid-olive bg-primary/10 text-primary',
+                  !isComplete && !isActive && 'border border-border bg-card text-muted-foreground',
                 )}
                 aria-current={isActive ? 'step' : undefined}
               >
@@ -59,7 +59,7 @@ export function OnboardingProgress() {
               <span
                 className={cn(
                   'text-xs font-medium',
-                  isActive ? 'text-jid-olive' : 'text-jid-ink/55',
+                  isActive ? 'text-primary' : 'text-foreground/55',
                 )}
               >
                 {t(`flows.${flowKey as OnboardingFlowKey}.steps.${step.id}`)}

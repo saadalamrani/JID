@@ -169,8 +169,8 @@ export function BecomeMentorWizard({ fullName, avatarUrl }: BecomeMentorWizardPr
   return (
     <div className="container-jid max-w-3xl space-y-8 py-8">
       <div>
-        <h1 className="font-arabic text-2xl font-semibold text-jid-ink">{t('pageTitle')}</h1>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('pageSubtitle')}</p>
+        <h1 className="font-arabic text-2xl font-semibold text-foreground">{t('pageTitle')}</h1>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('pageSubtitle')}</p>
       </div>
 
       <ol className="grid grid-cols-5 gap-2">
@@ -183,9 +183,9 @@ export function BecomeMentorWizard({ fullName, avatarUrl }: BecomeMentorWizardPr
               <div
                 className={cn(
                   'mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold',
-                  isActive && 'bg-jid-olive text-white',
-                  isComplete && 'bg-jid-gold text-jid-ink',
-                  !isActive && !isComplete && 'bg-jid-line text-jid-ink/50',
+                  isActive && 'bg-primary text-primary-foreground',
+                  isComplete && 'bg-accent text-foreground',
+                  !isActive && !isComplete && 'bg-jid-line text-muted-foreground',
                 )}
               >
                 {index + 1}
@@ -193,7 +193,7 @@ export function BecomeMentorWizard({ fullName, avatarUrl }: BecomeMentorWizardPr
               <p
                 className={cn(
                   'font-arabic text-[10px] leading-tight sm:text-xs',
-                  isActive ? 'font-medium text-jid-ink' : 'text-jid-ink/60',
+                  isActive ? 'font-medium text-foreground' : 'text-muted-foreground',
                 )}
               >
                 {t(`steps.${wizardStep}`)}
@@ -203,7 +203,7 @@ export function BecomeMentorWizard({ fullName, avatarUrl }: BecomeMentorWizardPr
         })}
       </ol>
 
-      <div className="rounded-xl border border-jid-line bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
         {step === 'professional' ? (
           <Step1ProfessionalInfo draft={draft} errors={errors} onChange={patchDraft} />
         ) : null}

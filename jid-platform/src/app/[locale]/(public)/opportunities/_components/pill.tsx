@@ -13,11 +13,11 @@ export function Pill({ icon: Icon, children, className }: PillProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 rounded-full border border-jid-line/50 bg-jid-beige/60 px-2 py-0.5 font-arabic text-xs text-jid-ink/80',
+        'inline-flex items-center gap-1 rounded-full border border-border/50 bg-muted px-2 py-0.5 font-arabic text-xs text-muted-foreground',
         className,
       )}
     >
-      {Icon ? <Icon className="h-3 w-3 shrink-0 text-jid-olive" aria-hidden /> : null}
+      {Icon ? <Icon className="h-3 w-3 shrink-0 text-primary" aria-hidden /> : null}
       <span>{children}</span>
     </span>
   )

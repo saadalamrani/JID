@@ -38,7 +38,7 @@ export function SkipForNow() {
         type="button"
         variant="ghost"
         size="sm"
-        className="text-jid-ink/70 hover:text-jid-olive"
+        className="text-muted-foreground hover:text-primary"
         onClick={() => setOpen(true)}
         disabled={isPending}
       >

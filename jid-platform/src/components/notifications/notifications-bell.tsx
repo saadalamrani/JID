@@ -31,7 +31,7 @@ export function NotificationsBell({ userId, className }: NotificationsBellProps)
         <button
           type="button"
           className={cn(
-            'relative rounded-lg border border-jid-line bg-jid-beige/30 p-2 text-jid-ink/70 transition-colors hover:bg-jid-beige/60',
+            'relative rounded-lg border border-border bg-background/30 p-2 text-muted-foreground transition-colors hover:bg-muted',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive/40',
             className,
           )}
@@ -39,7 +39,7 @@ export function NotificationsBell({ userId, className }: NotificationsBellProps)
         >
           <Bell className="h-4 w-4" aria-hidden />
           {count > 0 ? (
-            <span className="absolute -end-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-jid-olive px-1 text-[10px] font-semibold leading-none text-white">
+            <span className="absolute -end-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-semibold leading-none text-primary-foreground">
               {formatBadgeCount(count)}
             </span>
           ) : null}

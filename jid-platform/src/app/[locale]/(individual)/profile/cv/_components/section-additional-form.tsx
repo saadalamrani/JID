@@ -66,16 +66,16 @@ export function SectionAdditionalForm({ cv }: SectionAdditionalFormProps) {
 
   return (
     <div className="space-y-6">
-      <p className="text-xs text-jid-ink/50">{t('groupedHint')}</p>
+      <p className="text-xs text-muted-foreground">{t('groupedHint')}</p>
 
       {BUILDER_ADDITIONAL_CATEGORIES.map((category) => {
         const items = grouped.get(category) ?? []
         const categoryLabel = CATEGORY_LABELS[locale][category]
 
         return (
-          <section key={category} className="space-y-3 rounded-lg border border-jid-line p-4">
+          <section key={category} className="space-y-3 rounded-lg border border-border p-4">
             <div className="flex items-center justify-between gap-2">
-              <h3 className="text-sm font-medium text-jid-ink/80">{categoryLabel}</h3>
+              <h3 className="text-sm font-medium text-muted-foreground">{categoryLabel}</h3>
               <Button
                 type="button"
                 size="sm"
@@ -88,7 +88,7 @@ export function SectionAdditionalForm({ cv }: SectionAdditionalFormProps) {
             </div>
 
             {items.length === 0 ? (
-              <p className="text-xs text-jid-ink/45">{t('emptyCategory')}</p>
+              <p className="text-xs text-muted-foreground">{t('emptyCategory')}</p>
             ) : (
               <div className="space-y-3">
                 {items.map((entry) => (

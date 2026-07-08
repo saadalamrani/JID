@@ -21,19 +21,19 @@ export function PublicContentSection({ context, isOwner }: PublicContentSectionP
     <section className="space-y-6">
       <ContentBlock title={t('aboutTitle')} isOwner={isOwner} focus="about">
         {profile.about_me ? (
-          <p className="whitespace-pre-wrap text-sm leading-relaxed text-jid-ink/80">
+          <p className="whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground">
             {profile.about_me}
           </p>
         ) : (
-          <p className="text-sm text-jid-ink/50">{t('aboutEmpty')}</p>
+          <p className="text-sm text-muted-foreground">{t('aboutEmpty')}</p>
         )}
       </ContentBlock>
 
       {(universityName || collegeName) && (
         <ContentBlock title={t('educationTitle')} isOwner={isOwner} focus="university">
-          <ul className="space-y-1 text-sm text-jid-ink/80">
+          <ul className="space-y-1 text-sm text-muted-foreground">
             {universityName ? <li>{universityName}</li> : null}
-            {collegeName ? <li className="text-jid-ink/60">{collegeName}</li> : null}
+            {collegeName ? <li className="text-muted-foreground">{collegeName}</li> : null}
           </ul>
         </ContentBlock>
       )}
@@ -44,14 +44,14 @@ export function PublicContentSection({ context, isOwner }: PublicContentSectionP
             {skills.map((skill) => (
               <span
                 key={skill.id}
-                className="rounded-full bg-jid-olive/10 px-3 py-1 text-xs font-medium text-jid-olive"
+                className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
               >
                 {skill.name_ar ?? skill.name}
               </span>
             ))}
           </div>
         ) : (
-          <p className="text-sm text-jid-ink/50">{t('skillsEmpty')}</p>
+          <p className="text-sm text-muted-foreground">{t('skillsEmpty')}</p>
         )}
       </ContentBlock>
 
@@ -61,19 +61,19 @@ export function PublicContentSection({ context, isOwner }: PublicContentSectionP
             {profile.target_sectors.map((sector) => (
               <span
                 key={sector}
-                className="rounded-md border border-jid-line px-2.5 py-1 text-xs text-jid-ink/80"
+                className="rounded-md border border-border px-2.5 py-1 text-xs text-muted-foreground"
               >
                 {sector}
               </span>
             ))}
           </div>
         ) : (
-          <p className="text-sm text-jid-ink/50">{t('targetsEmpty')}</p>
+          <p className="text-sm text-muted-foreground">{t('targetsEmpty')}</p>
         )}
       </ContentBlock>
 
       <div>
-        <h3 className="mb-2 text-sm font-medium text-jid-ink/70">{t('linksTitle')}</h3>
+        <h3 className="mb-2 text-sm font-medium text-muted-foreground">{t('linksTitle')}</h3>
         <SmartLinksRow smartLinks={profile.smart_links} linkedinUrl={profile.linkedin_url} />
       </div>
     </section>
@@ -94,14 +94,14 @@ function ContentBlock({
   const t = useTranslations('profile.public')
 
   return (
-    <div className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
+    <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <h3 className="text-sm font-medium text-jid-ink/70">{title}</h3>
+        <h3 className="text-sm font-medium text-muted-foreground">{title}</h3>
         {isOwner ? (
           <Link
             href={`/profile/edit?focus=${focus}`}
             className={cn(
-              'inline-flex items-center gap-1 text-xs font-medium text-jid-olive hover:underline',
+              'inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline',
             )}
           >
             <Pencil className="h-3 w-3" aria-hidden />

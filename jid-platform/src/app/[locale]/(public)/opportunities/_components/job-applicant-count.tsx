@@ -50,11 +50,11 @@ export function JobApplicantCount({
 
   return (
     <p
-      className="flex items-center gap-2 font-arabic text-sm text-jid-ink/70"
+      className="flex items-center gap-2 font-arabic text-sm text-muted-foreground"
       aria-live="polite"
       aria-atomic="true"
     >
-      <Users className="h-4 w-4 shrink-0 text-jid-olive" aria-hidden />
+      <Users className="h-4 w-4 shrink-0 text-primary" aria-hidden />
       <span>{formatNumber(count, locale)} متقدّم على هذه الفرصة</span>
     </p>
   )

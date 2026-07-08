@@ -42,12 +42,12 @@ export function MentorHubDashboard({
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="font-arabic text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h1 className="font-arabic text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
 
       <nav
-        className="flex flex-wrap gap-2 border-b border-jid-line pb-3"
+        className="flex flex-wrap gap-2 border-b border-border pb-3"
         aria-label={t('tabsAria')}
       >
         {TABS.map((tab) => (
@@ -58,13 +58,13 @@ export function MentorHubDashboard({
             className={cn(
               'rounded-lg px-3 py-1.5 font-arabic text-sm transition-colors',
               activeTab === tab
-                ? 'bg-jid-olive text-white'
-                : 'text-jid-ink/70 hover:bg-jid-beige/50',
+                ? 'bg-primary text-primary-foreground'
+                : 'text-muted-foreground hover:bg-background/50',
             )}
           >
             {t(`tabs.${tab}`)}
             {tab === 'requests' && kpis.pendingCount > 0 ? (
-              <span className="ms-1.5 rounded-full bg-white/20 px-1.5 text-xs">
+              <span className="ms-1.5 rounded-full bg-card/20 px-1.5 text-xs">
                 {kpis.pendingCount}
               </span>
             ) : null}
@@ -75,7 +75,7 @@ export function MentorHubDashboard({
       {activeTab === 'requests' ? (
         <section className="space-y-4">
           {pendingRequests.length === 0 ? (
-            <p className="rounded-xl border border-dashed border-jid-line py-12 text-center font-arabic text-sm text-jid-ink/55">
+            <p className="rounded-xl border border-dashed border-border py-12 text-center font-arabic text-sm text-foreground/55">
               {t('requests.empty')}
             </p>
           ) : (
@@ -91,17 +91,17 @@ export function MentorHubDashboard({
       ) : null}
 
       {activeTab === 'chats' ? (
-        <div className="rounded-xl border border-jid-line bg-white px-6 py-8 text-center">
-          <p className="font-arabic text-sm text-jid-ink/70">{t('stubs.chats.body')}</p>
-          <Button asChild className="mt-4 bg-jid-olive font-arabic hover:bg-jid-olive/90">
+        <div className="rounded-xl border border-border bg-card px-6 py-8 text-center">
+          <p className="font-arabic text-sm text-muted-foreground">{t('stubs.chats.body')}</p>
+          <Button asChild className="mt-4 bg-primary font-arabic hover:bg-primary/90">
             <Link href="/conversations">{t('stubs.chats.openCta')}</Link>
           </Button>
         </div>
       ) : null}
       {activeTab === 'upcoming' ? (
-        <div className="rounded-xl border border-jid-line bg-white px-6 py-8 text-center">
-          <p className="font-arabic text-sm text-jid-ink/70">{t('stubs.upcoming.body')}</p>
-          <Button asChild className="mt-4 bg-jid-olive font-arabic hover:bg-jid-olive/90">
+        <div className="rounded-xl border border-border bg-card px-6 py-8 text-center">
+          <p className="font-arabic text-sm text-muted-foreground">{t('stubs.upcoming.body')}</p>
+          <Button asChild className="mt-4 bg-primary font-arabic hover:bg-primary/90">
             <Link href="/radar">{t('stubs.upcoming.openCta')}</Link>
           </Button>
         </div>

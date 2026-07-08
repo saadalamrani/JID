@@ -20,7 +20,7 @@ import {
 import type { CvAdditionalRecord } from '@/types/cv'
 
 const textareaClassName =
-  'flex w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink'
+  'flex w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground'
 
 function fieldError(message: unknown): string | undefined {
   return typeof message === 'string' ? message : undefined
@@ -82,16 +82,16 @@ export function AdditionalEntryCard({
           : null
 
   return (
-    <article className="rounded-lg border border-jid-line bg-jid-beige/10 p-4">
+    <article className="rounded-lg border border-border bg-background/10 p-4">
       <div className="mb-3 flex items-start justify-between gap-2">
-        <p className="text-xs text-jid-ink/50" aria-live="polite">
+        <p className="text-xs text-muted-foreground" aria-live="polite">
           {saveLabel}
         </p>
         <Button
           type="button"
           variant="ghost"
           size="sm"
-          className="shrink-0 text-jid-ink/50 hover:text-destructive"
+          className="shrink-0 text-muted-foreground hover:text-destructive"
           onClick={() => onRemove(entry.id)}
           disabled={isRemoving || isTemp}
           aria-label={t('removeEntry')}

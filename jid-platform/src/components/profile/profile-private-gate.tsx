@@ -10,14 +10,14 @@ export function ProfilePrivateGate() {
 
   return (
     <div className="container-jid flex min-h-[50vh] flex-col items-center justify-center py-16 text-center">
-      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-jid-beige">
-        <Lock className="h-8 w-8 text-jid-olive" aria-hidden />
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-background">
+        <Lock className="h-8 w-8 text-primary" aria-hidden />
       </div>
-      <h1 className="mt-6 text-xl font-semibold text-jid-ink">{t('privateGateTitle')}</h1>
-      <p className="mt-2 max-w-md text-sm text-jid-ink/70">{t('privateGateMessage')}</p>
+      <h1 className="mt-6 text-xl font-semibold text-foreground">{t('privateGateTitle')}</h1>
+      <p className="mt-2 max-w-md text-sm text-muted-foreground">{t('privateGateMessage')}</p>
       <Link
         href="/login"
-        className="mt-6 text-sm font-medium text-jid-olive underline-offset-4 hover:underline"
+        className="mt-6 text-sm font-medium text-primary underline-offset-4 hover:underline"
       >
         {t('privateGateLogin')}
       </Link>

@@ -19,7 +19,7 @@ export async function SuspendedAdminView({ context, profile }: SuspendedAdminVie
   return (
     <div className="container-jid space-y-6 py-8">
       <ProfileSuspendedState profile={profile} />
-      <p className="text-sm text-jid-ink/60">{t('staffPreviewHint')}</p>
+      <p className="text-sm text-muted-foreground">{t('staffPreviewHint')}</p>
       <IndividualProfileView
         context={context}
         badges={[]}

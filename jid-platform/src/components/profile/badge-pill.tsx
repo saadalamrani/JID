@@ -43,12 +43,12 @@ export function BadgePill({ badge, locale = 'ar', className }: BadgePillProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border border-jid-gold/40 bg-jid-gold/10 px-3 py-1 text-xs font-medium text-jid-olive',
+        'inline-flex items-center gap-1.5 rounded-full border border-border bg-accent/10 px-3 py-1 text-xs font-medium text-primary',
         className,
       )}
       title={badge.description_ar ?? undefined}
     >
-      <Icon className="h-3.5 w-3.5 shrink-0 text-jid-gold" aria-hidden />
+      <Icon className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
       <span>{label}</span>
     </span>
   )

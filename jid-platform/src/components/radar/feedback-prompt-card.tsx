@@ -74,7 +74,7 @@ export function FeedbackPromptCard({ meeting, userId, className }: FeedbackPromp
       layoutId={`meeting-${meeting.id}`}
       transition={CARD_SPRING}
       className={cn(
-        'rounded-xl border border-jid-gold/40 bg-gradient-to-br from-white to-jid-beige/30 p-4 shadow-sm',
+        'rounded-xl border border-border bg-gradient-to-br from-white to-background/30 p-4 shadow-sm',
         className,
       )}
     >
@@ -86,9 +86,9 @@ export function FeedbackPromptCard({ meeting, userId, className }: FeedbackPromp
           className="shrink-0"
         />
         <header className="min-w-0 flex-1">
-          <p className="font-arabic text-sm font-semibold text-jid-ink">{t('feedbackTitle')}</p>
-          <p className="mt-0.5 font-arabic text-xs text-jid-ink/60">{mentorName}</p>
-          <p className="mt-1 font-arabic text-xs text-jid-ink/60">{t('feedbackBody')}</p>
+          <p className="font-arabic text-sm font-semibold text-foreground">{t('feedbackTitle')}</p>
+          <p className="mt-0.5 font-arabic text-xs text-muted-foreground">{mentorName}</p>
+          <p className="mt-1 font-arabic text-xs text-muted-foreground">{t('feedbackBody')}</p>
         </header>
       </div>
 
@@ -97,14 +97,14 @@ export function FeedbackPromptCard({ meeting, userId, className }: FeedbackPromp
           <button
             key={value}
             type="button"
-            className="rounded p-1 transition-colors hover:bg-jid-beige/50"
+            className="rounded p-1 transition-colors hover:bg-background/50"
             aria-label={t('ratingLabel', { value })}
             onClick={() => setRating(value)}
           >
             <Star
               className={cn(
                 'h-5 w-5',
-                value <= rating ? 'fill-jid-gold text-jid-gold' : 'text-jid-line',
+                value <= rating ? 'fill-jid-gold text-accent' : 'text-jid-line',
               )}
             />
           </button>
@@ -116,13 +116,13 @@ export function FeedbackPromptCard({ meeting, userId, className }: FeedbackPromp
         onChange={(event) => setComment(event.target.value)}
         rows={3}
         placeholder={t('feedbackPlaceholder')}
-        className="mb-3 w-full resize-none rounded-xl border border-jid-line px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+        className="mb-3 w-full resize-none rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
       />
 
       <div className="flex flex-col gap-2">
         <Button
           type="button"
-          className="w-full bg-jid-olive font-arabic hover:bg-jid-olive/90"
+          className="w-full bg-primary font-arabic hover:bg-primary/90"
           disabled={submitting || dismissing}
           onClick={() => void handleSubmitFeedback()}
         >
@@ -131,7 +131,7 @@ export function FeedbackPromptCard({ meeting, userId, className }: FeedbackPromp
         <Button
           type="button"
           variant="ghost"
-          className="w-full font-arabic text-jid-ink/70"
+          className="w-full font-arabic text-muted-foreground"
           disabled={submitting || dismissing}
           onClick={() => void handleDismissForLater()}
         >

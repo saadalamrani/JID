@@ -28,7 +28,7 @@ const stepOneFormSchema = z.object({
   phone: saudiPhoneSchema,
 })
 
-/** Section 11.1 — basic info form (arabicNameSchema + saudiPhoneSchema). */
+/** Section 11.1 — basic info form (bilingualNameSchema + saudiPhoneSchema). */
 export function StepOneForm({ defaultFullName, defaultPhone }: StepOneFormProps) {
   const t = useTranslations('onboarding.individual.step1')
   const tValidation = useTranslations('onboarding.validation')
@@ -80,7 +80,7 @@ export function StepOneForm({ defaultFullName, defaultPhone }: StepOneFormProps)
         error={translateError(form.formState.errors.phone?.message)}
       >
         <div className="flex gap-2" dir="ltr">
-          <span className="flex h-10 items-center rounded-md border border-jid-line bg-jid-beige px-3 text-sm text-jid-ink/70">
+          <span className="flex h-10 items-center rounded-md border border-border bg-background px-3 text-sm text-muted-foreground">
             +966
           </span>
           <Input
@@ -96,7 +96,7 @@ export function StepOneForm({ defaultFullName, defaultPhone }: StepOneFormProps)
         </div>
       </FormField>
 
-      <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={isPending}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isPending}>
         {isPending ? t('saving') : t('continue')}
       </Button>
     </form>

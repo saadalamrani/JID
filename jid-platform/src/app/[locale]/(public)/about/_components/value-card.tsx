@@ -11,19 +11,19 @@ export function ValueCard({ title, description, accent }: ValueCardProps) {
   return (
     <article
       className={cn(
-        'rounded-xl border bg-white p-6 shadow-sm',
-        accent === 'olive' ? 'border-jid-olive/30' : 'border-jid-gold/40',
+        'rounded-xl border bg-card p-6 shadow-sm',
+        accent === 'olive' ? 'border-jid-olive/30' : 'border-border',
       )}
     >
       <h3
         className={cn(
           'font-arabic text-lg font-semibold',
-          accent === 'olive' ? 'text-jid-olive' : 'text-jid-gold',
+          accent === 'olive' ? 'text-primary' : 'text-accent',
         )}
       >
         {title}
       </h3>
-      <p className="mt-3 text-sm leading-relaxed text-jid-ink/70">{description}</p>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
     </article>
   )
 }

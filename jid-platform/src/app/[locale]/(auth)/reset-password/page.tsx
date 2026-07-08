@@ -8,15 +8,16 @@ import { toast } from 'sonner'
 import { AuthShell } from '@/components/auth/auth-shell'
 import { FormField } from '@/components/auth/form-field'
 import { PasswordInput } from '@/components/auth/password-input'
+import { PasswordRequirementsPanel } from '@/components/ui/password-requirements-panel'
 import { Button } from '@/components/ui/button'
 import { useRouter } from '@/lib/i18n/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { z } from 'zod'
-import { PASSWORD_REGEX } from '@/lib/validations/auth'
+import { strongPasswordSchema } from '@/lib/utils/validators'
 
 const resetSchema = z
   .object({
-    password: z.string().regex(PASSWORD_REGEX),
+    password: strongPasswordSchema,
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -36,6 +37,8 @@ export default function ResetPasswordPage() {
     resolver: zodResolver(resetSchema),
     defaultValues: { password: '', confirmPassword: '' },
   })
+
+  const passwordValue = form.watch('password')
 
   useEffect(() => {
     const supabase = createClient()
@@ -69,8 +72,13 @@ export default function ResetPasswordPage() {
   return (
     <AuthShell title={t('title')} subtitle={t('subtitle')}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
-        <FormField id="password" label={t('password')} error={form.formState.errors.password ? t('errors.weak') : undefined}>
+        <FormField
+          id="password"
+          label={t('password')}
+          error={form.formState.errors.password?.message}
+        >
           <PasswordInput id="password" disabled={submitting} {...form.register('password')} />
+          <PasswordRequirementsPanel password={passwordValue} className="mt-2" />
         </FormField>
         <FormField
           id="confirmPassword"

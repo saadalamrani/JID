@@ -14,18 +14,18 @@ export async function MarketTrendsSection() {
 
     return (
       <section className="space-y-4" aria-label={t('title')}>
-        <h2 className="text-xl font-semibold text-jid-ink">{t('title')}</h2>
+        <h2 className="text-xl font-semibold text-foreground">{t('title')}</h2>
         <div className="grid gap-4 md:grid-cols-2">
           {sectors.length > 0 ? (
-            <div className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-              <h3 className="mb-4 text-sm font-semibold text-jid-ink">{t('sectorTitle')}</h3>
+            <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+              <h3 className="mb-4 text-sm font-semibold text-foreground">{t('sectorTitle')}</h3>
               <SectorBars items={sectors} />
             </div>
           ) : null}
 
           {skills.length > 0 ? (
-            <div className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-              <h3 className="mb-4 text-sm font-semibold text-jid-ink">{t('skillsTitle')}</h3>
+            <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+              <h3 className="mb-4 text-sm font-semibold text-foreground">{t('skillsTitle')}</h3>
               <SkillsBars items={skills} />
             </div>
           ) : null}

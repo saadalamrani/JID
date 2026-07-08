@@ -100,7 +100,7 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
       role="region"
       aria-roledescription="carousel"
       aria-label="إعلانات المنصة"
-      className="relative min-h-[280px] overflow-hidden rounded-xl border border-jid-line bg-jid-olive shadow-sm"
+      className="relative min-h-[280px] overflow-hidden rounded-xl border border-border bg-primary shadow-sm"
       data-auto-flip={
         canAutoFlip && !isPaused && !isFocused && !isHovered && !prefersReducedMotion
           ? 'true'
@@ -144,7 +144,7 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
                 type="button"
                 className={cn(
                   'h-2.5 w-2.5 rounded-full border border-white/50 transition-colors',
-                  index === activeIndex ? 'bg-white' : 'bg-white/25 hover:bg-white/50',
+                  index === activeIndex ? 'bg-card' : 'bg-card/25 hover:bg-card/50',
                 )}
                 aria-label={`الانتقال إلى الإعلان ${index + 1}`}
                 aria-current={index === activeIndex ? 'true' : undefined}
@@ -155,7 +155,7 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
 
           <button
             type="button"
-            className="inline-flex items-center gap-1.5 rounded-md border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-medium text-white hover:bg-white/20"
+            className="inline-flex items-center gap-1.5 rounded-md border border-white/25 bg-card/10 px-3 py-1.5 text-xs font-medium text-primary-foreground hover:bg-card/20"
             aria-pressed={isPaused}
             aria-label={pauseLabel}
             onClick={() => {
@@ -191,7 +191,7 @@ function AnnouncementSlide({ announcement, showControlsPadding }: AnnouncementSl
       )}
     >
       <div
-        className="pointer-events-none absolute inset-0 bg-jid-olive"
+        className="pointer-events-none absolute inset-0 bg-primary"
         aria-hidden
       />
       <div
@@ -200,16 +200,16 @@ function AnnouncementSlide({ announcement, showControlsPadding }: AnnouncementSl
         aria-hidden
       />
 
-      <div className="relative z-10 max-w-2xl space-y-3 text-white">
+      <div className="relative z-10 max-w-2xl space-y-3 text-primary-foreground">
         <CategoryPill category={announcement.category} />
-        <h2 className="text-2xl font-semibold leading-snug text-white">{announcement.title_ar}</h2>
+        <h2 className="text-2xl font-semibold leading-snug text-primary-foreground">{announcement.title_ar}</h2>
         {announcement.body_ar ? (
-          <p className="text-sm leading-relaxed text-white">{announcement.body_ar}</p>
+          <p className="text-sm leading-relaxed text-primary-foreground">{announcement.body_ar}</p>
         ) : null}
         {announcement.cta_url ? (
           <a
             href={announcement.cta_url}
-            className="inline-flex w-fit rounded-lg bg-jid-gold px-4 py-2 text-sm font-semibold text-jid-ink hover:bg-jid-gold/90"
+            className="inline-flex w-fit rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-foreground hover:bg-accent/10"
           >
             {announcement.cta_label_ar?.trim() || 'اعرف المزيد'}
           </a>
@@ -224,14 +224,14 @@ export function AnnouncementEmptyState() {
     <section
       role="status"
       aria-live="polite"
-      className="flex min-h-[280px] items-center justify-center rounded-xl border border-jid-line bg-white p-8 text-center"
+      className="flex min-h-[280px] items-center justify-center rounded-xl border border-border bg-card p-8 text-center"
     >
       <div className="max-w-md space-y-3">
-        <h3 className="text-lg font-semibold text-jid-ink">لا توجد إعلانات حالياً</h3>
-        <p className="text-sm text-jid-ink/70">سيتم عرض أحدث إعلانات المنصة هنا بمجرد نشرها.</p>
+        <h3 className="text-lg font-semibold text-foreground">لا توجد إعلانات حالياً</h3>
+        <p className="text-sm text-muted-foreground">سيتم عرض أحدث إعلانات المنصة هنا بمجرد نشرها.</p>
         <Link
           href="/"
-          className="inline-flex items-center justify-center rounded-lg bg-jid-olive px-4 py-2 text-sm font-medium text-white hover:bg-jid-olive/90"
+          className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
           العودة للرئيسية
         </Link>

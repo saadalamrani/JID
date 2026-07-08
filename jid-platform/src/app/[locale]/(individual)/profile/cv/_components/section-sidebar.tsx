@@ -19,8 +19,8 @@ export function SectionSidebar({ completeness }: SectionSidebarProps) {
   const setActiveSection = useCvBuilderStore((s) => s.setActiveSection)
 
   return (
-    <aside className="flex h-full min-h-0 flex-col rounded-xl border border-jid-line bg-white p-4 shadow-sm">
-      <h2 className="mb-4 text-sm font-medium text-jid-ink/80">{tBuilder('sidebarTitle')}</h2>
+    <aside className="flex h-full min-h-0 flex-col rounded-xl border border-border bg-card p-4 shadow-sm">
+      <h2 className="mb-4 text-sm font-medium text-muted-foreground">{tBuilder('sidebarTitle')}</h2>
 
       <nav aria-label={tBuilder('sidebarTitle')} className="space-y-1">
         {CV_BUILDER_SECTIONS.map((section) => (
@@ -31,8 +31,8 @@ export function SectionSidebar({ completeness }: SectionSidebarProps) {
             className={cn(
               'flex w-full items-center gap-2 rounded-lg px-3 py-2 text-start text-sm transition-colors',
               activeSection === section
-                ? 'bg-jid-olive/10 font-medium text-jid-olive'
-                : 'text-jid-ink/80 hover:bg-jid-beige/60',
+                ? 'bg-primary/10 font-medium text-primary'
+                : 'text-muted-foreground hover:bg-muted',
             )}
           >
             <CompletenessIcon status={completeness[section]} section={section} />
@@ -63,10 +63,10 @@ function CompletenessIcon({
         : t('empty', { section: sectionLabel })
 
   if (status === 'complete') {
-    return <CheckCircle2 className="h-4 w-4 shrink-0 text-jid-olive" aria-label={label} />
+    return <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" aria-label={label} />
   }
   if (status === 'partial') {
-    return <CircleDashed className="h-4 w-4 shrink-0 text-jid-gold" aria-label={label} />
+    return <CircleDashed className="h-4 w-4 shrink-0 text-accent" aria-label={label} />
   }
-  return <Circle className="h-4 w-4 shrink-0 text-jid-ink/30" aria-label={label} />
+  return <Circle className="h-4 w-4 shrink-0 text-foreground/30" aria-label={label} />
 }

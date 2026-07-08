@@ -16,7 +16,7 @@ export function ActionButtonStrip({ children, className, ariaLabel }: ActionButt
   return (
     <div
       className={cn(
-        'flex flex-wrap items-center gap-2 border-t border-jid-line pt-4',
+        'flex flex-wrap items-center gap-2 border-t border-border pt-4',
         className,
       )}
       role="toolbar"

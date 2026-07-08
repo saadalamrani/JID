@@ -14,8 +14,8 @@ export async function MentorPendingStaffBanner({ status }: MentorPendingStaffBan
       <div className="flex items-start gap-3">
         <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600" aria-hidden />
         <div>
-          <p className="text-sm font-medium text-jid-ink">{t('staffPendingTitle')}</p>
-          <p className="mt-1 text-sm text-jid-ink/70">
+          <p className="text-sm font-medium text-foreground">{t('staffPendingTitle')}</p>
+          <p className="mt-1 text-sm text-muted-foreground">
             {t('staffPendingMessage', { status })}
           </p>
         </div>

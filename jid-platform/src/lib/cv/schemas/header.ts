@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { bilingualNameSchema } from '@/lib/utils/validators'
 import { CV_STATUSES } from '@/types/cv'
 
 const optionalUrl = z
@@ -23,7 +24,7 @@ export const cvHeaderFormSchema = z.object({
   status: z.enum(CV_STATUSES).default('draft'),
   locale: z.enum(['ar', 'en']).default('ar'),
   is_primary: z.boolean().default(false),
-  full_name: z.string().trim().min(1, 'الاسم مطلوب').max(120),
+  full_name: bilingualNameSchema,
   email: optionalEmail,
   phone: z.string().trim().max(32).optional().or(z.literal('')),
   city: z.string().trim().max(80).optional().or(z.literal('')),
@@ -87,7 +88,7 @@ const dbNullableString = z.union([z.string(), z.null()]).optional()
 
 export const cvHeaderSectionDbPatchSchema = z
   .object({
-    full_name: z.string().trim().min(1, 'الاسم مطلوب').max(120).optional(),
+    full_name: bilingualNameSchema.optional(),
     city: dbNullableString,
     country: dbNullableString,
     email: z.union([z.string().trim().email('البريد الإلكتروني غير صالح'), z.null()]).optional(),

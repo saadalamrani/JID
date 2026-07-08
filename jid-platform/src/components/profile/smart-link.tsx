@@ -50,13 +50,13 @@ export function SmartLink({ linkKey, url, label, className }: SmartLinkProps) {
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        'inline-flex items-center gap-2 rounded-lg border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink transition-colors hover:border-jid-gold/50 hover:bg-jid-beige/50',
+        'inline-flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors hover:border-border hover:bg-background/50',
         className,
       )}
     >
-      <Icon className="h-4 w-4 shrink-0 text-jid-olive" aria-hidden />
+      <Icon className="h-4 w-4 shrink-0 text-primary" aria-hidden />
       <span>{displayLabel}</span>
-      <ExternalLink className="h-3 w-3 shrink-0 text-jid-ink/40" aria-hidden />
+      <ExternalLink className="h-3 w-3 shrink-0 text-foreground/40" aria-hidden />
     </a>
   )
 }

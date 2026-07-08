@@ -51,10 +51,10 @@ export function ApplicationCardContent({
     <>
       {showGlow ? (
         <div
-          className="mb-2 inline-flex items-center gap-1 rounded-full bg-jid-gold/15 px-2 py-0.5 font-arabic text-[10px] font-semibold text-jid-ink"
+          className="mb-2 inline-flex items-center gap-1 rounded-full bg-accent/10 px-2 py-0.5 font-arabic text-[10px] font-semibold text-foreground"
           role="status"
         >
-          <Zap className="h-3 w-3 shrink-0 text-jid-gold" aria-hidden />
+          <Zap className="h-3 w-3 shrink-0 text-accent" aria-hidden />
           <span>تحديث من الشركة</span>
         </div>
       ) : null}
@@ -64,25 +64,25 @@ export function ApplicationCardContent({
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <h3 className="line-clamp-2 font-arabic text-sm font-semibold text-jid-ink">{title}</h3>
+            <h3 className="line-clamp-2 font-arabic text-sm font-semibold text-foreground">{title}</h3>
             {showArchivedBadge ? (
               <span
                 className={cn(
                   'shrink-0 rounded-full px-2 py-0.5 font-arabic text-[10px] font-medium',
                   application.status === 'rejected' && 'bg-red-50 text-red-800',
                   application.status === 'shortlisted' && 'bg-emerald-50 text-emerald-800',
-                  application.status === 'expired' && 'bg-jid-line/40 text-jid-ink/70',
+                  application.status === 'expired' && 'bg-jid-line/40 text-muted-foreground',
                 )}
               >
                 {ARCHIVED_SUB_STATUS_LABELS[application.status as keyof typeof ARCHIVED_SUB_STATUS_LABELS]}
               </span>
             ) : null}
           </div>
-          <p className="mt-0.5 truncate font-arabic text-xs text-jid-ink/60">{companyName}</p>
+          <p className="mt-0.5 truncate font-arabic text-xs text-muted-foreground">{companyName}</p>
         </div>
       </div>
 
-      <footer className="mt-3 flex flex-wrap items-center justify-between gap-2 font-arabic text-[11px] text-jid-ink/55">
+      <footer className="mt-3 flex flex-wrap items-center justify-between gap-2 font-arabic text-[11px] text-foreground/55">
         <span>{formatRelativeTime(declaredAt)}</span>
         {daysUntilDeadline != null ? (
           <span>
@@ -145,7 +145,7 @@ export function ApplicationCard({
     return (
       <article
         className={cn(
-          'rounded-xl border border-jid-line/60 bg-white p-3 shadow-sm touch-manipulation',
+          'rounded-xl border border-border bg-card p-3 shadow-sm touch-manipulation',
           className,
         )}
       >
@@ -159,10 +159,10 @@ export function ApplicationCard({
       ref={mergedRef}
       style={style}
       className={cn(
-        'rounded-xl border bg-white p-3 shadow-sm touch-manipulation transition-shadow',
+        'rounded-xl border bg-card p-3 shadow-sm touch-manipulation transition-shadow',
         showGlow
-          ? 'animate-pulse border-jid-gold/60 shadow-[0_0_0_2px_rgba(230,180,58,0.28)]'
-          : 'border-jid-line/60',
+          ? 'animate-pulse border-border shadow-[0_0_0_2px_rgba(230,180,58,0.28)]'
+          : 'border-border',
         allowDrag && 'cursor-grab active:cursor-grabbing',
         isDragging && 'z-50 opacity-40',
         className,

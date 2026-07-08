@@ -33,15 +33,15 @@ export default async function UniversitiesDiscoverPage({ params }: UniversitiesD
     <main dir={dir} className="container-jid py-10" lang={locale}>
       <FeatureGate flag={FLAG_KEYS.UNIVERSITIES_DISCOVER}>
         <header className="space-y-2">
-          <h1 className="font-arabic text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-          <p className="text-sm text-jid-ink/65">{t('subtitle')}</p>
+          <h1 className="font-arabic text-2xl font-semibold text-foreground">{t('title')}</h1>
+          <p className="text-sm text-foreground/65">{t('subtitle')}</p>
         </header>
 
-        <div className="mt-8 rounded-2xl border border-jid-gold/40 bg-jid-beige-warm p-8 text-center">
-          <p className="text-sm text-jid-ink/70">{t('body')}</p>
+        <div className="mt-8 rounded-2xl border border-border bg-background-warm p-8 text-center">
+          <p className="text-sm text-muted-foreground">{t('body')}</p>
           <Link
             href="/catalog"
-            className="mt-4 inline-flex text-sm font-medium text-jid-olive hover:underline"
+            className="mt-4 inline-flex text-sm font-medium text-primary hover:underline"
           >
             {t('catalogCta')}
           </Link>

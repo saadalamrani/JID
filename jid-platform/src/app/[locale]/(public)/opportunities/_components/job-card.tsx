@@ -37,7 +37,7 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
     <article
       role="listitem"
       className={cn(
-        'relative flex min-h-[300px] flex-col rounded-xl border border-jid-line/40 bg-white p-4 shadow-sm',
+        'relative flex min-h-[300px] flex-col rounded-xl border border-border/40 bg-card p-4 shadow-sm',
         !previewMode && 'transition-shadow hover:shadow-md',
         className,
       )}
@@ -62,8 +62,8 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
       <header className="relative z-20 flex items-start gap-3 pointer-events-none">
         <CompanyLogo name={companyName} logoUrl={job.company.logo_url} />
         <div className="min-w-0 flex-1">
-          <p className="truncate font-arabic text-sm font-medium text-jid-ink/70">{companyName}</p>
-          <h2 className="mt-0.5 line-clamp-2 font-arabic text-base font-semibold text-jid-ink">
+          <p className="truncate font-arabic text-sm font-medium text-muted-foreground">{companyName}</p>
+          <h2 className="mt-0.5 line-clamp-2 font-arabic text-base font-semibold text-foreground">
             {title}
           </h2>
         </div>
@@ -86,7 +86,7 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
         />
       </div>
 
-      <p className="relative z-20 mt-2 flex items-center gap-1 font-arabic text-xs text-jid-ink-400 pointer-events-none">
+      <p className="relative z-20 mt-2 flex items-center gap-1 font-arabic text-xs text-foreground-400 pointer-events-none">
         <Users className="h-3.5 w-3.5 shrink-0" aria-hidden />
         <span>
           {formatNumber(job.applicant_count, locale)} متقدّم
@@ -99,7 +99,7 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
             className={cn(
               'inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5',
               'font-arabic text-sm font-medium',
-              'bg-jid-line/30 text-jid-ink-500',
+              'bg-jid-line/30 text-foreground-500',
             )}
             aria-hidden
           >

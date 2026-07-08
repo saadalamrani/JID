@@ -72,7 +72,7 @@ export function SectionHeaderForm({ cv }: SectionHeaderFormProps) {
   return (
     <form className="space-y-6" onSubmit={(event) => event.preventDefault()} noValidate>
       <div className="flex items-center justify-between gap-2">
-        <p className="text-xs text-jid-ink/50" aria-live="polite">
+        <p className="text-xs text-muted-foreground" aria-live="polite">
           {saveLabel}
         </p>
       </div>
@@ -104,8 +104,8 @@ export function SectionHeaderForm({ cv }: SectionHeaderFormProps) {
         </FormField>
       </div>
 
-      <fieldset className="space-y-4 rounded-lg border border-jid-line p-4">
-        <legend className="px-1 text-sm font-medium text-jid-ink/80">{t('linksTitle')}</legend>
+      <fieldset className="space-y-4 rounded-lg border border-border p-4">
+        <legend className="px-1 text-sm font-medium text-muted-foreground">{t('linksTitle')}</legend>
 
         <FormField
           id="linkedin_url"

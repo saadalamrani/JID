@@ -116,26 +116,26 @@ export function ManageEmailsClient() {
   return (
     <div className="container-jid max-w-2xl space-y-6 py-8">
       <div>
-        <h1 className="font-arabic text-xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h1 className="font-arabic text-xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
-      <ul className="space-y-2 rounded-xl border border-jid-line bg-white p-4 shadow-sm">
+      <ul className="space-y-2 rounded-xl border border-border bg-card p-4 shadow-sm">
         {loading ? (
-          <li className="font-arabic text-sm text-jid-ink/60">{t('loading')}</li>
+          <li className="font-arabic text-sm text-muted-foreground">{t('loading')}</li>
         ) : emails.length === 0 ? (
-          <li className="font-arabic text-sm text-jid-ink/60">{t('empty')}</li>
+          <li className="font-arabic text-sm text-muted-foreground">{t('empty')}</li>
         ) : (
           emails.map((row) => (
             <li
               key={row.id}
-              className="flex items-center justify-between gap-3 border-b border-jid-line/30 py-2 last:border-0"
+              className="flex items-center justify-between gap-3 border-b border-border/30 py-2 last:border-0"
             >
-              <span dir="ltr" className="text-sm text-jid-ink">
+              <span dir="ltr" className="text-sm text-foreground">
                 {row.email}
               </span>
               {row.is_primary ? (
-                <span className="rounded-full bg-jid-beige px-2 py-0.5 font-arabic text-xs text-jid-ink/70">
+                <span className="rounded-full bg-background px-2 py-0.5 font-arabic text-xs text-muted-foreground">
                   {t('primary')}
                 </span>
               ) : null}
@@ -146,17 +146,17 @@ export function ManageEmailsClient() {
 
       <form
         onSubmit={form.handleSubmit(onAddEmail)}
-        className="space-y-3 rounded-xl border border-jid-line bg-white p-5 shadow-sm"
+        className="space-y-3 rounded-xl border border-border bg-card p-5 shadow-sm"
       >
-        <label className="block font-arabic text-sm font-medium text-jid-ink">{t('addLabel')}</label>
+        <label className="block font-arabic text-sm font-medium text-foreground">{t('addLabel')}</label>
         <Input
           type="email"
           dir="ltr"
           placeholder="you@company.com"
-          className="border-jid-line"
+          className="border-border"
           {...form.register('email')}
         />
-        <Button type="submit" className="bg-jid-olive font-arabic hover:bg-jid-olive/90">
+        <Button type="submit" className="bg-primary font-arabic hover:bg-primary/90">
           {t('sendOtp')}
         </Button>
       </form>

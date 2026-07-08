@@ -18,7 +18,7 @@ import {
 } from '@/lib/validations/onboarding'
 
 const selectClassName =
-  'flex h-10 w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink'
+  'flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground'
 
 function graduationYears(): number[] {
   const current = new Date().getFullYear()
@@ -147,7 +147,7 @@ export function StepTwoForm({ defaultValues }: StepTwoFormProps) {
         </FormField>
       </div>
 
-      <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={isPending}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isPending}>
         {isPending ? t('saving') : t('continue')}
       </Button>
     </form>

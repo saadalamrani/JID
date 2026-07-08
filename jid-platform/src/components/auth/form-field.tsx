@@ -14,11 +14,11 @@ type FormFieldProps = {
 export function FormField({ id, label, error, hint, children, className }: FormFieldProps) {
   return (
     <div className={cn('space-y-2', className)}>
-      <Label htmlFor={id} className="text-jid-ink">
+      <Label htmlFor={id} className="text-foreground">
         {label}
       </Label>
       {children}
-      {hint && !error ? <p className="text-xs text-jid-ink/60">{hint}</p> : null}
+      {hint && !error ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
       {error ? (
         <p id={`${id}-error`} className="text-xs text-destructive" role="alert">
           {error}

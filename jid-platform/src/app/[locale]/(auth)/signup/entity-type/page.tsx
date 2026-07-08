@@ -13,7 +13,7 @@ export default async function EntityTypePage() {
       footer={
         <p>
           {t('hasAccount')}{' '}
-          <Link href="/login" className="font-medium text-jid-olive underline-offset-4 hover:underline">
+          <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
             {t('loginLink')}
           </Link>
         </p>

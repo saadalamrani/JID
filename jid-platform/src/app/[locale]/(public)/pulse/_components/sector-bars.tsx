@@ -22,14 +22,14 @@ export function SectorBars({ items }: SectorBarsProps) {
         return (
           <div key={row.sector_id} className="space-y-1">
             <div className="flex items-center justify-between gap-2 text-xs">
-              <span className="font-medium text-jid-ink">{label}</span>
-              <span className="tabular-nums text-jid-ink/70">
+              <span className="font-medium text-foreground">{label}</span>
+              <span className="tabular-nums text-muted-foreground">
                 {formatArabicNumber(row.active_job_count)}
               </span>
             </div>
             <div className="h-2.5 overflow-hidden rounded-full bg-jid-line/30">
               <motion.div
-                className="h-full rounded-full bg-jid-olive"
+                className="h-full rounded-full bg-primary"
                 initial={prefersReducedMotion ? { width: `${widthPct}%` } : { width: 0 }}
                 whileInView={{ width: `${widthPct}%` }}
                 viewport={{ once: true, amount: 0.3 }}

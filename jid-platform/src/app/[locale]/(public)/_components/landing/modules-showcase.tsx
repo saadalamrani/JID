@@ -36,13 +36,13 @@ export async function ModulesShowcase() {
   const t = await getTranslations('landing.modules')
 
   return (
-    <section className="border-b border-jid-line/60 bg-jid-beige py-16">
+    <section className="border-b border-border bg-background py-16">
       <div className="container-jid">
         <header className="mx-auto max-w-2xl text-center">
-          <h2 className="font-arabic text-2xl font-semibold text-jid-ink md:text-3xl">
+          <h2 className="font-arabic text-2xl font-semibold text-foreground md:text-3xl">
             {t('title')}
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-jid-ink/65">{t('subtitle')}</p>
+          <p className="mt-3 text-sm leading-relaxed text-foreground/65">{t('subtitle')}</p>
         </header>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -50,14 +50,14 @@ export async function ModulesShowcase() {
             const Icon = module.Icon
             const accentClass =
               module.accent === 'olive'
-                ? 'bg-jid-olive/10 text-jid-olive'
-                : 'bg-jid-gold/15 text-jid-gold'
+                ? 'bg-primary/10 text-primary'
+                : 'bg-accent/10 text-accent'
 
             return (
               <Link
                 key={module.key}
                 href={module.href}
-                className="group flex h-full flex-col rounded-xl border border-jid-line bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
+                className="group flex h-full flex-col rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md"
               >
                 <span
                   className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${accentClass}`}
@@ -65,13 +65,13 @@ export async function ModulesShowcase() {
                 >
                   <Icon className="h-5 w-5" />
                 </span>
-                <h3 className="mt-4 font-arabic text-base font-semibold text-jid-ink group-hover:text-jid-olive">
+                <h3 className="mt-4 font-arabic text-base font-semibold text-foreground group-hover:text-primary">
                   {t(`items.${module.key}.title`)}
                 </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-jid-ink/65">
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground/65">
                   {t(`items.${module.key}.description`)}
                 </p>
-                <span className="mt-4 text-xs font-medium text-jid-olive">{t('explore')}</span>
+                <span className="mt-4 text-xs font-medium text-primary">{t('explore')}</span>
               </Link>
             )
           })}

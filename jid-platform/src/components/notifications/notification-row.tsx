@@ -47,8 +47,8 @@ export function NotificationRow({
     ? formatPageDistance(notification.created_at)
     : formatRelativeTime(notification.created_at, locale)
 
-  const unreadBulletClass = isPage ? 'bg-amber-500' : 'bg-jid-olive'
-  const unreadSurfaceClass = isPage ? 'bg-jid-gold/5' : 'bg-jid-beige/25'
+  const unreadBulletClass = isPage ? 'bg-amber-500' : 'bg-primary'
+  const unreadSurfaceClass = isPage ? 'bg-accent/10' : 'bg-background/25'
 
   const content = (
     <div className="flex gap-3">
@@ -57,7 +57,7 @@ export function NotificationRow({
         <div className="flex items-start justify-between gap-2">
           <p
             className={cn(
-              'text-sm leading-snug text-jid-ink',
+              'text-sm leading-snug text-foreground',
               isUnread ? 'font-semibold' : 'font-medium',
             )}
           >
@@ -72,24 +72,24 @@ export function NotificationRow({
         </div>
         <p
           className={cn(
-            'mt-0.5 text-xs leading-relaxed text-jid-ink/65',
+            'mt-0.5 text-xs leading-relaxed text-foreground/65',
             isPage ? 'line-clamp-3' : 'line-clamp-2',
           )}
         >
           {body}
         </p>
-        <p className="mt-1.5 text-[11px] tabular-nums text-jid-ink/45">{timeLabel}</p>
+        <p className="mt-1.5 text-[11px] tabular-nums text-muted-foreground">{timeLabel}</p>
         {actionLabel ? (
-          <p className="mt-1 text-xs font-medium text-jid-olive">{actionLabel}</p>
+          <p className="mt-1 text-xs font-medium text-primary">{actionLabel}</p>
         ) : null}
       </div>
     </div>
   )
 
   const rowClassName = cn(
-    isPage ? 'block px-4 py-4 transition-colors hover:bg-jid-beige/30' : 'rounded-lg px-3 py-2.5',
-    !isPage && 'transition-colors hover:bg-jid-beige/50',
-    isUnread ? unreadSurfaceClass : isPage ? 'bg-white' : 'bg-transparent',
+    isPage ? 'block px-4 py-4 transition-colors hover:bg-background/30' : 'rounded-lg px-3 py-2.5',
+    !isPage && 'transition-colors hover:bg-background/50',
+    isUnread ? unreadSurfaceClass : isPage ? 'bg-card' : 'bg-transparent',
     className,
   )
 

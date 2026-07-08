@@ -1,9 +1,10 @@
 import { z } from 'zod'
 import { CONTACT_CATEGORIES } from '@/lib/contact/constants'
+import { bilingualNameSchema } from '@/lib/utils/validators'
 
 /** Section 9.1 — contact form validation (messages are i18n keys). */
 export const contactFormSchema = z.object({
-  full_name: z.string().trim().min(2, { message: 'contactPage.validation.fullNameMin' }),
+  full_name: bilingualNameSchema,
   email: z.string().trim().email({ message: 'contactPage.validation.emailInvalid' }),
   category: z.enum(CONTACT_CATEGORIES, {
     errorMap: () => ({ message: 'contactPage.validation.categoryRequired' }),

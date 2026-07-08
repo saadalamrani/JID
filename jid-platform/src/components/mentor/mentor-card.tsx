@@ -32,7 +32,7 @@ export function MentorCard({ mentor, className, previewMode = false }: MentorCar
     <article
       role="listitem"
       className={cn(
-        'relative flex min-h-[220px] flex-col rounded-xl border border-jid-line/40 bg-white p-4 shadow-sm',
+        'relative flex min-h-[220px] flex-col rounded-xl border border-border/40 bg-card p-4 shadow-sm',
         !previewMode && 'transition-shadow hover:shadow-md',
         className,
       )}
@@ -63,11 +63,11 @@ export function MentorCard({ mentor, className, previewMode = false }: MentorCar
           ) : null}
         </div>
         <div className="min-w-0 flex-1">
-          <h2 className="truncate font-arabic text-base font-semibold text-jid-ink">{displayName}</h2>
+          <h2 className="truncate font-arabic text-base font-semibold text-foreground">{displayName}</h2>
           {mentor.headline ? (
-            <p className="mt-0.5 line-clamp-2 font-arabic text-xs text-jid-ink/70">{mentor.headline}</p>
+            <p className="mt-0.5 line-clamp-2 font-arabic text-xs text-muted-foreground">{mentor.headline}</p>
           ) : null}
-          <p className="mt-1 font-arabic text-xs text-jid-ink/50">
+          <p className="mt-1 font-arabic text-xs text-muted-foreground">
             {[nationalityLabel, mentor.years_experience != null ? t('years', { years: mentor.years_experience }) : null]
               .filter(Boolean)
               .join(' · ')}
@@ -86,27 +86,27 @@ export function MentorCard({ mentor, className, previewMode = false }: MentorCar
           {expertiseTags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-jid-olive/10 px-2 py-0.5 font-arabic text-[10px] font-medium text-jid-olive"
+              className="rounded-full bg-primary/10 px-2 py-0.5 font-arabic text-[10px] font-medium text-primary"
             >
               {tag}
             </span>
           ))}
           {mentor.expertise_areas.length > 3 ? (
-            <span className="font-arabic text-[10px] text-jid-ink/40">
+            <span className="font-arabic text-[10px] text-foreground/40">
               {t('moreTags', { count: mentor.expertise_areas.length - 3 })}
             </span>
           ) : null}
         </div>
       ) : null}
 
-      <div className="relative z-20 mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-arabic text-xs text-jid-ink/60 pointer-events-none">
+      <div className="relative z-20 mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 font-arabic text-xs text-muted-foreground pointer-events-none">
         <span className="inline-flex items-center gap-1">
           <Users className="h-3.5 w-3.5 shrink-0" aria-hidden />
           {t('sessions', { count: mentor.sessions_count })}
         </span>
         {mentor.rating_avg != null ? (
           <span className="inline-flex items-center gap-1">
-            <Star className="h-3.5 w-3.5 shrink-0 text-jid-gold" aria-hidden />
+            <Star className="h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
             {mentor.rating_avg.toFixed(1)}
           </span>
         ) : null}
@@ -128,7 +128,7 @@ export function MentorCard({ mentor, className, previewMode = false }: MentorCar
             type="button"
             size="sm"
             disabled
-            className="w-full bg-jid-olive font-arabic hover:bg-jid-olive/90 disabled:bg-jid-line/40 disabled:text-jid-ink/50"
+            className="w-full bg-primary font-arabic hover:bg-primary/90 disabled:bg-jid-line/40 disabled:text-muted-foreground"
           >
             {t('requestCta')}
           </Button>

@@ -51,11 +51,11 @@ export function MetricCard({ labelAr, value, format, metricKey }: MetricCardProp
   return (
     <article
       ref={ref}
-      className="rounded-lg border border-jid-line/80 bg-white/80 p-4 shadow-sm backdrop-blur-sm"
+      className="rounded-lg border border-border/80 bg-card/80 p-4 shadow-sm backdrop-blur-sm"
     >
-      <p className="text-xs font-medium text-jid-ink/70">{labelAr}</p>
+      <p className="text-xs font-medium text-muted-foreground">{labelAr}</p>
       <motion.p
-        className="mt-2 text-2xl font-semibold tabular-nums text-jid-olive"
+        className="mt-2 text-2xl font-semibold tabular-nums text-primary"
         aria-live="off"
       >
         {displayValue}

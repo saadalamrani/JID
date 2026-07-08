@@ -102,15 +102,15 @@ export function MobileApplicationCard({
       <article
         ref={cardRef}
         className={cn(
-          'relative rounded-xl border bg-white p-3 shadow-sm transition-shadow',
+          'relative rounded-xl border bg-card p-3 shadow-sm transition-shadow',
           showGlow
-            ? 'animate-pulse border-jid-gold/60 shadow-[0_0_0_2px_rgba(230,180,58,0.28)]'
-            : 'border-jid-line/60',
+            ? 'animate-pulse border-border shadow-[0_0_0_2px_rgba(230,180,58,0.28)]'
+            : 'border-border',
         )}
       >
         <button
           type="button"
-          className="absolute end-2 top-2 rounded-lg p-1.5 text-jid-ink/50 hover:bg-jid-beige/40 hover:text-jid-ink"
+          className="absolute end-2 top-2 rounded-lg p-1.5 text-muted-foreground hover:bg-background/40 hover:text-foreground"
           aria-label={t('mobile.cardActions')}
           onClick={openActions}
         >
@@ -128,14 +128,14 @@ export function MobileApplicationCard({
         title={t('mobile.moveTitle')}
       >
         {allowedTargets.length === 0 ? (
-          <p className="font-arabic text-sm text-jid-ink/60">{t('mobile.noMoves')}</p>
+          <p className="font-arabic text-sm text-muted-foreground">{t('mobile.noMoves')}</p>
         ) : (
           <ul className="space-y-2">
             {allowedTargets.map((targetColumn) => (
               <li key={targetColumn}>
                 <button
                   type="button"
-                  className="w-full rounded-xl border border-jid-line/50 bg-jid-beige/20 px-4 py-3 text-start font-arabic text-sm font-medium text-jid-ink hover:bg-jid-beige/40"
+                  className="w-full rounded-xl border border-border/50 bg-background/20 px-4 py-3 text-start font-arabic text-sm font-medium text-foreground hover:bg-background/40"
                   onClick={() => handleMove(targetColumn)}
                 >
                   {t('mobile.moveTo', { column: tColumns(targetColumn) })}

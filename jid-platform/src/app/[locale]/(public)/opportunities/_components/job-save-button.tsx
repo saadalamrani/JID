@@ -100,8 +100,8 @@ export function JobSaveButton({ jobId, className }: JobSaveButtonProps) {
       disabled={saved || loading}
       onClick={(event) => void handleSave(event)}
       className={cn(
-        'inline-flex h-9 w-9 items-center justify-center rounded-lg border border-jid-line/60 bg-white shadow-sm transition-colors',
-        saved ? 'text-jid-gold' : 'text-jid-ink/50 hover:text-jid-olive',
+        'inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-card shadow-sm transition-colors',
+        saved ? 'text-accent' : 'text-muted-foreground hover:text-primary',
         className,
       )}
     >

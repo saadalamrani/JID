@@ -20,13 +20,13 @@ export function HRActionStrip({ profileId }: HRActionStripProps) {
         type="button"
         size="sm"
         variant="outline"
-        className="border-jid-line"
+        className="border-border"
         onClick={() => console.info('Save candidate', profileId)}
       >
         <Bookmark className="h-4 w-4" aria-hidden />
         {t('saveCandidate')}
       </Button>
-      <Button type="button" size="sm" className="bg-jid-olive hover:bg-jid-olive/90">
+      <Button type="button" size="sm" className="bg-primary hover:bg-primary/90">
         <UserPlus className="h-4 w-4" aria-hidden />
         {t('inviteToApply')}
       </Button>

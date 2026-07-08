@@ -14,13 +14,13 @@ export function MentorBioSection({ bioLong, careerHistory }: MentorBioSectionPro
   const t = useTranslations('profile.mentor.public')
 
   return (
-    <section className="space-y-6 rounded-xl border border-jid-line bg-white p-5 shadow-sm">
+    <section className="space-y-6 rounded-xl border border-border bg-card p-5 shadow-sm">
       <div>
-        <h2 className="mb-3 text-sm font-medium text-jid-ink/70">{t('bioTitle')}</h2>
+        <h2 className="mb-3 text-sm font-medium text-muted-foreground">{t('bioTitle')}</h2>
         {bioLong ? (
-          <p className="whitespace-pre-wrap text-sm leading-relaxed text-jid-ink/80">{bioLong}</p>
+          <p className="whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground">{bioLong}</p>
         ) : (
-          <p className="text-sm text-jid-ink/50">{t('bioEmpty')}</p>
+          <p className="text-sm text-muted-foreground">{t('bioEmpty')}</p>
         )}
       </div>
       <MentorCareerHistory entries={careerHistory} embedded />

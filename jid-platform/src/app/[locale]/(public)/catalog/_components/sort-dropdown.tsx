@@ -19,14 +19,14 @@ export function SortDropdown() {
 
   return (
     <div className="space-y-2">
-      <p className="font-arabic text-xs font-medium text-jid-ink/70">الترتيب</p>
+      <p className="font-arabic text-xs font-medium text-muted-foreground">الترتيب</p>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             type="button"
             variant="outline"
             aria-label={`الترتيب: ${SORT_LABELS[filters.sort]}`}
-            className="w-full justify-between border-jid-line bg-white font-arabic font-normal text-jid-ink hover:bg-jid-beige sm:w-auto sm:min-w-[10rem]"
+            className="w-full justify-between border-border bg-card font-arabic font-normal text-foreground hover:bg-background sm:w-auto sm:min-w-[10rem]"
           >
             {SORT_LABELS[filters.sort]}
             <ChevronDown className="h-4 w-4 shrink-0 opacity-50" />
@@ -34,7 +34,7 @@ export function SortDropdown() {
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="end"
-          className="min-w-[10rem] border-jid-line bg-white font-arabic"
+          className="min-w-[10rem] border-border bg-card font-arabic"
         >
           <DropdownMenuRadioGroup
             value={filters.sort}
@@ -44,7 +44,7 @@ export function SortDropdown() {
               <DropdownMenuRadioItem
                 key={value}
                 value={value}
-                className="text-jid-ink focus:bg-jid-beige focus:text-jid-ink"
+                className="text-foreground focus:bg-background focus:text-foreground"
               >
                 {SORT_LABELS[value]}
               </DropdownMenuRadioItem>

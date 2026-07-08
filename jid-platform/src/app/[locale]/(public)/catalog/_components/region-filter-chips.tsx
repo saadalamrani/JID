@@ -8,7 +8,7 @@ export function RegionFilterChips() {
 
   return (
     <div className="space-y-2">
-      <p className="font-arabic text-xs font-medium text-jid-ink/70">المنطقة</p>
+      <p className="font-arabic text-xs font-medium text-muted-foreground">المنطقة</p>
       <div className="flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {regions.map((region) => {
           const selected = filters.regions.includes(region.slug)
@@ -22,8 +22,8 @@ export function RegionFilterChips() {
               className={cn(
                 'shrink-0 rounded-full border px-3 py-1.5 font-arabic text-sm transition-colors',
                 selected
-                  ? 'border-jid-olive bg-jid-olive text-white'
-                  : 'border-jid-line bg-white text-jid-ink hover:border-jid-olive/50',
+                  ? 'border-jid-olive bg-primary text-primary-foreground'
+                  : 'border-border bg-card text-foreground hover:border-jid-olive/50',
               )}
             >
               {region.name_ar ?? region.name_en}

@@ -42,7 +42,7 @@ export function CompanyIdentityHeader({
   return (
     <header
       className={cn(
-        'flex flex-col gap-4 rounded-xl border border-jid-line bg-white p-5 shadow-sm sm:flex-row sm:items-start sm:justify-between',
+        'flex flex-col gap-4 rounded-xl border border-border bg-card p-5 shadow-sm sm:flex-row sm:items-start sm:justify-between',
         className,
       )}
     >
@@ -56,16 +56,16 @@ export function CompanyIdentityHeader({
         />
         <div className="min-w-0 flex-1 space-y-2">
           <div>
-            <h1 className="inline-flex items-center gap-2 text-xl font-semibold text-jid-ink">
-              <Building2 className="h-5 w-5 text-jid-olive" aria-hidden />
+            <h1 className="inline-flex items-center gap-2 text-xl font-semibold text-foreground">
+              <Building2 className="h-5 w-5 text-primary" aria-hidden />
               {displayName}
             </h1>
             {tagline ? (
-              <p className="mt-1 text-sm text-jid-ink/70">{tagline}</p>
+              <p className="mt-1 text-sm text-muted-foreground">{tagline}</p>
             ) : null}
           </div>
 
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-jid-ink/60">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
             {foundedYear ? (
               <span className="inline-flex items-center gap-1">
                 <Calendar className="h-3.5 w-3.5 shrink-0" aria-hidden />
@@ -79,7 +79,7 @@ export function CompanyIdentityHeader({
               </span>
             ) : null}
             {entityState ? (
-              <span className="rounded-full bg-jid-gold/15 px-2.5 py-0.5 text-xs font-medium text-jid-olive">
+              <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-primary">
                 {entityState}
               </span>
             ) : null}

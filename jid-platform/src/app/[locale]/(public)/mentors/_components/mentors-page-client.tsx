@@ -26,7 +26,7 @@ function MentorSkeletonGrid() {
       {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
         <div
           key={index}
-          className="h-[220px] animate-pulse rounded-xl border border-jid-line bg-jid-line/20"
+          className="h-[220px] animate-pulse rounded-xl border border-border bg-jid-line/20"
         />
       ))}
     </div>
@@ -83,7 +83,7 @@ function MentorsPageContent({ setupHint }: { setupHint?: string }) {
         </div>
       ) : null}
       <MentorDiscoveryHero />
-      <StickyFilterBar className="bg-white/95">
+      <StickyFilterBar className="bg-card/95">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           <SectorFilterControl />
           <ExpertiseAreaFilter />
@@ -94,7 +94,7 @@ function MentorsPageContent({ setupHint }: { setupHint?: string }) {
         </div>
       </StickyFilterBar>
 
-      <p className="mt-4 font-arabic text-sm text-jid-ink/60" aria-live="polite">
+      <p className="mt-4 font-arabic text-sm text-muted-foreground" aria-live="polite">
         {isFetching ? (
           <span className="inline-block h-4 w-24 animate-pulse rounded bg-jid-line/30" />
         ) : (

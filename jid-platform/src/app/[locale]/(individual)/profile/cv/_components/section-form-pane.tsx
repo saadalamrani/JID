@@ -20,10 +20,10 @@ export function SectionFormPane({ section, cv, isLoading }: SectionFormPaneProps
   const tSections = useTranslations('cv.builder.sections')
 
   return (
-    <div className="flex h-full min-h-0 flex-col rounded-xl border border-jid-line bg-white p-5 shadow-sm">
+    <div className="flex h-full min-h-0 flex-col rounded-xl border border-border bg-card p-5 shadow-sm">
       <div className="mb-4 flex items-center justify-between gap-2">
-        <h2 className="text-sm font-medium text-jid-ink/80">{tSections(section)}</h2>
-        {isLoading ? <span className="text-xs text-jid-ink/40">{t('syncing')}</span> : null}
+        <h2 className="text-sm font-medium text-muted-foreground">{tSections(section)}</h2>
+        {isLoading ? <span className="text-xs text-foreground/40">{t('syncing')}</span> : null}
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto">
@@ -38,9 +38,9 @@ export function SectionFormPane({ section, cv, isLoading }: SectionFormPaneProps
         ) : section === 'additional' && cv ? (
           <SectionAdditionalForm cv={cv} />
         ) : (
-          <div className="flex flex-1 flex-col justify-center rounded-lg border border-dashed border-jid-line bg-jid-beige/20 p-6 text-center">
-            <p className="text-sm font-medium text-jid-ink/70">{t('formPlaceholderTitle')}</p>
-            <p className="mt-2 text-xs text-jid-ink/50">{t('formPlaceholderBody')}</p>
+          <div className="flex flex-1 flex-col justify-center rounded-lg border border-dashed border-border bg-background/20 p-6 text-center">
+            <p className="text-sm font-medium text-muted-foreground">{t('formPlaceholderTitle')}</p>
+            <p className="mt-2 text-xs text-muted-foreground">{t('formPlaceholderBody')}</p>
           </div>
         )}
       </div>

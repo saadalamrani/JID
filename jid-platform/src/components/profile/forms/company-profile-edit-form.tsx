@@ -69,10 +69,10 @@ export function CompanyProfileEditForm({ company }: CompanyProfileEditFormProps)
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="container-jid space-y-6 py-8">
-      <h1 className="text-xl font-semibold text-jid-ink">{t('companyTitle')}</h1>
+      <h1 className="text-xl font-semibold text-foreground">{t('companyTitle')}</h1>
 
-      <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-        <h2 className="mb-4 text-sm font-medium text-jid-ink/70">{t('sectionTaglines')}</h2>
+      <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
+        <h2 className="mb-4 text-sm font-medium text-muted-foreground">{t('sectionTaglines')}</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <FormField id="tagline_ar" label={t('taglineAr')}>
             <Input id="tagline_ar" {...form.register('tagline_ar')} />
@@ -83,14 +83,14 @@ export function CompanyProfileEditForm({ company }: CompanyProfileEditFormProps)
         </div>
       </section>
 
-      <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-        <h2 className="mb-4 text-sm font-medium text-jid-ink/70">{t('sectionAbout')}</h2>
+      <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
+        <h2 className="mb-4 text-sm font-medium text-muted-foreground">{t('sectionAbout')}</h2>
         <div className="grid gap-4">
           <FormField id="about_long_ar" label={t('aboutAr')}>
             <textarea
               id="about_long_ar"
               rows={5}
-              className="flex w-full rounded-md border border-jid-line px-3 py-2 text-sm"
+              className="flex w-full rounded-md border border-border px-3 py-2 text-sm"
               {...form.register('about_long_ar')}
             />
           </FormField>
@@ -98,7 +98,7 @@ export function CompanyProfileEditForm({ company }: CompanyProfileEditFormProps)
             <textarea
               id="about_long_en"
               rows={5}
-              className="flex w-full rounded-md border border-jid-line px-3 py-2 text-sm"
+              className="flex w-full rounded-md border border-border px-3 py-2 text-sm"
               dir="ltr"
               {...form.register('about_long_en')}
             />
@@ -106,8 +106,8 @@ export function CompanyProfileEditForm({ company }: CompanyProfileEditFormProps)
         </div>
       </section>
 
-      <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-        <h2 className="mb-4 text-sm font-medium text-jid-ink/70">{t('sectionCompanyMeta')}</h2>
+      <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
+        <h2 className="mb-4 text-sm font-medium text-muted-foreground">{t('sectionCompanyMeta')}</h2>
         <div className="grid gap-4 sm:grid-cols-2">
           <FormField id="founded_year" label={t('foundedYear')}>
             <Input id="founded_year" type="number" {...form.register('founded_year')} />
@@ -118,9 +118,9 @@ export function CompanyProfileEditForm({ company }: CompanyProfileEditFormProps)
         </div>
       </section>
 
-      <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
+      <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-sm font-medium text-jid-ink/70">{t('sectionOffices')}</h2>
+          <h2 className="text-sm font-medium text-muted-foreground">{t('sectionOffices')}</h2>
           <Button
             type="button"
             size="sm"
@@ -133,7 +133,7 @@ export function CompanyProfileEditForm({ company }: CompanyProfileEditFormProps)
         </div>
         <div className="space-y-4">
           {offices.fields.map((field, index) => (
-            <div key={field.id} className="grid gap-3 rounded-lg border border-jid-line p-4 sm:grid-cols-3">
+            <div key={field.id} className="grid gap-3 rounded-lg border border-border p-4 sm:grid-cols-3">
               <Input placeholder={t('officeCity')} {...form.register(`office_locations.${index}.city`)} />
               <Input placeholder={t('officeRegion')} {...form.register(`office_locations.${index}.region`)} />
               <div className="flex gap-2">
@@ -152,7 +152,7 @@ export function CompanyProfileEditForm({ company }: CompanyProfileEditFormProps)
       </section>
 
       <div className="flex gap-3">
-        <Button type="submit" className="bg-jid-olive hover:bg-jid-olive/90" disabled={form.formState.isSubmitting}>
+        <Button type="submit" className="bg-primary hover:bg-primary/90" disabled={form.formState.isSubmitting}>
           {t('save')}
         </Button>
         <Button type="button" variant="ghost" onClick={() => router.push('/company/profile')}>

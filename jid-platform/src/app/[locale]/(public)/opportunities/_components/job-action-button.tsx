@@ -73,8 +73,8 @@ export function JobActionButton({
             'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5',
             'font-arabic text-sm font-medium transition-colors',
             hasApplyUrl
-              ? 'bg-jid-olive text-jid-beige hover:bg-jid-olive-600 active:bg-jid-olive-700'
-              : 'cursor-not-allowed bg-jid-line/30 text-jid-ink-500',
+              ? 'bg-primary text-jid-beige hover:bg-primary-600 active:bg-primary-700'
+              : 'cursor-not-allowed bg-jid-line/30 text-foreground-500',
           )}
           aria-disabled={!hasApplyUrl || isBusy}
           onClick={handleApplyClick}
@@ -88,7 +88,7 @@ export function JobActionButton({
             type="button"
             className={cn(
               'inline-flex w-full items-center justify-center rounded-lg px-4 py-2',
-              'font-arabic text-xs font-medium text-jid-olive underline-offset-2 hover:underline',
+              'font-arabic text-xs font-medium text-primary underline-offset-2 hover:underline',
             )}
             onClick={handleFallbackClick}
           >
@@ -97,7 +97,7 @@ export function JobActionButton({
         ) : null}
 
         {!hasApplyUrl ? (
-          <p className="text-center font-arabic text-xs text-jid-ink-400">رابط التقديم غير متاح</p>
+          <p className="text-center font-arabic text-xs text-foreground-400">رابط التقديم غير متاح</p>
         ) : null}
       </div>
 

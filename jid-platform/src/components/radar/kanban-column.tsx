@@ -40,11 +40,11 @@ export function KanbanColumn({ column, userId, applications }: KanbanColumnProps
   return (
     <section
       aria-label={t(column.id)}
-      className="flex min-h-[320px] flex-col rounded-xl border border-jid-line/50 bg-jid-beige/15"
+      className="flex min-h-[320px] flex-col rounded-xl border border-border/50 bg-background/15"
     >
-      <header className="flex items-center justify-between border-b border-jid-line/40 px-3 py-2.5">
-        <h2 className="font-arabic text-sm font-semibold text-jid-ink">{t(column.id)}</h2>
-        <span className="rounded-full bg-white px-2 py-0.5 font-arabic text-xs text-jid-ink/60">
+      <header className="flex items-center justify-between border-b border-border/40 px-3 py-2.5">
+        <h2 className="font-arabic text-sm font-semibold text-foreground">{t(column.id)}</h2>
+        <span className="rounded-full bg-card px-2 py-0.5 font-arabic text-xs text-muted-foreground">
           {applications.length}
         </span>
       </header>
@@ -53,7 +53,7 @@ export function KanbanColumn({ column, userId, applications }: KanbanColumnProps
         ref={setNodeRef}
         className={cn(
           'flex flex-1 flex-col gap-2 p-2 transition-colors',
-          isOver && column.allowsManualDrop && 'bg-jid-olive/5 ring-1 ring-inset ring-jid-olive/20',
+          isOver && column.allowsManualDrop && 'bg-primary/5 ring-1 ring-inset ring-jid-olive/20',
         )}
       >
         <SortableContext

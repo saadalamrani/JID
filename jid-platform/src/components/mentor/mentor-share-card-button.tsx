@@ -85,7 +85,7 @@ export function MentorShareCardButton({
       <div className="pointer-events-none fixed -left-[9999px] top-0" aria-hidden>
         <div
           ref={cardRef}
-          className="flex h-[630px] w-[1200px] flex-col justify-between bg-gradient-to-br from-jid-olive to-[#1f281e] p-12 text-white"
+          className="flex h-[630px] w-[1200px] flex-col justify-between bg-gradient-to-br from-primary to-[#1f281e] p-12 text-primary-foreground"
         >
           <div className="flex items-start justify-between gap-8">
             <div className="flex items-center gap-6">
@@ -98,16 +98,16 @@ export function MentorShareCardButton({
                 ) : null}
               </div>
               <div>
-                <p className="text-sm uppercase tracking-widest text-jid-gold">JID Mentorship</p>
+                <p className="text-sm uppercase tracking-widest text-accent">JID Mentorship</p>
                 <h1 className="mt-2 text-5xl font-bold">{name}</h1>
-                {headline ? <p className="mt-3 max-w-2xl text-2xl text-white/85">{headline}</p> : null}
+                {headline ? <p className="mt-3 max-w-2xl text-2xl text-primary-foreground/85">{headline}</p> : null}
               </div>
             </div>
-            <div className="rounded-2xl bg-white/10 px-6 py-4 text-end">
+            <div className="rounded-2xl bg-card/10 px-6 py-4 text-end">
               {ratingAvg != null ? (
-                <p className="text-4xl font-bold text-jid-gold">{ratingAvg.toFixed(1)}</p>
+                <p className="text-4xl font-bold text-accent">{ratingAvg.toFixed(1)}</p>
               ) : null}
-              <p className="mt-1 text-lg text-white/80">
+              <p className="mt-1 text-lg text-primary-foreground/80">
                 {t('sessions', { count: sessionsCount })}
               </p>
             </div>
@@ -118,7 +118,7 @@ export function MentorShareCardButton({
               {tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-white/15 px-5 py-2 text-xl font-medium backdrop-blur-sm"
+                  className="rounded-full bg-card/15 px-5 py-2 text-xl font-medium backdrop-blur-sm"
                 >
                   {tag}
                 </span>
@@ -126,7 +126,7 @@ export function MentorShareCardButton({
             </div>
           ) : null}
 
-          <p className="text-lg text-white/70">
+          <p className="text-lg text-primary-foreground/70">
             {locale === 'ar' ? 'انضم إلى منصة جيد للإرشاد المهني' : 'Join JID mentorship platform'}
           </p>
         </div>

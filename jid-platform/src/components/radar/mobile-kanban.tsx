@@ -44,8 +44,8 @@ export function MobileKanban({ userId, applications }: MobileKanbanProps) {
                 className={cn(
                   'inline-flex min-w-[1.25rem] items-center justify-center rounded-full px-1.5 py-0.5 font-arabic text-[10px] font-semibold',
                   activeColumn === column.id
-                    ? 'bg-jid-olive/15 text-jid-olive'
-                    : 'bg-jid-line/30 text-jid-ink/55',
+                    ? 'bg-primary/15 text-primary'
+                    : 'bg-jid-line/30 text-foreground/55',
                 )}
               >
                 {count}

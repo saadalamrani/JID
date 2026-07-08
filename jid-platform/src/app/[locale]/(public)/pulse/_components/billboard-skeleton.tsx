@@ -2,7 +2,7 @@
 export function BillboardSkeleton() {
   return (
     <div
-      className="min-h-[280px] animate-pulse rounded-xl border border-jid-line bg-jid-line/10 p-6"
+      className="min-h-[280px] animate-pulse rounded-xl border border-border bg-jid-line/10 p-6"
       aria-hidden
     >
       <div className="h-5 w-40 rounded bg-jid-line/30" />

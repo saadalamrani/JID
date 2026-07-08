@@ -26,8 +26,8 @@ export default async function RadarPage() {
   return (
     <main className="container-jid py-8">
       <header className="mb-6">
-        <h1 className="font-arabic text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h1 className="font-arabic text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
 
       <HydrationBoundary state={dehydrate(queryClient)}>

@@ -53,7 +53,7 @@ export function PageOverflowWarning({ data }: PageOverflowWarningProps) {
 
   if (isMeasuring && pageCount == null) {
     return (
-      <p className="flex items-center gap-2 text-xs text-jid-ink/45">
+      <p className="flex items-center gap-2 text-xs text-muted-foreground">
         <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
         {t('measuring')}
       </p>

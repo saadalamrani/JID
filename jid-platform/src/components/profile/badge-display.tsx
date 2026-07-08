@@ -27,7 +27,7 @@ export function BadgeDisplayList({ badges, locale = 'ar', emptyMessage }: BadgeD
 
   if (badges.length === 0) {
     return (
-      <p className="text-sm text-jid-ink/50">{emptyMessage ?? t('badgesEmpty')}</p>
+      <p className="text-sm text-muted-foreground">{emptyMessage ?? t('badgesEmpty')}</p>
     )
   }
 

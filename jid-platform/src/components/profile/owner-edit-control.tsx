@@ -19,7 +19,7 @@ export function OwnerEditControl({ isOwner, editHref, onEdit }: OwnerEditControl
 
   if (editHref) {
     return (
-      <Button asChild variant="outline" size="sm" className="border-jid-line text-jid-ink">
+      <Button asChild variant="outline" size="sm" className="border-border text-foreground">
         <Link href={editHref}>
           <Pencil className="h-4 w-4" aria-hidden />
           {t('editProfile')}
@@ -33,7 +33,7 @@ export function OwnerEditControl({ isOwner, editHref, onEdit }: OwnerEditControl
       type="button"
       variant="outline"
       size="sm"
-      className="border-jid-line text-jid-ink"
+      className="border-border text-foreground"
       onClick={onEdit}
     >
       <Pencil className="h-4 w-4" aria-hidden />

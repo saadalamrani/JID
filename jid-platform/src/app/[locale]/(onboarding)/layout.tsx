@@ -28,12 +28,12 @@ export default async function OnboardingLayout({ children, params }: OnboardingL
   }
 
   return (
-    <div dir={dir} lang={locale} className="min-h-screen bg-jid-beige/40">
-      <header className="border-b border-jid-line/70 bg-white/95 backdrop-blur-sm">
+    <div dir={dir} lang={locale} className="min-h-screen bg-background/40">
+      <header className="border-b border-border bg-card/95 backdrop-blur-sm">
         <div className="container-jid flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <Logo size="md" />
-            <p className="mt-2 text-sm text-jid-ink/60">{t('subtitle')}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{t('subtitle')}</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
             <OnboardingProgress />

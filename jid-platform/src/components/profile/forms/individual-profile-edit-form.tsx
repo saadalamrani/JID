@@ -118,9 +118,9 @@ export function IndividualProfileEditForm({
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="container-jid space-y-6 py-8">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-xl font-semibold text-jid-ink">{t('individualTitle')}</h1>
+        <h1 className="text-xl font-semibold text-foreground">{t('individualTitle')}</h1>
         <div className="w-full sm:max-w-xs">
-          <p className="mb-1 text-xs text-jid-ink/50">{t('optimisticCompletion')}</p>
+          <p className="mb-1 text-xs text-muted-foreground">{t('optimisticCompletion')}</p>
           <ProfileCompletionBar percent={optimisticPct} showLabel={false} />
         </div>
       </div>
@@ -131,7 +131,7 @@ export function IndividualProfileEditForm({
             <Input id="avatar_url" {...form.register('avatar_url')} placeholder="https://" dir="ltr" />
           </FormField>
           <div>
-            <label className="text-sm text-jid-ink/70" htmlFor="avatar_file">
+            <label className="text-sm text-muted-foreground" htmlFor="avatar_file">
               {t('avatarUpload')}
             </label>
             <Input
@@ -161,15 +161,15 @@ export function IndividualProfileEditForm({
             id="about_me"
             rows={5}
             maxLength={500}
-            className="flex w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm"
+            className="flex w-full rounded-md border border-border bg-card px-3 py-2 text-sm"
             {...form.register('about_me')}
           />
-          <p className="mt-1 text-xs text-jid-ink/50">{t('aboutMeCount', { count: aboutLength })}</p>
+          <p className="mt-1 text-xs text-muted-foreground">{t('aboutMeCount', { count: aboutLength })}</p>
         </FormField>
       </FocusSection>
 
       <FocusSection id="field-university" title={t('sectionUniversity')}>
-        <p className="text-sm text-jid-ink/60">{t('universityHint')}</p>
+        <p className="text-sm text-muted-foreground">{t('universityHint')}</p>
       </FocusSection>
 
       <FocusSection id="field-targets" title={t('sectionTargets')}>
@@ -252,8 +252,8 @@ export function IndividualProfileEditForm({
                 className={cn(
                   'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
                   selected
-                    ? 'border-jid-olive bg-jid-olive/10 text-jid-olive'
-                    : 'border-jid-line text-jid-ink/70 hover:border-jid-gold/50',
+                    ? 'border-jid-olive bg-primary/10 text-primary'
+                    : 'border-border text-muted-foreground hover:border-border',
                 )}
                 onClick={() => {
                   const next = selected
@@ -270,7 +270,7 @@ export function IndividualProfileEditForm({
       </FocusSection>
 
       <div className="flex gap-3">
-        <Button type="submit" className="bg-jid-olive hover:bg-jid-olive/90" disabled={form.formState.isSubmitting}>
+        <Button type="submit" className="bg-primary hover:bg-primary/90" disabled={form.formState.isSubmitting}>
           {t('save')}
         </Button>
         <Button type="button" variant="ghost" onClick={() => router.push('/profile')}>
@@ -303,16 +303,16 @@ function TagListEditor({
 
   return (
     <div className={className}>
-      <p className="text-sm font-medium text-jid-ink">{label}</p>
-      {hint ? <p className="text-xs text-jid-ink/50">{hint}</p> : null}
+      <p className="text-sm font-medium text-foreground">{label}</p>
+      {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
       <div className="mt-2 flex flex-wrap gap-2">
         {items.map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="inline-flex items-center gap-1 rounded-full bg-jid-beige px-3 py-1 text-xs"
+            className="inline-flex items-center gap-1 rounded-full bg-background px-3 py-1 text-xs"
           >
             {item}
-            <button type="button" className="text-jid-ink/50 hover:text-jid-ink" onClick={() => onRemove(index)}>
+            <button type="button" className="text-muted-foreground hover:text-foreground" onClick={() => onRemove(index)}>
               ×
             </button>
           </span>

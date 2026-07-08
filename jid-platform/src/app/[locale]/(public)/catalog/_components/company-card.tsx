@@ -29,7 +29,7 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
     <article
       role="listitem"
       className={cn(
-        'relative flex min-h-[220px] flex-col rounded-xl border border-jid-line/40 bg-white p-4 shadow-sm transition-shadow hover:shadow-md',
+        'relative flex min-h-[220px] flex-col rounded-xl border border-border/40 bg-card p-4 shadow-sm transition-shadow hover:shadow-md',
         className,
       )}
     >
@@ -47,13 +47,13 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
       <header className="relative z-20 flex items-start gap-3 pointer-events-none">
         <CompanyLogo name={displayName} logoUrl={company.logo_url} />
         <div className="min-w-0 flex-1">
-          <h2 className="truncate font-arabic text-base font-semibold text-jid-ink">
+          <h2 className="truncate font-arabic text-base font-semibold text-foreground">
             {displayName}
           </h2>
           {subtitle ? (
             <p
               dir="ltr"
-              className="mt-0.5 truncate font-latin text-sm font-normal text-jid-ink-400"
+              className="mt-0.5 truncate font-latin text-sm font-normal text-foreground-400"
             >
               {subtitle}
             </p>
@@ -64,7 +64,7 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
         ) : null}
       </header>
 
-      <div className="relative z-20 mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 font-arabic text-sm text-jid-ink/70 pointer-events-none">
+      <div className="relative z-20 mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 font-arabic text-sm text-muted-foreground pointer-events-none">
         {sectorLabel ? <span>{sectorLabel}</span> : null}
         {sectorLabel && regionLabel ? (
           <span className="text-jid-line" aria-hidden>
@@ -83,7 +83,7 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
             className={cn(
               'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5',
               'font-arabic text-sm font-medium',
-              'bg-jid-olive text-jid-beige transition-colors hover:bg-jid-olive-600 active:bg-jid-olive-700',
+              'bg-primary text-jid-beige transition-colors hover:bg-primary-600 active:bg-primary-700',
             )}
             onClick={(event) => event.stopPropagation()}
           >
@@ -97,7 +97,7 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
             className={cn(
               'inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5',
               'font-arabic text-sm font-medium',
-              'bg-jid-line/30 text-jid-ink-500',
+              'bg-jid-line/30 text-foreground-500',
               'pointer-events-none',
             )}
             aria-disabled="true"
@@ -108,7 +108,7 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
         )}
       </div>
 
-      <footer className="relative z-20 mt-3 font-arabic text-xs text-jid-ink-400 pointer-events-none">
+      <footer className="relative z-20 mt-3 font-arabic text-xs text-foreground-400 pointer-events-none">
         آخر فحص للرابط: {formatRelativeTime(company.last_audit_at)}
       </footer>
     </article>

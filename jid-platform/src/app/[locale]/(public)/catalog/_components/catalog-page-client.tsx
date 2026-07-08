@@ -81,7 +81,7 @@ function CatalogResultsSection() {
   }
 
   if (companies.length === 0) {
-    return <p className="font-arabic text-sm text-jid-ink/60">لا توجد جهات مسجّلة.</p>
+    return <p className="font-arabic text-sm text-muted-foreground">لا توجد جهات مسجّلة.</p>
   }
 
   return (

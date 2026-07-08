@@ -16,14 +16,14 @@ export function ActiveWorkshopCard({ workshop }: ActiveWorkshopCardProps) {
     locale === 'ar' && workshop.title_ar ? workshop.title_ar : workshop.title
 
   return (
-    <section className="rounded-xl border border-jid-gold/40 bg-jid-gold/10 p-5">
-      <h2 className="mb-3 text-sm font-medium text-jid-olive">{t('workshopTitle')}</h2>
-      <p className="text-base font-semibold text-jid-ink">{title}</p>
+    <section className="rounded-xl border border-border bg-accent/10 p-5">
+      <h2 className="mb-3 text-sm font-medium text-primary">{t('workshopTitle')}</h2>
+      <p className="text-base font-semibold text-foreground">{title}</p>
 
-      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm text-jid-ink/70">
+      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
         {workshop.scheduled_at ? (
           <span className="inline-flex items-center gap-1">
-            <Calendar className="h-4 w-4 text-jid-olive" aria-hidden />
+            <Calendar className="h-4 w-4 text-primary" aria-hidden />
             {new Date(workshop.scheduled_at).toLocaleString(locale === 'ar' ? 'ar-SA' : 'en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
@@ -32,14 +32,14 @@ export function ActiveWorkshopCard({ workshop }: ActiveWorkshopCardProps) {
         ) : null}
         {workshop.spots_remaining != null ? (
           <span className="inline-flex items-center gap-1">
-            <Users className="h-4 w-4 text-jid-olive" aria-hidden />
+            <Users className="h-4 w-4 text-primary" aria-hidden />
             {t('workshopSpots', { count: workshop.spots_remaining })}
           </span>
         ) : null}
       </div>
 
       {workshop.url ? (
-        <Button asChild size="sm" variant="outline" className="mt-4 border-jid-line">
+        <Button asChild size="sm" variant="outline" className="mt-4 border-border">
           <a href={workshop.url} target="_blank" rel="noopener noreferrer">
             <ExternalLink className="h-4 w-4" aria-hidden />
             {t('workshopCta')}

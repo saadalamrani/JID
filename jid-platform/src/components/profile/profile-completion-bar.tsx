@@ -23,8 +23,8 @@ export function ProfileCompletionBar({
     <div className={cn('space-y-2', className)}>
       {showLabel ? (
         <div className="flex items-center justify-between text-sm">
-          <span className="text-jid-ink/70">{t('completionLabel')}</span>
-          <span className="font-medium text-jid-olive">{clamped}%</span>
+          <span className="text-muted-foreground">{t('completionLabel')}</span>
+          <span className="font-medium text-primary">{clamped}%</span>
         </div>
       ) : null}
       <div
@@ -36,7 +36,7 @@ export function ProfileCompletionBar({
         aria-label={t('completionLabel')}
       >
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-jid-olive to-jid-gold"
+          className="h-full rounded-full bg-gradient-to-r from-primary to-jid-gold"
           initial={prefersReducedMotion ? { width: `${clamped}%` } : { width: 0 }}
           animate={{ width: `${clamped}%` }}
           transition={

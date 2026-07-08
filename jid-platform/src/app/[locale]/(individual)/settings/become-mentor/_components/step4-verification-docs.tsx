@@ -18,16 +18,16 @@ export function Step4VerificationDocs({ draft, errors, onChange }: Step4Verifica
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="font-arabic text-lg font-semibold text-jid-ink">{t('title')}</h2>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h2 className="font-arabic text-lg font-semibold text-foreground">{t('title')}</h2>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
-      <div className="rounded-lg border border-jid-line bg-jid-beige/30 p-4">
-        <p className="font-arabic text-sm text-jid-ink/70">{t('noUploadsNote')}</p>
+      <div className="rounded-lg border border-border bg-background/30 p-4">
+        <p className="font-arabic text-sm text-muted-foreground">{t('noUploadsNote')}</p>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="linkedin_url" className="font-arabic text-jid-ink">
+        <Label htmlFor="linkedin_url" className="font-arabic text-foreground">
           {t('linkedinLabel')}
         </Label>
         <Input
@@ -37,7 +37,7 @@ export function Step4VerificationDocs({ draft, errors, onChange }: Step4Verifica
           value={draft.linkedin_url}
           onChange={(event) => onChange({ linkedin_url: event.target.value })}
           placeholder={t('linkedinPlaceholder')}
-          className="font-arabic border-jid-line"
+          className="font-arabic border-border"
           required
         />
         {errors.linkedin_url ? (

@@ -69,23 +69,23 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
 
   return (
     <div className="space-y-5">
-      <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
+      <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <label className="flex items-center justify-between gap-4 font-arabic">
           <span>
-            <span className="block text-sm font-medium text-jid-ink">{t('acceptingLabel')}</span>
-            <span className="mt-0.5 block text-xs text-jid-ink/55">{t('acceptingHint')}</span>
+            <span className="block text-sm font-medium text-foreground">{t('acceptingLabel')}</span>
+            <span className="mt-0.5 block text-xs text-foreground/55">{t('acceptingHint')}</span>
           </span>
           <input
             type="checkbox"
             checked={isAccepting}
             onChange={(event) => setIsAccepting(event.target.checked)}
-            className="h-5 w-5 rounded border-jid-line text-jid-olive focus:ring-jid-olive"
+            className="h-5 w-5 rounded border-border text-primary focus:ring-jid-olive"
           />
         </label>
       </section>
 
-      <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm space-y-2">
-        <label htmlFor="mentor-bio" className="font-arabic text-sm font-medium text-jid-ink">
+      <section className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-2">
+        <label htmlFor="mentor-bio" className="font-arabic text-sm font-medium text-foreground">
           {t('bioLabel')}
         </label>
         <textarea
@@ -93,18 +93,18 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
           value={bioLong}
           onChange={(event) => setBioLong(event.target.value)}
           rows={5}
-          className="w-full rounded-lg border border-jid-line px-3 py-2 font-arabic text-sm"
+          className="w-full rounded-lg border border-border px-3 py-2 font-arabic text-sm"
         />
       </section>
 
-      <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm space-y-3">
-        <h3 className="font-arabic text-sm font-medium text-jid-ink">{t('expertiseLabel')}</h3>
+      <section className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-3">
+        <h3 className="font-arabic text-sm font-medium text-foreground">{t('expertiseLabel')}</h3>
         <div className="flex flex-wrap gap-1">
           {expertiseAreas.map((tag) => (
             <button
               key={tag}
               type="button"
-              className="rounded-full bg-jid-olive/10 px-2 py-0.5 font-arabic text-xs text-jid-olive"
+              className="rounded-full bg-primary/10 px-2 py-0.5 font-arabic text-xs text-primary"
               onClick={() => setExpertiseAreas(expertiseAreas.filter((item) => item !== tag))}
             >
               {tag} ×
@@ -122,7 +122,7 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
               }
             }}
             placeholder={t('expertisePlaceholder')}
-            className="flex-1 rounded-lg border border-jid-line px-3 py-2 font-arabic text-sm"
+            className="flex-1 rounded-lg border border-border px-3 py-2 font-arabic text-sm"
           />
           <Button type="button" variant="outline" onClick={addExpertise} className="font-arabic">
             {t('addExpertise')}
@@ -130,8 +130,8 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
         </div>
       </section>
 
-      <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm space-y-3">
-        <h3 className="font-arabic text-sm font-medium text-jid-ink">{t('mediumsLabel')}</h3>
+      <section className="rounded-xl border border-border bg-card p-5 shadow-sm space-y-3">
+        <h3 className="font-arabic text-sm font-medium text-foreground">{t('mediumsLabel')}</h3>
         <div className="flex flex-wrap gap-2">
           {MENTOR_MEDIUM_OPTIONS.map((option) => {
             const active = preferredMediums.includes(option.value)
@@ -143,8 +143,8 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
                 className={cn(
                   'rounded-lg border px-3 py-2 font-arabic text-sm transition-colors',
                   active
-                    ? 'border-jid-olive bg-jid-olive/10 text-jid-olive'
-                    : 'border-jid-line text-jid-ink/70',
+                    ? 'border-jid-olive bg-primary/10 text-primary'
+                    : 'border-border text-muted-foreground',
                 )}
               >
                 {locale === 'en' ? option.labelEn : option.labelAr}
@@ -154,9 +154,9 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
         </div>
       </section>
 
-      <section className="rounded-xl border border-jid-line bg-jid-beige/20 p-4">
-        <h3 className="font-arabic text-sm font-medium text-jid-ink">{t('shareLabel')}</h3>
-        <p className="mt-1 font-arabic text-xs text-jid-ink/55">{t('shareHint')}</p>
+      <section className="rounded-xl border border-border bg-background/20 p-4">
+        <h3 className="font-arabic text-sm font-medium text-foreground">{t('shareLabel')}</h3>
+        <p className="mt-1 font-arabic text-xs text-foreground/55">{t('shareHint')}</p>
         <div className="mt-3">
           <MentorShareCardButton
             name={settings.full_name?.trim() || t('shareFallbackName')}
@@ -175,7 +175,7 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
         type="button"
         disabled={saving}
         onClick={() => void handleSave()}
-        className="bg-jid-olive font-arabic hover:bg-jid-olive/90"
+        className="bg-primary font-arabic hover:bg-primary/90"
       >
         {saving ? t('saving') : t('save')}
       </Button>

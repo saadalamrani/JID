@@ -33,18 +33,18 @@ export function SessionList() {
     onError: (error: Error) => toast.error(error.message),
   })
 
-  if (isLoading) return <p className="text-sm text-jid-ink/60">{t('loading')}</p>
+  if (isLoading) return <p className="text-sm text-muted-foreground">{t('loading')}</p>
   if (isError) return <p className="text-sm text-red-600">{t('error')}</p>
-  if (!data?.length) return <p className="text-sm text-jid-ink/60">{t('empty')}</p>
+  if (!data?.length) return <p className="text-sm text-muted-foreground">{t('empty')}</p>
 
   return (
-    <ul className="divide-y divide-jid-line rounded-md border border-jid-line bg-white">
+    <ul className="divide-y divide-jid-line rounded-md border border-border bg-card">
       {data.map((session) => (
         <li key={session.id} className="flex flex-col gap-2 p-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="font-medium text-jid-ink">{session.device_label ?? t('unknownDevice')}</p>
-            <p className="text-xs text-jid-ink/60">{session.user_agent ?? '—'}</p>
-            <p className="text-xs text-jid-ink/50">
+            <p className="font-medium text-foreground">{session.device_label ?? t('unknownDevice')}</p>
+            <p className="text-xs text-muted-foreground">{session.user_agent ?? '—'}</p>
+            <p className="text-xs text-muted-foreground">
               {t('lastActive')}: {new Date(session.last_active_at).toLocaleString('ar-SA')}
             </p>
           </div>

@@ -29,14 +29,14 @@ export default async function NotificationsPage({ searchParams }: NotificationsP
     <main className="container-jid py-8">
       <header className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="font-arabic text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-          <p className="mt-1 text-sm text-jid-ink/60">{t('subtitle')}</p>
+          <h1 className="font-arabic text-2xl font-semibold text-foreground">{t('title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
         <NotificationsWorkspaceActions />
       </header>
 
       <div className="space-y-4">
-        <Suspense fallback={<div className="h-28 rounded-lg border border-jid-line bg-white" />}>
+        <Suspense fallback={<div className="h-28 rounded-lg border border-border bg-card" />}>
           <NotificationsFilters />
         </Suspense>
 

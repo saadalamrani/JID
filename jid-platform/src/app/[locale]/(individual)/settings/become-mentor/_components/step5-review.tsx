@@ -39,8 +39,8 @@ export function Step5Review({ draft, fullName, avatarUrl }: Step5ReviewProps) {
   return (
     <div className="space-y-5">
       <div>
-        <h2 className="font-arabic text-lg font-semibold text-jid-ink">{t('title')}</h2>
-        <p className="mt-1 font-arabic text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h2 className="font-arabic text-lg font-semibold text-foreground">{t('title')}</h2>
+        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <div className="space-y-4" aria-live="polite">
@@ -58,27 +58,27 @@ export function Step5Review({ draft, fullName, avatarUrl }: Step5ReviewProps) {
           yearsExperience={draft.years_experience}
         />
 
-        <section className="rounded-xl border border-jid-line bg-white p-5 shadow-sm">
-          <h3 className="mb-3 font-arabic text-sm font-medium text-jid-ink/70">{t('detailsTitle')}</h3>
+        <section className="rounded-xl border border-border bg-card p-5 shadow-sm">
+          <h3 className="mb-3 font-arabic text-sm font-medium text-muted-foreground">{t('detailsTitle')}</h3>
           <dl className="space-y-3 font-arabic text-sm">
             <div>
-              <dt className="text-xs text-jid-ink/50">{t('currentRole')}</dt>
-              <dd className="mt-1 text-jid-ink">
+              <dt className="text-xs text-muted-foreground">{t('currentRole')}</dt>
+              <dd className="mt-1 text-foreground">
                 {draft.current_job_title}
                 {draft.current_company ? ` — ${draft.current_company}` : ''}
               </dd>
             </div>
             <div>
-              <dt className="text-xs text-jid-ink/50">{t('languages')}</dt>
-              <dd className="mt-1 text-jid-ink">{languageLabels || '—'}</dd>
+              <dt className="text-xs text-muted-foreground">{t('languages')}</dt>
+              <dd className="mt-1 text-foreground">{languageLabels || '—'}</dd>
             </div>
             <div>
-              <dt className="text-xs text-jid-ink/50">{t('mediums')}</dt>
-              <dd className="mt-1 text-jid-ink">{mediumLabels || '—'}</dd>
+              <dt className="text-xs text-muted-foreground">{t('mediums')}</dt>
+              <dd className="mt-1 text-foreground">{mediumLabels || '—'}</dd>
             </div>
             <div>
-              <dt className="text-xs text-jid-ink/50">{t('linkedin')}</dt>
-              <dd className="mt-1 break-all text-jid-olive">{draft.linkedin_url || '—'}</dd>
+              <dt className="text-xs text-muted-foreground">{t('linkedin')}</dt>
+              <dd className="mt-1 break-all text-primary">{draft.linkedin_url || '—'}</dd>
             </div>
           </dl>
         </section>

@@ -25,20 +25,20 @@ const TIER_STYLES: Record<
   { bar: string; text: string; pulse?: boolean }
 > = {
   comfortable: {
-    bar: 'bg-jid-olive',
+    bar: 'bg-primary',
     text: 'text-jid-beige',
   },
   moderate: {
-    bar: 'bg-jid-gold-200',
-    text: 'text-jid-olive-700',
+    bar: 'bg-accent-200',
+    text: 'text-primary-700',
   },
   urgent: {
     bar: 'bg-amber-500',
-    text: 'text-white',
+    text: 'text-primary-foreground',
   },
   last_day: {
     bar: 'bg-red-600',
-    text: 'text-white',
+    text: 'text-primary-foreground',
     pulse: true,
   },
 }

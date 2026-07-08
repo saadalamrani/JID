@@ -9,7 +9,7 @@ export function ExperienceLevelChips() {
 
   return (
     <div className="space-y-2">
-      <p className="font-arabic text-xs font-medium text-jid-ink-400">مستوى الخبرة</p>
+      <p className="font-arabic text-xs font-medium text-foreground-400">مستوى الخبرة</p>
       <div className="flex flex-wrap gap-2">
         {JOB_EXPERIENCE_CHIPS.map((chip) => {
           const selected = filters.experienceChips.includes(chip.id)
@@ -23,8 +23,8 @@ export function ExperienceLevelChips() {
               className={cn(
                 'rounded-full border px-3 py-1.5 font-arabic text-sm transition-colors',
                 selected
-                  ? 'border-jid-olive bg-jid-olive text-white'
-                  : 'border-jid-line bg-white text-jid-ink hover:border-jid-olive/50',
+                  ? 'border-jid-olive bg-primary text-primary-foreground'
+                  : 'border-border bg-card text-foreground hover:border-jid-olive/50',
               )}
             >
               {chip.label}

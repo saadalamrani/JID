@@ -39,18 +39,18 @@ export function TagInput({
 
   return (
     <div className="space-y-2">
-      <Label className="font-arabic text-jid-ink">{label}</Label>
-      {hint ? <p className="font-arabic text-xs text-jid-ink/60">{hint}</p> : null}
+      <Label className="font-arabic text-foreground">{label}</Label>
+      {hint ? <p className="font-arabic text-xs text-muted-foreground">{hint}</p> : null}
       <div className="flex flex-wrap gap-2">
         {items.map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="inline-flex items-center gap-1 rounded-full bg-jid-beige px-3 py-1 font-arabic text-xs text-jid-ink"
+            className="inline-flex items-center gap-1 rounded-full bg-background px-3 py-1 font-arabic text-xs text-foreground"
           >
             {item}
             <button
               type="button"
-              className="text-jid-ink/50 hover:text-jid-ink"
+              className="text-muted-foreground hover:text-foreground"
               aria-label={`إزالة ${item}`}
               onClick={() => onChange(items.filter((_, i) => i !== index))}
             >
@@ -71,7 +71,7 @@ export function TagInput({
           }}
           placeholder={placeholder}
           disabled={items.length >= maxItems}
-          className="font-arabic border-jid-line"
+          className="font-arabic border-border"
         />
         <Button
           type="button"
@@ -119,8 +119,8 @@ export function MultiSelectChips<T extends string>({
 
   return (
     <div className="space-y-2">
-      <Label className="font-arabic text-jid-ink">{label}</Label>
-      {hint ? <p className="font-arabic text-xs text-jid-ink/60">{hint}</p> : null}
+      <Label className="font-arabic text-foreground">{label}</Label>
+      {hint ? <p className="font-arabic text-xs text-muted-foreground">{hint}</p> : null}
       <div className="flex flex-wrap gap-2">
         {options.map((option) => {
           const selected = values.includes(option.value)
@@ -132,8 +132,8 @@ export function MultiSelectChips<T extends string>({
               onClick={() => toggle(option.value)}
               className={`rounded-full border px-3 py-1.5 font-arabic text-xs transition-colors ${
                 selected
-                  ? 'border-jid-olive bg-jid-olive/10 text-jid-olive'
-                  : 'border-jid-line bg-white text-jid-ink/70 hover:border-jid-olive/40'
+                  ? 'border-jid-olive bg-primary/10 text-primary'
+                  : 'border-border bg-card text-muted-foreground hover:border-jid-olive/40'
               }`}
             >
               {option.label}

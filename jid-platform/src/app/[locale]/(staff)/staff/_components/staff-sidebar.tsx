@@ -90,11 +90,11 @@ export function StaffSidebar({ sessionIssuedAt }: StaffSidebarProps) {
   return (
     <aside className="flex w-60 shrink-0 flex-col border-e border-jid-line bg-white">
       <div className="border-b border-jid-line px-5 py-4">
-        <Link href="/staff" className="flex items-center gap-2">
+        <Link href="/staff" className="inline-block">
           <Logo size="sm" />
-          <span className="text-lg font-semibold text-jid-olive">— Staff</span>
         </Link>
-        <p className="mt-1 text-xs text-jid-ink/50">{t('portalLabel')}</p>
+        <p className="mt-2 text-sm font-semibold text-jid-olive">Staff</p>
+        <p className="mt-0.5 text-xs text-jid-ink/50">{t('portalLabel')}</p>
       </div>
 
       <SidebarSessionWarning sessionIssuedAt={sessionIssuedAt} />

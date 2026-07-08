@@ -94,7 +94,7 @@ export function SectionExperienceForm({ cv }: SectionExperienceFormProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2">
-        <p className="text-xs text-jid-ink/50">{t('reorderHint')}</p>
+        <p className="text-xs text-muted-foreground">{t('reorderHint')}</p>
         <Button type="button" size="sm" variant="outline" onClick={handleAdd} disabled={isBusy}>
           {t('addEntry')}
         </Button>

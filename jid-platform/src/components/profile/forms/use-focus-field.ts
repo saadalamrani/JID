@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { WIZARD_FOCUS_SECTION_IDS, parseFocusTaskId } from '@/lib/validations/profile'
 
-const HIGHLIGHT_CLASS = 'ring-2 ring-jid-gold ring-offset-2'
+const HIGHLIGHT_CLASS = 'ring-2 ring-accent ring-offset-2'
 
 export function useFocusField(focusParam: string | null | undefined) {
   useEffect(() => {

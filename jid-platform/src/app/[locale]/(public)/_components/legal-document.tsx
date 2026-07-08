@@ -32,11 +32,11 @@ export function LegalDocument({
       lang={lang}
       className={cn('container-jid py-12 md:py-16', className)}
     >
-      <header className="mx-auto max-w-3xl border-b border-jid-line/60 pb-8">
-        <p className="text-sm font-medium text-jid-gold">{versionLabel}</p>
-        <h1 className="mt-2 font-arabic text-3xl font-bold text-jid-ink md:text-4xl">{title}</h1>
-        <p className="mt-3 text-sm text-jid-ink/60">{effectiveDateLabel}</p>
-        <p className="mt-4 text-base leading-relaxed text-jid-ink/75">{summary}</p>
+      <header className="mx-auto max-w-3xl border-b border-border pb-8">
+        <p className="text-sm font-medium text-accent">{versionLabel}</p>
+        <h1 className="mt-2 font-arabic text-3xl font-bold text-foreground md:text-4xl">{title}</h1>
+        <p className="mt-3 text-sm text-muted-foreground">{effectiveDateLabel}</p>
+        <p className="mt-4 text-base leading-relaxed text-foreground/75">{summary}</p>
       </header>
 
       <div

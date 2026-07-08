@@ -48,7 +48,7 @@ export function MeetingCard({ meeting, className }: MeetingCardProps) {
       layoutId={`meeting-${meeting.id}`}
       transition={CARD_SPRING}
       className={cn(
-        'rounded-xl border border-jid-line/60 bg-white p-4 shadow-sm',
+        'rounded-xl border border-border bg-card p-4 shadow-sm',
         className,
       )}
     >
@@ -62,23 +62,23 @@ export function MeetingCard({ meeting, className }: MeetingCardProps) {
 
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex items-center gap-2">
-            <CalendarClock className="h-4 w-4 shrink-0 text-jid-olive" aria-hidden />
-            <p className="font-arabic text-sm font-semibold text-jid-ink">{t('upcomingTitle')}</p>
+            <CalendarClock className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+            <p className="font-arabic text-sm font-semibold text-foreground">{t('upcomingTitle')}</p>
           </div>
 
-          <p className="font-arabic text-sm font-medium text-jid-ink">{mentorName}</p>
+          <p className="font-arabic text-sm font-medium text-foreground">{mentorName}</p>
           {mentorRole ? (
-            <p className="mt-0.5 line-clamp-1 font-arabic text-xs text-jid-ink/60">{mentorRole}</p>
+            <p className="mt-0.5 line-clamp-1 font-arabic text-xs text-muted-foreground">{mentorRole}</p>
           ) : null}
 
-          <p className="mt-2 font-arabic text-sm text-jid-ink/75">{when}</p>
+          <p className="mt-2 font-arabic text-sm text-foreground/75">{when}</p>
 
           {meeting.duration_text ? (
-            <p className="mt-1 font-arabic text-xs text-jid-ink/55">{meeting.duration_text}</p>
+            <p className="mt-1 font-arabic text-xs text-foreground/55">{meeting.duration_text}</p>
           ) : null}
 
           {mediumLabel(meeting.medium, locale) ? (
-            <p className="mt-1 font-arabic text-xs text-jid-ink/55">
+            <p className="mt-1 font-arabic text-xs text-foreground/55">
               {mediumLabel(meeting.medium, locale)}
             </p>
           ) : null}
@@ -88,7 +88,7 @@ export function MeetingCard({ meeting, className }: MeetingCardProps) {
               href={meeting.meeting_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1 font-arabic text-xs text-jid-olive underline"
+              className="mt-2 inline-flex items-center gap-1 font-arabic text-xs text-primary underline"
               onClick={() => track('radar_meeting_joined', { meeting_id: meeting.id })}
             >
               <Video className="h-3.5 w-3.5" aria-hidden />

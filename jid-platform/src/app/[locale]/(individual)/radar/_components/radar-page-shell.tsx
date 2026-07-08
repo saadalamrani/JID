@@ -37,7 +37,7 @@ export function RadarPageShell({ userId }: RadarPageShellProps) {
 
   if (isLoading) {
     return (
-      <p className="font-arabic text-sm text-jid-ink/60" aria-live="polite">
+      <p className="font-arabic text-sm text-muted-foreground" aria-live="polite">
         {t('loading')}
       </p>
     )

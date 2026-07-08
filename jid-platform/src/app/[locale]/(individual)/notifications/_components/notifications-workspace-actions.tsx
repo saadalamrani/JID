@@ -21,7 +21,7 @@ export function NotificationsWorkspaceActions() {
       type="button"
       variant="outline"
       size="sm"
-      className="border-jid-line bg-white text-jid-olive hover:bg-jid-beige/40"
+      className="border-border bg-card text-primary hover:bg-background/40"
       onClick={handleMarkAllAsRead}
       disabled={isPending}
     >

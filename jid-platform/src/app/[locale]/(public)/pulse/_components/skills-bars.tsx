@@ -21,14 +21,14 @@ export function SkillsBars({ items }: SkillsBarsProps) {
         return (
           <div key={row.skill_name} className="space-y-1">
             <div className="flex items-center justify-between gap-2 text-xs">
-              <span className="font-medium text-jid-ink">{row.skill_name}</span>
-              <span className="tabular-nums text-jid-ink/70">
+              <span className="font-medium text-foreground">{row.skill_name}</span>
+              <span className="tabular-nums text-muted-foreground">
                 {formatArabicNumber(row.active_job_count)}
               </span>
             </div>
             <div className="h-2.5 overflow-hidden rounded-full bg-jid-line/30">
               <motion.div
-                className="h-full rounded-full bg-jid-gold"
+                className="h-full rounded-full bg-accent"
                 initial={prefersReducedMotion ? { width: `${widthPct}%` } : { width: 0 }}
                 whileInView={{ width: `${widthPct}%` }}
                 viewport={{ once: true, amount: 0.3 }}

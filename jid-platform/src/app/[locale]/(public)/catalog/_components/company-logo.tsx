@@ -19,7 +19,7 @@ export function CompanyLogo({ name, logoUrl, className }: CompanyLogoProps) {
       <div
         className={
           className ??
-          'flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-jid-line/40 bg-jid-beige text-jid-olive'
+          'flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border/40 bg-background text-primary'
         }
         aria-hidden
       >
@@ -36,7 +36,7 @@ export function CompanyLogo({ name, logoUrl, className }: CompanyLogoProps) {
     <div
       className={
         className ??
-        'relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-jid-line/40 bg-white'
+        'relative h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border/40 bg-card'
       }
     >
       <Image

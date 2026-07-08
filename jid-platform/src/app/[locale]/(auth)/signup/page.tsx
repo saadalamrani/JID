@@ -8,7 +8,7 @@ import { toast } from 'sonner'
 import { AuthShell } from '@/components/auth/auth-shell'
 import { FormField } from '@/components/auth/form-field'
 import { PasswordInput } from '@/components/auth/password-input'
-import { PasswordStrengthMeter } from '@/components/auth/password-strength-meter'
+import { PasswordRequirementsPanel } from '@/components/ui/password-requirements-panel'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/lib/i18n/navigation'
@@ -91,7 +91,7 @@ export default function SignupPage() {
       footer={
         <p>
           {t('hasAccount')}{' '}
-          <Link href="/login" className="font-medium text-jid-olive underline-offset-4 hover:underline">
+          <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
             {t('loginLink')}
           </Link>
         </p>
@@ -134,7 +134,7 @@ export default function SignupPage() {
           hint={t('passwordHint')}
         >
           <PasswordInput id="password" disabled={submitting} {...form.register('password')} />
-          <PasswordStrengthMeter password={passwordValue} />
+          <PasswordRequirementsPanel password={passwordValue} className="mt-2" />
         </FormField>
 
         <FormField
@@ -146,11 +146,11 @@ export default function SignupPage() {
             control={form.control}
             name="accept_terms"
             render={({ field }) => (
-              <label className="flex items-start gap-2 text-sm text-jid-ink/80">
+              <label className="flex items-start gap-2 text-sm text-muted-foreground">
                 <input
                   id="accept_terms"
                   type="checkbox"
-                  className="mt-1 h-4 w-4 rounded border-jid-line text-jid-olive focus:ring-jid-gold"
+                  className="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-accent"
                   disabled={submitting}
                   checked={field.value === true}
                   onChange={(event) => field.onChange(event.target.checked)}
@@ -163,7 +163,7 @@ export default function SignupPage() {
           />
         </FormField>
 
-        <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

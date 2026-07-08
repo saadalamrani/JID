@@ -51,7 +51,7 @@ export function ExportButton({ cv }: ExportButtonProps) {
       <Button
         type="button"
         size="sm"
-        className="gap-1.5 bg-jid-olive hover:bg-jid-olive/90"
+        className="gap-1.5 bg-primary hover:bg-primary/90"
         disabled={!exportCheck.ok || isExporting}
         onClick={() => void handleExport()}
       >
@@ -63,7 +63,7 @@ export function ExportButton({ cv }: ExportButtonProps) {
         {isExporting ? t('exporting') : t('action')}
       </Button>
       {disabledReason ? (
-        <p className="max-w-[220px] text-end text-[11px] text-jid-ink/50">{disabledReason}</p>
+        <p className="max-w-[220px] text-end text-[11px] text-muted-foreground">{disabledReason}</p>
       ) : null}
     </div>
   )

@@ -97,7 +97,7 @@ export function MentorPostApprovalSetup({
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <p className="font-arabic text-sm font-medium text-jid-ink">{t('expertiseLabel')}</p>
+            <p className="font-arabic text-sm font-medium text-foreground">{t('expertiseLabel')}</p>
             <div className="flex gap-2">
               <Input
                 value={expertiseDraft}
@@ -113,7 +113,7 @@ export function MentorPostApprovalSetup({
                 {expertiseAreas.map((area) => (
                   <li
                     key={area}
-                    className="rounded-full bg-jid-beige px-3 py-1 text-xs font-medium text-jid-ink"
+                    className="rounded-full bg-background px-3 py-1 text-xs font-medium text-foreground"
                   >
                     {area}
                   </li>
@@ -123,7 +123,7 @@ export function MentorPostApprovalSetup({
           </div>
 
           <fieldset className="space-y-2">
-            <legend className="font-arabic text-sm font-medium text-jid-ink">{t('mediumsLabel')}</legend>
+            <legend className="font-arabic text-sm font-medium text-foreground">{t('mediumsLabel')}</legend>
             <div className="flex flex-wrap gap-2">
               {MENTOR_MEDIUM_OPTIONS.map((option) => {
                 const label = locale === 'ar' ? option.labelAr : option.labelEn
@@ -136,8 +136,8 @@ export function MentorPostApprovalSetup({
                     className={cn(
                       'rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors',
                       active
-                        ? 'border-jid-olive bg-jid-olive/10 text-jid-olive'
-                        : 'border-jid-line text-jid-ink/70 hover:bg-jid-beige/50',
+                        ? 'border-jid-olive bg-primary/10 text-primary'
+                        : 'border-border text-muted-foreground hover:bg-background/50',
                     )}
                   >
                     {label}
@@ -149,7 +149,7 @@ export function MentorPostApprovalSetup({
         </div>
 
         <DialogFooter>
-          <Button type="button" onClick={handleSave} disabled={saving} className="bg-jid-olive hover:bg-jid-olive/90">
+          <Button type="button" onClick={handleSave} disabled={saving} className="bg-primary hover:bg-primary/90">
             {saving ? t('saving') : t('save')}
           </Button>
         </DialogFooter>
