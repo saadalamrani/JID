@@ -28,7 +28,7 @@ export function MentorApplicationCard({ application }: MentorApplicationCardProp
   const preview = bioPreview(application.bio_long)
 
   return (
-    <article className="rounded-lg border border-jid-line border-s-4 border-s-purple-400 bg-white transition-colors hover:bg-jid-beige/30">
+    <article className="rounded-lg border border-border border-s-4 border-s-purple-400 bg-card transition-colors hover:bg-background/30">
       <Link
         href={`/staff/mentor-applications/${application.user_id}`}
         className="flex flex-col gap-4 p-4 sm:flex-row sm:items-start sm:justify-between"
@@ -45,9 +45,9 @@ export function MentorApplicationCard({ application }: MentorApplicationCardProp
               <span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs font-semibold text-purple-800">
                 مرشد
               </span>
-              <span className="text-xs text-jid-ink/50">{application.status}</span>
+              <span className="text-xs text-muted-foreground">{application.status}</span>
             </div>
-            <p className="font-medium text-jid-ink">
+            <p className="font-medium text-foreground">
               {application.applicant_name ?? t('unnamed')}
             </p>
             {application.expertise_areas.length > 0 ? (
@@ -55,16 +55,16 @@ export function MentorApplicationCard({ application }: MentorApplicationCardProp
                 {application.expertise_areas.slice(0, 4).map((area) => (
                   <span
                     key={area}
-                    className={cn('rounded-full bg-jid-olive/10 px-2 py-0.5 text-xs text-jid-olive')}
+                    className={cn('rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary')}
                   >
                     {area}
                   </span>
                 ))}
               </div>
             ) : null}
-            {preview ? <p className="text-sm text-jid-ink/65 line-clamp-2">{preview}</p> : null}
+            {preview ? <p className="text-sm text-foreground/65 line-clamp-2">{preview}</p> : null}
             {submittedLabel ? (
-              <p className="text-xs text-jid-ink/50">{submittedLabel}</p>
+              <p className="text-xs text-muted-foreground">{submittedLabel}</p>
             ) : null}
           </div>
         </div>

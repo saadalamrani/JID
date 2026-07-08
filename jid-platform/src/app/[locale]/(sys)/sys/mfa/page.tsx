@@ -29,7 +29,7 @@ export default function SysMfaPage() {
     <Suspense
       fallback={
         <SysAuthShell title={t('title')} subtitle={t('subtitle')}>
-          <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+          <p className="text-center text-sm text-muted-foreground">{t('loading')}</p>
         </SysAuthShell>
       }
     >
@@ -132,7 +132,7 @@ function SysMfaPageContent() {
   if (loading) {
     return (
       <SysAuthShell title={t('title')} subtitle={t('subtitle')}>
-        <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+        <p className="text-center text-sm text-muted-foreground">{t('loading')}</p>
       </SysAuthShell>
     )
   }
@@ -151,7 +151,7 @@ function SysMfaPageContent() {
         <OtpInput value={code} onChange={setCode} disabled={verifying} />
         <Button
           type="button"
-          className="w-full bg-jid-olive hover:bg-jid-olive/90"
+          className="w-full bg-primary hover:bg-primary/90"
           disabled={verifying || code.length !== 6}
           onClick={() => void handleVerify()}
         >

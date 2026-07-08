@@ -1,29 +1,14 @@
+import { ShimmerBlock } from '@/components/ui/skeleton'
+import { cardSkeletonShell } from '@/lib/ui/consistency'
 import { cn } from '@/lib/utils'
 
 type JobCardSkeletonProps = {
   className?: string
 }
 
-function ShimmerBlock({ className }: { className?: string }) {
-  return (
-    <div
-      className={cn(
-        'animate-shimmer rounded-md bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 bg-[length:200%_100%]',
-        className,
-      )}
-    />
-  )
-}
-
 export function JobCardSkeleton({ className }: JobCardSkeletonProps) {
   return (
-    <article
-      className={cn(
-        'flex min-h-[300px] flex-col rounded-xl border border-border/40 bg-card p-4 shadow-sm',
-        className,
-      )}
-      aria-hidden
-    >
+    <article className={cn('flex min-h-[300px] flex-col p-4', cardSkeletonShell, className)} aria-hidden>
       <div className="flex items-start gap-3">
         <ShimmerBlock className="h-12 w-12 shrink-0 rounded-lg" />
         <div className="min-w-0 flex-1 space-y-2">

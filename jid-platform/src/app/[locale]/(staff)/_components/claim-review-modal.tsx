@@ -119,7 +119,7 @@ export function ClaimReviewModal({ claim, open, onOpenChange }: ClaimReviewModal
 
         <div className="space-y-6">
           <section>
-            <h3 className="mb-3 text-sm font-semibold text-jid-ink">{t('checklistTitle')}</h3>
+            <h3 className="mb-3 text-sm font-semibold text-foreground">{t('checklistTitle')}</h3>
             <ClaimChecklist
               businessEmail={claim.business_email}
               claimantTitle={claim.claimant_title}
@@ -131,7 +131,7 @@ export function ClaimReviewModal({ claim, open, onOpenChange }: ClaimReviewModal
           </section>
 
           <section className="space-y-2">
-            <label htmlFor="review_notes" className="text-sm font-medium text-jid-ink">
+            <label htmlFor="review_notes" className="text-sm font-medium text-foreground">
               {t('reviewNotes')}
             </label>
             <textarea
@@ -140,13 +140,13 @@ export function ClaimReviewModal({ claim, open, onOpenChange }: ClaimReviewModal
               disabled={submitting}
               value={reviewNotes}
               onChange={(event) => setReviewNotes(event.target.value)}
-              className="w-full rounded-md border border-jid-line px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-jid-gold"
+              className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
               placeholder={t('reviewNotesPlaceholder')}
             />
           </section>
 
           <section className="space-y-2">
-            <label htmlFor="rejection_reason" className="text-sm font-medium text-jid-ink">
+            <label htmlFor="rejection_reason" className="text-sm font-medium text-foreground">
               {t('rejectionReason')}
             </label>
             <textarea
@@ -155,10 +155,10 @@ export function ClaimReviewModal({ claim, open, onOpenChange }: ClaimReviewModal
               disabled={submitting}
               value={rejectionReason}
               onChange={(event) => setRejectionReason(event.target.value)}
-              className="w-full rounded-md border border-jid-line px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-jid-gold"
+              className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
               placeholder={t('rejectionReasonPlaceholder')}
             />
-            <p className="text-xs text-jid-ink/50">{t('rejectionReasonHint')}</p>
+            <p className="text-xs text-muted-foreground">{t('rejectionReasonHint')}</p>
           </section>
         </div>
 
@@ -170,7 +170,7 @@ export function ClaimReviewModal({ claim, open, onOpenChange }: ClaimReviewModal
             <Button
               type="button"
               variant="outline"
-              className="border-red-300 text-red-700 hover:bg-red-50"
+              className="border-destructive/40 text-destructive hover:bg-destructive/10"
               disabled={submitting}
               onClick={handleReject}
             >
@@ -178,7 +178,7 @@ export function ClaimReviewModal({ claim, open, onOpenChange }: ClaimReviewModal
             </Button>
             <Button
               type="button"
-              className="bg-jid-olive hover:bg-jid-olive/90"
+              className="bg-primary hover:bg-primary/90"
               disabled={submitting}
               onClick={handleApprove}
             >

@@ -91,11 +91,11 @@ export function ConfirmDialog({
             placeholder={reasonPlaceholder ?? t('reasonPlaceholder')}
             rows={3}
             className={cn(
-              'flex w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink',
-              'placeholder:text-jid-ink/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive',
+              'flex w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground',
+              'placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
             )}
           />
-          {error ? <p className="text-sm text-red-600">{error}</p> : null}
+          {error ? <p className="text-sm text-destructive">{error}</p> : null}
         </div>
 
         <DialogFooter className="gap-2 sm:gap-0">

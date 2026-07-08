@@ -17,20 +17,20 @@ export default async function StaffClaimsPage() {
 
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-          <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
         <nav className="flex flex-wrap gap-3 text-sm">
-          <Link href="/staff/claims/my-queue" className="text-jid-olive hover:underline">
+          <Link href="/staff/claims/my-queue" className="text-primary hover:underline">
             {t('nav.myQueue')}
           </Link>
-          <Link href="/staff/claims/history" className="text-jid-olive hover:underline">
+          <Link href="/staff/claims/history" className="text-primary hover:underline">
             {t('nav.history')}
           </Link>
         </nav>
       </header>
 
-      <p className="text-sm text-jid-ink/55">{t('count', { count: items.length })}</p>
+      <p className="text-sm text-muted-foreground">{t('count', { count: items.length })}</p>
 
       <ClaimsListWithFilters items={items} />
     </div>

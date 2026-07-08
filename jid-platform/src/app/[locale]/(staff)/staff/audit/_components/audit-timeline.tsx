@@ -50,10 +50,10 @@ function AuditEventRow({ event }: { event: StaffAuditEvent }) {
   const href = staffEntityHref(event.entity_type, event.entity_id)
 
   return (
-    <article className="rounded-lg border border-jid-line bg-white p-4">
+    <article className="rounded-lg border border-border bg-card p-4">
       <div className="flex gap-3">
         <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-jid-beige/70 text-jid-olive"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted text-primary"
           aria-hidden
         >
           <Icon className="h-5 w-5" />
@@ -62,18 +62,18 @@ function AuditEventRow({ event }: { event: StaffAuditEvent }) {
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
-              <p className="font-medium text-jid-ink">{catalog.label}</p>
-              <p className="font-mono text-xs text-jid-ink/45">{event.action}</p>
+              <p className="font-medium text-foreground">{catalog.label}</p>
+              <p className="font-mono text-xs text-muted-foreground">{event.action}</p>
             </div>
-            <time dateTime={event.created_at} className="text-xs text-jid-ink/45">
+            <time dateTime={event.created_at} className="text-xs text-muted-foreground">
               {new Date(event.created_at).toLocaleString()}
             </time>
           </div>
 
-          <p className="mt-2 text-sm text-jid-ink/70">
-            <span className="font-medium text-jid-ink/50">{t('target')}: </span>
+          <p className="mt-2 text-sm text-muted-foreground">
+            <span className="font-medium text-muted-foreground">{t('target')}: </span>
             {href ? (
-              <Link href={href} className="text-jid-olive hover:underline">
+              <Link href={href} className="text-primary hover:underline">
                 {formatTarget(event)}
               </Link>
             ) : (
@@ -82,7 +82,7 @@ function AuditEventRow({ event }: { event: StaffAuditEvent }) {
           </p>
 
           {reason ? (
-            <blockquote className="mt-3 border-s-2 border-jid-olive/40 ps-3 text-sm italic text-jid-ink/75">
+            <blockquote className="mt-3 border-s-2 border-primary/25 ps-3 text-sm italic text-muted-foreground">
               {reason}
             </blockquote>
           ) : null}
@@ -92,12 +92,12 @@ function AuditEventRow({ event }: { event: StaffAuditEvent }) {
               <button
                 type="button"
                 onClick={() => setExpanded((value) => !value)}
-                className={cn('text-sm text-jid-olive hover:underline')}
+                className={cn('text-sm text-primary hover:underline')}
               >
                 {expanded ? t('hideChanges') : t('showChanges')}
               </button>
               {expanded ? (
-                <pre className="mt-2 max-h-64 overflow-auto rounded-md bg-jid-beige/40 p-3 text-xs text-jid-ink/80">
+                <pre className="mt-2 max-h-64 overflow-auto rounded-md bg-background/40 p-3 text-xs text-muted-foreground">
                   {formatChanges(event)}
                 </pre>
               ) : null}

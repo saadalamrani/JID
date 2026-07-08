@@ -85,22 +85,22 @@ export function ClaimChecklist({
               onClick={() => toggle(item.key)}
               className={cn(
                 'flex w-full items-start gap-3 rounded-md border p-3 text-start transition-colors',
-                checked ? 'border-jid-olive/40 bg-jid-beige/60' : 'border-jid-line bg-white',
+                checked ? 'border-primary/25 bg-muted' : 'border-border bg-card',
                 disabled && 'cursor-not-allowed opacity-60',
               )}
             >
               <Icon
-                className={cn('mt-0.5 h-5 w-5 shrink-0', checked ? 'text-jid-olive' : 'text-jid-ink/30')}
+                className={cn('mt-0.5 h-5 w-5 shrink-0', checked ? 'text-primary' : 'text-muted-foreground')}
               />
               <div>
-                <p className="text-sm font-medium text-jid-ink">{item.label}</p>
+                <p className="text-sm font-medium text-foreground">{item.label}</p>
                 {item.hint ? (
-                  <p className="mt-1 text-xs text-jid-ink/60" dir={item.key === 'email_domain' ? 'ltr' : undefined}>
+                  <p className="mt-1 text-xs text-muted-foreground" dir={item.key === 'email_domain' ? 'ltr' : undefined}>
                     {item.hint}
                   </p>
                 ) : null}
                 {item.key === 'email_domain' ? (
-                  <p className="mt-1 text-xs text-jid-ink/60" dir="ltr">
+                  <p className="mt-1 text-xs text-muted-foreground" dir="ltr">
                     {businessEmail}
                   </p>
                 ) : null}

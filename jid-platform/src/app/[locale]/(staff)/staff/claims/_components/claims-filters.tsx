@@ -97,7 +97,7 @@ export function ClaimsFilters({ className }: ClaimsFiltersProps) {
 function FilterGroup({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <p className="text-xs font-medium text-jid-ink/50">{label}</p>
+      <p className="text-xs font-medium text-muted-foreground">{label}</p>
       <div className="flex flex-wrap gap-1.5">{children}</div>
     </div>
   )
@@ -119,8 +119,8 @@ function FilterButton({
       className={cn(
         'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
         active
-          ? 'border-jid-olive bg-jid-olive/10 text-jid-olive'
-          : 'border-jid-line bg-white text-jid-ink/70 hover:bg-jid-beige/50',
+          ? 'border-primary bg-primary/10 text-primary'
+          : 'border-border bg-card text-muted-foreground hover:bg-background/50',
       )}
     >
       {children}

@@ -42,34 +42,34 @@ export function ConfigEditor({ config, showBackLink = false }: ConfigEditorProps
   const inputId = `config-edit-${config.key}`
 
   return (
-    <div className="space-y-4 rounded-lg border border-jid-line bg-white p-5">
+    <div className="space-y-4 rounded-lg border border-border bg-card p-5">
       {showBackLink ? (
-        <Link href="/sys/config" className="text-sm text-jid-olive hover:underline">
+        <Link href="/sys/config" className="text-sm text-primary hover:underline">
           {t('back')}
         </Link>
       ) : null}
 
       <header>
-        <h2 className="text-lg font-semibold text-jid-ink">{config.key}</h2>
-        {config.description ? <p className="mt-1 text-sm text-jid-ink/55">{config.description}</p> : null}
+        <h2 className="text-lg font-semibold text-foreground">{config.key}</h2>
+        {config.description ? <p className="mt-1 text-sm text-muted-foreground">{config.description}</p> : null}
       </header>
 
       <dl className="grid gap-2 text-sm sm:grid-cols-2">
         <div>
-          <dt className="text-jid-ink/45">{t('category')}</dt>
+          <dt className="text-muted-foreground">{t('category')}</dt>
           <dd>{config.category}</dd>
         </div>
         <div>
-          <dt className="text-jid-ink/45">{t('valueType')}</dt>
+          <dt className="text-muted-foreground">{t('valueType')}</dt>
           <dd>{valueType}</dd>
         </div>
         <div className="sm:col-span-2">
-          <dt className="text-jid-ink/45">{t('currentValue')}</dt>
+          <dt className="text-muted-foreground">{t('currentValue')}</dt>
           <dd className="font-mono text-xs">{displayConfigValue(config)}</dd>
         </div>
       </dl>
 
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
+      {error ? <p className="text-sm text-destructive">{error}</p> : null}
 
       <div className="space-y-2">
         <Label htmlFor={inputId}>{t('newValue')}</Label>
@@ -78,7 +78,7 @@ export function ConfigEditor({ config, showBackLink = false }: ConfigEditorProps
             id={inputId}
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+            className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
           >
             <option value="true">true</option>
             <option value="false">false</option>
@@ -89,7 +89,7 @@ export function ConfigEditor({ config, showBackLink = false }: ConfigEditorProps
             rows={8}
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            className="w-full rounded-md border border-jid-line px-3 py-2 font-mono text-xs"
+            className="w-full rounded-md border border-border px-3 py-2 font-mono text-xs"
           />
         ) : (
           <input
@@ -97,11 +97,11 @@ export function ConfigEditor({ config, showBackLink = false }: ConfigEditorProps
             type={valueType === 'number' ? 'number' : 'text'}
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
-            className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+            className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
             dir="ltr"
           />
         )}
-        {config.is_secret ? <p className="text-xs text-jid-ink/45">{t('secretHint')}</p> : null}
+        {config.is_secret ? <p className="text-xs text-muted-foreground">{t('secretHint')}</p> : null}
       </div>
 
       <Button type="button" disabled={pending} onClick={() => setConfirmOpen(true)}>

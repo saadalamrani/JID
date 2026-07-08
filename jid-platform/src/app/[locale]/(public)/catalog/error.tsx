@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { Button } from '@/components/ui/button'
+import { ErrorPageShell, ErrorState } from '@/components/shared/error-state'
 
 type CatalogErrorProps = {
   error: Error & { digest?: string }
@@ -14,12 +14,14 @@ export default function CatalogError({ error, reset }: CatalogErrorProps) {
   }, [error])
 
   return (
-    <main className="container-jid flex min-h-[50vh] flex-col items-start justify-center gap-4 py-8">
-      <h1 className="text-xl font-semibold text-foreground">Could not load catalog</h1>
-      <p className="max-w-md text-sm text-muted-foreground">{error.message}</p>
-      <Button type="button" onClick={reset} className="bg-primary hover:bg-primary/90">
-        Try again
-      </Button>
-    </main>
+    <ErrorPageShell className="items-start">
+      <ErrorState
+        title="Could not load catalog"
+        message={error.message}
+        onRetry={reset}
+        retryLabel="Try again"
+        className="w-full max-w-lg"
+      />
+    </ErrorPageShell>
   )
 }

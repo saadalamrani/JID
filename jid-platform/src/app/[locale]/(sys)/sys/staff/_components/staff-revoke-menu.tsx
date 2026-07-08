@@ -35,19 +35,19 @@ export function StaffRevokeMenu({ member, actorUserId }: StaffRevokeMenuProps) {
   }
 
   return (
-    <div className="rounded-lg border border-jid-line bg-white p-5">
-      <h2 className="text-sm font-semibold text-jid-ink">{t('actionsTitle')}</h2>
-      <p className="mt-1 text-sm text-jid-ink/55">{t('actionsSubtitle')}</p>
+    <div className="rounded-lg border border-border bg-card p-5">
+      <h2 className="text-sm font-semibold text-foreground">{t('actionsTitle')}</h2>
+      <p className="mt-1 text-sm text-muted-foreground">{t('actionsSubtitle')}</p>
 
-      {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
+      {error ? <p className="mt-3 text-sm text-destructive">{error}</p> : null}
 
       {isTargetSuperAdmin && !isSelf ? (
-        <label className="mt-4 flex items-center gap-2 text-sm text-jid-ink/70">
+        <label className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
           <input
             type="checkbox"
             checked={superAdminConfirm}
             onChange={(event) => setSuperAdminConfirm(event.target.checked)}
-            className="h-4 w-4 rounded border-jid-line"
+            className="h-4 w-4 rounded border-border"
           />
           {t('superAdminConfirmLabel')}
         </label>

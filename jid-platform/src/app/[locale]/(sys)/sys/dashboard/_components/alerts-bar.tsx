@@ -75,8 +75,8 @@ export function AlertsBar({
             className={cn(
               'flex items-start gap-3 rounded-lg border px-4 py-3 text-sm',
               alert.severity === 'critical'
-                ? 'border-red-200 bg-red-50 text-red-900'
-                : 'border-amber-200 bg-amber-50 text-amber-900',
+                ? 'border-destructive/30 bg-destructive/10 text-destructive'
+                : 'border-sem-warning/30 bg-sem-warning/10 text-sem-warning',
             )}
           >
             <Icon className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />

@@ -37,7 +37,7 @@ function ClaimsListContent({ items, showAssignment = true }: ClaimsListProps) {
 
   if (filtered.length === 0) {
     return (
-      <div className="rounded-md border border-dashed border-jid-line p-8 text-center text-sm text-jid-ink/60">
+      <div className="rounded-md border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
         {t('empty')}
       </div>
     )
@@ -57,7 +57,7 @@ function ClaimsListContent({ items, showAssignment = true }: ClaimsListProps) {
 /** Section 7.2 — filtered claim cards list. */
 export function ClaimsList(props: ClaimsListProps) {
   return (
-    <Suspense fallback={<p className="text-sm text-jid-ink/60">…</p>}>
+    <Suspense fallback={<p className="text-sm text-muted-foreground">…</p>}>
       <ClaimsListContent {...props} />
     </Suspense>
   )

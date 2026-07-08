@@ -14,8 +14,8 @@ export default async function SysPlatformPulseFeaturesPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
 
       <FeatureFlagsPanel flags={flags} thresholds={thresholds} />

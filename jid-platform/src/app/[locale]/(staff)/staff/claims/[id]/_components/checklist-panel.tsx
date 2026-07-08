@@ -42,13 +42,13 @@ export function ChecklistPanel({
   return (
     <div className="space-y-4">
       <div>
-        <div className="mb-1 flex items-center justify-between text-xs text-jid-ink/60">
+        <div className="mb-1 flex items-center justify-between text-xs text-muted-foreground">
           <span>{t('progress', { completed, total: items.length })}</span>
           <span>{percent}%</span>
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-jid-beige/80">
+        <div className="h-2 overflow-hidden rounded-full bg-muted">
           <div
-            className="h-full rounded-full bg-jid-olive transition-all"
+            className="h-full rounded-full bg-primary transition-all"
             style={{ width: `${percent}%` }}
             role="progressbar"
             aria-valuenow={percent}
@@ -71,19 +71,19 @@ export function ChecklistPanel({
                 onClick={() => toggle(item.key)}
                 className={cn(
                   'flex w-full items-start gap-3 rounded-md border p-3 text-start transition-colors',
-                  checked ? 'border-jid-olive/40 bg-jid-beige/60' : 'border-jid-line bg-white',
+                  checked ? 'border-primary/25 bg-muted' : 'border-border bg-card',
                   disabled && 'cursor-not-allowed opacity-60',
                 )}
               >
                 <Icon
                   className={cn(
                     'mt-0.5 h-5 w-5 shrink-0',
-                    checked ? 'text-jid-olive' : 'text-jid-ink/30',
+                    checked ? 'text-primary' : 'text-muted-foreground',
                   )}
                 />
                 <div>
-                  <p className="text-sm font-medium text-jid-ink">{item.label}</p>
-                  {item.hint ? <p className="mt-1 text-xs text-jid-ink/60">{item.hint}</p> : null}
+                  <p className="text-sm font-medium text-foreground">{item.label}</p>
+                  {item.hint ? <p className="mt-1 text-xs text-muted-foreground">{item.hint}</p> : null}
                 </div>
               </button>
             </li>

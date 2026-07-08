@@ -40,11 +40,11 @@ export default async function SysUsersPage({ searchParams }: SysUsersPageProps) 
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
 
-      <Suspense fallback={<div className="h-24 rounded-lg border border-jid-line bg-white" />}>
+      <Suspense fallback={<div className="h-24 rounded-lg border border-border bg-card" />}>
         <UsersFilters />
       </Suspense>
 
@@ -55,13 +55,13 @@ export default async function SysUsersPage({ searchParams }: SysUsersPageProps) 
         baseParams={listParams}
       />
 
-      <div className="flex items-center justify-between text-sm text-jid-ink/60">
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
         <p>{t('pagination.summary', { total: result.total, page: result.page, totalPages: result.totalPages })}</p>
         <div className="flex gap-2">
           {result.page > 1 ? (
             <Link
               href={`/sys/users?${new URLSearchParams({ ...Object.fromEntries(listParams), page: String(result.page - 1) }).toString()}`}
-              className="text-jid-olive hover:underline"
+              className="text-primary hover:underline"
             >
               {t('pagination.prev')}
             </Link>
@@ -69,7 +69,7 @@ export default async function SysUsersPage({ searchParams }: SysUsersPageProps) 
           {result.page < result.totalPages ? (
             <Link
               href={`/sys/users?${new URLSearchParams({ ...Object.fromEntries(listParams), page: String(result.page + 1) }).toString()}`}
-              className="text-jid-olive hover:underline"
+              className="text-primary hover:underline"
             >
               {t('pagination.next')}
             </Link>

@@ -22,7 +22,7 @@ export default async function SysFeatureFlagDetailPage({ params }: FlagDetailPag
 
   return (
     <div className="space-y-4">
-      <Link href="/sys/flags" className="text-sm text-jid-olive hover:underline">
+      <Link href="/sys/flags" className="text-sm text-primary hover:underline">
         {t('back')}
       </Link>
       <FlagDetailEditor flag={flag} overrideRows={overrideRows} />

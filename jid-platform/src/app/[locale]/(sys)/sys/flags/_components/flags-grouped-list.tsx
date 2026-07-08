@@ -21,7 +21,7 @@ export function FlagsGroupedList({ grouped }: FlagsGroupedListProps) {
 
         return (
           <section key={category} aria-labelledby={`flags-${category}`}>
-            <h2 id={`flags-${category}`} className="mb-3 text-sm font-semibold uppercase tracking-wide text-jid-ink/50">
+            <h2 id={`flags-${category}`} className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
               {t(`categories.${category}`)}
             </h2>
             <div className="space-y-2">

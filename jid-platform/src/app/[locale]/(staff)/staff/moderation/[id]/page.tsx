@@ -22,13 +22,13 @@ export default async function StaffFlagDetailPage({ params }: FlagDetailPageProp
 
   return (
     <div className="space-y-6">
-      <Link href="/staff/moderation" className="text-sm text-jid-olive hover:underline">
+      <Link href="/staff/moderation" className="text-sm text-primary hover:underline">
         {t('back')}
       </Link>
 
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/60">
+        <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           {t('meta', {
             type: flag.target_type,
             reason: flag.reason,
@@ -37,43 +37,43 @@ export default async function StaffFlagDetailPage({ params }: FlagDetailPageProp
         </p>
       </header>
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('reportTitle')}</h2>
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('reportTitle')}</h2>
         <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
           <div>
-            <dt className="text-jid-ink/50">{t('reporter')}</dt>
+            <dt className="text-muted-foreground">{t('reporter')}</dt>
             <dd>{flag.reporter_name ?? t('unknownReporter')}</dd>
           </div>
           <div>
-            <dt className="text-jid-ink/50">{t('submitted')}</dt>
+            <dt className="text-muted-foreground">{t('submitted')}</dt>
             <dd>{new Date(flag.created_at).toLocaleString()}</dd>
           </div>
           {flag.details ? (
             <div className="sm:col-span-2">
-              <dt className="text-jid-ink/50">{t('details')}</dt>
+              <dt className="text-muted-foreground">{t('details')}</dt>
               <dd className="whitespace-pre-wrap">{flag.details}</dd>
             </div>
           ) : null}
         </dl>
       </section>
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('previewTitle')}</h2>
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('previewTitle')}</h2>
         {preview ? (
           <div className="mt-4 space-y-2">
-            <p className="font-medium text-jid-ink">{preview.title}</p>
-            {preview.subtitle ? <p className="text-sm text-jid-ink/60">{preview.subtitle}</p> : null}
+            <p className="font-medium text-foreground">{preview.title}</p>
+            {preview.subtitle ? <p className="text-sm text-muted-foreground">{preview.subtitle}</p> : null}
             {preview.body ? (
-              <p className="whitespace-pre-wrap text-sm text-jid-ink/75 line-clamp-6">{preview.body}</p>
+              <p className="whitespace-pre-wrap text-sm text-muted-foreground line-clamp-6">{preview.body}</p>
             ) : null}
             {preview.href ? (
-              <Link href={preview.href} className="text-sm text-jid-olive hover:underline">
+              <Link href={preview.href} className="text-sm text-primary hover:underline">
                 {t('openTarget')}
               </Link>
             ) : null}
           </div>
         ) : (
-          <p className="mt-4 text-sm text-jid-ink/50">{t('previewMissing')}</p>
+          <p className="mt-4 text-sm text-muted-foreground">{t('previewMissing')}</p>
         )}
       </section>
 

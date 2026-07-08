@@ -45,7 +45,7 @@ export function UsersFilters({ basePath = '/staff/users', lockStatus }: UsersFil
 
   return (
     <form
-      className="grid gap-4 rounded-lg border border-jid-line bg-white p-4 md:grid-cols-4"
+      className="grid gap-4 rounded-lg border border-border bg-card p-4 md:grid-cols-4"
       onSubmit={(event) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
@@ -67,7 +67,7 @@ export function UsersFilters({ basePath = '/staff/users', lockStatus }: UsersFil
           id="staff-users-role"
           name="role"
           defaultValue={role}
-          className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+          className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
         >
           {STAFF_USER_ROLE_FILTERS.map((option) => (
             <option key={option} value={option}>
@@ -84,7 +84,7 @@ export function UsersFilters({ basePath = '/staff/users', lockStatus }: UsersFil
           name="status"
           defaultValue={status}
           disabled={Boolean(lockStatus)}
-          className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm disabled:opacity-60"
+          className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm disabled:opacity-60"
         >
           {STATUS_FILTER_OPTIONS.map((option) => (
             <option key={option} value={option}>

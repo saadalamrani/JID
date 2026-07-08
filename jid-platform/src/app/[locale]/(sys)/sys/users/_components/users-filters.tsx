@@ -50,7 +50,7 @@ export function UsersFilters() {
 
   return (
     <form
-      className="grid gap-4 rounded-lg border border-jid-line bg-white p-4 md:grid-cols-4"
+      className="grid gap-4 rounded-lg border border-border bg-card p-4 md:grid-cols-4"
       onSubmit={(event) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
@@ -72,7 +72,7 @@ export function UsersFilters() {
           id="users-role"
           name="role"
           defaultValue={role}
-          className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+          className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
         >
           {ROLE_FILTER_OPTIONS.map((option) => (
             <option key={option} value={option}>
@@ -88,7 +88,7 @@ export function UsersFilters() {
           id="users-status"
           name="status"
           defaultValue={status}
-          className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+          className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
         >
           {STATUS_FILTER_OPTIONS.map((option) => (
             <option key={option} value={option}>

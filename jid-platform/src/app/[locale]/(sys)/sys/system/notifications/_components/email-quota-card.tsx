@@ -20,12 +20,12 @@ function usagePercent(used: number, limit: number): number {
 
 function meterTone(percent: number): { bar: string; text: string } {
   if (percent >= 100) {
-    return { bar: 'bg-red-500', text: 'text-red-700' }
+    return { bar: 'bg-destructive/100', text: 'text-destructive' }
   }
   if (percent >= 85) {
-    return { bar: 'bg-amber-500', text: 'text-amber-700' }
+    return { bar: 'bg-sem-warning', text: 'text-sem-warning' }
   }
-  return { bar: 'bg-jid-olive', text: 'text-jid-olive' }
+  return { bar: 'bg-primary', text: 'text-primary' }
 }
 
 function QuotaMeter({
@@ -49,23 +49,23 @@ function QuotaMeter({
   const tone = meterTone(percent)
 
   return (
-    <div className="space-y-2 rounded-lg border border-jid-line bg-white p-4">
+    <div className="space-y-2 rounded-lg border border-border bg-card p-4">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm font-semibold text-jid-ink">{label}</p>
+        <p className="text-sm font-semibold text-foreground">{label}</p>
         <p className={cn('text-sm font-medium tabular-nums', tone.text)}>{percent}%</p>
       </div>
-      <div className="h-2.5 overflow-hidden rounded-full bg-jid-beige/80">
+      <div className="h-2.5 overflow-hidden rounded-full bg-muted">
         <div className={cn('h-full rounded-full transition-all', tone.bar)} style={{ width: `${percent}%` }} />
       </div>
-      <div className="flex flex-wrap justify-between gap-2 text-xs text-jid-ink/60">
+      <div className="flex flex-wrap justify-between gap-2 text-xs text-muted-foreground">
         <span>
-          {usedLabel}: <span className="tabular-nums font-medium text-jid-ink">{used}</span>
+          {usedLabel}: <span className="tabular-nums font-medium text-foreground">{used}</span>
         </span>
         <span>
-          {limitLabel}: <span className="tabular-nums font-medium text-jid-ink">{limit}</span>
+          {limitLabel}: <span className="tabular-nums font-medium text-foreground">{limit}</span>
         </span>
         <span>
-          {remainingLabel}: <span className="tabular-nums font-medium text-jid-ink">{remaining}</span>
+          {remainingLabel}: <span className="tabular-nums font-medium text-foreground">{remaining}</span>
         </span>
       </div>
     </div>
@@ -86,7 +86,7 @@ export function EmailQuotaCard({
       {quota.circuit_open ? (
         <div
           role="alert"
-          className="rounded-lg border border-red-300 bg-red-50 px-4 py-3 text-sm font-medium text-red-800"
+          className="rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive"
         >
           {circuitBanner}
         </div>

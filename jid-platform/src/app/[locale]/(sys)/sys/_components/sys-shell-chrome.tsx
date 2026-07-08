@@ -27,7 +27,7 @@ export function SysShellChrome({
   useSysCommandPaletteHotkey(togglePalette)
 
   return (
-    <div className="flex min-h-screen bg-jid-beige/30">
+    <div className="flex min-h-screen bg-background/30">
       <SysSidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <SysTopbar

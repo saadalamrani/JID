@@ -33,19 +33,19 @@ export function FeatureFlagsPanel({ flags, thresholds }: FeatureFlagsPanelProps)
 
   return (
     <div className="space-y-8">
-      <div className="rounded-lg border border-amber-300 bg-amber-50 p-4">
+      <div className="rounded-lg border border-sem-warning/30 bg-sem-warning/10 p-4">
         <div className="flex gap-3">
-          <AlertTriangle className="h-5 w-5 shrink-0 text-amber-700" aria-hidden />
+          <AlertTriangle className="h-5 w-5 shrink-0 text-sem-warning" aria-hidden />
           <div>
-            <p className="font-semibold text-amber-900">{t('alert.title')}</p>
-            <p className="mt-1 text-sm text-amber-800">{t('alert.body')}</p>
+            <p className="font-semibold text-sem-warning">{t('alert.title')}</p>
+            <p className="mt-1 text-sm text-sem-warning">{t('alert.body')}</p>
           </div>
         </div>
       </div>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-jid-ink">{t('masterTitle')}</h2>
-        <p className="text-sm text-jid-ink/60">{t('masterSubtitle')}</p>
+        <h2 className="text-lg font-semibold text-foreground">{t('masterTitle')}</h2>
+        <p className="text-sm text-muted-foreground">{t('masterSubtitle')}</p>
         {masterFlag ? (
           <PulseFlagRow
             flag={masterFlag}
@@ -54,13 +54,13 @@ export function FeatureFlagsPanel({ flags, thresholds }: FeatureFlagsPanelProps)
           />
         ) : null}
         {!tractionOk ? (
-          <p className="text-sm text-jid-ink/55">{t('tractionBelowRecommended')}</p>
+          <p className="text-sm text-muted-foreground">{t('tractionBelowRecommended')}</p>
         ) : null}
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-jid-ink">{t('sectionsTitle')}</h2>
-        <p className="text-sm text-jid-ink/60">{t('sectionsSubtitle')}</p>
+        <h2 className="text-lg font-semibold text-foreground">{t('sectionsTitle')}</h2>
+        <p className="text-sm text-muted-foreground">{t('sectionsSubtitle')}</p>
         <div className="space-y-3">
           {sectionFlags.map((flag) => (
             <PulseFlagRow key={flag.key} flag={flag} />
@@ -69,8 +69,8 @@ export function FeatureFlagsPanel({ flags, thresholds }: FeatureFlagsPanelProps)
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-jid-ink">{t('thresholdsTitle')}</h2>
-        <p className="text-sm text-jid-ink/60">{t('thresholdsSubtitle')}</p>
+        <h2 className="text-lg font-semibold text-foreground">{t('thresholdsTitle')}</h2>
+        <p className="text-sm text-muted-foreground">{t('thresholdsSubtitle')}</p>
         <div className="space-y-3">
           {thresholds.map((threshold) => (
             <ThresholdRow key={threshold.metric_key} threshold={threshold} />

@@ -120,11 +120,11 @@ export function UserActionsMenu({ user, actorUserId }: UserActionsMenuProps) {
   })()
 
   return (
-    <div className="rounded-lg border border-jid-line bg-white p-5">
-      <h2 className="text-sm font-semibold text-jid-ink">{t('title')}</h2>
-      <p className="mt-1 text-sm text-jid-ink/55">{t('subtitle')}</p>
+    <div className="rounded-lg border border-border bg-card p-5">
+      <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
+      <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
 
-      {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
+      {error ? <p className="mt-3 text-sm text-destructive">{error}</p> : null}
 
       <div className="mt-4 flex flex-wrap gap-2">
         <Button
@@ -179,15 +179,15 @@ export function UserActionsMenu({ user, actorUserId }: UserActionsMenuProps) {
       />
 
       {flagPanelOpen ? (
-        <div className="mt-4 space-y-3 border-t border-jid-line pt-4">
-          <p className="text-sm font-medium text-jid-ink">{t('confirm.flagTitle')}</p>
-          <p className="text-xs text-jid-ink/55">{t('confirm.flagDescription')}</p>
+        <div className="mt-4 space-y-3 border-t border-border pt-4">
+          <p className="text-sm font-medium text-foreground">{t('confirm.flagTitle')}</p>
+          <p className="text-xs text-muted-foreground">{t('confirm.flagDescription')}</p>
           <Label htmlFor="flag-reason">{t('flagReasonLabel')}</Label>
           <select
             id="flag-reason"
             value={flagReason}
             onChange={(event) => setFlagReason(event.target.value as FlagReason)}
-            className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+            className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
           >
             {FLAG_REASONS.map((reason) => (
               <option key={reason} value={reason}>
@@ -201,7 +201,7 @@ export function UserActionsMenu({ user, actorUserId }: UserActionsMenuProps) {
             rows={3}
             value={flagDetails}
             onChange={(event) => setFlagDetails(event.target.value)}
-            className="w-full rounded-md border border-jid-line px-3 py-2 text-sm"
+            className="w-full rounded-md border border-border px-3 py-2 text-sm"
             placeholder={t('flagDetailsPlaceholder')}
           />
           <Button type="button" variant="destructive" disabled={pending} onClick={() => void handleFlagSubmit()}>

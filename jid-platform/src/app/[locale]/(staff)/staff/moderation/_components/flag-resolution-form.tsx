@@ -65,7 +65,7 @@ export function FlagResolutionForm({ flag }: FlagResolutionFormProps) {
 
   if (!isOpen) {
     return (
-      <div className="rounded-lg border border-jid-line bg-jid-beige/40 p-4 text-sm text-jid-ink/70">
+      <div className="rounded-lg border border-border bg-background/40 p-4 text-sm text-muted-foreground">
         {t('alreadyClosed', { status: flag.status })}
         {flag.resolution_notes ? (
           <p className="mt-2 whitespace-pre-wrap">{flag.resolution_notes}</p>
@@ -75,9 +75,9 @@ export function FlagResolutionForm({ flag }: FlagResolutionFormProps) {
   }
 
   return (
-    <div className="space-y-4 rounded-lg border border-jid-line bg-white p-5">
-      <h2 className="text-sm font-semibold text-jid-ink">{t('title')}</h2>
-      <p className="text-sm text-jid-ink/55">{t('subtitle')}</p>
+    <div className="space-y-4 rounded-lg border border-border bg-card p-5">
+      <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
+      <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
 
       <div className="space-y-2">
         <Label htmlFor="resolution_notes">{t('notesLabel')}</Label>
@@ -87,7 +87,7 @@ export function FlagResolutionForm({ flag }: FlagResolutionFormProps) {
           value={notes}
           disabled={pending}
           onChange={(event) => setNotes(event.target.value)}
-          className="w-full rounded-md border border-jid-line px-3 py-2 text-sm"
+          className="w-full rounded-md border border-border px-3 py-2 text-sm"
           placeholder={t('notesPlaceholder')}
         />
       </div>
@@ -95,7 +95,7 @@ export function FlagResolutionForm({ flag }: FlagResolutionFormProps) {
       <div className="flex flex-wrap gap-2">
         <Button
           type="button"
-          className="bg-jid-olive hover:bg-jid-olive/90"
+          className="bg-primary hover:bg-primary/90"
           disabled={pending}
           onClick={() => void handleResolve(true)}
         >
@@ -109,7 +109,7 @@ export function FlagResolutionForm({ flag }: FlagResolutionFormProps) {
         </Button>
       </div>
 
-      <p className="text-xs text-jid-ink/45">{t('hideTodo')}</p>
+      <p className="text-xs text-muted-foreground">{t('hideTodo')}</p>
     </div>
   )
 }

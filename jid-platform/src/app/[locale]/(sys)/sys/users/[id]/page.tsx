@@ -60,25 +60,25 @@ export default async function SysUserDetailPage({ params }: SysUserDetailPagePro
 
   return (
     <div className="space-y-6">
-      <Link href="/sys/users" className="text-sm text-jid-olive hover:underline">
+      <Link href="/sys/users" className="text-sm text-primary hover:underline">
         {t('back')}
       </Link>
 
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{user.full_name ?? t('unnamed')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/60">{user.email ?? user.id}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{user.full_name ?? t('unnamed')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{user.email ?? user.id}</p>
       </header>
 
       <div className="grid gap-6 xl:grid-cols-3">
-        <section className="rounded-lg border border-jid-line bg-white p-5 xl:col-span-2">
-          <h2 className="text-sm font-semibold text-jid-ink">{t('infoTitle')}</h2>
+        <section className="rounded-lg border border-border bg-card p-5 xl:col-span-2">
+          <h2 className="text-sm font-semibold text-foreground">{t('infoTitle')}</h2>
           <dl className="mt-4 grid gap-3 sm:grid-cols-2">
             {infoFields.map((field) => (
               <div key={field.label}>
-                <dt className="text-xs font-medium uppercase tracking-wide text-jid-ink/45">
+                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   {field.label}
                 </dt>
-                <dd className="mt-1 break-all text-sm text-jid-ink">{field.value ?? '—'}</dd>
+                <dd className="mt-1 break-all text-sm text-foreground">{field.value ?? '—'}</dd>
               </div>
             ))}
           </dl>
@@ -87,12 +87,12 @@ export default async function SysUserDetailPage({ params }: SysUserDetailPagePro
         <UserActionsMenu user={user} actorUserId={actorUserId} />
       </div>
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('sessionsTitle')}</h2>
-        <p className="mt-1 text-sm text-jid-ink/55">{t('sessionsSubtitle')}</p>
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('sessionsTitle')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('sessionsSubtitle')}</p>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full text-sm">
-            <thead className="bg-jid-beige/50 text-start">
+            <thead className="bg-background/50 text-start">
               <tr>
                 <th className="px-3 py-2 font-medium">{t('sessions.device')}</th>
                 <th className="px-3 py-2 font-medium">{t('sessions.lastActive')}</th>
@@ -100,10 +100,10 @@ export default async function SysUserDetailPage({ params }: SysUserDetailPagePro
                 <th className="px-3 py-2 font-medium">{t('sessions.status')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-jid-line">
+            <tbody className="divide-y divide-border">
               {sessions.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-3 py-6 text-center text-jid-ink/50">
+                  <td colSpan={4} className="px-3 py-6 text-center text-muted-foreground">
                     {t('sessions.empty')}
                   </td>
                 </tr>
@@ -112,7 +112,7 @@ export default async function SysUserDetailPage({ params }: SysUserDetailPagePro
                   <tr key={session.id}>
                     <td className="px-3 py-2">
                       <p>{session.device_label ?? t('sessions.unknownDevice')}</p>
-                      <p className="text-xs text-jid-ink/45">{session.user_agent ?? session.ip_address ?? '—'}</p>
+                      <p className="text-xs text-muted-foreground">{session.user_agent ?? session.ip_address ?? '—'}</p>
                     </td>
                     <td className="px-3 py-2">{new Date(session.last_active_at).toLocaleString()}</td>
                     <td className="px-3 py-2">{new Date(session.expires_at).toLocaleString()}</td>
@@ -127,23 +127,23 @@ export default async function SysUserDetailPage({ params }: SysUserDetailPagePro
         </div>
       </section>
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('auditTitle')}</h2>
-        <p className="mt-1 text-sm text-jid-ink/55">{t('auditSubtitle')}</p>
-        <ul className="mt-4 divide-y divide-jid-line">
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('auditTitle')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('auditSubtitle')}</p>
+        <ul className="mt-4 divide-y divide-border">
           {auditEvents.length === 0 ? (
-            <li className="py-6 text-center text-sm text-jid-ink/50">{t('auditEmpty')}</li>
+            <li className="py-6 text-center text-sm text-muted-foreground">{t('auditEmpty')}</li>
           ) : (
             auditEvents.map((event) => (
               <li key={event.id} className="py-3">
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
-                    <p className="font-medium text-jid-ink">{event.action}</p>
-                    <p className="text-xs text-jid-ink/55">
+                    <p className="font-medium text-foreground">{event.action}</p>
+                    <p className="text-xs text-muted-foreground">
                       {event.actor_name ?? t('systemActor')} · {event.entity_type}
                     </p>
                   </div>
-                  <time dateTime={event.created_at} className="text-xs text-jid-ink/45">
+                  <time dateTime={event.created_at} className="text-xs text-muted-foreground">
                     {new Date(event.created_at).toLocaleString()}
                   </time>
                 </div>

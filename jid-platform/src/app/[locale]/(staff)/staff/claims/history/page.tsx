@@ -14,10 +14,10 @@ export default async function StaffClaimsHistoryPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-          <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
-        <Link href="/staff/claims" className="text-sm text-jid-olive hover:underline">
+        <Link href="/staff/claims" className="text-sm text-primary hover:underline">
           {t('backToQueue')}
         </Link>
       </header>

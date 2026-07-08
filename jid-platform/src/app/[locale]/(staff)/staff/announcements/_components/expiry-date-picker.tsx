@@ -32,10 +32,10 @@ export function ExpiryDatePicker({
 
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="flex items-center gap-1 text-sm font-medium text-jid-ink">
+      <label htmlFor={id} className="flex items-center gap-1 text-sm font-medium text-foreground">
         {t('label')}
         {required ? (
-          <span className="text-red-600" aria-hidden>
+          <span className="text-destructive" aria-hidden>
             *
           </span>
         ) : null}
@@ -51,13 +51,13 @@ export function ExpiryDatePicker({
         aria-invalid={showRequired || Boolean(error)}
         onChange={(event) => onChange(event.target.value)}
         className={cn(
-          (showRequired || error) && 'border-red-400 ring-1 ring-red-200',
-          isEmpty && 'bg-red-50/40',
+          (showRequired || error) && 'border-destructive/50 ring-1 ring-destructive/20',
+          isEmpty && 'bg-destructive/5',
         )}
       />
-      <p className="text-xs text-jid-ink/55">{t('hint')}</p>
-      {showRequired ? <p className="text-sm text-red-600">{t('required')}</p> : null}
-      {error && !showRequired ? <p className="text-sm text-red-600">{error}</p> : null}
+      <p className="text-xs text-muted-foreground">{t('hint')}</p>
+      {showRequired ? <p className="text-sm text-destructive">{t('required')}</p> : null}
+      {error && !showRequired ? <p className="text-sm text-destructive">{error}</p> : null}
     </div>
   )
 }

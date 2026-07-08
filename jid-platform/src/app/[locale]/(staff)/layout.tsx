@@ -27,7 +27,7 @@ export default async function StaffLayout({ children }: StaffLayoutProps) {
   const pathname = headers().get('x-pathname') ?? ''
 
   if (isStaffAuthRoute(pathname)) {
-    return <div className="min-h-screen bg-white">{children}</div>
+    return <div className="min-h-screen bg-card">{children}</div>
   }
 
   return <StaffShell>{children}</StaffShell>

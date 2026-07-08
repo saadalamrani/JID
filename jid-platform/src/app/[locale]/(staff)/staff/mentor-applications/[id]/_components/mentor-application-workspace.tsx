@@ -91,21 +91,21 @@ export function MentorApplicationWorkspace({
       <header>
         <Link
           href="/staff/mentor-applications"
-          className="text-sm text-jid-olive hover:underline"
+          className="text-sm text-primary hover:underline"
         >
           {t('backToQueue')}
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-jid-ink">
+        <h1 className="mt-2 text-2xl font-semibold text-foreground">
           {t('title', { name: application.applicant_name ?? t('unnamed') })}
         </h1>
         {submittedLabel ? (
-          <p className="mt-1 text-sm text-jid-ink/60">{t('submitted', { when: submittedLabel })}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{t('submitted', { when: submittedLabel })}</p>
         ) : null}
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] xl:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="space-y-6">
-          <section className="rounded-lg border border-jid-line bg-white p-5">
+          <section className="rounded-lg border border-border bg-card p-5">
             <MentorIdentityHeader
               isOwner={false}
               fullName={application.applicant_name ?? t('unnamed')}
@@ -121,7 +121,7 @@ export function MentorApplicationWorkspace({
                   href={application.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-jid-olive hover:underline"
+                  className="text-primary hover:underline"
                 >
                   {t('linkedin')}: {application.linkedin_url}
                 </a>
@@ -135,20 +135,20 @@ export function MentorApplicationWorkspace({
           />
 
           {(application.languages.length > 0 || application.preferred_mediums.length > 0) ? (
-            <section className="rounded-lg border border-jid-line bg-white p-5">
+            <section className="rounded-lg border border-border bg-card p-5">
               <dl className="grid gap-4 text-sm sm:grid-cols-2">
                 {application.languages.length > 0 ? (
                   <div>
-                    <dt className="text-xs text-jid-ink/50">{t('languages')}</dt>
-                    <dd className="mt-1 font-medium text-jid-ink">
+                    <dt className="text-xs text-muted-foreground">{t('languages')}</dt>
+                    <dd className="mt-1 font-medium text-foreground">
                       {application.languages.join(', ')}
                     </dd>
                   </div>
                 ) : null}
                 {application.preferred_mediums.length > 0 ? (
                   <div>
-                    <dt className="text-xs text-jid-ink/50">{t('mediums')}</dt>
-                    <dd className="mt-1 font-medium text-jid-ink">
+                    <dt className="text-xs text-muted-foreground">{t('mediums')}</dt>
+                    <dd className="mt-1 font-medium text-foreground">
                       {application.preferred_mediums.join(', ')}
                     </dd>
                   </div>
@@ -167,15 +167,15 @@ export function MentorApplicationWorkspace({
               onSubmit={() => mutation.mutate()}
             />
           ) : (
-            <div className="rounded-lg border border-jid-line bg-jid-beige/40 p-5 text-sm text-jid-ink/70">
+            <div className="rounded-lg border border-border bg-background/40 p-5 text-sm text-muted-foreground">
               {t('alreadyReviewed', { status: application.status })}
             </div>
           )}
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-4 lg:self-start">
-          <div className="rounded-lg border border-jid-line bg-white p-4">
-            <h3 className="text-sm font-semibold text-jid-ink">{t('checklist.title')}</h3>
+          <div className="rounded-lg border border-border bg-card p-4">
+            <h3 className="text-sm font-semibold text-foreground">{t('checklist.title')}</h3>
             <div className="mt-4">
               <ChecklistPanel
                 items={checklistItems}

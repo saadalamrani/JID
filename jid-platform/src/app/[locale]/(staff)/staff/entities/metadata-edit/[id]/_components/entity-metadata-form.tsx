@@ -56,8 +56,8 @@ export function EntityMetadataForm({ entity, sectors, regions }: EntityMetadataF
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5 rounded-lg border border-jid-line bg-white p-5">
-      <p className="text-sm text-jid-ink/60">{t('hint')}</p>
+    <form onSubmit={handleSubmit} className="space-y-5 rounded-lg border border-border bg-card p-5">
+      <p className="text-sm text-muted-foreground">{t('hint')}</p>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
@@ -66,7 +66,7 @@ export function EntityMetadataForm({ entity, sectors, regions }: EntityMetadataF
             id="sector"
             value={sectorId}
             onChange={(e) => setSectorId(e.target.value)}
-            className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+            className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
           >
             <option value="">{t('none')}</option>
             {sectors.map((sector) => (
@@ -83,7 +83,7 @@ export function EntityMetadataForm({ entity, sectors, regions }: EntityMetadataF
             id="region"
             value={regionId}
             onChange={(e) => setRegionId(e.target.value)}
-            className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+            className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
           >
             <option value="">{t('none')}</option>
             {regions.map((region) => (
@@ -102,7 +102,7 @@ export function EntityMetadataForm({ entity, sectors, regions }: EntityMetadataF
           type="url"
           value={logoUrl}
           onChange={(e) => setLogoUrl(e.target.value)}
-          className="flex h-10 w-full rounded-md border border-jid-line px-3 text-sm"
+          className="flex h-10 w-full rounded-md border border-border px-3 text-sm"
           placeholder="https://"
         />
       </div>
@@ -114,7 +114,7 @@ export function EntityMetadataForm({ entity, sectors, regions }: EntityMetadataF
           rows={4}
           value={descriptionEn}
           onChange={(e) => setDescriptionEn(e.target.value)}
-          className="w-full rounded-md border border-jid-line px-3 py-2 text-sm"
+          className="w-full rounded-md border border-border px-3 py-2 text-sm"
         />
       </div>
 
@@ -125,24 +125,24 @@ export function EntityMetadataForm({ entity, sectors, regions }: EntityMetadataF
           rows={4}
           value={descriptionAr}
           onChange={(e) => setDescriptionAr(e.target.value)}
-          className="w-full rounded-md border border-jid-line px-3 py-2 text-sm"
+          className="w-full rounded-md border border-border px-3 py-2 text-sm"
           dir="rtl"
         />
       </div>
 
-      <div className="space-y-2 border-t border-jid-line pt-4">
+      <div className="space-y-2 border-t border-border pt-4">
         <Label htmlFor="metadata_reason">{t('reasonLabel')}</Label>
         <textarea
           id="metadata_reason"
           rows={2}
           value={reason}
           onChange={(e) => setReason(e.target.value)}
-          className="w-full rounded-md border border-jid-line px-3 py-2 text-sm"
+          className="w-full rounded-md border border-border px-3 py-2 text-sm"
           placeholder={t('reasonPlaceholder')}
         />
       </div>
 
-      <Button type="submit" className="bg-jid-olive hover:bg-jid-olive/90" disabled={pending}>
+      <Button type="submit" className="bg-primary hover:bg-primary/90" disabled={pending}>
         {pending ? t('saving') : t('submit')}
       </Button>
     </form>

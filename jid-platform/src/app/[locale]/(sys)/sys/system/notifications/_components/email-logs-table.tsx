@@ -20,15 +20,15 @@ type EmailLogsTableProps = {
 function statusClass(status: string): string {
   switch (status) {
     case 'sent':
-      return 'bg-jid-olive/10 text-jid-olive'
+      return 'bg-primary/10 text-primary'
     case 'failed':
-      return 'bg-red-100 text-red-700'
+      return 'bg-destructive/10 text-destructive'
     case 'skipped_bounced':
     case 'skipped_prefs':
     case 'skipped_quota':
-      return 'bg-amber-100 text-amber-800'
+      return 'bg-sem-warning/10 text-sem-warning'
     default:
-      return 'bg-jid-beige/60 text-jid-ink/70'
+      return 'bg-muted text-muted-foreground'
   }
 }
 
@@ -36,9 +36,9 @@ export function EmailLogsTable({ logs, columns }: EmailLogsTableProps) {
   const locale = useLocale()
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-jid-line bg-white">
+    <div className="overflow-x-auto rounded-lg border border-border bg-card">
       <table className="min-w-full text-sm">
-        <thead className="bg-jid-beige/50 text-start">
+        <thead className="bg-background/50 text-start">
           <tr>
             <th className="px-4 py-3 font-medium">{columns.destination}</th>
             <th className="px-4 py-3 font-medium">{columns.status}</th>
@@ -48,10 +48,10 @@ export function EmailLogsTable({ logs, columns }: EmailLogsTableProps) {
             <th className="px-4 py-3 font-medium">{columns.error}</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-jid-line">
+        <tbody className="divide-y divide-border">
           {logs.length === 0 ? (
             <tr>
-              <td colSpan={6} className="px-4 py-8 text-center text-jid-ink/50">
+              <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
                 {columns.empty}
               </td>
             </tr>
@@ -59,8 +59,8 @@ export function EmailLogsTable({ logs, columns }: EmailLogsTableProps) {
             logs.map((log) => (
               <tr key={log.id} className="align-top">
                 <td className="px-4 py-3">
-                  <p className="font-medium text-jid-ink">{log.recipient_email}</p>
-                  <p className="mt-0.5 font-mono text-[11px] text-jid-ink/45">{log.recipient_id}</p>
+                  <p className="font-medium text-foreground">{log.recipient_email}</p>
+                  <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">{log.recipient_id}</p>
                 </td>
                 <td className="px-4 py-3">
                   <span
@@ -69,14 +69,14 @@ export function EmailLogsTable({ logs, columns }: EmailLogsTableProps) {
                     {log.status}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-jid-ink/75">{log.category ?? '—'}</td>
-                <td className="px-4 py-3 tabular-nums text-jid-ink/70">
+                <td className="px-4 py-3 text-muted-foreground">{log.category ?? '—'}</td>
+                <td className="px-4 py-3 tabular-nums text-muted-foreground">
                   {log.attempted_at ? formatDateTime(log.attempted_at, locale) : '—'}
                 </td>
-                <td className="px-4 py-3 tabular-nums text-jid-ink/70">
+                <td className="px-4 py-3 tabular-nums text-muted-foreground">
                   {log.sent_at ? formatDateTime(log.sent_at, locale) : '—'}
                 </td>
-                <td className="max-w-xs px-4 py-3 text-xs text-red-700">
+                <td className="max-w-xs px-4 py-3 text-xs text-destructive">
                   {log.error_message ?? '—'}
                 </td>
               </tr>

@@ -18,22 +18,22 @@ export function FlagCard({ flag }: FlagCardProps) {
   })
 
   return (
-    <article className="rounded-lg border border-jid-line bg-white p-4 transition-colors hover:bg-jid-beige/30">
+    <article className="rounded-lg border border-border bg-card p-4 transition-colors hover:bg-background/30">
       <Link href={`/staff/moderation/${flag.id}`} className="block space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="rounded-full bg-jid-olive/10 px-2 py-0.5 text-xs font-medium text-jid-olive">
+          <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
             {t(`targetTypes.${flag.target_type}`)}
           </span>
-          <span className="text-xs text-jid-ink/50">{age}</span>
+          <span className="text-xs text-muted-foreground">{age}</span>
         </div>
-        <p className="font-medium text-jid-ink">{t(`reasons.${flag.reason}`)}</p>
-        <p className="text-sm text-jid-ink/65">
+        <p className="font-medium text-foreground">{t(`reasons.${flag.reason}`)}</p>
+        <p className="text-sm text-foreground/65">
           {t('reporter', { name: flag.reporter_name ?? t('unknownReporter') })}
         </p>
         {flag.details ? (
-          <p className="line-clamp-2 text-sm text-jid-ink/55">{flag.details}</p>
+          <p className="line-clamp-2 text-sm text-muted-foreground">{flag.details}</p>
         ) : null}
-        <p className="text-xs text-jid-ink/40">{flag.status}</p>
+        <p className="text-xs text-muted-foreground">{flag.status}</p>
       </Link>
     </article>
   )

@@ -1,7 +1,9 @@
 'use client'
 
+import { Briefcase } from 'lucide-react'
 import { useEffect, useRef } from 'react'
 import type { JobsListResult } from '@/types/job'
+import { EmptyState } from '@/components/shared/empty-state'
 import { ActiveFiltersBar } from './active-filters-bar'
 import { EntityTypeChips } from './entity-type-chips'
 import { ExperienceLevelChips } from './experience-level-chips'
@@ -53,7 +55,14 @@ function JobResultsSection() {
   }
 
   if (jobs.length === 0) {
-    return <p className="font-arabic text-sm text-foreground-400">لا توجد فرص مطابقة للفلاتر.</p>
+    return (
+      <EmptyState
+        icon={Briefcase}
+        title="لا توجد فرص مطابقة للفلاتر."
+        description="جرّب تعديل الفلاتر أو توسيع نطاق البحث."
+        className="py-12"
+      />
+    )
   }
 
   return <VirtualizedJobGrid jobs={jobs} scrollElementRef={scrollRef} />
@@ -65,7 +74,7 @@ function JobBoardContent({ setupHint }: { setupHint?: string }) {
       {setupHint ? (
         <div
           role="alert"
-          className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+          className="mb-6 rounded-lg border border-sem-warning/30 bg-sem-warning/10 px-4 py-3 text-sm text-sem-warning"
         >
           {setupHint}
         </div>

@@ -33,18 +33,18 @@ export default async function SysMentorApplicationsPage({ searchParams }: SysMen
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
-        <p className="mt-2 text-xs text-jid-ink/45">{t('staffNote')}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
+        <p className="mt-2 text-xs text-muted-foreground">{t('staffNote')}</p>
       </header>
 
-      <Suspense fallback={<div className="h-24 rounded-lg border border-jid-line bg-white" />}>
+      <Suspense fallback={<div className="h-24 rounded-lg border border-border bg-card" />}>
         <MentorApplicationsFilters />
       </Suspense>
 
-      <div className="overflow-x-auto rounded-lg border border-jid-line bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-card">
         <table className="min-w-full text-sm">
-          <thead className="bg-jid-beige/50 text-start">
+          <thead className="bg-background/50 text-start">
             <tr>
               <th className="px-4 py-3 font-medium">{t('table.applicant')}</th>
               <th className="px-4 py-3 font-medium">{t('table.headline')}</th>
@@ -52,23 +52,23 @@ export default async function SysMentorApplicationsPage({ searchParams }: SysMen
               <th className="px-4 py-3 font-medium">{t('table.actions')}</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-jid-line">
+          <tbody className="divide-y divide-border">
             {result.rows.length === 0 ? (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-jid-ink/50">
+                <td colSpan={4} className="px-4 py-8 text-center text-muted-foreground">
                   {t('table.empty')}
                 </td>
               </tr>
             ) : (
               result.rows.map((row) => (
-                <tr key={row.user_id} className="hover:bg-jid-beige/30">
+                <tr key={row.user_id} className="hover:bg-background/30">
                   <td className="px-4 py-3">
-                    <Link href={`/sys/users/${row.user_id}`} className="font-medium text-jid-olive hover:underline">
+                    <Link href={`/sys/users/${row.user_id}`} className="font-medium text-primary hover:underline">
                       {row.applicant_name ?? t('table.unnamed')}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 text-jid-ink/70">{row.headline ?? '—'}</td>
-                  <td className="px-4 py-3 text-jid-ink/70">
+                  <td className="px-4 py-3 text-muted-foreground">{row.headline ?? '—'}</td>
+                  <td className="px-4 py-3 text-muted-foreground">
                     {row.application_submitted_at
                       ? new Date(row.application_submitted_at).toLocaleDateString()
                       : '—'}
@@ -83,13 +83,13 @@ export default async function SysMentorApplicationsPage({ searchParams }: SysMen
         </table>
       </div>
 
-      <div className="flex items-center justify-between text-sm text-jid-ink/60">
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
         <p>{t('pagination.summary', { total: result.total, page: result.page, totalPages: result.totalPages })}</p>
         <div className="flex gap-2">
           {result.page > 1 ? (
             <Link
               href={`/sys/mentor-applications?${new URLSearchParams({ ...Object.fromEntries(listParams), page: String(result.page - 1) }).toString()}`}
-              className="text-jid-olive hover:underline"
+              className="text-primary hover:underline"
             >
               {t('pagination.prev')}
             </Link>
@@ -97,7 +97,7 @@ export default async function SysMentorApplicationsPage({ searchParams }: SysMen
           {result.page < result.totalPages ? (
             <Link
               href={`/sys/mentor-applications?${new URLSearchParams({ ...Object.fromEntries(listParams), page: String(result.page + 1) }).toString()}`}
-              className="text-jid-olive hover:underline"
+              className="text-primary hover:underline"
             >
               {t('pagination.next')}
             </Link>

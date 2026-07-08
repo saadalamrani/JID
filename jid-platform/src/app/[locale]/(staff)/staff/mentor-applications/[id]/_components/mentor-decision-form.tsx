@@ -36,14 +36,14 @@ export function MentorDecisionForm({
 
   return (
     <form
-      className="space-y-5 rounded-lg border border-jid-line bg-white p-5"
+      className="space-y-5 rounded-lg border border-border bg-card p-5"
       onSubmit={(event) => {
         event.preventDefault()
         if (canSubmit) onSubmit()
       }}
     >
       <div>
-        <p className="mb-2 text-sm font-medium text-jid-ink">{t('decisionLabel')}</p>
+        <p className="mb-2 text-sm font-medium text-foreground">{t('decisionLabel')}</p>
         <div className="space-y-2">
           {(['approve', 'reject'] as const).map((option) => (
             <label
@@ -51,8 +51,8 @@ export function MentorDecisionForm({
               className={cn(
                 'flex cursor-pointer items-center gap-3 rounded-md border px-3 py-2 text-sm',
                 value.decision === option
-                  ? 'border-jid-olive bg-jid-olive/5'
-                  : 'border-jid-line bg-white',
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border bg-card',
                 isSelfReview && 'cursor-not-allowed opacity-60',
               )}
             >
@@ -63,7 +63,7 @@ export function MentorDecisionForm({
                 checked={value.decision === option}
                 disabled={isSelfReview || submitting}
                 onChange={() => onChange({ ...value, decision: option })}
-                className="h-4 w-4 accent-jid-olive"
+                className="h-4 w-4 accent-primary"
               />
               <span>{t(`options.${option}`)}</span>
             </label>
@@ -79,7 +79,7 @@ export function MentorDecisionForm({
           disabled={isSelfReview || submitting}
           value={value.reviewNotes}
           onChange={(event) => onChange({ ...value, reviewNotes: event.target.value })}
-          className="w-full rounded-md border border-jid-line px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-jid-gold"
+          className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
           placeholder={t('reviewNotesPlaceholder')}
         />
       </div>
@@ -93,25 +93,25 @@ export function MentorDecisionForm({
             disabled={isSelfReview || submitting}
             value={value.rejectionReason}
             onChange={(event) => onChange({ ...value, rejectionReason: event.target.value })}
-            className="w-full rounded-md border border-jid-line px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-jid-gold"
+            className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
             placeholder={t('rejectionReasonPlaceholder')}
           />
         </div>
       ) : null}
 
       {isSelfReview ? (
-        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+        <p className="rounded-md border border-sem-warning/30 bg-sem-warning/10 px-3 py-2 text-sm text-sem-warning">
           {t('selfReviewBlocked')}
         </p>
       ) : null}
 
       {value.decision === 'approve' && !checklistComplete ? (
-        <p className="text-sm text-jid-ink/60">{t('checklistRequired')}</p>
+        <p className="text-sm text-muted-foreground">{t('checklistRequired')}</p>
       ) : null}
 
       <Button
         type="submit"
-        className="w-full bg-jid-olive hover:bg-jid-olive/90"
+        className="w-full bg-primary hover:bg-primary/90"
         disabled={!canSubmit}
       >
         {submitting ? t('submitting') : t('submit')}

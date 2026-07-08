@@ -46,7 +46,7 @@ export function EmergencyHistory({ actions }: EmergencyHistoryProps) {
 
   if (actions.length === 0) {
     return (
-      <p className="rounded-lg border border-dashed border-jid-line p-6 text-center text-sm text-jid-ink/50">
+      <p className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
         {t('empty')}
       </p>
     )
@@ -54,20 +54,20 @@ export function EmergencyHistory({ actions }: EmergencyHistoryProps) {
 
   return (
     <>
-      {error ? <p className="mb-3 text-sm text-red-600">{error}</p> : null}
-      <ul className="divide-y divide-jid-line rounded-lg border border-jid-line bg-white">
+      {error ? <p className="mb-3 text-sm text-destructive">{error}</p> : null}
+      <ul className="divide-y divide-border rounded-lg border border-border bg-card">
         {actions.map((action) => (
           <li key={action.id} className="p-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="font-medium text-jid-ink">{t(`types.${action.action_type}`, { default: action.action_type })}</p>
-                <p className="mt-1 text-sm text-jid-ink/60">{action.reason}</p>
-                <p className="mt-1 text-xs text-jid-ink/45">
+                <p className="font-medium text-foreground">{t(`types.${action.action_type}`, { default: action.action_type })}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{action.reason}</p>
+                <p className="mt-1 text-xs text-muted-foreground">
                   {action.activator_name ?? action.activated_by.slice(0, 8)} ·{' '}
                   {new Date(action.activated_at).toLocaleString()}
                 </p>
                 {action.reverted_at ? (
-                  <p className="mt-1 text-xs text-emerald-700">
+                  <p className="mt-1 text-xs text-primary">
                     {t('reverted', {
                       by: action.reverter_name ?? action.reverted_by?.slice(0, 8) ?? '—',
                       at: new Date(action.reverted_at).toLocaleString(),
@@ -89,7 +89,7 @@ export function EmergencyHistory({ actions }: EmergencyHistoryProps) {
                   {t('revert')}
                 </Button>
               ) : (
-                <span className="text-xs text-jid-ink/45">{t('inactive')}</span>
+                <span className="text-xs text-muted-foreground">{t('inactive')}</span>
               )}
             </div>
           </li>

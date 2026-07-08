@@ -30,7 +30,7 @@ export default function StaffMfaPage() {
     <Suspense
       fallback={
         <StaffAuthShell title={t('title')} subtitle={t('subtitle')}>
-          <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+          <p className="text-center text-sm text-muted-foreground">{t('loading')}</p>
         </StaffAuthShell>
       }
     >
@@ -132,7 +132,7 @@ function StaffMfaPageContent() {
   if (loading) {
     return (
       <StaffAuthShell title={t('title')} subtitle={t('subtitle')}>
-        <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+        <p className="text-center text-sm text-muted-foreground">{t('loading')}</p>
       </StaffAuthShell>
     )
   }
@@ -151,7 +151,7 @@ function StaffMfaPageContent() {
         <OtpInput value={code} onChange={setCode} disabled={verifying} />
         <Button
           type="button"
-          className="w-full bg-jid-olive hover:bg-jid-olive/90"
+          className="w-full bg-primary hover:bg-primary/90"
           disabled={verifying || code.length !== 6}
           onClick={() => void handleVerify()}
         >

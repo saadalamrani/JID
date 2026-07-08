@@ -30,7 +30,7 @@ export default async function SysLayout({ children }: SysLayoutProps) {
   const pathname = headers().get('x-pathname') ?? ''
 
   if (isSysAuthRoute(pathname)) {
-    return <div className="min-h-screen bg-white">{children}</div>
+    return <div className="min-h-screen bg-card">{children}</div>
   }
 
   return <SysShell>{children}</SysShell>

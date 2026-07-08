@@ -7,8 +7,8 @@ export default async function NewAnnouncementPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('newTitle')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">{t('newSubtitle')}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{t('newTitle')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('newSubtitle')}</p>
       </header>
       <AnnouncementForm mode="create" />
     </div>

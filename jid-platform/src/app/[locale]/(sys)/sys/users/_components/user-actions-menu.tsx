@@ -111,11 +111,11 @@ export function UserActionsMenu({ user, actorUserId }: UserActionsMenuProps) {
   })()
 
   return (
-    <div className="rounded-lg border border-jid-line bg-white p-5">
-      <h2 className="text-sm font-semibold text-jid-ink">{t('title')}</h2>
-      <p className="mt-1 text-sm text-jid-ink/55">{t('subtitle')}</p>
+    <div className="rounded-lg border border-border bg-card p-5">
+      <h2 className="text-sm font-semibold text-foreground">{t('title')}</h2>
+      <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
 
-      {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
+      {error ? <p className="mt-3 text-sm text-destructive">{error}</p> : null}
 
       <div className="mt-4 flex flex-wrap gap-2">
         <Button
@@ -155,18 +155,18 @@ export function UserActionsMenu({ user, actorUserId }: UserActionsMenuProps) {
       </div>
 
       {isTargetSuperAdmin && !user.suspended_at ? (
-        <label className="mt-4 flex items-center gap-2 text-sm text-jid-ink/70">
+        <label className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
           <input
             type="checkbox"
             checked={superAdminConfirm}
             onChange={(event) => setSuperAdminConfirm(event.target.checked)}
-            className="h-4 w-4 rounded border-jid-line"
+            className="h-4 w-4 rounded border-border"
           />
           {t('superAdminConfirmLabel')}
         </label>
       ) : null}
 
-      <div className="mt-6 space-y-2 border-t border-jid-line pt-4">
+      <div className="mt-6 space-y-2 border-t border-border pt-4">
         <Label htmlFor="change-role">{t('changeRole')}</Label>
         <div className="flex flex-wrap items-end gap-2">
           <select
@@ -174,7 +174,7 @@ export function UserActionsMenu({ user, actorUserId }: UserActionsMenuProps) {
             value={selectedRole}
             onChange={(event) => setSelectedRole(event.target.value as UserRole)}
             disabled={pending || isSelf}
-            className="h-10 min-w-[180px] rounded-md border border-jid-line bg-white px-3 text-sm"
+            className="h-10 min-w-[180px] rounded-md border border-border bg-card px-3 text-sm"
           >
             {ASSIGNABLE_ROLES.map((role) => (
               <option key={role} value={role}>
@@ -200,7 +200,7 @@ export function UserActionsMenu({ user, actorUserId }: UserActionsMenuProps) {
             {t('applyRole')}
           </Button>
         </div>
-        <p className="text-xs text-jid-ink/45">{MENTOR_ROLE_BLOCKED_ERROR}</p>
+        <p className="text-xs text-muted-foreground">{MENTOR_ROLE_BLOCKED_ERROR}</p>
       </div>
 
       <ConfirmDialog

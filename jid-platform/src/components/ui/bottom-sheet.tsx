@@ -28,16 +28,16 @@ export function BottomSheet({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay
           className={cn(
-            'fixed inset-0 z-50 bg-black/50',
+            'fixed inset-0 z-50 bg-foreground/50',
             'data-[state=open]:animate-in data-[state=closed]:animate-out',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
           )}
         />
         <DialogPrimitive.Content
           className={cn(
-            'fixed z-50 flex flex-col bg-white shadow-lg outline-none',
+            'fixed z-50 flex flex-col bg-card text-foreground shadow-lg outline-none',
             'data-[state=open]:animate-in data-[state=closed]:animate-out',
-            'data-[state=closed]:duration-200 data-[state=open]:duration-300',
+            'data-[state=closed]:duration-fast data-[state=open]:duration-normal',
             fullScreen
               ? cn(
                   'inset-0 h-full w-full',
@@ -50,9 +50,9 @@ export function BottomSheet({
             className,
           )}
         >
-          <div className="mx-auto mt-2 h-1 w-10 shrink-0 rounded-full bg-jid-line/60" aria-hidden />
+          <div className="mx-auto mt-2 h-1 w-10 shrink-0 rounded-full bg-border/60" aria-hidden />
           {title ? (
-            <DialogPrimitive.Title className="border-b border-jid-line/40 px-4 py-3 font-arabic text-base font-semibold text-jid-ink">
+            <DialogPrimitive.Title className="border-b border-border px-4 py-3 font-arabic text-base font-semibold text-foreground">
               {title}
             </DialogPrimitive.Title>
           ) : null}
@@ -60,7 +60,7 @@ export function BottomSheet({
             {children}
           </div>
           <DialogPrimitive.Close
-            className="absolute end-4 top-4 rounded-full p-1.5 text-jid-ink/60 hover:bg-jid-beige/50 hover:text-jid-ink"
+            className="absolute end-4 top-4 rounded-full p-1.5 text-muted-foreground transition-colors duration-fast hover:bg-muted hover:text-foreground"
             aria-label="Close"
           >
             <X className="h-5 w-5" />

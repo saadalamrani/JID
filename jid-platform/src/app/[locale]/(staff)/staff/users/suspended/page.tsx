@@ -36,20 +36,20 @@ export default async function SuspendedUsersPage({ searchParams }: SuspendedUser
   return (
     <div className="space-y-6">
       <header>
-        <Link href="/staff/users" className="text-sm text-jid-olive hover:underline">
+        <Link href="/staff/users" className="text-sm text-primary hover:underline">
           {t('back')}
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+        <h1 className="mt-2 text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
 
-      <Suspense fallback={<div className="h-24 rounded-lg border border-jid-line bg-white" />}>
+      <Suspense fallback={<div className="h-24 rounded-lg border border-border bg-card" />}>
         <UsersFilters basePath="/staff/users/suspended" lockStatus="suspended" />
       </Suspense>
 
       <UsersTable rows={result.rows} />
 
-      <p className="text-sm text-jid-ink/60">
+      <p className="text-sm text-muted-foreground">
         {t('count', { total: result.total, page: result.page, totalPages: result.totalPages })}
       </p>
     </div>

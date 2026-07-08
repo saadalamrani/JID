@@ -45,11 +45,11 @@ export default function InviteStaffPage() {
   return (
     <div className="mx-auto max-w-lg space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-2 text-sm text-jid-ink/70">{t('subtitle')}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-2 text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 rounded-xl border border-jid-line bg-white p-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 rounded-xl border border-border bg-card p-6">
         <FormField
           id="email"
           label={t('email')}
@@ -75,7 +75,7 @@ export default function InviteStaffPage() {
             id="reason"
             rows={4}
             disabled={submitting}
-            className="w-full rounded-md border border-jid-line px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-jid-gold"
+            className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
             {...form.register('reason')}
           />
         </FormField>
@@ -86,7 +86,7 @@ export default function InviteStaffPage() {
           </Button>
           <Button
             type="submit"
-            className="flex-1 bg-jid-olive hover:bg-jid-olive/90"
+            className="flex-1 bg-primary hover:bg-primary/90"
             disabled={submitting}
           >
             {submitting ? t('submitting') : t('submit')}

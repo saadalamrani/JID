@@ -7,6 +7,7 @@ import { StickyFilterBar } from '@/app/[locale]/(public)/catalog/_components/sti
 import type { MentorsListResult } from '@/types/mentor'
 import { AvailabilityFilter } from './availability-filter'
 import { EmptyMentorState } from './empty-mentor-state'
+import { MentorCardSkeleton } from './mentor-card-skeleton'
 import { MentorDiscoveryHero } from './mentor-discovery-hero'
 import { MentorFilterProvider, useMentorFilters } from './mentor-filter-context'
 import {
@@ -24,10 +25,7 @@ function MentorSkeletonGrid() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
-        <div
-          key={index}
-          className="h-[220px] animate-pulse rounded-xl border border-border bg-border/30"
-        />
+        <MentorCardSkeleton key={index} />
       ))}
     </div>
   )

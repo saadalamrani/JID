@@ -188,24 +188,24 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
             <div
               className={cn(
                 'mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold',
-                index === stepIndex && 'bg-jid-olive text-white',
-                index < stepIndex && 'bg-jid-gold text-jid-ink',
-                index > stepIndex && 'bg-jid-line text-jid-ink/50',
+                index === stepIndex && 'bg-primary text-primary-foreground',
+                index < stepIndex && 'bg-accent text-foreground',
+                index > stepIndex && 'bg-border text-muted-foreground',
               )}
             >
               {index + 1}
             </div>
-            <p className={cn('text-xs', index === stepIndex ? 'font-medium text-jid-ink' : 'text-jid-ink/60')}>
+            <p className={cn('text-xs', index === stepIndex ? 'font-medium text-foreground' : 'text-muted-foreground')}>
               {t(`steps.${wizardStep}`)}
             </p>
           </li>
         ))}
       </ol>
 
-      <div className="rounded-xl border border-jid-line bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
         {step === 'category' ? (
           <div className="space-y-4">
-            <p className="text-sm text-jid-ink/70">{t('categoryHint')}</p>
+            <p className="text-sm text-muted-foreground">{t('categoryHint')}</p>
             <div className="grid gap-2 sm:grid-cols-2">
               {ANNOUNCEMENT_CATEGORIES.map((category) => (
                 <button
@@ -215,63 +215,63 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
                   className={cn(
                     'rounded-lg border px-4 py-3 text-start text-sm transition-colors',
                     draft.category === category
-                      ? 'border-jid-olive bg-jid-olive/10 font-medium text-jid-olive'
-                      : 'border-jid-line hover:border-jid-olive/40',
+                      ? 'border-primary bg-primary/10 font-medium text-primary'
+                      : 'border-border hover:border-primary/25',
                   )}
                 >
                   {t(`categories.${category}`)}
                 </button>
               ))}
             </div>
-            {errors.category ? <p className="text-sm text-red-600">{errors.category}</p> : null}
+            {errors.category ? <p className="text-sm text-destructive">{errors.category}</p> : null}
           </div>
         ) : null}
 
         {step === 'content' ? (
           <div className="space-y-4">
             <label className="block space-y-1">
-              <span className="text-sm font-medium text-jid-ink">{t('title')}</span>
+              <span className="text-sm font-medium text-foreground">{t('title')}</span>
               <Input
                 value={draft.title_ar}
                 onChange={(e) => patchDraft({ title_ar: e.target.value })}
                 dir="rtl"
                 maxLength={120}
               />
-              {errors.title_ar ? <span className="text-sm text-red-600">{errors.title_ar}</span> : null}
+              {errors.title_ar ? <span className="text-sm text-destructive">{errors.title_ar}</span> : null}
             </label>
 
             <label className="block space-y-1">
-              <span className="text-sm font-medium text-jid-ink">{t('body')}</span>
+              <span className="text-sm font-medium text-foreground">{t('body')}</span>
               <textarea
-                className="flex min-h-[100px] w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+                className="flex min-h-[100px] w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 value={draft.body_ar ?? ''}
                 onChange={(e) => patchDraft({ body_ar: e.target.value })}
                 dir="rtl"
                 rows={4}
                 maxLength={500}
               />
-              {errors.body_ar ? <span className="text-sm text-red-600">{errors.body_ar}</span> : null}
+              {errors.body_ar ? <span className="text-sm text-destructive">{errors.body_ar}</span> : null}
             </label>
 
             <label className="block space-y-1">
-              <span className="text-sm font-medium text-jid-ink">{t('ctaUrl')}</span>
+              <span className="text-sm font-medium text-foreground">{t('ctaUrl')}</span>
               <Input
                 value={draft.cta_url ?? ''}
                 onChange={(e) => patchDraft({ cta_url: e.target.value })}
                 placeholder="https://"
               />
-              {errors.cta_url ? <span className="text-sm text-red-600">{errors.cta_url}</span> : null}
+              {errors.cta_url ? <span className="text-sm text-destructive">{errors.cta_url}</span> : null}
             </label>
 
             <label className="block space-y-1">
-              <span className="text-sm font-medium text-jid-ink">{t('ctaLabel')}</span>
+              <span className="text-sm font-medium text-foreground">{t('ctaLabel')}</span>
               <Input
                 value={draft.cta_label_ar ?? ''}
                 onChange={(e) => patchDraft({ cta_label_ar: e.target.value })}
                 dir="rtl"
                 maxLength={30}
               />
-              {errors.cta_label_ar ? <span className="text-sm text-red-600">{errors.cta_label_ar}</span> : null}
+              {errors.cta_label_ar ? <span className="text-sm text-destructive">{errors.cta_label_ar}</span> : null}
             </label>
           </div>
         ) : null}
@@ -279,13 +279,13 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
         {step === 'schedule' ? (
           <div className="space-y-4">
             <label className="block space-y-1">
-              <span className="text-sm font-medium text-jid-ink">{t('startsAt')}</span>
+              <span className="text-sm font-medium text-foreground">{t('startsAt')}</span>
               <Input
                 type="datetime-local"
                 value={startsLocal}
                 onChange={(e) => patchDraft({ starts_at: fromDatetimeLocalValue(e.target.value) })}
               />
-              {errors.starts_at ? <span className="text-sm text-red-600">{errors.starts_at}</span> : null}
+              {errors.starts_at ? <span className="text-sm text-destructive">{errors.starts_at}</span> : null}
             </label>
 
             <ExpiryDatePicker
@@ -295,10 +295,10 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
               disabled={pending}
             />
 
-            <div className="flex items-center justify-between rounded-lg border border-jid-line px-4 py-3">
+            <div className="flex items-center justify-between rounded-lg border border-border px-4 py-3">
               <div>
-                <p className="font-medium text-jid-ink">{t('featured')}</p>
-                <p className="text-sm text-jid-ink/60">{t('featuredHint')}</p>
+                <p className="font-medium text-foreground">{t('featured')}</p>
+                <p className="text-sm text-muted-foreground">{t('featuredHint')}</p>
               </div>
               <Switch
                 checked={draft.is_featured}
@@ -306,10 +306,10 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
               />
             </div>
 
-            <div className="flex items-center justify-between rounded-lg border border-jid-line px-4 py-3">
+            <div className="flex items-center justify-between rounded-lg border border-border px-4 py-3">
               <div>
-                <p className="font-medium text-jid-ink">{t('published')}</p>
-                <p className="text-sm text-jid-ink/60">{t('publishedHint')}</p>
+                <p className="font-medium text-foreground">{t('published')}</p>
+                <p className="text-sm text-muted-foreground">{t('publishedHint')}</p>
               </div>
               <Switch
                 checked={draft.is_published}
@@ -319,7 +319,7 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
           </div>
         ) : null}
 
-        {submitError ? <p className="mt-4 text-sm text-red-600">{submitError}</p> : null}
+        {submitError ? <p className="mt-4 text-sm text-destructive">{submitError}</p> : null}
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3">

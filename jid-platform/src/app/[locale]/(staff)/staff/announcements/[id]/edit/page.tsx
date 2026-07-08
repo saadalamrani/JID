@@ -17,8 +17,8 @@ export default async function EditAnnouncementPage({ params }: PageProps) {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('editTitle')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">{t('editSubtitle')}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{t('editTitle')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('editSubtitle')}</p>
       </header>
       <AnnouncementForm
         mode="edit"

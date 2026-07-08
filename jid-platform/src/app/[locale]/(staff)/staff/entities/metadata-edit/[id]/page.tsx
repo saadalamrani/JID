@@ -26,12 +26,12 @@ export default async function EntityMetadataEditPage({ params }: MetadataEditPag
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <Link href={`/staff/entities/${entity.id}`} className="text-sm text-jid-olive hover:underline">
+      <Link href={`/staff/entities/${entity.id}`} className="text-sm text-primary hover:underline">
         {t('back')}
       </Link>
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('title', { name: entity.name })}</h1>
-        <p className="mt-1 text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{t('title', { name: entity.name })}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
       <EntityMetadataForm entity={entity} sectors={sectors} regions={regions} />
     </div>

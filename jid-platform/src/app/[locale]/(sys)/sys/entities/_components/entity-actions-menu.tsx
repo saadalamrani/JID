@@ -93,10 +93,10 @@ export function EntityActionsMenu({ entity }: EntityActionsMenuProps) {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('overrideTitle')}</h2>
-        <p className="mt-1 text-sm text-jid-ink/55">{t('overrideSubtitle')}</p>
-        {error ? <p className="mt-3 text-sm text-red-600">{error}</p> : null}
+      <div className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('overrideTitle')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('overrideSubtitle')}</p>
+        {error ? <p className="mt-3 text-sm text-destructive">{error}</p> : null}
         <div className="mt-4 flex flex-wrap gap-2">
           <Button
             type="button"
@@ -117,8 +117,8 @@ export function EntityActionsMenu({ entity }: EntityActionsMenuProps) {
         </div>
       </div>
 
-      <div className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('metadataTitle')}</h2>
+      <div className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('metadataTitle')}</h2>
         <div className="mt-4 space-y-3">
           <div className="space-y-1">
             <Label htmlFor="entity-name">{t('fields.name')}</Label>

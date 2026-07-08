@@ -45,45 +45,45 @@ async function EntitiesListContent({
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">
+        <h1 className="text-2xl font-semibold text-foreground">
           {entityType === 'company'
             ? t('companiesTitle')
             : entityType === 'university'
               ? t('universitiesTitle')
               : t('title')}
         </h1>
-        <p className="mt-1 text-sm text-jid-ink/70">
+        <p className="mt-1 text-sm text-muted-foreground">
           {entityType === 'all' ? t('subtitle') : t('filteredSubtitle')}
         </p>
         {entityType === 'all' ? (
           <div className="mt-3 flex gap-3 text-sm">
-            <Link href="/sys/entities/companies" className="text-jid-olive hover:underline">
+            <Link href="/sys/entities/companies" className="text-primary hover:underline">
               {t('viewCompanies')}
             </Link>
-            <Link href="/sys/entities/universities" className="text-jid-olive hover:underline">
+            <Link href="/sys/entities/universities" className="text-primary hover:underline">
               {t('viewUniversities')}
             </Link>
           </div>
         ) : (
-          <Link href="/sys/entities" className="mt-3 inline-block text-sm text-jid-olive hover:underline">
+          <Link href="/sys/entities" className="mt-3 inline-block text-sm text-primary hover:underline">
             {t('viewAll')}
           </Link>
         )}
       </header>
 
-      <Suspense fallback={<div className="h-24 rounded-lg border border-jid-line bg-white" />}>
+      <Suspense fallback={<div className="h-24 rounded-lg border border-border bg-card" />}>
         <EntitiesFilters fixedEntityType={entityType} />
       </Suspense>
 
       <EntitiesTable rows={result.rows} />
 
-      <div className="flex items-center justify-between text-sm text-jid-ink/60">
+      <div className="flex items-center justify-between text-sm text-muted-foreground">
         <p>{t('pagination.summary', { total: result.total, page: result.page, totalPages: result.totalPages })}</p>
         <div className="flex gap-2">
           {result.page > 1 ? (
             <Link
               href={`${basePath}?${new URLSearchParams({ ...Object.fromEntries(listParams), page: String(result.page - 1) }).toString()}`}
-              className="text-jid-olive hover:underline"
+              className="text-primary hover:underline"
             >
               {t('pagination.prev')}
             </Link>
@@ -91,7 +91,7 @@ async function EntitiesListContent({
           {result.page < result.totalPages ? (
             <Link
               href={`${basePath}?${new URLSearchParams({ ...Object.fromEntries(listParams), page: String(result.page + 1) }).toString()}`}
-              className="text-jid-olive hover:underline"
+              className="text-primary hover:underline"
             >
               {t('pagination.next')}
             </Link>

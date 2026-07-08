@@ -46,8 +46,8 @@ export function AnnouncementsListClient({
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-          <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
         <Button asChild>
           <Link href="/staff/announcements/new">{t('create')}</Link>
@@ -55,15 +55,15 @@ export function AnnouncementsListClient({
       </div>
 
       <form
-        className="grid gap-3 rounded-lg border border-jid-line bg-white p-4 md:grid-cols-4"
+        className="grid gap-3 rounded-lg border border-border bg-card p-4 md:grid-cols-4"
         onSubmit={applyFilters}
       >
         <label className="space-y-1 text-sm">
-          <span className="text-jid-ink/60">{t('filters.category')}</span>
+          <span className="text-muted-foreground">{t('filters.category')}</span>
           <select
             name="category"
             defaultValue={initialCategory}
-            className="w-full rounded-md border border-jid-line px-3 py-2"
+            className="w-full rounded-md border border-border px-3 py-2"
           >
             <option value="all">{t('filters.allCategories')}</option>
             {ANNOUNCEMENT_CATEGORIES.map((category) => (
@@ -75,11 +75,11 @@ export function AnnouncementsListClient({
         </label>
 
         <label className="space-y-1 text-sm">
-          <span className="text-jid-ink/60">{t('filters.status')}</span>
+          <span className="text-muted-foreground">{t('filters.status')}</span>
           <select
             name="status"
             defaultValue={initialStatus}
-            className="w-full rounded-md border border-jid-line px-3 py-2"
+            className="w-full rounded-md border border-border px-3 py-2"
           >
             <option value="all">{t('filters.allStatuses')}</option>
             <option value="published">{t('list.status.published')}</option>
@@ -90,7 +90,7 @@ export function AnnouncementsListClient({
         </label>
 
         <label className="space-y-1 text-sm md:col-span-2">
-          <span className="text-jid-ink/60">{t('filters.search')}</span>
+          <span className="text-muted-foreground">{t('filters.search')}</span>
           <Input name="search" defaultValue={initialSearch} placeholder={t('filters.searchPlaceholder')} />
         </label>
 

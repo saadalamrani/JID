@@ -11,8 +11,8 @@ export default async function SysNotificationsHealthPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
 
       <EmailQuotaCard
@@ -27,8 +27,8 @@ export default async function SysNotificationsHealthPage() {
 
       <section className="space-y-3">
         <div>
-          <h2 className="text-lg font-semibold text-jid-ink">{t('logsTitle')}</h2>
-          <p className="text-sm text-jid-ink/60">{t('logsSubtitle', { count: logs.length })}</p>
+          <h2 className="text-lg font-semibold text-foreground">{t('logsTitle')}</h2>
+          <p className="text-sm text-muted-foreground">{t('logsSubtitle', { count: logs.length })}</p>
         </div>
         <EmailLogsTable
           logs={logs}
@@ -46,8 +46,8 @@ export default async function SysNotificationsHealthPage() {
 
       <section className="space-y-3">
         <div>
-          <h2 className="text-lg font-semibold text-jid-ink">{t('bouncesTitle')}</h2>
-          <p className="text-sm text-jid-ink/60">{t('bouncesSubtitle', { count: bounces.length })}</p>
+          <h2 className="text-lg font-semibold text-foreground">{t('bouncesTitle')}</h2>
+          <p className="text-sm text-muted-foreground">{t('bouncesSubtitle', { count: bounces.length })}</p>
         </div>
         <BouncesTable
           bounces={bounces}

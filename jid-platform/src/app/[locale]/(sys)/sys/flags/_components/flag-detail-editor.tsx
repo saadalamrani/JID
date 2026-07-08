@@ -107,15 +107,15 @@ export function FlagDetailEditor({ flag, overrideRows }: FlagDetailEditorProps) 
   return (
     <div className="space-y-8">
       <header>
-        <p className="text-sm text-jid-ink/50">{flag.key}</p>
-        <h1 className="text-2xl font-semibold text-jid-ink">{label}</h1>
-        {description ? <p className="mt-1 text-sm text-jid-ink/70">{description}</p> : null}
-        {message ? <p className="mt-2 text-sm text-jid-olive">{message}</p> : null}
+        <p className="text-sm text-muted-foreground">{flag.key}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{label}</h1>
+        {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
+        {message ? <p className="mt-2 text-sm text-primary">{message}</p> : null}
       </header>
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('layer1Title')}</h2>
-        <p className="mt-1 text-sm text-jid-ink/55">{t('layer1Hint')}</p>
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('layer1Title')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('layer1Hint')}</p>
         <div className="mt-4 flex items-center gap-3">
           <Switch
             checked={globalEnabled}
@@ -127,21 +127,21 @@ export function FlagDetailEditor({ flag, overrideRows }: FlagDetailEditorProps) 
             disabled={pending}
             aria-label={t('globalToggleAria')}
           />
-          <span className="text-sm text-jid-ink">{globalEnabled ? t('enabled') : t('disabled')}</span>
+          <span className="text-sm text-foreground">{globalEnabled ? t('enabled') : t('disabled')}</span>
         </div>
       </section>
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('layer2Title')}</h2>
-        <p className="mt-1 text-sm text-jid-ink/55">{t('layer2Hint')}</p>
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('layer2Title')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('layer2Hint')}</p>
         <div className="mt-4 grid gap-2 sm:grid-cols-2">
           {ROLE_OPTIONS.map((role) => (
-            <label key={role} className="flex items-center gap-2 text-sm text-jid-ink">
+            <label key={role} className="flex items-center gap-2 text-sm text-foreground">
               <input
                 type="checkbox"
                 checked={selectedRoles.includes(role)}
                 onChange={() => toggleRole(role)}
-                className="h-4 w-4 rounded border-jid-line text-jid-olive focus:ring-jid-olive"
+                className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
               />
               {t(`roles.${role}`)}
             </label>
@@ -161,9 +161,9 @@ export function FlagDetailEditor({ flag, overrideRows }: FlagDetailEditorProps) 
         </Button>
       </section>
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('layer3Title')}</h2>
-        <p className="mt-1 text-sm text-jid-ink/55">{t('layer3Hint')}</p>
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('layer3Title')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('layer3Hint')}</p>
 
         <div className="mt-4 flex flex-wrap items-end gap-3">
           <div className="min-w-[220px] flex-1 space-y-1">
@@ -181,7 +181,7 @@ export function FlagDetailEditor({ flag, overrideRows }: FlagDetailEditorProps) 
               onCheckedChange={setUserOverrideEnabled}
               aria-label={t('userOverrideValueAria')}
             />
-            <span className="text-sm text-jid-ink">
+            <span className="text-sm text-foreground">
               {userOverrideEnabled ? t('forceEnable') : t('forceDisable')}
             </span>
           </div>
@@ -197,19 +197,19 @@ export function FlagDetailEditor({ flag, overrideRows }: FlagDetailEditorProps) 
           </Button>
         </div>
 
-        <div className="mt-6 overflow-x-auto rounded-md border border-jid-line">
+        <div className="mt-6 overflow-x-auto rounded-md border border-border">
           <table className="min-w-full text-sm">
-            <thead className="bg-jid-beige/50 text-start">
+            <thead className="bg-background/50 text-start">
               <tr>
                 <th className="px-4 py-3 font-medium">{t('table.user')}</th>
                 <th className="px-4 py-3 font-medium">{t('table.override')}</th>
                 <th className="px-4 py-3 font-medium">{t('table.actions')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-jid-line">
+            <tbody className="divide-y divide-border">
               {overrideRows.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="px-4 py-6 text-center text-jid-ink/50">
+                  <td colSpan={3} className="px-4 py-6 text-center text-muted-foreground">
                     {t('table.empty')}
                   </td>
                 </tr>
@@ -217,8 +217,8 @@ export function FlagDetailEditor({ flag, overrideRows }: FlagDetailEditorProps) 
                 overrideRows.map((row) => (
                   <tr key={row.user_id}>
                     <td className="px-4 py-3">
-                      <p className="font-medium text-jid-ink">{row.full_name ?? t('unnamedUser')}</p>
-                      <p className="font-mono text-xs text-jid-ink/50">{row.user_id}</p>
+                      <p className="font-medium text-foreground">{row.full_name ?? t('unnamedUser')}</p>
+                      <p className="font-mono text-xs text-muted-foreground">{row.user_id}</p>
                     </td>
                     <td className="px-4 py-3">
                       {row.enabled ? t('forceEnable') : t('forceDisable')}

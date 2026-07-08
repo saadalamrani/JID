@@ -89,7 +89,7 @@ export function MentorApplicationActions({ application }: MentorApplicationActio
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {error ? <p className="w-full text-xs text-red-600">{error}</p> : null}
+      {error ? <p className="w-full text-xs text-destructive">{error}</p> : null}
 
       {['pending_review', 'under_review', 'pending'].includes(status) ? (
         <>
@@ -120,7 +120,7 @@ export function MentorApplicationActions({ application }: MentorApplicationActio
           value={rejectionReason}
           onChange={(e) => setRejectionReason(e.target.value)}
           placeholder={t('rejectionReasonPlaceholder')}
-          className="h-8 rounded-md border border-jid-line px-2 text-xs"
+          className="h-8 rounded-md border border-border px-2 text-xs"
         />
       ) : null}
 
@@ -128,10 +128,10 @@ export function MentorApplicationActions({ application }: MentorApplicationActio
         className={cn(
           'rounded-full px-2 py-0.5 text-xs font-medium',
           status === 'approved'
-            ? 'bg-emerald-50 text-emerald-700'
+            ? 'bg-primary/10 text-primary'
             : status === 'rejected' || status === 'suspended'
-              ? 'bg-red-100 text-red-700'
-              : 'bg-jid-beige text-jid-ink/70',
+              ? 'bg-destructive/10 text-destructive'
+              : 'bg-background text-muted-foreground',
         )}
       >
         {t(`statuses.${status}`, { default: status })}

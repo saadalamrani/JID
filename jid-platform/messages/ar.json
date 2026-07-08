@@ -73,6 +73,55 @@
       "accept": "موافق"
     }
   },
+  "smartHeader": {
+    "searchPlaceholder": "ابحث أو انتقل إلى…",
+    "searchShortcut": "⌘K",
+    "commandPalette": {
+      "placeholder": "ابحث في الصفحات والإجراءات…",
+      "quickActions": "إجراءات سريعة",
+      "searching": "جارٍ البحث…",
+      "noResults": "لا توجد نتائج",
+      "actions": {
+        "opportunities": "الوظائف",
+        "mentors": "المرشدون",
+        "catalog": "دليل الشركات",
+        "pulse": "نبض المنصة",
+        "profile": "ملفي الشخصي",
+        "radar": "الرادار",
+        "cv": "منشئ السيرة الذاتية",
+        "notifications": "الإشعارات",
+        "settings": "إعدادات الملف",
+        "login": "تسجيل الدخول",
+        "signup": "إنشاء حساب"
+      }
+    }
+  },
+  "profileDropdown": {
+    "menuAria": "قائمة الحساب",
+    "unnamed": "الحساب",
+    "quickActions": "إجراءات سريعة",
+    "settings": "الإعدادات",
+    "notifications": "الإشعارات",
+    "appearance": "المظهر",
+    "themeLight": "الوضع الفاتح",
+    "themeDark": "الوضع الداكن",
+    "language": "اللغة",
+    "logout": "تسجيل الخروج",
+    "actions": {
+      "profile": "ملفي الشخصي",
+      "radar": "الرادار",
+      "cv": "منشئ السيرة الذاتية",
+      "dashboard": "لوحة التحكم",
+      "mentorDashboard": "لوحة المرشد"
+    },
+    "roles": {
+      "individual": "فرد",
+      "mentor": "مرشد",
+      "entity": "منظمة",
+      "company_admin": "مسؤول شركة",
+      "university_admin": "مسؤول جامعة"
+    }
+  },
   "landing": {
     "meta": {
       "title": "جِد — منصة التوظيف والإرشاد المهني",

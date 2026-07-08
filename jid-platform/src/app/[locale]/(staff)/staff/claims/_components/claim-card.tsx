@@ -25,7 +25,7 @@ const TYPE_BADGE_LABEL: Record<StaffClaimsQueueItem['queueType'], string> = {
 }
 
 const TYPE_BADGE_CLASS: Record<StaffClaimsQueueItem['queueType'], string> = {
-  company: 'bg-jid-olive/10 text-jid-olive',
+  company: 'bg-primary/10 text-primary',
   university: 'bg-blue-100 text-blue-800',
   mentor: 'bg-purple-100 text-purple-800',
 }
@@ -52,7 +52,7 @@ export function ClaimCard({ item, showAssignment = true }: ClaimCardProps) {
   return (
     <article
       className={cn(
-        'rounded-lg border border-jid-line bg-white ps-0 transition-colors hover:bg-jid-beige/30',
+        'rounded-lg border border-border bg-card ps-0 transition-colors hover:bg-background/30',
         URGENCY_BORDER_CLASS[tier],
       )}
     >
@@ -67,13 +67,13 @@ export function ClaimCard({ item, showAssignment = true }: ClaimCardProps) {
             >
               {TYPE_BADGE_LABEL[item.queueType]}
             </span>
-            <span className="text-xs text-jid-ink/50">{item.status}</span>
+            <span className="text-xs text-muted-foreground">{item.status}</span>
           </div>
           <div>
-            <p className="font-medium text-jid-ink">{item.applicantName}</p>
-            <p className="text-sm text-jid-ink/70">{item.targetEntityName}</p>
+            <p className="font-medium text-foreground">{item.applicantName}</p>
+            <p className="text-sm text-muted-foreground">{item.targetEntityName}</p>
           </div>
-          <p className="text-xs text-jid-ink/50">{submittedLabel}</p>
+          <p className="text-xs text-muted-foreground">{submittedLabel}</p>
         </div>
 
         <div className="shrink-0 text-end sm:min-w-[8rem]">
@@ -81,18 +81,18 @@ export function ClaimCard({ item, showAssignment = true }: ClaimCardProps) {
             className={cn(
               'text-sm font-semibold',
               tier === 'overdue'
-                ? 'text-red-600'
+                ? 'text-destructive'
                 : tier === 'critical'
                   ? 'text-orange-600'
                   : tier === 'warning'
-                    ? 'text-amber-600'
-                    : 'text-jid-ink/60',
+                    ? 'text-sem-warning'
+                    : 'text-muted-foreground',
             )}
           >
             {formatSlaCountdown(item.slaDueAt, tier)}
           </p>
           {showAssignment ? (
-            <p className="mt-1 text-xs text-jid-ink/45">
+            <p className="mt-1 text-xs text-muted-foreground">
               {item.assignedStaffId ? t('assigned') : t('unassigned')}
             </p>
           ) : null}

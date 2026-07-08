@@ -73,6 +73,55 @@
       "accept": "Accept"
     }
   },
+  "smartHeader": {
+    "searchPlaceholder": "Search or jump to…",
+    "searchShortcut": "⌘K",
+    "commandPalette": {
+      "placeholder": "Search pages and actions…",
+      "quickActions": "Quick Actions",
+      "searching": "Searching…",
+      "noResults": "No results found",
+      "actions": {
+        "opportunities": "Jobs",
+        "mentors": "Mentors",
+        "catalog": "Company catalog",
+        "pulse": "Platform Pulse",
+        "profile": "My profile",
+        "radar": "Radar",
+        "cv": "CV Builder",
+        "notifications": "Notifications",
+        "settings": "Profile settings",
+        "login": "Log in",
+        "signup": "Sign up"
+      }
+    }
+  },
+  "profileDropdown": {
+    "menuAria": "Account menu",
+    "unnamed": "Account",
+    "quickActions": "Quick actions",
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "appearance": "Appearance",
+    "themeLight": "Light mode",
+    "themeDark": "Dark mode",
+    "language": "Language",
+    "logout": "Log out",
+    "actions": {
+      "profile": "My profile",
+      "radar": "Radar",
+      "cv": "CV Builder",
+      "dashboard": "Dashboard",
+      "mentorDashboard": "Mentor dashboard"
+    },
+    "roles": {
+      "individual": "Individual",
+      "mentor": "Mentor",
+      "entity": "Organization",
+      "company_admin": "Company admin",
+      "university_admin": "University admin"
+    }
+  },
   "landing": {
     "meta": {
       "title": "JID — Employment & mentorship platform",

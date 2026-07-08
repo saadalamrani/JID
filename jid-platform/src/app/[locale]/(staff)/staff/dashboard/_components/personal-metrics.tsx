@@ -32,23 +32,23 @@ export function PersonalMetrics({ metrics }: PersonalMetricsProps) {
 
   return (
     <section aria-label={t('sectionLabel')}>
-      <h2 className="mb-3 text-sm font-medium text-jid-ink/70">{t('sectionLabel')}</h2>
+      <h2 className="mb-3 text-sm font-medium text-muted-foreground">{t('sectionLabel')}</h2>
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {METRIC_DEFINITIONS.map(({ key, icon: Icon, format }) => {
           const raw = metrics[key]
           const display = format ? format(raw) : raw.toLocaleString()
 
           return (
-            <Card key={key} className="border-jid-line bg-white">
+            <Card key={key} className="border-border bg-card">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-jid-ink/70">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t(`cards.${key}.label`)}
                 </CardTitle>
-                <Icon className="h-4 w-4 text-jid-olive/70" aria-hidden />
+                <Icon className="h-4 w-4 text-primary/70" aria-hidden />
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-semibold tabular-nums text-jid-ink">{display}</p>
-                <p className="mt-1 text-xs text-jid-ink/50">{t(`cards.${key}.hint`)}</p>
+                <p className="text-3xl font-semibold tabular-nums text-foreground">{display}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{t(`cards.${key}.hint`)}</p>
               </CardContent>
             </Card>
           )

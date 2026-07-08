@@ -13,7 +13,7 @@ export function FlagsList({ flags }: FlagsListProps) {
 
   if (flags.length === 0) {
     return (
-      <div className="rounded-lg border border-jid-line bg-white p-8 text-center text-sm text-jid-ink/50">
+      <div className="rounded-lg border border-border bg-card p-8 text-center text-sm text-muted-foreground">
         {t('empty')}
       </div>
     )

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { Button } from '@/components/ui/button'
+import { ErrorPageShell, ErrorState } from '@/components/shared/error-state'
 
 type OpportunitiesErrorProps = {
   error: Error & { digest?: string }
@@ -14,12 +14,14 @@ export default function OpportunitiesError({ error, reset }: OpportunitiesErrorP
   }, [error])
 
   return (
-    <main className="container-jid flex min-h-[50vh] flex-col items-start justify-center gap-4 py-8">
-      <h1 className="font-arabic text-xl font-semibold text-foreground">تعذّر تحميل الفرص</h1>
-      <p className="max-w-md font-arabic text-sm text-foreground-400">{error.message}</p>
-      <Button type="button" onClick={reset} className="bg-primary hover:bg-primary/90">
-        إعادة المحاولة
-      </Button>
-    </main>
+    <ErrorPageShell className="items-start">
+      <ErrorState
+        title="تعذّر تحميل الفرص"
+        message={error.message}
+        onRetry={reset}
+        retryLabel="إعادة المحاولة"
+        className="w-full max-w-lg"
+      />
+    </ErrorPageShell>
   )
 }

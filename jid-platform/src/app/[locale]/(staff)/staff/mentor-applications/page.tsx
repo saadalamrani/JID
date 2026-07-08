@@ -17,18 +17,18 @@ export default async function StaffMentorApplicationsPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-          <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
-        <Link href="/staff" className="text-sm text-jid-olive hover:underline">
+        <Link href="/staff" className="text-sm text-primary hover:underline">
           {t('backToDashboard')}
         </Link>
       </header>
 
-      <p className="text-sm text-jid-ink/55">{t('pendingCount', { count: stats.pending })}</p>
+      <p className="text-sm text-muted-foreground">{t('pendingCount', { count: stats.pending })}</p>
 
       {applications.length === 0 ? (
-        <div className="rounded-md border border-dashed border-jid-line p-8 text-center text-sm text-jid-ink/60">
+        <div className="rounded-md border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
           {t('list.empty')}
         </div>
       ) : (

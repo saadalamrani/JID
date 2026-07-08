@@ -34,16 +34,16 @@ export function PasswordRequirementsPanel({ password, className }: PasswordRequi
           <li key={key} className="flex items-center gap-2 text-xs">
             <span
               className={cn(
-                'flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors duration-150',
+                'flex h-4 w-4 shrink-0 items-center justify-center rounded-full border transition-colors duration-fast ease-jid',
                 met
-                  ? 'border-jid-olive bg-jid-olive text-white'
-                  : 'border-jid-line bg-transparent text-transparent',
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-border bg-transparent text-transparent',
               )}
               aria-hidden
             >
               <Check className="h-3 w-3" strokeWidth={3} />
             </span>
-            <span className={cn('transition-colors duration-150', met ? 'text-jid-olive' : 'text-jid-ink/50')}>
+            <span className={cn('transition-colors duration-fast ease-jid', met ? 'text-primary' : 'text-muted-foreground')}>
               {t(key)}
             </span>
           </li>

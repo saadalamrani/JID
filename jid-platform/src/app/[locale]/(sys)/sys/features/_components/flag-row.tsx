@@ -41,29 +41,29 @@ export function PulseFlagRow({ flag, isMaster = false, showTractionWarning = fal
   return (
     <div
       className={cn(
-        'rounded-lg border bg-white px-4 py-4',
-        isMaster ? 'border-jid-olive/40 shadow-sm' : 'border-jid-line',
+        'rounded-lg border bg-card px-4 py-4',
+        isMaster ? 'border-primary/25 shadow-sm' : 'border-border',
       )}
     >
       <div className="flex items-start justify-between gap-4">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="font-semibold text-jid-ink">{label}</p>
+            <p className="font-semibold text-foreground">{label}</p>
             {isMaster ? (
-              <span className="rounded bg-jid-olive/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-jid-olive">
+              <span className="rounded bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
                 {t('masterBadge')}
               </span>
             ) : null}
-            <code className="rounded bg-jid-beige/60 px-1.5 py-0.5 text-[11px] text-jid-ink/60">{flag.key}</code>
+            <code className="rounded bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground">{flag.key}</code>
           </div>
-          {description ? <p className="mt-1 text-sm text-jid-ink/60">{description}</p> : null}
+          {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
           {showTractionWarning ? (
-            <p className="mt-2 flex items-start gap-2 text-sm text-amber-800">
+            <p className="mt-2 flex items-start gap-2 text-sm text-sem-warning">
               <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
               {t('tractionWarning')}
             </p>
           ) : null}
-          {error ? <p className="mt-2 text-sm text-red-600">{error}</p> : null}
+          {error ? <p className="mt-2 text-sm text-destructive">{error}</p> : null}
         </div>
         <Switch
           checked={flag.is_enabled}

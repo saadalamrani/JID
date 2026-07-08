@@ -38,7 +38,7 @@ export function AuditFilters() {
 
   return (
     <form
-      className="grid gap-4 rounded-lg border border-jid-line bg-white p-4 md:grid-cols-5"
+      className="grid gap-4 rounded-lg border border-border bg-card p-4 md:grid-cols-5"
       onSubmit={(event) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
@@ -66,7 +66,7 @@ export function AuditFilters() {
           id="audit-action"
           name="action_type"
           defaultValue={actionType}
-          className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+          className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
         >
           <option value="all">{t('allActions')}</option>
           {actionOptions.map((option) => (

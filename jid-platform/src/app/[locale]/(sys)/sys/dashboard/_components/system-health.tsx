@@ -12,12 +12,12 @@ type SystemHealthProps = {
 function statusClass(status: string): string {
   switch (status) {
     case 'healthy':
-      return 'text-emerald-700 bg-emerald-50 border-emerald-200'
+      return 'text-primary bg-primary/10 border-primary/30'
     case 'stale':
     case 'degraded':
-      return 'text-amber-800 bg-amber-50 border-amber-200'
+      return 'text-sem-warning bg-sem-warning/10 border-sem-warning/30'
     default:
-      return 'text-jid-ink/60 bg-jid-beige/50 border-jid-line'
+      return 'text-muted-foreground bg-background/50 border-border'
   }
 }
 
@@ -65,7 +65,7 @@ export function SystemHealth({ health }: SystemHealthProps) {
   ] as const
 
   return (
-    <Card className="border-jid-line bg-white">
+    <Card className="border-border bg-card">
       <CardHeader>
         <CardTitle className="text-base">{t('title')}</CardTitle>
         <CardDescription>{t('subtitle')}</CardDescription>
@@ -75,14 +75,14 @@ export function SystemHealth({ health }: SystemHealthProps) {
           {rows.map((row) => (
             <div
               key={row.label}
-              className="rounded-lg border border-jid-line bg-jid-beige/20 p-4"
+              className="rounded-lg border border-border bg-background/20 p-4"
             >
-              <dt className="text-xs font-medium uppercase tracking-wide text-jid-ink/45">
+              <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 {row.label}
               </dt>
-              <dd className="mt-1 text-sm font-medium text-jid-ink">{row.value}</dd>
+              <dd className="mt-1 text-sm font-medium text-foreground">{row.value}</dd>
               {row.detail ? (
-                <dd className="mt-0.5 text-xs text-jid-ink/50">{row.detail}</dd>
+                <dd className="mt-0.5 text-xs text-muted-foreground">{row.detail}</dd>
               ) : null}
               <dd className="mt-2">
                 <span

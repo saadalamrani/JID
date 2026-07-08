@@ -16,8 +16,8 @@ export default async function ClaimReviewPage({ params }: ClaimReviewPageProps) 
   if (!workspace) {
     return (
       <div className="space-y-4">
-        <p className="text-sm text-red-600">{t('notFound')}</p>
-        <Link href="/staff/claims" className="text-sm text-jid-olive hover:underline">
+        <p className="text-sm text-destructive">{t('notFound')}</p>
+        <Link href="/staff/claims" className="text-sm text-primary hover:underline">
           {t('backToQueue')}
         </Link>
       </div>

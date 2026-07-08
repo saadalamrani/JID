@@ -43,16 +43,16 @@ export function FlagRow({ flag }: FlagRowProps) {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-4 rounded-lg border border-jid-line bg-white px-4 py-3">
+      <div className="flex items-center justify-between gap-4 rounded-lg border border-border bg-card px-4 py-3">
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
-            <p className="font-medium text-jid-ink">{label}</p>
-            <code className="rounded bg-jid-beige/60 px-1.5 py-0.5 text-[11px] text-jid-ink/60">
+            <p className="font-medium text-foreground">{label}</p>
+            <code className="rounded bg-muted px-1.5 py-0.5 text-[11px] text-muted-foreground">
               {flag.key}
             </code>
           </div>
-          {description ? <p className="mt-1 text-sm text-jid-ink/55">{description}</p> : null}
-          {error ? <p className="mt-1 text-sm text-red-600">{error}</p> : null}
+          {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
+          {error ? <p className="mt-1 text-sm text-destructive">{error}</p> : null}
         </div>
 
         <div className="flex shrink-0 items-center gap-3">
@@ -64,7 +64,7 @@ export function FlagRow({ flag }: FlagRowProps) {
           />
           <Link
             href={`/sys/flags/${encodeURIComponent(flag.key)}`}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-jid-line text-jid-ink/60 transition-colors hover:bg-jid-beige/60 hover:text-jid-olive"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
             aria-label={t('settingsAria', { key: flag.key })}
           >
             <Settings className="h-4 w-4" aria-hidden />

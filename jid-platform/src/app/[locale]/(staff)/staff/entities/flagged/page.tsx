@@ -39,22 +39,22 @@ export default async function FlaggedEntitiesPage({ searchParams }: FlaggedEntit
   return (
     <div className="space-y-6">
       <header>
-        <Link href="/staff/entities" className="text-sm text-jid-olive hover:underline">
+        <Link href="/staff/entities" className="text-sm text-primary hover:underline">
           {t('back')}
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">
+        <h1 className="mt-2 text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           {t('subtitle', { threshold: STAFF_COMMITMENT_FLAG_THRESHOLD })}
         </p>
       </header>
 
-      <Suspense fallback={<div className="h-24 rounded-lg border border-jid-line bg-white" />}>
+      <Suspense fallback={<div className="h-24 rounded-lg border border-border bg-card" />}>
         <EntitiesFilters basePath="/staff/entities/flagged" regions={regions} />
       </Suspense>
 
       <EntitiesTable rows={result.rows} />
 
-      <p className="text-sm text-jid-ink/60">
+      <p className="text-sm text-muted-foreground">
         {t('count', { total: result.total, page: result.page, totalPages: result.totalPages })}
       </p>
     </div>

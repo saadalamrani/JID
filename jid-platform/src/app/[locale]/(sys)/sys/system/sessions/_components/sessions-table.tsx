@@ -49,7 +49,7 @@ export function SessionsTable({ sessions }: SessionsTableProps) {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-jid-ink/60">{t('summary', { count: sessions.length })}</p>
+        <p className="text-sm text-muted-foreground">{t('summary', { count: sessions.length })}</p>
         <Button
           type="button"
           variant="destructive"
@@ -61,11 +61,11 @@ export function SessionsTable({ sessions }: SessionsTableProps) {
         </Button>
       </div>
 
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
+      {error ? <p className="text-sm text-destructive">{error}</p> : null}
 
-      <div className="overflow-x-auto rounded-lg border border-jid-line bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-card">
         <table className="min-w-full text-sm">
-          <thead className="bg-jid-beige/50 text-start">
+          <thead className="bg-background/50 text-start">
             <tr>
               <th className="px-4 py-3 font-medium">{t('columns.user')}</th>
               <th className="px-4 py-3 font-medium">{t('columns.device')}</th>
@@ -74,10 +74,10 @@ export function SessionsTable({ sessions }: SessionsTableProps) {
               <th className="px-4 py-3 font-medium">{t('columns.actions')}</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-jid-line">
+          <tbody className="divide-y divide-border">
             {sessions.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-jid-ink/50">
+                <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
                   {t('empty')}
                 </td>
               </tr>
@@ -85,13 +85,13 @@ export function SessionsTable({ sessions }: SessionsTableProps) {
               sessions.map((session) => (
                 <tr key={session.id}>
                   <td className="px-4 py-3">
-                    <Link href={`/sys/users/${session.user_id}`} className="text-jid-olive hover:underline">
+                    <Link href={`/sys/users/${session.user_id}`} className="text-primary hover:underline">
                       {session.user_name ?? session.user_id.slice(0, 8)}
                     </Link>
                   </td>
-                  <td className="px-4 py-3 text-jid-ink/70">
+                  <td className="px-4 py-3 text-muted-foreground">
                     {session.device_label ?? '—'}
-                    <p className="text-xs text-jid-ink/45">{session.ip_address ?? ''}</p>
+                    <p className="text-xs text-muted-foreground">{session.ip_address ?? ''}</p>
                   </td>
                   <td className="px-4 py-3">{new Date(session.last_active_at).toLocaleString()}</td>
                   <td className="px-4 py-3">{new Date(session.expires_at).toLocaleString()}</td>

@@ -2,12 +2,9 @@
 
 import type { ReactNode } from 'react'
 import { usePathname } from '@/lib/i18n/navigation'
+import { SmartHeader } from '@/components/layout/smart-header'
 import { EncryptionKeyBootstrap } from '@/components/shared/encryption-key-bootstrap'
 import { ProfileModeTransition } from '@/components/shared/profile-mode-transition'
-import { ProfileSwitcher } from '@/components/shared/profile-switcher'
-import { NotificationsBell } from '@/components/notifications/notifications-bell'
-import { Logo } from '@/components/brand/logo'
-import { Link } from '@/lib/i18n/navigation'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
 
 type AuthenticatedAppShellProps = {
@@ -16,6 +13,10 @@ type AuthenticatedAppShellProps = {
   hasMentorRole: boolean
   initialMode: ProfileMode
   userId: string | null
+  fullName: string
+  avatarUrl: string | null
+  roleLabel: string
+  dashboardHref: string
 }
 
 const PORTAL_PREFIXES = ['/staff', '/sys', '/login', '/signup', '/forgot-password', '/reset-password']
@@ -60,13 +61,17 @@ function shouldHideTopBar(pathname: string): boolean {
   )
 }
 
-/** Single authenticated top bar — ProfileSwitcher integration point (Section 4.1). */
+/** Part 6 — individual-facing layouts use the unified smart header. */
 export function AuthenticatedAppShell({
   children,
   isAuthenticated,
   hasMentorRole,
   initialMode,
   userId,
+  fullName,
+  avatarUrl,
+  roleLabel,
+  dashboardHref,
 }: AuthenticatedAppShellProps) {
   const pathname = usePathname()
   const showBar = isAuthenticated && !shouldHideTopBar(pathname)
@@ -75,17 +80,16 @@ export function AuthenticatedAppShell({
     <>
       <EncryptionKeyBootstrap userId={isAuthenticated ? userId : null} />
       {showBar ? (
-        <header className="sticky top-0 z-40 border-b border-border bg-card/95 backdrop-blur-sm">
-          <div className="container-jid flex h-14 items-center justify-between gap-4">
-            <Link href="/" aria-label="JID home">
-              <Logo size="sm" />
-            </Link>
-            <div className="flex items-center gap-3">
-              <NotificationsBell userId={userId} />
-              <ProfileSwitcher hasMentorRole={hasMentorRole} initialMode={initialMode} />
-            </div>
-          </div>
-        </header>
+        <SmartHeader
+          isAuthenticated={isAuthenticated}
+          userId={userId}
+          fullName={fullName}
+          avatarUrl={avatarUrl}
+          roleLabel={roleLabel}
+          dashboardHref={dashboardHref}
+          hasMentorRole={hasMentorRole}
+          initialMode={initialMode}
+        />
       ) : null}
       <ProfileModeTransition>{children}</ProfileModeTransition>
     </>

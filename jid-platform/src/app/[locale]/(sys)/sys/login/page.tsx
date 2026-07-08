@@ -27,7 +27,7 @@ export default function SysLoginPage() {
     <Suspense
       fallback={
         <SysAuthShell title={t('title')} subtitle={t('subtitle')}>
-          <p className="text-center text-sm text-jid-ink/70">{t('submitting')}</p>
+          <p className="text-center text-sm text-muted-foreground">{t('submitting')}</p>
         </SysAuthShell>
       }
     >
@@ -134,11 +134,11 @@ function SysLoginPageContent() {
     <SysAuthShell
       title={t('title')}
       subtitle={t('subtitle')}
-      footer={reason === 'expired' ? <p className="text-amber-800">{t('sessionExpired')}</p> : null}
+      footer={reason === 'expired' ? <p className="text-sem-warning">{t('sessionExpired')}</p> : null}
     >
       <form className="space-y-4" onSubmit={(event) => void handleSubmit(onSubmit)(event)} noValidate>
         {formError ? (
-          <p className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800" role="alert">
+          <p className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive" role="alert">
             {formError}
           </p>
         ) : null}
@@ -170,7 +170,7 @@ function SysLoginPageContent() {
           />
         </FormField>
 
-        <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

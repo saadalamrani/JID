@@ -29,7 +29,7 @@ export function StaffShellChrome({
   useStaffCommandPaletteHotkey(togglePalette)
 
   return (
-    <div className="flex min-h-screen bg-jid-beige/30">
+    <div className="flex min-h-screen bg-background/30">
       <StaffIdleGuard />
       <StaffSidebar sessionIssuedAt={sessionIssuedAt} />
       <div className="flex min-w-0 flex-1 flex-col">

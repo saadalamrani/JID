@@ -67,7 +67,7 @@ export function Combobox({
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
-          className="w-full justify-between border-jid-line font-normal"
+          className="w-full justify-between font-normal"
         >
           {selected ? selected.label : placeholder}
           <ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" />
@@ -106,7 +106,7 @@ export function Combobox({
                   <div>
                     <p>{option.label}</p>
                     {option.description ? (
-                      <p className="text-xs text-jid-ink/60">{option.description}</p>
+                      <p className="text-xs text-muted-foreground">{option.description}</p>
                     ) : null}
                   </div>
                 </CommandItem>

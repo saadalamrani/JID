@@ -37,27 +37,27 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
 
   return (
     <div className="space-y-6">
-      <Link href="/sys/entities" className="text-sm text-jid-olive hover:underline">
+      <Link href="/sys/entities" className="text-sm text-primary hover:underline">
         {t('back')}
       </Link>
 
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{entity.name}</h1>
-        <p className="mt-1 text-sm text-jid-ink/60">
+        <h1 className="text-2xl font-semibold text-foreground">{entity.name}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           {t(`types.${entity.entity_type}`, { default: entity.entity_type })} · {entity.entity_state}
         </p>
       </header>
 
       <div className="grid gap-6 xl:grid-cols-3">
-        <section className="rounded-lg border border-jid-line bg-white p-5 xl:col-span-2">
-          <h2 className="text-sm font-semibold text-jid-ink">{t('infoTitle')}</h2>
+        <section className="rounded-lg border border-border bg-card p-5 xl:col-span-2">
+          <h2 className="text-sm font-semibold text-foreground">{t('infoTitle')}</h2>
           <dl className="mt-4 grid gap-3 sm:grid-cols-2">
             {infoFields.map((field) => (
               <div key={field.label}>
-                <dt className="text-xs font-medium uppercase tracking-wide text-jid-ink/45">
+                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   {field.label}
                 </dt>
-                <dd className="mt-1 break-all text-sm text-jid-ink">{field.value ?? '—'}</dd>
+                <dd className="mt-1 break-all text-sm text-foreground">{field.value ?? '—'}</dd>
               </div>
             ))}
           </dl>
@@ -66,12 +66,12 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
         <EntityActionsMenu entity={entity} />
       </div>
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('claimsTitle')}</h2>
-        <p className="mt-1 text-sm text-jid-ink/55">{t('claimsSubtitle')}</p>
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('claimsTitle')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('claimsSubtitle')}</p>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full text-sm">
-            <thead className="bg-jid-beige/50 text-start">
+            <thead className="bg-background/50 text-start">
               <tr>
                 <th className="px-3 py-2 font-medium">{t('claims.claimant')}</th>
                 <th className="px-3 py-2 font-medium">{t('claims.status')}</th>
@@ -80,10 +80,10 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
                 <th className="px-3 py-2 font-medium">{t('claims.reviewed')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-jid-line">
+            <tbody className="divide-y divide-border">
               {claims.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-3 py-6 text-center text-jid-ink/50">
+                  <td colSpan={5} className="px-3 py-6 text-center text-muted-foreground">
                     {t('claims.empty')}
                   </td>
                 </tr>
@@ -92,7 +92,7 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
                   <tr key={claim.id}>
                     <td className="px-3 py-2">
                       <p>{claim.claimant_name}</p>
-                      <p className="text-xs text-jid-ink/45" dir="ltr">
+                      <p className="text-xs text-muted-foreground" dir="ltr">
                         {claim.business_email}
                       </p>
                     </td>

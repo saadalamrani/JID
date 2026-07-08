@@ -45,18 +45,18 @@ export default async function StaffEntityDetailPage({ params }: EntityDetailPage
 
   return (
     <div className="space-y-6">
-      <Link href="/staff/entities" className="text-sm text-jid-olive hover:underline">
+      <Link href="/staff/entities" className="text-sm text-primary hover:underline">
         {t('back')}
       </Link>
 
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-jid-ink">{entity.name}</h1>
-          {entity.name_ar ? <p className="mt-1 text-sm text-jid-ink/60">{entity.name_ar}</p> : null}
+          <h1 className="text-2xl font-semibold text-foreground">{entity.name}</h1>
+          {entity.name_ar ? <p className="mt-1 text-sm text-muted-foreground">{entity.name_ar}</p> : null}
         </div>
         <Link
           href={`/staff/entities/metadata-edit/${entity.id}`}
-          className="rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-olive hover:bg-jid-beige/50"
+          className="rounded-md border border-border bg-card px-3 py-2 text-sm text-primary hover:bg-background/50"
         >
           {t('editMetadata')}
         </Link>
@@ -64,15 +64,15 @@ export default async function StaffEntityDetailPage({ params }: EntityDetailPage
 
       <EntityStats stats={stats} />
 
-      <section className="rounded-lg border border-jid-line bg-white p-5">
-        <h2 className="text-sm font-semibold text-jid-ink">{t('infoTitle')}</h2>
+      <section className="rounded-lg border border-border bg-card p-5">
+        <h2 className="text-sm font-semibold text-foreground">{t('infoTitle')}</h2>
         <dl className="mt-4 grid gap-3 sm:grid-cols-2">
           {fields.map((field) => (
             <div key={field.label}>
-              <dt className="text-xs font-medium uppercase tracking-wide text-jid-ink/45">
+              <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 {field.label}
               </dt>
-              <dd className="mt-1 break-all text-sm text-jid-ink">{field.value ?? '—'}</dd>
+              <dd className="mt-1 break-all text-sm text-foreground">{field.value ?? '—'}</dd>
             </div>
           ))}
         </dl>

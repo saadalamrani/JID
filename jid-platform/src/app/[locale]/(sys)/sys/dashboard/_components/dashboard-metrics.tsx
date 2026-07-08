@@ -47,8 +47,8 @@ export function DashboardMetrics({ metrics }: DashboardMetricsProps) {
   return (
     <section aria-label={t('sectionLabel')}>
       <div className="mb-3 flex flex-wrap items-end justify-between gap-2">
-        <h2 className="text-sm font-medium text-jid-ink/70">{t('sectionLabel')}</h2>
-        <p className="text-xs text-jid-ink/45">
+        <h2 className="text-sm font-medium text-muted-foreground">{t('sectionLabel')}</h2>
+        <p className="text-xs text-muted-foreground">
           {t('lastRefreshed', {
             time: new Date(metrics.refreshed_at).toLocaleString(),
           })}
@@ -64,22 +64,22 @@ export function DashboardMetrics({ metrics }: DashboardMetricsProps) {
             <Card
               key={key}
               className={cn(
-                'border-jid-line bg-white',
-                isHighlight && 'border-red-200 bg-red-50/40',
+                'border-border bg-card',
+                isHighlight && 'border-destructive/30 bg-destructive/10/40',
               )}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-jid-ink/70">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t(`cards.${key}.label`)}
                 </CardTitle>
                 <Icon
                   className={cn(
                     'h-4 w-4',
                     accent === 'danger' && value > 0
-                      ? 'text-red-600'
+                      ? 'text-destructive'
                       : accent === 'warning' && value > 0
-                        ? 'text-amber-600'
-                        : 'text-jid-olive/70',
+                        ? 'text-sem-warning'
+                        : 'text-primary/70',
                   )}
                   aria-hidden
                 />
@@ -87,13 +87,13 @@ export function DashboardMetrics({ metrics }: DashboardMetricsProps) {
               <CardContent>
                 <p
                   className={cn(
-                    'text-3xl font-semibold tabular-nums text-jid-ink',
-                    isHighlight && 'text-red-700',
+                    'text-3xl font-semibold tabular-nums text-foreground',
+                    isHighlight && 'text-destructive',
                   )}
                 >
                   {value.toLocaleString()}
                 </p>
-                <p className="mt-1 text-xs text-jid-ink/50">{t(`cards.${key}.hint`)}</p>
+                <p className="mt-1 text-xs text-muted-foreground">{t(`cards.${key}.hint`)}</p>
               </CardContent>
             </Card>
           )

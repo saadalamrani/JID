@@ -100,19 +100,19 @@ export function ClaimReviewWorkspace({ data }: ClaimReviewWorkspaceProps) {
         <div>
           <Link
             href="/staff/claims"
-            className="text-sm text-jid-olive hover:underline"
+            className="text-sm text-primary hover:underline"
           >
             {t('backToQueue')}
           </Link>
-          <h1 className="mt-2 text-2xl font-semibold text-jid-ink">
+          <h1 className="mt-2 text-2xl font-semibold text-foreground">
             {t('title', { company: claim.company_name })}
           </h1>
-          <p className="mt-1 text-sm text-jid-ink/60">
+          <p className="mt-1 text-sm text-muted-foreground">
             {t('meta', { status: claim.status, submitted: submittedLabel })}
           </p>
         </div>
         {claim.assigned_staff_id ? (
-          <span className="rounded-full bg-jid-beige px-3 py-1 text-xs font-medium text-jid-ink/70">
+          <span className="rounded-full bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
             {t('assigned')}
           </span>
         ) : null}
@@ -120,91 +120,91 @@ export function ClaimReviewWorkspace({ data }: ClaimReviewWorkspaceProps) {
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_20rem] xl:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="space-y-6">
-          <section className="rounded-lg border border-jid-line bg-white p-5">
-            <h2 className="text-sm font-semibold text-jid-ink">{t('claimDetails.title')}</h2>
+          <section className="rounded-lg border border-border bg-card p-5">
+            <h2 className="text-sm font-semibold text-foreground">{t('claimDetails.title')}</h2>
             <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
               <div>
-                <dt className="text-jid-ink/50">{t('claimDetails.type')}</dt>
-                <dd className="font-medium text-jid-ink">{claim.claim_type}</dd>
+                <dt className="text-muted-foreground">{t('claimDetails.type')}</dt>
+                <dd className="font-medium text-foreground">{claim.claim_type}</dd>
               </div>
               <div>
-                <dt className="text-jid-ink/50">{t('claimDetails.businessEmail')}</dt>
-                <dd className="font-medium text-jid-ink">{claim.business_email}</dd>
+                <dt className="text-muted-foreground">{t('claimDetails.businessEmail')}</dt>
+                <dd className="font-medium text-foreground">{claim.business_email}</dd>
               </div>
               <div>
-                <dt className="text-jid-ink/50">{t('claimDetails.claimantName')}</dt>
-                <dd className="font-medium text-jid-ink">{claim.claimant_name}</dd>
+                <dt className="text-muted-foreground">{t('claimDetails.claimantName')}</dt>
+                <dd className="font-medium text-foreground">{claim.claimant_name}</dd>
               </div>
               <div>
-                <dt className="text-jid-ink/50">{t('claimDetails.claimantTitle')}</dt>
-                <dd className="font-medium text-jid-ink">{claim.claimant_title ?? '—'}</dd>
+                <dt className="text-muted-foreground">{t('claimDetails.claimantTitle')}</dt>
+                <dd className="font-medium text-foreground">{claim.claimant_title ?? '—'}</dd>
               </div>
             </dl>
           </section>
 
-          <section className="rounded-lg border border-jid-line bg-white p-5">
-            <h2 className="text-sm font-semibold text-jid-ink">{t('applicant.title')}</h2>
+          <section className="rounded-lg border border-border bg-card p-5">
+            <h2 className="text-sm font-semibold text-foreground">{t('applicant.title')}</h2>
             {claimant ? (
               <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
                 <div>
-                  <dt className="text-jid-ink/50">{t('applicant.name')}</dt>
-                  <dd className="font-medium text-jid-ink">{claimant.full_name ?? '—'}</dd>
+                  <dt className="text-muted-foreground">{t('applicant.name')}</dt>
+                  <dd className="font-medium text-foreground">{claimant.full_name ?? '—'}</dd>
                 </div>
                 <div>
-                  <dt className="text-jid-ink/50">{t('applicant.role')}</dt>
-                  <dd className="font-medium text-jid-ink">{claimant.role}</dd>
+                  <dt className="text-muted-foreground">{t('applicant.role')}</dt>
+                  <dd className="font-medium text-foreground">{claimant.role}</dd>
                 </div>
                 <div>
-                  <dt className="text-jid-ink/50">{t('applicant.emailVerified')}</dt>
-                  <dd className="font-medium text-jid-ink">
+                  <dt className="text-muted-foreground">{t('applicant.emailVerified')}</dt>
+                  <dd className="font-medium text-foreground">
                     {claimant.email_verified_at ? t('applicant.yes') : t('applicant.no')}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-jid-ink/50">{t('applicant.phoneVerified')}</dt>
-                  <dd className="font-medium text-jid-ink">
+                  <dt className="text-muted-foreground">{t('applicant.phoneVerified')}</dt>
+                  <dd className="font-medium text-foreground">
                     {claimant.phone_verified_at ? t('applicant.yes') : t('applicant.no')}
                   </dd>
                 </div>
               </dl>
             ) : (
-              <p className="mt-3 text-sm text-jid-ink/50">{t('applicant.missing')}</p>
+              <p className="mt-3 text-sm text-muted-foreground">{t('applicant.missing')}</p>
             )}
           </section>
 
-          <section className="rounded-lg border border-jid-line bg-white p-5">
-            <h2 className="text-sm font-semibold text-jid-ink">{t('entity.title')}</h2>
+          <section className="rounded-lg border border-border bg-card p-5">
+            <h2 className="text-sm font-semibold text-foreground">{t('entity.title')}</h2>
             {entity ? (
               <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
                 <div>
-                  <dt className="text-jid-ink/50">{t('entity.name')}</dt>
-                  <dd className="font-medium text-jid-ink">{entity.name}</dd>
+                  <dt className="text-muted-foreground">{t('entity.name')}</dt>
+                  <dd className="font-medium text-foreground">{entity.name}</dd>
                 </div>
                 <div>
-                  <dt className="text-jid-ink/50">{t('entity.state')}</dt>
-                  <dd className="font-medium text-jid-ink">{entity.entity_state}</dd>
+                  <dt className="text-muted-foreground">{t('entity.state')}</dt>
+                  <dd className="font-medium text-foreground">{entity.entity_state}</dd>
                 </div>
                 <div>
-                  <dt className="text-jid-ink/50">{t('entity.domains')}</dt>
-                  <dd className="font-medium text-jid-ink">
+                  <dt className="text-muted-foreground">{t('entity.domains')}</dt>
+                  <dd className="font-medium text-foreground">
                     {entity.domains.length > 0 ? entity.domains.join(', ') : '—'}
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-jid-ink/50">{t('entity.verified')}</dt>
-                  <dd className="font-medium text-jid-ink">
+                  <dt className="text-muted-foreground">{t('entity.verified')}</dt>
+                  <dd className="font-medium text-foreground">
                     {entity.is_verified ? t('applicant.yes') : t('applicant.no')}
                   </dd>
                 </div>
                 {entity.linkedin_url ? (
                   <div className="sm:col-span-2">
-                    <dt className="text-jid-ink/50">{t('entity.linkedin')}</dt>
+                    <dt className="text-muted-foreground">{t('entity.linkedin')}</dt>
                     <dd>
                       <a
                         href={entity.linkedin_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-jid-olive hover:underline"
+                        className="text-sm text-primary hover:underline"
                       >
                         {entity.linkedin_url}
                       </a>
@@ -213,7 +213,7 @@ export function ClaimReviewWorkspace({ data }: ClaimReviewWorkspaceProps) {
                 ) : null}
               </dl>
             ) : (
-              <p className="mt-3 text-sm text-jid-ink/50">{t('entity.missing')}</p>
+              <p className="mt-3 text-sm text-muted-foreground">{t('entity.missing')}</p>
             )}
           </section>
 
@@ -227,7 +227,7 @@ export function ClaimReviewWorkspace({ data }: ClaimReviewWorkspaceProps) {
               onSubmit={() => mutation.mutate()}
             />
           ) : (
-            <div className="rounded-lg border border-jid-line bg-jid-beige/40 p-5 text-sm text-jid-ink/70">
+            <div className="rounded-lg border border-border bg-background/40 p-5 text-sm text-muted-foreground">
               {t('alreadyReviewed', { status: claim.status })}
               {claim.review_notes ? (
                 <p className="mt-2 whitespace-pre-wrap">{claim.review_notes}</p>
@@ -237,8 +237,8 @@ export function ClaimReviewWorkspace({ data }: ClaimReviewWorkspaceProps) {
         </div>
 
         <aside className="space-y-4 lg:sticky lg:top-4 lg:self-start">
-          <div className="rounded-lg border border-jid-line bg-white p-4">
-            <h3 className="text-sm font-semibold text-jid-ink">{t('checklist.title')}</h3>
+          <div className="rounded-lg border border-border bg-card p-4">
+            <h3 className="text-sm font-semibold text-foreground">{t('checklist.title')}</h3>
             <div className="mt-4">
               <ChecklistPanel
                 items={checklistItems}

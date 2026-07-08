@@ -63,15 +63,15 @@ export function KillSwitchCard({
     <>
       <div
         className={cn(
-          'rounded-lg border bg-white p-5',
-          displayOn ? 'border-red-400 shadow-sm shadow-red-100' : 'border-jid-line',
+          'rounded-lg border bg-card p-5',
+          displayOn ? 'border-destructive/50 shadow-sm shadow-destructive/10' : 'border-border',
         )}
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-semibold text-jid-ink">{title}</h3>
-            <p className="mt-1 text-sm text-jid-ink/60">{description}</p>
-            {error ? <p className="mt-2 text-sm text-red-600">{error}</p> : null}
+            <h3 className="font-semibold text-foreground">{title}</h3>
+            <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+            {error ? <p className="mt-2 text-sm text-destructive">{error}</p> : null}
           </div>
           <button
             type="button"
@@ -81,19 +81,19 @@ export function KillSwitchCard({
             onClick={requestToggle}
             className={cn(
               'relative h-7 w-12 shrink-0 rounded-full transition-colors',
-              displayOn ? 'bg-red-600' : 'bg-jid-line',
+              displayOn ? 'bg-destructive' : 'bg-border',
               (disabled || pending) && 'opacity-50',
             )}
           >
             <span
               className={cn(
-                'absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform',
+                'absolute top-0.5 h-6 w-6 rounded-full bg-card shadow transition-transform',
                 displayOn ? 'translate-x-5' : 'translate-x-0.5',
               )}
             />
           </button>
         </div>
-        <p className="mt-3 text-xs font-medium uppercase tracking-wide text-jid-ink/45">
+        <p className="mt-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
           {displayOn ? t('statusOn') : t('statusOff')}
         </p>
       </div>

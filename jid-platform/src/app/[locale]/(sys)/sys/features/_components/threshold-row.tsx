@@ -41,14 +41,14 @@ export function ThresholdRow({ threshold }: ThresholdRowProps) {
   const dirty = Number(minValue) !== threshold.min_value
 
   return (
-    <div className="grid gap-3 rounded-lg border border-jid-line bg-white px-4 py-4 md:grid-cols-[1fr_auto_auto_auto] md:items-center">
+    <div className="grid gap-3 rounded-lg border border-border bg-card px-4 py-4 md:grid-cols-[1fr_auto_auto_auto] md:items-center">
       <div>
-        <p className="font-medium text-jid-ink">{label}</p>
-        <code className="text-xs text-jid-ink/45">{threshold.metric_key}</code>
+        <p className="font-medium text-foreground">{label}</p>
+        <code className="text-xs text-muted-foreground">{threshold.metric_key}</code>
       </div>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-jid-ink/60">{t('minValue')}</span>
+        <span className="text-muted-foreground">{t('minValue')}</span>
         <Input
           type="number"
           min={0}
@@ -61,15 +61,15 @@ export function ThresholdRow({ threshold }: ThresholdRowProps) {
       </label>
 
       <div className="text-sm">
-        <p className="text-jid-ink/60">{t('currentValue')}</p>
-        <p className="font-mono font-medium text-jid-ink">{threshold.current_value}</p>
+        <p className="text-muted-foreground">{t('currentValue')}</p>
+        <p className="font-mono font-medium text-foreground">{threshold.current_value}</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
         <span
           className={cn(
             'inline-flex rounded-full px-2.5 py-1 text-xs font-medium',
-            isDisplayed ? 'bg-emerald-100 text-emerald-800' : 'bg-jid-beige text-jid-ink/60',
+            isDisplayed ? 'bg-primary/10 text-primary' : 'bg-background text-muted-foreground',
           )}
         >
           {isDisplayed ? t('isDisplayed') : t('isHidden')}
@@ -79,7 +79,7 @@ export function ThresholdRow({ threshold }: ThresholdRowProps) {
         </Button>
       </div>
 
-      {error ? <p className="text-sm text-red-600 md:col-span-4">{error}</p> : null}
+      {error ? <p className="text-sm text-destructive md:col-span-4">{error}</p> : null}
     </div>
   )
 }

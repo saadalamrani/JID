@@ -52,7 +52,7 @@ export function EntitiesFilters({ fixedEntityType }: EntitiesFiltersProps) {
 
   return (
     <form
-      className="grid gap-4 rounded-lg border border-jid-line bg-white p-4 md:grid-cols-3"
+      className="grid gap-4 rounded-lg border border-border bg-card p-4 md:grid-cols-3"
       onSubmit={(event) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
@@ -73,7 +73,7 @@ export function EntitiesFilters({ fixedEntityType }: EntitiesFiltersProps) {
           id="entities-state"
           name="state"
           defaultValue={state}
-          className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 text-sm"
+          className="flex h-10 w-full rounded-md border border-border bg-card px-3 text-sm"
         >
           {STATE_OPTIONS.map((option) => (
             <option key={option} value={option}>

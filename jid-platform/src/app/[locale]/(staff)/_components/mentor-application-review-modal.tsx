@@ -118,33 +118,33 @@ export function MentorApplicationReviewModal({
             yearsExperience={application.years_experience}
           />
 
-          <section className="rounded-xl border border-jid-line bg-jid-beige/20 p-4 text-sm">
+          <section className="rounded-xl border border-border bg-background/20 p-4 text-sm">
             <dl className="space-y-2">
               {application.linkedin_url ? (
                 <div>
-                  <dt className="text-xs text-jid-ink/50">{t('linkedin')}</dt>
-                  <dd className="mt-1 break-all text-jid-olive" dir="ltr">
+                  <dt className="text-xs text-muted-foreground">{t('linkedin')}</dt>
+                  <dd className="mt-1 break-all text-primary" dir="ltr">
                     {application.linkedin_url}
                   </dd>
                 </div>
               ) : null}
               {application.languages.length > 0 ? (
                 <div>
-                  <dt className="text-xs text-jid-ink/50">{t('languages')}</dt>
-                  <dd className="mt-1 text-jid-ink">{application.languages.join('، ')}</dd>
+                  <dt className="text-xs text-muted-foreground">{t('languages')}</dt>
+                  <dd className="mt-1 text-foreground">{application.languages.join('، ')}</dd>
                 </div>
               ) : null}
               {application.preferred_mediums.length > 0 ? (
                 <div>
-                  <dt className="text-xs text-jid-ink/50">{t('mediums')}</dt>
-                  <dd className="mt-1 text-jid-ink">{application.preferred_mediums.join('، ')}</dd>
+                  <dt className="text-xs text-muted-foreground">{t('mediums')}</dt>
+                  <dd className="mt-1 text-foreground">{application.preferred_mediums.join('، ')}</dd>
                 </div>
               ) : null}
             </dl>
           </section>
 
           <section className="space-y-2">
-            <label htmlFor="mentor_review_notes" className="text-sm font-medium text-jid-ink">
+            <label htmlFor="mentor_review_notes" className="text-sm font-medium text-foreground">
               {t('reviewNotes')}
             </label>
             <textarea
@@ -153,13 +153,13 @@ export function MentorApplicationReviewModal({
               disabled={submitting}
               value={reviewNotes}
               onChange={(event) => setReviewNotes(event.target.value)}
-              className="w-full rounded-md border border-jid-line px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-jid-gold"
+              className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
               placeholder={t('reviewNotesPlaceholder')}
             />
           </section>
 
           <section className="space-y-2">
-            <label htmlFor="mentor_rejection_reason" className="text-sm font-medium text-jid-ink">
+            <label htmlFor="mentor_rejection_reason" className="text-sm font-medium text-foreground">
               {t('rejectionReason')}
             </label>
             <textarea
@@ -168,10 +168,10 @@ export function MentorApplicationReviewModal({
               disabled={submitting}
               value={rejectionReason}
               onChange={(event) => setRejectionReason(event.target.value)}
-              className="w-full rounded-md border border-jid-line px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-jid-gold"
+              className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
               placeholder={t('rejectionReasonPlaceholder')}
             />
-            <p className="text-xs text-jid-ink/50">{t('rejectionReasonHint')}</p>
+            <p className="text-xs text-muted-foreground">{t('rejectionReasonHint')}</p>
           </section>
         </div>
 
@@ -183,7 +183,7 @@ export function MentorApplicationReviewModal({
             <Button
               type="button"
               variant="outline"
-              className="border-red-300 text-red-700 hover:bg-red-50"
+              className="border-destructive/40 text-destructive hover:bg-destructive/10"
               disabled={submitting}
               onClick={handleReject}
             >
@@ -191,7 +191,7 @@ export function MentorApplicationReviewModal({
             </Button>
             <Button
               type="button"
-              className="bg-jid-olive hover:bg-jid-olive/90"
+              className="bg-primary hover:bg-primary/90"
               disabled={submitting}
               onClick={handleApprove}
             >

@@ -40,25 +40,25 @@ export default async function SysStaffDetailPage({ params }: SysStaffDetailPageP
 
   return (
     <div className="space-y-6">
-      <Link href="/sys/staff" className="text-sm text-jid-olive hover:underline">
+      <Link href="/sys/staff" className="text-sm text-primary hover:underline">
         {t('back')}
       </Link>
 
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">{member.full_name ?? t('unnamed')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/60">{member.role}</p>
+        <h1 className="text-2xl font-semibold text-foreground">{member.full_name ?? t('unnamed')}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{member.role}</p>
       </header>
 
       <div className="grid gap-6 xl:grid-cols-3">
-        <section className="rounded-lg border border-jid-line bg-white p-5 xl:col-span-2">
-          <h2 className="text-sm font-semibold text-jid-ink">{t('infoTitle')}</h2>
+        <section className="rounded-lg border border-border bg-card p-5 xl:col-span-2">
+          <h2 className="text-sm font-semibold text-foreground">{t('infoTitle')}</h2>
           <dl className="mt-4 grid gap-3 sm:grid-cols-2">
             {fields.map((field) => (
               <div key={field.label}>
-                <dt className="text-xs font-medium uppercase tracking-wide text-jid-ink/45">
+                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   {field.label}
                 </dt>
-                <dd className="mt-1 break-all text-sm text-jid-ink">{field.value ?? '—'}</dd>
+                <dd className="mt-1 break-all text-sm text-foreground">{field.value ?? '—'}</dd>
               </div>
             ))}
           </dl>

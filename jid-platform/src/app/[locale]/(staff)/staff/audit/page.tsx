@@ -44,10 +44,10 @@ export default async function StaffAuditPage({ searchParams }: StaffAuditPagePro
       <StaffAnalyticsTracker event="staff.audit_viewed" />
       <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-          <p className="mt-1 text-sm text-jid-ink/70">{t('subtitle')}</p>
+          <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
-        <Link href="/staff" className="text-sm text-jid-olive hover:underline">
+        <Link href="/staff" className="text-sm text-primary hover:underline">
           {t('back')}
         </Link>
       </header>
@@ -60,12 +60,12 @@ export default async function StaffAuditPage({ searchParams }: StaffAuditPagePro
         <p>{t('scopeBanner')}</p>
       </div>
 
-      <Suspense fallback={<div className="h-28 rounded-lg border border-jid-line bg-white" />}>
+      <Suspense fallback={<div className="h-28 rounded-lg border border-border bg-card" />}>
         <AuditFilters />
       </Suspense>
 
       {result.events.length === 0 ? (
-        <div className="rounded-lg border border-jid-line bg-white p-8 text-center text-sm text-jid-ink/50">
+        <div className="rounded-lg border border-border bg-card p-8 text-center text-sm text-muted-foreground">
           {t('empty')}
         </div>
       ) : (
@@ -76,7 +76,7 @@ export default async function StaffAuditPage({ searchParams }: StaffAuditPagePro
         <div className="flex justify-center">
           <Link
             href={`/staff/audit?${nextParams.toString()}`}
-            className="rounded-md border border-jid-line bg-white px-4 py-2 text-sm text-jid-olive hover:bg-jid-beige/40"
+            className="rounded-md border border-border bg-card px-4 py-2 text-sm text-primary hover:bg-background/40"
           >
             {t('loadMore')}
           </Link>

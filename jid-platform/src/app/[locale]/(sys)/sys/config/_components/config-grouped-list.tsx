@@ -18,7 +18,7 @@ export function ConfigGroupedList({ grouped }: ConfigGroupedListProps) {
         if (rows.length === 0) return null
         return (
           <section key={category}>
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-jid-ink/45">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-muted-foreground">
               {t(category)}
             </h2>
             <ul className="space-y-3">
