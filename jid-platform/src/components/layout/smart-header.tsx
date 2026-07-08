@@ -1,15 +1,30 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Logo } from '@/components/brand/logo'
 import { CommandPaletteTrigger } from '@/components/layout/command-palette-trigger'
-import { IndividualCommandPalette } from '@/components/layout/individual-command-palette'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
 import { GuestAuthActions, ProfileDropdown } from '@/components/layout/profile-dropdown'
-import { NotificationsBell } from '@/components/notifications/notifications-bell'
 import { useCommandPaletteHotkey } from '@/components/shared/command-palette'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { ThemeToggleLazy } from '@/components/ui/theme-toggle-lazy'
+
+const NotificationsBell = dynamic(
+  () =>
+    import('@/components/notifications/notifications-bell').then((mod) => ({
+      default: mod.NotificationsBell,
+    })),
+  { loading: () => <div className="h-9 w-9 shrink-0" aria-hidden /> },
+)
+
+const IndividualCommandPalette = dynamic(
+  () =>
+    import('@/components/layout/individual-command-palette').then((mod) => ({
+      default: mod.IndividualCommandPalette,
+    })),
+  { ssr: false },
+)
 import { Link } from '@/lib/i18n/navigation'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
 import { cn } from '@/lib/utils'
@@ -104,7 +119,7 @@ export function SmartHeader({
           <div className="flex items-center justify-end gap-2">
             <CommandPaletteTrigger onClick={() => setPaletteOpen(true)} />
             {isAuthenticated ? <NotificationsBell userId={userId} /> : null}
-            <ThemeToggle />
+            <ThemeToggleLazy />
             <LanguageSwitcher />
             {isAuthenticated ? (
               <ProfileDropdown
@@ -122,11 +137,13 @@ export function SmartHeader({
         </div>
       </header>
 
-      <IndividualCommandPalette
-        open={paletteOpen}
-        onOpenChange={setPaletteOpen}
-        isAuthenticated={isAuthenticated}
-      />
+      {paletteOpen ? (
+        <IndividualCommandPalette
+          open={paletteOpen}
+          onOpenChange={setPaletteOpen}
+          isAuthenticated={isAuthenticated}
+        />
+      ) : null}
     </>
   )
 }

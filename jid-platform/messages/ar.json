@@ -76,6 +76,17 @@
   "smartHeader": {
     "searchPlaceholder": "ابحث أو انتقل إلى…",
     "searchShortcut": "⌘K",
+    "themeToggle": {
+      "switchToLight": "تفعيل الوضع الفاتح",
+      "switchToDark": "تفعيل الوضع الداكن"
+    },
+    "languageSwitcher": {
+      "groupLabel": "اللغة",
+      "arabic": "العربية",
+      "english": "الإنجليزية",
+      "arabicShort": "AR",
+      "englishShort": "EN"
+    },
     "commandPalette": {
       "placeholder": "ابحث في الصفحات والإجراءات…",
       "quickActions": "إجراءات سريعة",

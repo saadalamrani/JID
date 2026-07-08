@@ -1,14 +1,17 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useCallback, useState, type ReactNode } from 'react'
 import type { StaffShellContext } from '@/lib/staff/shell-context'
 import { StaffIdleGuard } from '@/components/staff/staff-idle-guard'
-import {
-  StaffCommandPalette,
-  useStaffCommandPaletteHotkey,
-} from './staff-command-palette'
+import { useStaffCommandPaletteHotkey } from './staff-command-palette'
 import { StaffSidebar } from './staff-sidebar'
 import { StaffTopbar } from './staff-topbar'
+
+const StaffCommandPalette = dynamic(
+  () => import('./staff-command-palette').then((mod) => ({ default: mod.StaffCommandPalette })),
+  { ssr: false },
+)
 
 type StaffShellChromeProps = StaffShellContext & {
   children: ReactNode
@@ -41,7 +44,9 @@ export function StaffShellChrome({
         />
         <main className="flex-1 overflow-auto p-6">{children}</main>
       </div>
-      <StaffCommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      {paletteOpen ? (
+        <StaffCommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      ) : null}
     </div>
   )
 }

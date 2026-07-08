@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import { StaffAnalyticsTracker } from '@/components/staff/staff-analytics-tracker'
 import { AssignedClaims } from './dashboard/_components/assigned-claims'
 import { OpenFlagsWidget } from './dashboard/_components/open-flags-widget'
-import { PersonalMetrics } from './dashboard/_components/personal-metrics'
+import { PersonalMetricsLazy } from './dashboard/_components/personal-metrics-lazy'
 import { RecentActionsFeed } from './dashboard/_components/recent-actions-feed'
 import { UnassignedQueue } from './dashboard/_components/unassigned-queue'
 import {
@@ -38,7 +38,7 @@ export default async function StaffHomePage() {
         <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
 
-      <PersonalMetrics metrics={metrics} />
+      <PersonalMetricsLazy metrics={metrics} />
 
       <OpenFlagsWidget count={openFlagsCount} />
 

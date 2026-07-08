@@ -76,6 +76,17 @@
   "smartHeader": {
     "searchPlaceholder": "Search or jump to…",
     "searchShortcut": "⌘K",
+    "themeToggle": {
+      "switchToLight": "Switch to light mode",
+      "switchToDark": "Switch to dark mode"
+    },
+    "languageSwitcher": {
+      "groupLabel": "Language",
+      "arabic": "Arabic",
+      "english": "English",
+      "arabicShort": "AR",
+      "englishShort": "EN"
+    },
     "commandPalette": {
       "placeholder": "Search pages and actions…",
       "quickActions": "Quick Actions",

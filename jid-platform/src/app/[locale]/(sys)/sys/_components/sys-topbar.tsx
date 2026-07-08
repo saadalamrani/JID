@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Clock, ShieldAlert } from 'lucide-react'
 import { NotificationsBell } from '@/components/notifications/notifications-bell'
-import { ThemeToggle } from '@/components/ui/theme-toggle'
+import { ThemeToggleLazy } from '@/components/ui/theme-toggle-lazy'
 import type { SessionProfile } from '@/lib/auth/session'
 import { SYS_SESSION_MAX_AGE_SECONDS } from '@/lib/sys/constants'
 
@@ -101,6 +101,7 @@ export function SysTopbar({
           <button
             type="button"
             onClick={onOpenCommandPalette}
+            aria-label={t('searchPlaceholder')}
             className="hidden items-center gap-2 rounded-lg border border-border bg-background/40 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted sm:flex"
           >
             <span>{t('searchPlaceholder')}</span>
@@ -110,7 +111,7 @@ export function SysTopbar({
           </button>
 
           <NotificationsBell userId={profile.id} />
-          <ThemeToggle />
+          <ThemeToggleLazy />
 
           <div className="flex items-center gap-2 rounded-lg border border-border bg-background/30 px-3 py-1.5">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 text-sm font-semibold text-primary">

@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server'
-import { SectorBars } from '@/app/[locale]/(public)/pulse/_components/sector-bars'
-import { SkillsBars } from '@/app/[locale]/(public)/pulse/_components/skills-bars'
+import { SectorBarsSection, SkillsBarsSection } from '@/app/[locale]/(public)/pulse/_components/pulse-bars-lazy'
 import { fetchSectorDemand, fetchSkillsDemand } from '@/lib/pulse/queries'
 import { isDbOfflineError } from '@/lib/supabase/offline-error'
 
@@ -19,14 +18,14 @@ export async function MarketTrendsSection() {
           {sectors.length > 0 ? (
             <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
               <h3 className="mb-4 text-sm font-semibold text-foreground">{t('sectorTitle')}</h3>
-              <SectorBars items={sectors} />
+              <SectorBarsSection items={sectors} />
             </div>
           ) : null}
 
           {skills.length > 0 ? (
             <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
               <h3 className="mb-4 text-sm font-semibold text-foreground">{t('skillsTitle')}</h3>
-              <SkillsBars items={skills} />
+              <SkillsBarsSection items={skills} />
             </div>
           ) : null}
         </div>

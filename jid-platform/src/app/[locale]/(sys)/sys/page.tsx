@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 import { SysAnalyticsTracker } from '@/components/sys/sys-analytics-tracker'
 import { AlertsBar } from '@/app/[locale]/(sys)/sys/dashboard/_components/alerts-bar'
 import { ClaimsQueueWidget } from '@/app/[locale]/(sys)/sys/dashboard/_components/claims-queue-widget'
-import { DashboardMetrics } from '@/app/[locale]/(sys)/sys/dashboard/_components/dashboard-metrics'
+import { DashboardMetricsLazy } from '@/app/[locale]/(sys)/sys/dashboard/_components/dashboard-metrics-lazy'
 import { RecentActivity } from '@/app/[locale]/(sys)/sys/dashboard/_components/recent-activity'
 import { SystemHealth } from '@/app/[locale]/(sys)/sys/dashboard/_components/system-health'
 import {
@@ -41,7 +41,7 @@ export default async function SysDashboardPage() {
         errorEventsLastHour={health.error_events_last_hour}
       />
 
-      <DashboardMetrics metrics={metrics} />
+      <DashboardMetricsLazy metrics={metrics} />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <ClaimsQueueWidget claims={claims} />

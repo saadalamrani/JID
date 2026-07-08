@@ -1,10 +1,16 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useCallback, useState, type ReactNode } from 'react'
 import type { SysShellContext } from '@/lib/sys/shell-context'
-import { CommandPalette, useSysCommandPaletteHotkey } from './command-palette'
+import { useSysCommandPaletteHotkey } from './command-palette'
 import { SysSidebar } from './sys-sidebar'
 import { SysTopbar } from './sys-topbar'
+
+const CommandPalette = dynamic(
+  () => import('./command-palette').then((mod) => ({ default: mod.CommandPalette })),
+  { ssr: false },
+)
 
 type SysShellChromeProps = SysShellContext & {
   children: ReactNode
@@ -40,7 +46,9 @@ export function SysShellChrome({
         />
         <main className="flex-1 overflow-auto p-6">{children}</main>
       </div>
-      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      {paletteOpen ? (
+        <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      ) : null}
     </div>
   )
 }
