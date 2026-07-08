@@ -33,6 +33,7 @@ const SKELETON_COUNT = 8
 
 type CatalogPageClientProps = {
   initialData: CatalogCompaniesResult
+  setupHint?: string
 }
 
 function CatalogSkeletonGrid() {
@@ -94,9 +95,17 @@ function CatalogResultsSection() {
   )
 }
 
-function CatalogPageContent() {
+function CatalogPageContent({ setupHint }: { setupHint?: string }) {
   return (
     <>
+      {setupHint ? (
+        <div
+          role="alert"
+          className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+        >
+          {setupHint}
+        </div>
+      ) : null}
       <CatalogAnnouncer />
       <CatalogHero />
       <StickyFilterBar>
@@ -127,10 +136,10 @@ function CatalogPageContent() {
   )
 }
 
-export function CatalogPageClient({ initialData }: CatalogPageClientProps) {
+export function CatalogPageClient({ initialData, setupHint }: CatalogPageClientProps) {
   return (
     <CatalogFilterProvider initialData={initialData}>
-      <CatalogPageContent />
+      <CatalogPageContent setupHint={setupHint} />
     </CatalogFilterProvider>
   )
 }

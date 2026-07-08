@@ -1,9 +1,11 @@
 import { AuthenticatedAppShell } from '@/components/shared/authenticated-app-shell'
 import { getProfileModeFromCookies } from '@/lib/mentor-mode/cookies'
 import { hasApprovedMentorProfile } from '@/lib/mentor-mode/has-mentor-role'
+import { isDbOfflineError } from '@/lib/supabase/offline-error'
 import { createClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import type { ReactNode } from 'react'
+import type { User } from '@supabase/supabase-js'
 
 type AuthenticatedShellServerProps = {
   children: ReactNode
@@ -11,14 +13,24 @@ type AuthenticatedShellServerProps = {
 
 /** Resolves auth + mentor role server-side for layout shell (Section 4.1). */
 export async function AuthenticatedShellServer({ children }: AuthenticatedShellServerProps) {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  let user: User | null = null
+  let hasMentorRole = false
+
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser()
+    user = authUser
+    hasMentorRole = user ? await hasApprovedMentorProfile(user.id) : false
+  } catch (error) {
+    if (!isDbOfflineError(error)) {
+      throw error
+    }
+  }
 
   const cookieStore = await cookies()
   const initialMode = getProfileModeFromCookies(cookieStore)
-  const hasMentorRole = user ? await hasApprovedMentorProfile(user.id) : false
 
   return (
     <AuthenticatedAppShell

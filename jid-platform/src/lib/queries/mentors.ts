@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
+import { throwQueryError } from '@/lib/supabase/offline-error'
 import { parseActiveWorkshopJson } from '@/lib/mentor/workshop'
 import type {
   MentorCardData,
@@ -139,7 +140,7 @@ export async function fetchMentorDiscoveryStats(
     .eq('is_accepting_requests', true)
 
   if (countError) {
-    throw new Error(countError.message)
+    throwQueryError(countError)
   }
 
   const { data: sessionRows, error: sessionsError } = await supabase
@@ -149,7 +150,7 @@ export async function fetchMentorDiscoveryStats(
     .eq('is_accepting_requests', true)
 
   if (sessionsError) {
-    throw new Error(sessionsError.message)
+    throwQueryError(sessionsError)
   }
 
   const totalSessionsCount = (sessionRows ?? []).reduce(
@@ -205,7 +206,7 @@ export async function fetchMentors(filters: MentorFilters): Promise<MentorsListR
   const { data, error, count } = await query
 
   if (error) {
-    throw new Error(error.message)
+    throwQueryError(error)
   }
 
   const mentors = ((data ?? []) as MentorListRow[]).map(mapMentorCard)
@@ -238,7 +239,7 @@ export async function fetchFeaturedMentorsByScore(limit = 3): Promise<MentorCard
       .order('rating_avg', { ascending: false, nullsFirst: false })
       .limit(limit)
 
-    if (fallbackError) throw new Error(fallbackError.message)
+    if (fallbackError) throwQueryError(fallbackError)
     return ((fallback ?? []) as MentorListRow[]).map(mapMentorCard)
   }
 
@@ -254,7 +255,7 @@ export async function fetchMentorBySlug(slug: string): Promise<MentorPublicDetai
     .eq('slug', slug)
     .maybeSingle()
 
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
   if (!data) return null
   return mapMentorDetail(data as MentorListRow)
 }
@@ -268,7 +269,7 @@ export async function fetchMentorPublicByUserId(userId: string): Promise<MentorP
     .eq('user_id', userId)
     .maybeSingle()
 
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
   if (!data) return null
   return mapMentorDetail(data as MentorListRow)
 }

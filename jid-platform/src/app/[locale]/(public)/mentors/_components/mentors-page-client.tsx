@@ -68,12 +68,20 @@ function MentorResultsSection() {
   return <VirtualizedMentorGrid mentors={mentors} scrollElementRef={scrollRef} />
 }
 
-function MentorsPageContent() {
+function MentorsPageContent({ setupHint }: { setupHint?: string }) {
   const t = useTranslations('mentorship.discovery')
   const { resultCount, isFetching } = useMentorFilters()
 
   return (
     <>
+      {setupHint ? (
+        <div
+          role="alert"
+          className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+        >
+          {setupHint}
+        </div>
+      ) : null}
       <MentorDiscoveryHero />
       <StickyFilterBar className="bg-white/95">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
@@ -103,12 +111,13 @@ function MentorsPageContent() {
 
 type MentorsPageClientProps = {
   initialData: MentorsListResult
+  setupHint?: string
 }
 
-export function MentorsPageClient({ initialData }: MentorsPageClientProps) {
+export function MentorsPageClient({ initialData, setupHint }: MentorsPageClientProps) {
   return (
     <MentorFilterProvider initialData={initialData}>
-      <MentorsPageContent />
+      <MentorsPageContent setupHint={setupHint} />
     </MentorFilterProvider>
   )
 }

@@ -1,5 +1,6 @@
 import { fetchJobs } from '@/lib/queries/jobs'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
+import { dbOfflineHint, isDbOfflineError } from '@/lib/supabase/offline-error'
 import { DEFAULT_JOB_FILTERS } from '@/types/job'
 import { JobBoardPageClient } from './_components/job-board-page-client'
 
@@ -22,14 +23,8 @@ export default async function OpportunitiesPage({ params }: OpportunitiesPagePro
       page: 1,
     })
   } catch (error) {
-    if (
-      error instanceof Error &&
-      error.message.includes('Cannot reach Supabase')
-    ) {
-      setupHint =
-        locale === 'ar'
-          ? 'قاعدة البيانات غير متصلة. شغّل Docker Desktop ثم نفّذ `pnpm supabase:start` من مجلد jid-platform.'
-          : 'Database offline. Start Docker Desktop, then run `pnpm supabase:start` in jid-platform.'
+    if (isDbOfflineError(error)) {
+      setupHint = dbOfflineHint(locale)
     } else {
       throw error
     }

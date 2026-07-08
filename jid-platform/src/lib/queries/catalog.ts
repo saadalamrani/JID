@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
+import { throwQueryError } from '@/lib/supabase/offline-error'
 import type {
   CatalogCompaniesResult,
   CatalogFilters,
@@ -149,7 +150,7 @@ async function resolveSectorIds(
   slugs: string[],
 ): Promise<string[]> {
   const { data, error } = await client.from('sectors').select('id').in('slug', slugs)
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
   return (data ?? []).map((row) => String((row as { id: string }).id))
 }
 
@@ -158,7 +159,7 @@ async function resolveRegionIds(
   slugs: string[],
 ): Promise<string[]> {
   const { data, error } = await client.from('regions').select('id').in('slug', slugs)
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
   return (data ?? []).map((row) => String((row as { id: string }).id))
 }
 
@@ -217,7 +218,7 @@ export async function fetchCompanies(
   const { data, error, count } = await query
 
   if (error) {
-    throw new Error(error.message)
+    throwQueryError(error)
   }
 
   const companies = ((data ?? []) as unknown as CatalogListRow[]).map(mapCompanyCard)
@@ -241,7 +242,7 @@ export async function fetchCompanyBySlug(slug: string): Promise<Company | null> 
     .eq('is_active', true)
     .maybeSingle()
 
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
   if (!data) return null
 
   const row = data as unknown as CatalogListRow & {

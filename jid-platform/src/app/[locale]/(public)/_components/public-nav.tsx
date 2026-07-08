@@ -6,8 +6,10 @@ import { getPortalHomeForRole } from '@/lib/auth/portal-routes'
 import type { UserRole } from '@/lib/auth/rbac'
 import { isUserRole } from '@/lib/auth/rbac'
 import { Link } from '@/lib/i18n/navigation'
+import { isDbOfflineError } from '@/lib/supabase/offline-error'
 import { createClient } from '@/lib/supabase/server'
 import { cn } from '@/lib/utils'
+import type { User } from '@supabase/supabase-js'
 
 const PRIMARY_LINKS = [
   { href: '/opportunities', labelKey: 'opportunities' },
@@ -19,23 +21,31 @@ const PRIMARY_LINKS = [
 /** Section 4.2 — public top navigation with server-side session check. */
 export async function PublicNav() {
   const t = await getTranslations('publicShell.nav')
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
+  let user: User | null = null
   let dashboardHref = '/me'
 
-  if (user) {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .maybeSingle()
+  try {
+    const supabase = await createClient()
+    const {
+      data: { user: authUser },
+    } = await supabase.auth.getUser()
+    user = authUser
 
-    const role = profile?.role
-    if (role && isUserRole(role)) {
-      dashboardHref = getPortalHomeForRole(role as UserRole)
+    if (user) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', user.id)
+        .maybeSingle()
+
+      const role = profile?.role
+      if (role && isUserRole(role)) {
+        dashboardHref = getPortalHomeForRole(role as UserRole)
+      }
+    }
+  } catch (error) {
+    if (!isDbOfflineError(error)) {
+      throw error
     }
   }
 

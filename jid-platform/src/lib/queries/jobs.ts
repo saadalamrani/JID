@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
+import { throwQueryError } from '@/lib/supabase/offline-error'
 import type { OwnershipType } from '@/types/catalog'
 import type {
   ExperienceLevel,
@@ -30,15 +31,6 @@ type UntypedClient = SupabaseClient<Record<string, unknown>>
 
 function asUntyped(client: SupabaseClient<Database>): UntypedClient {
   return client as unknown as UntypedClient
-}
-
-function throwQueryError(error: { message: string }): never {
-  if (error.message.includes('fetch failed')) {
-    throw new Error(
-      'Cannot reach Supabase. Start Docker Desktop, then run `pnpm supabase:start` in jid-platform — or point .env.local at a cloud Supabase project.',
-    )
-  }
-  throw new Error(error.message)
 }
 
 type SectorRow = { slug: string; name_en: string; name_ar: string | null } | null
