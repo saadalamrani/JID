@@ -26,7 +26,7 @@ export function SkillsBars({ items }: SkillsBarsProps) {
                 {formatArabicNumber(row.active_job_count)}
               </span>
             </div>
-            <div className="h-2.5 overflow-hidden rounded-full bg-jid-line/30">
+            <div className="h-2.5 overflow-hidden rounded-full bg-border/30">
               <motion.div
                 className="h-full rounded-full bg-accent"
                 initial={prefersReducedMotion ? { width: `${widthPct}%` } : { width: 0 }}

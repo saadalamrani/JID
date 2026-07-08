@@ -84,7 +84,7 @@ export function InterceptorModal({
             type="button"
             className={cn(
               'w-full font-arabic',
-              'bg-primary text-jid-beige hover:bg-primary-600',
+              'bg-primary text-primary-foreground hover:bg-primary/90',
             )}
             disabled={isSubmitting || !primaryEmail}
             onClick={onConfirm}

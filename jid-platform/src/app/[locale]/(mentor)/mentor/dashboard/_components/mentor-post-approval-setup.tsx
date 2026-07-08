@@ -136,7 +136,7 @@ export function MentorPostApprovalSetup({
                     className={cn(
                       'rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors',
                       active
-                        ? 'border-jid-olive bg-primary/10 text-primary'
+                        ? 'border-primary bg-primary/10 text-primary'
                         : 'border-border text-muted-foreground hover:bg-background/50',
                     )}
                   >

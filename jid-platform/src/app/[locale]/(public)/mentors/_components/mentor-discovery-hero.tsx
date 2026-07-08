@@ -19,7 +19,7 @@ export function MentorDiscoveryHero() {
           <dt className="text-muted-foreground">{t('activeMentors')}</dt>
           <dd className="mt-1 text-xl font-semibold text-primary">
             {isFetching ? (
-              <span className="inline-block h-6 w-12 animate-pulse rounded bg-jid-line/30" />
+              <span className="inline-block h-6 w-12 animate-pulse rounded bg-border/30" />
             ) : (
               mentorsFormatted
             )}
@@ -29,7 +29,7 @@ export function MentorDiscoveryHero() {
           <dt className="text-muted-foreground">{t('totalSessions')}</dt>
           <dd className="mt-1 text-xl font-semibold text-primary">
             {isFetching ? (
-              <span className="inline-block h-6 w-12 animate-pulse rounded bg-jid-line/30" />
+              <span className="inline-block h-6 w-12 animate-pulse rounded bg-border/30" />
             ) : (
               sessionsFormatted
             )}

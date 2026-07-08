@@ -31,7 +31,7 @@ export function PreviewToolbar({ cv, isPreviewStale = false }: PreviewToolbarPro
               className={cn(
                 'rounded-md border px-2.5 py-1 text-xs transition-colors',
                 zoomLevel === level
-                  ? 'border-jid-olive bg-primary/10 text-primary'
+                  ? 'border-primary bg-primary/10 text-primary'
                   : 'border-border text-muted-foreground hover:bg-muted',
               )}
             >

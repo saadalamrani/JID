@@ -22,8 +22,8 @@ const SectorMultiSelect = dynamic(
     ssr: false,
     loading: () => (
       <div className="space-y-2">
-        <div className="h-4 w-12 animate-pulse rounded bg-jid-line/25" />
-        <div className="h-10 w-full animate-pulse rounded-lg bg-jid-line/20" />
+        <div className="h-4 w-12 animate-pulse rounded bg-border/30" />
+        <div className="h-10 w-full animate-pulse rounded-lg bg-border/30" />
       </div>
     ),
   },
@@ -116,8 +116,8 @@ function CatalogPageContent({ setupHint }: { setupHint?: string }) {
             <Suspense
               fallback={
                 <div className="space-y-2">
-                  <div className="h-4 w-12 animate-pulse rounded bg-jid-line/25" />
-                  <div className="h-10 w-full animate-pulse rounded-lg bg-jid-line/20" />
+                  <div className="h-4 w-12 animate-pulse rounded bg-border/30" />
+                  <div className="h-10 w-full animate-pulse rounded-lg bg-border/30" />
                 </div>
               }
             >

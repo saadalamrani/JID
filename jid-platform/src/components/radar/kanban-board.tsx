@@ -214,7 +214,7 @@ export function KanbanBoard({ userId, applications, meetings }: KanbanBoardProps
             userId={userId}
             allowDrag={activeAllowDrag}
             overlay
-            className="rotate-1 shadow-lg ring-2 ring-jid-olive/30"
+            className="rotate-1 shadow-lg ring-2 ring-primary/30"
           />
         ) : null}
       </DragOverlay>

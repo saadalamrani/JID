@@ -104,7 +104,7 @@ export function FeedbackPromptCard({ meeting, userId, className }: FeedbackPromp
             <Star
               className={cn(
                 'h-5 w-5',
-                value <= rating ? 'fill-jid-gold text-accent' : 'text-jid-line',
+                value <= rating ? 'fill-accent text-accent' : 'text-border',
               )}
             />
           </button>
@@ -116,7 +116,7 @@ export function FeedbackPromptCard({ meeting, userId, className }: FeedbackPromp
         onChange={(event) => setComment(event.target.value)}
         rows={3}
         placeholder={t('feedbackPlaceholder')}
-        className="mb-3 w-full resize-none rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+        className="mb-3 w-full resize-none rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       />
 
       <div className="flex flex-col gap-2">

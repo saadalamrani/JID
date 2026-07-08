@@ -32,7 +32,7 @@ export function NotificationsBell({ userId, className }: NotificationsBellProps)
           type="button"
           className={cn(
             'relative rounded-lg border border-border bg-background/30 p-2 text-muted-foreground transition-colors hover:bg-muted',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive/40',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
             className,
           )}
           aria-label={t('bellAria', { count })}

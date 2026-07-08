@@ -28,7 +28,7 @@ export function ProfileCompletionBar({
         </div>
       ) : null}
       <div
-        className="h-2.5 w-full overflow-hidden rounded-full bg-jid-line/40"
+        className="h-2.5 w-full overflow-hidden rounded-full bg-border/30"
         role="progressbar"
         aria-valuenow={clamped}
         aria-valuemin={0}
@@ -36,7 +36,7 @@ export function ProfileCompletionBar({
         aria-label={t('completionLabel')}
       >
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-primary to-jid-gold"
+          className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
           initial={prefersReducedMotion ? { width: `${clamped}%` } : { width: 0 }}
           animate={{ width: `${clamped}%` }}
           transition={

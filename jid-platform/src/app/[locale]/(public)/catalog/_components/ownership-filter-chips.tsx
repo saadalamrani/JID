@@ -23,8 +23,8 @@ export function OwnershipFilterChips() {
               className={cn(
                 'rounded-full border px-3 py-1.5 font-arabic text-sm transition-colors',
                 selected
-                  ? 'border-jid-olive bg-primary text-primary-foreground'
-                  : 'border-border bg-card text-foreground hover:border-jid-olive/50',
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'border-border bg-card text-foreground hover:border-primary/25',
               )}
             >
               {OWNERSHIP_LABELS[type as OwnershipType]}

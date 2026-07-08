@@ -18,7 +18,7 @@ import type { Locale } from '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 
 const fieldClassName =
-  'flex w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-jid-olive focus:ring-2 focus:ring-jid-olive/20'
+  'flex w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/20'
 
 type ContactFormProps = {
   locale: Locale
@@ -90,7 +90,7 @@ export function ContactForm({ locale, defaultFullName = '', defaultEmail = '' }:
   if (submitted) {
     return (
       <div
-        className="rounded-xl border border-jid-olive/30 bg-primary/5 p-8 text-center"
+        className="rounded-xl border border-primary/25 bg-primary/5 p-8 text-center"
         role="status"
         aria-live="polite"
       >

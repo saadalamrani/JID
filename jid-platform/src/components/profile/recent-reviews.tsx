@@ -26,7 +26,7 @@ export async function RecentReviews({ mentorId }: RecentReviewsProps) {
                   {review.reviewer_name ?? t('reviewAnonymous')}
                 </p>
                 <span className="inline-flex items-center gap-1 text-sm text-accent">
-                  <Star className="h-4 w-4 fill-jid-gold" aria-hidden />
+                  <Star className="h-4 w-4 fill-accent" aria-hidden />
                   {review.rating}/5
                 </span>
               </div>

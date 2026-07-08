@@ -32,7 +32,7 @@ export const CATEGORY_CONFIG: Record<
   platform: {
     labelAr: 'المنصة',
     Icon: Megaphone,
-    pillClassName: 'bg-primary/50 text-jid-beige border-border',
+    pillClassName: 'bg-primary/50 text-primary-foreground border-border',
   },
   community: {
     labelAr: 'المجتمع',

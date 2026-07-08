@@ -67,7 +67,7 @@ export function ProfileAvatar({
       {isVerified ? (
         <span
           className={cn(
-            'absolute -bottom-0.5 -end-0.5 flex items-center justify-center rounded-full bg-card p-0.5 shadow-sm ring-1 ring-jid-line',
+            'absolute -bottom-0.5 -end-0.5 flex items-center justify-center rounded-full bg-card p-0.5 shadow-sm ring-1 ring-border',
             badgeSizeClasses[size],
           )}
           title="Verified"

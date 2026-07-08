@@ -136,7 +136,7 @@ export function AnnouncementCarousel({ announcements }: AnnouncementCarouselProp
       </div>
 
       {canAutoFlip ? (
-        <div className="absolute bottom-0 start-0 end-0 flex items-center justify-between gap-3 border-t border-white/10 bg-jid-ink/40 px-4 py-3 backdrop-blur-sm">
+        <div className="absolute bottom-0 start-0 end-0 flex items-center justify-between gap-3 border-t border-white/10 bg-foreground/40 px-4 py-3 backdrop-blur-sm">
           <div className="flex items-center gap-2" role="group" aria-label="مؤشرات الإعلانات">
             {announcements.map((item, index) => (
               <button
@@ -195,7 +195,7 @@ function AnnouncementSlide({ announcement, showControlsPadding }: AnnouncementSl
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-jid-ink"
+        className="pointer-events-none absolute inset-0 bg-foreground"
         style={{ opacity: HERO_IMAGE_OVERLAY_OPACITY }}
         aria-hidden
       />

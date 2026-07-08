@@ -71,7 +71,7 @@ export function ApplicationCardContent({
                   'shrink-0 rounded-full px-2 py-0.5 font-arabic text-[10px] font-medium',
                   application.status === 'rejected' && 'bg-red-50 text-red-800',
                   application.status === 'shortlisted' && 'bg-emerald-50 text-emerald-800',
-                  application.status === 'expired' && 'bg-jid-line/40 text-muted-foreground',
+                  application.status === 'expired' && 'bg-border/30 text-muted-foreground',
                 )}
               >
                 {ARCHIVED_SUB_STATUS_LABELS[application.status as keyof typeof ARCHIVED_SUB_STATUS_LABELS]}

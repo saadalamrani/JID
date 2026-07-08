@@ -79,7 +79,7 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
             type="checkbox"
             checked={isAccepting}
             onChange={(event) => setIsAccepting(event.target.checked)}
-            className="h-5 w-5 rounded border-border text-primary focus:ring-jid-olive"
+            className="h-5 w-5 rounded border-border text-primary focus:ring-primary"
           />
         </label>
       </section>
@@ -143,7 +143,7 @@ export function MentorSettingsTab({ settings }: MentorSettingsTabProps) {
                 className={cn(
                   'rounded-lg border px-3 py-2 font-arabic text-sm transition-colors',
                   active
-                    ? 'border-jid-olive bg-primary/10 text-primary'
+                    ? 'border-primary bg-primary/10 text-primary'
                     : 'border-border text-muted-foreground',
                 )}
               >

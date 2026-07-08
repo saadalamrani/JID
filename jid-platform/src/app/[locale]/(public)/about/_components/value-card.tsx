@@ -12,7 +12,7 @@ export function ValueCard({ title, description, accent }: ValueCardProps) {
     <article
       className={cn(
         'rounded-xl border bg-card p-6 shadow-sm',
-        accent === 'olive' ? 'border-jid-olive/30' : 'border-border',
+        accent === 'olive' ? 'border-primary/25' : 'border-border',
       )}
     >
       <h3

@@ -133,7 +133,7 @@ function ToggleRow({
       </span>
       <input
         type="checkbox"
-        className="mt-1 h-4 w-4 accent-jid-olive"
+        className="mt-1 h-4 w-4 accent-primary"
         checked={checked}
         disabled={disabled}
         onChange={(e) => onChange(e.target.checked)}

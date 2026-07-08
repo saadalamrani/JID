@@ -19,7 +19,7 @@ export async function NotificationsList({ notifications }: NotificationsListProp
   }
 
   return (
-    <ul className="divide-y divide-jid-line overflow-hidden rounded-lg border border-border bg-card">
+    <ul className="divide-y divide-border overflow-hidden rounded-lg border border-border bg-card">
       {notifications.map((notification) => (
         <li key={notification.id}>
           <NotificationRow notification={notification} variant="page" />

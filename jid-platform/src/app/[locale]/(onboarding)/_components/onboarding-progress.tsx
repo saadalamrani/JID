@@ -49,7 +49,7 @@ export function OnboardingProgress() {
                 className={cn(
                   'inline-flex size-7 items-center justify-center rounded-full text-xs font-semibold',
                   isComplete && 'bg-primary text-primary-foreground',
-                  isActive && 'border-2 border-jid-olive bg-primary/10 text-primary',
+                  isActive && 'border-2 border-primary bg-primary/10 text-primary',
                   !isComplete && !isActive && 'border border-border bg-card text-muted-foreground',
                 )}
                 aria-current={isActive ? 'step' : undefined}
@@ -65,7 +65,7 @@ export function OnboardingProgress() {
                 {t(`flows.${flowKey as OnboardingFlowKey}.steps.${step.id}`)}
               </span>
               {index < steps.length - 1 ? (
-                <span className="mx-1 hidden h-px w-6 bg-jid-line sm:inline-block" aria-hidden />
+                <span className="mx-1 hidden h-px w-6 bg-border sm:inline-block" aria-hidden />
               ) : null}
             </li>
           )

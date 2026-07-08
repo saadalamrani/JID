@@ -53,7 +53,7 @@ export function Step3MentorBio({ draft, errors, onChange }: Step3MentorBioProps)
           rows={6}
           onChange={(event) => onChange({ bio_long: event.target.value })}
           placeholder={t('bioPlaceholder')}
-          className="w-full rounded-md border border-border bg-card px-3 py-2 font-arabic text-sm text-foreground outline-none ring-jid-olive/30 focus:ring-2"
+          className="w-full rounded-md border border-border bg-card px-3 py-2 font-arabic text-sm text-foreground outline-none ring-primary/30 focus:ring-2"
         />
         {errors.bio_long ? (
           <p className="font-arabic text-xs text-red-600" role="alert">

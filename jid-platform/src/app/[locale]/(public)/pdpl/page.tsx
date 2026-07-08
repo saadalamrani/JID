@@ -39,7 +39,7 @@ export default async function PdplPage({ params }: PdplPageProps) {
         <p className="text-sm font-medium text-accent">{t('eyebrow')}</p>
         <h1 className="mt-3 font-arabic text-3xl font-bold text-foreground md:text-4xl">{t('title')}</h1>
         <p className="mt-4 text-base leading-relaxed text-foreground/75">{t('intro')}</p>
-        <p className="mt-4 rounded-lg border border-jid-olive/25 bg-primary/5 px-4 py-3 text-sm font-medium text-primary">
+        <p className="mt-4 rounded-lg border border-primary/25 bg-primary/5 px-4 py-3 text-sm font-medium text-primary">
           {t('legalBasis')}
         </p>
         <p className="mt-3 text-xs leading-relaxed text-foreground/55">{t('legalNote')}</p>

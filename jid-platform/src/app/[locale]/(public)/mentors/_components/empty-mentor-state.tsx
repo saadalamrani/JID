@@ -79,7 +79,7 @@ export function EmptyMentorState({ variant }: EmptyMentorStateProps) {
             type="button"
             disabled={submitting || submitted}
             onClick={() => void requestNotification()}
-            className="bg-primary font-arabic text-jid-beige hover:bg-primary/90"
+            className="bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
           >
             {submitting ? t('notifySubmitting') : submitted ? t('notifyDone') : t('notifyCta')}
           </Button>

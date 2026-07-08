@@ -9,7 +9,7 @@ export function ResultsCountBar() {
   return (
     <p className="font-arabic text-sm text-foreground-400" aria-live="polite">
       {isFetching ? (
-        <span className="inline-block h-4 w-20 animate-pulse rounded bg-jid-line/30" />
+        <span className="inline-block h-4 w-20 animate-pulse rounded bg-border/30" />
       ) : (
         <>{formattedCount} نتيجة</>
       )}

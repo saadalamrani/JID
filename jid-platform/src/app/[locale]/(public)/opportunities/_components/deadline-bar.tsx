@@ -26,7 +26,7 @@ const TIER_STYLES: Record<
 > = {
   comfortable: {
     bar: 'bg-primary',
-    text: 'text-jid-beige',
+    text: 'text-primary-foreground',
   },
   moderate: {
     bar: 'bg-accent-200',

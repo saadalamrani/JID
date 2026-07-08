@@ -53,7 +53,7 @@ export function KanbanColumn({ column, userId, applications }: KanbanColumnProps
         ref={setNodeRef}
         className={cn(
           'flex flex-1 flex-col gap-2 p-2 transition-colors',
-          isOver && column.allowsManualDrop && 'bg-primary/5 ring-1 ring-inset ring-jid-olive/20',
+          isOver && column.allowsManualDrop && 'bg-primary/5 ring-1 ring-inset ring-primary/20',
         )}
       >
         <SortableContext

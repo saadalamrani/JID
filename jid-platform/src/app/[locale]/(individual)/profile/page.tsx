@@ -18,13 +18,15 @@ export default async function IndividualOwnerProfilePage() {
   }
 
   return (
-    <IndividualProfileView
-      context={context}
-      badges={[]}
-      isOwner
-      isHrViewer={false}
-      isMentorViewer={false}
-      badgeSlot={<ProfileBadgesAsync userId={viewer.userId} />}
-    />
+    <div className="min-h-screen bg-background">
+      <IndividualProfileView
+        context={context}
+        badges={[]}
+        isOwner
+        isHrViewer={false}
+        isMentorViewer={false}
+        badgeSlot={<ProfileBadgesAsync userId={viewer.userId} />}
+      />
+    </div>
   )
 }

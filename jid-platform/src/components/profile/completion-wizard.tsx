@@ -62,7 +62,7 @@ function WizardTaskRow({
         className={cn(
           'flex items-center justify-between rounded-lg border px-4 py-3 transition-colors',
           done
-            ? 'border-jid-olive/30 bg-primary/5'
+            ? 'border-primary/25 bg-primary/5'
             : 'border-border bg-card hover:border-border hover:bg-background/30',
         )}
       >
@@ -70,7 +70,7 @@ function WizardTaskRow({
           {done ? (
             <CheckCircle2 className="h-5 w-5 text-primary" aria-hidden />
           ) : (
-            <Circle className="h-5 w-5 text-jid-line" aria-hidden />
+            <Circle className="h-5 w-5 text-border" aria-hidden />
           )}
           <span className={cn('text-sm', done ? 'text-muted-foreground line-through' : 'text-foreground')}>
             {t(`wizardTask.${taskId}`)}

@@ -132,8 +132,8 @@ export function MultiSelectChips<T extends string>({
               onClick={() => toggle(option.value)}
               className={`rounded-full border px-3 py-1.5 font-arabic text-xs transition-colors ${
                 selected
-                  ? 'border-jid-olive bg-primary/10 text-primary'
-                  : 'border-border bg-card text-muted-foreground hover:border-jid-olive/40'
+                  ? 'border-primary bg-primary/10 text-primary'
+                  : 'border-border bg-card text-muted-foreground hover:border-primary/25'
               }`}
             >
               {option.label}

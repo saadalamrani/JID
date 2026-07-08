@@ -47,7 +47,7 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
           href={detailHref}
           className={cn(
             'absolute inset-0 z-10 rounded-xl',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
           )}
           aria-label={`عرض تفاصيل ${title}`}
         />
@@ -99,7 +99,7 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
             className={cn(
               'inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5',
               'font-arabic text-sm font-medium',
-              'bg-jid-line/30 text-foreground-500',
+              'bg-border/30 text-muted-foreground',
             )}
             aria-hidden
           >

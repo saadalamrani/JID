@@ -185,7 +185,7 @@ export function BecomeMentorWizard({ fullName, avatarUrl }: BecomeMentorWizardPr
                   'mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold',
                   isActive && 'bg-primary text-primary-foreground',
                   isComplete && 'bg-accent text-foreground',
-                  !isActive && !isComplete && 'bg-jid-line text-muted-foreground',
+                  !isActive && !isComplete && 'bg-border text-muted-foreground',
                 )}
               >
                 {index + 1}

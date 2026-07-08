@@ -42,7 +42,7 @@ export function MentorCard({ mentor, className, previewMode = false }: MentorCar
           href={profileHref}
           className={cn(
             'absolute inset-0 z-10 rounded-xl',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
           )}
           aria-label={t('viewProfile', { name: displayName })}
         />
@@ -128,7 +128,7 @@ export function MentorCard({ mentor, className, previewMode = false }: MentorCar
             type="button"
             size="sm"
             disabled
-            className="w-full bg-primary font-arabic hover:bg-primary/90 disabled:bg-jid-line/40 disabled:text-muted-foreground"
+            className="w-full bg-primary font-arabic hover:bg-primary/90 disabled:bg-border/30 disabled:text-muted-foreground"
           >
             {t('requestCta')}
           </Button>

@@ -143,7 +143,7 @@ export function PendingRequestCard({ request, onReviewed }: PendingRequestCardPr
           ) : null}
 
           {request.intent_statement ? (
-            <blockquote className="border-s-4 border-jid-olive/40 ps-3 font-arabic text-sm italic text-muted-foreground">
+            <blockquote className="border-s-4 border-primary/25 ps-3 font-arabic text-sm italic text-muted-foreground">
               “{request.intent_statement}”
             </blockquote>
           ) : null}
@@ -186,7 +186,7 @@ export function PendingRequestCard({ request, onReviewed }: PendingRequestCardPr
             rows={4}
             className={cn(
               'w-full rounded-lg border border-border px-3 py-2 font-arabic text-sm',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
             )}
             placeholder={t('declinePlaceholder')}
           />

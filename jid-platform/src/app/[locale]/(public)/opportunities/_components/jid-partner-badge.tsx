@@ -10,7 +10,7 @@ export function JidPartnerBadge({ className }: JidPartnerBadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex shrink-0 items-center gap-1 rounded-full border border-jid-gold-300 bg-accent-100 px-2 py-0.5 font-arabic text-xs font-semibold text-primary-700',
+        'inline-flex shrink-0 items-center gap-1 rounded-full border border-accent/40 bg-accent/15 px-2 py-0.5 font-arabic text-xs font-semibold text-primary',
         className,
       )}
       aria-label="شريك جِد"

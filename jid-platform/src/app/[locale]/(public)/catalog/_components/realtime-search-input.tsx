@@ -30,7 +30,7 @@ export function RealtimeSearchInput() {
       </div>
       <p className="font-arabic text-xs text-foreground-400" aria-hidden="true">
         {isFetching ? (
-          <span className="inline-block h-3 w-16 animate-pulse rounded bg-jid-line/30" />
+          <span className="inline-block h-3 w-16 animate-pulse rounded bg-border/30" />
         ) : (
           <>{formattedCount} نتيجة</>
         )}

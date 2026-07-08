@@ -87,7 +87,7 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
             <span
               className={cn(
                 'h-2.5 w-2.5 rounded-full',
-                mentor.is_accepting_requests ? 'bg-emerald-500' : 'bg-jid-line',
+                mentor.is_accepting_requests ? 'bg-emerald-500' : 'bg-border',
               )}
               aria-hidden
             />
@@ -102,7 +102,7 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
             }
             isAccepting={mentor.is_accepting_requests}
             size="default"
-            className="disabled:bg-jid-line/40"
+            className="disabled:bg-border/30"
           />
         </div>
       </div>

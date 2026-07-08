@@ -13,18 +13,18 @@ const BADGE_CONFIG: Record<
   government: {
     label: 'حكومي',
     emoji: '🏛️',
-    className: 'border-jid-olive bg-primary text-jid-beige',
+    className: 'border-primary bg-primary text-primary-foreground',
   },
   semi_government: {
     label: 'شبه حكومي',
     emoji: '👑',
     className:
-      'border-jid-gold-200 bg-accent font-semibold text-primary-700 shadow-sm',
+      'border-accent/40 bg-accent font-semibold text-primary shadow-sm',
   },
   private: {
     label: 'قطاع خاص',
     emoji: '🏢',
-    className: 'border border-jid-olive/30 bg-transparent text-primary',
+    className: 'border border-primary/25 bg-transparent text-primary',
   },
 }
 

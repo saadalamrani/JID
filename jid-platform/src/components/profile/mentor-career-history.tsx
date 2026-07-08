@@ -42,7 +42,7 @@ export function MentorCareerHistory({ entries, embedded = false }: MentorCareerH
           return (
             <li key={key} className="relative">
               <span
-                className="absolute -start-[1.6rem] top-1.5 h-3 w-3 rounded-full border-2 border-jid-olive bg-card"
+                className="absolute -start-[1.6rem] top-1.5 h-3 w-3 rounded-full border-2 border-primary bg-card"
                 aria-hidden
               />
               <div className="space-y-1">

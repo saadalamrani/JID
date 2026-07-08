@@ -42,7 +42,7 @@ export function SectorMultiSelect() {
           className="max-h-72 w-[var(--radix-dropdown-menu-trigger-width)] overflow-y-auto border-border bg-card"
         >
           <DropdownMenuLabel className="font-arabic text-foreground">القطاعات</DropdownMenuLabel>
-          <DropdownMenuSeparator className="bg-jid-line/40" />
+          <DropdownMenuSeparator className="bg-border/30" />
           {sectors.map((sector) => (
             <DropdownMenuCheckboxItem
               key={sector.slug}

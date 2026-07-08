@@ -64,7 +64,7 @@ export function ProfileSwitcher({ hasMentorRole: serverHasMentorRole, initialMod
     <div
       role="group"
       aria-label={t('groupLabel')}
-      className="relative inline-flex rounded-lg border border-jid-line bg-jid-beige/40 p-0.5"
+      className="relative inline-flex rounded-lg border border-border bg-background/40 p-0.5"
     >
       {modes.map(({ value, label, icon: Icon }) => {
         const active = currentMode === value
@@ -76,13 +76,13 @@ export function ProfileSwitcher({ hasMentorRole: serverHasMentorRole, initialMod
             onClick={() => handleSelect(value)}
             className={cn(
               'relative z-10 inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 font-arabic text-sm font-medium transition-colors',
-              active ? 'text-jid-ink' : 'text-jid-ink/60 hover:text-jid-ink',
+              active ? 'text-foreground' : 'text-muted-foreground hover:text-foreground',
             )}
           >
             {active ? (
               <motion.span
                 layoutId="jid-profile-switcher-pill"
-                className="absolute inset-0 rounded-md bg-white shadow-sm"
+                className="absolute inset-0 rounded-md bg-card shadow-sm"
                 transition={SWITCHER_SPRING}
               />
             ) : null}

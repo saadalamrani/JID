@@ -19,7 +19,7 @@ export function CatalogEmptyState() {
       <Button
         type="button"
         onClick={resetFilters}
-        className="mt-6 bg-primary font-arabic text-jid-beige hover:bg-primary-600"
+        className="mt-6 bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
       >
         إعادة تعيين الفلاتر
       </Button>
