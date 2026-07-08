@@ -9,7 +9,7 @@ const fontSize4xl = typography.fontSize['4xl']
 const fontSize5xl = typography.fontSize['5xl']
 
 const config: Config = {
-  darkMode: ['class'],
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',

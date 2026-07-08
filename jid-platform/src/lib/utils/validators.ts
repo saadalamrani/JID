@@ -1,8 +1,21 @@
+import { z } from 'zod'
+
 /** Saudi mobile: +9665XXXXXXXX, 9665XXXXXXXX, 05XXXXXXXX, or 5XXXXXXXX */
 export const SAUDI_PHONE_REGEX = /^(?:\+966|966|0)?5\d{8}$/
 
 /** Arabic letters and spaces (includes common diacritics) */
 export const ARABIC_NAME_REGEX = /^[\u0600-\u06FF\u0750-\u077F\s\u064B-\u065F]+$/
+
+export const arabicNameSchema = z
+  .string()
+  .min(2, 'الاسم قصير جداً')
+  .regex(/^[\u0600-\u06FF\s]+$/, 'الاسم يجب أن يكون بالعربية')
+
+export const bilingualNameSchema = z
+  .string()
+  .min(2, 'الاسم قصير جداً')
+  .max(100)
+  .regex(/^[\u0600-\u06FFa-zA-Z\s'\-]+$/, 'استخدم أحرفاً عربية أو إنجليزية فقط')
 
 export function isValidSaudiPhone(value: string): boolean {
   return SAUDI_PHONE_REGEX.test(value.replace(/[\s-]/g, ''))

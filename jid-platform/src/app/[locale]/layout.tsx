@@ -1,5 +1,6 @@
 import { LocaleHtmlAttributes } from '@/components/providers/locale-html-attributes'
 import { QueryProvider } from '@/components/providers/query-provider'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import { AuthenticatedShellServer } from '@/components/shared/authenticated-shell-server'
 import { Toaster } from '@/components/ui/sonner'
 import { FeatureFlagsRealtimeInvalidator } from '@/lib/feature-flags/realtime-invalidator'
@@ -34,15 +35,17 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   return (
     <NextIntlClientProvider messages={messages}>
       <LocaleHtmlAttributes locale={locale as Locale} />
-      <QueryProvider>
-        <FeatureFlagsRealtimeInvalidator />
-        <AuthenticatedShellServer>
-          <div dir={localeConfig.direction[locale as Locale]} className="min-h-screen">
-            {children}
-          </div>
-        </AuthenticatedShellServer>
-        <Toaster richColors closeButton position={locale === 'ar' ? 'top-left' : 'top-right'} />
-      </QueryProvider>
+      <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+        <QueryProvider>
+          <FeatureFlagsRealtimeInvalidator />
+          <AuthenticatedShellServer>
+            <div dir={localeConfig.direction[locale as Locale]} className="min-h-screen">
+              {children}
+            </div>
+          </AuthenticatedShellServer>
+          <Toaster richColors closeButton position={locale === 'ar' ? 'top-left' : 'top-right'} />
+        </QueryProvider>
+      </ThemeProvider>
     </NextIntlClientProvider>
   )
 }

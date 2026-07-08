@@ -32,6 +32,15 @@ function asUntyped(client: SupabaseClient<Database>): UntypedClient {
   return client as unknown as UntypedClient
 }
 
+function throwQueryError(error: { message: string }): never {
+  if (error.message.includes('fetch failed')) {
+    throw new Error(
+      'Cannot reach Supabase. Start Docker Desktop, then run `pnpm supabase:start` in jid-platform — or point .env.local at a cloud Supabase project.',
+    )
+  }
+  throw new Error(error.message)
+}
+
 type SectorRow = { slug: string; name_en: string; name_ar: string | null } | null
 type RegionRow = { slug: string; name_en: string; name_ar: string | null } | null
 
@@ -257,7 +266,7 @@ async function fetchJobDetailRow(
   }
 
   const { data, error } = await query.maybeSingle()
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
   if (!data) return null
   return data as unknown as JobDetailRow
 }
@@ -302,7 +311,7 @@ export async function fetchRelatedCompanyJobs(
     .order('published_at', { ascending: false, nullsFirst: false })
     .limit(limit)
 
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
 
   return ((data ?? []) as unknown as JobListRow[])
     .map(mapJobCard)
@@ -316,13 +325,13 @@ function resolveDbStatuses(statuses: PublicJobStatus[] | undefined): JobDbStatus
 
 async function resolveSectorIds(client: UntypedClient, slugs: string[]): Promise<string[]> {
   const { data, error } = await client.from('sectors').select('id').in('slug', slugs)
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
   return (data ?? []).map((row) => String((row as { id: string }).id))
 }
 
 async function resolveRegionIds(client: UntypedClient, slugs: string[]): Promise<string[]> {
   const { data, error } = await client.from('regions').select('id').in('slug', slugs)
-  if (error) throw new Error(error.message)
+  if (error) throwQueryError(error)
   return (data ?? []).map((row) => String((row as { id: string }).id))
 }
 
@@ -383,7 +392,7 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
   const { data, error, count } = await query
 
   if (error) {
-    throw new Error(error.message)
+    throwQueryError(error)
   }
 
   const jobs = ((data ?? []) as unknown as JobListRow[])

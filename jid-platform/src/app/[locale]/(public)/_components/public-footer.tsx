@@ -35,18 +35,18 @@ export async function PublicFooter() {
   ] as const
 
   return (
-    <footer className="border-t border-jid-line bg-white">
+    <footer className="border-t border-jid-line bg-jid-beige dark:border-jid-gold/20 dark:bg-jid-olive">
       <div className="container-jid py-10">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {groups.map((group) => (
             <div key={group.title}>
-              <h2 className="text-sm font-semibold text-jid-olive">{group.title}</h2>
+              <h2 className="text-sm font-semibold text-jid-olive dark:text-jid-gold">{group.title}</h2>
               <ul className="mt-3 space-y-2">
                 {group.links.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-jid-ink/70 transition-colors hover:text-jid-olive"
+                      className="text-sm text-jid-ink/70 transition-colors hover:text-jid-olive dark:text-jid-beige/80 dark:hover:text-jid-gold"
                     >
                       {link.label}
                     </Link>
@@ -57,7 +57,7 @@ export async function PublicFooter() {
           ))}
         </div>
 
-        <div className="mt-8 border-t border-jid-line/60 pt-6 text-center text-xs text-jid-ink/60">
+        <div className="mt-8 border-t border-jid-line/60 pt-6 text-center text-xs text-jid-ink/60 dark:border-jid-gold/20 dark:text-jid-beige/70">
           {t('copyright', { year, name: siteConfig.name })}
         </div>
       </div>

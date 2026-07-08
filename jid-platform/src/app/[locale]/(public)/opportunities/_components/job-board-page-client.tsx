@@ -19,6 +19,7 @@ const SKELETON_COUNT = 8
 
 type JobBoardPageClientProps = {
   initialData: JobsListResult
+  setupHint?: string
 }
 
 function JobSkeletonGrid() {
@@ -58,9 +59,17 @@ function JobResultsSection() {
   return <VirtualizedJobGrid jobs={jobs} scrollElementRef={scrollRef} />
 }
 
-function JobBoardContent() {
+function JobBoardContent({ setupHint }: { setupHint?: string }) {
   return (
     <>
+      {setupHint ? (
+        <div
+          role="alert"
+          className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
+        >
+          {setupHint}
+        </div>
+      ) : null}
       <JobBoardHero />
       <StickyFilterBar>
         <ExperienceLevelChips />
@@ -80,10 +89,10 @@ function JobBoardContent() {
   )
 }
 
-export function JobBoardPageClient({ initialData }: JobBoardPageClientProps) {
+export function JobBoardPageClient({ initialData, setupHint }: JobBoardPageClientProps) {
   return (
     <JobFilterProvider initialData={initialData}>
-      <JobBoardContent />
+      <JobBoardContent setupHint={setupHint} />
     </JobFilterProvider>
   )
 }

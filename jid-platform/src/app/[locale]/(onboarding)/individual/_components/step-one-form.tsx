@@ -5,14 +5,16 @@ import { useTranslations } from 'next-intl'
 import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import { z } from 'zod'
 import { FormField } from '@/components/auth/form-field'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { track } from '@/lib/analytics/track'
 import { saveStepOne } from '@/lib/onboarding/actions'
 import { phoneToNationalInput } from '@/lib/onboarding/phone-display'
+import { bilingualNameSchema } from '@/lib/utils/validators'
 import {
-  onboardingStepOneSchema,
+  saudiPhoneSchema,
   type OnboardingStepOneValues,
 } from '@/lib/validations/onboarding'
 
@@ -21,6 +23,11 @@ type StepOneFormProps = {
   defaultPhone: string
 }
 
+const stepOneFormSchema = z.object({
+  full_name: bilingualNameSchema,
+  phone: saudiPhoneSchema,
+})
+
 /** Section 11.1 — basic info form (arabicNameSchema + saudiPhoneSchema). */
 export function StepOneForm({ defaultFullName, defaultPhone }: StepOneFormProps) {
   const t = useTranslations('onboarding.individual.step1')
@@ -28,7 +35,7 @@ export function StepOneForm({ defaultFullName, defaultPhone }: StepOneFormProps)
   const [isPending, startTransition] = useTransition()
 
   const form = useForm<OnboardingStepOneValues>({
-    resolver: zodResolver(onboardingStepOneSchema),
+    resolver: zodResolver(stepOneFormSchema),
     defaultValues: {
       full_name: defaultFullName,
       phone: defaultPhone,
