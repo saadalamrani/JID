@@ -1,5 +1,6 @@
-import type { ReactElement } from 'react'
 import type { CvData } from '@/types/cv'
+import type { CvExportFormatKey } from '@/lib/cv/formats/registry'
+import { renderCvFormatPdfBlob } from '@/lib/cv/formats/render-format-pdf'
 
 /** Parse page count from a PDF binary (react-pdf output). */
 export function countPdfPagesFromBytes(bytes: Uint8Array): number {
@@ -24,15 +25,10 @@ export async function countPdfPagesFromBlob(blob: Blob): Promise<number> {
  * Section 7.12 — exact page count by rendering to a temporary PDF buffer.
  * react-pdf has no live estimator; we measure the generated document.
  */
-export async function estimatePageCount(data: CvData): Promise<number> {
-  const [{ pdf }, React, { CvDocument }] = await Promise.all([
-    import('@react-pdf/renderer'),
-    import('react'),
-    import('@/lib/cv/pdf-document'),
-  ])
-
-  const blob = await pdf(
-    React.createElement(CvDocument, { data }) as ReactElement,
-  ).toBlob()
+export async function estimatePageCount(
+  data: CvData,
+  format: CvExportFormatKey = 'basic_free',
+): Promise<number> {
+  const blob = await renderCvFormatPdfBlob(format, data)
   return countPdfPagesFromBlob(blob)
 }

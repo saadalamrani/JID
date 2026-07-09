@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 import { track } from '@/lib/analytics/track'
 import { estimatePageCount } from '@/lib/cv/estimate-page-count'
 import { useDebounce } from '@/lib/hooks/use-debounce'
+import type { CvExportFormatKey } from '@/lib/cv/formats/registry'
 import type { CvData } from '@/types/cv'
 
 const OVERFLOW_PAGE_THRESHOLD = 1
@@ -13,10 +14,11 @@ const MEASURE_DEBOUNCE_MS = 500
 
 type PageOverflowWarningProps = {
   data: CvData
+  format?: CvExportFormatKey
 }
 
-/** Section 7.12 — warns when rendered PDF exceeds one page (measured via temp render). */
-export function PageOverflowWarning({ data }: PageOverflowWarningProps) {
+/** Warns when rendered PDF exceeds one page (measured via temp render). */
+export function PageOverflowWarning({ data, format = 'basic_free' }: PageOverflowWarningProps) {
   const t = useTranslations('cv.builder.overflow')
   const debouncedData = useDebounce(data, MEASURE_DEBOUNCE_MS)
   const [pageCount, setPageCount] = useState<number | null>(null)
@@ -28,7 +30,7 @@ export function PageOverflowWarning({ data }: PageOverflowWarningProps) {
     const requestId = ++requestIdRef.current
     setIsMeasuring(true)
 
-    void estimatePageCount(debouncedData)
+    void estimatePageCount(debouncedData, format)
       .then((count) => {
         if (requestId !== requestIdRef.current) return
         setPageCount(count)
@@ -41,7 +43,7 @@ export function PageOverflowWarning({ data }: PageOverflowWarningProps) {
         if (requestId !== requestIdRef.current) return
         setIsMeasuring(false)
       })
-  }, [debouncedData])
+  }, [debouncedData, format])
 
   useEffect(() => {
     if (pageCount == null || pageCount <= OVERFLOW_PAGE_THRESHOLD || overflowTrackedRef.current) {

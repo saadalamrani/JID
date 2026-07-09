@@ -75,7 +75,24 @@ export async function updateApplicationStatus(
   }
 
   if (status === 'rejected' && application.status !== 'rejected') {
-    await dispatchApplicationRejectionEmails(supabase, [applicationId])
+    const { data: jobRow } = await supabase
+      .from('jobs')
+      .select('company_id')
+      .eq('id', application.job_id)
+      .maybeSingle()
+
+    let skipLegacyRejection = false
+    if (jobRow?.company_id) {
+      const { data: hasSmart } = await supabase.rpc('company_has_entitlement', {
+        p_company_id: jobRow.company_id,
+        p_feature: 'smart_communication',
+      })
+      skipLegacyRejection = Boolean(hasSmart)
+    }
+
+    if (!skipLegacyRejection) {
+      await dispatchApplicationRejectionEmails(supabase, [applicationId])
+    }
   }
 
   const viewer = await getTriageViewer(supabase)
@@ -143,9 +160,29 @@ export async function bulkUpdateApplicationStatuses(
     const toQueue = (rows ?? [])
       .filter((row) => row.status !== 'rejected')
       .map((row) => row.id)
+
     if (toQueue.length) {
-      const result = await dispatchApplicationRejectionEmails(supabase, toQueue)
-      rejectedQueued = result.queued
+      const firstJobId = jobIds[0]
+      const companyId =
+        jobIds.length === 1 && firstJobId
+          ? (
+              await supabase.from('jobs').select('company_id').eq('id', firstJobId).maybeSingle()
+            ).data?.company_id
+          : null
+
+      let skipLegacyRejection = false
+      if (companyId) {
+        const { data: hasSmart } = await supabase.rpc('company_has_entitlement', {
+          p_company_id: companyId,
+          p_feature: 'smart_communication',
+        })
+        skipLegacyRejection = Boolean(hasSmart)
+      }
+
+      if (!skipLegacyRejection) {
+        const result = await dispatchApplicationRejectionEmails(supabase, toQueue)
+        rejectedQueued = result.queued
+      }
     }
   }
 

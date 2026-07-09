@@ -3,20 +3,28 @@
 import { useTranslations } from 'next-intl'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { CvZoomLevel } from '@/lib/cv/constants'
+import type { CvExportFormatKey } from '@/lib/cv/formats/registry'
 import type { SectionCompletenessMap } from '@/lib/cv/hooks/use-section-completeness'
 import type { CvFullRecord } from '@/types/cv'
-import { LivePreviewPane } from './live-preview-pane'
 import { MobileSectionAccordion } from './mobile-section-accordion'
+import type { ReactNode } from 'react'
 
 type MobileCvBuilderProps = {
   cv: CvFullRecord | undefined
   completeness: SectionCompletenessMap
   isLoading: boolean
   zoomLevel: CvZoomLevel
+  format: CvExportFormatKey
+  preview: ReactNode
 }
 
-/** Section 10 — mobile Edit/Preview tab switch with accordion editors. */
-export function MobileCvBuilder({ cv, completeness, isLoading, zoomLevel }: MobileCvBuilderProps) {
+/** Mobile Edit/Preview tabs with format-aware gated preview. */
+export function MobileCvBuilder({
+  cv,
+  completeness,
+  isLoading,
+  preview,
+}: MobileCvBuilderProps) {
   const t = useTranslations('cv.builder.mobile')
 
   return (
@@ -31,11 +39,7 @@ export function MobileCvBuilder({ cv, completeness, isLoading, zoomLevel }: Mobi
       </TabsContent>
 
       <TabsContent value="preview" className="mt-0">
-        {cv ? (
-          <div className="min-h-[calc(100vh-16rem)]">
-            <LivePreviewPane cv={cv} zoomLevel={zoomLevel} />
-          </div>
-        ) : null}
+        {cv ? <div className="min-h-[calc(100vh-16rem)]">{preview}</div> : null}
       </TabsContent>
     </Tabs>
   )

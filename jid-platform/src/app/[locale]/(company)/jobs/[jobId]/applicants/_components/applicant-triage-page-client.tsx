@@ -3,6 +3,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { track } from '@/lib/analytics/track'
+import {
+  fetchCascadeSuggestions,
+  fetchScheduledBatchesForJob,
+} from '@/lib/communication/client'
 import type {
   ApplicationStatus,
   JobApplicantsResult,
@@ -14,14 +18,31 @@ import {
   APPLICATION_STATUS_LABELS,
   triageActionToStatus,
 } from '@/types/application'
+import type { CascadeSuggestion, CommunicationBatch } from '@/types/communication'
 import { ApplicantTriageTable } from './applicant-triage-table'
 import { BulkActionBar } from './bulk-action-bar'
+import { CascadePromptDialog } from './cascade-prompt-dialog'
 import { JobTriageHeaderBar } from './job-triage-header'
 import { StatusFilterTabs } from './status-filter-tabs'
+import { TemplateStudio } from './template-studio'
+import { UndoBanner } from './undo-banner'
+import { BoostToggle } from '@/app/[locale]/(company)/jobs/_components/boost-toggle'
+import { BoostTeaser } from '@/app/[locale]/(company)/jobs/_components/boost-teaser'
+import { BoostPerformance } from '@/app/[locale]/(company)/jobs/_components/boost-performance'
+import type {
+  CompanyBoostUsage,
+  JobBoostPerformance,
+  JobBoostState,
+} from '@/lib/priority-visibility/queries'
 
 type ApplicantTriagePageClientProps = {
   jobId: string
+  companyId: string
   initialData: JobApplicantsResult
+  smartCommunicationEnabled: boolean
+  boostState: JobBoostState | null
+  boostUsage: CompanyBoostUsage
+  boostPerformance: JobBoostPerformance
 }
 
 function isTypingTarget(target: EventTarget | null): boolean {
@@ -39,7 +60,15 @@ function applyStatusToApplicants(
   return rows.map((row) => (idSet.has(row.id) ? { ...row, status } : row))
 }
 
-export function ApplicantTriagePageClient({ jobId, initialData }: ApplicantTriagePageClientProps) {
+export function ApplicantTriagePageClient({
+  jobId,
+  companyId,
+  initialData,
+  smartCommunicationEnabled,
+  boostState,
+  boostUsage,
+  boostPerformance,
+}: ApplicantTriagePageClientProps) {
   const [filter, setFilter] = useState<TriageFilterTab>('all')
   const [job, setJob] = useState(initialData.job)
   const [applicants, setApplicants] = useState(initialData.applicants)
@@ -48,12 +77,32 @@ export function ApplicantTriagePageClient({ jobId, initialData }: ApplicantTriag
   const [loading, setLoading] = useState(false)
   const [mutating, setMutating] = useState(false)
   const [statusAnnouncement, setStatusAnnouncement] = useState('')
+  const [cascadeOpen, setCascadeOpen] = useState(false)
+  const [cascadeSuggestions, setCascadeSuggestions] = useState<CascadeSuggestion[]>([])
+  const [scheduledBatches, setScheduledBatches] = useState<CommunicationBatch[]>([])
   const rowRefs = useRef<(HTMLTableRowElement | null)[]>([])
   const applicantsSnapshot = useRef(applicants)
 
   useEffect(() => {
     applicantsSnapshot.current = applicants
   }, [applicants])
+
+  const refreshScheduledBatches = useCallback(async () => {
+    if (!smartCommunicationEnabled) return
+    try {
+      const rows = await fetchScheduledBatchesForJob(jobId)
+      setScheduledBatches(rows)
+    } catch {
+      /* non-blocking */
+    }
+  }, [jobId, smartCommunicationEnabled])
+
+  useEffect(() => {
+    void refreshScheduledBatches()
+    if (!smartCommunicationEnabled) return
+    const timer = window.setInterval(() => void refreshScheduledBatches(), 30_000)
+    return () => window.clearInterval(timer)
+  }, [refreshScheduledBatches, smartCommunicationEnabled])
 
   const reload = useCallback(async (nextFilter: TriageFilterTab = filter) => {
     setLoading(true)
@@ -109,6 +158,18 @@ export function ApplicantTriagePageClient({ jobId, initialData }: ApplicantTriag
     )
   }, [])
 
+  const openCascadeIfNeeded = useCallback(async () => {
+    if (!smartCommunicationEnabled) return
+    try {
+      const suggestions = await fetchCascadeSuggestions(jobId)
+      if (suggestions.length === 0) return
+      setCascadeSuggestions(suggestions)
+      setCascadeOpen(true)
+    } catch {
+      /* cascade is optional UX — never block triage */
+    }
+  }, [jobId, smartCommunicationEnabled])
+
   const mutateStatuses = useCallback(
     async (ids: string[], action: TriageBulkAction, options?: { bulk?: boolean }) => {
       if (!ids.length) return
@@ -149,6 +210,7 @@ export function ApplicantTriagePageClient({ jobId, initialData }: ApplicantTriag
         toast.success('تم تحديث الحالة')
         setSelectedIds(new Set())
         await reload()
+        await openCascadeIfNeeded()
       } catch (error) {
         setApplicants(previous)
         toast.error(error instanceof Error ? error.message : 'تعذّر تحديث الحالة')
@@ -156,7 +218,7 @@ export function ApplicantTriagePageClient({ jobId, initialData }: ApplicantTriag
         setMutating(false)
       }
     },
-    [announceStatus, jobId, reload],
+    [announceStatus, jobId, openCascadeIfNeeded, reload],
   )
 
   async function onBulkAction(action: TriageBulkAction) {
@@ -218,6 +280,34 @@ export function ApplicantTriagePageClient({ jobId, initialData }: ApplicantTriag
 
       <JobTriageHeaderBar job={job} />
 
+      <div className="flex justify-end">
+        <a
+          href={`/jobs/${jobId}/screening`}
+          className="font-arabic text-sm font-medium text-jid-olive underline-offset-2 hover:underline"
+        >
+          الفحص الذكي (SSIS)
+        </a>
+      </div>
+
+      {boostUsage.hasEntitlement && boostState ? (
+        <>
+          <BoostToggle jobId={jobId} boost={boostState} usage={boostUsage} />
+          <BoostPerformance performance={boostPerformance} />
+        </>
+      ) : (
+        <BoostTeaser />
+      )}
+
+      {smartCommunicationEnabled ? (
+        <UndoBanner batches={scheduledBatches} onCanceled={() => void refreshScheduledBatches()} />
+      ) : (
+        <section className="rounded-lg border border-jid-gold/30 bg-jid-beige-warm/50 px-4 py-3">
+          <p className="font-arabic text-sm text-jid-olive">
+            فعّل الرد الآلي — تصل ردودك لكل متقدم دون جهد.
+          </p>
+        </section>
+      )}
+
       <StatusFilterTabs active={filter} onChange={onFilterChange} />
 
       <BulkActionBar
@@ -238,6 +328,18 @@ export function ApplicantTriagePageClient({ jobId, initialData }: ApplicantTriag
         focusedIndex={focusedIndex}
         onToggleSelect={onToggleSelect}
         rowRefAt={rowRefAt}
+      />
+
+      {smartCommunicationEnabled ? <TemplateStudio companyId={companyId} /> : null}
+
+      <CascadePromptDialog
+        open={cascadeOpen}
+        onOpenChange={setCascadeOpen}
+        jobId={jobId}
+        companyId={companyId}
+        suggestions={cascadeSuggestions}
+        onBatchScheduled={() => void refreshScheduledBatches()}
+        onDismiss={() => setCascadeOpen(false)}
       />
     </div>
   )

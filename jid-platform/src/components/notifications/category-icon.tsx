@@ -25,6 +25,7 @@ import {
   UserCheck,
   UserX,
   Users,
+  Search,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { NotificationCategory, NotificationPriority } from '@/lib/notifications/types'
@@ -49,6 +50,7 @@ const CATEGORY_ICONS: Record<NotificationCategory, LucideIcon> = {
   'job.application_status_changed': Briefcase,
   'job.expiring_soon': CalendarClock,
   'job.posted': Briefcase,
+  'search.mandate_match': Search,
   'legal.privacy_updated': Scale,
   'legal.terms_updated': Scale,
   'mentor.application_approved': GraduationCap,

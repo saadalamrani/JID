@@ -126,6 +126,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: 19.6.0
         version: 19.6.0
+      '@fontsource/archivo':
+        specifier: 5.2.5
+        version: 5.2.5
       '@next/bundle-analyzer':
         specifier: ^16.2.10
         version: 16.2.10
@@ -488,6 +491,9 @@ packages:
 
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
+
+  '@fontsource/archivo@5.2.5':
+    resolution: {integrity: sha512-jruUls1+n0Cp1dJh5txRfJbxx7uKtGYawi93C5MqwwWCvcqspG+RslhHAIbcvULOVwne7Kk7hyr5JUgs3yrfRg==}
 
   '@formatjs/ecma402-abstract@2.3.6':
     resolution: {integrity: sha512-HJnTFeRM2kVFVr5gr5kH1XP6K0JcJtE7Lzvtr3FS/so5f1kpsqqqxy5JF+FRaO6H2qmcMfAUIox7AJteieRtVw==}
@@ -4298,6 +4304,8 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   '@floating-ui/utils@0.2.11': {}
+
+  '@fontsource/archivo@5.2.5': {}
 
   '@formatjs/ecma402-abstract@2.3.6':
     dependencies:

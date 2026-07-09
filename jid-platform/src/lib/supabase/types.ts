@@ -221,6 +221,289 @@ export type Database = {
           },
         ]
       }
+      billing_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          payload: Json | null
+          subscription_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          payload?: Json | null
+          subscription_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          payload?: Json | null
+          subscription_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'billing_events_subscription_id_fkey'
+            columns: ['subscription_id']
+            isOneToOne: false
+            referencedRelation: 'subscriptions'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      plan_entitlements: {
+        Row: {
+          feature_key: string
+          plan_id: string
+          quota: number | null
+        }
+        Insert: {
+          feature_key: string
+          plan_id: string
+          quota?: number | null
+        }
+        Update: {
+          feature_key?: string
+          plan_id?: string
+          quota?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'plan_entitlements_plan_id_fkey'
+            columns: ['plan_id']
+            isOneToOne: false
+            referencedRelation: 'plans'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      plans: {
+        Row: {
+          audience: Database['public']['Enums']['subscriber_type_enum']
+          created_at: string
+          display_order: number
+          id: string
+          is_active: boolean
+          key: string
+          name_ar: string
+          name_en: string
+          price_monthly_sar: number
+          price_yearly_sar: number
+        }
+        Insert: {
+          audience: Database['public']['Enums']['subscriber_type_enum']
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          key: string
+          name_ar: string
+          name_en: string
+          price_monthly_sar: number
+          price_yearly_sar: number
+        }
+        Update: {
+          audience?: Database['public']['Enums']['subscriber_type_enum']
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          key?: string
+          name_ar?: string
+          name_en?: string
+          price_monthly_sar?: number
+          price_yearly_sar?: number
+        }
+        Relationships: []
+      }
+      subscriptions: {
+        Row: {
+          activated_by: string | null
+          billing_cycle: Database['public']['Enums']['billing_cycle_enum']
+          cancel_at_period_end: boolean
+          company_id: string | null
+          created_at: string
+          current_period_end: string
+          current_period_start: string
+          id: string
+          payment_provider: string | null
+          plan_id: string
+          provider_ref: string | null
+          status: Database['public']['Enums']['subscription_status_enum']
+          subscriber_type: Database['public']['Enums']['subscriber_type_enum']
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          activated_by?: string | null
+          billing_cycle: Database['public']['Enums']['billing_cycle_enum']
+          cancel_at_period_end?: boolean
+          company_id?: string | null
+          created_at?: string
+          current_period_end: string
+          current_period_start?: string
+          id?: string
+          payment_provider?: string | null
+          plan_id: string
+          provider_ref?: string | null
+          status?: Database['public']['Enums']['subscription_status_enum']
+          subscriber_type: Database['public']['Enums']['subscriber_type_enum']
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          activated_by?: string | null
+          billing_cycle?: Database['public']['Enums']['billing_cycle_enum']
+          cancel_at_period_end?: boolean
+          company_id?: string | null
+          created_at?: string
+          current_period_end?: string
+          current_period_start?: string
+          id?: string
+          payment_provider?: string | null
+          plan_id?: string
+          provider_ref?: string | null
+          status?: Database['public']['Enums']['subscription_status_enum']
+          subscriber_type?: Database['public']['Enums']['subscriber_type_enum']
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'subscriptions_company_id_fkey'
+            columns: ['company_id']
+            isOneToOne: false
+            referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'subscriptions_plan_id_fkey'
+            columns: ['plan_id']
+            isOneToOne: false
+            referencedRelation: 'plans'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      communication_batches: {
+        Row: {
+          canceled_by: string | null
+          company_id: string
+          created_at: string
+          created_by: string
+          failed_count: number
+          id: string
+          job_id: string
+          kind: Database['public']['Enums']['comm_kind_enum']
+          recipient_application_ids: string[]
+          recipient_count: number
+          scheduled_send_at: string | null
+          sent_count: number
+          status: Database['public']['Enums']['comm_batch_status_enum']
+          template_snapshot: Json
+        }
+        Insert: {
+          canceled_by?: string | null
+          company_id: string
+          created_at?: string
+          created_by: string
+          failed_count?: number
+          id?: string
+          job_id: string
+          kind: Database['public']['Enums']['comm_kind_enum']
+          recipient_application_ids: string[]
+          recipient_count: number
+          scheduled_send_at?: string | null
+          sent_count?: number
+          status?: Database['public']['Enums']['comm_batch_status_enum']
+          template_snapshot: Json
+        }
+        Update: {
+          canceled_by?: string | null
+          company_id?: string
+          created_at?: string
+          created_by?: string
+          failed_count?: number
+          id?: string
+          job_id?: string
+          kind?: Database['public']['Enums']['comm_kind_enum']
+          recipient_application_ids?: string[]
+          recipient_count?: number
+          scheduled_send_at?: string | null
+          sent_count?: number
+          status?: Database['public']['Enums']['comm_batch_status_enum']
+          template_snapshot?: Json
+        }
+        Relationships: []
+      }
+      communication_log: {
+        Row: {
+          application_id: string
+          batch_id: string | null
+          channel: string
+          id: string
+          kind: Database['public']['Enums']['comm_kind_enum']
+          provider_message_id: string | null
+          sent_at: string
+          status: string
+        }
+        Insert: {
+          application_id: string
+          batch_id?: string | null
+          channel?: string
+          id?: string
+          kind: Database['public']['Enums']['comm_kind_enum']
+          provider_message_id?: string | null
+          sent_at?: string
+          status: string
+        }
+        Update: {
+          application_id?: string
+          batch_id?: string | null
+          channel?: string
+          id?: string
+          kind?: Database['public']['Enums']['comm_kind_enum']
+          provider_message_id?: string | null
+          sent_at?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      communication_templates: {
+        Row: {
+          body_ar: string
+          company_id: string
+          id: string
+          is_locked: boolean
+          kind: Database['public']['Enums']['comm_kind_enum']
+          subject_ar: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          body_ar: string
+          company_id: string
+          id?: string
+          is_locked?: boolean
+          kind: Database['public']['Enums']['comm_kind_enum']
+          subject_ar: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          body_ar?: string
+          company_id?: string
+          id?: string
+          is_locked?: boolean
+          kind?: Database['public']['Enums']['comm_kind_enum']
+          subject_ar?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       companies: {
         Row: {
           about_long_ar: string | null
@@ -974,6 +1257,9 @@ export type Database = {
           title_en: string | null
           updated_at: string
           view_count: number
+          is_boosted: boolean
+          boost_starts_at: string | null
+          boost_ends_at: string | null
         }
         Insert: {
           applicant_count?: number
@@ -1001,6 +1287,9 @@ export type Database = {
           title_en?: string | null
           updated_at?: string
           view_count?: number
+          is_boosted?: boolean
+          boost_starts_at?: string | null
+          boost_ends_at?: string | null
         }
         Update: {
           applicant_count?: number
@@ -1028,6 +1317,9 @@ export type Database = {
           title_en?: string | null
           updated_at?: string
           view_count?: number
+          is_boosted?: boolean
+          boost_starts_at?: string | null
+          boost_ends_at?: string | null
         }
         Relationships: [
           {
@@ -1056,6 +1348,562 @@ export type Database = {
             columns: ['sector_id']
             isOneToOne: false
             referencedRelation: 'sectors'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      job_boost_daily_stats: {
+        Row: {
+          job_id: string
+          stat_date: string
+          impressions: number
+          card_opens: number
+          intent_clicks: number
+          declarations: number
+        }
+        Insert: {
+          job_id: string
+          stat_date: string
+          impressions?: number
+          card_opens?: number
+          intent_clicks?: number
+          declarations?: number
+        }
+        Update: {
+          job_id?: string
+          stat_date?: string
+          impressions?: number
+          card_opens?: number
+          intent_clicks?: number
+          declarations?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'job_boost_daily_stats_job_id_fkey'
+            columns: ['job_id']
+            isOneToOne: false
+            referencedRelation: 'jobs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      ssis_screenings: {
+        Row: {
+          id: string
+          job_id: string
+          company_id: string
+          status: Database['public']['Enums']['ssis_status_enum']
+          generation_context: Json
+          model_version: string | null
+          pass_threshold: number
+          time_limit_minutes: number
+          invitation_validity_days: number
+          preview_acknowledged_at: string | null
+          preview_acknowledged_by: string | null
+          created_by: string | null
+          approved_by: string | null
+          approved_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          job_id: string
+          company_id: string
+          status?: Database['public']['Enums']['ssis_status_enum']
+          generation_context: Json
+          model_version?: string | null
+          pass_threshold?: number
+          time_limit_minutes?: number
+          invitation_validity_days?: number
+          preview_acknowledged_at?: string | null
+          preview_acknowledged_by?: string | null
+          created_by?: string | null
+          approved_by?: string | null
+          approved_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          job_id?: string
+          company_id?: string
+          status?: Database['public']['Enums']['ssis_status_enum']
+          generation_context?: Json
+          model_version?: string | null
+          pass_threshold?: number
+          time_limit_minutes?: number
+          invitation_validity_days?: number
+          preview_acknowledged_at?: string | null
+          preview_acknowledged_by?: string | null
+          created_by?: string | null
+          approved_by?: string | null
+          approved_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      ssis_blocks: {
+        Row: {
+          id: string
+          screening_id: string
+          kind: Database['public']['Enums']['ssis_block_kind_enum']
+          display_order: number
+          prompt_ar: string
+          rubric: Json
+          ai_generated: boolean
+          edited_by_human: boolean
+          max_score: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          screening_id: string
+          kind: Database['public']['Enums']['ssis_block_kind_enum']
+          display_order: number
+          prompt_ar: string
+          rubric: Json
+          ai_generated?: boolean
+          edited_by_human?: boolean
+          max_score?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          screening_id?: string
+          kind?: Database['public']['Enums']['ssis_block_kind_enum']
+          display_order?: number
+          prompt_ar?: string
+          rubric?: Json
+          ai_generated?: boolean
+          edited_by_human?: boolean
+          max_score?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      ssis_invitations: {
+        Row: {
+          id: string
+          screening_id: string
+          application_id: string
+          consent_given_at: string | null
+          expires_at: string
+          started_at: string | null
+          completed_at: string | null
+          status: Database['public']['Enums']['ssis_invitation_status_enum']
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          screening_id: string
+          application_id: string
+          consent_given_at?: string | null
+          expires_at: string
+          started_at?: string | null
+          completed_at?: string | null
+          status?: Database['public']['Enums']['ssis_invitation_status_enum']
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          screening_id?: string
+          application_id?: string
+          consent_given_at?: string | null
+          expires_at?: string
+          started_at?: string | null
+          completed_at?: string | null
+          status?: Database['public']['Enums']['ssis_invitation_status_enum']
+          created_at?: string
+        }
+        Relationships: []
+      }
+      ssis_responses: {
+        Row: {
+          id: string
+          invitation_id: string
+          block_id: string
+          answer_text: string
+          submitted_at: string
+          updated_at: string
+          purge_after: string | null
+        }
+        Insert: {
+          id?: string
+          invitation_id: string
+          block_id: string
+          answer_text: string
+          submitted_at?: string
+          updated_at?: string
+          purge_after?: string | null
+        }
+        Update: {
+          id?: string
+          invitation_id?: string
+          block_id?: string
+          answer_text?: string
+          submitted_at?: string
+          updated_at?: string
+          purge_after?: string | null
+        }
+        Relationships: []
+      }
+      ssis_evaluations: {
+        Row: {
+          id: string
+          invitation_id: string
+          composite_score: number
+          per_block: Json
+          recommendation: Database['public']['Enums']['ssis_recommendation_enum']
+          model_version: string
+          evaluated_at: string
+        }
+        Insert: {
+          id?: string
+          invitation_id: string
+          composite_score: number
+          per_block: Json
+          recommendation: Database['public']['Enums']['ssis_recommendation_enum']
+          model_version: string
+          evaluated_at?: string
+        }
+        Update: {
+          id?: string
+          invitation_id?: string
+          composite_score?: number
+          per_block?: Json
+          recommendation?: Database['public']['Enums']['ssis_recommendation_enum']
+          model_version?: string
+          evaluated_at?: string
+        }
+        Relationships: []
+      }
+      mandate_matches: {
+        Row: {
+          id: string
+          mandate_id: string
+          job_id: string | null
+          lammah_id: string | null
+          score: number
+          match_reasons: Json
+          matched_at: string
+          seen_at: string | null
+          dismissed_at: string | null
+          dismissed_reason: string | null
+        }
+        Insert: {
+          id?: string
+          mandate_id: string
+          job_id?: string | null
+          lammah_id?: string | null
+          score: number
+          match_reasons?: Json
+          matched_at?: string
+          seen_at?: string | null
+          dismissed_at?: string | null
+          dismissed_reason?: string | null
+        }
+        Update: {
+          id?: string
+          mandate_id?: string
+          job_id?: string | null
+          lammah_id?: string | null
+          score?: number
+          match_reasons?: Json
+          matched_at?: string
+          seen_at?: string | null
+          dismissed_at?: string | null
+          dismissed_reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'mandate_matches_mandate_id_fkey'
+            columns: ['mandate_id']
+            isOneToOne: false
+            referencedRelation: 'search_mandates'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mandate_matches_job_id_fkey'
+            columns: ['job_id']
+            isOneToOne: false
+            referencedRelation: 'jobs'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mandate_matches_lammah_id_fkey'
+            columns: ['lammah_id']
+            isOneToOne: false
+            referencedRelation: 'lammah_opportunities'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      search_mandates: {
+        Row: {
+          id: string
+          user_id: string
+          name: string
+          is_active: boolean
+          sectors: string[]
+          regions: string[]
+          ownership_types: Database['public']['Enums']['ownership_enum'][]
+          experience_levels: Database['public']['Enums']['experience_level_enum'][]
+          keywords: string[]
+          include_lammah: boolean
+          digest_frequency: string
+          weight_overrides: Json
+          created_at: string
+          updated_at: string
+          last_run_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          name: string
+          is_active?: boolean
+          sectors?: string[]
+          regions?: string[]
+          ownership_types?: Database['public']['Enums']['ownership_enum'][]
+          experience_levels?: Database['public']['Enums']['experience_level_enum'][]
+          keywords?: string[]
+          include_lammah?: boolean
+          digest_frequency?: string
+          weight_overrides?: Json
+          created_at?: string
+          updated_at?: string
+          last_run_at?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          name?: string
+          is_active?: boolean
+          sectors?: string[]
+          regions?: string[]
+          ownership_types?: Database['public']['Enums']['ownership_enum'][]
+          experience_levels?: Database['public']['Enums']['experience_level_enum'][]
+          keywords?: string[]
+          include_lammah?: boolean
+          digest_frequency?: string
+          weight_overrides?: Json
+          created_at?: string
+          updated_at?: string
+          last_run_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'search_mandates_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      lammah_opportunities: {
+        Row: {
+          id: string
+          source_id: string
+          company_id: string | null
+          company_name_raw: string
+          title_ar: string | null
+          title_en: string | null
+          excerpt: string | null
+          sector: string
+          region: string
+          ownership_type: Database['public']['Enums']['ownership_enum'] | null
+          experience_level: Database['public']['Enums']['experience_level_enum'] | null
+          external_url: string
+          external_ref_hash: string
+          source_published_at: string
+          scraped_at: string
+          expires_at: string
+          status: Database['public']['Enums']['lammah_status_enum']
+          superseded_by_job_id: string | null
+          extraction_confidence: number
+          hidden_by: string | null
+          hidden_reason: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          source_id: string
+          company_id?: string | null
+          company_name_raw: string
+          title_ar?: string | null
+          title_en?: string | null
+          excerpt?: string | null
+          sector: string
+          region: string
+          ownership_type?: Database['public']['Enums']['ownership_enum'] | null
+          experience_level?: Database['public']['Enums']['experience_level_enum'] | null
+          external_url: string
+          external_ref_hash: string
+          source_published_at: string
+          scraped_at?: string
+          status?: Database['public']['Enums']['lammah_status_enum']
+          superseded_by_job_id?: string | null
+          extraction_confidence?: number
+          hidden_by?: string | null
+          hidden_reason?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          source_id?: string
+          company_id?: string | null
+          company_name_raw?: string
+          title_ar?: string | null
+          title_en?: string | null
+          excerpt?: string | null
+          sector?: string
+          region?: string
+          ownership_type?: Database['public']['Enums']['ownership_enum'] | null
+          experience_level?: Database['public']['Enums']['experience_level_enum'] | null
+          external_url?: string
+          external_ref_hash?: string
+          source_published_at?: string
+          scraped_at?: string
+          status?: Database['public']['Enums']['lammah_status_enum']
+          superseded_by_job_id?: string | null
+          extraction_confidence?: number
+          hidden_by?: string | null
+          hidden_reason?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'lammah_opportunities_source_id_fkey'
+            columns: ['source_id']
+            isOneToOne: false
+            referencedRelation: 'lammah_sources'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'lammah_opportunities_company_id_fkey'
+            columns: ['company_id']
+            isOneToOne: false
+            referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'lammah_opportunities_superseded_by_job_id_fkey'
+            columns: ['superseded_by_job_id']
+            isOneToOne: false
+            referencedRelation: 'jobs'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      lammah_radar_items: {
+        Row: {
+          id: string
+          user_id: string
+          lammah_id: string
+          self_declared: boolean
+          declared_at: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          lammah_id: string
+          self_declared?: boolean
+          declared_at?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          lammah_id?: string
+          self_declared?: boolean
+          declared_at?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'lammah_radar_items_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'lammah_radar_items_lammah_id_fkey'
+            columns: ['lammah_id']
+            isOneToOne: false
+            referencedRelation: 'lammah_opportunities'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      lammah_sources: {
+        Row: {
+          id: string
+          name: string
+          company_id: string | null
+          base_url: string
+          source_type: string
+          trust_tier: number
+          is_active: boolean
+          robots_ok: boolean
+          crawl_frequency_hours: number
+          last_crawled_at: string | null
+          last_content_hash: string | null
+          consecutive_failures: number
+          created_by: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          company_id?: string | null
+          base_url: string
+          source_type: string
+          trust_tier: number
+          is_active?: boolean
+          robots_ok?: boolean
+          crawl_frequency_hours?: number
+          last_crawled_at?: string | null
+          last_content_hash?: string | null
+          consecutive_failures?: number
+          created_by?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          company_id?: string | null
+          base_url?: string
+          source_type?: string
+          trust_tier?: number
+          is_active?: boolean
+          robots_ok?: boolean
+          crawl_frequency_hours?: number
+          last_crawled_at?: string | null
+          last_content_hash?: string | null
+          consecutive_failures?: number
+          created_by?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'lammah_sources_company_id_fkey'
+            columns: ['company_id']
+            isOneToOne: false
+            referencedRelation: 'companies'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'lammah_sources_created_by_fkey'
+            columns: ['created_by']
+            isOneToOne: false
+            referencedRelation: 'profiles'
             referencedColumns: ['id']
           },
         ]
@@ -1112,6 +1960,30 @@ export type Database = {
             referencedColumns: ['id']
           },
         ]
+      }
+      cv_builder_prefs: {
+        Row: {
+          preferred_format: string
+          preferred_language: string
+          section_order: Json | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          preferred_format?: string
+          preferred_language?: string
+          section_order?: Json | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          preferred_format?: string
+          preferred_language?: string
+          section_order?: Json | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       cv_education: {
         Row: {
@@ -2474,6 +3346,141 @@ export type Database = {
         Args: { p_company_id: string; p_feature: string }
         Returns: boolean
       }
+      compute_cascade_suggestion: {
+        Args: { p_job_id: string }
+        Returns: {
+          suggestion_kind: Database['public']['Enums']['comm_kind_enum']
+          target_status: Database['public']['Enums']['application_status_enum']
+          recipient_ids: string[]
+          recipient_count: number
+        }[]
+      }
+      create_communication_batch: {
+        Args: {
+          p_job_id: string
+          p_kind: Database['public']['Enums']['comm_kind_enum']
+          p_recipient_ids: string[]
+          p_template_snapshot?: Json | null
+        }
+        Returns: string
+      }
+      cancel_communication_batch: {
+        Args: { p_batch_id: string }
+        Returns: boolean
+      }
+      claim_due_communication_batches: {
+        Args: { p_limit?: number }
+        Returns: Database['public']['Tables']['communication_batches']['Row'][]
+      }
+      finalize_communication_batch: {
+        Args: {
+          p_batch_id: string
+          p_sent_count: number
+          p_failed_count: number
+          p_status: Database['public']['Enums']['comm_batch_status_enum']
+        }
+        Returns: undefined
+      }
+      ensure_communication_templates: {
+        Args: { p_company_id: string }
+        Returns: undefined
+      }
+      job_auto_reply_enabled: {
+        Args: { p_job_id: string }
+        Returns: boolean
+      }
+      ingest_lammah_opportunity: {
+        Args: { p: Json }
+        Returns: string | null
+      }
+      lammah_weekly_active_count: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      create_search_mandate: {
+        Args: { p: Json }
+        Returns: string
+      }
+      update_search_mandate: {
+        Args: { p_id: string; p: Json }
+        Returns: boolean
+      }
+      dismiss_mandate_match: {
+        Args: { p_match_id: string; p_reason: string }
+        Returns: boolean
+      }
+      mark_mandate_matches_seen: {
+        Args: { p_mandate_id?: string | null }
+        Returns: number
+      }
+      abhathli_unseen_match_count: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      toggle_job_boost: {
+        Args: { p_job_id: string; p_enable: boolean }
+        Returns: undefined
+      }
+      sweep_expired_boosts: {
+        Args: Record<PropertyKey, never>
+        Returns: number
+      }
+      get_company_boost_usage: {
+        Args: { p_company_id: string }
+        Returns: { quota: number | null; active_count: number | null }[]
+      }
+      increment_job_boost_stat: {
+        Args: { p_job_id: string; p_metric: string }
+        Returns: undefined
+      }
+      assemble_ssis_generation_context: {
+        Args: { p_job_id: string }
+        Returns: Json
+      }
+      consent_ssis_invitation: {
+        Args: { p_invitation_id: string }
+        Returns: Database['public']['Tables']['ssis_invitations']['Row']
+      }
+      start_ssis_invitation: {
+        Args: { p_invitation_id: string }
+        Returns: Database['public']['Tables']['ssis_invitations']['Row']
+      }
+      submit_ssis_response: {
+        Args: {
+          p_invitation_id: string
+          p_block_id: string
+          p_answer_text: string
+        }
+        Returns: Database['public']['Tables']['ssis_responses']['Row']
+      }
+      complete_ssis_invitation: {
+        Args: { p_invitation_id: string }
+        Returns: Database['public']['Tables']['ssis_invitations']['Row']
+      }
+      acknowledge_ssis_preview: {
+        Args: { p_screening_id: string }
+        Returns: Database['public']['Tables']['ssis_screenings']['Row']
+      }
+      approve_ssis_screening: {
+        Args: { p_screening_id: string }
+        Returns: Database['public']['Tables']['ssis_screenings']['Row']
+      }
+      invite_ssis_applicants: {
+        Args: { p_screening_id: string; p_application_ids: string[] }
+        Returns: number
+      }
+      record_ssis_outcome: {
+        Args: { p_invitation_id: string; p_action: string }
+        Returns: undefined
+      }
+      user_owns_ssis_job: {
+        Args: { p_job_id: string }
+        Returns: boolean
+      }
+      purge_expired_lammah: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
       notify_claim_decision: {
         Args: {
           p_claim_id: string
@@ -2627,6 +3634,20 @@ export type Database = {
       }
     }
     Enums: {
+      comm_kind_enum:
+        | 'received_ack'
+        | 'shortlisted'
+        | 'interview_invite'
+        | 'acceptance'
+        | 'rejection'
+        | 'holding_update'
+      comm_batch_status_enum:
+        | 'pending_confirmation'
+        | 'scheduled'
+        | 'sending'
+        | 'sent'
+        | 'canceled'
+        | 'failed'
       billing_cycle_enum: 'monthly' | 'yearly'
       subscription_status_enum: 'trialing' | 'active' | 'past_due' | 'canceled' | 'expired'
       subscriber_type_enum: 'user' | 'company'
@@ -2703,6 +3724,11 @@ export type Database = {
         | 'closed'
         | 'expired'
         | 'pending_review'
+      lammah_status_enum: 'active' | 'hidden' | 'superseded' | 'expired'
+      ssis_status_enum: 'draft' | 'pending_approval' | 'active' | 'closed'
+      ssis_block_kind_enum: 'text' | 'scenario'
+      ssis_invitation_status_enum: 'sent' | 'started' | 'completed' | 'expired'
+      ssis_recommendation_enum: 'advance' | 'review' | 'decline_recommend'
       link_status_enum: 'healthy' | 'broken' | 'pending'
       mentor_notification_status_enum: 'pending' | 'sent' | 'dismissed'
       mentor_workshop_status_enum: 'draft' | 'published' | 'completed' | 'cancelled'
@@ -2726,6 +3752,9 @@ export type Database = {
         | 'job.application_status_changed'
         | 'job.expiring_soon'
         | 'job.posted'
+        | 'search.mandate_match'
+        | 'ssis.invitation'
+        | 'ssis.evaluation_ready'
         | 'legal.privacy_updated'
         | 'legal.terms_updated'
         | 'mentor.application_approved'

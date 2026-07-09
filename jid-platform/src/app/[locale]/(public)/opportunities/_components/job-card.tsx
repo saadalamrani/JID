@@ -1,6 +1,7 @@
 'use client'
 
 import { Briefcase, MapPin, Users, Wifi } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 import { Link as LocaleLink } from '@/lib/i18n/navigation'
 import { formatNumber } from '@/lib/utils/format'
 import type { JobCardData } from '@/types/job'
@@ -8,6 +9,9 @@ import { EXPERIENCE_LEVEL_LABELS } from '@/types/job'
 import { cn } from '@/lib/utils'
 import { CompanyLogo } from '@/app/[locale]/(public)/catalog/_components/company-logo'
 import { OwnershipBadge } from '@/app/[locale]/(public)/catalog/_components/ownership-badge'
+import { TierBadge } from '@/components/monetization/tier-badge'
+import { isJobBoostActive } from '@/lib/priority-visibility/interleave'
+import { recordBoostImpression } from '@/lib/priority-visibility/client'
 import { DeadlineBar } from './deadline-bar'
 import { JobActionButton } from './job-action-button'
 import { JobSaveButton } from './job-save-button'
@@ -31,12 +35,21 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
     : job.city ?? regionLabel ?? null
   const detailHref = `/opportunities/${job.slug ?? job.id}`
   const experienceLabel = EXPERIENCE_LEVEL_LABELS[job.experience_level]
+  const boosted = isJobBoostActive(job)
+  const impressionSent = useRef(false)
+
+  useEffect(() => {
+    if (!boosted || previewMode || impressionSent.current) return
+    impressionSent.current = true
+    void recordBoostImpression(job.id)
+  }, [boosted, job.id, previewMode])
 
   return (
     <article
       role="listitem"
       className={cn(
-        'relative flex min-h-[300px] flex-col rounded-xl border border-border/40 bg-card p-4 shadow-sm',
+        'relative flex min-h-[300px] flex-col rounded-xl border bg-card p-4 shadow-sm',
+        boosted ? 'border-jid-gold/35 ring-1 ring-jid-gold/40' : 'border-border/40',
         !previewMode && 'transition-shadow hover:shadow-md',
         className,
       )}
@@ -66,9 +79,17 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
             {title}
           </h2>
         </div>
-        {job.company.ownership_type ? (
-          <OwnershipBadge type={job.company.ownership_type} />
-        ) : null}
+        <div className="flex shrink-0 flex-col items-end gap-1">
+          <TierBadge tier={job.tier ?? 'normal'} />
+          {boosted ? (
+            <span className="inline-flex rounded-full border border-jid-gold/50 bg-transparent px-2 py-0.5 font-arabic text-xs font-medium text-jid-olive">
+              مميّزة
+            </span>
+          ) : null}
+          {job.company.ownership_type ? (
+            <OwnershipBadge type={job.company.ownership_type} />
+          ) : null}
+        </div>
       </header>
 
       <div className="relative z-20 mt-3 flex flex-wrap items-center gap-1.5 pointer-events-none">

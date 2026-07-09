@@ -22,6 +22,7 @@ import {
 import type { CvExperienceRecord } from '@/types/cv'
 import { cn } from '@/lib/utils'
 import { BulletEditor } from './bullet-editor'
+import { BulletRefiner } from './bullet-refiner'
 
 const MONTHS = Array.from({ length: 12 }, (_, index) => index + 1)
 const YEARS = Array.from({ length: 56 }, (_, index) => 2100 - index)
@@ -302,11 +303,17 @@ export function ExperienceEntryCard({
           name="bullets"
           control={control}
           render={({ field }) => (
-            <BulletEditor
-              bullets={field.value}
-              onChange={field.onChange}
-              error={fieldError(errors.bullets?.message)}
-            />
+            <>
+              <BulletEditor
+                bullets={field.value}
+                onChange={field.onChange}
+                error={fieldError(errors.bullets?.message)}
+              />
+              <BulletRefiner
+                bullets={field.value}
+                onApply={(nextBullets) => field.onChange(nextBullets)}
+              />
+            </>
           )}
         />
       </div>

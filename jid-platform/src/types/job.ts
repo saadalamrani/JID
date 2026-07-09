@@ -83,6 +83,11 @@ export type JobCardData = {
   company: JobCompanyRef
   sector: JobSectorRef | null
   region: JobRegionRef | null
+  /** Access tier badge — independent from boost ranking (Prompt 6). */
+  tier: 'normal' | 'plus'
+  isBoosted: boolean
+  boostStartsAt: string | null
+  boostEndsAt: string | null
 }
 
 /** Public job detail (reconciled schema; no commitment_score). */

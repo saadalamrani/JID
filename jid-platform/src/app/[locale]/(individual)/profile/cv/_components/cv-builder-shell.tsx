@@ -1,11 +1,16 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { PlusGate } from '@/components/monetization/plus-gate'
+import { useCvBuilderPrefs, FormatPicker } from './format-picker'
 import { HintsPanel } from '@/app/[locale]/cv-builder/_components/hints-panel'
 import { useCv } from '@/lib/cv/queries'
 import { useCvBuilderAnalytics } from '@/lib/cv/hooks/use-cv-builder-analytics'
 import { useSectionCompleteness } from '@/lib/cv/hooks/use-section-completeness'
 import { useCvBuilderStore } from '@/stores/cv-builder-store'
+import type { CvExportFormatKey } from '@/lib/cv/formats/registry'
+import { formatRequiresPlus } from '@/lib/cv/formats/registry'
 import { LivePreviewPane } from './live-preview-pane'
 import { MobileCvBuilder } from './mobile-cv-builder'
 import { SectionFormPane } from './section-form-pane'
@@ -17,22 +22,41 @@ type CvBuilderShellProps = {
   created: boolean
 }
 
-/** Section 7.3 — desktop sidebar | form | preview; Section 10 — mobile tabs + accordion. */
+/** Desktop sidebar | form | preview with Plus-gated pro formats (Prompt 1). */
 export function CvBuilderShell({ initialCv, created }: CvBuilderShellProps) {
   const t = useTranslations('cv.builder')
   const activeSection = useCvBuilderStore((s) => s.activeSection)
   const zoomLevel = useCvBuilderStore((s) => s.zoomLevel)
+  const prefsQuery = useCvBuilderPrefs()
+  const [selectedFormat, setSelectedFormat] = useState<CvExportFormatKey>('basic_free')
 
   const cvQuery = useCv(initialCv.id, initialCv)
-
   const cv = cvQuery.data
   const completeness = useSectionCompleteness(cv)
+
+  useEffect(() => {
+    if (prefsQuery.data?.preferredFormat) {
+      setSelectedFormat(prefsQuery.data.preferredFormat)
+    }
+  }, [prefsQuery.data?.preferredFormat])
 
   useCvBuilderAnalytics({
     cvId: initialCv.id,
     created,
     completeness,
   })
+
+  const previewPane =
+    cv ? <LivePreviewPane cv={cv} zoomLevel={zoomLevel} format={selectedFormat} /> : null
+
+  const gatedPreview =
+    formatRequiresPlus(selectedFormat) && previewPane ? (
+      <PlusGate feature="cv_pro_formats" teaserPreview={previewPane}>
+        {previewPane}
+      </PlusGate>
+    ) : (
+      previewPane
+    )
 
   return (
     <div className="space-y-4">
@@ -42,6 +66,8 @@ export function CvBuilderShell({ initialCv, created }: CvBuilderShellProps) {
           {created ? t('createdBanner') : t('resumeBanner')}
         </p>
       </header>
+
+      <FormatPicker value={selectedFormat} onChange={setSelectedFormat} />
 
       <HintsPanel />
 
@@ -54,9 +80,7 @@ export function CvBuilderShell({ initialCv, created }: CvBuilderShellProps) {
           <SectionFormPane section={activeSection} cv={cv} isLoading={cvQuery.isFetching} />
         </div>
 
-        <div className="min-h-[420px] xl:col-span-5">
-          {cv ? <LivePreviewPane cv={cv} zoomLevel={zoomLevel} /> : null}
-        </div>
+        <div className="min-h-[420px] xl:col-span-5">{gatedPreview}</div>
       </div>
 
       <div className="xl:hidden">
@@ -65,6 +89,8 @@ export function CvBuilderShell({ initialCv, created }: CvBuilderShellProps) {
           completeness={completeness}
           isLoading={cvQuery.isFetching}
           zoomLevel={zoomLevel}
+          format={selectedFormat}
+          preview={gatedPreview}
         />
       </div>
     </div>

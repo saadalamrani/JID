@@ -9,6 +9,7 @@ export const STAFF_BADGE_TYPES = [
   'pending',
   'open_flags',
   'mentor_apps',
+  'lammah_hidden',
 ] as const
 
 export type StaffBadgeType = (typeof STAFF_BADGE_TYPES)[number]
@@ -23,6 +24,8 @@ export type StaffBadgeCounts = {
   mentor_apps: number
   openFlags: number
   open_flags: number
+  lammahHidden: number
+  lammah_hidden: number
   notifications: number
 }
 
@@ -77,6 +80,14 @@ export async function getStaffBadgeCount(
       if (error) throw new Error(error.message)
       return count ?? 0
     }
+    case 'lammah_hidden': {
+      const { count, error } = await supabase
+        .from('lammah_opportunities')
+        .select('id', { count: 'exact', head: true })
+        .eq('status', 'hidden')
+      if (error) throw new Error(error.message)
+      return count ?? 0
+    }
     default:
       return 0
   }
@@ -86,11 +97,12 @@ export async function getStaffBadgeCounts(
   supabase: Client,
   actorId: string,
 ): Promise<StaffBadgeCounts> {
-  const [pending, assigned, openFlags, mentorApps] = await Promise.all([
+  const [pending, assigned, openFlags, mentorApps, lammahHidden] = await Promise.all([
     getStaffBadgeCount(supabase, 'pending', actorId),
     getStaffBadgeCount(supabase, 'assigned', actorId),
     getStaffBadgeCount(supabase, 'open_flags', actorId),
     getStaffBadgeCount(supabase, 'mentor_apps', actorId),
+    getStaffBadgeCount(supabase, 'lammah_hidden', actorId),
   ])
 
   return {
@@ -101,6 +113,8 @@ export async function getStaffBadgeCounts(
     mentor_apps: mentorApps,
     openFlags,
     open_flags: openFlags,
+    lammahHidden,
+    lammah_hidden: lammahHidden,
     notifications: 0,
   }
 }

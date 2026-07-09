@@ -6,11 +6,12 @@ import {
   GraduationCap,
   LayoutDashboard,
   Megaphone,
+  Radar,
   ScrollText,
   Users,
 } from 'lucide-react'
 
-export type StaffNavBadgeKey = 'claims' | 'mentorApplications' | 'openFlags'
+export type StaffNavBadgeKey = 'claims' | 'mentorApplications' | 'openFlags' | 'lammahHidden'
 
 export type StaffNavItem = {
   key: string
@@ -53,6 +54,12 @@ export const STAFF_NAV_SECTIONS: StaffNavSection[] = [
       { key: 'users', href: '/staff/users', icon: Users },
       { key: 'entities', href: '/staff/entities', icon: Building2 },
       { key: 'moderation', href: '/staff/moderation', icon: Flag, badgeKey: 'openFlags' },
+      {
+        key: 'lammah',
+        href: '/staff/lammah',
+        icon: Radar,
+        badgeKey: 'lammahHidden',
+      },
       { key: 'announcements', href: '/staff/announcements', icon: Megaphone },
     ],
   },

@@ -88,98 +88,7 @@ export function JobFilterProvider({ children, initialData }: JobFilterProviderPr
     })
   }, [filters, resultCount])
 
-  const toggleInList = useCallback(<T,>(list: T[], value: T): T[] => {
-    return list.includes(value) ? list.filter((item) => item !== value) : [...list, value]
-  }, [])
-
-  const toggleExperienceChip = useCallback(
-    (chipId: JobExperienceChipId) => {
-      setFilters((prev) => ({
-        ...prev,
-        experienceChips: toggleInList(prev.experienceChips, chipId),
-      }))
-    },
-    [toggleInList],
-  )
-
-  const toggleOwnership = useCallback(
-    (type: OwnershipType) => {
-      setFilters((prev) => ({
-        ...prev,
-        ownership: toggleInList(prev.ownership, type),
-      }))
-    },
-    [toggleInList],
-  )
-
-  const toggleRegion = useCallback(
-    (slug: string) => {
-      setFilters((prev) => ({
-        ...prev,
-        regions: toggleInList(prev.regions, slug),
-      }))
-    },
-    [toggleInList],
-  )
-
-  const toggleSector = useCallback(
-    (slug: string) => {
-      setFilters((prev) => ({
-        ...prev,
-        sectors: toggleInList(prev.sectors, slug),
-      }))
-    },
-    [toggleInList],
-  )
-
-  const toggleUrgency = useCallback(
-    (value: UrgencyFilter) => {
-      setFilters((prev) => ({
-        ...prev,
-        urgency: toggleInList(prev.urgency, value),
-      }))
-    },
-    [toggleInList],
-  )
-
-  const removeExperienceChip = useCallback((chipId: JobExperienceChipId) => {
-    setFilters((prev) => ({
-      ...prev,
-      experienceChips: prev.experienceChips.filter((item) => item !== chipId),
-    }))
-  }, [])
-
-  const removeOwnership = useCallback((type: OwnershipType) => {
-    setFilters((prev) => ({
-      ...prev,
-      ownership: prev.ownership.filter((item) => item !== type),
-    }))
-  }, [])
-
-  const removeRegion = useCallback((slug: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      regions: prev.regions.filter((item) => item !== slug),
-    }))
-  }, [])
-
-  const removeSector = useCallback((slug: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      sectors: prev.sectors.filter((item) => item !== slug),
-    }))
-  }, [])
-
-  const removeUrgency = useCallback((value: UrgencyFilter) => {
-    setFilters((prev) => ({
-      ...prev,
-      urgency: prev.urgency.filter((item) => item !== value),
-    }))
-  }, [])
-
-  const clearAll = useCallback(() => {
-    setFilters(DEFAULT_JOB_FILTER_STATE)
-  }, [])
+  const controls = useFilterControls(filters, setFilters)
 
   const hasActiveFilters =
     filters.experienceChips.length > 0 ||
@@ -199,17 +108,7 @@ export function JobFilterProvider({ children, initialData }: JobFilterProviderPr
       jobs,
       regions,
       sectors,
-      toggleExperienceChip,
-      toggleOwnership,
-      toggleRegion,
-      toggleSector,
-      toggleUrgency,
-      removeExperienceChip,
-      removeOwnership,
-      removeRegion,
-      removeSector,
-      removeUrgency,
-      clearAll,
+      ...controls,
       hasActiveFilters,
     }),
     [
@@ -222,6 +121,179 @@ export function JobFilterProvider({ children, initialData }: JobFilterProviderPr
       jobs,
       regions,
       sectors,
+      controls,
+      hasActiveFilters,
+    ],
+  )
+
+  return <JobFilterContext.Provider value={value}>{children}</JobFilterContext.Provider>
+}
+
+type MandateFilterProviderProps = {
+  children: ReactNode
+  initialFilters?: JobFilterState
+  onFiltersChange?: (filters: JobFilterState) => void
+}
+
+/** ابحثلي mandate sheet — reuses job-board filter components without jobs query. */
+export function MandateFilterProvider({
+  children,
+  initialFilters,
+  onFiltersChange,
+}: MandateFilterProviderProps) {
+  const [filters, setFilters] = useState<JobFilterState>(
+    initialFilters ?? DEFAULT_JOB_FILTER_STATE,
+  )
+
+  useEffect(() => {
+    onFiltersChange?.(filters)
+  }, [filters, onFiltersChange])
+
+  const { data: regions = [] } = useCatalogRegions()
+  const { data: sectors = [] } = useCatalogSectors()
+  const controls = useFilterControls(filters, setFilters)
+  const queryFilters = useMemo(() => jobFilterStateToFilters(filters), [filters])
+
+  const hasActiveFilters =
+    filters.experienceChips.length > 0 ||
+    filters.ownership.length > 0 ||
+    filters.regions.length > 0 ||
+    filters.sectors.length > 0
+
+  const value = useMemo<JobFilterContextValue>(
+    () => ({
+      filters,
+      queryFilters,
+      resultCount: 0,
+      isLoading: false,
+      isFetching: false,
+      error: null,
+      jobs: [],
+      regions,
+      sectors,
+      ...controls,
+      hasActiveFilters,
+    }),
+    [filters, queryFilters, regions, sectors, controls, hasActiveFilters],
+  )
+
+  return <JobFilterContext.Provider value={value}>{children}</JobFilterContext.Provider>
+}
+
+function useFilterControls(
+  filters: JobFilterState,
+  setFilters: React.Dispatch<React.SetStateAction<JobFilterState>>,
+) {
+  const toggleInList = useCallback(<T,>(list: T[], value: T): T[] => {
+    return list.includes(value) ? list.filter((item) => item !== value) : [...list, value]
+  }, [])
+
+  const toggleExperienceChip = useCallback(
+    (chipId: JobExperienceChipId) => {
+      setFilters((prev) => ({
+        ...prev,
+        experienceChips: toggleInList(prev.experienceChips, chipId),
+      }))
+    },
+    [setFilters, toggleInList],
+  )
+
+  const toggleOwnership = useCallback(
+    (type: OwnershipType) => {
+      setFilters((prev) => ({
+        ...prev,
+        ownership: toggleInList(prev.ownership, type),
+      }))
+    },
+    [setFilters, toggleInList],
+  )
+
+  const toggleRegion = useCallback(
+    (slug: string) => {
+      setFilters((prev) => ({
+        ...prev,
+        regions: toggleInList(prev.regions, slug),
+      }))
+    },
+    [setFilters, toggleInList],
+  )
+
+  const toggleSector = useCallback(
+    (slug: string) => {
+      setFilters((prev) => ({
+        ...prev,
+        sectors: toggleInList(prev.sectors, slug),
+      }))
+    },
+    [setFilters, toggleInList],
+  )
+
+  const toggleUrgency = useCallback(
+    (value: UrgencyFilter) => {
+      setFilters((prev) => ({
+        ...prev,
+        urgency: toggleInList(prev.urgency, value),
+      }))
+    },
+    [setFilters, toggleInList],
+  )
+
+  const removeExperienceChip = useCallback(
+    (chipId: JobExperienceChipId) => {
+      setFilters((prev) => ({
+        ...prev,
+        experienceChips: prev.experienceChips.filter((item) => item !== chipId),
+      }))
+    },
+    [setFilters],
+  )
+
+  const removeOwnership = useCallback(
+    (type: OwnershipType) => {
+      setFilters((prev) => ({
+        ...prev,
+        ownership: prev.ownership.filter((item) => item !== type),
+      }))
+    },
+    [setFilters],
+  )
+
+  const removeRegion = useCallback(
+    (slug: string) => {
+      setFilters((prev) => ({
+        ...prev,
+        regions: prev.regions.filter((item) => item !== slug),
+      }))
+    },
+    [setFilters],
+  )
+
+  const removeSector = useCallback(
+    (slug: string) => {
+      setFilters((prev) => ({
+        ...prev,
+        sectors: prev.sectors.filter((item) => item !== slug),
+      }))
+    },
+    [setFilters],
+  )
+
+  const removeUrgency = useCallback(
+    (value: UrgencyFilter) => {
+      setFilters((prev) => ({
+        ...prev,
+        urgency: prev.urgency.filter((item) => item !== value),
+      }))
+    },
+    [setFilters],
+  )
+
+  const clearAll = useCallback(() => {
+    setFilters(DEFAULT_JOB_FILTER_STATE)
+  }, [setFilters])
+
+  return useMemo(
+    () => ({
       toggleExperienceChip,
       toggleOwnership,
       toggleRegion,
@@ -233,11 +305,21 @@ export function JobFilterProvider({ children, initialData }: JobFilterProviderPr
       removeSector,
       removeUrgency,
       clearAll,
-      hasActiveFilters,
+    }),
+    [
+      toggleExperienceChip,
+      toggleOwnership,
+      toggleRegion,
+      toggleSector,
+      toggleUrgency,
+      removeExperienceChip,
+      removeOwnership,
+      removeRegion,
+      removeSector,
+      removeUrgency,
+      clearAll,
     ],
   )
-
-  return <JobFilterContext.Provider value={value}>{children}</JobFilterContext.Provider>
 }
 
 export function useJobFilters() {

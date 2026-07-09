@@ -1,18 +1,41 @@
 'use client'
 
+import { useEffect, useMemo } from 'react'
 import { PDFViewer } from '@react-pdf/renderer'
-import { CvDocument } from '@/lib/cv/pdf-document'
+import { registerCvPdfFonts } from '@/lib/cv/formats/pdf-fonts'
+import { getCvFormatDocumentComponent } from '@/lib/cv/formats/render-format-pdf'
+import type { CvExportFormatKey } from '@/lib/cv/formats/registry'
+import { formatRequiresPlus } from '@/lib/cv/formats/registry'
 import type { CvData } from '@/types/cv'
 
-type CvPdfPreviewProps = {
+type CvFormatPdfPreviewProps = {
   data: CvData
+  format: CvExportFormatKey
 }
 
-/** Client-only live Harvard PDF preview (Section 7.3). */
-export function CvPdfPreview({ data }: CvPdfPreviewProps) {
+/** Client-only live PDF preview — format-aware (Prompt 1). */
+export function CvFormatPdfPreview({ data, format }: CvFormatPdfPreviewProps) {
+  const DocumentComponent = useMemo(() => getCvFormatDocumentComponent(format), [format])
+
+  useEffect(() => {
+    if (formatRequiresPlus(format)) {
+      registerCvPdfFonts()
+    }
+  }, [format])
+
   return (
     <PDFViewer width="100%" height={640} showToolbar={false}>
-      <CvDocument data={data} />
+      <DocumentComponent data={data} />
+    </PDFViewer>
+  )
+}
+
+/** @deprecated Use CvFormatPdfPreview */
+export function CvPdfPreview({ data }: { data: CvData }) {
+  const DocumentComponent = getCvFormatDocumentComponent('basic_free')
+  return (
+    <PDFViewer width="100%" height={640} showToolbar={false}>
+      <DocumentComponent data={data} />
     </PDFViewer>
   )
 }

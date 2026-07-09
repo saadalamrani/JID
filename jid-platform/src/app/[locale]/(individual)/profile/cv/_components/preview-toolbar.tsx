@@ -2,18 +2,20 @@
 
 import { useTranslations } from 'next-intl'
 import { CV_ZOOM_LEVELS } from '@/lib/cv/constants'
+import type { CvExportFormatKey } from '@/lib/cv/formats/registry'
 import { useCvBuilderStore } from '@/stores/cv-builder-store'
 import { cn } from '@/lib/utils'
-import { ExportButton } from './export-button'
+import { ExportBar } from './export-bar'
 import type { CvFullRecord } from '@/types/cv'
 
 type PreviewToolbarProps = {
   cv: CvFullRecord
+  format: CvExportFormatKey
   isPreviewStale?: boolean
 }
 
-/** Section 7.5 — zoom controls + export action. */
-export function PreviewToolbar({ cv, isPreviewStale = false }: PreviewToolbarProps) {
+/** Zoom controls + export bar (Prompt 1). */
+export function PreviewToolbar({ cv, format, isPreviewStale = false }: PreviewToolbarProps) {
   const t = useTranslations('cv.builder.preview')
   const zoomLevel = useCvBuilderStore((s) => s.zoomLevel)
   const setZoomLevel = useCvBuilderStore((s) => s.setZoomLevel)
@@ -44,7 +46,7 @@ export function PreviewToolbar({ cv, isPreviewStale = false }: PreviewToolbarPro
         ) : null}
       </div>
 
-      <ExportButton cv={cv} />
+      <ExportBar cv={cv} format={format} />
     </div>
   )
 }

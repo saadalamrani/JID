@@ -23,6 +23,7 @@ import {
   publicStatusToDbStatus,
 } from '@/types/job'
 import { computeDeadlineDaysLeft } from '@/lib/jobs/deadline'
+import { interleaveBoostedJobs } from '@/lib/priority-visibility/interleave'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
 
@@ -61,6 +62,10 @@ type JobListRow = {
   published_at: string | null
   applicant_count: number
   external_apply_url: string | null
+  is_boosted: boolean
+  boost_starts_at: string | null
+  boost_ends_at: string | null
+  tier: 'normal' | 'plus' | null
   company: CompanyRow | CompanyRow[]
   sector: SectorRow | SectorRow[]
   region: RegionRow | RegionRow[]
@@ -94,6 +99,10 @@ const JOB_LIST_SELECT = `
   published_at,
   applicant_count,
   external_apply_url,
+  is_boosted,
+  boost_starts_at,
+  boost_ends_at,
+  tier,
   company:companies!inner(
     id,
     name,
@@ -209,6 +218,10 @@ function mapJobCard(row: JobListRow): JobCardData | null {
     company: mapCompanyRef(company),
     sector: mapSectorRef(normalizeEmbed(row.sector)),
     region: mapRegionRef(normalizeEmbed(row.region)),
+    tier: row.tier ?? 'normal',
+    isBoosted: row.is_boosted,
+    boostStartsAt: row.boost_starts_at,
+    boostEndsAt: row.boost_ends_at,
   }
 }
 
@@ -325,7 +338,7 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
   const page = filters.page ?? DEFAULT_JOB_FILTERS.page!
   const limit = filters.limit ?? DEFAULT_JOB_FILTERS.limit!
   const from = (page - 1) * limit
-  const to = from + limit - 1
+  const overfetchTo = from + limit * 5 - 1
   const dbStatuses = resolveDbStatuses(filters.status)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -362,15 +375,17 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
   const sort = filters.sort ?? DEFAULT_JOB_FILTERS.sort
   if (sort === 'published_at_desc') {
     query = query
+      .order('is_boosted', { ascending: false })
       .order('published_at', { ascending: false, nullsFirst: false })
       .order('application_deadline', { ascending: true })
   } else {
     query = query
+      .order('is_boosted', { ascending: false })
       .order('application_deadline', { ascending: true })
       .order('published_at', { ascending: false, nullsFirst: false })
   }
 
-  query = query.range(from, to)
+  query = query.range(from, overfetchTo)
 
   const { data, error, count } = await query
 
@@ -378,9 +393,11 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
     throwQueryError(error)
   }
 
-  const jobs = ((data ?? []) as unknown as JobListRow[])
+  const mapped = ((data ?? []) as unknown as JobListRow[])
     .map(mapJobCard)
     .filter((job): job is JobCardData => job !== null)
+
+  const jobs = interleaveBoostedJobs(mapped).slice(0, limit)
 
   return {
     jobs,

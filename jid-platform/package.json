@@ -60,6 +60,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.6.1",
     "@commitlint/config-conventional": "19.6.0",
+    "@fontsource/archivo": "5.2.5",
     "@next/bundle-analyzer": "^16.2.10",
     "@tailwindcss/typography": "0.5.16",
     "@types/libsodium-wrappers": "^0.8.2",

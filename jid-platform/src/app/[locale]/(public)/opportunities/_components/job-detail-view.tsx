@@ -6,6 +6,7 @@ import { OwnershipBadge } from '@/app/[locale]/(public)/catalog/_components/owne
 import { DeadlineBar } from './deadline-bar'
 import { JobActionButton } from './job-action-button'
 import { JobApplicantCount } from './job-applicant-count'
+import { JobAutoReplyDisclaimer } from '@/components/communication/job-auto-reply-disclaimer'
 import { Pill } from './pill'
 import { RelatedCompanyJobs } from './related-company-jobs'
 import { JobViewedTracker } from './job-viewed-tracker'
@@ -81,6 +82,8 @@ export function JobDetailView({
           initialPrimaryEmail={declarationStatus.primaryEmail}
           className="max-w-md"
         />
+
+        <JobAutoReplyDisclaimer jobId={job.id} className="max-w-md" />
       </header>
 
       {job.description_ar ? (

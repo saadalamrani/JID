@@ -984,6 +984,7 @@
         "users": "Users",
         "entities": "Entities",
         "moderation": "Moderation",
+        "lammah": "Lammah",
         "audit": "My audit log"
       }
     },
@@ -1030,6 +1031,7 @@
         "users": "Users",
         "entities": "Entities",
         "moderation": "Moderation",
+        "lammah": "Lammah",
         "audit": "My audit log"
       }
     },
@@ -1577,6 +1579,40 @@
         "dismissed": "Flag dismissed",
         "alreadyClosed": "This flag is already closed ({status}).",
         "hideTodo": "TODO: Wire isContentFlagHidden() into Catalog/Mentorship public listings for full display gating."
+      }
+    },
+    "lammah": {
+      "title": "Lammah review",
+      "subtitle": "Low-confidence scraped opportunities — review before publish",
+      "queueCount": "{count} opportunities awaiting review",
+      "empty": "No hidden opportunities in the review queue",
+      "manageSources": "Manage sources",
+      "review": {
+        "meta": "Confidence {confidence} · {source} · {sector} / {region}",
+        "openSource": "Open source",
+        "approve": "Approve & publish",
+        "keepHidden": "Keep hidden",
+        "delete": "Delete"
+      },
+      "sources": {
+        "title": "Lammah sources",
+        "subtitle": "Manage external crawl sources",
+        "back": "← Back to Lammah queue",
+        "addTitle": "Add source",
+        "name": "Source name",
+        "baseUrl": "Base URL",
+        "type": "Source type",
+        "careerPage": "Career page",
+        "officialProgram": "Official program",
+        "trustTier": "Trust tier",
+        "tier1": "Tier 1 — trusted",
+        "tier2": "Tier 2 — pilot",
+        "addCta": "Add source",
+        "listTitle": "Configured sources",
+        "empty": "No sources yet",
+        "sourceMeta": "{type} · tier {tier} · consecutive failures: {failures}",
+        "activate": "Activate",
+        "deactivate": "Deactivate"
       }
     },
     "validation": {
@@ -3504,6 +3540,50 @@
       "mobile": {
         "editTab": "Edit",
         "previewTab": "Preview"
+      },
+      "formats": {
+        "ariaLabel": "CV format picker",
+        "title": "Choose your format",
+        "subtitle": "Basic template is free. Harvard and Global ATS are JID Plus.",
+        "plusRequired": "Upgrade to بلس to export this format"
+      },
+      "exportBar": {
+        "action": "Generate & download",
+        "exporting": "Generating…",
+        "failed": "Export failed — try again",
+        "plusRequired": "JID Plus required for this format or language",
+        "languageToggle": "Export language",
+        "languages": {
+          "en": "English PDF",
+          "ar": "Arabic print",
+          "bilingual": "Bilingual pair"
+        },
+        "disabled": {
+          "missing_cv": "Load your CV to export",
+          "missing_full_name": "Add your full name to export",
+          "missing_email": "Add your email to export",
+          "missing_education": "Add at least one education entry",
+          "missing_experience": "Add at least one experience entry"
+        }
+      },
+      "refiner": {
+        "title": "AI bullet refinement",
+        "action": "Refine bullets",
+        "loading": "Refining…",
+        "error": "Could not refine bullets",
+        "accept": "Accept",
+        "refineAgain": "More options",
+        "reject": "Keep original",
+        "truthLockRequired": "Confirm the quantified claims are accurate before accepting",
+        "tracks": {
+          "consulting": "Consulting",
+          "pm": "Product / PM",
+          "biz_ops": "Biz Ops"
+        }
+      },
+      "truthfulness": {
+        "title": "I confirm these numbers and outcomes are accurate",
+        "description": "AI suggestions with new metrics require your explicit confirmation before they can be applied."
       }
     }
   },
@@ -3598,6 +3678,244 @@
   "maintenance": {
     "title": "Maintenance in progress",
     "description": "The platform is temporarily unavailable while we perform maintenance. Please check back shortly."
+  },
+  "opportunities": {
+    "tabs": {
+      "ariaLabel": "Opportunity tabs",
+      "native": "JID jobs",
+      "lammah": "Lammah ✦"
+    },
+    "lammah": {
+      "resultsCount": "{count} scraped opportunities",
+      "loadError": "Could not load Lammah",
+      "emptyTitle": "No matching Lammah opportunities",
+      "emptyDescription": "Try adjusting filters or check back after the next crawl cycle.",
+      "teaserAria": "Lammah preview",
+      "teaserHeadline": "Lammah — Plus-exclusive external opportunities",
+      "teaserWeekly": "Added this week: {count} opportunities"
+    },
+    "abhathli": {
+      "title": "Search For Me",
+      "teaserAria": "Search For Me preview",
+      "teaserLine": "Brief your search once — get matching opportunities automatically.",
+      "upgradeCta": "Upgrade to Plus",
+      "inviteTitle": "Let Search For Me work for you",
+      "inviteBody": "Create a persistent search mandate — up to 3 active at a time.",
+      "pausedTitle": "Your mandates are paused",
+      "pausedBody": "Reactivate a mandate or create a new one to resume matching.",
+      "createMandate": "Create mandate",
+      "addMandate": "New mandate",
+      "collapsedLabel": "Search For Me · {count} new matches",
+      "mandatesHint": "Up to 3 active mandates",
+      "sheet": {
+        "title": "New Search For Me mandate",
+        "nameLabel": "Mandate name",
+        "namePlaceholder": "e.g. Operations analyst — Riyadh",
+        "filtersHint": "Pick criteria (empty = any)",
+        "keywordsLabel": "Keywords",
+        "keywordsPlaceholder": "Comma-separated: PMO, analysis, SQL",
+        "includeLammah": "Include Lammah external opportunities",
+        "reviewName": "Name",
+        "reviewSectors": "Sectors",
+        "reviewRegions": "Regions",
+        "reviewKeywords": "Keywords",
+        "reviewLammah": "Lammah",
+        "any": "Any",
+        "none": "None",
+        "yes": "Yes",
+        "no": "No",
+        "back": "Back",
+        "next": "Next",
+        "create": "Create mandate",
+        "quotaReached": "Maximum of 3 active mandates reached.",
+        "steps": {
+          "name": "Step 1 — Mandate name",
+          "filters": "Step 2 — Criteria",
+          "keywords": "Step 3 — Keywords & sources",
+          "review": "Step 4 — Review"
+        },
+        "errors": {
+          "plus_required": "JID Plus subscription required.",
+          "mandate_quota_exceeded": "Maximum of 3 active mandates."
+        }
+      },
+      "mandate": {
+        "lastRun": "Last match: {time}",
+        "neverRun": "No match run yet",
+        "toggleAria": "Toggle mandate {name}"
+      },
+      "match": {
+        "openExternal": "Open source",
+        "viewDetails": "View details"
+      }
+    }
+  },
+  "company": {
+    "boost": {
+      "teaserTitle": "Priority visibility",
+      "teaserBody": "Elevate job placement on the opportunities board with an honest «مميّزة» label — without affecting Search For Me ranking.",
+      "salesCta": "Contact sales",
+      "toggleTitle": "Boost this job",
+      "toggleAria": "Toggle boost",
+      "quotaMeter": "{active}/{quota} boosted slots",
+      "windowRemaining": "{days} days remaining",
+      "errors": {
+        "subscription_required": "Priority visibility subscription required.",
+        "boost_quota_exceeded": "Concurrent boost quota reached."
+      },
+      "performance": {
+        "title": "Boost performance",
+        "lift": "Impressions ×{multiplier} since boost",
+        "liftPending": "Collecting baseline data for lift estimate",
+        "empty": "No stats yet",
+        "date": "Date",
+        "impressions": "Impressions",
+        "opens": "Opens",
+        "intents": "Intents",
+        "declarations": "Declarations"
+      }
+    },
+    "ssis": {
+      "pageTitle": "Smart screening",
+      "backToApplicants": "Back to applicants",
+      "teaserTitle": "Smart Screening (SSIS)",
+      "teaserBody": "Automated first-round filter aligned to your sector and role — text and scenario only, human approval before publish.",
+      "salesCta": "Contact sales",
+      "generateTitle": "Generate smart screening",
+      "generateSubtitle": "The test is generated from frozen company + job context — client-supplied context is rejected.",
+      "contextLabel": "Will generate for",
+      "contextPending": "Context assembled from catalog + job on generate",
+      "generateCta": "Generate screening",
+      "generateError": "Generation failed",
+      "builderTitle": "Screening builder",
+      "builderSubtitle": "Review questions and rubrics before approval — AI drafts, you publish.",
+      "showPreview": "Candidate preview",
+      "hidePreview": "Hide preview",
+      "confirmPreview": "I reviewed the candidate experience",
+      "previewConfirmed": "Preview confirmed",
+      "previewError": "Could not confirm preview",
+      "approveCta": "Approve and activate",
+      "approveError": "Activation failed — check preview and subscription",
+      "activeBanner": "Screening is active — invite applicants and review results",
+      "regenerateBlock": "Regenerate alternative",
+      "regenerateError": "Regeneration failed",
+      "saveBlock": "Save edit",
+      "saveError": "Save failed",
+      "rubricLabel": "Evaluation rubric (read-only)",
+      "inviteTitle": "Invite applicants",
+      "inviteSubtitle": "Declared applicants only — invites always deliver via platform notification.",
+      "noApplicants": "No eligible applicants",
+      "inviteCta": "Send invites ({count})",
+      "invitedCount": "Sent {count} invite(s)",
+      "inviteError": "Invite failed",
+      "resultsTitle": "Results board",
+      "thresholdLabel": "Pass threshold: {threshold}",
+      "noResults": "No invitations yet",
+      "anonymousApplicant": "Applicant",
+      "pendingEval": "Evaluating",
+      "showBreakdown": "Criterion breakdown",
+      "hideBreakdown": "Hide breakdown",
+      "blockScore": "Block score: {score}",
+      "advanceAction": "Advance",
+      "declineAction": "Decline"
+    }
+  },
+  "monetization": {
+    "tier": {
+      "normal": "عادي",
+      "plus": "بلس"
+    },
+    "teaser": {
+      "ariaLabel": "JID Plus locked feature",
+      "title": "Unlock with JID Plus",
+      "upgradeCta": "Upgrade to Plus",
+      "previewLocked": "Plus preview locked",
+      "features": {
+        "cv_pro_formats": {
+          "description": "Professional Harvard and ATS CV formats with AI refinement.",
+          "bullets": [
+            "Harvard and global ATS export engines",
+            "AI bullet refinement in your control",
+            "Per-opportunity tailoring support"
+          ]
+        },
+        "search_for_me": {
+          "description": "Let ابحثلي monitor opportunities for you — native jobs and Lammah.",
+          "bullets": [
+            "Up to 3 active search mandates",
+            "Match rationale on every card",
+            "Instant alerts in your notification bell"
+          ]
+        },
+        "lammah_feed": {
+          "description": "Fresh external opportunities curated exclusively for Plus members.",
+          "bullets": [
+            "14-day freshness guarantee",
+            "Mapped to JID taxonomies",
+            "Save to Radar without false expectations"
+          ]
+        }
+      }
+    },
+    "upgrade": {
+      "title": "JID Plus",
+      "planFallback": "JID Plus",
+      "billingNote": "Monthly or yearly billing only — cancel anytime at period end.",
+      "cycleToggleLabel": "Billing cycle",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "savePercent": "Save {percent}%",
+      "perMonth": "month",
+      "perYear": "year",
+      "yearlyEquivalent": "Equivalent to {monthly} / month",
+      "checkoutCta": "Continue to checkout",
+      "checkoutLoading": "Preparing checkout…",
+      "checkoutFailed": "Checkout could not be started.",
+      "checkoutUnavailable": "Checkout is not available yet. Billing integration is coming next.",
+      "includedBullets": [
+        "Build My CV — Harvard + global ATS formats",
+        "ابحثلي — automated opportunity matching",
+        "لمّاح — Plus-exclusive scraped feed"
+      ],
+      "features": {
+        "cv_pro_formats": {
+          "headline": "Export a disciplined Harvard or ATS CV — the Plus standard for serious candidates."
+        },
+        "search_for_me": {
+          "headline": "Brief ابحثلي once — receive matched opportunities while you focus on applying."
+        },
+        "lammah_feed": {
+          "headline": "See verified external opportunities before they disappear from the market."
+        }
+      }
+    },
+    "manage": {
+      "title": "JID Plus subscription",
+      "subtitle": "Your personal Plus plan and renewal details.",
+      "loading": "Loading subscription…",
+      "empty": "You do not have an active JID Plus subscription yet.",
+      "upgradeCta": "View Plus plans",
+      "plan": "Plan",
+      "status": "Status",
+      "billingCycle": "Billing cycle",
+      "renewalDate": "Renews on",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "cancelAtPeriodEnd": "Cancel at period end",
+      "cancelHint": "Keep access until the current period ends.",
+      "cancelScheduled": "Cancellation scheduled for period end.",
+      "cancelReverted": "Renewal restored.",
+      "updateFailed": "Could not update subscription.",
+      "pastDueNotice": "Payment is past due. Update your payment method to keep Plus access.",
+      "priceReminder": "Billed {cycle}. No lifetime or pass plans in Model 1.",
+      "statuses": {
+        "trialing": "Trial",
+        "active": "Active",
+        "past_due": "Past due",
+        "canceled": "Canceled",
+        "expired": "Expired"
+      }
+    }
   },
   "onboarding": {
     "shell": {

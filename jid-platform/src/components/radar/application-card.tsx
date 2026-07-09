@@ -16,6 +16,9 @@ import { computeDeadlineDaysLeft } from '@/lib/jobs/deadline'
 import { formatRelativeTime } from '@/lib/utils/format-relative-time'
 import { formatNumber } from '@/lib/utils/format'
 import { cn } from '@/lib/utils'
+import { JobAutoReplyDisclaimer } from '@/components/communication/job-auto-reply-disclaimer'
+import { CommReceiptLine } from '@/components/communication/comm-receipt-line'
+import { SsisTimelineLine } from '@/components/ssis/ssis-timeline-line'
 
 type ApplicationCardProps = {
   application: UserApplication
@@ -82,14 +85,21 @@ export function ApplicationCardContent({
         </div>
       </div>
 
-      <footer className="mt-3 flex flex-wrap items-center justify-between gap-2 font-arabic text-[11px] text-foreground/55">
-        <span>{formatRelativeTime(declaredAt)}</span>
-        {daysUntilDeadline != null ? (
-          <span>
-            {daysUntilDeadline <= 0
-              ? 'انتهى الموعد'
-              : `${formatNumber(daysUntilDeadline, locale)} يوم للإغلاق`}
-          </span>
+      <footer className="mt-3 space-y-1.5">
+        <div className="flex flex-wrap items-center justify-between gap-2 font-arabic text-[11px] text-foreground/55">
+          <span>{formatRelativeTime(declaredAt)}</span>
+          {daysUntilDeadline != null ? (
+            <span>
+              {daysUntilDeadline <= 0
+                ? 'انتهى الموعد'
+                : `${formatNumber(daysUntilDeadline, locale)} يوم للإغلاق`}
+            </span>
+          ) : null}
+        </div>
+        <CommReceiptLine applicationId={application.id} />
+        <SsisTimelineLine applicationId={application.id} />
+        {application.job_id ? (
+          <JobAutoReplyDisclaimer jobId={application.job_id} />
         ) : null}
       </footer>
     </>

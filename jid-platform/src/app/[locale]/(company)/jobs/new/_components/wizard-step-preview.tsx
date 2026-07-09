@@ -67,6 +67,10 @@ function buildPreviewJob(
           name_ar: regionName.name_ar,
         }
       : null,
+    tier: 'normal',
+    isBoosted: false,
+    boostStartsAt: null,
+    boostEndsAt: null,
   }
 }
 

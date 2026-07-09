@@ -1,7 +1,7 @@
 'use client'
 
 import { Briefcase } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { JobsListResult } from '@/types/job'
 import { EmptyState } from '@/components/shared/empty-state'
 import { ActiveFiltersBar } from './active-filters-bar'
@@ -10,6 +10,9 @@ import { ExperienceLevelChips } from './experience-level-chips'
 import { JobBoardHero } from './job-board-hero'
 import { JobCardSkeleton } from './job-card-skeleton'
 import { JobFilterProvider, useJobFilters } from './job-filter-context'
+import { LammahFeed } from './lammah-feed'
+import { AbhathliWidget } from './abhathli-widget'
+import { OpportunitiesTabs, type OpportunitiesTab } from './opportunities-tabs'
 import { RegionMultiSelect } from './region-multi-select'
 import { ResultsCountBar } from './results-count-bar'
 import { SectorMultiSelect } from './sector-multi-select'
@@ -34,7 +37,7 @@ function JobSkeletonGrid() {
   )
 }
 
-function JobResultsSection() {
+function NativeResultsSection() {
   const scrollRef = useRef<HTMLElement | null>(null)
   const { jobs, isLoading, isFetching, error } = useJobFilters()
 
@@ -69,6 +72,8 @@ function JobResultsSection() {
 }
 
 function JobBoardContent({ setupHint }: { setupHint?: string }) {
+  const [activeTab, setActiveTab] = useState<OpportunitiesTab>('native')
+
   return (
     <>
       {setupHint ? (
@@ -80,6 +85,8 @@ function JobBoardContent({ setupHint }: { setupHint?: string }) {
         </div>
       ) : null}
       <JobBoardHero />
+      <AbhathliWidget />
+      <OpportunitiesTabs activeTab={activeTab} onTabChange={setActiveTab} className="mb-4" />
       <StickyFilterBar>
         <ExperienceLevelChips />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -87,12 +94,18 @@ function JobBoardContent({ setupHint }: { setupHint?: string }) {
           <SectorMultiSelect />
           <RegionMultiSelect />
         </div>
-        <UrgencyFilterChips />
+        {activeTab === 'native' ? <UrgencyFilterChips /> : null}
       </StickyFilterBar>
       <ActiveFiltersBar />
       <section className="mt-6 space-y-3" aria-label="نتائج الفرص الوظيفية">
-        <ResultsCountBar />
-        <JobResultsSection />
+        {activeTab === 'native' ? (
+          <>
+            <ResultsCountBar />
+            <NativeResultsSection />
+          </>
+        ) : (
+          <LammahFeed />
+        )}
       </section>
     </>
   )

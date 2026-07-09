@@ -984,6 +984,7 @@
         "users": "المستخدمون",
         "entities": "الكيانات",
         "moderation": "المراجعة",
+        "lammah": "لمّاح",
         "audit": "سجل تدقيقي"
       }
     },
@@ -1030,6 +1031,7 @@
         "users": "المستخدمون",
         "entities": "الكيانات",
         "moderation": "المراجعة",
+        "lammah": "لمّاح",
         "audit": "سجل تدقيقي"
       }
     },
@@ -1567,6 +1569,40 @@
         "dismissed": "تم رفض البلاغ",
         "alreadyClosed": "هذا البلاغ مغلق بالفعل ({status}).",
         "hideTodo": "TODO: ربط isContentFlagHidden() بقوائم الكتالوج/الإرشاد العامة لإخفاء العرض الكامل."
+      }
+    },
+    "lammah": {
+      "title": "مراجعة لمّاح",
+      "subtitle": "فرص مرصودة منخفضة الثقة — راجع قبل النشر",
+      "queueCount": "{count} فرصة بانتظار المراجعة",
+      "empty": "لا توجد فرص مخفية بانتظار المراجعة",
+      "manageSources": "إدارة المصادر",
+      "review": {
+        "meta": "ثقة {confidence} · {source} · {sector} / {region}",
+        "openSource": "فتح المصدر",
+        "approve": "موافقة ونشر",
+        "keepHidden": "إبقاء مخفية",
+        "delete": "حذف"
+      },
+      "sources": {
+        "title": "مصادر لمّاح",
+        "subtitle": "إدارة مصادر الرصد الخارجية",
+        "back": "← العودة لطابور لمّاح",
+        "addTitle": "إضافة مصدر",
+        "name": "اسم المصدر",
+        "baseUrl": "رابط الأساس",
+        "type": "نوع المصدر",
+        "careerPage": "صفحة وظائف",
+        "officialProgram": "برنامج رسمي",
+        "trustTier": "مستوى الثقة",
+        "tier1": "مستوى 1 — موثوق",
+        "tier2": "مستوى 2 — تجريبي",
+        "addCta": "إضافة المصدر",
+        "listTitle": "المصادر النشطة",
+        "empty": "لا توجد مصادر بعد",
+        "sourceMeta": "{type} · مستوى {tier} · فشل متتالي: {failures}",
+        "activate": "تفعيل",
+        "deactivate": "إيقاف"
       }
     },
     "validation": {
@@ -3494,6 +3530,50 @@
       "mobile": {
         "editTab": "تعديل",
         "previewTab": "معاينة"
+      },
+      "formats": {
+        "ariaLabel": "اختيار صيغة السيرة",
+        "title": "اختر الصيغة",
+        "subtitle": "القالب الأساسي مجاني. هارفارد وATS عالمي لباقة بلس.",
+        "plusRequired": "رقِّ إلى بلس لتصدير هذه الصيغة"
+      },
+      "exportBar": {
+        "action": "توليد وتنزيل",
+        "exporting": "جاري التوليد…",
+        "failed": "تعذّر التصدير — حاول مرة أخرى",
+        "plusRequired": "يتطلب جِد بلس لهذه الصيغة أو اللغة",
+        "languageToggle": "لغة التصدير",
+        "languages": {
+          "en": "PDF إنجليزي",
+          "ar": "طباعة عربية",
+          "bilingual": "زوج ثنائي اللغة"
+        },
+        "disabled": {
+          "missing_cv": "حمّل سيرتك للتصدير",
+          "missing_full_name": "أضف اسمك الكامل للتصدير",
+          "missing_email": "أضف بريدك للتصدير",
+          "missing_education": "أضف تعليماً واحداً على الأقل",
+          "missing_experience": "أضف خبرة واحدة على الأقل"
+        }
+      },
+      "refiner": {
+        "title": "تحسين النقاط بالذكاء الاصطناعي",
+        "action": "حسّن النقاط",
+        "loading": "جاري التحسين…",
+        "error": "تعذّر تحسين النقاط",
+        "accept": "قبول",
+        "refineAgain": "خيارات أخرى",
+        "reject": "أبقِ الأصل",
+        "truthLockRequired": "أكّد دقة الأرقام قبل القبول",
+        "tracks": {
+          "consulting": "استشارات",
+          "pm": "منتج / PM",
+          "biz_ops": "عمليات"
+        }
+      },
+      "truthfulness": {
+        "title": "أؤكد أن الأرقام والنتائج دقيقة",
+        "description": "اقتراحات الذكاء الاصطناعي التي تضيف مقاييس جديدة تتطلب تأكيدك الصريح قبل التطبيق."
       }
     }
   },
@@ -3588,6 +3668,244 @@
   "maintenance": {
     "title": "صيانة جارية",
     "description": "المنصة غير متاحة مؤقتاً أثناء أعمال الصيانة. يرجى المحاولة لاحقاً."
+  },
+  "opportunities": {
+    "tabs": {
+      "ariaLabel": "تبويبات الفرص",
+      "native": "فرص جِد",
+      "lammah": "لمّاح ✦"
+    },
+    "lammah": {
+      "resultsCount": "{count} فرصة مرصودة",
+      "loadError": "تعذّر تحميل لمّاح",
+      "emptyTitle": "لا توجد فرص لمّاح مطابقة",
+      "emptyDescription": "جرّب تعديل الفلاتر أو عد لاحقاً بعد دورة الرصد.",
+      "teaserAria": "معاينة لمّاح",
+      "teaserHeadline": "لمّاح — فرص خارجية حصرية لمشتركي بلس",
+      "teaserWeekly": "أُضيف هذا الأسبوع: {count} فرصة"
+    },
+    "abhathli": {
+      "title": "ابحثلي",
+      "teaserAria": "معاينة ابحثلي",
+      "teaserLine": "عرّف مهمتك مرة — واستقبل الفرص المطابقة تلقائياً.",
+      "upgradeCta": "الترقية إلى بلس",
+      "inviteTitle": "كلّف ابحثلي بالبحث عنك",
+      "inviteBody": "أنشئ مهمة بحث دائمة بحد أقصى 3 مهام نشطة.",
+      "pausedTitle": "مهامك متوقفة مؤقتاً",
+      "pausedBody": "فعّل مهمة أو أنشئ مهمة جديدة لاستئناف المطابقة.",
+      "createMandate": "إنشاء مهمة",
+      "addMandate": "مهمة جديدة",
+      "collapsedLabel": "ابحثلي · {count} مطابقات جديدة",
+      "mandatesHint": "بحد أقصى 3 مهام نشطة",
+      "sheet": {
+        "title": "مهمة ابحثلي جديدة",
+        "nameLabel": "اسم المهمة",
+        "namePlaceholder": "مثال: محلل عمليات — الرياض",
+        "filtersHint": "اختر معايير البحث (يمكن تركها فارغة = أي)",
+        "keywordsLabel": "كلمات مفتاحية",
+        "keywordsPlaceholder": "مفصولة بفاصلة: PMO، تحليل، SQL",
+        "includeLammah": "تضمين فرص لمّاح الخارجية",
+        "reviewName": "الاسم",
+        "reviewSectors": "القطاعات",
+        "reviewRegions": "المناطق",
+        "reviewKeywords": "الكلمات",
+        "reviewLammah": "لمّاح",
+        "any": "أي",
+        "none": "لا يوجد",
+        "yes": "نعم",
+        "no": "لا",
+        "back": "رجوع",
+        "next": "التالي",
+        "create": "إنشاء المهمة",
+        "quotaReached": "وصلت للحد الأقصى (3 مهام نشطة).",
+        "steps": {
+          "name": "الخطوة 1 — اسم المهمة",
+          "filters": "الخطوة 2 — المعايير",
+          "keywords": "الخطوة 3 — الكلمات والمصادر",
+          "review": "الخطوة 4 — مراجعة"
+        },
+        "errors": {
+          "plus_required": "يتطلب اشتراك جِد بلس.",
+          "mandate_quota_exceeded": "الحد الأقصى 3 مهام نشطة."
+        }
+      },
+      "mandate": {
+        "lastRun": "آخر مطابقة: {time}",
+        "neverRun": "لم تُنفَّذ مطابقة بعد",
+        "toggleAria": "تفعيل مهمة {name}"
+      },
+      "match": {
+        "openExternal": "فتح على المصدر",
+        "viewDetails": "عرض التفاصيل"
+      }
+    }
+  },
+  "company": {
+    "boost": {
+      "teaserTitle": "الظهور المميّز",
+      "teaserBody": "ارفع ظهور وظائفك في لوحة الفرص مع وسم «مميّزة» شفاف — دون التأثير على ترتيب ابحثلي.",
+      "salesCta": "تواصل مع المبيعات",
+      "toggleTitle": "تمييز هذه الوظيفة",
+      "toggleAria": "تبديل التمييز",
+      "quotaMeter": "{active}/{quota} فرص مميّزة",
+      "windowRemaining": "متبقٍ {days} يوم",
+      "errors": {
+        "subscription_required": "يتطلب اشتراك الظهور المميّز.",
+        "boost_quota_exceeded": "وصلت لحد التمييز المتزامن."
+      },
+      "performance": {
+        "title": "أداء التمييز",
+        "lift": "الظهور ×{multiplier} منذ التمييز",
+        "liftPending": "بيانات كافية لتقدير الرفع قريباً",
+        "empty": "لا توجد إحصاءات بعد",
+        "date": "التاريخ",
+        "impressions": "ظهور",
+        "opens": "فتح",
+        "intents": "نوايا",
+        "declarations": "إقرارات"
+      }
+    },
+    "ssis": {
+      "pageTitle": "الفحص الذكي",
+      "backToApplicants": "العودة للمتقدمين",
+      "teaserTitle": "الفحص الذكي (SSIS)",
+      "teaserBody": "فلترة أولية آلية مخصّصة لدورك وقطاعك — نصّي وسيناريو فقط، بموافقة بشرية قبل النشر.",
+      "salesCta": "تواصل مع المبيعات",
+      "generateTitle": "توليد فحص ذكي",
+      "generateSubtitle": "يُولَّد الاختبار تلقائياً وفق سياق الجهة والقطاع والدور — لا يُقبل سياق من العميل.",
+      "contextLabel": "سيُولَّد الاختبار وفق",
+      "contextPending": "يُجمَع السياق من ملف الشركة والفرصة عند التوليد",
+      "generateCta": "توليد الفحص",
+      "generateError": "تعذّر التوليد",
+      "builderTitle": "محرّر الفحص",
+      "builderSubtitle": "راجع الأسئلة والمعايير قبل الموافقة — الذكاء الاصطناعي يصوغ، أنت تنشر.",
+      "showPreview": "معاينة المرشح",
+      "hidePreview": "إخفاء المعاينة",
+      "confirmPreview": "أقرّ بمعاينة تجربة المرشح",
+      "previewConfirmed": "تمت المعاينة",
+      "previewError": "تعذّر تأكيد المعاينة",
+      "approveCta": "الموافقة وتفعيل الفحص",
+      "approveError": "تعذّر التفعيل — تأكد من المعاينة والاشتراك",
+      "activeBanner": "الفحص نشط — يمكنك دعوة المتقدمين ومراجعة النتائج",
+      "regenerateBlock": "ولّد بديلاً",
+      "regenerateError": "تعذّر إعادة التوليد",
+      "saveBlock": "حفظ التعديل",
+      "saveError": "تعذّر الحفظ",
+      "rubricLabel": "معايير التقييم (للقراءة)",
+      "inviteTitle": "دعوة المتقدمين",
+      "inviteSubtitle": "للمُقرّون فقط — تُرسل الدعوة عبر إشعار المنصة (ولا تُحجب بدون اشتراك التواصل الذكي).",
+      "noApplicants": "لا يوجد متقدمون مؤهلون",
+      "inviteCta": "إرسال دعوة ({count})",
+      "invitedCount": "أُرسلت {count} دعوة",
+      "inviteError": "تعذّر إرسال الدعوات",
+      "resultsTitle": "لوحة النتائج",
+      "thresholdLabel": "عتبة النجاح: {threshold}",
+      "noResults": "لا توجد دعوات بعد",
+      "anonymousApplicant": "متقدم",
+      "pendingEval": "قيد التقييم",
+      "showBreakdown": "تفاصيل المعايير",
+      "hideBreakdown": "إخفاء التفاصيل",
+      "blockScore": "درجة السؤال: {score}",
+      "advanceAction": "تقديم للمرحلة التالية",
+      "declineAction": "رفض"
+    }
+  },
+  "monetization": {
+    "tier": {
+      "normal": "عادي",
+      "plus": "بلس"
+    },
+    "teaser": {
+      "ariaLabel": "ميزة مقفلة لجِد بلس",
+      "title": "افتحها مع جِد بلس",
+      "upgradeCta": "الترقية إلى بلس",
+      "previewLocked": "معاينة بلس مقفلة",
+      "features": {
+        "cv_pro_formats": {
+          "description": "صيغ هارفارد وATS احترافية مع تحسين ذكي للنقاط.",
+          "bullets": [
+            "محركا تصدير هارفارد وATS العالمي",
+            "تحسين النقاط بالذكاء الاصطناعي بإشرافك",
+            "تخصيص السيرة لكل فرصة"
+          ]
+        },
+        "search_for_me": {
+          "description": "دع ابحثلي يراقب الفرص نيابةً عنك — وظائف جِد ولمّاح.",
+          "bullets": [
+            "حتى 3 مهام بحث نشطة",
+            "سبب المطابقة على كل بطاقة",
+            "تنبيهات فورية في جرس الإشعارات"
+          ]
+        },
+        "lammah_feed": {
+          "description": "فرص خارجية طازجة حصرية لمشتركي بلس.",
+          "bullets": [
+            "ضمان حداثة 14 يوماً",
+            "مطابقة لتصنيفات جِد",
+            "حفظ في الرادار بلا وعود زائفة"
+          ]
+        }
+      }
+    },
+    "upgrade": {
+      "title": "جِد بلس",
+      "planFallback": "جِد بلس",
+      "billingNote": "فوترة شهرية أو سنوية فقط — إلغاء في أي وقت بنهاية الدورة.",
+      "cycleToggleLabel": "دورة الفوترة",
+      "monthly": "شهري",
+      "yearly": "سنوي",
+      "savePercent": "وفر {percent}%",
+      "perMonth": "شهر",
+      "perYear": "سنة",
+      "yearlyEquivalent": "يعادل {monthly} / شهر",
+      "checkoutCta": "متابعة الدفع",
+      "checkoutLoading": "جاري تجهيز الدفع…",
+      "checkoutFailed": "تعذّر بدء الدفع.",
+      "checkoutUnavailable": "الدفع غير متاح بعد — تكامل الفوترة قادم قريباً.",
+      "includedBullets": [
+        "باني السيرة — صيغ هارفارد وATS",
+        "ابحثلي — مطابقة الفرص تلقائياً",
+        "لمّاح — تغذية خارجية حصرية لبلس"
+      ],
+      "features": {
+        "cv_pro_formats": {
+          "headline": "صدّر سيرة بصيغة هارفارد أو ATS — معيار بلس للمرشحين الجادّين."
+        },
+        "search_for_me": {
+          "headline": "عرّف ابحثلي مرة واحدة — واستقبل الفرص المطابقة بينما تركز على التقديم."
+        },
+        "lammah_feed": {
+          "headline": "اطلع على فرص خارجية موثّقة قبل أن تختفي من السوق."
+        }
+      }
+    },
+    "manage": {
+      "title": "اشتراك جِد بلس",
+      "subtitle": "تفاصيل خطتك الشخصية وموعد التجديد.",
+      "loading": "جاري تحميل الاشتراك…",
+      "empty": "ليس لديك اشتراك جِد بلس نشط بعد.",
+      "upgradeCta": "عرض خطط بلس",
+      "plan": "الخطة",
+      "status": "الحالة",
+      "billingCycle": "دورة الفوترة",
+      "renewalDate": "يتجدد في",
+      "monthly": "شهري",
+      "yearly": "سنوي",
+      "cancelAtPeriodEnd": "إلغاء بنهاية الدورة",
+      "cancelHint": "تحتفظ بالوصول حتى نهاية الدورة الحالية.",
+      "cancelScheduled": "تم جدولة الإلغاء بنهاية الدورة.",
+      "cancelReverted": "تم استعادة التجديد.",
+      "updateFailed": "تعذّر تحديث الاشتراك.",
+      "pastDueNotice": "الدفع متأخر. حدّث وسيلة الدفع للاحتفاظ ببلس.",
+      "priceReminder": "فوترة {cycle}. لا خطط مدى الحياة أو تذاكر في النموذج 1.",
+      "statuses": {
+        "trialing": "تجريبي",
+        "active": "نشط",
+        "past_due": "متأخر",
+        "canceled": "ملغى",
+        "expired": "منتهٍ"
+      }
+    }
   },
   "onboarding": {
     "shell": {
