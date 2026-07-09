@@ -14,9 +14,9 @@ export const colors = {
     400: '#7E8F6E',
     500: '#2F3A2E',
     600: '#283127',
-    700: '#212820',
-    800: '#1A1F18',
-    900: '#121612',
+    700: '#252E28',
+    800: '#1E2620',
+    900: '#1E2620',
   },
   gold: {
     DEFAULT: '#E6B43A',
@@ -79,9 +79,9 @@ export const colors = {
  * Consumed by semantic-theme-plugin.ts → CSS custom properties (--color-*).
  */
 export const semanticColors = {
-  background: { light: colors.beige.DEFAULT, dark: colors.olive[900] },
-  surface: { light: colors.beige.warm, dark: colors.olive[800] },
-  card: { light: '#FFFFFF', dark: colors.olive.light },
+  background: { light: colors.beige.DEFAULT, dark: '#1E2620' },
+  surface: { light: colors.beige.warm, dark: colors.olive.DEFAULT },
+  card: { light: '#FFFFFF', dark: colors.olive.DEFAULT },
   border: { light: colors.line.DEFAULT, dark: 'rgba(247,245,239,0.12)' },
   textPrimary: { light: '#111111', dark: colors.beige.DEFAULT },
   textSecondary: { light: colors.ink.soft, dark: 'rgba(247,245,239,0.65)' },

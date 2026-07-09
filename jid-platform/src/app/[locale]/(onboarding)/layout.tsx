@@ -32,7 +32,9 @@ export default async function OnboardingLayout({ children, params }: OnboardingL
       <header className="border-b border-border bg-card/95 backdrop-blur-sm">
         <div className="container-jid flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <Logo size="md" />
+            <div className="flex h-8 items-center overflow-hidden">
+              <Logo size="md" />
+            </div>
             <p className="mt-2 text-sm text-muted-foreground">{t('subtitle')}</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">

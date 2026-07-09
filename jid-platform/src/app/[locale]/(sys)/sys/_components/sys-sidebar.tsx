@@ -14,7 +14,7 @@ export function SysSidebar() {
   return (
     <aside className="flex w-60 shrink-0 flex-col border-e border-border bg-card">
       <div className="border-b border-border px-5 py-4">
-        <Link href="/sys/dashboard" className="inline-block">
+        <Link href="/sys/dashboard" className="inline-flex h-6 items-center overflow-hidden">
           <Logo size="sm" />
         </Link>
         <p className="mt-2 text-sm font-semibold text-primary">Sys</p>

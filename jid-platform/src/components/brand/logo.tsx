@@ -1,8 +1,6 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { AnimatePresence, motion } from 'framer-motion'
-import Image from 'next/image'
 import { useLocale } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
@@ -13,8 +11,6 @@ type LogoProps = {
   size?: LogoSize
   className?: string
 }
-
-const LOGO_TRANSITION = { duration: 0.25, ease: 'easeInOut' } as const
 
 const LOGO_ASSETS = {
   ar: {
@@ -27,14 +23,11 @@ const LOGO_ASSETS = {
   },
 } as const
 
-/** Fixed box per size — prevents layout shift when locale or theme changes. */
-export const LOGO_SIZE_CONFIG: Record<
-  LogoSize,
-  { width: number; height: number; className: string }
-> = {
-  sm: { width: 120, height: 32, className: 'h-8 w-[7.5rem]' },
-  md: { width: 140, height: 40, className: 'h-10 w-[8.75rem]' },
-  lg: { width: 168, height: 48, className: 'h-12 w-[10.5rem]' },
+/** Height-locked — width follows PNG aspect ratio. */
+export const LOGO_SIZE_CONFIG: Record<LogoSize, { className: string; height: number }> = {
+  sm: { className: 'h-6 w-auto max-h-6', height: 24 },
+  md: { className: 'h-8 w-auto max-h-8', height: 32 },
+  lg: { className: 'h-12 w-auto max-h-12', height: 48 },
 }
 
 export function Logo({ size = 'md', className }: LogoProps) {
@@ -49,33 +42,17 @@ export function Logo({ size = 'md', className }: LogoProps) {
   const themeKey = mounted && resolvedTheme === 'dark' ? 'dark' : 'light'
   const src = LOGO_ASSETS[localeKey][themeKey]
   const alt = isArabic ? 'جِد' : 'JID'
-  const { width, height, className: sizeClassName } = LOGO_SIZE_CONFIG[size]
+  const { className: sizeClassName, height } = LOGO_SIZE_CONFIG[size]
 
   return (
-    <span
-      className={cn('relative inline-block shrink-0', sizeClassName, className)}
-      style={{ width, height }}
-      aria-hidden={false}
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={`${localeKey}-${themeKey}`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={LOGO_TRANSITION}
-          className="absolute inset-0 block"
-        >
-          <Image
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            className="h-full w-full object-contain object-left"
-            priority
-          />
-        </motion.span>
-      </AnimatePresence>
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element -- static brand PNG from /public
+    <img
+      src={src}
+      alt={alt}
+      height={height}
+      width={Math.round(height * 2.2)}
+      className={cn('block shrink-0 object-contain object-left', sizeClassName, className)}
+      decoding="async"
+    />
   )
 }

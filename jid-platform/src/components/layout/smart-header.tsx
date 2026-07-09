@@ -92,8 +92,12 @@ export function SmartHeader({
         )}
       >
         <div className="container-jid grid h-16 grid-cols-[1fr_auto_1fr] items-center gap-4">
-          <div className="flex min-w-0 items-center justify-start">
-            <Link href="/" className="shrink-0" aria-label={tNav('homeAria', { name: 'JID' })}>
+          <div className="flex h-8 min-w-0 max-w-[5.5rem] shrink-0 items-center overflow-hidden">
+            <Link
+              href="/"
+              className="flex h-8 items-center overflow-hidden"
+              aria-label={tNav('homeAria', { name: 'JID' })}
+            >
               <Logo size="md" />
             </Link>
           </div>

@@ -41,24 +41,25 @@
   }
 
   .dark {
-    --background: 100 9% 11%;
+    /* JID dark — deep olive base (#1E2620), elevated surfaces (#2F3A2E), beige text (#F7F5EF) */
+    --background: 140 12% 13%;
     --foreground: 45 33% 95%;
-    --card: 100 10% 14%;
+    --card: 100 12% 21%;
     --card-foreground: 45 33% 95%;
-    --popover: 100 10% 14%;
+    --popover: 100 12% 21%;
     --popover-foreground: 45 33% 95%;
     --primary: 43 76% 56%;
-    --primary-foreground: 100 9% 11%;
+    --primary-foreground: 140 12% 13%;
     --secondary: 100 12% 21%;
     --secondary-foreground: 45 33% 95%;
     --muted: 100 12% 21%;
-    --muted-foreground: 100 8% 65%;
+    --muted-foreground: 45 20% 75%;
     --accent: 43 76% 56%;
-    --accent-foreground: 100 9% 11%;
+    --accent-foreground: 140 12% 13%;
     --destructive: 0 63% 45%;
     --destructive-foreground: 0 0% 100%;
-    --border: 100 8% 30%;
-    --input: 100 8% 30%;
+    --border: 45 33% 95% / 0.12;
+    --input: 45 33% 95% / 0.12;
     --ring: 43 76% 56%;
   }
 

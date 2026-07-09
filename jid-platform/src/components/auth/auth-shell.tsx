@@ -13,7 +13,7 @@ export function AuthShell({ title, subtitle, children, footer }: AuthShellProps)
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <div className="flex justify-center">
+          <div className="flex h-12 items-center justify-center overflow-hidden">
             <Logo size="lg" />
           </div>
           <h1 className="mt-6 text-xl font-semibold text-foreground">{title}</h1>

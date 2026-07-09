@@ -40,7 +40,7 @@ export async function PublicFooter() {
     <footer className="border-t border-border bg-background">
       <div className="container-jid py-10">
         <div className="mb-8">
-          <Link href="/" aria-label={tNav('homeAria', { name: siteConfig.nameEn })}>
+          <Link href="/" aria-label={tNav('homeAria', { name: siteConfig.nameEn })} className="inline-flex h-6 items-center overflow-hidden">
             <Logo size="sm" />
           </Link>
         </div>

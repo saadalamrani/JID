@@ -6,7 +6,7 @@ export async function HeroManifesto() {
   const t = await getTranslations('landing.hero')
 
   return (
-    <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-white to-background">
+    <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-background to-surface">
       <div className="container-jid py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-medium tracking-wide text-accent">{t('eyebrow')}</p>

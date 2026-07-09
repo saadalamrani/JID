@@ -14,6 +14,7 @@
     "format:check": "prettier --check .",
     "prepare": "husky",
     "gen-types": "supabase gen types typescript --local > src/lib/supabase/types.ts",
+    "brand:import": "tsx scripts/import-brand-logos.ts",
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop"
   },
