@@ -108,7 +108,7 @@ export type CatalogRegionRef = {
   name_ar: string | null
 }
 
-/** Card-safe subset — no descriptions, commitment_score, or claimed_by. */
+/** Card-safe subset — no descriptions or claimed_by. */
 export type CompanyCardData = {
   id: string
   slug: string | null

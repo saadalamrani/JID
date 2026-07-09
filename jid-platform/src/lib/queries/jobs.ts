@@ -18,7 +18,6 @@ import type {
 } from '@/types/job'
 import {
   DEFAULT_JOB_FILTERS,
-  JID_PARTNER_BADGE_MIN_SCORE,
   dbStatusToPublicStatus,
   isJobUuid,
   publicStatusToDbStatus,
@@ -43,7 +42,6 @@ type CompanyRow = {
   slug: string | null
   logo_url: string | null
   ownership_type: OwnershipType | null
-  commitment_score: number
   career_portal_url: string | null
 } | null
 
@@ -79,7 +77,7 @@ type JobDetailRow = JobListRow & {
   updated_at: string
 }
 
-/** Internal select — commitment_score used only to derive hasJidPartnerBadge. */
+/** Internal select for job list/detail queries. */
 const JOB_LIST_SELECT = `
   id,
   slug,
@@ -103,7 +101,6 @@ const JOB_LIST_SELECT = `
     slug,
     logo_url,
     ownership_type,
-    commitment_score,
     career_portal_url
   ),
   sector:sectors(slug, name_en, name_ar),
@@ -141,7 +138,6 @@ const JOB_DETAIL_SELECT = `
     slug,
     logo_url,
     ownership_type,
-    commitment_score,
     career_portal_url
   ),
   sector:sectors(slug, name_en, name_ar),
@@ -154,9 +150,6 @@ function normalizeEmbed<T>(value: T | T[] | null | undefined): T | null {
   return value
 }
 
-function computeHasJidPartnerBadge(commitmentScore: number | null | undefined): boolean {
-  return (commitmentScore ?? 0) >= JID_PARTNER_BADGE_MIN_SCORE
-}
 
 function mapSectorRef(row: SectorRow): JobSectorRef | null {
   if (!row?.slug) return null
@@ -176,7 +169,6 @@ function mapCompanyRef(row: CompanyRow): JobCompanyRef {
     slug: null,
     logo_url: null,
     ownership_type: null,
-    commitment_score: 0,
     career_portal_url: null,
   }
 
@@ -212,7 +204,6 @@ function mapJobCard(row: JobListRow): JobCardData | null {
     deadlineDaysLeft: computeDeadlineDaysLeft(row.application_deadline),
     published_at: row.published_at,
     applicant_count: row.applicant_count,
-    hasJidPartnerBadge: computeHasJidPartnerBadge(company.commitment_score),
     applyUrl:
       row.external_apply_url?.trim() || company.career_portal_url?.trim() || null,
     company: mapCompanyRef(company),

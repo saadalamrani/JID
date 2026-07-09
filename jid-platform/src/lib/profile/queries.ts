@@ -332,7 +332,6 @@ export async function fetchCompany(companyId: string): Promise<CompanyProfileRec
       is_on_honor_roll,
       last_activity_at,
       domains,
-      commitment_score,
       avg_response_days,
       response_rate_pct,
       total_jobs_posted_12mo
@@ -364,7 +363,6 @@ function mapCompanyRow(row: Record<string, unknown>): CompanyProfileRecord {
     is_on_honor_roll: Boolean(row.is_on_honor_roll),
     last_activity_at: (row.last_activity_at as string | null) ?? null,
     domains: (row.domains as string[]) ?? [],
-    commitment_score: Number(row.commitment_score ?? 0),
     avg_response_days: row.avg_response_days != null ? Number(row.avg_response_days) : null,
     response_rate_pct: row.response_rate_pct != null ? Number(row.response_rate_pct) : null,
     total_jobs_posted_12mo: Number(row.total_jobs_posted_12mo ?? 0),

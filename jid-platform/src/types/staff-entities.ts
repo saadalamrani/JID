@@ -1,8 +1,5 @@
 export const STAFF_ENTITIES_PAGE_SIZE = 25
 
-/** Job Board SLA flag threshold (Section 9). */
-export const STAFF_COMMITMENT_FLAG_THRESHOLD = 60
-
 export type StaffOwnershipFilter = 'all' | 'government' | 'semi_government' | 'private'
 
 export type StaffEntitiesListFilters = {
@@ -19,7 +16,6 @@ export type StaffEntityListRow = {
   entity_type: string
   ownership_type: string | null
   region_name: string | null
-  commitment_score: number
   created_at: string
   updated_at: string
 }
@@ -47,7 +43,6 @@ export type StaffEntityDetail = {
   description_ar: string | null
   logo_url: string | null
   website_url: string | null
-  commitment_score: number
   response_rate_pct: number | null
   avg_response_days: number | null
   total_jobs_posted_12mo: number
@@ -62,7 +57,6 @@ export type StaffEntityDetail = {
 
 export type StaffEntityResponseStats = {
   source: 'view' | 'company_columns'
-  commitment_score: number
   response_rate_pct: number | null
   avg_response_days: number | null
   total_jobs_posted_12mo: number

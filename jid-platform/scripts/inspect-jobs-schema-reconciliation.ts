@@ -59,7 +59,7 @@ console.log('  profiles jsonb privacy fields:', hasPrivacyJsonb ? 'possible' : '
 console.log('\n(c) companies catalog columns:')
 const companiesCols = extractCompaniesColumns()
 console.log('  entity_state:', companiesCols.includes('entity_state') ? 'YES' : 'NO')
-console.log('  commitment_score:', companiesCols.includes('commitment_score') ? 'YES' : 'NO')
+console.log('  commitment_score removed:', !companiesCols.includes('commitment_score') ? 'YES' : 'NO (unexpected)')
 console.log('  claim_status on companies:', companiesCols.includes('claim_status') ? 'YES (unexpected)' : 'NO')
 
 console.log('\n(d) Jobs module tables (should not exist yet):')

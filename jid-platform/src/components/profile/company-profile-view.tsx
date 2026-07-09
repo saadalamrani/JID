@@ -39,12 +39,7 @@ export function CompanyProfileView({ context, badges, isOwner }: CompanyProfileV
         editHref={isOwner ? '/company/profile/edit' : undefined}
       />
 
-      <CompanyTrustSignals
-        badges={badges}
-        commitmentScore={company.commitment_score}
-        showCommitmentScore
-        isOnHonorRoll={company.is_on_honor_roll}
-      />
+      <CompanyTrustSignals badges={badges} isOnHonorRoll={company.is_on_honor_roll} />
 
       {isUnclaimed ? <UnclaimedCTA companyId={company.id} /> : null}
 

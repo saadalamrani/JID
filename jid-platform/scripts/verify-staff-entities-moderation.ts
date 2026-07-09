@@ -57,10 +57,10 @@ async function main() {
     fail('Entity list scope')
   }
 
-  if (entitiesQueries.includes('STAFF_COMMITMENT_FLAG_THRESHOLD')) {
-    pass('Flagged entities use commitment_score threshold')
+  if (entitiesQueries.includes('.order(')) {
+    pass('Entity list supports ordered queries')
   } else {
-    fail('Flagged entities threshold')
+    fail('Entity list ordering')
   }
 
   const updatesBlock =
@@ -115,7 +115,6 @@ async function main() {
 
   const routes: Array<{ path: string; label: string }> = [
     { path: '/staff/entities', label: '/staff/entities' },
-    { path: '/staff/entities/flagged', label: '/staff/entities/flagged' },
     { path: '/staff/moderation', label: '/staff/moderation' },
   ]
 

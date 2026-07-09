@@ -78,7 +78,6 @@ export type JobCardData = {
   deadlineDaysLeft: number
   published_at: string | null
   applicant_count: number
-  hasJidPartnerBadge: boolean
   /** External apply destination — company career portal (Section 4.5). */
   applyUrl: string | null
   company: JobCompanyRef
@@ -109,7 +108,6 @@ export type Job = {
   deadlineDaysLeft: number
   applicant_count: number
   view_count: number
-  hasJidPartnerBadge: boolean
   applyUrl: string | null
   company: JobCompanyRef
   sector: JobSectorRef | null
@@ -185,8 +183,6 @@ export const DEFAULT_JOB_FILTERS: JobFilters = {
   page: 1,
   limit: 50,
 }
-
-export const JID_PARTNER_BADGE_MIN_SCORE = 80
 
 export type JobsListResult = {
   jobs: JobCardData[]

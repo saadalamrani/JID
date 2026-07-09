@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { Link } from '@/lib/i18n/navigation'
 import { EntitiesFilters } from '@/app/[locale]/(staff)/staff/entities/_components/entities-filters'
 import { EntitiesTable } from '@/app/[locale]/(staff)/staff/entities/_components/entities-table'
 import {
@@ -47,9 +46,6 @@ export default async function StaffEntitiesPage({ searchParams }: StaffEntitiesP
           <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
           <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
-        <Link href="/staff/entities/flagged" className="text-sm text-primary hover:underline">
-          {t('flaggedLink')}
-        </Link>
       </header>
 
       <Suspense fallback={<div className="h-24 rounded-lg border border-border bg-card" />}>

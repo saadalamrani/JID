@@ -28,7 +28,6 @@ function baseCompany(overrides: Partial<CompanyProfileRecord>): CompanyProfileRe
     is_on_honor_roll: false,
     last_activity_at: null,
     domains: ['test.local'],
-    commitment_score: 0,
     avg_response_days: null,
     response_rate_pct: null,
     total_jobs_posted_12mo: 0,
@@ -86,7 +85,6 @@ const unclaimed = baseCompany({ id: UNCLAIMED_ID, entity_state: 'unclaimed' })
 const claimed = baseCompany({
   id: CLAIMED_ID,
   entity_state: 'approved',
-  commitment_score: 82.5,
   is_verified: true,
 })
 const suspended = baseCompany({ id: SUSPENDED_ID, entity_state: 'suspended' })

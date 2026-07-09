@@ -67,7 +67,6 @@ export type CompanyProfileRecord = {
   is_on_honor_roll: boolean
   last_activity_at: string | null
   domains: string[]
-  commitment_score: number
   avg_response_days: number | null
   response_rate_pct: number | null
   total_jobs_posted_12mo: number

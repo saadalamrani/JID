@@ -2,14 +2,10 @@
 
 import { useLocale, useTranslations } from 'next-intl'
 import { BadgePill } from '@/components/profile/badge-pill'
-import { ProfileCompletionBar } from '@/components/profile/profile-completion-bar'
 import type { EarnedEntityBadge } from '@/lib/profile/types'
 
 type CompanyTrustSignalsProps = {
   badges: EarnedEntityBadge[]
-  /** This company's own commitment score only — never compare across companies (Section 13). */
-  commitmentScore: number
-  showCommitmentScore: boolean
   isOnHonorRoll: boolean
 }
 
@@ -17,30 +13,12 @@ type CompanyTrustSignalsProps = {
  * Public trust signals for a single company profile (Section 6.8).
  * Receives pre-fetched data for one company id — does not query other companies.
  */
-export function CompanyTrustSignals({
-  badges,
-  commitmentScore,
-  showCommitmentScore,
-  isOnHonorRoll,
-}: CompanyTrustSignalsProps) {
+export function CompanyTrustSignals({ badges, isOnHonorRoll }: CompanyTrustSignalsProps) {
   const t = useTranslations('profile.company.public')
   const locale = useLocale() as 'ar' | 'en'
 
   return (
     <section className="space-y-4" aria-label={t('trustSignalsLabel')}>
-      {showCommitmentScore ? (
-        <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <div className="flex items-center justify-between gap-2">
-            <h2 className="text-sm font-medium text-muted-foreground">{t('commitmentScoreTitle')}</h2>
-            <span className="text-sm font-medium text-primary">
-              {Math.round(commitmentScore)}%
-            </span>
-          </div>
-          <p className="mt-1 text-xs text-muted-foreground">{t('commitmentScoreHint')}</p>
-          <ProfileCompletionBar percent={commitmentScore} showLabel={false} className="mt-3" />
-        </div>
-      ) : null}
-
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
         <h2 className="mb-2 text-sm font-medium text-muted-foreground">{t('badgesTitle')}</h2>
         {badges.length > 0 || isOnHonorRoll ? (

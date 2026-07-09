@@ -2,7 +2,6 @@ import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
 import { requireStaffShellAccess } from '@/lib/staff/require-staff-access'
-import { STAFF_COMMITMENT_FLAG_THRESHOLD } from '@/lib/staff/entity-constants'
 import type {
   StaffEntitiesListFilters,
   StaffEntitiesListResult,
@@ -23,7 +22,6 @@ type CompanyRow = {
   name_ar: string | null
   entity_type: string
   ownership_type: string | null
-  commitment_score: number
   created_at: string
   updated_at: string
   region_id: string | null
@@ -50,7 +48,7 @@ export async function fetchStaffEntitiesList(
   let query = supabase
     .from('companies')
     .select(
-      'id, name, name_ar, entity_type, ownership_type, commitment_score, created_at, updated_at, region_id, regions(name_en, name_ar)',
+      'id, name, name_ar, entity_type, ownership_type, created_at, updated_at, region_id, regions(name_en, name_ar)',
       { count: 'exact' },
     )
     .eq('entity_state', 'approved')
@@ -83,69 +81,6 @@ export async function fetchStaffEntitiesList(
     entity_type: row.entity_type,
     ownership_type: row.ownership_type,
     region_name: unwrapRelation(row.regions)?.name_en ?? null,
-    commitment_score: Number(row.commitment_score ?? 0),
-    created_at: row.created_at,
-    updated_at: row.updated_at,
-  }))
-
-  const total = count ?? 0
-  return {
-    rows,
-    total,
-    page,
-    pageSize,
-    totalPages: Math.max(1, Math.ceil(total / pageSize)),
-  }
-}
-
-export async function fetchStaffFlaggedEntities(
-  filters: Omit<StaffEntitiesListFilters, 'page'> & { page?: number } = {},
-): Promise<StaffEntitiesListResult> {
-  await requireStaffShellAccess()
-  const supabase = await createClient()
-  const page = Math.max(1, filters.page ?? 1)
-  const pageSize = STAFF_ENTITIES_PAGE_SIZE
-  const from = (page - 1) * pageSize
-  const to = from + pageSize - 1
-
-  let query = supabase
-    .from('companies')
-    .select(
-      'id, name, name_ar, entity_type, ownership_type, commitment_score, created_at, updated_at, region_id, regions(name_en, name_ar)',
-      { count: 'exact' },
-    )
-    .eq('entity_state', 'approved')
-    .in('entity_type', ['company', 'university'])
-    .lt('commitment_score', STAFF_COMMITMENT_FLAG_THRESHOLD)
-    .order('commitment_score', { ascending: true })
-
-  const q = filters.q?.trim()
-  if (q) {
-    query = query.or(`name.ilike.%${q.replace(/[%_\\]/g, '\\$&')}%,name_ar.ilike.%${q.replace(/[%_\\]/g, '\\$&')}%`)
-  }
-
-  const ownership = filters.ownership ?? 'all'
-  if (ownership !== 'all') {
-    query = query.eq('ownership_type', ownership)
-  }
-
-  if (filters.regionId) {
-    query = query.eq('region_id', filters.regionId)
-  }
-
-  query = query.range(from, to)
-
-  const { data, error, count } = await query
-  if (error) throw new Error(error.message)
-
-  const rows: StaffEntityListRow[] = ((data ?? []) as CompanyRow[]).map((row) => ({
-    id: row.id,
-    name: row.name,
-    name_ar: row.name_ar,
-    entity_type: row.entity_type,
-    ownership_type: row.ownership_type,
-    region_name: unwrapRelation(row.regions)?.name_en ?? null,
-    commitment_score: Number(row.commitment_score ?? 0),
     created_at: row.created_at,
     updated_at: row.updated_at,
   }))
@@ -213,7 +148,6 @@ export async function fetchStaffEntityDetail(entityId: string): Promise<StaffEnt
     description_ar: data.description_ar,
     logo_url: data.logo_url,
     website_url: data.website_url,
-    commitment_score: Number(data.commitment_score ?? 0),
     response_rate_pct: data.response_rate_pct,
     avg_response_days: data.avg_response_days,
     total_jobs_posted_12mo: data.total_jobs_posted_12mo ?? 0,
@@ -242,7 +176,6 @@ export async function fetchStaffEntityResponseStats(
 
   return {
     source: viewAvailable ? 'view' : 'company_columns',
-    commitment_score: entity.commitment_score,
     response_rate_pct: entity.response_rate_pct,
     avg_response_days: entity.avg_response_days,
     total_jobs_posted_12mo: entity.total_jobs_posted_12mo,

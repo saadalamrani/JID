@@ -11,6 +11,5 @@ export type ApprovedCompanyPoster = {
     ownership_type: OwnershipType | null
     domains: string[]
     entity_state: string
-    hasJidPartnerBadge: boolean
   }
 }

@@ -9,7 +9,6 @@ import { cn } from '@/lib/utils'
 import { CompanyLogo } from '@/app/[locale]/(public)/catalog/_components/company-logo'
 import { OwnershipBadge } from '@/app/[locale]/(public)/catalog/_components/ownership-badge'
 import { DeadlineBar } from './deadline-bar'
-import { JidPartnerBadge } from './jid-partner-badge'
 import { JobActionButton } from './job-action-button'
 import { JobSaveButton } from './job-save-button'
 import { Pill } from './pill'
@@ -76,7 +75,6 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
         <Pill icon={Briefcase}>{experienceLabel}</Pill>
         {locationLabel ? <Pill icon={job.is_remote ? Wifi : MapPin}>{locationLabel}</Pill> : null}
         {sectorLabel ? <Pill>{sectorLabel}</Pill> : null}
-        {job.hasJidPartnerBadge ? <JidPartnerBadge /> : null}
       </div>
 
       <div className="relative z-20 mt-3 pointer-events-none">

@@ -260,7 +260,7 @@
         },
         "trust": {
           "title": "الثقة",
-          "description": "ملفات موثقة عبر مطالبات مراجعة، وإشارات التزام للشركات، دون مزايدة على أرقام غير موثقة."
+          "description": "ملفات موثقة عبر مطالبات المراجعة — دون مزايدة على أرقام غير موثقة."
         }
       }
     },
@@ -1410,7 +1410,6 @@
     "entities": {
       "title": "إدارة الكيانات",
       "subtitle": "الشركات والجامعات المعتمدة — تصحيح البيانات فقط (وليس سير عمل المطالبات)",
-      "flaggedLink": "كيانات مخالفة لاتفاقية مستوى الخدمة ←",
       "filters": {
         "search": "بحث",
         "searchPlaceholder": "اسم الكيان…",
@@ -1433,7 +1432,6 @@
           "type": "النوع",
           "ownership": "الملكية",
           "region": "المنطقة",
-          "commitment": "الالتزام",
           "updated": "آخر تحديث"
         },
         "types": {
@@ -1448,12 +1446,6 @@
       },
       "pagination": {
         "summary": "{total} كيان · صفحة {page} من {totalPages}"
-      },
-      "flagged": {
-        "title": "كيانات مخالفة لاتفاقية مستوى الخدمة",
-        "subtitle": "درجة الالتزام أقل من {threshold} (عتبة لوحة الوظائف)",
-        "back": "← العودة للكيانات",
-        "count": "{total} مخالف · صفحة {page} من {totalPages}"
       },
       "detail": {
         "back": "← العودة للكيانات",
@@ -1485,8 +1477,6 @@
         "stats": {
           "title": "إحصائيات الاستجابة",
           "viewFallback": "عرض v_company_response_stats غير متوفر — تُعرض أعمدة جدول الشركات.",
-          "lowCommitmentWarning": "درجة الالتزام {score} أقل من {threshold}. قد يظهر هذا الكيان في قائمة المخالفين.",
-          "commitmentScore": "درجة الالتزام",
           "responseRate": "معدل الاستجابة",
           "avgResponseDays": "متوسط الاستجابة (أيام)",
           "jobs12mo": "وظائف منشورة (12 شهر)"
@@ -2668,8 +2658,6 @@
     "company": {
       "public": {
         "trustSignalsLabel": "إشارات ثقة الشركة",
-        "commitmentScoreTitle": "درجة الالتزام",
-        "commitmentScoreHint": "التزام هذه الشركة بالتوظيف على جيد — وليس مقارنة مع شركات أخرى.",
         "badgesTitle": "الشارات",
         "badgesEmpty": "لا توجد شارات بعد",
         "honorRollBadgeAr": "قائمة الشرف",

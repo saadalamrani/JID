@@ -4,7 +4,6 @@ import type { JobDeclarationStatus } from '@/types/self-declaration'
 import { CompanyLogo } from '@/app/[locale]/(public)/catalog/_components/company-logo'
 import { OwnershipBadge } from '@/app/[locale]/(public)/catalog/_components/ownership-badge'
 import { DeadlineBar } from './deadline-bar'
-import { JidPartnerBadge } from './jid-partner-badge'
 import { JobActionButton } from './job-action-button'
 import { JobApplicantCount } from './job-applicant-count'
 import { Pill } from './pill'
@@ -47,7 +46,6 @@ export function JobDetailView({
               {job.company.ownership_type ? (
                 <OwnershipBadge type={job.company.ownership_type} />
               ) : null}
-              {job.hasJidPartnerBadge ? <JidPartnerBadge /> : null}
             </div>
           </div>
         </div>

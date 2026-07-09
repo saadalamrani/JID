@@ -94,9 +94,9 @@ check(
 )
 
 check(
-  'has-jid-partner-badge-only',
-  jobBoardSource.includes('hasJidPartnerBadge'),
-  'hasJidPartnerBadge used for partner badge display',
+  'no-partner-badge-legacy',
+  !/\bhasJidPartnerBadge\b/.test(jobBoardSource) && !/jid-partner-badge/.test(jobBoardSource),
+  'Legacy JID Partner badge removed from Job Board',
 )
 
 const jobBoardAppPaths = jobBoardFiles

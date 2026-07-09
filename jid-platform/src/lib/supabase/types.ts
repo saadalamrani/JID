@@ -231,7 +231,6 @@ export type Database = {
           city: string | null
           claim_requested_at: string | null
           claimed_by: string | null
-          commitment_score: number
           cover_url: string | null
           created_at: string
           description_ar: string | null
@@ -270,7 +269,6 @@ export type Database = {
           about_long_ar?: string | null
           about_long_en?: string | null
           avg_response_days?: number | null
-          commitment_score?: number
           created_at?: string
           domains?: string[]
           employee_count_range?: string | null
@@ -293,7 +291,6 @@ export type Database = {
           about_long_ar?: string | null
           about_long_en?: string | null
           avg_response_days?: number | null
-          commitment_score?: number
           created_at?: string
           domains?: string[]
           employee_count_range?: string | null
@@ -972,6 +969,7 @@ export type Database = {
           sector_id: string | null
           slug: string | null
           status: Database['public']['Enums']['job_status_enum']
+          tier: Database['public']['Enums']['opportunity_tier_enum']
           title_ar: string
           title_en: string | null
           updated_at: string
@@ -998,6 +996,7 @@ export type Database = {
           sector_id?: string | null
           slug?: string | null
           status?: Database['public']['Enums']['job_status_enum']
+          tier?: Database['public']['Enums']['opportunity_tier_enum']
           title_ar: string
           title_en?: string | null
           updated_at?: string
@@ -1024,6 +1023,7 @@ export type Database = {
           sector_id?: string | null
           slug?: string | null
           status?: Database['public']['Enums']['job_status_enum']
+          tier?: Database['public']['Enums']['opportunity_tier_enum']
           title_ar?: string
           title_en?: string | null
           updated_at?: string
@@ -2459,6 +2459,21 @@ export type Database = {
         Args: { cat: Database['public']['Enums']['notification_category_enum'] }
         Returns: boolean
       }
+      get_my_entitlements: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          feature_key: string
+          quota: number | null
+        }[]
+      }
+      has_entitlement: {
+        Args: { p_feature: string }
+        Returns: boolean
+      }
+      company_has_entitlement: {
+        Args: { p_company_id: string; p_feature: string }
+        Returns: boolean
+      }
       notify_claim_decision: {
         Args: {
           p_claim_id: string
@@ -2486,6 +2501,10 @@ export type Database = {
           sent_this_month: number
           sent_today: number
         }[]
+      }
+      expire_lapsed_subscriptions: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
       expire_passed_jobs: {
         Args: Record<PropertyKey, never>
@@ -2608,6 +2627,10 @@ export type Database = {
       }
     }
     Enums: {
+      billing_cycle_enum: 'monthly' | 'yearly'
+      subscription_status_enum: 'trialing' | 'active' | 'past_due' | 'canceled' | 'expired'
+      subscriber_type_enum: 'user' | 'company'
+      opportunity_tier_enum: 'normal' | 'plus'
       additional_category_enum:
         | 'certification'
         | 'award'

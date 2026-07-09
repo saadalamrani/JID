@@ -13,7 +13,6 @@ export type StaffEntityActionResult = { ok: true } | { ok: false; error: string 
 
 function revalidateEntityPaths(entityId: string) {
   revalidatePath('/staff/entities')
-  revalidatePath('/staff/entities/flagged')
   revalidatePath(`/staff/entities/${entityId}`)
   revalidatePath(`/staff/entities/metadata-edit/${entityId}`)
 }

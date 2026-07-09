@@ -43,7 +43,6 @@ function buildPreviewJob(
     deadlineDaysLeft: computeDeadlineDaysLeft(deadlineIso),
     published_at: null,
     applicant_count: 0,
-    hasJidPartnerBadge: poster.company.hasJidPartnerBadge,
     applyUrl: draft.external_apply_url.trim() || null,
     company: {
       id: poster.company.id,

@@ -260,7 +260,7 @@
         },
         "trust": {
           "title": "Trust",
-          "description": "Verified profiles through claim review and commitment signals — without unverified statistic wars."
+          "description": "Verified profiles through claim review — without unverified statistic wars."
         }
       }
     },
@@ -1420,7 +1420,6 @@
     "entities": {
       "title": "Entity moderation",
       "subtitle": "Approved companies and universities — metadata corrections only (not claim workflow)",
-      "flaggedLink": "SLA-flagged entities →",
       "filters": {
         "search": "Search",
         "searchPlaceholder": "Entity name…",
@@ -1443,7 +1442,6 @@
           "type": "Type",
           "ownership": "Ownership",
           "region": "Region",
-          "commitment": "Commitment",
           "updated": "Updated"
         },
         "types": {
@@ -1458,12 +1456,6 @@
       },
       "pagination": {
         "summary": "{total} entities · page {page} of {totalPages}"
-      },
-      "flagged": {
-        "title": "SLA-flagged entities",
-        "subtitle": "Commitment score below {threshold} (Job Board threshold)",
-        "back": "← Back to entities",
-        "count": "{total} flagged · page {page} of {totalPages}"
       },
       "detail": {
         "back": "← Back to entities",
@@ -1495,8 +1487,6 @@
         "stats": {
           "title": "Response stats",
           "viewFallback": "v_company_response_stats not deployed — showing companies table columns.",
-          "lowCommitmentWarning": "Commitment score {score} is below {threshold}. This entity may appear on the SLA flagged list.",
-          "commitmentScore": "Commitment score",
           "responseRate": "Response rate",
           "avgResponseDays": "Avg response (days)",
           "jobs12mo": "Jobs posted (12mo)"
@@ -2678,8 +2668,6 @@
     "company": {
       "public": {
         "trustSignalsLabel": "Company trust signals",
-        "commitmentScoreTitle": "Commitment score",
-        "commitmentScoreHint": "This company's own hiring commitment on JID — not a comparison to other employers.",
         "badgesTitle": "Badges",
         "badgesEmpty": "No badges earned yet",
         "honorRollBadgeAr": "شرف القائمة",

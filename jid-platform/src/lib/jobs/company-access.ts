@@ -3,7 +3,6 @@ import 'server-only'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import type { OwnershipType } from '@/types/catalog'
-import { JID_PARTNER_BADGE_MIN_SCORE } from '@/types/job'
 import type { ApprovedCompanyPoster } from '@/lib/jobs/poster-types'
 
 export type { ApprovedCompanyPoster } from '@/lib/jobs/poster-types'
@@ -16,7 +15,7 @@ async function fetchApprovedCompanyForUser(
   const { data: company, error } = await supabase
     .from('companies')
     .select(
-      'id, name, name_ar, logo_url, ownership_type, domains, entity_state, commitment_score, claimed_by',
+      'id, name, name_ar, logo_url, ownership_type, domains, entity_state, claimed_by',
     )
     .eq('claimed_by', userId)
     .eq('entity_state', 'approved')
@@ -34,7 +33,6 @@ async function fetchApprovedCompanyForUser(
       ownership_type: company.ownership_type as OwnershipType | null,
       domains: company.domains ?? [],
       entity_state: company.entity_state,
-      hasJidPartnerBadge: (company.commitment_score ?? 0) >= JID_PARTNER_BADGE_MIN_SCORE,
     },
   }
 }
