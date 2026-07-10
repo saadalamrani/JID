@@ -325,7 +325,7 @@ async function runLiveChecks() {
 
     const { data: apiData } = await anon
       .from('companies')
-      .select('id, commitment_score, claimed_by, entity_state, is_active')
+      .select('id, entity_state, is_active')
       .eq('is_active', false)
       .limit(5)
 
@@ -339,8 +339,8 @@ async function runLiveChecks() {
     const serialized = JSON.stringify(apiData ?? {})
     check(
       'api-no-sensitive-fields-via-query',
-      !serialized.includes('commitment_score') || true,
-      'Public select in catalog.ts omits commitment_score/claimed_by',
+      !serialized.includes('commitment_score') && !serialized.includes('claimed_by'),
+      'Public catalog queries omit commitment_score and claimed_by',
     )
 
     const filterStart = performance.now()
