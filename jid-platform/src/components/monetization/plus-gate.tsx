@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, type ReactNode } from 'react'
+import { Skeleton } from '@/components/ui/skeleton'
 import type { JidPlusFeatureKey } from '@/lib/monetization/feature-keys'
 import { useEntitlement } from '@/lib/monetization/use-entitlement'
+import { cn } from '@/lib/utils'
 import { PlusTeaser } from './plus-teaser'
 
 type PlusGateProps = {
@@ -31,10 +33,15 @@ export function PlusGate({ feature, children, fallback, teaserPreview, className
   if (isLoading) {
     return (
       <div
-        className={className}
+        className={cn('space-y-3 rounded-xl border border-border bg-card p-5', className)}
         aria-busy="true"
         aria-live="polite"
-      />
+      >
+        <Skeleton className="h-5 w-40" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-5/6" />
+        <Skeleton className="h-10 w-32" />
+      </div>
     )
   }
 

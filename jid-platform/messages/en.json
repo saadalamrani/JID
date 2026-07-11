@@ -985,7 +985,8 @@
         "entities": "Entities",
         "moderation": "Moderation",
         "lammah": "Lammah",
-        "audit": "My audit log"
+        "audit": "My audit log",
+        "billing": "Billing"
       }
     },
     "sidebar": {
@@ -1032,7 +1033,8 @@
         "entities": "Entities",
         "moderation": "Moderation",
         "lammah": "Lammah",
-        "audit": "My audit log"
+        "audit": "My audit log",
+        "billing": "Billing"
       }
     },
     "dashboard": {
@@ -3915,6 +3917,67 @@
         "canceled": "Canceled",
         "expired": "Expired"
       }
+    },
+    "pricing": {
+      "metaTitle": "JID Plus — Subscription plans",
+      "metaDescription": "Unlock professional CV formats, ابحثلي, and Lammah with JID Plus.",
+      "eyebrow": "JID Plus",
+      "title": "Unlock premium features",
+      "subtitle": "Monthly or yearly billing only — no passes or lifetime plans.",
+      "featuresTitle": "What is included in Plus?",
+      "featureItems": [
+        "Build My CV — Harvard and global ATS formats",
+        "ابحثلي — automated opportunity matching",
+        "Lammah — Plus-exclusive external feed"
+      ],
+      "billingNote": "Cancel anytime at the end of your current billing period.",
+      "checkoutCta": "Continue to checkout",
+      "checkoutLoading": "Preparing checkout…",
+      "checkoutFailed": "Checkout could not be started.",
+      "checkoutUnavailable": "Checkout is not available yet. Billing integration is coming next.",
+      "checkoutSuccess": "Payment confirmed — welcome to JID Plus!"
+    },
+    "companyBilling": {
+      "breadcrumb": "Billing and plans",
+      "title": "Company plan",
+      "subtitle": "Your entity subscription status and employer premium features.",
+      "currentPlan": "Current plan",
+      "active": "Active",
+      "billingCycle": "Billing cycle",
+      "renewalDate": "Renews on",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "teaserTitle": "Activate an employer plan",
+      "teaserBody": "Smart Communication, SSIS screening, and Priority Visibility — via an institutional subscription.",
+      "teaserBullets": [
+        "Cascading automated applicant communication",
+        "SSIS smart screening",
+        "Boosted placement on the opportunities board"
+      ],
+      "salesTitle": "Contact sales",
+      "salesBody": "Employer plans are sales-led in Model 1 — no self-serve checkout on the platform.",
+      "salesCta": "Contact us"
+    },
+    "staffBilling": {
+      "title": "Activate company subscription",
+      "subtitle": "Manual activation for Premium or Enterprise plans — mandatory audit logging.",
+      "companyId": "Company ID",
+      "companyIdPlaceholder": "UUID from companies table",
+      "plan": "Plan",
+      "plans": {
+        "employer_premium": "Employer Premium",
+        "employer_enterprise": "Employer Enterprise"
+      },
+      "billingCycle": "Billing cycle",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "reason": "Activation reason",
+      "reasonPlaceholder": "e.g. Signed annual contract — invoice #1234",
+      "reasonHint": "Required for audit — minimum 10 characters.",
+      "activateCta": "Activate subscription",
+      "activating": "Activating…",
+      "activationSuccess": "Company subscription activated and audit-logged.",
+      "auditNote": "Every activation is recorded in audit_logs and billing_events. No direct UI writes to subscriptions."
     }
   },
   "onboarding": {

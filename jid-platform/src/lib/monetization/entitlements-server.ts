@@ -13,12 +13,14 @@ export async function fetchMyEntitlementsServer(): Promise<UserEntitlement[]> {
     throw new Error(error.message)
   }
 
-  return (data ?? [])
-    .map((row) => {
-      if (!isModel1FeatureKey(row.feature_key)) return null
-      return { featureKey: row.feature_key, quota: row.quota }
-    })
-    .filter((row): row is UserEntitlement => row !== null)
+  const rows: UserEntitlement[] = []
+
+  for (const row of data ?? []) {
+    if (!isModel1FeatureKey(row.feature_key)) continue
+    rows.push({ featureKey: row.feature_key, quota: row.quota ?? null })
+  }
+
+  return rows
 }
 
 /** Current-user entitlement check — JID Plus features (SECURITY DEFINER RPC). */

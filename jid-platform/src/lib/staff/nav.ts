@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react'
 import {
   Building2,
   ClipboardList,
+  CreditCard,
   Flag,
   GraduationCap,
   LayoutDashboard,
@@ -61,6 +62,7 @@ export const STAFF_NAV_SECTIONS: StaffNavSection[] = [
         badgeKey: 'lammahHidden',
       },
       { key: 'announcements', href: '/staff/announcements', icon: Megaphone },
+      { key: 'billing', href: '/staff/billing', icon: CreditCard },
     ],
   },
   {

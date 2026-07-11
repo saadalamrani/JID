@@ -1,5 +1,10 @@
 import type { ReactNode } from 'react'
-import { Building2, BriefcaseBusiness, UserRound } from 'lucide-react'
+import {
+  Building2,
+  BriefcaseBusiness,
+  CreditCard,
+  UserRound,
+} from 'lucide-react'
 import { Link } from '@/lib/i18n/navigation'
 
 type StandardCompanyLayoutProps = {
@@ -9,6 +14,7 @@ type StandardCompanyLayoutProps = {
 const NAV_ITEMS = [
   { href: '/company/profile', label: 'ملف الشركة', icon: Building2 },
   { href: '/jobs/new', label: 'نشر وظيفة', icon: BriefcaseBusiness },
+  { href: '/billing', label: 'الفوترة', icon: CreditCard },
   { href: '/company/claim/reapply', label: 'بيانات الجهة', icon: UserRound },
 ] as const
 
