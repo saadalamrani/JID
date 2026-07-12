@@ -45,15 +45,15 @@ export function EntitySetupForm({ company }: EntitySetupFormProps) {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" noValidate>
-      <section className="rounded-xl border border-jid-line bg-white p-5">
-        <p className="text-xs font-medium uppercase tracking-wide text-jid-ink/50">{t('prefilledLabel')}</p>
-        <h2 className="mt-1 font-arabic text-xl font-semibold text-jid-olive">{company.name_ar ?? company.name}</h2>
+      <section className="rounded-xl border border-border bg-white p-5">
+        <p className="text-xs font-medium uppercase text-muted-foreground">{t('prefilledLabel')}</p>
+        <h2 className="mt-1 font-arabic text-xl font-semibold text-primary">{company.name_ar ?? company.name}</h2>
         {company.name_ar ? (
-          <p className="text-sm text-jid-ink/60" dir="ltr">
+          <p className="text-sm text-foreground/60" dir="ltr">
             {company.name}
           </p>
         ) : null}
-        <p className="mt-2 text-xs text-jid-ink/50">
+        <p className="mt-2 text-xs text-muted-foreground">
           {t('entityState')}: <span className="font-mono">{company.entity_state}</span>
         </p>
       </section>
@@ -71,7 +71,7 @@ export function EntitySetupForm({ company }: EntitySetupFormProps) {
         <textarea
           id="description_ar"
           rows={5}
-          className="flex w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm"
+          className="flex w-full rounded-md border border-border bg-white px-3 py-2 text-sm"
           disabled={isPending}
           {...form.register('description_ar')}
         />
@@ -82,13 +82,13 @@ export function EntitySetupForm({ company }: EntitySetupFormProps) {
           id="description_en"
           rows={5}
           dir="ltr"
-          className="flex w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm"
+          className="flex w-full rounded-md border border-border bg-white px-3 py-2 text-sm"
           disabled={isPending}
           {...form.register('description_en')}
         />
       </FormField>
 
-      <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={isPending}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isPending}>
         {isPending ? t('saving') : t('continue')}
       </Button>
     </form>

@@ -77,7 +77,7 @@ export function SystemHealth({ health }: SystemHealthProps) {
               key={row.label}
               className="rounded-lg border border-border bg-background/20 p-4"
             >
-              <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              <dt className="text-xs font-medium uppercase text-muted-foreground">
                 {row.label}
               </dt>
               <dd className="mt-1 text-sm font-medium text-foreground">{row.value}</dd>
@@ -87,7 +87,7 @@ export function SystemHealth({ health }: SystemHealthProps) {
               <dd className="mt-2">
                 <span
                   className={cn(
-                    'inline-flex rounded-full border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide',
+                    'inline-flex rounded-full border px-2 py-0.5 text-[11px] font-semibold uppercase',
                     statusClass(row.status),
                   )}
                 >

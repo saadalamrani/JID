@@ -55,10 +55,10 @@ export function ExternalApplyUrlField({
 
   return (
     <div className={cn('space-y-2', className)}>
-      <Label htmlFor={id} className="font-arabic text-jid-ink">
+      <Label htmlFor={id} className="font-arabic text-foreground">
         رابط التقديم الخارجي
       </Label>
-      <p className="font-arabic text-xs text-jid-ink/60">
+      <p className="font-arabic text-xs text-foreground/60">
         يجب أن يكون الرابط ضمن النطاقات المعتمدة لجهتك
       </p>
       <Input
@@ -76,7 +76,7 @@ export function ExternalApplyUrlField({
         }}
         placeholder="https://careers.example.com/jobs/123"
         aria-invalid={Boolean(displayError)}
-        className={cn('border-jid-line', displayError && 'border-red-500')}
+        className={cn('border-border', displayError && 'border-red-500')}
       />
       {displayError ? (
         <p className="font-arabic text-xs text-red-600" role="alert">
@@ -109,18 +109,18 @@ export function TagInput({ label, hint, items, maxItems = 20, onChange, error }:
 
   return (
     <div className="space-y-2">
-      <Label className="font-arabic text-jid-ink">{label}</Label>
-      {hint ? <p className="font-arabic text-xs text-jid-ink/60">{hint}</p> : null}
+      <Label className="font-arabic text-foreground">{label}</Label>
+      {hint ? <p className="font-arabic text-xs text-foreground/60">{hint}</p> : null}
       <div className="flex flex-wrap gap-2">
         {items.map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="inline-flex items-center gap-1 rounded-full bg-jid-beige px-3 py-1 font-arabic text-xs text-jid-ink"
+            className="inline-flex items-center gap-1 rounded-full bg-background px-3 py-1 font-arabic text-xs text-foreground"
           >
             {item}
             <button
               type="button"
-              className="text-jid-ink/50 hover:text-jid-ink"
+              className="text-muted-foreground hover:text-foreground"
               aria-label={`إزالة ${item}`}
               onClick={() => onChange(items.filter((_, i) => i !== index))}
             >
@@ -141,7 +141,7 @@ export function TagInput({ label, hint, items, maxItems = 20, onChange, error }:
           }}
           placeholder="أضف مهارة ثم Enter"
           disabled={items.length >= maxItems}
-          className="font-arabic border-jid-line"
+          className="font-arabic border-border"
         />
         <Button
           type="button"

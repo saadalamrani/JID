@@ -10,15 +10,14 @@ import type {
   UpcomingMeetingsResult,
 } from '@/types/timeline'
 import { includeMeetingInTimeline } from '@/lib/timeline/partition-meetings'
+import { timelineMeetingsQueryKey } from '@/lib/queries/timeline-query-keys'
+
+export { timelineMeetingsQueryKey }
 
 type UntypedClient = SupabaseClient<Record<string, unknown>>
 
 function asUntyped(client: SupabaseClient<Database>): UntypedClient {
   return client as unknown as UntypedClient
-}
-
-export function timelineMeetingsQueryKey(userId: string) {
-  return ['radar', 'timeline', 'meetings', userId] as const
 }
 
 const UPCOMING_MEETINGS_SELECT = `

@@ -52,10 +52,10 @@ export function ChatWorkspace({ conversation, userId, initialMessages }: ChatWor
   }
 
   return (
-    <div className="flex min-h-[70vh] flex-col rounded-xl border border-jid-line bg-jid-beige/20 shadow-sm">
+    <div className="flex min-h-[70vh] flex-col rounded-xl border border-border bg-background/20 shadow-sm">
       <ConversationOpenedTracker conversationId={conversation.id} />
-      <header className="flex items-center gap-3 border-b border-jid-line bg-white px-4 py-3">
-        <Link href="/conversations" className="font-arabic text-sm text-jid-olive hover:underline">
+      <header className="flex items-center gap-3 border-b border-border bg-white px-4 py-3">
+        <Link href="/conversations" className="font-arabic text-sm text-primary hover:underline">
           {t('back')}
         </Link>
         <ProfileAvatar
@@ -65,8 +65,8 @@ export function ChatWorkspace({ conversation, userId, initialMessages }: ChatWor
           variant="circle"
         />
         <div className="min-w-0">
-          <h1 className="truncate font-arabic text-base font-semibold text-jid-ink">{otherName}</h1>
-          <p className="font-arabic text-xs text-jid-ink/50">{t('encryptedSubtitle')}</p>
+          <h1 className="truncate font-arabic text-base font-semibold text-foreground">{otherName}</h1>
+          <p className="font-arabic text-xs text-muted-foreground">{t('encryptedSubtitle')}</p>
         </div>
       </header>
 

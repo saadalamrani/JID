@@ -20,7 +20,10 @@ export type StaffQuickAction = {
 /** Section 6 / 12 — command palette quick actions (bounded staff scope). */
 export const STAFF_QUICK_ACTIONS: StaffQuickAction[] = [
   { key: 'dashboard', href: '/staff', keywords: ['home', 'overview'] },
-  { key: 'claims', href: '/staff/claims', keywords: ['queue', 'ownership'] },
+  { key: 'verification', href: '/staff/verification', keywords: ['queue', 'ownership', 'claims'] },
+  { key: 'directory', href: '/staff/directory', keywords: ['catalog', 'registry'] },
+  { key: 'correctionSuggestions', href: '/staff/directory/suggestions', keywords: ['corrections'] },
+  { key: 'profileModeration', href: '/staff/directory/profiles', keywords: ['profiles', 'suspend'] },
   { key: 'mentorApplications', href: '/staff/mentor-applications', keywords: ['mentors'] },
   { key: 'users', href: '/staff/users', keywords: ['individuals'] },
   { key: 'entities', href: '/staff/entities', keywords: ['companies', 'universities'] },

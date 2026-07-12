@@ -20,7 +20,7 @@ export function UnassignedQueue({ claims }: UnassignedQueueProps) {
           <CardTitle className="text-base">{t('title')}</CardTitle>
           <CardDescription>{t('subtitle')}</CardDescription>
         </div>
-        <Link href="/staff/claims" className="text-sm font-medium text-primary hover:underline">
+        <Link href="/staff/verification" className="text-sm font-medium text-primary hover:underline">
           {t('viewAll')}
         </Link>
       </CardHeader>
@@ -33,7 +33,7 @@ export function UnassignedQueue({ claims }: UnassignedQueueProps) {
               <li key={claim.id} className="flex items-start justify-between gap-3 py-3 first:pt-0">
                 <div className="min-w-0">
                   <Link
-                    href={`/staff/claims/${claim.id}`}
+                    href={`/staff/verification/${claim.id}`}
                     className="truncate font-medium text-foreground hover:text-primary hover:underline"
                   >
                     {claim.company_name}

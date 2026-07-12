@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { validateDomainMatch } from '@/lib/jobs/domain-validator'
+import { validateDomainMatchForDomains } from '@/lib/jobs/domain-validator'
 import type { ApprovedCompanyPoster } from '@/lib/jobs/poster-types'
 import {
   EMPTY_JOB_POSTING_DRAFT,
@@ -67,7 +67,7 @@ function validateCoreStep(draft: JobPostingDraft, companyDomains: string[]) {
   const errors = partial.success ? {} : zodFieldErrors(partial.error.errors)
 
   if (draft.external_apply_url.trim()) {
-    const domainCheck = validateDomainMatch(draft.external_apply_url, companyDomains, 'ar')
+    const domainCheck = validateDomainMatchForDomains(draft.external_apply_url, companyDomains, 'ar')
     if (!domainCheck.valid) {
       errors.external_apply_url = domainCheck.message
     }
@@ -108,7 +108,7 @@ export function JobPostingWizard({ poster }: JobPostingWizardProps) {
     }
 
     if (step === 'core') {
-      const nextErrors = validateCoreStep(draft, poster.company.domains)
+      const nextErrors = validateCoreStep(draft, poster.trustedDomains)
       if (Object.keys(nextErrors).length > 0) {
         setErrors(nextErrors)
         return
@@ -131,9 +131,9 @@ export function JobPostingWizard({ poster }: JobPostingWizardProps) {
       return
     }
 
-    const domainCheck = validateDomainMatch(
+    const domainCheck = validateDomainMatchForDomains(
       parsed.data.external_apply_url,
-      poster.company.domains,
+      poster.trustedDomains,
       'ar',
     )
     if (!domainCheck.valid) {
@@ -183,8 +183,8 @@ export function JobPostingWizard({ poster }: JobPostingWizardProps) {
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10">
       <div className="mb-8 text-center">
-        <h1 className="font-arabic text-2xl font-semibold text-jid-ink">نشر فرصة جديدة</h1>
-        <p className="mt-2 font-arabic text-sm text-jid-ink/70">
+        <h1 className="font-arabic text-2xl font-semibold text-foreground">نشر فرصة جديدة</h1>
+        <p className="mt-2 font-arabic text-sm text-foreground/70">
           {poster.company.name_ar ?? poster.company.name}
         </p>
       </div>
@@ -199,9 +199,9 @@ export function JobPostingWizard({ poster }: JobPostingWizardProps) {
               <div
                 className={cn(
                   'mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold',
-                  isActive && 'bg-jid-olive text-white',
-                  isComplete && 'bg-jid-gold text-jid-ink',
-                  !isActive && !isComplete && 'bg-jid-line text-jid-ink/50',
+                  isActive && 'bg-primary text-white',
+                  isComplete && 'bg-accent text-foreground',
+                  !isActive && !isComplete && 'bg-border text-muted-foreground',
                 )}
               >
                 {index + 1}
@@ -209,7 +209,7 @@ export function JobPostingWizard({ poster }: JobPostingWizardProps) {
               <p
                 className={cn(
                   'font-arabic text-xs',
-                  isActive ? 'font-medium text-jid-ink' : 'text-jid-ink/60',
+                  isActive ? 'font-medium text-foreground' : 'text-foreground/60',
                 )}
               >
                 {STEP_LABELS[wizardStep]}
@@ -219,7 +219,7 @@ export function JobPostingWizard({ poster }: JobPostingWizardProps) {
         })}
       </ol>
 
-      <div className="rounded-xl border border-jid-line bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-border bg-white p-6 shadow-sm">
         {step === 'basic' ? (
           <WizardStepBasic draft={draft} errors={errors} onChange={patchDraft} />
         ) : null}
@@ -227,7 +227,7 @@ export function JobPostingWizard({ poster }: JobPostingWizardProps) {
           <WizardStepCore
             draft={draft}
             errors={errors}
-            companyDomains={poster.company.domains}
+            companyDomains={poster.trustedDomains}
             onChange={patchDraft}
           />
         ) : null}
@@ -255,7 +255,7 @@ export function JobPostingWizard({ poster }: JobPostingWizardProps) {
             <Button
               type="button"
               onClick={goNext}
-              className="bg-jid-olive font-arabic hover:bg-jid-olive/90"
+              className="bg-primary font-arabic hover:bg-primary/90"
             >
               التالي
             </Button>

@@ -7,11 +7,56 @@ import type { ApprovedCompanyPoster } from '@/lib/jobs/poster-types'
 
 export type { ApprovedCompanyPoster } from '@/lib/jobs/poster-types'
 
+function unionDomains(...sets: (string[] | null | undefined)[]): string[] {
+  const seen = new Set<string>()
+  for (const list of sets) {
+    for (const raw of list ?? []) {
+      const trimmed = raw.trim().toLowerCase()
+      if (trimmed) seen.add(trimmed)
+    }
+  }
+  return Array.from(seen)
+}
+
 async function fetchApprovedCompanyForUser(
   userId: string,
 ): Promise<ApprovedCompanyPoster | null> {
   const supabase = await createClient()
 
+  const { data: ownedProfile } = await supabase
+    .from('business_profiles')
+    .select('id, verified_domains, directory_id, status')
+    .eq('owner_user_id', userId)
+    .neq('status', 'suspended')
+    .maybeSingle()
+
+  if (ownedProfile?.id) {
+    const { data: company, error } = await supabase
+      .from('companies')
+      .select('id, name, name_ar, logo_url, ownership_type, domains, entity_state')
+      .eq('id', ownedProfile.directory_id)
+      .maybeSingle()
+
+    if (!error && company) {
+      const directoryDomains = company.domains ?? []
+      return {
+        userId,
+        businessProfileId: ownedProfile.id,
+        trustedDomains: unionDomains(ownedProfile.verified_domains, directoryDomains),
+        company: {
+          id: company.id,
+          name: company.name,
+          name_ar: company.name_ar,
+          logo_url: company.logo_url,
+          ownership_type: company.ownership_type as OwnershipType | null,
+          domains: directoryDomains,
+          entity_state: company.entity_state ?? 'approved',
+        },
+      }
+    }
+  }
+
+  // TRANSITIONAL (P-104): legacy claimed_by path until P-110 backfill
   const { data: company, error } = await supabase
     .from('companies')
     .select(
@@ -23,15 +68,19 @@ async function fetchApprovedCompanyForUser(
 
   if (error || !company) return null
 
+  const directoryDomains = company.domains ?? []
+
   return {
     userId,
+    businessProfileId: null,
+    trustedDomains: unionDomains(directoryDomains),
     company: {
       id: company.id,
       name: company.name,
       name_ar: company.name_ar,
       logo_url: company.logo_url,
       ownership_type: company.ownership_type as OwnershipType | null,
-      domains: company.domains ?? [],
+      domains: directoryDomains,
       entity_state: company.entity_state,
     },
   }
@@ -52,7 +101,7 @@ export async function getApprovedCompanyPoster(): Promise<ApprovedCompanyPoster 
 
 /**
  * Server-side gate for job posting pages (Section 6.1).
- * Requires claimed_by = auth.uid() AND entity_state = 'approved'.
+ * Profile owner (Layer 3) or legacy claimed_by company (transitional).
  */
 export async function requireApprovedCompanyPoster(): Promise<ApprovedCompanyPoster> {
   const supabase = await createClient()
@@ -66,7 +115,7 @@ export async function requireApprovedCompanyPoster(): Promise<ApprovedCompanyPos
 
   const poster = await fetchApprovedCompanyForUser(user.id)
   if (!poster) {
-    redirect('/company/pending-review')
+    redirect('/company/verification-pending')
   }
 
   return poster

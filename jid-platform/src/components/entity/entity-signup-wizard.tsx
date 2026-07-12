@@ -32,7 +32,9 @@ type EntitySignupWizardProps = {
 type EntityPhase = 'selection' | 'claim'
 
 function pendingReviewPath(entityType: EntitySignupType) {
-  return entityType === 'university' ? '/university/pending-review' : '/company/pending-review'
+  return entityType === 'university'
+    ? '/university/pending-review'
+    : '/company/verification-pending'
 }
 
 export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
@@ -191,7 +193,7 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         currentStep="account"
         stepLabels={stepLabels}
       >
-        <p className="text-center text-sm text-jid-ink/60">{t('loading')}</p>
+        <p className="text-center text-sm text-foreground/60">{t('loading')}</p>
       </WizardShell>
     )
   }
@@ -230,7 +232,7 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
           />
           <button
             type="button"
-            className="w-full text-sm text-jid-olive underline-offset-4 hover:underline"
+            className="w-full text-sm text-primary underline-offset-4 hover:underline"
             onClick={() => setEntityPhase('selection')}
           >
             {t('entity.changeCompany')}

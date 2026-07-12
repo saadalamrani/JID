@@ -71,7 +71,7 @@ export function ClaimReviewModal({ claim, open, onOpenChange }: ClaimReviewModal
       toast.success(decision === 'approve' ? t('approved') : t('rejected'))
       void queryClient.invalidateQueries({ queryKey: claimsQueueQueryKey })
       onOpenChange(false)
-      router.push('/staff/claims/queue')
+      router.push('/staff/verification')
     },
     onError: (error: Error) => {
       toast.error(error.message)

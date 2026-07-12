@@ -30,7 +30,7 @@ export function RegionCityPicker({
   return (
     <div className={cn('grid gap-4 sm:grid-cols-2', className)}>
       <div className="space-y-2">
-        <Label htmlFor="job-region" className="font-arabic text-jid-ink">
+        <Label htmlFor="job-region" className="font-arabic text-foreground">
           المنطقة
         </Label>
         <select
@@ -40,8 +40,8 @@ export function RegionCityPicker({
           disabled={isLoading}
           aria-invalid={Boolean(regionError)}
           className={cn(
-            'flex h-10 w-full rounded-md border border-jid-line bg-white px-3 py-2 font-arabic text-sm text-jid-ink',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2',
+            'flex h-10 w-full rounded-md border border-border bg-white px-3 py-2 font-arabic text-sm text-foreground',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
             regionError && 'border-red-500',
           )}
         >
@@ -60,7 +60,7 @@ export function RegionCityPicker({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="job-city" className="font-arabic text-jid-ink">
+        <Label htmlFor="job-city" className="font-arabic text-foreground">
           المدينة
         </Label>
         <Input
@@ -69,7 +69,7 @@ export function RegionCityPicker({
           onChange={(event) => onCityChange(event.target.value)}
           placeholder="مثال: الرياض"
           aria-invalid={Boolean(cityError)}
-          className={cn('font-arabic border-jid-line', cityError && 'border-red-500')}
+          className={cn('font-arabic border-border', cityError && 'border-red-500')}
         />
         {cityError ? (
           <p className="font-arabic text-xs text-red-600" role="alert">

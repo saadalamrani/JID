@@ -97,7 +97,7 @@ export function ChatInputBar({
   return (
     <>
       <form
-        className="flex items-end gap-2 border-t border-jid-line bg-white p-4"
+        className="flex items-end gap-2 border-t border-border bg-white p-4"
         onSubmit={(event) => {
           event.preventDefault()
           void handleSend()
@@ -108,11 +108,11 @@ export function ChatInputBar({
             type="button"
             variant="outline"
             size="icon"
-            className="shrink-0 border-jid-line"
+            className="shrink-0 border-border"
             aria-label={tSchedule('dialogTitle')}
             onClick={() => setScheduleOpen(true)}
           >
-            <CalendarPlus className="h-4 w-4 text-jid-olive" aria-hidden />
+            <CalendarPlus className="h-4 w-4 text-primary" aria-hidden />
           </Button>
         ) : null}
         <textarea
@@ -120,7 +120,7 @@ export function ChatInputBar({
           onChange={(event) => setDraft(event.target.value)}
           rows={2}
           placeholder={t('inputPlaceholder')}
-          className="min-h-[44px] flex-1 resize-none rounded-xl border border-jid-line px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+          className="min-h-[44px] flex-1 resize-none rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           onKeyDown={(event) => {
             if (event.key === 'Enter' && !event.shiftKey) {
               event.preventDefault()
@@ -131,7 +131,7 @@ export function ChatInputBar({
         <Button
           type="submit"
           disabled={!draft.trim() || sending}
-          className="bg-jid-olive hover:bg-jid-olive/90"
+          className="bg-primary hover:bg-primary/90"
           aria-label={t('send')}
         >
           <Send className="h-4 w-4" aria-hidden />

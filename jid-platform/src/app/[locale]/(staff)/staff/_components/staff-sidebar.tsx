@@ -102,7 +102,7 @@ export function StaffSidebar({ sessionIssuedAt }: StaffSidebarProps) {
       <nav aria-label={t('ariaLabel')} className="flex-1 overflow-y-auto px-3 py-4">
         {STAFF_NAV_SECTIONS.map((section) => (
           <div key={section.sectionKey} className="mb-5 last:mb-0">
-            <p className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <p className="mb-2 px-2 text-[11px] font-semibold uppercase text-muted-foreground">
               {t(`sections.${section.sectionKey}`)}
             </p>
             <ul className="space-y-0.5">

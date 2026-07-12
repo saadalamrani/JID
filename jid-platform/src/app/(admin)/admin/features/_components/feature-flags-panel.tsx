@@ -43,12 +43,12 @@ export function FeatureFlagsPanel({ flags, thresholds }: FeatureFlagsPanelProps)
       </div>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-jid-ink">Master Visibility</h2>
+        <h2 className="text-lg font-semibold text-foreground">Master Visibility</h2>
         {masterFlag ? <FlagRow flag={masterFlag} isMaster showTractionWarning={!tractionOk} /> : null}
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-jid-ink">Section Toggles</h2>
+        <h2 className="text-lg font-semibold text-foreground">Section Toggles</h2>
         <div className="space-y-3">
           {sectionFlags.map((flag) => (
             <FlagRow key={flag.key} flag={flag} />
@@ -57,9 +57,9 @@ export function FeatureFlagsPanel({ flags, thresholds }: FeatureFlagsPanelProps)
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-lg font-semibold text-jid-ink">Thresholds</h2>
+        <h2 className="text-lg font-semibold text-foreground">Thresholds</h2>
         {totalCandidates ? (
-          <p className="text-sm text-jid-ink/60">
+          <p className="text-sm text-foreground/60">
             Recommended baseline: <span className="font-semibold">total_candidates min: 500</span>
           </p>
         ) : null}

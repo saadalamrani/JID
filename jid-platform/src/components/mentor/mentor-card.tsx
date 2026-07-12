@@ -114,7 +114,7 @@ export function MentorCard({ mentor, className, previewMode = false }: MentorCar
           <span
             className={cn(
               'h-2 w-2 rounded-full',
-              mentor.is_accepting_requests ? 'bg-emerald-500' : 'bg-jid-line',
+              mentor.is_accepting_requests ? 'bg-emerald-500' : 'bg-border',
             )}
             aria-hidden
           />

@@ -2,10 +2,11 @@ import { notFound } from 'next/navigation'
 import { CompanyProfileView } from '@/components/profile/company-profile-view'
 import { fetchEntityBadges } from '@/lib/profile/badge-helpers'
 import { fetchCompanyPageContext, getCurrentViewer } from '@/lib/profile/queries'
+import { fetchCompanyBySlug } from '@/lib/queries/catalog'
 import { createClient } from '@/lib/supabase/server'
 
 type CompanyProfilePageProps = {
-  params: { uuid: string }
+  params: { slug: string }
 }
 
 function shouldHideUniversityFromPublic(
@@ -15,10 +16,22 @@ function shouldHideUniversityFromPublic(
   return entityType === 'university' && !isAdmin
 }
 
+async function resolveCompanyId(ref: string): Promise<string | null> {
+  const bySlug = await fetchCompanyBySlug(ref)
+  if (bySlug?.id) return bySlug.id
+
+  const context = await fetchCompanyPageContext(ref)
+  return context?.company.id ?? null
+}
+
 export default async function CompanyProfilePage({ params }: CompanyProfilePageProps) {
-  const { uuid } = params
+  const companyId = await resolveCompanyId(params.slug)
+  if (!companyId) {
+    notFound()
+  }
+
   const viewer = await getCurrentViewer()
-  const context = await fetchCompanyPageContext(uuid)
+  const context = await fetchCompanyPageContext(companyId)
 
   if (!context) {
     notFound()
@@ -44,7 +57,12 @@ export default async function CompanyProfilePage({ params }: CompanyProfilePageP
 
 export async function generateMetadata({ params }: CompanyProfilePageProps) {
   const viewer = await getCurrentViewer()
-  const context = await fetchCompanyPageContext(params.uuid)
+  const companyId = await resolveCompanyId(params.slug)
+  if (!companyId) {
+    return { title: 'Company' }
+  }
+
+  const context = await fetchCompanyPageContext(companyId)
 
   if (!context) {
     return { title: 'Company' }

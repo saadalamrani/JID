@@ -24,7 +24,7 @@ export function SysSidebar() {
       <nav aria-label={t('ariaLabel')} className="flex-1 overflow-y-auto px-3 py-4">
         {SYS_NAV_SECTIONS.map((section) => (
           <div key={section.sectionKey} className="mb-5 last:mb-0">
-            <p className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <p className="mb-2 px-2 text-[11px] font-semibold uppercase text-muted-foreground">
               {t(`sections.${section.sectionKey}`)}
             </p>
             <ul className="space-y-0.5">
@@ -49,7 +49,7 @@ export function SysSidebar() {
                       <Icon className="h-4 w-4 shrink-0" aria-hidden />
                       <span className="flex-1">{t(`items.${item.key}`)}</span>
                       {item.danger ? (
-                        <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-destructive">
+                        <span className="rounded bg-destructive/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-destructive">
                           {t('dangerBadge')}
                         </span>
                       ) : null}

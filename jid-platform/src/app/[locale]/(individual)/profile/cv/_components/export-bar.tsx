@@ -145,7 +145,7 @@ export function ExportBar({ cv, format, className }: ExportBarProps) {
               className={cn(
                 'rounded-md px-2.5 py-1 text-xs font-arabic transition-colors',
                 exportLanguage === lang
-                  ? 'bg-jid-gold text-jid-olive'
+                  ? 'bg-accent text-primary'
                   : 'text-muted-foreground hover:text-foreground',
               )}
               onClick={() => setExportLanguage(lang)}
@@ -159,7 +159,7 @@ export function ExportBar({ cv, format, className }: ExportBarProps) {
       <Button
         type="button"
         size="sm"
-        className="gap-1.5 bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90"
+        className="gap-1.5 bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
         disabled={exportBlocked || isExporting}
         onClick={() => void handleExport()}
       >

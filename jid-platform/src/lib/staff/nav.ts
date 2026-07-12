@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react'
 import {
+  BookOpen,
   Building2,
   ClipboardList,
   CreditCard,
@@ -10,9 +11,16 @@ import {
   Radar,
   ScrollText,
   Users,
+  UserSquare2,
 } from 'lucide-react'
 
-export type StaffNavBadgeKey = 'claims' | 'mentorApplications' | 'openFlags' | 'lammahHidden'
+export type StaffNavBadgeKey =
+  | 'verification'
+  | 'claims'
+  | 'mentorApplications'
+  | 'openFlags'
+  | 'lammahHidden'
+  | 'correctionSuggestions'
 
 export type StaffNavItem = {
   key: string
@@ -26,7 +34,7 @@ export type StaffNavSection = {
   items: StaffNavItem[]
 }
 
-/** Section 5.1 — sidebar navigation structure (يومي / المراجعات / الإدارة اليومية / أنا). */
+/** P-108 — sidebar navigation with verification + directory editorial entries. */
 export const STAFF_NAV_SECTIONS: StaffNavSection[] = [
   {
     sectionKey: 'daily',
@@ -36,10 +44,10 @@ export const STAFF_NAV_SECTIONS: StaffNavSection[] = [
     sectionKey: 'reviews',
     items: [
       {
-        key: 'claims',
-        href: '/staff/claims',
+        key: 'verification',
+        href: '/staff/verification',
         icon: ClipboardList,
-        badgeKey: 'claims',
+        badgeKey: 'verification',
       },
       {
         key: 'mentorApplications',
@@ -47,6 +55,19 @@ export const STAFF_NAV_SECTIONS: StaffNavSection[] = [
         icon: GraduationCap,
         badgeKey: 'mentorApplications',
       },
+    ],
+  },
+  {
+    sectionKey: 'directory',
+    items: [
+      { key: 'directory', href: '/staff/directory', icon: BookOpen },
+      {
+        key: 'correctionSuggestions',
+        href: '/staff/directory/suggestions',
+        icon: Building2,
+        badgeKey: 'correctionSuggestions',
+      },
+      { key: 'profileModeration', href: '/staff/directory/profiles', icon: UserSquare2 },
     ],
   },
   {

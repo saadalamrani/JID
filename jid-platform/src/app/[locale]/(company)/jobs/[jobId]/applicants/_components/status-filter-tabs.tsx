@@ -32,8 +32,8 @@ export function StatusFilterTabs({ active, onChange, counts }: StatusFilterTabsP
             className={cn(
               'rounded-full px-4 py-2 font-arabic text-sm transition-colors',
               isActive
-                ? 'bg-jid-olive text-white'
-                : 'border border-jid-line bg-white text-jid-ink hover:bg-jid-beige',
+                ? 'bg-primary text-white'
+                : 'border border-border bg-white text-foreground hover:bg-background',
             )}
           >
             {TRIAGE_FILTER_TAB_LABELS[tab]}

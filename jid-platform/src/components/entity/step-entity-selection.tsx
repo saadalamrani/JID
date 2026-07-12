@@ -173,8 +173,8 @@ export function StepEntitySelection({
           </FormField>
 
           {selectedCompany && entityType !== 'university' ? (
-            <div className="rounded-md bg-jid-beige p-3 text-sm text-jid-ink/80">
-              <p className="font-medium text-jid-ink">{selectedCompany.name_ar ?? selectedCompany.name}</p>
+            <div className="rounded-md bg-background p-3 text-sm text-foreground/80">
+              <p className="font-medium text-foreground">{selectedCompany.name_ar ?? selectedCompany.name}</p>
               <p className="mt-1">
                 {t('approvedDomains')}: {formatDomainsList(selectedCompany.domains)}
               </p>
@@ -187,7 +187,7 @@ export function StepEntitySelection({
             </Button>
             <Button
               type="button"
-              className="flex-1 bg-jid-olive hover:bg-jid-olive/90"
+              className="flex-1 bg-primary hover:bg-primary/90"
               disabled={!selectedCompany}
               onClick={handleExistingContinue}
             >
@@ -236,7 +236,7 @@ export function StepEntitySelection({
               </Button>
               <Button
                 type="submit"
-                className="flex-1 bg-jid-olive hover:bg-jid-olive/90"
+                className="flex-1 bg-primary hover:bg-primary/90"
                 disabled={submitting}
               >
                 {submitting ? t('submitting') : t('continue')}

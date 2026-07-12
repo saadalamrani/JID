@@ -7,7 +7,10 @@ export type PlatformMetricsSnapshot = {
   id: number
   refreshed_at: string
   total_candidates: number
-  total_companies: number
+  directory_coverage_count: number
+  verified_business_profiles_count: number
+  verified_university_profiles_count: number
+  verified_profiles_count: number
   active_jobs: number
   total_jobs_ever: number
   total_mentors: number
@@ -78,7 +81,7 @@ export async function fetchPlatformMetricsSnapshot(): Promise<PlatformMetricsSna
   const { data, error } = await supabase
     .from('platform_metrics_snapshot')
     .select(
-      'id, refreshed_at, total_candidates, total_companies, active_jobs, total_jobs_ever, total_mentors, total_sessions, jid_response_rate_pct',
+      'id, refreshed_at, total_candidates, directory_coverage_count, verified_business_profiles_count, verified_university_profiles_count, verified_profiles_count, active_jobs, total_jobs_ever, total_mentors, total_sessions, jid_response_rate_pct',
     )
     .eq('id', 1)
     .maybeSingle()
@@ -90,7 +93,10 @@ export async function fetchPlatformMetricsSnapshot(): Promise<PlatformMetricsSna
     id: Number(data.id),
     refreshed_at: data.refreshed_at,
     total_candidates: Number(data.total_candidates),
-    total_companies: Number(data.total_companies),
+    directory_coverage_count: Number(data.directory_coverage_count),
+    verified_business_profiles_count: Number(data.verified_business_profiles_count),
+    verified_university_profiles_count: Number(data.verified_university_profiles_count),
+    verified_profiles_count: Number(data.verified_profiles_count),
     active_jobs: Number(data.active_jobs),
     total_jobs_ever: Number(data.total_jobs_ever),
     total_mentors: Number(data.total_mentors),

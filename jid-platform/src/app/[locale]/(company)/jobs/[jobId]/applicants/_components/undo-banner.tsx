@@ -71,10 +71,10 @@ export function UndoBanner({ batches, onCanceled, className }: UndoBannerProps) 
         return (
           <div
             key={batch.id}
-            className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-jid-gold/40 bg-jid-beige-warm/80 px-4 py-3"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-accent/40 bg-surface/80 px-4 py-3"
             role="status"
           >
-            <p className="font-arabic text-sm text-jid-olive">
+            <p className="font-arabic text-sm text-primary">
               سيُرسل «{kindLabel}» إلى {batch.recipientCount} متقدماً خلال{' '}
               <span className="font-mono tabular-nums">{formatCountdown(remainingMs)}</span>
             </p>

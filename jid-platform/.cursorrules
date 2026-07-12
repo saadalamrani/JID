@@ -74,3 +74,18 @@ scripts/         # Dev/CI scripts (check-env.ts, seed scripts)
 - Do not bypass RLS with service role key in client code
 - Do not use inline styles for colors — use Tailwind + design tokens
 - Do not use `console.log` in production code — use structured logging or remove
+
+## Terminology Law (Profile Architecture v2 — constitutional)
+- **Directory ≠ Profile**: الدليل (Directory) is the platform-owned searchable registry; الملف التعريفي (Profile) is the owned identity created after verification. Never use catalog/entry/profile interchangeably for directory records.
+- All constitutional vocabulary must come from `src/lib/constants/terminology.ts` or the `terminology` i18n namespace (`messages/ar.json`, `messages/en.json`).
+- Opportunity tier badge labels (`عادي` / `بلس`) must import from `src/lib/constants/tiers.ts` or `t('terminology.tiers.*')` — never hardcode.
+- The auto-reply liability disclaimer must import `AUTO_REPLY_DISCLAIMER_AR` from `src/lib/constants/communication.ts` — verbatim, founder sign-off required to change one character.
+- Product display names (Career Canvas, Lammah, ابحثلي, etc.) must import from `src/lib/constants/product-names.ts` or i18n — never hardcode.
+- **Hardcoding any of the above strings in components, emails, PDFs, or edge functions is a review-blocking violation.**
+
+## Testing Law (P-003 harness — constitutional)
+- Every new **pure function** in `src/lib/` ships with a **unit test** in the same prompt that creates it (`tests/unit/lib/` or colocated `*.test.ts`).
+- Every new **RLS policy** ships with an RLS test following the pattern in `tests/rls/README.md` (service-role setup, authenticated assertion, guaranteed cleanup).
+- **Component tests** are expected for interactive components with meaningful logic (forms, wizards, stateful UI). Pure presentational wrappers (badges, skeletons, static layout) are encouraged but not mandatory.
+- E2E journeys for critical paths live under `tests/e2e/`; smoke only until feature suites land in later phases.
+- RLS and E2E suites target **local/test Supabase** only — never production credentials.

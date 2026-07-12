@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { validateDomainMatch } from '@/lib/jobs/domain-validator'
+import { validateDomainMatch } from '@/lib/queries/jobs'
 import type { JobPostingInput } from '@/lib/validations/job-posting'
 import type { ApprovedCompanyPoster } from '@/lib/jobs/poster-types'
 import { createClient } from '@/lib/supabase/server'
@@ -28,7 +28,15 @@ export async function createCompanyJob(
   poster: ApprovedCompanyPoster,
   input: JobPostingInput,
 ): Promise<CreateCompanyJobResult> {
-  const domainCheck = validateDomainMatch(input.external_apply_url, poster.company.domains, 'ar')
+  if (!poster.businessProfileId) {
+    throw new Error('يجب إنشاء ملفك التعريفي المعتمد قبل نشر فرص جديدة')
+  }
+
+  const domainCheck = await validateDomainMatch(
+    input.external_apply_url,
+    poster.businessProfileId,
+    'ar',
+  )
   if (!domainCheck.valid) {
     throw new Error(domainCheck.message)
   }
@@ -58,6 +66,7 @@ export async function createCompanyJob(
     .from('jobs')
     .insert({
       company_id: poster.company.id,
+      business_profile_id: poster.businessProfileId,
       title_ar: input.title_ar,
       title_en: input.title_en?.trim() || null,
       experience_level: input.experience_level,

@@ -43,10 +43,10 @@ export default function ProfileComponentsPreviewPage() {
 
   return (
     <main className="container-jid space-y-10 py-10">
-      <h1 className="text-2xl font-semibold text-jid-ink">{t('previewTitle')}</h1>
+      <h1 className="text-2xl font-semibold text-foreground">{t('previewTitle')}</h1>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Individual — owner</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Individual — owner</h2>
         <IdentityHeader
           isOwner
           isVerified
@@ -60,7 +60,7 @@ export default function ProfileComponentsPreviewPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Individual — visitor (no edit)</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Individual — visitor (no edit)</h2>
         <IdentityHeader
           isOwner={false}
           isVerified
@@ -73,7 +73,7 @@ export default function ProfileComponentsPreviewPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Company</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Company</h2>
         <CompanyIdentityHeader
           isOwner
           name="SABIC"
@@ -88,7 +88,7 @@ export default function ProfileComponentsPreviewPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Mentor</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Mentor</h2>
         <MentorIdentityHeader
           isOwner
           fullName="أحمد الراشد"
@@ -102,7 +102,7 @@ export default function ProfileComponentsPreviewPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Trust signals — owner stats</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Trust signals — owner stats</h2>
         <TrustSignals
           badges={MOCK_BADGES}
           showStats
@@ -112,17 +112,17 @@ export default function ProfileComponentsPreviewPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Trust signals — visitor (no stats)</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Trust signals — visitor (no stats)</h2>
         <TrustSignals badges={MOCK_BADGES} showStats={false} />
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Completion bar</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Completion bar</h2>
         <ProfileCompletionBar percent={85} />
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Smart links</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Smart links</h2>
         <SmartLinksRow
           smartLinks={{
             linkedin: 'linkedin.com/in/sara',
@@ -133,9 +133,9 @@ export default function ProfileComponentsPreviewPage() {
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-sm font-medium text-jid-ink/60">Action strip</h2>
+        <h2 className="text-sm font-medium text-foreground/60">Action strip</h2>
         <ActionButtonStrip ariaLabel="Profile actions">
-          <Button size="sm" className="bg-jid-olive hover:bg-jid-olive/90">
+          <Button size="sm" className="bg-primary hover:bg-primary/90">
             Primary action
           </Button>
           <Button size="sm" variant="outline">

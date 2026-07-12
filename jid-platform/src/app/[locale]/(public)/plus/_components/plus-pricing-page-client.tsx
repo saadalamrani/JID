@@ -85,18 +85,18 @@ export function PlusPricingPageClient({ locale, checkoutSuccess }: PlusPricingPa
   return (
     <div className="mx-auto max-w-3xl space-y-8">
       <header className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-jid-gold/35 bg-jid-beige-warm">
-          <Sparkles className="h-6 w-6 text-jid-olive" aria-hidden />
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-accent/35 bg-surface">
+          <Sparkles className="h-6 w-6 text-primary" aria-hidden />
         </div>
-        <p className="text-sm font-medium text-jid-gold">{t('eyebrow')}</p>
-        <h1 className="mt-2 font-arabic text-3xl font-bold text-jid-olive">{t('title')}</h1>
-        <p className="mt-3 font-arabic text-sm leading-relaxed text-jid-ink-soft">{t('subtitle')}</p>
+        <p className="text-sm font-medium text-accent">{t('eyebrow')}</p>
+        <h1 className="mt-2 font-arabic text-3xl font-bold text-primary">{t('title')}</h1>
+        <p className="mt-3 font-arabic text-sm leading-relaxed text-muted-foreground">{t('subtitle')}</p>
       </header>
 
       {hasPlus ? (
         <ManageSubscription />
       ) : (
-        <section className="rounded-2xl border border-jid-gold/30 bg-card p-6 shadow-sm">
+        <section className="rounded-2xl border border-accent/30 bg-card p-6 shadow-sm">
           <PlusPlanCompare
             plan={planQuery.data}
             cycle={cycle}
@@ -107,7 +107,7 @@ export function PlusPricingPageClient({ locale, checkoutSuccess }: PlusPricingPa
 
           <Button
             type="button"
-            className="mt-6 w-full bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90"
+            className="mt-6 w-full bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
             disabled={!planQuery.data || planQuery.isLoading || checkoutLoading}
             onClick={() => void handleCheckout()}
           >
@@ -120,10 +120,10 @@ export function PlusPricingPageClient({ locale, checkoutSuccess }: PlusPricingPa
 
       <section className="rounded-xl border border-border bg-muted/20 p-5">
         <h2 className="font-arabic text-base font-semibold text-foreground">{t('featuresTitle')}</h2>
-        <ul className="mt-4 space-y-3 font-arabic text-sm text-jid-ink-soft">
+        <ul className="mt-4 space-y-3 font-arabic text-sm text-muted-foreground">
           {(t.raw('featureItems') as string[]).map((item) => (
             <li key={item} className="flex items-start gap-2">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-jid-gold" aria-hidden />
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
               <span>{item}</span>
             </li>
           ))}

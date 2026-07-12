@@ -42,7 +42,7 @@ export async function searchStaffDirectory(query: string): Promise<StaffSearchRe
       .order('name', { ascending: true })
       .limit(RESULT_LIMIT),
     supabase
-      .from('claim_requests')
+      .from('verification_requests')
       .select('id, company_name, claimant_name, business_email, status')
       .in('status', ['pending', 'submitted', 'pending_review', 'under_review'])
       .or(
@@ -79,7 +79,7 @@ export async function searchStaffDirectory(query: string): Promise<StaffSearchRe
       id: row.id,
       label: row.company_name,
       subtitle: `${row.claimant_name} · ${row.status}`,
-      href: `/staff/claims/${row.id}`,
+      href: `/staff/verification/${row.id}`,
     })) ?? []
 
   return { users, entities, claims }

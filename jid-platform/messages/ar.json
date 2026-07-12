@@ -35,13 +35,19 @@
     "nav": {
       "homeAria": "الصفحة الرئيسية — {name}",
       "primaryAria": "التنقل الرئيسي",
+      "home": "الرئيسية",
+      "exploreOpportunities": "استكشف الفرص",
+      "radar": "الرادار",
+      "mentorship": "الإرشاد المهني",
+      "catalog": "الكتالوج",
       "opportunities": "الوظائف",
       "mentors": "المرشدون",
-      "catalog": "دليل الشركات",
       "pulse": "نبض المنصة",
       "login": "تسجيل الدخول",
       "signup": "إنشاء حساب",
-      "dashboard": "لوحتي"
+      "dashboard": "لوحتي",
+      "menuOpen": "فتح قائمة التنقل",
+      "menuTitle": "التنقل"
     },
     "footer": {
       "groups": {
@@ -144,7 +150,42 @@
       "subtitle": "جِد تجمع البحث عن العمل، الإرشاد المهني، وملفات الشركات في منصة واحدة — بلغة عربية أولاً ومعايير واضحة للتواصل.",
       "body": "لا وعود فارغة. لا أرقام منشورة بلا مصدر. فقط أدوات حقيقية لمعرفة أين يقف طلبك، ومن يمكنه مساعدتك في مسيرتك.",
       "primaryCta": "تصفح الوظائف",
-      "secondaryCta": "أنشئ حسابك"
+      "primaryCtaGuest": "استكشف الفرص",
+      "primaryCtaCompleteProfile": "أكمل ملفك",
+      "primaryCtaRadar": "تابع رادارك",
+      "secondaryCta": "أنشئ حسابك",
+      "cards": {
+        "groupAria": "بطاقات نبض المنصة",
+        "relativeTime": "منذ {time}",
+        "mentorFallback": "مرشدك",
+        "latestJob": {
+          "label": "أحدث فرصة على جِد"
+        },
+        "pulseMetric": {
+          "label": "نبض المنصة"
+        },
+        "radarUpdate": {
+          "label": "آخر تحديث في رادارك"
+        },
+        "upcomingSession": {
+          "label": "جلستك القادمة"
+        },
+        "profileCompletion": {
+          "label": "اكتمال ملفك"
+        },
+        "applicationStatus": {
+          "draft": "مسودة",
+          "saved": "محفوظ",
+          "pending": "قيد التقديم",
+          "submitted": "مُرسل",
+          "under_review": "قيد المراجعة",
+          "shortlisted": "في القائمة المختصرة",
+          "rejected": "مرفوض",
+          "invited": "مدعو",
+          "withdrawn": "منسحب",
+          "expired": "منتهٍ"
+        }
+      }
     },
     "problem": {
       "title": "مشكلة لا تحتاج أرقاماً مُختلَقة لتكون حقيقية",
@@ -227,6 +268,79 @@
         "title": "لجهات التوظيف والجامعات",
         "body": "لا يمكن إنشاء ملف جهة مباشرة كمسؤول — ابحث في الدليل وقدّم مطالبة بالملف.",
         "button": "ابحث عن جهتك وطالب بملفها"
+      }
+    }
+  },
+  "catalogPage": {
+    "card": {
+      "viewRecord": "عرض سجل {name}",
+      "lastAudit": "آخر فحص للرابط: {time}"
+    },
+    "cta": {
+      "jidProfile": "الملف التعريفي على جِد ↗",
+      "careerPortal": "بوابة التوظيف",
+      "officialPortalTooltip": "بوابة التوظيف الرسمية",
+      "linkPending": "الرابط قيد التحديث"
+    },
+    "detail": {
+      "metaFallback": "سجل الدليل",
+      "aboutHeading": "نبذة مرجعية",
+      "aboutEmpty": "لا توجد نبذة مرجعية لهذا السجل بعد.",
+      "directoryRecordNote": "عن هذا السجل:",
+      "lastAudit": "آخر فحص للرابط: {time}",
+      "correctionIntro": "بصفتك مالك ملف موثّق مرتبط بهذا السجل، يمكنك اقتراح تصحيح على بيانات الدليل.",
+      "backToCatalog": "العودة إلى دليل الشركات"
+    },
+    "correction": {
+      "open": "اقترح تصحيحاً على بيانات هذا السجل",
+      "fieldLabel": "الحقل",
+      "currentValue": "القيمة الحالية",
+      "suggestedValue": "القيمة المقترحة",
+      "reason": "سبب الاقتراح (اختياري)",
+      "submit": "إرسال الاقتراح",
+      "submitting": "جاري الإرسال...",
+      "cancel": "إلغاء",
+      "submitted": "تم إرسال اقتراحك للمراجعة",
+      "valueRequired": "أدخل قيمة مقترحة",
+      "authRequired": "يجب تسجيل الدخول",
+      "fieldNotAllowed": "الحقل المختار غير مسموح — راجع قائمة الحقول المعتمدة",
+      "submitFailed": "تعذّر إرسال الاقتراح",
+      "selectSector": "اختر قطاعاً",
+      "selectRegion": "اختر منطقة",
+      "fields": {
+        "city": "المدينة",
+        "career_portal_url": "رابط بوابة التوظيف",
+        "website_url": "الموقع الإلكتروني",
+        "linkedin_url": "لينكدإن",
+        "twitter_url": "تويتر",
+        "sector_id": "القطاع",
+        "region_id": "المنطقة"
+      }
+    }
+  },
+  "businessProfile": {
+    "public": {
+      "metaFallback": "ملف المنشأة",
+      "unnamed": "منشأة",
+      "verified": "ملف موثّق",
+      "coverAlt": "صورة غلاف الملف",
+      "founded": "تأسست",
+      "teamSize": "حجم الفريق",
+      "noAbout": "لم تُضف نبذة بعد.",
+      "strangerNote": "معاينة للزوار — ليست صفحة التحرير.",
+      "gallery": "معرض الوسائط",
+      "galleryImageAlt": "صورة من المعرض",
+      "openingsTitle": "الفرص المتاحة حالياً",
+      "openingsEmpty": "لا توجد فرص متاحة حالياً",
+      "viewInDirectory": "عرض في الدليل",
+      "errorTitle": "تعذّر تحميل الملف",
+      "errorRetry": "إعادة المحاولة",
+      "employeeRanges": {
+        "1-10": "1–10",
+        "11-50": "11–50",
+        "51-200": "51–200",
+        "201-1000": "201–1000",
+        "1000+": "أكثر من 1000"
       }
     }
   },
@@ -645,6 +759,31 @@
       "title": "اتجاهات السوق",
       "sectorTitle": "طلب القطاعات",
       "skillsTitle": "طلب المهارات"
+    },
+    "metrics": {
+      "total_candidates": {
+        "label": "إجمالي المرشحين"
+      },
+      "directory_coverage": {
+        "label": "الجهات في الدليل",
+        "caption": "عدد الجهات المدرجة في الدليل"
+      },
+      "verified_profiles": {
+        "label": "ملفات تعريفية موثّقة",
+        "caption": "عدد الجهات التي أنشأت ملفاً تعريفياً موثّقاً"
+      },
+      "total_jobs": {
+        "label": "إجمالي الوظائف"
+      },
+      "total_mentors": {
+        "label": "إجمالي المرشدين"
+      },
+      "total_sessions": {
+        "label": "إجمالي الجلسات"
+      },
+      "response_rate": {
+        "label": "معدل الاستجابة في جِد"
+      }
     }
   },
   "errors": {
@@ -837,6 +976,121 @@
       "otpDigits": "أدخل أرقاماً فقط"
     }
   },
+  "company": {
+    "shell": {
+      "errorTitle": "حدث خطأ",
+      "errorBody": "تعذّر تحميل هذه الصفحة. حاول مرة أخرى.",
+      "retry": "إعادة المحاولة"
+    },
+    "nav": {
+      "panelTitle": "لوحة المنشأة",
+      "dashboard": "الرئيسية",
+      "profile": "ملف المنشأة",
+      "postJob": "نشر وظيفة",
+      "billing": "الفوترة",
+      "settings": "الإعدادات"
+    },
+    "dashboard": {
+      "title": "لوحة المنشأة",
+      "noProfile": "لم يُنشأ ملف منشأتك بعد. أكمل إنشاء الملف للوصول إلى لوحة التحكم.",
+      "createProfileCta": "أنشئ ملف منشأتك",
+      "placeholderMetrics": "سيتم توسيع المؤشرات والتقارير في تحديث لاحق.",
+      "links": {
+        "jobs": "الوظائف",
+        "applicants": "المتقدمون",
+        "settings": "إعدادات الملف"
+      },
+      "status": {
+        "published": "منشور",
+        "draft": "مسودة",
+        "suspended": "موقوف"
+      }
+    },
+    "profileSuspended": {
+      "title": "الملف التعريفي موقوف",
+      "message": "أوقفت المنصة ملف منشأتك العام. للاستفسار تواصل مع فريق الدعم — لا يمكن إعادة التفعيل ذاتياً من هنا.",
+      "contactSupport": "تواصل مع الدعم"
+    },
+    "profileCreation": {
+      "title": "أنشئ ملف منشأتك",
+      "subtitle": "أنت تؤلف ملفاً عاماً يمثّل منشأتك — قد يختلف عن سجل الدليل الرسمي.",
+      "steps": {
+        "identity": "الهوية",
+        "story": "القصة والعلامة",
+        "preview": "المعاينة والنشر"
+      },
+      "back": "رجوع",
+      "next": "التالي",
+      "publish": "انشر الآن",
+      "publishing": "جاري النشر...",
+      "published": "تم نشر ملف منشأتك",
+      "publishFailed": "تعذّر نشر الملف",
+      "validationFailed": "راجع الحقول المطلوبة",
+      "identity": {
+        "directoryHint": "الاسم في الدليل الرسمي: {name}. يمكنك اختيار اسماً مختلفاً لملفك العام.",
+        "displayNameAr": "اسم المنشأة (عربي)",
+        "displayNameEn": "اسم المنشأة (إنجليزي — اختياري)",
+        "taglineAr": "شعار قصير (اختياري)"
+      },
+      "story": {
+        "aboutAr": "نبذة بالعربية",
+        "aboutEn": "نبذة بالإنجليزية (اختياري)",
+        "foundedYear": "سنة التأسيس",
+        "employeeCount": "حجم الفريق",
+        "employeeCountPlaceholder": "اختر نطاقاً",
+        "employeeRanges": {
+          "1-10": "1–10",
+          "11-50": "11–50",
+          "51-200": "51–200",
+          "201-1000": "201–1000",
+          "1000+": "أكثر من 1000"
+        },
+        "coverImage": "صورة الغلاف",
+        "coverUpload": "رفع صورة",
+        "coverPreviewAlt": "معاينة صورة الغلاف"
+      },
+      "media": {
+        "hint": "JPEG أو PNG أو WebP — بحد أقصى 5 ميجابايت",
+        "uploading": "جاري الرفع...",
+        "uploaded": "تم رفع الصورة",
+        "uploadFailed": "تعذّر رفع الصورة",
+        "invalidType": "نوع الملف غير مدعوم",
+        "tooLarge": "حجم الملف كبير جداً"
+      },
+      "preview": {
+        "intro": "هكذا يرى زوار المنصة ملف منشأتك — معاينة صادقة كما يراها الغرباء.",
+        "unnamed": "منشأة",
+        "verifiedBadge": "موثّقة",
+        "founded": "تأسست",
+        "teamSize": "حجم الفريق",
+        "noAbout": "لم تُضف نبذة بعد.",
+        "strangerNote": "معاينة للزوار — ليست صفحة التحرير.",
+        "coverAlt": "صورة غلاف الملف"
+      }
+    },
+    "profileEdit": {
+      "title": "تعديل ملف المنشأة",
+      "subtitle": "حدّث هوية منشأتك وقصتها العامة.",
+      "steps": {
+        "identity": "الهوية",
+        "story": "القصة والعلامة"
+      },
+      "back": "رجوع",
+      "next": "التالي",
+      "save": "حفظ",
+      "saving": "جاري الحفظ...",
+      "saved": "تم حفظ التغييرات",
+      "saveFailed": "تعذّر حفظ التغييرات",
+      "validationFailed": "راجع الحقول المطلوبة"
+    }
+  },
+  "university": {
+    "profileSuspended": {
+      "title": "الملف التعريفي موقوف",
+      "message": "أوقفت المنصة ملف الجامعة العام. للاستفسار تواصل مع فريق الدعم — لا يمكن إعادة التفعيل ذاتياً من هنا.",
+      "contactSupport": "تواصل مع الدعم"
+    }
+  },
   "entity": {
     "entityType": {
       "title": "نوع الحساب المؤسسي",
@@ -899,14 +1153,14 @@
         "newDomainsHint": "افصل بين النطاقات بفاصلة، مثل: example.com, mail.example.sa",
         "changeCompany": "تغيير الجهة المختارة"
       },
-      "claim": {
+      "verification": {
         "domainHint": "يجب أن يكون بريدك المؤسسي من أحد نطاقات الجهة المعتمدة",
         "businessEmail": "البريد المؤسسي",
         "claimantName": "اسم مقدّم الطلب",
         "claimantTitle": "المسمى الوظيفي",
-        "submit": "إرسال طلب المطالبة",
+        "submit": "أرسل طلب التوثيق",
         "submitting": "جاري الإرسال...",
-        "submitted": "تم إرسال طلب المطالبة",
+        "submitted": "تم إرسال طلب التوثيق",
         "submitFailed": "تعذّر إرسال الطلب"
       },
       "verifyEmail": {
@@ -920,7 +1174,7 @@
     },
     "pendingReview": {
       "title": "طلبك قيد المراجعة",
-      "subtitle": "فريق جِد يراجع طلب المطالبة بملكية الجهة",
+      "subtitle": "فريق جِد يراجع طلب التوثيق",
       "company": "الجهة",
       "submittedBy": "مقدّم الطلب",
       "businessEmail": "البريد المؤسسي",
@@ -931,20 +1185,20 @@
       "staffNote": "لا حاجة لإعادة إرسال الطلب — سنُعلمك عند اكتمال المراجعة."
     },
     "rejected": {
-      "title": "تم رفض مطالبة الملكية",
+      "title": "تم رفض طلب التوثيق",
       "reason": "سبب الرفض",
       "requiredDocuments": "المستندات المطلوبة",
       "blockedUntil": "يمكنك إعادة التقديم بعد {date}",
       "canReapplyNow": "يمكنك إعادة التقديم الآن",
       "blockedMessage": "لا يمكن إعادة التقديم حتى انتهاء فترة الانتظار.",
-      "reapplyCta": "إعادة تقديم المطالبة"
+      "reapplyCta": "إعادة تقديم طلب التوثيق"
     },
     "reapply": {
-      "title": "إعادة تقديم المطالبة",
+      "title": "إعادة تقديم طلب التوثيق",
       "loading": "جاري التحميل...",
       "blocked": "لا يزال وقت إعادة التقديم لم يحن بعد.",
       "back": "العودة",
-      "error": "تعذّر تحميل بيانات المطالبة"
+      "error": "تعذّر تحميل بيانات الطلب"
     },
     "validation": {
       "fullNameMin": "الاسم يجب أن يكون حرفين على الأقل",
@@ -973,13 +1227,17 @@
       "sections": {
         "daily": "يومي",
         "reviews": "المراجعات",
+        "directory": "الدليل",
         "operations": "الإدارة اليومية",
         "me": "أنا"
       },
       "items": {
         "dashboard": "لوحة التحكم",
-        "claims": "طابور المطالبات",
+        "verification": "طلبات التوثيق",
         "mentorApplications": "طلبات المرشدين",
+        "directory": "الدليل",
+        "correctionSuggestions": "اقتراحات التصحيح",
+        "profileModeration": "الملفات التعريفية",
         "announcements": "الإعلانات",
         "users": "المستخدمون",
         "entities": "الكيانات",
@@ -1026,7 +1284,10 @@
       },
       "actions": {
         "dashboard": "الذهاب للوحة التحكم",
-        "claims": "فتح طابور المطالبات",
+        "verification": "فتح طابور التوثيق",
+        "directory": "الدليل",
+        "correctionSuggestions": "اقتراحات التصحيح",
+        "profileModeration": "الملفات التعريفية",
         "mentorApplications": "طلبات المرشدين",
         "announcements": "الإعلانات",
         "users": "المستخدمون",
@@ -1087,6 +1348,196 @@
         "hint": "بلاغات بانتظار مراجعة الفريق"
       }
     },
+    "verification": {
+      "title": "طلبات التوثيق",
+      "subtitle": "طلبات توثيق المنظمات وطلبات المرشدين مرتبة حسب SLA",
+      "count": "عرض {count} عنصر (حد أقصى 100)",
+      "nav": {
+        "myQueue": "طابوري",
+        "history": "سجلي"
+      },
+      "kanban": {
+        "pending": "قيد الانتظار",
+        "overdue": "متأخرة (SLA)",
+        "completedToday": "مكتملة اليوم",
+        "empty": "لا توجد عناصر"
+      },
+      "myQueue": {
+        "title": "طلباتي المعيّنة",
+        "subtitle": "طلبات التوثيق المعيّنة لك مرتبة حسب SLA",
+        "backToQueue": "← كل الطلبات"
+      },
+      "history": {
+        "title": "سجل مراجعاتي",
+        "subtitle": "طلبات التوثيق التي وافقت عليها أو رفضتها",
+        "backToQueue": "← كل الطلبات"
+      }
+    },
+    "verificationReview": {
+      "title": "مراجعة توثيق {company}",
+      "loading": "جاري التحميل...",
+      "notFound": "طلب التوثيق غير موجود",
+      "backToQueue": "العودة للطابور",
+      "workspace": {
+        "backToQueue": "← طابور التوثيق",
+        "title": "مراجعة {company}",
+        "meta": "الحالة: {status} · تقدّم {submitted}",
+        "assigned": "معيّنة",
+        "details": {
+          "title": "تفاصيل الطلب",
+          "type": "نوع التوثيق",
+          "businessEmail": "البريد المؤسسي",
+          "claimantName": "اسم مقدّم الطلب",
+          "claimantTitle": "المسمى الوظيفي"
+        },
+        "applicant": {
+          "title": "مقدّم الطلب",
+          "name": "الاسم",
+          "role": "الدور",
+          "emailVerified": "البريد موثّق",
+          "phoneVerified": "الجوال موثّق",
+          "yes": "نعم",
+          "no": "لا",
+          "missing": "تعذّر تحميل ملف المستخدم"
+        },
+        "directory": {
+          "title": "سجل الدليل (قراءة فقط)",
+          "name": "الاسم",
+          "state": "حالة الكيان",
+          "domains": "النطاقات",
+          "verified": "موثّق",
+          "linkedin": "لينكدإن",
+          "missing": "لا يوجد سجل دليل مرتبط"
+        },
+        "checklist": {
+          "title": "قائمة التحقق",
+          "businessHint": "تحقق من مطابقة النطاق والبيانات المؤسسية.",
+          "universityHint": "مسار جامعي — لا يُشترط تطابق نطاق بريد بنفس صرامة القطاع الخاص.",
+          "mentorHint": "مسار مرشد — قائمة تحقق أخف (لا تطابق نطاق مؤسسي).",
+          "items": {
+            "domain_match": { "label": "تطابق النطاق", "hint": "النطاقات المسجّلة: {domains}" },
+            "entity_exists": { "label": "الكيان موجود", "hint": "تأكد من وجود سجل الدليل" },
+            "linkedin_verified": { "label": "لينكدإن", "hint": "راجع صفحة لينكدإن إن وُجدت" },
+            "job_reasonable": { "label": "المسمى معقول", "hint": "المسمى يتوافق مع الدور" },
+            "no_duplicates": { "label": "لا تكرار", "hint": "لا طلبات مكررة نشطة" },
+            "linkedin_role": { "label": "دور لينكدإن", "hint": "يتوافق مع خبرة المرشد" },
+            "expertise_plausible": { "label": "مجال الخبرة", "hint": "مجالات الخبرة معقولة" },
+            "bio_quality": { "label": "جودة النبذة", "hint": "نبذة كافية للمراجعة" }
+          }
+        },
+        "decision": {
+          "decisionLabel": "القرار",
+          "options": {
+            "approved": "موافقة",
+            "rejected": "رفض"
+          },
+          "reasonLabel": "ملاحظات المراجعة",
+          "reasonPlaceholder": "اشرح سبب القرار (10 أحرف على الأقل)",
+          "reasonHint": "تُسجّل في سجل التدقيق",
+          "requiredDocumentsLabel": "مستندات مطلوبة عند الرفض",
+          "documents": {
+            "commercial_registry": "سجل تجاري",
+            "domain_ownership_proof": "إثبات ملكية النطاق",
+            "authorization_letter": "خطاب تفويض"
+          },
+          "selfReviewBlocked": "لا يمكنك مراجعة طلبك الخاص",
+          "checklistRequired": "أكمل قائمة التحقق قبل الموافقة",
+          "submit": "تسجيل القرار",
+          "submitting": "جاري الحفظ...",
+          "success": {
+            "approved": "تمت الموافقة على التوثيق",
+            "rejected": "تم رفض طلب التوثيق"
+          }
+        },
+        "alreadyReviewed": "تمت مراجعة هذا الطلب مسبقاً ({status})"
+      }
+    },
+    "directory": {
+      "title": "الدليل",
+      "subtitle": "تحرير بيانات المرجع (الطبقة 1) — لا يشمل محتوى الملفات التعريفية",
+      "create": "إضافة سجل",
+      "search": "بحث",
+      "searchPlaceholder": "بحث بالاسم أو المعرف…",
+      "count": "{count} سجل",
+      "empty": "لا توجد سجلات",
+      "edit": "تحرير",
+      "table": {
+        "name": "الاسم",
+        "sector": "القطاع",
+        "region": "المنطقة",
+        "active": "نشط",
+        "actions": "إجراءات",
+        "yes": "نعم",
+        "no": "لا"
+      },
+      "editor": {
+        "createTitle": "سجل دليل جديد",
+        "editTitle": "تحرير سجل الدليل",
+        "boundaryHint": "حقول الدليل فقط — لا تعدّل محتوى business_profiles / university_profiles من هنا.",
+        "nameEn": "الاسم (إنجليزي)",
+        "nameAr": "الاسم (عربي)",
+        "entityType": "نوع الكيان",
+        "entityCompany": "شركة",
+        "entityUniversity": "جامعة",
+        "ownership": "الملكية",
+        "sector": "القطاع",
+        "region": "المنطقة",
+        "domains": "النطاقات (مفصولة بفاصلة)",
+        "careerPortal": "بوابة التوظيف",
+        "website": "الموقع",
+        "logo": "رابط الشعار",
+        "isActive": "نشط في الدليل",
+        "none": "—",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "saving": "جاري الحفظ…",
+        "saved": "تم الحفظ",
+        "created": "تم إنشاء السجل"
+      },
+      "suggestions": {
+        "title": "اقتراحات التصحيح",
+        "subtitle": "اقتراحات الملاك بانتظار مراجعة فريق العمليات",
+        "back": "← الدليل",
+        "empty": "لا توجد اقتراحات معلّقة",
+        "field": "الحقل: {field}",
+        "current": "القيمة الحالية",
+        "suggested": "القيمة المقترحة",
+        "reason": "سبب المالك",
+        "reviewNotes": "ملاحظات المراجعة",
+        "reviewNotesPlaceholder": "اختياري — يُنصح بملاحظة للتدقيق",
+        "approve": "موافقة",
+        "reject": "رفض",
+        "success": {
+          "approved": "تمت الموافقة على التصحيح",
+          "rejected": "تم رفض الاقتراح"
+        }
+      },
+      "profiles": {
+        "title": "الملفات التعريفية",
+        "subtitle": "عرض الحالة وإجراءات الإيقاف/الإعادة فقط — بدون تحرير محتوى",
+        "back": "← الدليل",
+        "search": "بحث",
+        "searchPlaceholder": "بحث بالاسم أو المالك أو الدليل…",
+        "empty": "لا توجد ملفات",
+        "reasonLabel": "سبب الإيقاف",
+        "reasonPlaceholder": "مطلوب عند الإيقاف",
+        "reasonRequired": "سبب الإيقاف مطلوب",
+        "suspend": "إيقاف",
+        "reinstateDraft": "إعادة (مسودة)",
+        "reinstatePublished": "إعادة (منشور)",
+        "suspended": "تم إيقاف الملف",
+        "reinstated": "تمت إعادة الملف",
+        "audit": "سجل التدقيق",
+        "table": {
+          "profile": "الملف",
+          "type": "النوع",
+          "status": "الحالة",
+          "owner": "المالك",
+          "directory": "سجل الدليل",
+          "actions": "إجراءات"
+        }
+      }
+    },
     "claims": {
       "title": "طابور المطالبات",
       "subtitle": "مطالبات الملكية وطلبات المرشدين مرتبة حسب SLA",
@@ -1101,6 +1552,7 @@
         "assigned": "التعيين",
         "typeOptions": {
           "all": "كل الأنواع",
+          "business": "شركة",
           "company": "شركة",
           "university": "جامعة",
           "mentor": "مرشد"
@@ -1125,7 +1577,7 @@
         "unassigned": "غير معيّنة"
       },
       "realtime": {
-        "newClaim": "مطالبة جديدة: {company}"
+        "newClaim": "طلب توثيق جديد: {company}"
       },
       "myQueue": {
         "title": "مطالباتي المعيّنة",
@@ -1916,7 +2368,10 @@
         "dashboard": "الذهاب للوحة التحكم",
         "users": "إدارة المستخدمين",
         "entities": "إدارة الكيانات",
-        "claims": "فتح طابور المطالبات",
+        "verification": "فتح طابور التوثيق",
+        "directory": "الدليل",
+        "correctionSuggestions": "اقتراحات التصحيح",
+        "profileModeration": "الملفات التعريفية",
         "inviteStaff": "دعوة موظف",
         "audit": "عرض سجل التدقيق",
         "emergency": "وحدة الطوارئ"
@@ -2757,6 +3212,194 @@
         "requestCta": "طلب جلسة",
         "staffPendingTitle": "عرض الموظفين — المرشد غير عام",
         "staffPendingMessage": "حالة ملف هذا المرشد \"{status}\" ومخفي عن الزوار العامين."
+      }
+    },
+    "workspace": {
+      "metaFallback": "الملف الشخصي",
+      "restrictedTitle": "هذا الملف غير عام",
+      "restrictedMessage": "صاحب الملف اختار عدم إتاحته للعامة. لا يمكن عرض التفاصيل المهنية حالياً.",
+      "publicPreviewBanner": "أنت تعاين ملفك كما يراه الآخرون",
+      "publicPreviewExit": "العودة لعرض المالك",
+      "graduationYear": "تخرّج {year}",
+      "uploadAvatar": "تغيير الصورة",
+      "avatarUploaded": "تم تحديث الصورة",
+      "avatarUploadFailed": "تعذّر رفع الصورة",
+      "shareCopied": "تم نسخ رابط الملف",
+      "shareFailed": "تعذّر المشاركة",
+      "actionsAria": "إجراءات الملف",
+      "employmentStatus": {
+        "student": "طالب",
+        "expected_graduate": "متوقع التخرج",
+        "graduate": "خريج",
+        "alumni": "خريج سابق"
+      },
+      "actions": {
+        "editProfile": "تعديل الملف الشخصي",
+        "share": "مشاركة",
+        "downloadCv": "تحميل السيرة الذاتية",
+        "portfolio": "المحفظة",
+        "save": "حفظ",
+        "viewPortfolio": "عرض المحفظة"
+      },
+      "sections": {
+        "navAria": "تنقل أقسام الملف",
+        "overview": "نظرة عامة",
+        "canvas": "المسار المهني",
+        "timeline": "الجدول الزمني",
+        "projects": "المشاريع",
+        "experience": "الخبرات",
+        "skills": "المهارات",
+        "education": "التعليم",
+        "certifications": "الشهادات",
+        "mentorship": "الإرشاد",
+        "achievements": "الإنجازات",
+        "portfolio": "المحفظة",
+        "cv": "السيرة الذاتية"
+      },
+      "error": {
+        "title": "تعذّر تحميل الملف",
+        "message": "حدث خطأ أثناء جلب بيانات الملف. أعد المحاولة.",
+        "retry": "إعادة المحاولة"
+      },
+      "ownerStats": {
+        "ariaLabel": "إحصائيات المالك",
+        "activeApplications": "التطبيقات النشطة",
+        "interviewCount": "المقابلات",
+        "radarLastUpdated": "آخر تحديث في الرادار",
+        "completionPct": "اكتمال الملف",
+        "projectCount": "المشاريع",
+        "proofCount": "إثباتات العمل",
+        "openRadar": "فتح الرادار"
+      },
+      "portfolio": {
+        "title": "المحفظة",
+        "emptyOwner": "أضف رابط محفظتك أو مشروعاً مميزاً من منشئ السيرة الذاتية.",
+        "openFull": "فتح المحفظة الكاملة",
+        "openFullPublic": "فتح المحفظة الكاملة"
+      },
+      "cvBuilder": {
+        "title": "منشئ السيرة الذاتية",
+        "hint": "السيرة الذاتية لقطة مستقلة — افتح المنشئ لتحريرها أو تصديرها.",
+        "openBuilder": "فتح منشئ السيرة",
+        "exportCv": "تصدير السيرة"
+      },
+      "overview": {
+        "title": "نظرة عامة",
+        "edit": "تعديل",
+        "emptyPrompt": "اكتب نبذة مختصرة عن نفسك ومسارك المهني",
+        "charCount": "{count} / {max}"
+      },
+      "canvas": {
+        "title": "ملخص المسار المهني",
+        "unavailable": "لم يُفعَّل مسار المهني الكامل بعد — يعرض هذا القسم ملخصاً من بيانات ملفك.",
+        "direction": "الاتجاه المعلن",
+        "aspiration": "الطموح",
+        "highlights": "أبرز الاهتمامات",
+        "fullCanvasTodo": "ستتوفر صفحة المسار المهني الكامل عند إطلاق الوحدة."
+      },
+      "timeline": {
+        "title": "الجدول الزمني المهني",
+        "empty": "لا توجد أحداث في الجدول بعد.",
+        "emptyOwner": "أضف خبراتك وتعليمك من منشئ السيرة الذاتية لملء الجدول.",
+        "showMore": "عرض المزيد",
+        "showLess": "عرض أقل",
+        "proof": "إثبات",
+        "evidenceUnavailable": "خزنة الأدلة غير متاحة بعد — لا يمكن ربط إثباتات خارجية حالياً.",
+        "kinds": {
+          "education": "تعليم",
+          "experience": "خبرة",
+          "application": "تقديم",
+          "mentorship": "إرشاد",
+          "profile_milestone": "إنجاز"
+        }
+      },
+      "projects": {
+        "title": "المشاريع المميزة",
+        "empty": "لم تُضف مشاريع بعد — أضفها من منشئ السيرة الذاتية.",
+        "emptyOwner": "أضف أول مشروع من منشئ السيرة الذاتية",
+        "viewAll": "عرض الكل",
+        "role": "الدور",
+        "date": "التاريخ",
+        "proof": "إثبات",
+        "evidenceUnavailable": "خزنة الأدلة غير متاحة بعد.",
+        "openLink": "فتح الرابط"
+      },
+      "experience": {
+        "title": "الخبرات",
+        "edit": "تعديل",
+        "empty": "لا توجد خبرات مضافة.",
+        "emptyOwner": "أضف خبرتك الأولى من منشئ السيرة الذاتية",
+        "evidenceUnavailable": "خزنة الأدلة غير متاحة بعد."
+      },
+      "education": {
+        "title": "التعليم",
+        "edit": "تعديل",
+        "emptyOwner": "أضف تعليمك من منشئ السيرة الذاتية"
+      },
+      "skills": {
+        "title": "المهارات",
+        "edit": "تعديل",
+        "empty": "لا توجد مهارات.",
+        "emptyOwner": "أضف مهاراتك من تعديل الملف",
+        "backedByExperience": "مدعومة بخبرة",
+        "backedByProjects": "مدعومة بمشروع",
+        "proficiency": {
+          "beginner": "مبتدئ",
+          "intermediate": "متوسط",
+          "advanced": "متمرّس",
+          "expert": "خبير"
+        }
+      },
+      "certifications": {
+        "title": "الشهادات",
+        "edit": "تعديل",
+        "empty": "لا توجد شهادات.",
+        "emptyOwner": "أضف شهاداتك من منشئ السيرة الذاتية",
+        "credentialLink": "رابط الاعتماد",
+        "evidenceUnavailable": "خزنة الأدلة غير متاحة بعد."
+      },
+      "mentorship": {
+        "title": "الإرشاد",
+        "empty": "لا توجد جلسات إرشاد مسجّلة.",
+        "emptyOwner": "لا توجد جلسات إرشاد بعد — اطلب إرشاداً من قسم المرشدين.",
+        "sessionCount": "الجلسات المكتملة",
+        "focusAreas": "مجالات التوجيه",
+        "goals": "الأهداف المهنية",
+        "unnamedMentor": "مرشد"
+      },
+      "achievements": {
+        "title": "الإنجازات",
+        "empty": "لا توجد شارات بعد.",
+        "emptyOwner": "أكمل إنجازاتك على المنصة لكسب الشارات",
+        "viewOnTimeline": "عرض في الجدول الزمني"
+      },
+      "rail": {
+        "completionTitle": "اكتمال الملف",
+        "completionComplete": "ملفك مكتمل — أحسنت!",
+        "missing": {
+          "about_me": "أضف نبذة مهنية",
+          "skills": "أضف مهاراتك",
+          "headline": "أضف عنواناً مختصراً",
+          "university_id": "أضف جامعتك",
+          "college_id": "أضف كليتك",
+          "target_sectors": "حدد القطاعات المستهدفة",
+          "avatar": "أضف صورة شخصية",
+          "linkedin": "أضف رابط لينكدإن"
+        },
+        "previewTitle": "معاينة الملف العام",
+        "previewLink": "عاين ملفك كما يراه الآخرون",
+        "graduateBadge": {
+          "title": "شارة الخريج",
+          "directoryToggle": "الظهور في دليل الجامعة",
+          "earnHint": "أكمل جلسة إرشاد مفعّلة لاستحقاق الشارة.",
+          "saved": "تم تحديث إعدادات الشارة",
+          "saveFailed": "تعذّر حفظ الإعداد",
+          "status": {
+            "active": "مفعّلة في الدليل",
+            "hidden": "مخفية عن الدليل",
+            "needsReview": "تحتاج جلسة إرشاد مكتملة"
+          }
+        }
       }
     },
     "edit": {
@@ -4110,6 +4753,27 @@
       "skipFailed": "تعذّر حفظ تفضيلك. يرجى المحاولة مجدداً.",
       "saveFailed": "تعذّر الحفظ. يرجى المحاولة مجدداً.",
       "completeFailed": "تعذّر إكمال الإعداد. يرجى المحاولة مجدداً."
+    }
+  },
+  "terminology": {
+    "directory": "الدليل",
+    "companyDirectory": "دليل الجهات",
+    "universityDirectory": "دليل الجامعات",
+    "profile": "الملف التعريفي",
+    "businessProfile": "الملف التعريفي للمنشأة",
+    "universityProfile": "ملف الجامعة",
+    "tiers": {
+      "normal": "عادي",
+      "plus": "بلس"
+    },
+    "productNames": {
+      "careerCanvas": "لوحة المسار",
+      "impactDrops": "قطرات الأثر",
+      "evidenceVault": "خزانة الإثبات",
+      "careerTimeline": "الخط الزمني المهني",
+      "graduateBadge": "شارة الخريج",
+      "lammah": "لمّاح",
+      "abhathli": "ابحثلي"
     }
   }
 }

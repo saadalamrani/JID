@@ -108,6 +108,13 @@ export type CatalogRegionRef = {
   name_ar: string | null
 }
 
+export type CatalogLookupOption = {
+  id: string
+  slug: string
+  name_en: string
+  name_ar: string | null
+}
+
 /** Card-safe subset — no descriptions or claimed_by. */
 export type CompanyCardData = {
   id: string
@@ -122,6 +129,19 @@ export type CompanyCardData = {
   link_status: LinkStatus
   last_audit_at: string | null
   manual_order: number
+  hasPublishedProfile: boolean
+  profile_id: string | null
+  profile_display_name_ar: string | null
+  profile_tagline_ar: string | null
+}
+
+/** Published profile projection joined from Layer 3 (single derivation point). */
+export type PublishedProfileProjection = {
+  hasPublishedProfile: boolean
+  profile_id: string | null
+  profile_display_name_ar: string | null
+  profile_tagline_ar: string | null
+  profile_about_ar: string | null
 }
 
 /** Public company record (reconciled schema; list/detail safe fields). */
@@ -148,10 +168,52 @@ export type Company = {
   manual_order: number
   sector: CatalogSectorRef | null
   region: CatalogRegionRef | null
+  sector_id: string | null
+  region_id: string | null
   tagline_en: string | null
   tagline_ar: string | null
   founded_year: number | null
   employee_count_range: string | null
+  description_ar: string | null
+} & PublishedProfileProjection
+
+export type CatalogCompanyDetail = Company
+
+/** P-103 migration 112 field_name allow-list — keep synced with SQL CHECK constraint. */
+export const DIRECTORY_CORRECTION_FIELD_NAMES = [
+  'city',
+  'career_portal_url',
+  'website_url',
+  'linkedin_url',
+  'twitter_url',
+  'sector_id',
+  'region_id',
+] as const
+
+export type DirectoryCorrectionFieldName = (typeof DIRECTORY_CORRECTION_FIELD_NAMES)[number]
+
+export function getDirectoryFieldCurrentValue(
+  company: Company,
+  fieldName: DirectoryCorrectionFieldName,
+): string {
+  switch (fieldName) {
+    case 'city':
+      return company.city ?? ''
+    case 'career_portal_url':
+      return company.career_portal_url ?? ''
+    case 'website_url':
+      return company.website_url ?? ''
+    case 'linkedin_url':
+      return company.linkedin_url ?? ''
+    case 'twitter_url':
+      return company.twitter_url ?? ''
+    case 'sector_id':
+      return company.sector_id ?? ''
+    case 'region_id':
+      return company.region_id ?? ''
+    default:
+      return ''
+  }
 }
 
 export type CatalogCompaniesResult = {

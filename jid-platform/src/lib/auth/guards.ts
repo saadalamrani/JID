@@ -11,7 +11,9 @@ export type RouteCondition =
   | 'phone_verified'
   | 'profile_complete'
   | 'mentor_status'
-  | 'entity_claim_status'
+  | 'organization_profile'
+
+export type OrganizationProfileType = 'business' | 'university'
 
 export type RouteGuard = {
   readonly id: string
@@ -19,6 +21,8 @@ export type RouteGuard = {
   /** `null` = public route (no session required). */
   readonly allowedRoles: readonly UserRole[] | null
   readonly conditions?: readonly RouteCondition[]
+  /** Required when `organization_profile` is in conditions (P-109). */
+  readonly organizationProfileType?: OrganizationProfileType
   readonly requires2FA?: boolean
   readonly auditLog?: boolean
   /** Maximum session age in seconds for this route. */
@@ -117,6 +121,38 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: ['entity'],
   },
 
+  // ── Verification / onboarding landing pages (before organization_profile gate) ──
+  {
+    id: 'company-verification-pending',
+    pattern: new RegExp(`^${L}/company/verification-pending(?:/|$)`),
+    allowedRoles: ['entity', 'company_admin'],
+  },
+  {
+    id: 'company-verification-rejected',
+    pattern: new RegExp(`^${L}/company/verification-rejected(?:/|$)`),
+    allowedRoles: ['entity', 'company_admin'],
+  },
+  {
+    id: 'company-verification-reapply',
+    pattern: new RegExp(`^${L}/company/verification/reapply(?:/|$)`),
+    allowedRoles: ['entity', 'company_admin'],
+  },
+  {
+    id: 'company-create-profile',
+    pattern: new RegExp(`^${L}/company/create-profile(?:/|$)`),
+    allowedRoles: ['entity', 'company_admin'],
+  },
+  {
+    id: 'company-profile-suspended',
+    pattern: new RegExp(`^${L}/company/profile-suspended(?:/|$)`),
+    allowedRoles: ['entity', 'company_admin'],
+  },
+  {
+    id: 'university-profile-suspended',
+    pattern: new RegExp(`^${L}/university/profile-suspended(?:/|$)`),
+    allowedRoles: ['entity', 'university_admin'],
+  },
+
   // ── Company / university entity portals ─────────────────────────────────────
   {
     id: 'company-jobs-applicants',
@@ -127,19 +163,22 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     id: 'company-jobs-new',
     pattern: new RegExp(`^${L}/jobs/new(?:/|$)`),
     allowedRoles: ['entity', 'company_admin'],
-    conditions: ['entity_claim_status'],
+    conditions: ['organization_profile'],
+    organizationProfileType: 'business',
   },
   {
     id: 'company-portal',
     pattern: new RegExp(`^${L}/company(?:/|$)`),
     allowedRoles: ['entity', 'company_admin'],
-    conditions: ['entity_claim_status'],
+    conditions: ['organization_profile'],
+    organizationProfileType: 'business',
   },
   {
     id: 'university-portal',
     pattern: new RegExp(`^${L}/university(?:/|$)`),
     allowedRoles: ['entity', 'university_admin'],
-    conditions: ['entity_claim_status'],
+    conditions: ['organization_profile'],
+    organizationProfileType: 'university',
   },
 
   // ── Individual profile owner (before /me portal) ────────────────────────────
@@ -169,7 +208,8 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     id: 'company-profile-owner',
     pattern: new RegExp(`^${L}/company/profile(?:/|$)`),
     allowedRoles: ['company_admin'],
-    conditions: ['entity_claim_status'],
+    conditions: ['organization_profile'],
+    organizationProfileType: 'business',
   },
 
   // ── Mentor profile owner (pending mentors may edit; no mentor_status gate) ──
@@ -306,6 +346,11 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   {
     id: 'public-mentors',
     pattern: new RegExp(`^${L}/mentors(?:/|$)`),
+    allowedRoles: null,
+  },
+  {
+    id: 'public-individual-profile',
+    pattern: new RegExp(`^${L}/profile/[0-9a-f-]{36}(?:/|$)`),
     allowedRoles: null,
   },
   {

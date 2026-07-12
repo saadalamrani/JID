@@ -87,20 +87,20 @@ export function PreferencesForm({ initialPreferences }: PreferencesFormProps) {
         <p className="font-arabic leading-relaxed">{t('securityBanner')}</p>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-jid-line bg-white">
+      <div className="overflow-x-auto rounded-lg border border-border bg-white">
         <table className="min-w-full border-collapse text-sm">
           <thead>
-            <tr className="border-b border-jid-line bg-jid-beige/30 text-start">
-              <th scope="col" className="px-4 py-3 font-medium text-jid-ink">
+            <tr className="border-b border-border bg-background/30 text-start">
+              <th scope="col" className="px-4 py-3 font-medium text-foreground">
                 {t('columns.category')}
               </th>
-              <th scope="col" className="px-4 py-3 text-center font-medium text-jid-ink">
+              <th scope="col" className="px-4 py-3 text-center font-medium text-foreground">
                 {t('columns.inApp')}
               </th>
-              <th scope="col" className="px-4 py-3 text-center font-medium text-jid-ink">
+              <th scope="col" className="px-4 py-3 text-center font-medium text-foreground">
                 {t('columns.email')}
               </th>
-              <th scope="col" className="px-4 py-3 text-center font-medium text-jid-ink">
+              <th scope="col" className="px-4 py-3 text-center font-medium text-foreground">
                 {t('columns.digest')}
               </th>
             </tr>
@@ -121,7 +121,7 @@ export function PreferencesForm({ initialPreferences }: PreferencesFormProps) {
         </table>
       </div>
 
-      <p className="text-xs text-jid-ink/50">
+      <p className="text-xs text-muted-foreground">
         {t('matrixMeta', { count: matrixCategoryCount })}
       </p>
     </div>
@@ -149,8 +149,8 @@ function GroupSection({
 }) {
   return (
     <>
-      <tr className="border-b border-jid-line bg-jid-beige/20">
-        <td colSpan={4} className="px-4 py-2 text-xs font-semibold uppercase tracking-wide text-jid-olive">
+      <tr className="border-b border-border bg-background/20">
+        <td colSpan={4} className="px-4 py-2 text-xs font-semibold uppercase text-primary">
           {t(`groups.${groupId}`)}
         </td>
       </tr>
@@ -159,10 +159,10 @@ function GroupSection({
         if (!row) return null
 
         return (
-          <tr key={category} className="border-b border-jid-line/70 last:border-b-0">
+          <tr key={category} className="border-b border-border/70 last:border-b-0">
             <td className="px-4 py-3 align-middle">
               <div className="min-w-[12rem]">
-                <p className="font-medium text-jid-ink">{t(`categories.${category}`)}</p>
+                <p className="font-medium text-foreground">{t(`categories.${category}`)}</p>
                 {row.is_mandatory ? (
                   <p className="mt-0.5 text-[11px] text-amber-700">{t('mandatoryBadge')}</p>
                 ) : null}

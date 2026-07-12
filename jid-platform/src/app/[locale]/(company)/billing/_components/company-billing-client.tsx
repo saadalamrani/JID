@@ -29,7 +29,7 @@ export function CompanyBillingClient({ subscription, locale }: CompanyBillingCli
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="font-arabic text-2xl font-semibold text-jid-olive">{t('title')}</h1>
+        <h1 className="font-arabic text-2xl font-semibold text-primary">{t('title')}</h1>
         <p className="mt-2 font-arabic text-sm leading-relaxed text-muted-foreground">{t('subtitle')}</p>
       </header>
 
@@ -40,7 +40,7 @@ export function CompanyBillingClient({ subscription, locale }: CompanyBillingCli
               <p className="font-arabic text-xs text-muted-foreground">{t('currentPlan')}</p>
               <p className="mt-1 font-arabic text-lg font-semibold text-foreground">{planName}</p>
             </div>
-            <span className="inline-flex rounded-full bg-jid-gold/20 px-2.5 py-0.5 font-arabic text-xs font-semibold text-jid-olive">
+            <span className="inline-flex rounded-full bg-accent/20 px-2.5 py-0.5 font-arabic text-xs font-semibold text-primary">
               {t('active')}
             </span>
           </div>
@@ -58,15 +58,15 @@ export function CompanyBillingClient({ subscription, locale }: CompanyBillingCli
           </dl>
         </section>
       ) : (
-        <section className="rounded-xl border border-jid-gold/30 bg-jid-beige-warm/60 p-6">
+        <section className="rounded-xl border border-accent/30 bg-surface/60 p-6">
           <div className="flex items-start gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-jid-gold/40 bg-jid-gold/15">
-              <Sparkles className="h-5 w-5 text-jid-olive" aria-hidden />
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/15">
+              <Sparkles className="h-5 w-5 text-primary" aria-hidden />
             </span>
             <div>
-              <h2 className="font-arabic text-base font-semibold text-jid-olive">{t('teaserTitle')}</h2>
-              <p className="mt-2 font-arabic text-sm leading-relaxed text-jid-ink-soft">{t('teaserBody')}</p>
-              <ul className="mt-3 space-y-1.5 font-arabic text-sm text-jid-ink-soft">
+              <h2 className="font-arabic text-base font-semibold text-primary">{t('teaserTitle')}</h2>
+              <p className="mt-2 font-arabic text-sm leading-relaxed text-muted-foreground">{t('teaserBody')}</p>
+              <ul className="mt-3 space-y-1.5 font-arabic text-sm text-muted-foreground">
                 {(t.raw('teaserBullets') as string[]).map((bullet) => (
                   <li key={bullet}>• {bullet}</li>
                 ))}
@@ -79,7 +79,7 @@ export function CompanyBillingClient({ subscription, locale }: CompanyBillingCli
       <section className="rounded-xl border border-border bg-card p-5">
         <h2 className="font-arabic text-base font-semibold text-foreground">{t('salesTitle')}</h2>
         <p className="mt-2 font-arabic text-sm text-muted-foreground">{t('salesBody')}</p>
-        <Button asChild className="mt-4 bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90">
+        <Button asChild className="mt-4 bg-primary font-arabic text-primary-foreground hover:bg-primary/90">
           <Link href="/contact">
             <Mail className="h-4 w-4" aria-hidden />
             {t('salesCta')}

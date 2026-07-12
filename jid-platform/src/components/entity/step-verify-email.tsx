@@ -9,7 +9,7 @@ import { createClient } from '@/lib/supabase/client'
 
 type StepVerifyEmailProps = {
   email?: string
-  pendingReviewPath: '/company/pending-review' | '/university/pending-review'
+  pendingReviewPath: '/company/verification-pending' | '/company/pending-review' | '/university/pending-review'
   onVerified: () => void
 }
 
@@ -61,17 +61,17 @@ export function StepVerifyEmail({ email, pendingReviewPath, onVerified }: StepVe
 
   return (
     <div className="space-y-4 text-center">
-      <p className="text-sm text-jid-ink/80">{t('instructions')}</p>
+      <p className="text-sm text-foreground/80">{t('instructions')}</p>
       {email ? (
-        <p className="font-medium text-jid-ink" dir="ltr">
+        <p className="font-medium text-foreground" dir="ltr">
           {email}
         </p>
       ) : null}
-      <p className="text-xs text-jid-ink/60">{t('inbucketHint')}</p>
+      <p className="text-xs text-foreground/60">{t('inbucketHint')}</p>
 
       <Button
         type="button"
-        className="w-full bg-jid-olive hover:bg-jid-olive/90"
+        className="w-full bg-primary hover:bg-primary/90"
         disabled={checking}
         onClick={handleCheckNow}
       >
@@ -80,12 +80,12 @@ export function StepVerifyEmail({ email, pendingReviewPath, onVerified }: StepVe
 
       <Link
         href={pendingReviewPath}
-        className="block text-sm font-medium text-jid-olive underline-offset-4 hover:underline"
+        className="block text-sm font-medium text-primary underline-offset-4 hover:underline"
       >
         {t('continueToPending')}
       </Link>
 
-      <p className="text-xs text-jid-ink/50">
+      <p className="text-xs text-muted-foreground">
         {siteConfig.name} — {t('spamHint')}
       </p>
     </div>

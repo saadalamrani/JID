@@ -16,7 +16,7 @@ export function MessageBubble({ message, isOwn }: MessageBubbleProps) {
   if (message.isSystem) {
     return (
       <div className="flex justify-center py-2">
-        <p className="max-w-md rounded-full bg-jid-beige/60 px-4 py-2 text-center font-arabic text-xs text-jid-ink/60">
+        <p className="max-w-md rounded-full bg-background/60 px-4 py-2 text-center font-arabic text-xs text-foreground/60">
           {message.plaintext}
         </p>
       </div>
@@ -32,7 +32,7 @@ export function MessageBubble({ message, isOwn }: MessageBubbleProps) {
       <div
         className={cn(
           'max-w-[80%] rounded-2xl px-4 py-2 font-arabic text-sm shadow-sm',
-          isOwn ? 'bg-jid-olive text-white' : 'border border-jid-line bg-white text-jid-ink',
+          isOwn ? 'bg-primary text-white' : 'border border-border bg-white text-foreground',
         )}
       >
         {showDecrypting ? (
@@ -46,7 +46,7 @@ export function MessageBubble({ message, isOwn }: MessageBubbleProps) {
           <p className="whitespace-pre-wrap break-words">{body}</p>
         )}
         <time
-          className={cn('mt-1 block text-[10px]', isOwn ? 'text-white/70' : 'text-jid-ink/45')}
+          className={cn('mt-1 block text-[10px]', isOwn ? 'text-white/70' : 'text-foreground/45')}
           dateTime={message.created_at}
         >
           {new Date(message.created_at).toLocaleTimeString(undefined, {

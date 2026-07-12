@@ -2,7 +2,7 @@
  * Smart Communication constants (Prompt 4) — Arabic SSOT.
  */
 
-/** Spec-locked verbatim — founder sign-off required before any change. */
+/** SPEC-LOCKED VERBATIM — changing this string requires founder sign-off. */
 export const AUTO_REPLY_DISCLAIMER_AR =
   'إخلاء مسؤولية: هذه الجهة غير مفعلة لميزة الرد التلقائي لدينا'
 

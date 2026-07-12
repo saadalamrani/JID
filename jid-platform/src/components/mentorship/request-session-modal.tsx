@@ -144,26 +144,26 @@ export function RequestSessionModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto border-jid-line bg-white sm:max-w-lg">
+      <DialogContent className="max-h-[90vh] overflow-y-auto border-border bg-white sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle className="font-arabic text-jid-ink">{t('title')}</DialogTitle>
-          <DialogDescription className="font-arabic text-jid-ink/60">
+          <DialogTitle className="font-arabic text-foreground">{t('title')}</DialogTitle>
+          <DialogDescription className="font-arabic text-foreground/60">
             {t('subtitle', { name: mentorName })}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="rounded-lg border border-jid-line/60 bg-jid-beige/30 px-3 py-2 font-arabic text-sm">
-          <p className="font-medium text-jid-ink">{mentorName}</p>
-          {mentorHeadline ? <p className="text-jid-ink/60">{mentorHeadline}</p> : null}
+        <div className="rounded-lg border border-border/60 bg-background/30 px-3 py-2 font-arabic text-sm">
+          <p className="font-medium text-foreground">{mentorName}</p>
+          {mentorHeadline ? <p className="text-foreground/60">{mentorHeadline}</p> : null}
         </div>
 
         <form onSubmit={(event) => void handleSubmit(event)} className="space-y-4">
-          <section className="rounded-xl border border-jid-line bg-white p-4">
-            <h3 className="mb-3 font-arabic text-sm font-medium text-jid-ink/70">
+          <section className="rounded-xl border border-border bg-white p-4">
+            <h3 className="mb-3 font-arabic text-sm font-medium text-foreground/70">
               {t('snapshotTitle')}
             </h3>
             {loadingSnapshot ? (
-              <div className="flex items-center justify-center py-6 text-jid-ink/50">
+              <div className="flex items-center justify-center py-6 text-muted-foreground">
                 <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
                 <span className="sr-only">{t('loadingSnapshot')}</span>
               </div>
@@ -192,21 +192,21 @@ export function RequestSessionModal({
                 </dl>
               </div>
             ) : (
-              <p className="font-arabic text-sm text-jid-ink/50">{t('snapshotUnavailable')}</p>
+              <p className="font-arabic text-sm text-muted-foreground">{t('snapshotUnavailable')}</p>
             )}
-            <p className="mt-3 font-arabic text-xs text-jid-ink/45">{t('snapshotNote')}</p>
+            <p className="mt-3 font-arabic text-xs text-foreground/45">{t('snapshotNote')}</p>
           </section>
 
           {expertiseAreas.length > 0 ? (
             <div className="space-y-1.5">
-              <label htmlFor="focus-area" className="font-arabic text-sm font-medium text-jid-ink">
+              <label htmlFor="focus-area" className="font-arabic text-sm font-medium text-foreground">
                 {t('focusAreaLabel')}
               </label>
               <select
                 id="focus-area"
                 value={focusArea}
                 onChange={(event) => setFocusArea(event.target.value)}
-                className="w-full rounded-lg border border-jid-line bg-white px-3 py-2 font-arabic text-sm text-jid-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+                className="w-full rounded-lg border border-border bg-white px-3 py-2 font-arabic text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 <option value="">{t('focusAreaPlaceholder')}</option>
                 {expertiseAreas.map((area) => (
@@ -219,14 +219,14 @@ export function RequestSessionModal({
           ) : null}
 
           <div className="space-y-1.5">
-            <label htmlFor="preferred-medium" className="font-arabic text-sm font-medium text-jid-ink">
+            <label htmlFor="preferred-medium" className="font-arabic text-sm font-medium text-foreground">
               {t('preferredMediumLabel')}
             </label>
             <select
               id="preferred-medium"
               value={preferredMedium}
               onChange={(event) => setPreferredMedium(event.target.value)}
-              className="w-full rounded-lg border border-jid-line bg-white px-3 py-2 font-arabic text-sm text-jid-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+              className="w-full rounded-lg border border-border bg-white px-3 py-2 font-arabic text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <option value="">{t('preferredMediumPlaceholder')}</option>
               {MENTOR_MEDIUM_OPTIONS.map((option) => (
@@ -238,7 +238,7 @@ export function RequestSessionModal({
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="intent-statement" className="font-arabic text-sm font-medium text-jid-ink">
+            <label htmlFor="intent-statement" className="font-arabic text-sm font-medium text-foreground">
               {t('intentLabel')}
             </label>
             <textarea
@@ -248,12 +248,12 @@ export function RequestSessionModal({
               rows={5}
               maxLength={2000}
               placeholder={t('intentPlaceholder')}
-              className="w-full resize-y rounded-lg border border-jid-line bg-white px-3 py-2 font-arabic text-sm text-jid-ink placeholder:text-jid-ink/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+              className="w-full resize-y rounded-lg border border-border bg-white px-3 py-2 font-arabic text-sm text-foreground placeholder:text-foreground/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             />
             <p
               className={cn(
                 'font-arabic text-xs',
-                intentValid ? 'text-jid-olive' : 'text-jid-ink/50',
+                intentValid ? 'text-primary' : 'text-muted-foreground',
               )}
             >
               {t('intentCount', { count: trimmedIntent.length, min: INTENT_STATEMENT_MIN_LENGTH })}
@@ -265,14 +265,14 @@ export function RequestSessionModal({
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="font-arabic border-jid-line"
+              className="font-arabic border-border"
             >
               {t('cancel')}
             </Button>
             <Button
               type="submit"
               disabled={!intentValid || submitting || loadingSnapshot || !snapshot}
-              className="bg-jid-olive font-arabic hover:bg-jid-olive/90"
+              className="bg-primary font-arabic hover:bg-primary/90"
             >
               {submitting ? t('submitting') : t('submit')}
             </Button>
@@ -287,8 +287,8 @@ function SnapshotRow({ label, value }: { label: string; value: string | null }) 
   if (!value?.trim()) return null
   return (
     <div>
-      <dt className="text-xs text-jid-ink/45">{label}</dt>
-      <dd className="text-jid-ink">{value}</dd>
+      <dt className="text-xs text-foreground/45">{label}</dt>
+      <dd className="text-foreground">{value}</dd>
     </div>
   )
 }

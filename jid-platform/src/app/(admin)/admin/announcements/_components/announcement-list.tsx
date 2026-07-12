@@ -18,20 +18,20 @@ export function AnnouncementList({ announcements }: AnnouncementListProps) {
       {announcements.map((row) => {
         const status = getStatus(row)
         return (
-          <article key={row.id} className="rounded-xl border border-jid-line bg-white p-4">
+          <article key={row.id} className="rounded-xl border border-border bg-white p-4">
             <div className="flex items-start justify-between gap-3">
               <div className="space-y-1">
-                <h3 className="font-semibold text-jid-ink">{row.title_ar}</h3>
-                <p className="text-xs text-jid-ink/60">
+                <h3 className="font-semibold text-foreground">{row.title_ar}</h3>
+                <p className="text-xs text-foreground/60">
                   {new Date(row.created_at).toLocaleString()} · {row.category}
                 </p>
               </div>
               <span className={`rounded-full px-2 py-1 text-xs font-medium ${status.className}`}>{status.label}</span>
             </div>
-            {row.body_ar ? <p className="mt-2 text-sm text-jid-ink/75">{row.body_ar}</p> : null}
-            <div className="mt-3 flex items-center justify-between text-xs text-jid-ink/60">
+            {row.body_ar ? <p className="mt-2 text-sm text-foreground/75">{row.body_ar}</p> : null}
+            <div className="mt-3 flex items-center justify-between text-xs text-foreground/60">
               <span>Expires: {new Date(row.expires_at).toLocaleString()}</span>
-              <Link href={`/admin/announcements/${row.id}/edit`} className="font-medium text-jid-olive hover:underline">
+              <Link href={`/admin/announcements/${row.id}/edit`} className="font-medium text-primary hover:underline">
                 Edit
               </Link>
             </div>

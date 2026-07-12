@@ -19,7 +19,7 @@ export async function PulseShell({ locale, children }: PulseShellProps) {
       <PulseViewedTracker />
       <header className="space-y-2">
         <p className="text-sm font-medium text-primary">{t('eyebrow')}</p>
-        <h1 className="text-3xl font-semibold tracking-tight text-foreground">{t('title')}</h1>
+        <h1 className="text-3xl font-semibold text-foreground">{t('title')}</h1>
         <p className="max-w-2xl text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
       {children}

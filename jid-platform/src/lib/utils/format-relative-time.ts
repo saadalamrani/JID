@@ -12,26 +12,37 @@ const arabicRelativeFormatter = new Intl.RelativeTimeFormat('ar', {
   style: 'long',
 })
 
+const englishRelativeFormatter = new Intl.RelativeTimeFormat('en', {
+  numeric: 'always',
+  style: 'short',
+})
+
 /**
  * Arabic relative time — e.g. "قبل ساعتين", "قبل 3 أيام".
+ * Pass `locale: 'en'` for English short relative strings.
  */
-export function formatRelativeTime(iso: string | Date | null | undefined): string {
-  if (!iso) return 'غير متوفر'
+export function formatRelativeTime(
+  iso: string | Date | null | undefined,
+  locale: 'ar' | 'en' = 'ar',
+): string {
+  if (!iso) return locale === 'ar' ? 'غير متوفر' : 'N/A'
 
   const date = iso instanceof Date ? iso : new Date(iso)
-  if (Number.isNaN(date.getTime())) return 'غير متوفر'
+  if (Number.isNaN(date.getTime())) return locale === 'ar' ? 'غير متوفر' : 'N/A'
 
   const diffSeconds = Math.round((date.getTime() - Date.now()) / 1000)
   const absSeconds = Math.abs(diffSeconds)
 
-  if (absSeconds < 45) return 'الآن'
+  if (absSeconds < 45) return locale === 'ar' ? 'الآن' : 'now'
+
+  const formatter = locale === 'en' ? englishRelativeFormatter : arabicRelativeFormatter
 
   for (const { unit, seconds } of RELATIVE_UNITS) {
     if (absSeconds >= seconds || unit === 'minute') {
       const value = Math.round(diffSeconds / seconds)
-      return arabicRelativeFormatter.format(value, unit)
+      return formatter.format(value, unit)
     }
   }
 
-  return 'الآن'
+  return locale === 'ar' ? 'الآن' : 'now'
 }

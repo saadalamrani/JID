@@ -38,7 +38,7 @@ export function SessionList() {
   if (!data?.length) return <p className="text-sm text-muted-foreground">{t('empty')}</p>
 
   return (
-    <ul className="divide-y divide-jid-line rounded-md border border-border bg-card">
+    <ul className="divide-y divide-border rounded-md border border-border bg-card">
       {data.map((session) => (
         <li key={session.id} className="flex flex-col gap-2 p-4 sm:flex-row sm:items-center sm:justify-between">
           <div>

@@ -7,7 +7,7 @@ import {
   formatArabicNumber,
   formatArabicPercentage,
 } from '@/lib/pulse/format-helpers'
-import type { MetricFormat } from '@/lib/pulse/metrics-config'
+import type { MetricAccentColor, MetricFormat } from '@/lib/pulse/metrics-config'
 
 type MetricCardProps = {
   labelAr: string
@@ -15,10 +15,26 @@ type MetricCardProps = {
   format: MetricFormat
   /** `metric_thresholds.metric_key` — used for analytics. */
   metricKey: string
+  /** Quiet disambiguation caption (P-111 directory vs adoption). */
+  captionAr?: string
+  accentColor?: MetricAccentColor
+}
+
+const ACCENT_VALUE_CLASS: Record<MetricAccentColor, string> = {
+  default: 'text-primary',
+  olive: 'text-jid-olive',
+  gold: 'text-jid-gold',
 }
 
 /** Section 6.7 — count-up card; animates once when scrolled into view. */
-export function MetricCard({ labelAr, value, format, metricKey }: MetricCardProps) {
+export function MetricCard({
+  labelAr,
+  value,
+  format,
+  metricKey,
+  captionAr,
+  accentColor = 'default',
+}: MetricCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useReducedMotion()
   const isInView = useInView(ref, { once: true, amount: 0.35 })
@@ -55,11 +71,14 @@ export function MetricCard({ labelAr, value, format, metricKey }: MetricCardProp
     >
       <p className="text-xs font-medium text-muted-foreground">{labelAr}</p>
       <motion.p
-        className="mt-2 text-2xl font-semibold tabular-nums text-primary"
+        className={`mt-2 text-2xl font-semibold tabular-nums ${ACCENT_VALUE_CLASS[accentColor]}`}
         aria-live="off"
       >
         {displayValue}
       </motion.p>
+      {captionAr ? (
+        <p className="mt-1.5 text-[10px] leading-snug text-muted-foreground/80">{captionAr}</p>
+      ) : null}
     </article>
   )
 }

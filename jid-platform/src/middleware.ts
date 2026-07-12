@@ -11,8 +11,11 @@ import {
   isSuspended,
   loadMiddlewareSession,
   localeAwarePath,
-  resolveEntityPendingReviewPath,
 } from '@/lib/auth/middleware-utils'
+import {
+  checkOrganizationProfile,
+  organizationProfileFallbackRedirect,
+} from '@/lib/auth/organization-profile'
 import { routing } from '@/lib/i18n/routing'
 import {
   STAFF_LOGIN_PATH,
@@ -66,8 +69,8 @@ function conditionRedirectPath(failed: string): string {
       return '/settings/verify-phone'
     case 'mentor_status':
       return '/settings/become-mentor'
-    case 'entity_claim_status':
-      return '/company/pending-review'
+    case 'organization_profile':
+      return '/company/verification-pending'
     default:
       return '/login'
   }
@@ -268,13 +271,27 @@ export async function middleware(request: NextRequest) {
   }
 
   if (guard.conditions?.length) {
-    const conditionResult = checkConditions(guard.conditions, session.conditionContext)
-    if (!conditionResult.ok) {
-      if (conditionResult.failed === 'entity_claim_status') {
-        const path = await resolveEntityPendingReviewPath(supabase, session.userId)
-        return redirectTo(request, path)
+    if (
+      guard.conditions.includes('organization_profile') &&
+      guard.organizationProfileType
+    ) {
+      const orgCheck = await checkOrganizationProfile(
+        session.userId,
+        guard.organizationProfileType,
+        supabase,
+      )
+      if (!orgCheck.satisfied) {
+        const fallback = organizationProfileFallbackRedirect(guard.organizationProfileType)
+        return redirectTo(request, orgCheck.suggestedRedirect ?? fallback)
       }
-      return redirectTo(request, conditionRedirectPath(conditionResult.failed))
+    }
+
+    const syncConditions = guard.conditions.filter((c) => c !== 'organization_profile')
+    if (syncConditions.length) {
+      const conditionResult = checkConditions(syncConditions, session.conditionContext)
+      if (!conditionResult.ok) {
+        return redirectTo(request, conditionRedirectPath(conditionResult.failed))
+      }
     }
   }
 

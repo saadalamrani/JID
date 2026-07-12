@@ -22,7 +22,7 @@ export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProp
   return (
     <div className="space-y-5">
       <div className="space-y-2">
-        <Label htmlFor="title-ar" className="font-arabic text-jid-ink">
+        <Label htmlFor="title-ar" className="font-arabic text-foreground">
           عنوان الفرصة (عربي) <span className="text-red-600">*</span>
         </Label>
         <Input
@@ -31,7 +31,7 @@ export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProp
           onChange={(event) => onChange({ title_ar: event.target.value })}
           placeholder="مثال: مهندس برمجيات"
           aria-invalid={Boolean(errors.title_ar)}
-          className={cn('font-arabic border-jid-line', errors.title_ar && 'border-red-500')}
+          className={cn('font-arabic border-border', errors.title_ar && 'border-red-500')}
         />
         {errors.title_ar ? (
           <p className="font-arabic text-xs text-red-600" role="alert">
@@ -41,7 +41,7 @@ export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProp
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="title-en" className="font-arabic text-jid-ink">
+        <Label htmlFor="title-en" className="font-arabic text-foreground">
           عنوان الفرصة (إنجليزي)
         </Label>
         <Input
@@ -50,12 +50,12 @@ export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProp
           value={draft.title_en ?? ''}
           onChange={(event) => onChange({ title_en: event.target.value })}
           placeholder="e.g. Software Engineer"
-          className="border-jid-line"
+          className="border-border"
         />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="experience-level" className="font-arabic text-jid-ink">
+        <Label htmlFor="experience-level" className="font-arabic text-foreground">
           مستوى الخبرة <span className="text-red-600">*</span>
         </Label>
         <select
@@ -64,7 +64,7 @@ export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProp
           onChange={(event) =>
             onChange({ experience_level: event.target.value as ExperienceLevel })
           }
-          className="flex h-10 w-full rounded-md border border-jid-line bg-white px-3 py-2 font-arabic text-sm text-jid-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
+          className="flex h-10 w-full rounded-md border border-border bg-white px-3 py-2 font-arabic text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
         >
           {EXPERIENCE_LEVELS.map((level) => (
             <option key={level} value={level}>
@@ -75,7 +75,7 @@ export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProp
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="sector" className="font-arabic text-jid-ink">
+        <Label htmlFor="sector" className="font-arabic text-foreground">
           القطاع <span className="text-red-600">*</span>
         </Label>
         <select
@@ -85,8 +85,8 @@ export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProp
           disabled={isLoading}
           aria-invalid={Boolean(errors.sector_slug)}
           className={cn(
-            'flex h-10 w-full rounded-md border border-jid-line bg-white px-3 py-2 font-arabic text-sm text-jid-ink',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2',
+            'flex h-10 w-full rounded-md border border-border bg-white px-3 py-2 font-arabic text-sm text-foreground',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
             errors.sector_slug && 'border-red-500',
           )}
         >

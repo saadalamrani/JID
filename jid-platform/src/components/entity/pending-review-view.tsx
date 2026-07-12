@@ -28,29 +28,29 @@ export function PendingReviewView({ claim }: PendingReviewViewProps) {
 
   return (
     <div className="mx-auto w-full max-w-lg px-4 py-12">
-      <div className="rounded-xl border border-jid-line bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-border bg-white p-6 shadow-sm">
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-jid-beige text-jid-olive">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-background text-primary">
             <Clock className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-jid-ink">{t('title')}</h1>
-            <p className="text-sm text-jid-ink/70">{t('subtitle')}</p>
+            <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
+            <p className="text-sm text-foreground/70">{t('subtitle')}</p>
           </div>
         </div>
 
-        <div className="mb-6 space-y-2 rounded-md bg-jid-beige p-4 text-sm">
+        <div className="mb-6 space-y-2 rounded-md bg-background p-4 text-sm">
           <p>
-            <span className="text-jid-ink/60">{t('company')}:</span>{' '}
-            <span className="font-medium text-jid-ink">{claim.company_name}</span>
+            <span className="text-foreground/60">{t('company')}:</span>{' '}
+            <span className="font-medium text-foreground">{claim.company_name}</span>
           </p>
           <p>
-            <span className="text-jid-ink/60">{t('submittedBy')}:</span>{' '}
-            <span className="font-medium text-jid-ink">{claim.claimant_name}</span>
+            <span className="text-foreground/60">{t('submittedBy')}:</span>{' '}
+            <span className="font-medium text-foreground">{claim.claimant_name}</span>
           </p>
           <p dir="ltr" className="text-start">
-            <span className="text-jid-ink/60">{t('businessEmail')}:</span>{' '}
-            <span className="font-medium text-jid-ink">{claim.business_email}</span>
+            <span className="text-foreground/60">{t('businessEmail')}:</span>{' '}
+            <span className="font-medium text-foreground">{claim.business_email}</span>
           </p>
         </div>
 
@@ -60,7 +60,7 @@ export function PendingReviewView({ claim }: PendingReviewViewProps) {
           label={t('slaLabel', { hours: SLA_HOURS })}
         />
 
-        <p className="mt-3 text-sm text-jid-ink/70">
+        <p className="mt-3 text-sm text-foreground/70">
           {overdue
             ? t('overdueMessage')
             : t('remainingMessage', { hours: remainingHours.toFixed(1) })}
@@ -73,7 +73,7 @@ export function PendingReviewView({ claim }: PendingReviewViewProps) {
           </div>
         ) : null}
 
-        <p className="mt-6 text-xs text-jid-ink/50">{t('staffNote')}</p>
+        <p className="mt-6 text-xs text-muted-foreground">{t('staffNote')}</p>
       </div>
     </div>
   )

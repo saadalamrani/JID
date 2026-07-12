@@ -71,7 +71,7 @@ export function CascadePromptDialog({
       <Dialog open={open && !composerOpen} onOpenChange={onOpenChange}>
         <DialogContent className="max-w-lg font-arabic" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
           <DialogHeader className={locale === 'ar' ? 'text-right sm:text-right' : undefined}>
-            <DialogTitle className="text-jid-olive">الرد الآلي المتتالي</DialogTitle>
+            <DialogTitle className="text-primary">الرد الآلي المتتالي</DialogTitle>
             <DialogDescription className="leading-relaxed">
               {headline || 'لا توجد اقتراحات إرسال حالياً.'}
             </DialogDescription>
@@ -87,14 +87,14 @@ export function CascadePromptDialog({
             </ul>
           ) : null}
 
-          <p className="rounded-md border border-jid-gold/30 bg-jid-beige-warm/60 px-3 py-2 text-xs text-jid-ink-soft">
+          <p className="rounded-md border border-accent/30 bg-surface/60 px-3 py-2 text-xs text-muted-foreground">
             يبدأ الإرسال بعد مهلة تراجع 15 دقيقة — يمكنك الإلغاء قبلها.
           </p>
 
           <DialogFooter className={locale === 'ar' ? 'sm:justify-start' : undefined}>
             <Button
               type="button"
-              className="bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90"
+              className="bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
               disabled={!primary}
               onClick={handleCustomize}
             >

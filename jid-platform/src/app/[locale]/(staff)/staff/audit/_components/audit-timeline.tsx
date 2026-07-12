@@ -22,7 +22,8 @@ function staffEntityHref(entityType: string, entityId: string | null): string | 
       return `/staff/entities/${entityId}`
     case 'claim':
     case 'claim_request':
-      return `/staff/claims/${entityId}`
+    case 'verification_request':
+      return `/staff/verification/${entityId}`
     case 'content_flag':
       return `/staff/moderation/${entityId}`
     default:

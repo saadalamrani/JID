@@ -50,7 +50,7 @@ export function PulseFlagRow({ flag, isMaster = false, showTractionWarning = fal
           <div className="flex flex-wrap items-center gap-2">
             <p className="font-semibold text-foreground">{label}</p>
             {isMaster ? (
-              <span className="rounded bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+              <span className="rounded bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase text-primary">
                 {t('masterBadge')}
               </span>
             ) : null}

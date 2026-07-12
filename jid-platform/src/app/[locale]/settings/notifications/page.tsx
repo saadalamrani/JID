@@ -17,8 +17,8 @@ export default async function NotificationPreferencesPage() {
   return (
     <main className="container-jid max-w-5xl py-8">
       <header className="mb-6">
-        <h1 className="font-arabic text-2xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-1 text-sm text-jid-ink/60">{t('subtitle')}</p>
+        <h1 className="font-arabic text-2xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-1 text-sm text-foreground/60">{t('subtitle')}</p>
       </header>
 
       <PreferencesForm initialPreferences={preferences} />

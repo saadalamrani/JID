@@ -42,7 +42,7 @@ export function RequestSessionButton({
         size={size}
         disabled={isDisabled}
         className={cn(
-          'bg-jid-olive font-arabic hover:bg-jid-olive/90 disabled:bg-jid-line/40 disabled:text-jid-ink/50',
+          'bg-primary font-arabic hover:bg-primary/90 disabled:bg-border/40 disabled:text-muted-foreground',
           fullWidth && 'w-full',
           className,
         )}

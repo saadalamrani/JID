@@ -98,7 +98,7 @@ export function BulletRefiner({ bullets, onApply, className }: BulletRefinerProp
     <div className={cn('space-y-3 rounded-lg border border-border bg-card p-3', className)}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-jid-gold" aria-hidden />
+          <Sparkles className="h-4 w-4 text-accent" aria-hidden />
           <p className="font-arabic text-sm font-medium text-foreground">{t('title')}</p>
         </div>
         <div className="flex flex-wrap gap-1">
@@ -110,7 +110,7 @@ export function BulletRefiner({ bullets, onApply, className }: BulletRefinerProp
               className={cn(
                 'rounded-md border px-2 py-1 text-xs font-arabic transition-colors',
                 track === value
-                  ? 'border-jid-gold bg-jid-gold/20 text-jid-olive'
+                  ? 'border-accent bg-accent/20 text-primary'
                   : 'border-border text-muted-foreground hover:bg-muted',
               )}
             >

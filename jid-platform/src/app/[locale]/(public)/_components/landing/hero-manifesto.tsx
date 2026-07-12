@@ -9,7 +9,7 @@ export async function HeroManifesto() {
     <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-background to-surface">
       <div className="container-jid py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-sm font-medium tracking-wide text-accent">{t('eyebrow')}</p>
+          <p className="text-sm font-medium text-accent">{t('eyebrow')}</p>
           <h1 className="mt-4 font-arabic text-balance text-4xl font-bold leading-tight text-foreground md:text-5xl">
             {t('title')}
           </h1>

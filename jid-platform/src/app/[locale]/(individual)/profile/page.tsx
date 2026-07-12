@@ -1,32 +1,11 @@
 import { redirect } from 'next/navigation'
-import { IndividualProfileView } from '@/components/profile/individual-profile-view'
-import { ProfileBadgesAsync } from '@/components/profile/profile-badges-async'
-import {
-  fetchOwnProfilePageContext,
-  getCurrentViewer,
-} from '@/lib/profile/queries'
+import { getCurrentViewer } from '@/lib/profile/queries'
 
-export default async function IndividualOwnerProfilePage() {
+export default async function IndividualOwnerProfileRedirectPage() {
   const viewer = await getCurrentViewer()
   if (!viewer.userId) {
     redirect('/login')
   }
 
-  const context = await fetchOwnProfilePageContext()
-  if (!context) {
-    redirect('/login')
-  }
-
-  return (
-    <div className="min-h-screen bg-background">
-      <IndividualProfileView
-        context={context}
-        badges={[]}
-        isOwner
-        isHrViewer={false}
-        isMentorViewer={false}
-        badgeSlot={<ProfileBadgesAsync userId={viewer.userId} />}
-      />
-    </div>
-  )
+  redirect(`/profile/${viewer.userId}`)
 }

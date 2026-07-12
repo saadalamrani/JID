@@ -15,7 +15,7 @@ export function CrownBadge({ className }: CrownBadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-jid-gold-300 to-jid-gold px-2 py-0.5 text-[10px] font-semibold text-foreground shadow-sm',
+        'inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-accent/80 to-accent px-2 py-0.5 text-[10px] font-semibold text-foreground shadow-sm',
         className,
       )}
       title={t('mentorOfMonth')}

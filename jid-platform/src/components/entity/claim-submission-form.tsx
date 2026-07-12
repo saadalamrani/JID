@@ -29,7 +29,7 @@ export function ClaimSubmissionForm({
   defaultValues,
   onSuccess,
 }: ClaimSubmissionFormProps) {
-  const t = useTranslations('entity.wizard.claim')
+  const t = useTranslations('entity.wizard.verification')
   const tValidation = useTranslations('entity.validation')
   const locale = useLocale() as 'ar' | 'en'
   const [submitting, setSubmitting] = useState(false)
@@ -61,7 +61,7 @@ export function ClaimSubmissionForm({
         locale,
       })
       if (claimType === 'university') {
-        track('university_claim_submitted', { company_id: companyId })
+        track('university_verification_submitted', { company_id: companyId })
       }
       toast.success(t('submitted'))
       onSuccess()
@@ -76,8 +76,8 @@ export function ClaimSubmissionForm({
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
-      <div className="rounded-md bg-jid-beige p-3 text-sm text-jid-ink/80">
-        <p className="font-medium text-jid-ink">{companyName}</p>
+      <div className="rounded-md bg-background p-3 text-sm text-foreground/80">
+        <p className="font-medium text-foreground">{companyName}</p>
         <p className="mt-1">{t('domainHint')}</p>
       </div>
 
@@ -112,7 +112,7 @@ export function ClaimSubmissionForm({
         <Input id="claimant_title" disabled={submitting} {...form.register('claimant_title')} />
       </FormField>
 
-      <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
         {submitting ? t('submitting') : t('submit')}
       </Button>
     </form>

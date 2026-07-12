@@ -6,7 +6,7 @@ import { resolveSlaDueAt } from '@/lib/staff/claim-urgency'
 import { PENDING_CLAIM_STATUSES } from '@/lib/staff/claims'
 import { listPendingMentorApplications } from '@/lib/staff/mentor-applications'
 
-export type StaffQueueItemType = 'company' | 'university' | 'mentor'
+export type StaffQueueItemType = 'business' | 'university' | 'mentor'
 
 export type StaffClaimsQueueItem = {
   id: string
@@ -20,23 +20,23 @@ export type StaffClaimsQueueItem = {
   href: string
 }
 
-type ClaimRow = {
+type VerificationRow = {
   id: string
   claimant_name: string
   company_name: string
-  claim_type: string
+  verification_type: string
   created_at: string
   sla_due_at: string | null
   assigned_staff_id: string | null
   status: string
 }
 
-type ReviewedClaimRow = ClaimRow & {
+type ReviewedVerificationRow = VerificationRow & {
   reviewed_at: string | null
 }
 
-function mapClaimRow(row: ClaimRow): StaffClaimsQueueItem {
-  const queueType = row.claim_type === 'university' ? 'university' : 'company'
+function mapVerificationRow(row: VerificationRow): StaffClaimsQueueItem {
+  const queueType = row.verification_type === 'university' ? 'university' : 'business'
   return {
     id: row.id,
     queueType,
@@ -46,7 +46,7 @@ function mapClaimRow(row: ClaimRow): StaffClaimsQueueItem {
     slaDueAt: resolveSlaDueAt(row.sla_due_at, row.created_at),
     assignedStaffId: row.assigned_staff_id,
     status: row.status,
-    href: `/staff/claims/${row.id}`,
+    href: `/staff/verification/${row.id}`,
   }
 }
 
@@ -73,15 +73,15 @@ function sortBySla(items: StaffClaimsQueueItem[]): StaffClaimsQueueItem[] {
   )
 }
 
-/** Section 7.2 — unified pending queue (claims + mentor applications), top N by SLA. */
+/** P-108 — unified pending verification queue (verification_requests + mentor applications). */
 export async function fetchPendingClaimsQueue(limit = 100): Promise<StaffClaimsQueueItem[]> {
   const supabase = await createClient()
 
-  const [claimsResult, mentorResult] = await Promise.all([
+  const [verificationsResult, mentorResult] = await Promise.all([
     supabase
-      .from('claim_requests')
+      .from('verification_requests')
       .select(
-        'id, claimant_name, company_name, claim_type, created_at, sla_due_at, assigned_staff_id, status',
+        'id, claimant_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status',
       )
       .in('status', [...PENDING_CLAIM_STATUSES])
       .order('sla_due_at', { ascending: true, nullsFirst: false })
@@ -89,23 +89,25 @@ export async function fetchPendingClaimsQueue(limit = 100): Promise<StaffClaimsQ
     listPendingMentorApplications(),
   ])
 
-  if (claimsResult.error) throw new Error(claimsResult.error.message)
+  if (verificationsResult.error) throw new Error(verificationsResult.error.message)
 
-  const claimItems = ((claimsResult.data ?? []) as ClaimRow[]).map(mapClaimRow)
+  const verificationItems = ((verificationsResult.data ?? []) as VerificationRow[]).map(
+    mapVerificationRow,
+  )
   const mentorItems = mentorResult.applications.map(mapMentorRow)
 
-  return sortBySla([...claimItems, ...mentorItems]).slice(0, limit)
+  return sortBySla([...verificationItems, ...mentorItems]).slice(0, limit)
 }
 
-/** Section 7.2 — claims assigned to the current staff member. */
+/** Verification requests assigned to the current staff member. */
 export async function fetchMyAssignedClaimsQueue(limit = 100): Promise<StaffClaimsQueueItem[]> {
   const profile = await requireStaffShellAccess()
   const supabase = await createClient()
 
   const { data, error } = await supabase
-    .from('claim_requests')
+    .from('verification_requests')
     .select(
-      'id, claimant_name, company_name, claim_type, created_at, sla_due_at, assigned_staff_id, status',
+      'id, claimant_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status',
     )
     .eq('assigned_staff_id', profile.id)
     .in('status', [...PENDING_CLAIM_STATUSES])
@@ -113,18 +115,18 @@ export async function fetchMyAssignedClaimsQueue(limit = 100): Promise<StaffClai
     .limit(limit)
 
   if (error) throw new Error(error.message)
-  return ((data ?? []) as ClaimRow[]).map(mapClaimRow)
+  return ((data ?? []) as VerificationRow[]).map(mapVerificationRow)
 }
 
-/** Section 7.2 — claims previously reviewed by the current staff member. */
+/** Verification requests previously reviewed by the current staff member. */
 export async function fetchMyClaimsHistory(limit = 100): Promise<StaffClaimsQueueItem[]> {
   const profile = await requireStaffShellAccess()
   const supabase = await createClient()
 
   const { data, error } = await supabase
-    .from('claim_requests')
+    .from('verification_requests')
     .select(
-      'id, claimant_name, company_name, claim_type, created_at, sla_due_at, assigned_staff_id, status, reviewed_at',
+      'id, claimant_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status, reviewed_at',
     )
     .eq('reviewed_by', profile.id)
     .in('status', ['approved', 'rejected'])
@@ -133,5 +135,48 @@ export async function fetchMyClaimsHistory(limit = 100): Promise<StaffClaimsQueu
 
   if (error) throw new Error(error.message)
 
-  return ((data ?? []) as ReviewedClaimRow[]).map((row) => mapClaimRow(row))
+  return ((data ?? []) as ReviewedVerificationRow[]).map((row) => mapVerificationRow(row))
+}
+
+export type VerificationKanbanBuckets = {
+  pending: StaffClaimsQueueItem[]
+  overdue: StaffClaimsQueueItem[]
+  completedToday: StaffClaimsQueueItem[]
+}
+
+/** Kanban columns: pending / overdue-SLA / completed-today. */
+export async function fetchVerificationKanbanBuckets(): Promise<VerificationKanbanBuckets> {
+  const supabase = await createClient()
+  const todayStart = new Date()
+  todayStart.setHours(0, 0, 0, 0)
+
+  const [pendingResult, completedResult] = await Promise.all([
+    fetchPendingClaimsQueue(200),
+    supabase
+      .from('verification_requests')
+      .select(
+        'id, claimant_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status, reviewed_at',
+      )
+      .in('status', ['approved', 'rejected'])
+      .gte('reviewed_at', todayStart.toISOString())
+      .order('reviewed_at', { ascending: false })
+      .limit(50),
+  ])
+
+  if (completedResult.error) throw new Error(completedResult.error.message)
+
+  const now = Date.now()
+  const pending = pendingResult.filter((item) => item.queueType !== 'mentor')
+  const overdue = pending.filter((item) => new Date(item.slaDueAt).getTime() < now)
+  const pendingNotOverdue = pending.filter((item) => new Date(item.slaDueAt).getTime() >= now)
+
+  const completedToday = ((completedResult.data ?? []) as ReviewedVerificationRow[]).map(
+    mapVerificationRow,
+  )
+
+  return {
+    pending: pendingNotOverdue,
+    overdue,
+    completedToday,
+  }
 }

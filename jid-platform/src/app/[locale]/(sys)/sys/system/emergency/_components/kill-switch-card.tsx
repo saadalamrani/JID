@@ -93,7 +93,7 @@ export function KillSwitchCard({
             />
           </button>
         </div>
-        <p className="mt-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        <p className="mt-3 text-xs font-medium uppercase text-muted-foreground">
           {displayOn ? t('statusOn') : t('statusOff')}
         </p>
       </div>

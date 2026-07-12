@@ -27,7 +27,7 @@ export function CollegeDistributionBars({ data }: CollegeDistributionBarsProps) 
   const max = entries[0]?.[1] ?? 0
 
   if (!entries.length || total === 0) {
-    return <p className="text-sm text-jid-ink/60">لا توجد بيانات توزيع الكليات حالياً.</p>
+    return <p className="text-sm text-foreground/60">لا توجد بيانات توزيع الكليات حالياً.</p>
   }
 
   return (
@@ -38,13 +38,13 @@ export function CollegeDistributionBars({ data }: CollegeDistributionBarsProps) 
         return (
           <div key={name} className="space-y-1">
             <div className="flex items-center justify-between text-sm">
-              <span className="truncate text-jid-ink">{name}</span>
-              <span className="font-medium text-jid-ink/70">
+              <span className="truncate text-foreground">{name}</span>
+              <span className="font-medium text-foreground/70">
                 {value} ({ratio}%)
               </span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-jid-beige">
-              <div className="h-full rounded-full bg-jid-gold" style={{ width: `${pct}%` }} />
+            <div className="h-2 overflow-hidden rounded-full bg-background">
+              <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
             </div>
           </div>
         )

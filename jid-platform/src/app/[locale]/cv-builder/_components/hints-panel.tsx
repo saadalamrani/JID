@@ -21,16 +21,16 @@ function HintsPanelContent() {
 
   return (
     <aside
-      className="rounded-xl border border-jid-gold/40 bg-jid-beige-warm px-4 py-3"
+      className="rounded-xl border border-accent/40 bg-surface px-4 py-3"
       aria-label={t('title')}
     >
       <div className="flex items-start gap-3">
-        <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-jid-gold/30 bg-white/80">
-          <Lightbulb className="h-4 w-4 text-jid-gold" aria-hidden />
+        <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent/30 bg-white/80">
+          <Lightbulb className="h-4 w-4 text-accent" aria-hidden />
         </span>
         <div className="min-w-0">
-          <p className="text-sm font-semibold text-jid-ink">{t('title')}</p>
-          <p className="mt-1 text-xs leading-relaxed text-jid-ink/65">{t(activeSection)}</p>
+          <p className="text-sm font-semibold text-foreground">{t('title')}</p>
+          <p className="mt-1 text-xs leading-relaxed text-foreground/65">{t(activeSection)}</p>
         </div>
       </div>
     </aside>

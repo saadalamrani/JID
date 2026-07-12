@@ -307,7 +307,7 @@ const matrix: MatrixRow[] = [
     role: 'Company Verified',
     browseJobs: true,
     applyDeclare: false,
-    postJob: guards.includes("id: 'company-jobs-new'") && guards.includes('entity_claim_status'),
+    postJob: guards.includes("id: 'company-jobs-new'") && guards.includes('organization_profile'),
     triage: guards.includes("id: 'company-jobs-applicants'"),
     privacySettings: false,
   },

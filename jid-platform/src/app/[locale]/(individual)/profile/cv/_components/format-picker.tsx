@@ -76,8 +76,8 @@ export function FormatPicker({ value, onChange, className }: FormatPickerProps) 
               className={cn(
                 'rounded-xl border p-4 text-start transition-colors',
                 isSelected
-                  ? 'border-jid-olive bg-jid-beige-warm/80 shadow-sm'
-                  : 'border-border bg-card hover:border-jid-gold/40',
+                  ? 'border-primary bg-surface/80 shadow-sm'
+                  : 'border-border bg-card hover:border-accent/40',
                 locked && 'opacity-95',
               )}
               aria-pressed={isSelected}
@@ -92,7 +92,7 @@ export function FormatPicker({ value, onChange, className }: FormatPickerProps) 
                 {locale === 'ar' ? def.descriptionAr : def.descriptionEn}
               </p>
               {locked ? (
-                <p className="mt-2 font-arabic text-xs font-medium text-jid-olive">{t('plusRequired')}</p>
+                <p className="mt-2 font-arabic text-xs font-medium text-primary">{t('plusRequired')}</p>
               ) : null}
             </button>
           )

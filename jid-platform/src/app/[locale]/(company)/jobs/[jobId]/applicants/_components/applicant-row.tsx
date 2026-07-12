@@ -51,9 +51,9 @@ export function ApplicantRow({
     <tr
       ref={rowRef}
       className={cn(
-        'border-b border-jid-line/40 transition-colors',
-        focused && 'bg-jid-beige/60',
-        selected && 'bg-jid-beige/30',
+        'border-b border-border/40 transition-colors',
+        focused && 'bg-background/60',
+        selected && 'bg-background/30',
       )}
       data-application-id={applicant.id}
     >
@@ -63,14 +63,14 @@ export function ApplicantRow({
           checked={selected}
           onChange={(event) => onSelect(event.target.checked)}
           aria-label={`تحديد ${displayName}`}
-          className="h-4 w-4 rounded border-jid-line text-jid-olive focus:ring-jid-olive"
+          className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
         />
       </td>
       <td className="px-3 py-3">
         <button
           type="button"
           onClick={onNameClick}
-          className="flex items-center gap-3 text-start font-arabic text-sm text-jid-ink hover:text-jid-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+          className="flex items-center gap-3 text-start font-arabic text-sm text-foreground hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           {profile?.avatar_url ? (
             <Image
@@ -82,7 +82,7 @@ export function ApplicantRow({
             />
           ) : (
             <span
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-jid-line/50 font-arabic text-xs text-jid-ink/70"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-border/50 font-arabic text-xs text-foreground/70"
               aria-hidden
             >
               {displayName.slice(0, 1)}
@@ -91,18 +91,18 @@ export function ApplicantRow({
           <span>
             <span className="block font-medium">{displayName}</span>
             {profile?.headline ? (
-              <span className="block text-xs text-jid-ink/60">{profile.headline}</span>
+              <span className="block text-xs text-foreground/60">{profile.headline}</span>
             ) : null}
           </span>
         </button>
       </td>
-      <td className="hidden px-3 py-3 font-arabic text-sm text-jid-ink/70 md:table-cell">
+      <td className="hidden px-3 py-3 font-arabic text-sm text-foreground/70 md:table-cell">
         {applicant.contact_email ?? '—'}
       </td>
       <td className="px-3 py-3">
         <StatusBadge status={applicant.status} />
       </td>
-      <td className="hidden px-3 py-3 font-arabic text-sm text-jid-ink/70 lg:table-cell">
+      <td className="hidden px-3 py-3 font-arabic text-sm text-foreground/70 lg:table-cell">
         {formatSubmittedAt(applicant.submitted_at)}
       </td>
     </tr>

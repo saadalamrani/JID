@@ -33,13 +33,13 @@ export function BulkActionBar({
 
   return (
     <div
-      className="flex flex-col gap-3 rounded-xl border border-jid-line bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+      className="flex flex-col gap-3 rounded-xl border border-border bg-white p-4 shadow-sm sm:flex-row sm:items-center sm:justify-between"
       aria-label="إجراءات جماعية"
     >
-      <label className="inline-flex items-center gap-2 font-arabic text-sm text-jid-ink">
+      <label className="inline-flex items-center gap-2 font-arabic text-sm text-foreground">
         <input
           type="checkbox"
-          className="h-4 w-4 rounded border-jid-line text-jid-olive focus:ring-jid-olive"
+          className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
           checked={allSelected}
           ref={(element) => {
             if (element) element.indeterminate = indeterminate
@@ -66,8 +66,8 @@ export function BulkActionBar({
             onClick={() => onBulkAction(action)}
             className={cn(
               'font-arabic gap-1.5',
-              action === 'accept' && 'bg-jid-olive hover:bg-jid-olive/90',
-              action === 'interview' && 'bg-jid-gold text-jid-ink hover:bg-jid-gold/90',
+              action === 'accept' && 'bg-primary hover:bg-primary/90',
+              action === 'interview' && 'bg-accent text-foreground hover:bg-accent/90',
               action === 'reject' && 'border-red-200 text-red-700 hover:bg-red-50',
             )}
           >

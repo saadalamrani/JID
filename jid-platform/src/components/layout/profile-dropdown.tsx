@@ -36,6 +36,8 @@ type ProfileDropdownProps = {
   hasMentorRole: boolean
   initialMode?: ProfileMode
   className?: string
+  /** Header bar tone — `on-dark` for brand-constant olive navbar. */
+  tone?: 'default' | 'on-dark'
 }
 
 function initialsFromName(name: string): string {
@@ -72,6 +74,7 @@ export function ProfileDropdown({
   hasMentorRole,
   initialMode,
   className,
+  tone = 'default',
 }: ProfileDropdownProps) {
   const t = useTranslations('profileDropdown')
   const router = useRouter()
@@ -86,6 +89,7 @@ export function ProfileDropdown({
 
   const displayName = fullName.trim() || t('unnamed')
   const initials = initialsFromName(displayName)
+  const onDark = tone === 'on-dark'
 
   const quickActions = [
     { key: 'profile', href: '/profile', icon: User },
@@ -103,7 +107,10 @@ export function ProfileDropdown({
         <button
           type="button"
           className={cn(
-            'flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-border bg-card text-sm font-semibold text-primary transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
+            'flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2',
+            onDark
+              ? 'border-jid-olive-700/80 bg-jid-olive-800/60 text-jid-beige hover:bg-jid-olive-800 focus-visible:ring-jid-gold/50'
+              : 'border-border bg-card text-primary hover:bg-muted focus-visible:ring-primary/40',
             className,
           )}
           aria-label={t('menuAria')}
@@ -201,17 +208,36 @@ export function ProfileDropdown({
 
 type GuestAuthActionsProps = {
   className?: string
+  tone?: 'default' | 'on-dark'
+  /** Mobile: signup only to save space. */
+  compact?: boolean
 }
 
-export function GuestAuthActions({ className }: GuestAuthActionsProps) {
+export function GuestAuthActions({ className, tone = 'default', compact = false }: GuestAuthActionsProps) {
   const t = useTranslations('publicShell.nav')
+  const onDark = tone === 'on-dark'
 
   return (
     <div className={cn('flex items-center gap-2', className)}>
-      <Button asChild variant="ghost" className="text-foreground">
-        <Link href="/login">{t('login')}</Link>
-      </Button>
-      <Button asChild className="bg-accent text-primary-foreground hover:bg-accent/90">
+      {!compact ? (
+        <Button
+          asChild
+          variant="ghost"
+          className={cn(
+            onDark &&
+              'border border-jid-beige/35 text-jid-beige hover:bg-jid-olive-800 hover:text-jid-beige',
+          )}
+        >
+          <Link href="/login">{t('login')}</Link>
+        </Button>
+      ) : null}
+      <Button
+        asChild
+        className={cn(
+          'bg-jid-gold text-jid-ink hover:bg-jid-gold-400',
+          onDark && 'font-semibold',
+        )}
+      >
         <Link href="/signup">{t('signup')}</Link>
       </Button>
     </div>

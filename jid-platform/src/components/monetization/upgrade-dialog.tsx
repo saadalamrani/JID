@@ -95,7 +95,7 @@ export function UpgradeDialog({ open, onOpenChange, feature, locale }: UpgradeDi
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg font-arabic" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
         <DialogHeader className={locale === 'ar' ? 'text-right sm:text-right' : undefined}>
-          <DialogTitle className="font-arabic text-jid-olive">{t('title')}</DialogTitle>
+          <DialogTitle className="font-arabic text-primary">{t('title')}</DialogTitle>
           <DialogDescription className="font-arabic leading-relaxed">
             {t(`features.${feature}.headline`)}
           </DialogDescription>
@@ -112,7 +112,7 @@ export function UpgradeDialog({ open, onOpenChange, feature, locale }: UpgradeDi
         <DialogFooter className={locale === 'ar' ? 'sm:justify-start' : undefined}>
           <Button
             type="button"
-            className="w-full bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90 sm:w-auto"
+            className="w-full bg-primary font-arabic text-primary-foreground hover:bg-primary/90 sm:w-auto"
             disabled={!planQuery.data || planQuery.isLoading || checkoutLoading}
             onClick={() => void handleCheckout()}
           >

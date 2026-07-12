@@ -64,11 +64,11 @@ export function AcademicInfoStep() {
   }))
 
   return (
-    <section className="space-y-4 rounded-2xl border border-jid-line bg-white p-5">
-      <h2 className="text-lg font-semibold text-jid-ink">البيانات الأكاديمية</h2>
+    <section className="space-y-4 rounded-2xl border border-border bg-white p-5">
+      <h2 className="text-lg font-semibold text-foreground">البيانات الأكاديمية</h2>
 
       <label className="block space-y-2">
-        <span className="text-sm text-jid-ink/80">الجامعة</span>
+        <span className="text-sm text-foreground/80">الجامعة</span>
         <Combobox
           options={universities}
           value={form.watch('academic.university_id') || null}
@@ -86,9 +86,9 @@ export function AcademicInfoStep() {
       </label>
 
       <label className="block space-y-2">
-        <span className="text-sm text-jid-ink/80">الكلية</span>
+        <span className="text-sm text-foreground/80">الكلية</span>
         <select
-          className="h-10 w-full rounded-md border border-jid-line px-3 text-sm"
+          className="h-10 w-full rounded-md border border-border px-3 text-sm"
           disabled={!universityId}
           value={form.watch('academic.college_id') || ''}
           onChange={(e) => form.setValue('academic.college_id', e.target.value, { shouldDirty: true })}
@@ -104,7 +104,7 @@ export function AcademicInfoStep() {
       </label>
 
       <label className="block space-y-2">
-        <span className="text-sm text-jid-ink/80">التخصص</span>
+        <span className="text-sm text-foreground/80">التخصص</span>
         <Combobox
           options={majors}
           value={form.watch('academic.major_id') || null}
@@ -118,9 +118,9 @@ export function AcademicInfoStep() {
       </label>
 
       <label className="block space-y-2">
-        <span className="text-sm text-jid-ink/80">سنة التخرج</span>
+        <span className="text-sm text-foreground/80">سنة التخرج</span>
         <select
-          className="h-10 w-full rounded-md border border-jid-line px-3 text-sm"
+          className="h-10 w-full rounded-md border border-border px-3 text-sm"
           value={String(form.watch('academic.graduation_year') ?? '')}
           onChange={(e) =>
             form.setValue('academic.graduation_year', Number(e.target.value), { shouldDirty: true })
@@ -137,10 +137,10 @@ export function AcademicInfoStep() {
       </label>
 
       <fieldset className="space-y-2">
-        <legend className="text-sm text-jid-ink/80">الحالة الدراسية</legend>
+        <legend className="text-sm text-foreground/80">الحالة الدراسية</legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {studentStatusOptions.map((option) => (
-            <label key={option.value} className="flex items-center gap-2 rounded-md border border-jid-line px-3 py-2">
+            <label key={option.value} className="flex items-center gap-2 rounded-md border border-border px-3 py-2">
               <input
                 type="radio"
                 name="student_status"

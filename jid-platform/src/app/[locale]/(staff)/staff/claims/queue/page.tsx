@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-/** Legacy path — canonical queue is /staff/claims. */
+/** Legacy path — redirects to /staff/verification. */
 export default function StaffClaimsQueueRedirectPage() {
-  redirect('/staff/claims')
+  redirect('/staff/verification')
 }

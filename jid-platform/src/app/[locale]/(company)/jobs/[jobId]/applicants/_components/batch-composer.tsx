@@ -116,7 +116,7 @@ export function BatchComposer({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl font-arabic" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
         <DialogHeader className={locale === 'ar' ? 'text-right sm:text-right' : undefined}>
-          <DialogTitle className="text-jid-olive">تأكيد إرسال {kindLabel}</DialogTitle>
+          <DialogTitle className="text-primary">تأكيد إرسال {kindLabel}</DialogTitle>
           <DialogDescription>
             {suggestion.recipientCount} متقدم — يبدأ الإرسال بعد {COMM_UNDO_WINDOW_MINUTES} دقيقة.
           </DialogDescription>
@@ -163,7 +163,7 @@ export function BatchComposer({
         <DialogFooter className={locale === 'ar' ? 'sm:justify-start' : undefined}>
           <Button
             type="button"
-            className="bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90"
+            className="bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
             disabled={loading || !subject.trim() || !body.trim()}
             onClick={() => void handleConfirm()}
           >

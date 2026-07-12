@@ -25,12 +25,12 @@ type ScreeningPageClientProps = {
 export function SsisTeaser() {
   const t = useTranslations('company.ssis')
   return (
-    <section className="rounded-xl border border-jid-olive/30 bg-jid-beige-warm/60 p-4">
-      <h3 className="font-arabic text-sm font-semibold text-jid-olive">{t('teaserTitle')}</h3>
+    <section className="rounded-xl border border-primary/30 bg-surface/60 p-4">
+      <h3 className="font-arabic text-sm font-semibold text-primary">{t('teaserTitle')}</h3>
       <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('teaserBody')}</p>
       <a
         href="mailto:sales@jid.sa?subject=SSIS"
-        className="mt-3 inline-block font-arabic text-sm text-jid-olive underline"
+        className="mt-3 inline-block font-arabic text-sm text-primary underline"
       >
         {t('salesCta')}
       </a>

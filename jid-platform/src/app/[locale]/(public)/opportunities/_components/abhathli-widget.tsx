@@ -70,7 +70,7 @@ function AbhathliWidgetUnlocked() {
   if (activeMandates.length === 0) {
     return (
       <>
-        <section className="mb-4 rounded-xl border border-jid-gold/30 bg-card px-4 py-4 shadow-sm">
+        <section className="mb-4 rounded-xl border border-accent/30 bg-card px-4 py-4 shadow-sm">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
               <h2 className="font-arabic text-base font-semibold text-foreground">
@@ -122,7 +122,7 @@ function AbhathliWidgetUnlocked() {
           aria-expanded={expanded}
         >
           <div className="flex min-w-0 items-center gap-2">
-            <Search className="h-4 w-4 shrink-0 text-jid-olive" aria-hidden />
+            <Search className="h-4 w-4 shrink-0 text-primary" aria-hidden />
             <span className="font-arabic text-sm font-semibold text-foreground">
               {t('collapsedLabel', { count: unseenCount })}
             </span>

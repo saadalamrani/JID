@@ -14,11 +14,11 @@ type CandidatePreviewProps = {
 export function CandidatePreview({ blocks, timeLimitMinutes, className }: CandidatePreviewProps) {
   return (
     <section
-      className={cn('rounded-xl border border-jid-olive/30 bg-jid-beige-warm/40 p-5', className)}
+      className={cn('rounded-xl border border-primary/30 bg-surface/40 p-5', className)}
       aria-label="معاينة تجربة المرشح"
     >
       <header className="mb-4 border-b border-border/60 pb-3">
-        <p className="font-arabic text-xs font-medium text-jid-olive">معاينة المرشح</p>
+        <p className="font-arabic text-xs font-medium text-primary">معاينة المرشح</p>
         <h3 className="mt-1 font-arabic text-base font-semibold text-foreground">فحص أولي ذكي</h3>
         <p className="mt-1 font-arabic text-sm text-muted-foreground">
           {blocks.length} أسئلة · {timeLimitMinutes} دقيقة

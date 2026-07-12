@@ -130,15 +130,15 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
       <ol className="grid grid-cols-3 gap-2">
         {WIZARD_STEPS.map((wizardStep, index) => (
           <li key={wizardStep} className="text-center">
-            <div className={`mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold ${index === stepIndex ? 'bg-jid-olive text-white' : index < stepIndex ? 'bg-jid-gold text-jid-ink' : 'bg-jid-line text-jid-ink/50'}`}>
+            <div className={`mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold ${index === stepIndex ? 'bg-primary text-white' : index < stepIndex ? 'bg-accent text-foreground' : 'bg-border text-muted-foreground'}`}>
               {index + 1}
             </div>
-            <p className="text-xs text-jid-ink/70">{wizardStep}</p>
+            <p className="text-xs text-foreground/70">{wizardStep}</p>
           </li>
         ))}
       </ol>
 
-      <div className="rounded-xl border border-jid-line bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-border bg-white p-6 shadow-sm">
         {step === 'category' ? (
           <div className="space-y-4">
             <div className="grid gap-2 sm:grid-cols-2">
@@ -147,7 +147,7 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
                   key={category}
                   type="button"
                   onClick={() => patchDraft({ category })}
-                  className={`rounded-lg border px-4 py-3 text-start text-sm ${draft.category === category ? 'border-jid-olive bg-jid-olive/10 font-medium text-jid-olive' : 'border-jid-line'}`}
+                  className={`rounded-lg border px-4 py-3 text-start text-sm ${draft.category === category ? 'border-primary bg-primary/10 font-medium text-primary' : 'border-border'}`}
                 >
                   {category}
                 </button>
@@ -160,14 +160,14 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
         {step === 'content' ? (
           <div className="space-y-4">
             <label className="block space-y-1">
-              <span className="text-sm font-medium text-jid-ink">Title (Arabic)</span>
+              <span className="text-sm font-medium text-foreground">Title (Arabic)</span>
               <Input value={draft.title_ar} onChange={(e) => patchDraft({ title_ar: e.target.value })} dir="rtl" maxLength={120} />
               {errors.title_ar ? <span className="text-sm text-red-600">{errors.title_ar}</span> : null}
             </label>
 
             <label className="block space-y-1">
-              <span className="text-sm font-medium text-jid-ink">Body (Arabic)</span>
-              <textarea className="flex min-h-[100px] w-full rounded-md border border-jid-line bg-white px-3 py-2 text-sm text-jid-ink shadow-sm" value={draft.body_ar ?? ''} onChange={(e) => patchDraft({ body_ar: e.target.value })} dir="rtl" rows={4} maxLength={500} />
+              <span className="text-sm font-medium text-foreground">Body (Arabic)</span>
+              <textarea className="flex min-h-[100px] w-full rounded-md border border-border bg-white px-3 py-2 text-sm text-foreground shadow-sm" value={draft.body_ar ?? ''} onChange={(e) => patchDraft({ body_ar: e.target.value })} dir="rtl" rows={4} maxLength={500} />
             </label>
           </div>
         ) : null}
@@ -175,18 +175,18 @@ export function AnnouncementForm({ mode, announcementId, initialValues }: Announ
         {step === 'schedule' ? (
           <div className="space-y-4">
             <label className="block space-y-1">
-              <span className="text-sm font-medium text-jid-ink">Starts at</span>
+              <span className="text-sm font-medium text-foreground">Starts at</span>
               <Input type="datetime-local" value={startsLocal} onChange={(e) => patchDraft({ starts_at: fromDatetimeLocalValue(e.target.value) })} />
             </label>
 
             <ExpiryDatePicker value={expiresLocal} onChange={(value) => patchDraft({ expires_at: fromDatetimeLocalValue(value) })} error={errors.expires_at ?? null} disabled={pending} />
 
-            <div className="flex items-center justify-between rounded-lg border border-jid-line px-4 py-3">
-              <p className="font-medium text-jid-ink">Featured</p>
+            <div className="flex items-center justify-between rounded-lg border border-border px-4 py-3">
+              <p className="font-medium text-foreground">Featured</p>
               <Switch checked={draft.is_featured} onCheckedChange={(checked) => patchDraft({ is_featured: checked })} />
             </div>
-            <div className="flex items-center justify-between rounded-lg border border-jid-line px-4 py-3">
-              <p className="font-medium text-jid-ink">Published</p>
+            <div className="flex items-center justify-between rounded-lg border border-border px-4 py-3">
+              <p className="font-medium text-foreground">Published</p>
               <Switch checked={draft.is_published} onCheckedChange={(checked) => patchDraft({ is_published: checked })} />
             </div>
           </div>

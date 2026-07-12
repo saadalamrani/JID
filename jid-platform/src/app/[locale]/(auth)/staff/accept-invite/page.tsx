@@ -32,7 +32,7 @@ export default function AcceptInvitePage() {
     <Suspense
       fallback={
         <AuthShell title={t('title')} subtitle={t('loading')}>
-          <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+          <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
         </AuthShell>
       }
     >
@@ -141,7 +141,7 @@ function AcceptInviteContent() {
   if (step === 'loading') {
     return (
       <AuthShell title={t('title')} subtitle={t('loading')}>
-        <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+        <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
       </AuthShell>
     )
   }
@@ -188,7 +188,7 @@ function AcceptInviteContent() {
           <PasswordRequirementsPanel password={passwordValue} className="mt-2" />
         </FormField>
 
-        <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

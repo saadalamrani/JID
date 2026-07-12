@@ -2,7 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
-import { timelineMeetingsQueryKey } from '@/lib/queries/timeline'
+import { timelineMeetingsQueryKey } from '@/lib/queries/timeline-query-keys'
 import { createClient } from '@/lib/supabase/client'
 
 /**

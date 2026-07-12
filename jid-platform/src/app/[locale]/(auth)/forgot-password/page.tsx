@@ -51,19 +51,19 @@ export default function ForgotPasswordPage() {
       title={t('title')}
       subtitle={sent ? t('sentSubtitle') : t('subtitle')}
       footer={
-        <Link href="/login" className="text-sm text-jid-olive hover:underline">
+        <Link href="/login" className="text-sm text-primary hover:underline">
           {t('backToLogin')}
         </Link>
       }
     >
       {sent ? (
-        <p className="text-center text-sm text-jid-ink/70">{t('sentMessage')}</p>
+        <p className="text-center text-sm text-foreground/70">{t('sentMessage')}</p>
       ) : (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
           <FormField id="email" label={t('email')} error={form.formState.errors.email?.message}>
             <Input id="email" type="email" dir="ltr" className="text-start" disabled={submitting} {...form.register('email')} />
           </FormField>
-          <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+          <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
             {submitting ? t('submitting') : t('submit')}
           </Button>
         </form>

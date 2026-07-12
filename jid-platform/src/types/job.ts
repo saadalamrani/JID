@@ -63,6 +63,8 @@ export type JobCompanyRef = {
 /** Client-facing card subset — never includes commitment_score. */
 export type JobCardData = {
   id: string
+  /** Layer-3 profile anchor when present (P-104); null for legacy rows until P-110. */
+  business_profile_id: string | null
   slug: string | null
   title_ar: string
   title_en: string | null

@@ -10,6 +10,8 @@ export type LogoSize = 'sm' | 'md' | 'lg'
 type LogoProps = {
   size?: LogoSize
   className?: string
+  /** Force light-on-dark wordmark regardless of site theme toggle. */
+  appearance?: 'auto' | 'on-dark'
 }
 
 const LOGO_ASSETS = {
@@ -30,7 +32,7 @@ export const LOGO_SIZE_CONFIG: Record<LogoSize, { className: string; height: num
   lg: { className: 'h-12 w-auto max-h-12', height: 48 },
 }
 
-export function Logo({ size = 'md', className }: LogoProps) {
+export function Logo({ size = 'md', className, appearance = 'auto' }: LogoProps) {
   const locale = useLocale()
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -39,7 +41,8 @@ export function Logo({ size = 'md', className }: LogoProps) {
 
   const isArabic = locale === 'ar'
   const localeKey = isArabic ? 'ar' : 'en'
-  const themeKey = mounted && resolvedTheme === 'dark' ? 'dark' : 'light'
+  const themeKey =
+    appearance === 'on-dark' ? 'dark' : mounted && resolvedTheme === 'dark' ? 'dark' : 'light'
   const src = LOGO_ASSETS[localeKey][themeKey]
   const alt = isArabic ? 'جِد' : 'JID'
   const { className: sizeClassName, height } = LOGO_SIZE_CONFIG[size]

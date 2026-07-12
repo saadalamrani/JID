@@ -12,8 +12,8 @@ export default async function CompanyEntityOnboardingPage() {
     <section className="mx-auto max-w-2xl space-y-6">
       <EntitySetupViewed companyId={company.id} entityType={company.entity_type} />
       <header className="space-y-2">
-        <h1 className="font-arabic text-2xl font-semibold text-jid-olive md:text-3xl">{t('title')}</h1>
-        <p className="text-jid-ink/70">{t('description')}</p>
+        <h1 className="font-arabic text-2xl font-semibold text-primary md:text-3xl">{t('title')}</h1>
+        <p className="text-foreground/70">{t('description')}</p>
       </header>
       <EntitySetupForm company={company} />
     </section>

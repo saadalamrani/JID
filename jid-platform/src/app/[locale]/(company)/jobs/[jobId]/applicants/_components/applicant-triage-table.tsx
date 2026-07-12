@@ -20,33 +20,33 @@ export function ApplicantTriageTable({
 }: ApplicantTriageTableProps) {
   if (applicants.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-jid-line bg-white px-6 py-12 text-center">
-        <p className="font-arabic text-sm text-jid-ink/60">لا يوجد متقدمون في هذا التصنيف</p>
+      <div className="rounded-xl border border-dashed border-border bg-white px-6 py-12 text-center">
+        <p className="font-arabic text-sm text-foreground/60">لا يوجد متقدمون في هذا التصنيف</p>
       </div>
     )
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-jid-line bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-xl border border-border bg-white shadow-sm">
       <table className="min-w-full text-start">
-        <thead className="border-b border-jid-line bg-jid-beige/40">
+        <thead className="border-b border-border bg-background/40">
           <tr>
             <th scope="col" className="w-10 px-3 py-3" />
-            <th scope="col" className="px-3 py-3 font-arabic text-xs font-medium text-jid-ink/70">
+            <th scope="col" className="px-3 py-3 font-arabic text-xs font-medium text-foreground/70">
               المتقدم
             </th>
             <th
               scope="col"
-              className="hidden px-3 py-3 font-arabic text-xs font-medium text-jid-ink/70 md:table-cell"
+              className="hidden px-3 py-3 font-arabic text-xs font-medium text-foreground/70 md:table-cell"
             >
               البريد
             </th>
-            <th scope="col" className="px-3 py-3 font-arabic text-xs font-medium text-jid-ink/70">
+            <th scope="col" className="px-3 py-3 font-arabic text-xs font-medium text-foreground/70">
               الحالة
             </th>
             <th
               scope="col"
-              className="hidden px-3 py-3 font-arabic text-xs font-medium text-jid-ink/70 lg:table-cell"
+              className="hidden px-3 py-3 font-arabic text-xs font-medium text-foreground/70 lg:table-cell"
             >
               تاريخ التقديم
             </th>

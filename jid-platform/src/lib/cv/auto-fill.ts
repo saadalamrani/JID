@@ -312,3 +312,10 @@ export async function initializeCv(): Promise<InitializeCvResult | null> {
 export async function fetchCvById(cvId: string): Promise<CvFullRecord | null> {
   return loadCvWithChildren(cvId)
 }
+
+/** Primary CV document for profile projections (owner + permitted public sections). */
+export async function fetchPrimaryCvForUser(userId: string): Promise<CvFullRecord | null> {
+  const cvId = await findExistingCvId(userId)
+  if (!cvId) return null
+  return loadCvWithChildren(cvId)
+}

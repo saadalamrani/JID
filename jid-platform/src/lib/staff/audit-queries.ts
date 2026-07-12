@@ -86,6 +86,14 @@ export async function fetchStaffPersonalAuditTimeline(
     query = query.eq('action', resolveAuditActionFilter(filters.actionType))
   }
 
+  if (filters.entityType) {
+    query = query.eq('entity_type', filters.entityType)
+  }
+
+  if (filters.entityId) {
+    query = query.eq('entity_id', filters.entityId)
+  }
+
   const { data, error } = await query
   if (error) throw new Error(error.message)
 

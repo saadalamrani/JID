@@ -1,17 +1,21 @@
 import { notFound, redirect } from 'next/navigation'
-import { CompanyProfileEditForm } from '@/components/profile/forms/company-profile-edit-form'
-import { fetchCompany, getCurrentViewer } from '@/lib/profile/queries'
+import { ProfileEditWizard } from './_components/profile-edit-wizard'
+import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
+import { fetchOwnerBusinessProfile } from '@/lib/profile/owner-business-profile'
+import { createClient } from '@/lib/supabase/server'
 
 export default async function CompanyProfileEditPage() {
-  const viewer = await getCurrentViewer()
-  if (!viewer.companyId) {
-    redirect('/login')
+  const userId = await requireAuthenticatedUser()
+  const supabase = await createClient()
+  const profile = await fetchOwnerBusinessProfile(supabase, userId)
+
+  if (!profile) {
+    redirect('/company/create-profile')
   }
 
-  const company = await fetchCompany(viewer.companyId)
-  if (!company) {
+  if (!profile.id) {
     notFound()
   }
 
-  return <CompanyProfileEditForm company={company} />
+  return <ProfileEditWizard profile={profile} />
 }

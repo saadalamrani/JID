@@ -29,6 +29,7 @@ function buildPreviewJob(
 
   return {
     id: 'preview',
+    business_profile_id: poster.businessProfileId,
     slug: null,
     title_ar: draft.title_ar,
     title_en: draft.title_en?.trim() || null,
@@ -96,8 +97,8 @@ export function WizardStepPreview({
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="font-arabic text-sm font-medium text-jid-ink/70">معاينة البطاقة</h2>
-        <p className="mt-1 font-arabic text-xs text-jid-ink/50">
+        <h2 className="font-arabic text-sm font-medium text-foreground/70">معاينة البطاقة</h2>
+        <p className="mt-1 font-arabic text-xs text-muted-foreground">
           هكذا ستظهر الفرصة في لوحة الفرص العامة
         </p>
       </div>
@@ -107,9 +108,9 @@ export function WizardStepPreview({
       </div>
 
       {draft.description_ar ? (
-        <div className="rounded-lg border border-jid-line/60 bg-jid-beige/30 p-4">
-          <h3 className="mb-2 font-arabic text-sm font-medium text-jid-ink">الوصف</h3>
-          <p className="whitespace-pre-wrap font-arabic text-sm leading-relaxed text-jid-ink/80">
+        <div className="rounded-lg border border-border/60 bg-background/30 p-4">
+          <h3 className="mb-2 font-arabic text-sm font-medium text-foreground">الوصف</h3>
+          <p className="whitespace-pre-wrap font-arabic text-sm leading-relaxed text-foreground/80">
             {draft.description_ar}
           </p>
           {draft.required_skills.length > 0 ? (
@@ -117,7 +118,7 @@ export function WizardStepPreview({
               {draft.required_skills.map((skill) => (
                 <span
                   key={skill}
-                  className="rounded-full bg-white px-2.5 py-0.5 font-arabic text-xs text-jid-ink/70"
+                  className="rounded-full bg-white px-2.5 py-0.5 font-arabic text-xs text-foreground/70"
                 >
                   {skill}
                 </span>
@@ -133,7 +134,7 @@ export function WizardStepPreview({
           variant="outline"
           disabled={submitting}
           onClick={onSaveDraft}
-          className="font-arabic border-jid-line"
+          className="font-arabic border-border"
         >
           حفظ كمسودة
         </Button>
@@ -141,7 +142,7 @@ export function WizardStepPreview({
           type="button"
           disabled={submitting}
           onClick={onPublish}
-          className="bg-jid-olive font-arabic hover:bg-jid-olive/90"
+          className="bg-primary font-arabic hover:bg-primary/90"
         >
           نشر الفرصة الآن
         </Button>

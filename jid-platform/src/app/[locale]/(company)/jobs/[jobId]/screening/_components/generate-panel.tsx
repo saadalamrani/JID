@@ -42,7 +42,7 @@ export function GeneratePanel({ jobId, context, onGenerated, className }: Genera
   return (
     <section className={cn('rounded-xl border border-border bg-card p-6', className)}>
       <div className="flex items-start gap-3">
-        <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-jid-olive" aria-hidden />
+        <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
         <div className="min-w-0 flex-1">
           <h2 className="font-arabic text-lg font-semibold text-foreground">{t('generateTitle')}</h2>
           <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('generateSubtitle')}</p>

@@ -34,7 +34,7 @@ export default function LoginPage() {
     <Suspense
       fallback={
         <AuthShell title={t('title')} subtitle={t('subtitle')}>
-          <p className="text-center text-sm text-jid-ink/70">{t('submitting')}</p>
+          <p className="text-center text-sm text-foreground/70">{t('submitting')}</p>
         </AuthShell>
       }
     >
@@ -137,13 +137,13 @@ function LoginPageContent() {
       footer={
         <div className="space-y-2">
           <p>
-            <Link href="/forgot-password" className="text-sm text-jid-olive hover:underline">
+            <Link href="/forgot-password" className="text-sm text-primary hover:underline">
               {t('forgotPassword')}
             </Link>
           </p>
           <p>
             {t('noAccount')}{' '}
-            <Link href="/signup" className="font-medium text-jid-olive underline-offset-4 hover:underline">
+            <Link href="/signup" className="font-medium text-primary underline-offset-4 hover:underline">
               {t('signupLink')}
             </Link>
           </p>
@@ -186,7 +186,7 @@ function LoginPageContent() {
           />
         </FormField>
 
-        <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

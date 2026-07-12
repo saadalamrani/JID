@@ -49,7 +49,7 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
       role="listitem"
       className={cn(
         'relative flex min-h-[300px] flex-col rounded-xl border bg-card p-4 shadow-sm',
-        boosted ? 'border-jid-gold/35 ring-1 ring-jid-gold/40' : 'border-border/40',
+        boosted ? 'border-accent/35 ring-1 ring-ring/40' : 'border-border/40',
         !previewMode && 'transition-shadow hover:shadow-md',
         className,
       )}
@@ -82,7 +82,7 @@ export function JobCard({ job, locale = 'ar', className, previewMode = false }: 
         <div className="flex shrink-0 flex-col items-end gap-1">
           <TierBadge tier={job.tier ?? 'normal'} />
           {boosted ? (
-            <span className="inline-flex rounded-full border border-jid-gold/50 bg-transparent px-2 py-0.5 font-arabic text-xs font-medium text-jid-olive">
+            <span className="inline-flex rounded-full border border-accent/50 bg-transparent px-2 py-0.5 font-arabic text-xs font-medium text-primary">
               مميّزة
             </span>
           ) : null}

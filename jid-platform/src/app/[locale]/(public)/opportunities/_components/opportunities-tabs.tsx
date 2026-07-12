@@ -37,7 +37,7 @@ export function OpportunitiesTabs({ activeTab, onTabChange, className }: Opportu
             className={cn(
               'rounded-full px-4 py-2 font-arabic text-sm font-medium transition-colors',
               selected
-                ? 'bg-jid-olive text-primary-foreground shadow-sm'
+                ? 'bg-primary text-primary-foreground shadow-sm'
                 : 'border border-border bg-card text-muted-foreground hover:bg-muted/60',
             )}
           >

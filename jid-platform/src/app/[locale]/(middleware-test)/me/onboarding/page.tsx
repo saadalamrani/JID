@@ -108,7 +108,7 @@ export default function MeOnboardingPage() {
   return (
     <div className="container-jid py-8">
       <div className="mx-auto max-w-2xl space-y-5">
-        <h1 className="text-2xl font-semibold text-jid-ink">إكمال ملفك الأكاديمي</h1>
+        <h1 className="text-2xl font-semibold text-foreground">إكمال ملفك الأكاديمي</h1>
         <FormProvider {...form}>
           <form className="space-y-4" onSubmit={onSubmit}>
             <AcademicInfoStep />

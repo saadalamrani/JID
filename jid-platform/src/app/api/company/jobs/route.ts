@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { trackServer } from '@/lib/analytics/server'
 import { getApprovedCompanyPoster } from '@/lib/jobs/company-access'
 import { createCompanyJob } from '@/lib/jobs/create-company-job'
-import { validateDomainMatch } from '@/lib/jobs/domain-validator'
+import { validateDomainMatch } from '@/lib/queries/jobs'
 import { jobPostingSchema } from '@/lib/validations/job-posting'
 
 export async function POST(request: Request) {
@@ -15,7 +15,18 @@ export async function POST(request: Request) {
 
     const body = jobPostingSchema.parse(await request.json())
 
-    const domainCheck = validateDomainMatch(body.external_apply_url, poster.company.domains, 'ar')
+    if (!poster.businessProfileId) {
+      return NextResponse.json(
+        { error: 'يجب إنشاء ملفك التعريفي المعتمد قبل نشر فرص جديدة' },
+        { status: 403 },
+      )
+    }
+
+    const domainCheck = await validateDomainMatch(
+      body.external_apply_url,
+      poster.businessProfileId,
+      'ar',
+    )
     if (!domainCheck.valid) {
       return NextResponse.json({ error: domainCheck.message }, { status: 400 })
     }

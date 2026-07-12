@@ -16,7 +16,7 @@ export function TierBadge({ tier, className }: TierBadgeProps) {
       <span
         className={cn(
           'inline-flex shrink-0 items-center rounded-full px-2 py-0.5 font-arabic text-xs font-semibold',
-          'bg-jid-gold text-jid-olive',
+          'bg-accent text-primary',
           className,
         )}
         aria-label="بلس"

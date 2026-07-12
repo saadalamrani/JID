@@ -20,9 +20,12 @@ import {
   DEFAULT_JOB_FILTERS,
   dbStatusToPublicStatus,
   isJobUuid,
-  publicStatusToDbStatus,
 } from '@/types/job'
 import { computeDeadlineDaysLeft } from '@/lib/jobs/deadline'
+import {
+  validateDomainMatchForDomains,
+  type DomainMatchResult,
+} from '@/lib/jobs/domain-validator'
 import { interleaveBoostedJobs } from '@/lib/priority-visibility/interleave'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
@@ -48,6 +51,7 @@ type CompanyRow = {
 
 type JobListRow = {
   id: string
+  business_profile_id: string | null
   slug: string | null
   title_ar: string
   title_en: string | null
@@ -112,8 +116,8 @@ const JOB_LIST_SELECT = `
     ownership_type,
     career_portal_url
   ),
-  sector:sectors(slug, name_en, name_ar),
-  region:regions(slug, name_en, name_ar)
+  sector:sectors!sector_id(slug, name_en, name_ar),
+  region:regions!region_id(slug, name_en, name_ar)
 ` as const
 
 const JOB_DETAIL_SELECT = `
@@ -149,8 +153,8 @@ const JOB_DETAIL_SELECT = `
     ownership_type,
     career_portal_url
   ),
-  sector:sectors(slug, name_en, name_ar),
-  region:regions(slug, name_en, name_ar)
+  sector:sectors!sector_id(slug, name_en, name_ar),
+  region:regions!region_id(slug, name_en, name_ar)
 ` as const
 
 function normalizeEmbed<T>(value: T | T[] | null | undefined): T | null {
@@ -199,6 +203,7 @@ function mapJobCard(row: JobListRow): JobCardData | null {
 
   return {
     id: row.id,
+    business_profile_id: row.business_profile_id ?? null,
     slug: row.slug,
     title_ar: row.title_ar,
     title_en: row.title_en,
@@ -295,7 +300,7 @@ export async function fetchRelatedCompanyJobs(
 ): Promise<JobCardData[]> {
   const supabase = await createClient()
   const client = asUntyped(supabase)
-  const dbStatuses = resolveDbStatuses(DEFAULT_JOB_FILTERS.status)
+  const dbStatuses = resolvePortablePublicJobDbStatuses(DEFAULT_JOB_FILTERS.status)
 
   const { data, error } = await client
     .from('jobs')
@@ -314,9 +319,10 @@ export async function fetchRelatedCompanyJobs(
     .filter((job): job is JobCardData => job !== null)
 }
 
-function resolveDbStatuses(statuses: PublicJobStatus[] | undefined): JobDbStatus[] {
-  const source = statuses?.length ? statuses : DEFAULT_JOB_FILTERS.status!
-  return source.map(publicStatusToDbStatus)
+/** Portable public job-board listing statuses (linked cloud lacks `closing_soon`). */
+function resolvePortablePublicJobDbStatuses(statuses: PublicJobStatus[] | undefined): JobDbStatus[] {
+  void statuses
+  return ['published']
 }
 
 async function resolveSectorIds(client: UntypedClient, slugs: string[]): Promise<string[]> {
@@ -339,7 +345,7 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
   const limit = filters.limit ?? DEFAULT_JOB_FILTERS.limit!
   const from = (page - 1) * limit
   const overfetchTo = from + limit * 5 - 1
-  const dbStatuses = resolveDbStatuses(filters.status)
+  const dbStatuses = resolvePortablePublicJobDbStatuses(filters.status)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let query: any = client
@@ -410,4 +416,154 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
 export async function fetchJobById(id: string): Promise<Job | null> {
   const result = await fetchJobDetailByRef(id)
   return result.kind === 'ok' ? result.job : null
+}
+
+function unionDomainSets(...sets: (string[] | null | undefined)[]): string[] {
+  const seen = new Set<string>()
+  for (const list of sets) {
+    for (const raw of list ?? []) {
+      const trimmed = raw.trim().toLowerCase()
+      if (trimmed) seen.add(trimmed)
+    }
+  }
+  return Array.from(seen)
+}
+
+/** Fetch verified_domains ∪ companies.domains for apply-link validation (P-104). */
+export async function fetchTrustedDomainsForBusinessProfile(
+  businessProfileId: string,
+  client?: UntypedClient,
+): Promise<string[]> {
+  const supabase = client ?? asUntyped(await createClient())
+
+  const { data, error } = await supabase
+    .from('business_profiles')
+    .select('verified_domains, directory_id')
+    .eq('id', businessProfileId)
+    .maybeSingle()
+
+  if (error) throwQueryError(error)
+  if (!data) return []
+
+  const { data: company, error: companyError } = await supabase
+    .from('companies')
+    .select('domains')
+    .eq('id', data.directory_id)
+    .maybeSingle()
+
+  if (companyError) throwQueryError(companyError)
+
+  return unionDomainSets(data.verified_domains as string[] | null, company?.domains)
+}
+
+/**
+ * P-104 — validate apply URL against verification-layer domains ∪ Directory reference domains.
+ */
+export async function validateDomainMatch(
+  url: string,
+  businessProfileId: string,
+  locale: 'ar' | 'en' = 'ar',
+): Promise<DomainMatchResult> {
+  const domains = await fetchTrustedDomainsForBusinessProfile(businessProfileId)
+  return validateDomainMatchForDomains(url, domains, locale)
+}
+
+/**
+ * Owner-visible jobs (RLS applies transitional + profile paths). For company dashboards.
+ */
+export async function fetchOwnerJobs(limit = 50): Promise<JobCardData[]> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+
+  const { data, error } = await client
+    .from('jobs')
+    .select(JOB_LIST_SELECT)
+    .order('updated_at', { ascending: false })
+    .limit(limit)
+
+  if (error) throwQueryError(error)
+
+  return ((data ?? []) as unknown as JobListRow[])
+    .map(mapJobCard)
+    .filter((job): job is JobCardData => job !== null)
+}
+
+/** Live openings for a published business profile (public list statuses only). */
+export async function fetchLiveOpeningsByBusinessProfileId(
+  businessProfileId: string,
+  limit = 12,
+): Promise<JobCardData[]> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+  const dbStatuses: JobDbStatus[] = ['published', 'closing_soon']
+
+  const { data, error } = await client
+    .from('jobs')
+    .select(JOB_LIST_SELECT)
+    .eq('business_profile_id', businessProfileId)
+    .in('status', dbStatuses)
+    .gte('application_deadline', new Date().toISOString())
+    .order('published_at', { ascending: false, nullsFirst: false })
+    .limit(limit)
+
+  if (error) throwQueryError(error)
+
+  return ((data ?? []) as unknown as JobListRow[])
+    .map(mapJobCard)
+    .filter((job): job is JobCardData => job !== null)
+}
+
+/** Homepage hero — single most recently published active job (Job Board SSOT). */
+export type LatestActiveJobSnapshot = {
+  id: string
+  slug: string | null
+  title_ar: string
+  title_en: string | null
+  published_at: string
+  company_name_en: string
+  company_name_ar: string | null
+}
+
+export async function fetchLatestActiveJob(): Promise<LatestActiveJobSnapshot | null> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+  // Linked cloud `job_status` lacks `closing_soon` (local migration 048 only).
+  const dbStatuses = resolvePortablePublicJobDbStatuses(undefined)
+
+  const { data, error } = await client
+    .from('jobs')
+    .select(
+      'id, slug, title_ar, title_en, published_at, application_deadline, company:companies!inner(name, name_ar)',
+    )
+    .in('status', dbStatuses)
+    .gte('application_deadline', new Date().toISOString())
+    .not('published_at', 'is', null)
+    .order('published_at', { ascending: false, nullsFirst: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (error) throwQueryError(error)
+  if (!data) return null
+
+  const row = data as unknown as {
+    id: string
+    slug: string | null
+    title_ar: string
+    title_en: string | null
+    published_at: string
+    company: { name: string; name_ar: string | null } | { name: string; name_ar: string | null }[]
+  }
+
+  const company = normalizeEmbed(row.company)
+  if (!company?.name || !row.published_at) return null
+
+  return {
+    id: row.id,
+    slug: row.slug,
+    title_ar: row.title_ar,
+    title_en: row.title_en,
+    published_at: row.published_at,
+    company_name_en: company.name,
+    company_name_ar: company.name_ar,
+  }
 }

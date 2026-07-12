@@ -5,6 +5,7 @@ type Client = SupabaseClient<Database>
 
 export type RejectedClaimView = {
   id: string
+  directory_id: string
   company_name: string
   rejection_reason: string | null
   required_documents: string[]
@@ -12,22 +13,33 @@ export type RejectedClaimView = {
   status: string
 }
 
-export async function getLatestRejectedClaim(
+export async function getLatestRejectedVerification(
   supabase: Client,
   userId: string,
+  verificationType?: Database['public']['Enums']['claim_type'],
 ): Promise<RejectedClaimView | null> {
-  const { data, error } = await supabase
-    .from('claim_requests')
-    .select('id, company_name, rejection_reason, required_documents, can_reapply_after, status')
-    .eq('user_id', userId)
+  let query = supabase
+    .from('verification_requests')
+    .select(
+      'id, directory_id, company_name, rejection_reason, required_documents, can_reapply_after, status',
+    )
+    .eq('applicant_user_id', userId)
     .eq('status', 'rejected')
     .order('created_at', { ascending: false })
     .limit(1)
-    .maybeSingle()
+
+  if (verificationType) {
+    query = query.eq('verification_type', verificationType)
+  }
+
+  const { data, error } = await query.maybeSingle()
 
   if (error) throw new Error(error.message)
   return (data as RejectedClaimView | null) ?? null
 }
+
+/** @deprecated Use getLatestRejectedVerification */
+export const getLatestRejectedClaim = getLatestRejectedVerification
 
 export function canReapplyNow(canReapplyAfter: string | null): boolean {
   if (!canReapplyAfter) return true

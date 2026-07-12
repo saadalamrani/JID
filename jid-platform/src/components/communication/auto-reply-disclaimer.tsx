@@ -13,7 +13,7 @@ export function AutoReplyDisclaimer({ className }: AutoReplyDisclaimerProps) {
   return (
     <p
       className={cn(
-        'rounded-md border border-border px-3 py-2 font-arabic text-xs leading-relaxed text-jid-ink-soft',
+        'rounded-md border border-border px-3 py-2 font-arabic text-xs leading-relaxed text-muted-foreground',
         className,
       )}
       data-testid="auto-reply-disclaimer"

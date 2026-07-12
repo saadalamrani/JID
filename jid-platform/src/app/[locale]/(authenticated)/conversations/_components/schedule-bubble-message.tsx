@@ -51,7 +51,7 @@ export function ScheduleBubbleMessage({
   if (!meeting) {
     return (
       <div className={cn('flex', isOwn ? 'justify-end' : 'justify-start')}>
-        <div className="rounded-2xl border border-dashed border-jid-line bg-white px-4 py-3 font-arabic text-sm text-jid-ink/50">
+        <div className="rounded-2xl border border-dashed border-border bg-white px-4 py-3 font-arabic text-sm text-muted-foreground">
           {t('loading')}
         </div>
       </div>
@@ -93,21 +93,21 @@ export function ScheduleBubbleMessage({
       <article
         className={cn(
           'w-full max-w-sm overflow-hidden rounded-2xl border shadow-sm',
-          isOwn ? 'border-jid-olive/40 bg-jid-olive/5' : 'border-jid-line bg-white',
+          isOwn ? 'border-primary/40 bg-primary/5' : 'border-border bg-white',
         )}
       >
-        <header className="flex items-center gap-2 border-b border-jid-line/60 px-4 py-3">
-          <CalendarClock className="h-4 w-4 shrink-0 text-jid-olive" aria-hidden />
-          <h3 className="font-arabic text-sm font-semibold text-jid-ink">{t('title')}</h3>
+        <header className="flex items-center gap-2 border-b border-border/60 px-4 py-3">
+          <CalendarClock className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+          <h3 className="font-arabic text-sm font-semibold text-foreground">{t('title')}</h3>
         </header>
 
-        <div className="space-y-2 px-4 py-3 font-arabic text-sm text-jid-ink">
+        <div className="space-y-2 px-4 py-3 font-arabic text-sm text-foreground">
           <div className="flex justify-between gap-3">
-            <span className="text-jid-ink/55">{t('when')}</span>
+            <span className="text-foreground/55">{t('when')}</span>
             <span className="text-end font-medium">{formatScheduleDate(meeting.scheduled_at, locale)}</span>
           </div>
           <div className="flex justify-between gap-3">
-            <span className="text-jid-ink/55">{t('duration')}</span>
+            <span className="text-foreground/55">{t('duration')}</span>
             <span className="font-medium">
               {meeting.duration_minutes
                 ? t('durationValue', { minutes: meeting.duration_minutes })
@@ -116,39 +116,39 @@ export function ScheduleBubbleMessage({
           </div>
           {medium ? (
             <div className="flex justify-between gap-3">
-              <span className="text-jid-ink/55">{t('medium')}</span>
+              <span className="text-foreground/55">{t('medium')}</span>
               <span className="font-medium">{medium}</span>
             </div>
           ) : null}
           {meeting.meeting_url ? (
             <div className="flex flex-col gap-1">
-              <span className="text-jid-ink/55">{t('link')}</span>
+              <span className="text-foreground/55">{t('link')}</span>
               <a
                 href={meeting.meeting_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="truncate text-jid-olive underline"
+                className="truncate text-primary underline"
               >
                 {meeting.meeting_url}
               </a>
             </div>
           ) : null}
           {meeting.notes ? (
-            <div className="rounded-lg bg-jid-beige/40 px-3 py-2 text-xs text-jid-ink/75">
+            <div className="rounded-lg bg-background/40 px-3 py-2 text-xs text-foreground/75">
               {meeting.notes}
             </div>
           ) : null}
         </div>
 
-        <footer className="flex items-center justify-between gap-2 border-t border-jid-line/60 px-4 py-3">
+        <footer className="flex items-center justify-between gap-2 border-t border-border/60 px-4 py-3">
           <span
             className={cn(
               'rounded-full px-2.5 py-0.5 font-arabic text-xs font-medium',
               meeting.status === 'pending_confirmation'
                 ? 'bg-amber-100 text-amber-800'
                 : meeting.status === 'confirmed'
-                  ? 'bg-jid-olive/15 text-jid-olive'
-                  : 'bg-jid-beige text-jid-ink/60',
+                  ? 'bg-primary/15 text-primary'
+                  : 'bg-background text-foreground/60',
             )}
           >
             {t(`status.${meeting.status}`)}
@@ -158,7 +158,7 @@ export function ScheduleBubbleMessage({
             <Button
               type="button"
               size="sm"
-              className="bg-jid-olive font-arabic hover:bg-jid-olive/90"
+              className="bg-primary font-arabic hover:bg-primary/90"
               disabled={confirming}
               onClick={() => void handleConfirm()}
             >

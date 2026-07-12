@@ -35,13 +35,19 @@
     "nav": {
       "homeAria": "Home — {name}",
       "primaryAria": "Primary navigation",
+      "home": "Home",
+      "exploreOpportunities": "Explore opportunities",
+      "radar": "Radar",
+      "mentorship": "Mentorship",
+      "catalog": "Catalog",
       "opportunities": "Jobs",
       "mentors": "Mentors",
-      "catalog": "Company catalog",
       "pulse": "Platform Pulse",
       "login": "Log in",
       "signup": "Sign up",
-      "dashboard": "My dashboard"
+      "dashboard": "My dashboard",
+      "menuOpen": "Open navigation menu",
+      "menuTitle": "Navigation"
     },
     "footer": {
       "groups": {
@@ -144,7 +150,42 @@
       "subtitle": "JID brings job search, mentorship, and company profiles together — Arabic-first with clear communication standards.",
       "body": "No empty promises. No unsourced statistics. Just real tools to see where your application stands and who can guide your career.",
       "primaryCta": "Browse jobs",
-      "secondaryCta": "Create your account"
+      "primaryCtaGuest": "Explore opportunities",
+      "primaryCtaCompleteProfile": "Complete your profile",
+      "primaryCtaRadar": "Open your Radar",
+      "secondaryCta": "Create your account",
+      "cards": {
+        "groupAria": "Platform pulse cards",
+        "relativeTime": "{time} ago",
+        "mentorFallback": "Your mentor",
+        "latestJob": {
+          "label": "Latest opportunity on JID"
+        },
+        "pulseMetric": {
+          "label": "Platform pulse"
+        },
+        "radarUpdate": {
+          "label": "Latest Radar update"
+        },
+        "upcomingSession": {
+          "label": "Your next session"
+        },
+        "profileCompletion": {
+          "label": "Profile completion"
+        },
+        "applicationStatus": {
+          "draft": "Draft",
+          "saved": "Saved",
+          "pending": "Pending",
+          "submitted": "Submitted",
+          "under_review": "Under review",
+          "shortlisted": "Shortlisted",
+          "rejected": "Rejected",
+          "invited": "Invited",
+          "withdrawn": "Withdrawn",
+          "expired": "Expired"
+        }
+      }
     },
     "problem": {
       "title": "A real problem that does not need fabricated numbers",
@@ -227,6 +268,79 @@
         "title": "For employers & universities",
         "body": "You cannot become an admin by signing up directly — search the catalog and claim your profile.",
         "button": "Find your entity and claim it"
+      }
+    }
+  },
+  "catalogPage": {
+    "card": {
+      "viewRecord": "View record for {name}",
+      "lastAudit": "Last link check: {time}"
+    },
+    "cta": {
+      "jidProfile": "Profile on JID ↗",
+      "careerPortal": "Careers portal",
+      "officialPortalTooltip": "Official careers portal",
+      "linkPending": "Link being updated"
+    },
+    "detail": {
+      "metaFallback": "Directory record",
+      "aboutHeading": "Reference summary",
+      "aboutEmpty": "No reference summary for this record yet.",
+      "directoryRecordNote": "About this registry entry:",
+      "lastAudit": "Last link check: {time}",
+      "correctionIntro": "As the verified profile owner linked to this directory record, you may suggest a correction.",
+      "backToCatalog": "Back to company catalog"
+    },
+    "correction": {
+      "open": "Suggest a correction to this registry record",
+      "fieldLabel": "Field",
+      "currentValue": "Current value",
+      "suggestedValue": "Suggested value",
+      "reason": "Reason (optional)",
+      "submit": "Submit suggestion",
+      "submitting": "Submitting...",
+      "cancel": "Cancel",
+      "submitted": "Your suggestion was sent for review",
+      "valueRequired": "Enter a suggested value",
+      "authRequired": "Sign in required",
+      "fieldNotAllowed": "This field is not allowed — use the approved field list",
+      "submitFailed": "Could not submit suggestion",
+      "selectSector": "Select a sector",
+      "selectRegion": "Select a region",
+      "fields": {
+        "city": "City",
+        "career_portal_url": "Careers portal URL",
+        "website_url": "Website",
+        "linkedin_url": "LinkedIn",
+        "twitter_url": "Twitter",
+        "sector_id": "Sector",
+        "region_id": "Region"
+      }
+    }
+  },
+  "businessProfile": {
+    "public": {
+      "metaFallback": "Business profile",
+      "unnamed": "Organization",
+      "verified": "Verified profile",
+      "coverAlt": "Profile cover image",
+      "founded": "Founded",
+      "teamSize": "Team size",
+      "noAbout": "No about text yet.",
+      "strangerNote": "Visitor preview — not the edit surface.",
+      "gallery": "Media gallery",
+      "galleryImageAlt": "Gallery image",
+      "openingsTitle": "Open opportunities",
+      "openingsEmpty": "No open opportunities right now",
+      "viewInDirectory": "View in directory",
+      "errorTitle": "Could not load profile",
+      "errorRetry": "Try again",
+      "employeeRanges": {
+        "1-10": "1–10",
+        "11-50": "11–50",
+        "51-200": "51–200",
+        "201-1000": "201–1000",
+        "1000+": "1000+"
       }
     }
   },
@@ -645,6 +759,31 @@
       "title": "Market trends",
       "sectorTitle": "Sector demand",
       "skillsTitle": "Skills demand"
+    },
+    "metrics": {
+      "total_candidates": {
+        "label": "Total candidates"
+      },
+      "directory_coverage": {
+        "label": "Organizations in directory",
+        "caption": "Organizations listed in the directory"
+      },
+      "verified_profiles": {
+        "label": "Verified profiles",
+        "caption": "Organizations that created a verified profile"
+      },
+      "total_jobs": {
+        "label": "Total jobs"
+      },
+      "total_mentors": {
+        "label": "Total mentors"
+      },
+      "total_sessions": {
+        "label": "Total sessions"
+      },
+      "response_rate": {
+        "label": "JID response rate"
+      }
     }
   },
   "errors": {
@@ -837,6 +976,121 @@
       "otpDigits": "Digits only"
     }
   },
+  "company": {
+    "shell": {
+      "errorTitle": "Something went wrong",
+      "errorBody": "We could not load this page. Please try again.",
+      "retry": "Try again"
+    },
+    "nav": {
+      "panelTitle": "Employer portal",
+      "dashboard": "Home",
+      "profile": "Business profile",
+      "postJob": "Post a job",
+      "billing": "Billing",
+      "settings": "Settings"
+    },
+    "dashboard": {
+      "title": "Employer dashboard",
+      "noProfile": "You have not created your business profile yet. Finish profile creation to access the dashboard.",
+      "createProfileCta": "Create your business profile",
+      "placeholderMetrics": "Metrics and reports will expand in a future update.",
+      "links": {
+        "jobs": "Jobs",
+        "applicants": "Applicants",
+        "settings": "Profile settings"
+      },
+      "status": {
+        "published": "Published",
+        "draft": "Draft",
+        "suspended": "Suspended"
+      }
+    },
+    "profileSuspended": {
+      "title": "Profile suspended",
+      "message": "The platform has suspended your organization's public profile. Contact support for assistance — reinstatement is not available self-service from this page.",
+      "contactSupport": "Contact support"
+    },
+    "profileCreation": {
+      "title": "Create your business profile",
+      "subtitle": "You are authoring a public profile for your organization — it may differ from the official directory listing.",
+      "steps": {
+        "identity": "Identity",
+        "story": "Story & brand",
+        "preview": "Preview & publish"
+      },
+      "back": "Back",
+      "next": "Next",
+      "publish": "Publish now",
+      "publishing": "Publishing...",
+      "published": "Your business profile is live",
+      "publishFailed": "Could not publish profile",
+      "validationFailed": "Please fix the required fields",
+      "identity": {
+        "directoryHint": "Official directory name: {name}. You may choose a different public profile name.",
+        "displayNameAr": "Display name (Arabic)",
+        "displayNameEn": "Display name (English — optional)",
+        "taglineAr": "Short tagline (optional)"
+      },
+      "story": {
+        "aboutAr": "About (Arabic)",
+        "aboutEn": "About (English — optional)",
+        "foundedYear": "Founded year",
+        "employeeCount": "Team size",
+        "employeeCountPlaceholder": "Select a range",
+        "employeeRanges": {
+          "1-10": "1–10",
+          "11-50": "11–50",
+          "51-200": "51–200",
+          "201-1000": "201–1000",
+          "1000+": "1000+"
+        },
+        "coverImage": "Cover image",
+        "coverUpload": "Upload image",
+        "coverPreviewAlt": "Cover image preview"
+      },
+      "media": {
+        "hint": "JPEG, PNG, or WebP — max 5 MB",
+        "uploading": "Uploading...",
+        "uploaded": "Image uploaded",
+        "uploadFailed": "Upload failed",
+        "invalidType": "Unsupported file type",
+        "tooLarge": "File is too large"
+      },
+      "preview": {
+        "intro": "This is how visitors will see your business profile — an honest stranger's-eye preview.",
+        "unnamed": "Organization",
+        "verifiedBadge": "Verified",
+        "founded": "Founded",
+        "teamSize": "Team size",
+        "noAbout": "No about text yet.",
+        "strangerNote": "Visitor preview — not the edit surface.",
+        "coverAlt": "Profile cover image"
+      }
+    },
+    "profileEdit": {
+      "title": "Edit business profile",
+      "subtitle": "Update your organization's public identity and story.",
+      "steps": {
+        "identity": "Identity",
+        "story": "Story & brand"
+      },
+      "back": "Back",
+      "next": "Next",
+      "save": "Save",
+      "saving": "Saving...",
+      "saved": "Changes saved",
+      "saveFailed": "Could not save changes",
+      "validationFailed": "Please fix the required fields"
+    }
+  },
+  "university": {
+    "profileSuspended": {
+      "title": "Profile suspended",
+      "message": "The platform has suspended your university's public profile. Contact support for assistance — reinstatement is not available self-service from this page.",
+      "contactSupport": "Contact support"
+    }
+  },
   "entity": {
     "entityType": {
       "title": "Entity account type",
@@ -899,15 +1153,15 @@
         "newDomainsHint": "Separate domains with commas, e.g. example.com, mail.example.sa",
         "changeCompany": "Change selected entity"
       },
-      "claim": {
+      "verification": {
         "domainHint": "Your business email must use one of the entity's approved domains",
         "businessEmail": "Business email",
         "claimantName": "Your name",
         "claimantTitle": "Job title",
-        "submit": "Submit claim request",
+        "submit": "Submit verification request",
         "submitting": "Submitting...",
-        "submitted": "Claim request submitted",
-        "submitFailed": "Could not submit claim"
+        "submitted": "Verification request submitted",
+        "submitFailed": "Could not submit request"
       },
       "verifyEmail": {
         "instructions": "We sent a confirmation link to your email. Open it to complete signup.",
@@ -920,7 +1174,7 @@
     },
     "pendingReview": {
       "title": "Your request is under review",
-      "subtitle": "The JID team is reviewing your entity ownership claim",
+      "subtitle": "The JID team is reviewing your verification request",
       "company": "Entity",
       "submittedBy": "Submitted by",
       "businessEmail": "Business email",
@@ -931,20 +1185,20 @@
       "staffNote": "No need to resubmit — we'll notify you when the review is complete."
     },
     "rejected": {
-      "title": "Ownership claim rejected",
+      "title": "Verification request rejected",
       "reason": "Rejection reason",
       "requiredDocuments": "Required documents",
       "blockedUntil": "You can reapply after {date}",
       "canReapplyNow": "You can reapply now",
       "blockedMessage": "Reapplication is blocked until the waiting period ends.",
-      "reapplyCta": "Reapply for ownership"
+      "reapplyCta": "Resubmit verification request"
     },
     "reapply": {
-      "title": "Reapply for ownership",
+      "title": "Resubmit verification request",
       "loading": "Loading...",
       "blocked": "The reapplication window has not opened yet.",
       "back": "Back",
-      "error": "Could not load claim data"
+      "error": "Could not load request details"
     },
     "validation": {
       "fullNameMin": "Name must be at least 2 characters",
@@ -973,13 +1227,17 @@
       "sections": {
         "daily": "Daily",
         "reviews": "Reviews",
+        "directory": "Directory",
         "operations": "Daily operations",
         "me": "Me"
       },
       "items": {
         "dashboard": "Dashboard",
-        "claims": "Claims queue",
+        "verification": "Verification requests",
         "mentorApplications": "Mentor applications",
+        "directory": "Directory",
+        "correctionSuggestions": "Correction suggestions",
+        "profileModeration": "Profiles",
         "announcements": "Announcements",
         "users": "Users",
         "entities": "Entities",
@@ -1026,7 +1284,10 @@
       },
       "actions": {
         "dashboard": "Go to dashboard",
-        "claims": "Open claims queue",
+        "verification": "Open verification queue",
+        "directory": "Directory",
+        "correctionSuggestions": "Correction suggestions",
+        "profileModeration": "Profile moderation",
         "mentorApplications": "Mentor applications",
         "announcements": "Announcements",
         "users": "Users",
@@ -1097,6 +1358,196 @@
         "cta": "Open mentor queue"
       }
     },
+    "verification": {
+      "title": "Verification requests",
+      "subtitle": "Organization verification and mentor applications sorted by SLA",
+      "count": "Showing {count} items (max 100)",
+      "nav": {
+        "myQueue": "My queue",
+        "history": "My history"
+      },
+      "kanban": {
+        "pending": "Pending",
+        "overdue": "Overdue (SLA)",
+        "completedToday": "Completed today",
+        "empty": "No items"
+      },
+      "myQueue": {
+        "title": "My assigned verifications",
+        "subtitle": "Verification requests assigned to you, sorted by SLA",
+        "backToQueue": "← All requests"
+      },
+      "history": {
+        "title": "My review history",
+        "subtitle": "Verification requests you approved or rejected",
+        "backToQueue": "← All requests"
+      }
+    },
+    "verificationReview": {
+      "title": "Review verification — {company}",
+      "loading": "Loading…",
+      "notFound": "Verification request not found",
+      "backToQueue": "Back to queue",
+      "workspace": {
+        "backToQueue": "← Verification queue",
+        "title": "Review {company}",
+        "meta": "Status: {status} · Submitted {submitted}",
+        "assigned": "Assigned",
+        "details": {
+          "title": "Request details",
+          "type": "Verification type",
+          "businessEmail": "Business email",
+          "claimantName": "Applicant name",
+          "claimantTitle": "Job title"
+        },
+        "applicant": {
+          "title": "Applicant",
+          "name": "Name",
+          "role": "Role",
+          "emailVerified": "Email verified",
+          "phoneVerified": "Phone verified",
+          "yes": "Yes",
+          "no": "No",
+          "missing": "Could not load applicant profile"
+        },
+        "directory": {
+          "title": "Directory record (read-only)",
+          "name": "Name",
+          "state": "Entity state",
+          "domains": "Domains",
+          "verified": "Verified",
+          "linkedin": "LinkedIn",
+          "missing": "No linked directory record"
+        },
+        "checklist": {
+          "title": "Review checklist",
+          "businessHint": "Confirm domain match and institutional details.",
+          "universityHint": "University path — domain match is lighter than private sector.",
+          "mentorHint": "Mentor path — lighter checklist (no institutional domain match).",
+          "items": {
+            "domain_match": { "label": "Domain match", "hint": "Registered domains: {domains}" },
+            "entity_exists": { "label": "Entity exists", "hint": "Directory record is present" },
+            "linkedin_verified": { "label": "LinkedIn", "hint": "Review LinkedIn if provided" },
+            "job_reasonable": { "label": "Title plausible", "hint": "Title matches the role" },
+            "no_duplicates": { "label": "No duplicates", "hint": "No other active requests" },
+            "linkedin_role": { "label": "LinkedIn role", "hint": "Matches mentor expertise" },
+            "expertise_plausible": { "label": "Expertise", "hint": "Expertise areas are plausible" },
+            "bio_quality": { "label": "Bio quality", "hint": "Bio is sufficient for review" }
+          }
+        },
+        "decision": {
+          "decisionLabel": "Decision",
+          "options": {
+            "approved": "Approve",
+            "rejected": "Reject"
+          },
+          "reasonLabel": "Review notes",
+          "reasonPlaceholder": "Explain your decision (min 10 characters)",
+          "reasonHint": "Recorded in the audit log",
+          "requiredDocumentsLabel": "Required documents on rejection",
+          "documents": {
+            "commercial_registry": "Commercial registry",
+            "domain_ownership_proof": "Domain ownership proof",
+            "authorization_letter": "Authorization letter"
+          },
+          "selfReviewBlocked": "You cannot review your own request",
+          "checklistRequired": "Complete the checklist before approving",
+          "submit": "Submit decision",
+          "submitting": "Saving…",
+          "success": {
+            "approved": "Verification approved",
+            "rejected": "Verification rejected"
+          }
+        },
+        "alreadyReviewed": "This request was already reviewed ({status})"
+      }
+    },
+    "directory": {
+      "title": "Directory",
+      "subtitle": "Edit reference data (Layer 1) — does not include profile content",
+      "create": "Add record",
+      "search": "Search",
+      "searchPlaceholder": "Search by name or slug…",
+      "count": "{count} records",
+      "empty": "No records found",
+      "edit": "Edit",
+      "table": {
+        "name": "Name",
+        "sector": "Sector",
+        "region": "Region",
+        "active": "Active",
+        "actions": "Actions",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "editor": {
+        "createTitle": "New directory record",
+        "editTitle": "Edit directory record",
+        "boundaryHint": "Directory fields only — never edit business/university profile content here.",
+        "nameEn": "Name (English)",
+        "nameAr": "Name (Arabic)",
+        "entityType": "Entity type",
+        "entityCompany": "Company",
+        "entityUniversity": "University",
+        "ownership": "Ownership",
+        "sector": "Sector",
+        "region": "Region",
+        "domains": "Domains (comma-separated)",
+        "careerPortal": "Career portal URL",
+        "website": "Website URL",
+        "logo": "Logo URL",
+        "isActive": "Active in directory",
+        "none": "—",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "saved": "Saved",
+        "created": "Record created"
+      },
+      "suggestions": {
+        "title": "Correction suggestions",
+        "subtitle": "Owner-submitted directory corrections awaiting staff review",
+        "back": "← Directory",
+        "empty": "No pending suggestions",
+        "field": "Field: {field}",
+        "current": "Current value",
+        "suggested": "Suggested value",
+        "reason": "Owner reason",
+        "reviewNotes": "Review notes",
+        "reviewNotesPlaceholder": "Optional — encouraged for audit quality",
+        "approve": "Approve",
+        "reject": "Reject",
+        "success": {
+          "approved": "Correction approved",
+          "rejected": "Suggestion rejected"
+        }
+      },
+      "profiles": {
+        "title": "Profiles",
+        "subtitle": "Status and suspend/reinstate only — no content editing",
+        "back": "← Directory",
+        "search": "Search",
+        "searchPlaceholder": "Search by name, owner, or directory…",
+        "empty": "No profiles found",
+        "reasonLabel": "Suspension reason",
+        "reasonPlaceholder": "Required when suspending",
+        "reasonRequired": "Suspension reason is required",
+        "suspend": "Suspend",
+        "reinstateDraft": "Reinstate (draft)",
+        "reinstatePublished": "Reinstate (published)",
+        "suspended": "Profile suspended",
+        "reinstated": "Profile reinstated",
+        "audit": "Audit log",
+        "table": {
+          "profile": "Profile",
+          "type": "Type",
+          "status": "Status",
+          "owner": "Owner",
+          "directory": "Directory record",
+          "actions": "Actions"
+        }
+      }
+    },
     "claims": {
       "title": "Claims queue",
       "subtitle": "Pending ownership claims and mentor applications sorted by SLA",
@@ -1111,6 +1562,7 @@
         "assigned": "Assignment",
         "typeOptions": {
           "all": "All types",
+          "business": "Business",
           "company": "Company",
           "university": "University",
           "mentor": "Mentor"
@@ -1926,7 +2378,10 @@
         "dashboard": "Go to dashboard",
         "users": "Manage users",
         "entities": "Manage entities",
-        "claims": "Open claims queue",
+        "verification": "Open verification queue",
+        "directory": "Directory",
+        "correctionSuggestions": "Correction suggestions",
+        "profileModeration": "Profile moderation",
         "inviteStaff": "Invite staff member",
         "audit": "View audit log",
         "emergency": "Emergency console"
@@ -2767,6 +3222,194 @@
         "requestCta": "Request a session",
         "staffPendingTitle": "Staff view — mentor not public",
         "staffPendingMessage": "This mentor profile has status \"{status}\" and is hidden from public visitors."
+      }
+    },
+    "workspace": {
+      "metaFallback": "Profile",
+      "restrictedTitle": "This profile is not public",
+      "restrictedMessage": "The owner chose not to share this profile publicly. Professional details are not available.",
+      "publicPreviewBanner": "You are previewing your profile as others see it",
+      "publicPreviewExit": "Exit public preview",
+      "graduationYear": "Class of {year}",
+      "uploadAvatar": "Change photo",
+      "avatarUploaded": "Photo updated",
+      "avatarUploadFailed": "Could not upload photo",
+      "shareCopied": "Profile link copied",
+      "shareFailed": "Could not share",
+      "actionsAria": "Profile actions",
+      "employmentStatus": {
+        "student": "Student",
+        "expected_graduate": "Expected graduate",
+        "graduate": "Graduate",
+        "alumni": "Alumni"
+      },
+      "actions": {
+        "editProfile": "Edit profile",
+        "share": "Share",
+        "downloadCv": "Download CV",
+        "portfolio": "Portfolio",
+        "save": "Save",
+        "viewPortfolio": "View portfolio"
+      },
+      "sections": {
+        "navAria": "Profile section navigation",
+        "overview": "Overview",
+        "canvas": "Career canvas",
+        "timeline": "Timeline",
+        "projects": "Projects",
+        "experience": "Experience",
+        "skills": "Skills",
+        "education": "Education",
+        "certifications": "Certifications",
+        "mentorship": "Mentorship",
+        "achievements": "Achievements",
+        "portfolio": "Portfolio",
+        "cv": "CV"
+      },
+      "error": {
+        "title": "Could not load profile",
+        "message": "Something went wrong while loading this profile. Try again.",
+        "retry": "Retry"
+      },
+      "ownerStats": {
+        "ariaLabel": "Owner statistics",
+        "activeApplications": "Active applications",
+        "interviewCount": "Interviews",
+        "radarLastUpdated": "Latest radar update",
+        "completionPct": "Profile completion",
+        "projectCount": "Projects",
+        "proofCount": "Work proofs",
+        "openRadar": "Open radar"
+      },
+      "portfolio": {
+        "title": "Portfolio",
+        "emptyOwner": "Add a portfolio link or featured project from the CV builder.",
+        "openFull": "Open full portfolio",
+        "openFullPublic": "Open full portfolio"
+      },
+      "cvBuilder": {
+        "title": "CV builder",
+        "hint": "Your CV is an independent snapshot — open the builder to edit or export.",
+        "openBuilder": "Open CV builder",
+        "exportCv": "Export CV"
+      },
+      "overview": {
+        "title": "Overview",
+        "edit": "Edit",
+        "emptyPrompt": "Write a short summary about yourself and your career path",
+        "charCount": "{count} / {max}"
+      },
+      "canvas": {
+        "title": "Career canvas summary",
+        "unavailable": "Full Career Canvas is not live yet — this card shows a summary from your profile data.",
+        "direction": "Declared direction",
+        "aspiration": "Aspiration",
+        "highlights": "Selected highlights",
+        "fullCanvasTodo": "Full Career Canvas will open when the module ships."
+      },
+      "timeline": {
+        "title": "Career timeline",
+        "empty": "No timeline events yet.",
+        "emptyOwner": "Add education and experience in the CV builder to populate your timeline.",
+        "showMore": "Show more",
+        "showLess": "Show less",
+        "proof": "Proof",
+        "evidenceUnavailable": "Evidence Vault is not available yet — external proof cannot be linked.",
+        "kinds": {
+          "education": "Education",
+          "experience": "Experience",
+          "application": "Application",
+          "mentorship": "Mentorship",
+          "profile_milestone": "Milestone"
+        }
+      },
+      "projects": {
+        "title": "Featured projects",
+        "empty": "No projects yet — add them in the CV builder.",
+        "emptyOwner": "Add your first project in the CV builder",
+        "viewAll": "View all",
+        "role": "Role",
+        "date": "Date",
+        "proof": "Proof",
+        "evidenceUnavailable": "Evidence Vault is not available yet.",
+        "openLink": "Open link"
+      },
+      "experience": {
+        "title": "Experience",
+        "edit": "Edit",
+        "empty": "No experience added.",
+        "emptyOwner": "Add your first role in the CV builder",
+        "evidenceUnavailable": "Evidence Vault is not available yet."
+      },
+      "education": {
+        "title": "Education",
+        "edit": "Edit",
+        "emptyOwner": "Add your education in the CV builder"
+      },
+      "skills": {
+        "title": "Skills",
+        "edit": "Edit",
+        "empty": "No skills listed.",
+        "emptyOwner": "Add skills from profile edit",
+        "backedByExperience": "Backed by experience",
+        "backedByProjects": "Backed by project",
+        "proficiency": {
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "advanced": "Advanced",
+          "expert": "Expert"
+        }
+      },
+      "certifications": {
+        "title": "Certifications",
+        "edit": "Edit",
+        "empty": "No certifications added.",
+        "emptyOwner": "Add certifications in the CV builder",
+        "credentialLink": "Credential link",
+        "evidenceUnavailable": "Evidence Vault is not available yet."
+      },
+      "mentorship": {
+        "title": "Mentorship",
+        "empty": "No mentorship sessions recorded.",
+        "emptyOwner": "No mentorship sessions yet — request mentorship from the mentors directory.",
+        "sessionCount": "Completed sessions",
+        "focusAreas": "Guidance areas",
+        "goals": "Career goals",
+        "unnamedMentor": "Mentor"
+      },
+      "achievements": {
+        "title": "Achievements",
+        "empty": "No badges yet.",
+        "emptyOwner": "Complete platform milestones to earn badges",
+        "viewOnTimeline": "View on timeline"
+      },
+      "rail": {
+        "completionTitle": "Profile completion",
+        "completionComplete": "Your profile is complete.",
+        "missing": {
+          "about_me": "Add a professional summary",
+          "skills": "Add your skills",
+          "headline": "Add a headline",
+          "university_id": "Add your university",
+          "college_id": "Add your college",
+          "target_sectors": "Set target sectors",
+          "avatar": "Add a profile photo",
+          "linkedin": "Add your LinkedIn URL"
+        },
+        "previewTitle": "Public profile preview",
+        "previewLink": "Preview how others see your profile",
+        "graduateBadge": {
+          "title": "Graduate badge",
+          "directoryToggle": "Show in university directory",
+          "earnHint": "Complete an active mentorship session to earn this badge.",
+          "saved": "Badge settings updated",
+          "saveFailed": "Could not save settings",
+          "status": {
+            "active": "Visible in directory",
+            "hidden": "Hidden from directory",
+            "needsReview": "Needs a completed mentorship session"
+          }
+        }
       }
     },
     "edit": {
@@ -4120,6 +4763,27 @@
       "skipFailed": "Could not save your preference. Please try again.",
       "saveFailed": "Could not save. Please try again.",
       "completeFailed": "Could not complete onboarding. Please try again."
+    }
+  },
+  "terminology": {
+    "directory": "Directory",
+    "companyDirectory": "Company Directory",
+    "universityDirectory": "University Directory",
+    "profile": "Profile",
+    "businessProfile": "Business Profile",
+    "universityProfile": "University Profile",
+    "tiers": {
+      "normal": "Normal",
+      "plus": "Plus"
+    },
+    "productNames": {
+      "careerCanvas": "Career Canvas",
+      "impactDrops": "Impact Drops",
+      "evidenceVault": "Evidence Vault",
+      "careerTimeline": "Career Timeline",
+      "graduateBadge": "Graduate Badge",
+      "lammah": "Lammah",
+      "abhathli": "Search-For-Me"
     }
   }
 }

@@ -72,7 +72,7 @@ export function ManageSubscription({ className }: ManageSubscriptionProps) {
         <p className="mt-2 font-arabic text-sm leading-relaxed text-muted-foreground">{t('empty')}</p>
         <Button
           type="button"
-          className="mt-4 bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90"
+          className="mt-4 bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
           onClick={() => setUpgradeOpen(true)}
         >
           {t('upgradeCta')}
@@ -99,7 +99,7 @@ export function ManageSubscription({ className }: ManageSubscriptionProps) {
           <h2 className="font-arabic text-base font-semibold text-foreground">{t('title')}</h2>
           <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
-        <span className="inline-flex items-center rounded-full bg-jid-gold px-2.5 py-0.5 font-arabic text-xs font-semibold text-jid-olive">
+        <span className="inline-flex items-center rounded-full bg-accent px-2.5 py-0.5 font-arabic text-xs font-semibold text-primary">
           بلس
         </span>
       </div>

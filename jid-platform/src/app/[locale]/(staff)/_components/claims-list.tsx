@@ -34,7 +34,7 @@ export function ClaimsList({ claims, loading = false }: ClaimsListProps) {
         return (
           <li key={claim.id}>
             <Link
-              href={`/staff/claims/${claim.id}`}
+              href={`/staff/verification/${claim.id}`}
               className="flex flex-col gap-2 p-4 transition-colors hover:bg-background/40 sm:flex-row sm:items-center sm:justify-between"
             >
               <div>

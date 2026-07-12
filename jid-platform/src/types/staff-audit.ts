@@ -2,6 +2,8 @@ export const STAFF_AUDIT_PAGE_SIZE = 200
 
 export type StaffAuditFilters = {
   actionType?: string
+  entityType?: string
+  entityId?: string
   from?: string
   to?: string
   before?: string

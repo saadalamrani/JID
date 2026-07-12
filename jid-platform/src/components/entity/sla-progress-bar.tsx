@@ -12,16 +12,16 @@ export function SlaProgressBar({ percent, overdue, label }: SlaProgressBarProps)
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between text-sm">
-        <span className="text-jid-ink/70">{label}</span>
-        <span className={cn('font-medium', overdue ? 'text-red-600' : 'text-jid-olive')}>
+        <span className="text-foreground/70">{label}</span>
+        <span className={cn('font-medium', overdue ? 'text-red-600' : 'text-primary')}>
           {clamped}%
         </span>
       </div>
-      <div className="h-3 w-full overflow-hidden rounded-full bg-jid-line">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-border">
         <div
           className={cn(
             'h-full rounded-full transition-all duration-500',
-            overdue ? 'bg-red-500' : 'bg-jid-gold',
+            overdue ? 'bg-red-500' : 'bg-accent',
           )}
           style={{ width: `${clamped}%` }}
         />

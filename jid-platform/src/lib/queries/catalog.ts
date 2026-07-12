@@ -5,12 +5,14 @@ import { throwQueryError } from '@/lib/supabase/offline-error'
 import type {
   CatalogCompaniesResult,
   CatalogFilters,
+  CatalogLookupOption,
   CatalogRegionRef,
   CatalogSectorRef,
   Company,
   CompanyCardData,
   LinkStatus,
   OwnershipType,
+  PublishedProfileProjection,
   SortOption,
 } from '@/types/catalog'
 import { DEFAULT_CATALOG_FILTERS } from '@/types/catalog'
@@ -23,7 +25,7 @@ function asUntyped(client: SupabaseClient<Database>): UntypedClient {
   return client as unknown as UntypedClient
 }
 
-/** Explicit public list projection (Section 5.3). */
+/** Explicit public list projection (Section 5.3) + published profile LEFT JOIN. */
 const CATALOG_LIST_SELECT = `
   id,
   slug,
@@ -35,8 +37,11 @@ const CATALOG_LIST_SELECT = `
   link_status,
   last_audit_at,
   manual_order,
-  sector:sectors(slug, name_en, name_ar),
-  region:regions(slug, name_en, name_ar)
+  entity_type,
+  sector:sectors!sector_id(slug, name_en, name_ar),
+  region:regions!region_id(slug, name_en, name_ar),
+  business_profiles(id, display_name_ar, tagline_ar, about_ar, status),
+  university_profiles(id, display_name_ar, about_ar, status)
 ` as const
 
 const CATALOG_DETAIL_SELECT = `
@@ -64,12 +69,25 @@ const CATALOG_DETAIL_SELECT = `
   tagline_ar,
   founded_year,
   employee_count_range,
-  sector:sectors(slug, name_en, name_ar),
-  region:regions(slug, name_en, name_ar)
+  description_ar,
+  sector_id,
+  region_id,
+  sector:sectors!sector_id(slug, name_en, name_ar),
+  region:regions!region_id(slug, name_en, name_ar),
+  business_profiles(id, display_name_ar, tagline_ar, about_ar, status),
+  university_profiles(id, display_name_ar, about_ar, status)
 ` as const
 
 type SectorRow = { slug: string; name_en: string; name_ar: string | null } | null
 type RegionRow = { slug: string; name_en: string; name_ar: string | null } | null
+
+type ProfileEmbedRow = {
+  id: string
+  display_name_ar: string
+  tagline_ar?: string | null
+  about_ar?: string | null
+  status: string
+}
 
 type CatalogListRow = {
   id: string
@@ -82,8 +100,39 @@ type CatalogListRow = {
   link_status: LinkStatus
   last_audit_at: string | null
   manual_order: number
+  entity_type: string
   sector: SectorRow
   region: RegionRow
+  business_profiles: ProfileEmbedRow | ProfileEmbedRow[] | null
+  university_profiles: ProfileEmbedRow | ProfileEmbedRow[] | null
+}
+
+export function resolvePublishedProfile(
+  entityType: string,
+  businessProfiles: ProfileEmbedRow | ProfileEmbedRow[] | null | undefined,
+  universityProfiles: ProfileEmbedRow | ProfileEmbedRow[] | null | undefined,
+): PublishedProfileProjection {
+  const businessProfile = normalizeEmbed(businessProfiles)
+  const universityProfile = normalizeEmbed(universityProfiles)
+  const profile = entityType === 'university' ? universityProfile : businessProfile
+
+  if (profile?.id && profile.status === 'published') {
+    return {
+      hasPublishedProfile: true,
+      profile_id: profile.id,
+      profile_display_name_ar: profile.display_name_ar,
+      profile_tagline_ar: profile.tagline_ar ?? null,
+      profile_about_ar: profile.about_ar ?? null,
+    }
+  }
+
+  return {
+    hasPublishedProfile: false,
+    profile_id: null,
+    profile_display_name_ar: null,
+    profile_tagline_ar: null,
+    profile_about_ar: null,
+  }
 }
 
 function mapSectorRef(row: SectorRow): CatalogSectorRef | null {
@@ -99,6 +148,11 @@ function mapRegionRef(row: RegionRow): CatalogRegionRef | null {
 function mapCompanyCard(row: CatalogListRow): CompanyCardData {
   const sector = normalizeEmbed(row.sector)
   const region = normalizeEmbed(row.region)
+  const published = resolvePublishedProfile(
+    row.entity_type,
+    row.business_profiles,
+    row.university_profiles,
+  )
 
   return {
     id: row.id,
@@ -113,6 +167,10 @@ function mapCompanyCard(row: CatalogListRow): CompanyCardData {
     link_status: row.link_status ?? 'pending',
     last_audit_at: row.last_audit_at,
     manual_order: row.manual_order ?? 0,
+    hasPublishedProfile: published.hasPublishedProfile,
+    profile_id: published.profile_id,
+    profile_display_name_ar: published.profile_display_name_ar,
+    profile_tagline_ar: published.profile_tagline_ar,
   }
 }
 
@@ -231,36 +289,31 @@ export async function fetchCompanies(
   }
 }
 
-export async function fetchCompanyBySlug(slug: string): Promise<Company | null> {
-  const supabase = await createClient()
-  const client = asUntyped(supabase)
-
-  const { data, error } = await client
-    .from('companies')
-    .select(CATALOG_DETAIL_SELECT)
-    .eq('slug', slug)
-    .eq('is_active', true)
-    .maybeSingle()
-
-  if (error) throwQueryError(error)
-  if (!data) return null
-
-  const row = data as unknown as CatalogListRow & {
-    entity_type: string
-    entity_state: string
-    is_active: boolean
-    is_verified: boolean
-    city: string | null
-    cover_url: string | null
-    website_url: string | null
-    linkedin_url: string | null
-    twitter_url: string | null
-    broken_since: string | null
-    tagline_en: string | null
-    tagline_ar: string | null
-    founded_year: number | null
-    employee_count_range: string | null
-  }
+function mapCompanyDetail(row: CatalogListRow & {
+  entity_state: string
+  is_active: boolean
+  is_verified: boolean
+  city: string | null
+  cover_url: string | null
+  website_url: string | null
+  linkedin_url: string | null
+  twitter_url: string | null
+  broken_since: string | null
+  tagline_en: string | null
+  tagline_ar: string | null
+  founded_year: number | null
+  employee_count_range: string | null
+  description_ar: string | null
+  sector_id: string | null
+  region_id: string | null
+}): Company {
+  const sector = normalizeEmbed(row.sector)
+  const region = normalizeEmbed(row.region)
+  const published = resolvePublishedProfile(
+    row.entity_type,
+    row.business_profiles,
+    row.university_profiles,
+  )
 
   return {
     id: row.id,
@@ -283,11 +336,103 @@ export async function fetchCompanyBySlug(slug: string): Promise<Company | null> 
     last_audit_at: row.last_audit_at,
     broken_since: row.broken_since,
     manual_order: row.manual_order ?? 0,
-    sector: mapSectorRef(normalizeEmbed(row.sector)),
-    region: mapRegionRef(normalizeEmbed(row.region)),
+    sector: mapSectorRef(sector),
+    region: mapRegionRef(region),
+    sector_id: row.sector_id,
+    region_id: row.region_id,
     tagline_en: row.tagline_en,
     tagline_ar: row.tagline_ar,
     founded_year: row.founded_year,
     employee_count_range: row.employee_count_range,
+    description_ar: row.description_ar,
+    ...published,
   }
+}
+
+export async function fetchCompanyBySlug(slug: string): Promise<Company | null> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+
+  const { data, error } = await client
+    .from('companies')
+    .select(CATALOG_DETAIL_SELECT)
+    .eq('slug', slug)
+    .eq('is_active', true)
+    .maybeSingle()
+
+  if (error) throwQueryError(error)
+  if (!data) return null
+
+  return mapCompanyDetail(data as unknown as CatalogListRow & {
+    entity_state: string
+    is_active: boolean
+    is_verified: boolean
+    city: string | null
+    cover_url: string | null
+    website_url: string | null
+    linkedin_url: string | null
+    twitter_url: string | null
+    broken_since: string | null
+    tagline_en: string | null
+    tagline_ar: string | null
+    founded_year: number | null
+    employee_count_range: string | null
+    description_ar: string | null
+    sector_id: string | null
+    region_id: string | null
+  })
+}
+
+/** True when the session user owns a Layer-3 profile anchored to this directory row. */
+export async function fetchViewerOwnsDirectory(directoryId: string): Promise<boolean> {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) return false
+
+  const client = asUntyped(supabase)
+
+  const { data: businessProfile } = await client
+    .from('business_profiles')
+    .select('id')
+    .eq('directory_id', directoryId)
+    .eq('owner_user_id', user.id)
+    .maybeSingle()
+
+  if (businessProfile) return true
+
+  const { data: universityProfile } = await client
+    .from('university_profiles')
+    .select('id')
+    .eq('directory_id', directoryId)
+    .eq('owner_user_id', user.id)
+    .maybeSingle()
+
+  return Boolean(universityProfile)
+}
+
+export async function fetchCatalogSectorOptions(): Promise<CatalogLookupOption[]> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+  const { data, error } = await client
+    .from('sectors')
+    .select('id, slug, name_en, name_ar')
+    .order('display_order', { ascending: true })
+
+  if (error) throwQueryError(error)
+  return (data ?? []) as CatalogLookupOption[]
+}
+
+export async function fetchCatalogRegionOptions(): Promise<CatalogLookupOption[]> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+  const { data, error } = await client
+    .from('regions')
+    .select('id, slug, name_en, name_ar')
+    .order('name_ar', { ascending: true })
+
+  if (error) throwQueryError(error)
+  return (data ?? []) as CatalogLookupOption[]
 }

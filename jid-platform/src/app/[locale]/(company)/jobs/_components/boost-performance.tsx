@@ -30,7 +30,7 @@ export function BoostPerformance({ performance, className }: BoostPerformancePro
     <section className={cn('rounded-xl border border-border/60 bg-card p-4', className)}>
       <header className="mb-3">
         <h3 className="font-arabic text-sm font-semibold text-foreground">{t('title')}</h3>
-        <p className="mt-1 font-arabic text-sm text-jid-olive">{liftLabel}</p>
+        <p className="mt-1 font-arabic text-sm text-primary">{liftLabel}</p>
       </header>
 
       {recent.length === 0 ? (

@@ -13,7 +13,7 @@ export type ClaimQueueItem = {
   claimant_name: string
   claimant_title: string | null
   status: string
-  claim_type: 'company' | 'university'
+  claim_type: 'business' | 'university'
   created_at: string
   reviewed_at: string | null
   company_domains?: string[]
@@ -32,15 +32,27 @@ export async function fetchClaimsQueue(supabase: Client): Promise<{
   stats: ClaimsQueueStats
 }> {
   const { data: claims, error } = await supabase
-    .from('claim_requests')
+    .from('verification_requests')
     .select(
-      'id, user_id, company_id, company_name, business_email, claimant_name, claimant_title, status, claim_type, created_at, reviewed_at',
+      'id, applicant_user_id, directory_id, company_name, business_email, claimant_name, claimant_title, status, verification_type, created_at, reviewed_at',
     )
     .order('created_at', { ascending: true })
 
   if (error) throw new Error(error.message)
 
-  const rows = (claims ?? []) as ClaimQueueItem[]
+  const rows = (claims ?? []).map((row) => ({
+    id: row.id,
+    user_id: row.applicant_user_id,
+    company_id: row.directory_id,
+    company_name: row.company_name,
+    business_email: row.business_email,
+    claimant_name: row.claimant_name,
+    claimant_title: row.claimant_title,
+    status: row.status,
+    claim_type: row.verification_type as 'business' | 'university',
+    created_at: row.created_at,
+    reviewed_at: row.reviewed_at,
+  })) as ClaimQueueItem[]
   const pendingRows = rows.filter((row) =>
     (PENDING_CLAIM_STATUSES as readonly string[]).includes(row.status),
   )
@@ -66,9 +78,9 @@ export async function fetchClaimById(
   claimId: string,
 ): Promise<ClaimQueueItem | null> {
   const { data: claim, error } = await supabase
-    .from('claim_requests')
+    .from('verification_requests')
     .select(
-      'id, user_id, company_id, company_name, business_email, claimant_name, claimant_title, status, claim_type, created_at, reviewed_at',
+      'id, applicant_user_id, directory_id, company_name, business_email, claimant_name, claimant_title, status, verification_type, created_at, reviewed_at',
     )
     .eq('id', claimId)
     .maybeSingle()
@@ -79,11 +91,21 @@ export async function fetchClaimById(
   const { data: company } = await supabase
     .from('companies')
     .select('domains')
-    .eq('id', claim.company_id)
+    .eq('id', claim.directory_id)
     .maybeSingle()
 
   return {
-    ...(claim as ClaimQueueItem),
+    id: claim.id,
+    user_id: claim.applicant_user_id,
+    company_id: claim.directory_id,
+    company_name: claim.company_name,
+    business_email: claim.business_email,
+    claimant_name: claim.claimant_name,
+    claimant_title: claim.claimant_title,
+    status: claim.status,
+    claim_type: claim.verification_type as 'business' | 'university',
+    created_at: claim.created_at,
+    reviewed_at: claim.reviewed_at,
     company_domains: company?.domains ?? [],
   }
 }

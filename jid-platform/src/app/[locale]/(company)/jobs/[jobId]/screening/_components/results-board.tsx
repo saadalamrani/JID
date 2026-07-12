@@ -89,7 +89,7 @@ export function ResultsBoard({ jobId, results, passThreshold, onRefresh }: Resul
                 <>
                   <div className="mt-3 h-2 overflow-hidden rounded-full bg-muted">
                     <div
-                      className="h-full rounded-full bg-jid-olive transition-all"
+                      className="h-full rounded-full bg-primary transition-all"
                       style={{ width: `${Math.min(100, row.composite_score ?? 0)}%` }}
                     />
                   </div>

@@ -105,7 +105,7 @@ export function TemplateStudio({ companyId, className }: TemplateStudioProps) {
             className={cn(
               'rounded-md border px-3 py-1.5 font-arabic text-xs transition-colors',
               activeKind === kind
-                ? 'border-jid-gold bg-jid-gold/20 text-jid-olive'
+                ? 'border-accent bg-accent/20 text-primary'
                 : 'border-border text-muted-foreground hover:bg-muted',
             )}
           >
@@ -136,13 +136,13 @@ export function TemplateStudio({ companyId, className }: TemplateStudioProps) {
             />
           </div>
           {isLocked ? (
-            <p className="font-arabic text-xs text-jid-ink-soft">
+            <p className="font-arabic text-xs text-muted-foreground">
               قالب الاعتذار يتبع النبرة المهنية المعتمدة من جِد — لا يمكن تعديله حراً.
             </p>
           ) : null}
           <Button
             type="button"
-            className="bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90"
+            className="bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
             disabled={saving || isLocked}
             onClick={() => void handleSave()}
           >

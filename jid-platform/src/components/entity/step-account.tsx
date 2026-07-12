@@ -83,10 +83,10 @@ export function StepAccount({ defaultValues, submitting, onSubmit }: StepAccount
           control={form.control}
           name="accept_terms"
           render={({ field }) => (
-            <label className="flex items-start gap-2 text-sm text-jid-ink/80">
+            <label className="flex items-start gap-2 text-sm text-foreground/80">
               <input
                 type="checkbox"
-                className="mt-1 h-4 w-4 rounded border-jid-line text-jid-olive focus:ring-jid-gold"
+                className="mt-1 h-4 w-4 rounded border-border text-primary focus:ring-ring"
                 disabled={submitting}
                 checked={field.value === true}
                 onChange={(event) => field.onChange(event.target.checked)}
@@ -99,7 +99,7 @@ export function StepAccount({ defaultValues, submitting, onSubmit }: StepAccount
         />
       </FormField>
 
-      <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
         {submitting ? t('submitting') : t('submit')}
       </Button>
     </form>

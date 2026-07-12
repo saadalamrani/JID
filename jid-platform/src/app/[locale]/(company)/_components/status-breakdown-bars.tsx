@@ -34,7 +34,7 @@ export function StatusBreakdownBars({ data }: StatusBreakdownBarsProps) {
   const total = entries.reduce((sum, [, value]) => sum + Number(value), 0)
 
   if (!entries.length || total === 0) {
-    return <p className="text-sm text-jid-ink/60">لا توجد بيانات حالة دراسية حالياً.</p>
+    return <p className="text-sm text-foreground/60">لا توجد بيانات حالة دراسية حالياً.</p>
   }
 
   return (
@@ -45,11 +45,11 @@ export function StatusBreakdownBars({ data }: StatusBreakdownBarsProps) {
         return (
           <div key={status} className="space-y-1">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-jid-ink">{formatLabel(status)}</span>
-              <span className="font-medium text-jid-ink/70">{value}</span>
+              <span className="text-foreground">{formatLabel(status)}</span>
+              <span className="font-medium text-foreground/70">{value}</span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-jid-beige">
-              <div className="h-full rounded-full bg-jid-olive" style={{ width: `${pct}%` }} />
+            <div className="h-2 overflow-hidden rounded-full bg-background">
+              <div className="h-full rounded-full bg-primary" style={{ width: `${pct}%` }} />
             </div>
           </div>
         )

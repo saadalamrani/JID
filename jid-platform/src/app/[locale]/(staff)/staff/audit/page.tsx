@@ -24,6 +24,8 @@ export default async function StaffAuditPage({ searchParams }: StaffAuditPagePro
 
   const filters: StaffAuditFilters = {
     actionType: readParam(params.action_type),
+    entityType: readParam(params.entity_type),
+    entityId: readParam(params.entity_id),
     from: readParam(params.from),
     to: readParam(params.to),
     before: readParam(params.before),
@@ -35,6 +37,8 @@ export default async function StaffAuditPage({ searchParams }: StaffAuditPagePro
   if (filters.actionType && filters.actionType !== 'all') {
     nextParams.set('action_type', filters.actionType)
   }
+  if (filters.entityType) nextParams.set('entity_type', filters.entityType)
+  if (filters.entityId) nextParams.set('entity_id', filters.entityId)
   if (filters.from) nextParams.set('from', filters.from)
   if (filters.to) nextParams.set('to', filters.to)
   if (result.nextBefore) nextParams.set('before', result.nextBefore)

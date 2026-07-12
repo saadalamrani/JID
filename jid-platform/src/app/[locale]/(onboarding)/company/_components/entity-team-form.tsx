@@ -53,7 +53,7 @@ export function EntityTeamForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" noValidate>
-      <p className="text-sm text-jid-ink/65">{t('intro')}</p>
+      <p className="text-sm text-foreground/65">{t('intro')}</p>
 
       <div className="space-y-3">
         {Array.from({ length: rowCount }, (_, index) => (
@@ -111,7 +111,7 @@ export function EntityTeamForm() {
         </Button>
       ) : null}
 
-      <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={isPending}>
+      <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={isPending}>
         {isPending ? t('saving') : t('finish')}
       </Button>
     </form>

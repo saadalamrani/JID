@@ -27,7 +27,7 @@ export default function LoginMfaPage() {
     <Suspense
       fallback={
         <AuthShell title={t('title')} subtitle={t('subtitle')}>
-          <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+          <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
         </AuthShell>
       }
     >
@@ -154,7 +154,7 @@ function LoginMfaPageContent() {
   if (loading) {
     return (
       <AuthShell title={t('title')} subtitle={t('subtitle')}>
-        <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+        <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
       </AuthShell>
     )
   }
@@ -170,17 +170,17 @@ function LoginMfaPageContent() {
   return (
     <AuthShell title={t('title')} subtitle={t('subtitle')}>
       <div className="space-y-6">
-        <p className="text-center text-sm text-jid-ink/70">{t('prompt')}</p>
+        <p className="text-center text-sm text-foreground/70">{t('prompt')}</p>
         <OtpInput value={code} onChange={setCode} disabled={verifying} autoFocus />
         <Button
           type="button"
-          className="w-full bg-jid-olive hover:bg-jid-olive/90"
+          className="w-full bg-primary hover:bg-primary/90"
           disabled={verifying || code.length !== 6}
           onClick={handleVerify}
         >
           {verifying ? t('verifying') : t('verify')}
         </Button>
-        <p className="text-center text-xs text-jid-ink/50">
+        <p className="text-center text-xs text-muted-foreground">
           {t('redirectHint', { portal: portalHome })}
         </p>
       </div>

@@ -15,7 +15,9 @@ export const STAFF_BADGE_TYPES = [
 export type StaffBadgeType = (typeof STAFF_BADGE_TYPES)[number]
 
 export type StaffBadgeCounts = {
-  /** Pending claims in queue (all staff). */
+  /** Pending verification requests in queue (all staff). */
+  verification: number
+  /** @deprecated alias for verification */
   claims: number
   pending: number
   /** Claims assigned to the signed-in staff member. */
@@ -26,6 +28,7 @@ export type StaffBadgeCounts = {
   open_flags: number
   lammahHidden: number
   lammah_hidden: number
+  correctionSuggestions: number
   notifications: number
 }
 
@@ -49,7 +52,7 @@ export async function getStaffBadgeCount(
   switch (type) {
     case 'assigned': {
       const { count, error } = await supabase
-        .from('claim_requests')
+        .from('verification_requests')
         .select('id', { count: 'exact', head: true })
         .eq('assigned_staff_id', actorId)
         .in('status', [...PENDING_CLAIM_STATUSES])
@@ -58,7 +61,7 @@ export async function getStaffBadgeCount(
     }
     case 'pending': {
       const { count, error } = await supabase
-        .from('claim_requests')
+        .from('verification_requests')
         .select('id', { count: 'exact', head: true })
         .in('status', [...PENDING_CLAIM_STATUSES])
       if (error) throw new Error(error.message)
@@ -93,20 +96,32 @@ export async function getStaffBadgeCount(
   }
 }
 
+async function getCorrectionSuggestionsCount(supabase: Client): Promise<number> {
+  const { count, error } = await supabase
+    .from('directory_correction_suggestions')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'pending')
+  if (error) throw new Error(error.message)
+  return count ?? 0
+}
+
 export async function getStaffBadgeCounts(
   supabase: Client,
   actorId: string,
 ): Promise<StaffBadgeCounts> {
-  const [pending, assigned, openFlags, mentorApps, lammahHidden] = await Promise.all([
+  const [pending, assigned, openFlags, mentorApps, lammahHidden, correctionSuggestions] =
+    await Promise.all([
     getStaffBadgeCount(supabase, 'pending', actorId),
     getStaffBadgeCount(supabase, 'assigned', actorId),
     getStaffBadgeCount(supabase, 'open_flags', actorId),
     getStaffBadgeCount(supabase, 'mentor_apps', actorId),
     getStaffBadgeCount(supabase, 'lammah_hidden', actorId),
+    getCorrectionSuggestionsCount(supabase),
   ])
 
   return {
     claims: pending,
+    verification: pending,
     pending,
     assigned,
     mentorApplications: mentorApps,
@@ -115,6 +130,7 @@ export async function getStaffBadgeCounts(
     open_flags: openFlags,
     lammahHidden,
     lammah_hidden: lammahHidden,
+    correctionSuggestions,
     notifications: 0,
   }
 }

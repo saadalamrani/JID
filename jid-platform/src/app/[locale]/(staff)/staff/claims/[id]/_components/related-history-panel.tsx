@@ -26,7 +26,7 @@ export function RelatedHistoryPanel({ items }: RelatedHistoryPanelProps) {
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0">
                   <Link
-                    href={`/staff/claims/${item.id}`}
+                    href={`/staff/verification/${item.id}`}
                     className="truncate text-sm font-medium text-primary hover:underline"
                   >
                     {item.company_name}

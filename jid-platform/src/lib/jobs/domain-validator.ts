@@ -29,10 +29,10 @@ export type DomainMatchResult =
   | { valid: false; message: string }
 
 /**
- * Section 6.5 — validate external_apply_url against company.domains.
- * Uses the same subdomain rule as entity email validation (endsWith('.' + d)).
+ * Section 6.5 — validate external_apply_url against an approved domain set.
+ * Client-side preview uses validateDomainMatchForDomains with pre-fetched trustedDomains.
  */
-export function validateDomainMatch(
+export function validateDomainMatchForDomains(
   externalApplyUrl: string,
   companyDomains: string[],
   locale: 'ar' | 'en' = 'ar',
@@ -60,3 +60,6 @@ export function validateDomainMatch(
 
   return { valid: false, message }
 }
+
+/** @deprecated Use validateDomainMatchForDomains — kept for scripts/tests. */
+export const validateDomainMatch = validateDomainMatchForDomains

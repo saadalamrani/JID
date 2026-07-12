@@ -7,16 +7,16 @@ import type { RelatedClaimHistoryItem } from '@/lib/staff/claim-review-shared'
 
 export type { RelatedClaimHistoryItem } from '@/lib/staff/claim-review-shared'
 
-export type ClaimDetail = {
+export type VerificationDetail = {
   id: string
-  user_id: string
-  company_id: string
+  applicant_user_id: string
+  directory_id: string
   company_name: string
   business_email: string
   claimant_name: string
   claimant_title: string | null
   status: string
-  claim_type: 'company' | 'university'
+  verification_type: 'business' | 'university'
   created_at: string
   reviewed_at: string | null
   review_notes: string | null
@@ -26,7 +26,7 @@ export type ClaimDetail = {
   sla_due_at: string | null
 }
 
-export type EntityDetail = {
+export type DirectoryDetail = {
   id: string
   name: string
   name_ar: string | null
@@ -34,12 +34,11 @@ export type EntityDetail = {
   entity_state: string
   domains: string[]
   is_verified: boolean
-  claimed_by: string | null
   linkedin_url: string | null
   website_url: string | null
 }
 
-export type ClaimantProfile = {
+export type ApplicantProfile = {
   id: string
   full_name: string | null
   role: string
@@ -47,103 +46,156 @@ export type ClaimantProfile = {
   email_verified_at: string | null
 }
 
-export type ClaimReviewWorkspaceData = {
-  claim: ClaimDetail
-  entity: EntityDetail | null
-  claimant: ClaimantProfile | null
+export type VerificationReviewWorkspaceData = {
+  verification: VerificationDetail
+  directory: DirectoryDetail | null
+  applicant: ApplicantProfile | null
   relatedHistory: RelatedClaimHistoryItem[]
   currentUserId: string
   isSelfReview: boolean
 }
 
-/** Auto-assign on first view when unassigned (RPC uses row lock; safe for concurrent opens). */
-export async function assignClaimToSelfIfUnassigned(
-  claimId: string,
+/** @deprecated Use VerificationReviewWorkspaceData */
+export type ClaimReviewWorkspaceData = VerificationReviewWorkspaceData & {
+  claim: VerificationDetail & {
+    user_id: string
+    company_id: string
+    claim_type: 'business' | 'university'
+  }
+  entity: DirectoryDetail | null
+  claimant: ApplicantProfile | null
+}
+
+async function assignVerificationToSelfIfUnassigned(
+  verificationId: string,
   assignedStaffId: string | null,
+  staffId: string,
 ): Promise<void> {
   if (assignedStaffId) return
 
   const supabase = await createClient()
-  const { error } = await supabase.rpc('assign_claim_to_self', { p_claim_id: claimId })
+  const now = new Date().toISOString()
+  const { error } = await supabase
+    .from('verification_requests')
+    .update({
+      assigned_staff_id: staffId,
+      first_viewed_at: now,
+      first_viewed_by: staffId,
+      updated_at: now,
+    })
+    .eq('id', verificationId)
+    .is('assigned_staff_id', null)
+
   if (error) {
-    console.warn('[assign_claim_to_self]', error.message)
+    console.warn('[assign_verification_to_self]', error.message)
   }
 }
 
-export async function fetchClaimReviewWorkspace(
-  claimId: string,
-): Promise<ClaimReviewWorkspaceData | null> {
+export async function fetchVerificationReviewWorkspace(
+  verificationId: string,
+): Promise<VerificationReviewWorkspaceData | null> {
   const staffProfile = await requireStaffShellAccess()
   const supabase = await createClient()
 
-  const { data: claimRow, error: claimError } = await supabase
-    .from('claim_requests')
+  const { data: verificationRow, error: verificationError } = await supabase
+    .from('verification_requests')
     .select(
-      'id, user_id, company_id, company_name, business_email, claimant_name, claimant_title, status, claim_type, created_at, reviewed_at, review_notes, rejection_reason, required_documents, assigned_staff_id, sla_due_at',
+      'id, applicant_user_id, directory_id, company_name, business_email, claimant_name, claimant_title, status, verification_type, created_at, reviewed_at, review_notes, rejection_reason, required_documents, assigned_staff_id, sla_due_at',
     )
-    .eq('id', claimId)
+    .eq('id', verificationId)
     .maybeSingle()
 
-  if (claimError) throw new Error(claimError.message)
-  if (!claimRow) return null
+  if (verificationError) throw new Error(verificationError.message)
+  if (!verificationRow) return null
 
-  const claim = claimRow as ClaimDetail
+  const verification = verificationRow as VerificationDetail
 
-  await assignClaimToSelfIfUnassigned(claim.id, claim.assigned_staff_id)
+  await assignVerificationToSelfIfUnassigned(
+    verification.id,
+    verification.assigned_staff_id,
+    staffProfile.id,
+  )
 
-  const [{ data: entityRow }, claimant, relatedHistory, assignmentRow] = await Promise.all([
+  const [{ data: directoryRow }, applicant, relatedHistory, assignmentRow] = await Promise.all([
     supabase
       .from('companies')
       .select(
-        'id, name, name_ar, entity_type, entity_state, domains, is_verified, claimed_by, linkedin_url, website_url',
+        'id, name, name_ar, entity_type, entity_state, domains, is_verified, linkedin_url, website_url',
       )
-      .eq('id', claim.company_id)
+      .eq('id', verification.directory_id)
       .maybeSingle(),
-    fetchProfileForUser(supabase, claim.user_id),
-    fetchRelatedClaimHistory(supabase, claim.id, claim.user_id, claim.company_id),
-    claim.assigned_staff_id
+    fetchProfileForUser(supabase, verification.applicant_user_id),
+    fetchRelatedVerificationHistory(
+      supabase,
+      verification.id,
+      verification.applicant_user_id,
+      verification.directory_id,
+    ),
+    verification.assigned_staff_id
       ? Promise.resolve(null)
       : supabase
-          .from('claim_requests')
+          .from('verification_requests')
           .select('assigned_staff_id')
-          .eq('id', claim.id)
+          .eq('id', verification.id)
           .maybeSingle(),
   ])
 
-  const resolvedClaim =
+  const resolvedVerification =
     assignmentRow?.data?.assigned_staff_id != null
-      ? { ...claim, assigned_staff_id: assignmentRow.data.assigned_staff_id }
-      : claim
+      ? { ...verification, assigned_staff_id: assignmentRow.data.assigned_staff_id }
+      : verification
 
   return {
-    claim: resolvedClaim,
-    entity: (entityRow as EntityDetail | null) ?? null,
-    claimant: claimant
+    verification: resolvedVerification,
+    directory: (directoryRow as DirectoryDetail | null) ?? null,
+    applicant: applicant
       ? {
-          id: claimant.id,
-          full_name: claimant.full_name,
-          role: claimant.role,
-          phone_verified_at: claimant.phone_verified_at,
-          email_verified_at: claimant.email_verified_at,
+          id: applicant.id,
+          full_name: applicant.full_name,
+          role: applicant.role,
+          phone_verified_at: applicant.phone_verified_at,
+          email_verified_at: applicant.email_verified_at,
         }
       : null,
     relatedHistory,
     currentUserId: staffProfile.id,
-    isSelfReview: claim.user_id === staffProfile.id,
+    isSelfReview: verification.applicant_user_id === staffProfile.id,
   }
 }
 
-async function fetchRelatedClaimHistory(
-  supabase: Awaited<ReturnType<typeof createClient>>,
+/** Back-compat alias for migrated routes. */
+export async function fetchClaimReviewWorkspace(
   claimId: string,
+): Promise<ClaimReviewWorkspaceData | null> {
+  const data = await fetchVerificationReviewWorkspace(claimId)
+  if (!data) return null
+
+  return {
+    ...data,
+    claim: {
+      ...data.verification,
+      user_id: data.verification.applicant_user_id,
+      company_id: data.verification.directory_id,
+      claim_type: data.verification.verification_type,
+    },
+    entity: data.directory,
+    claimant: data.applicant,
+  }
+}
+
+async function fetchRelatedVerificationHistory(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  verificationId: string,
   userId: string,
-  companyId: string,
+  directoryId: string,
 ): Promise<RelatedClaimHistoryItem[]> {
   const { data, error } = await supabase
-    .from('claim_requests')
-    .select('id, company_name, status, claim_type, created_at, reviewed_at, user_id, company_id')
-    .or(`user_id.eq.${userId},company_id.eq.${companyId}`)
-    .neq('id', claimId)
+    .from('verification_requests')
+    .select(
+      'id, company_name, status, verification_type, created_at, reviewed_at, applicant_user_id, directory_id',
+    )
+    .or(`applicant_user_id.eq.${userId},directory_id.eq.${directoryId}`)
+    .neq('id', verificationId)
     .order('created_at', { ascending: false })
     .limit(15)
 
@@ -153,10 +205,9 @@ async function fetchRelatedClaimHistory(
     id: row.id,
     company_name: row.company_name,
     status: row.status,
-    claim_type: row.claim_type,
+    claim_type: row.verification_type,
     created_at: row.created_at,
     reviewed_at: row.reviewed_at,
-    relation: row.user_id === userId ? 'same_user' : 'same_entity',
+    relation: row.applicant_user_id === userId ? 'same_user' : 'same_entity',
   }))
 }
-

@@ -18,7 +18,7 @@ function revalidateMentorPaths(applicantUserId: string) {
   revalidatePath('/staff/mentor-applications')
   revalidatePath('/staff')
   revalidatePath(`/staff/mentor-applications/${applicantUserId}`)
-  revalidatePath('/staff/claims')
+  revalidatePath('/staff/verification')
 }
 
 export async function reviewMentorApplicationAction(

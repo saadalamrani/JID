@@ -85,7 +85,7 @@ export function MentorShareCardButton({
       <div className="pointer-events-none fixed -left-[9999px] top-0" aria-hidden>
         <div
           ref={cardRef}
-          className="flex h-[630px] w-[1200px] flex-col justify-between bg-gradient-to-br from-primary to-[#1f281e] p-12 text-primary-foreground"
+          className="flex h-[630px] w-[1200px] flex-col justify-between bg-gradient-to-br from-primary to-primary/80 p-12 text-primary-foreground"
         >
           <div className="flex items-start justify-between gap-8">
             <div className="flex items-center gap-6">

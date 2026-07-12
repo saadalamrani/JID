@@ -283,7 +283,7 @@ export function ApplicantTriagePageClient({
       <div className="flex justify-end">
         <a
           href={`/jobs/${jobId}/screening`}
-          className="font-arabic text-sm font-medium text-jid-olive underline-offset-2 hover:underline"
+          className="font-arabic text-sm font-medium text-primary underline-offset-2 hover:underline"
         >
           الفحص الذكي (SSIS)
         </a>
@@ -301,8 +301,8 @@ export function ApplicantTriagePageClient({
       {smartCommunicationEnabled ? (
         <UndoBanner batches={scheduledBatches} onCanceled={() => void refreshScheduledBatches()} />
       ) : (
-        <section className="rounded-lg border border-jid-gold/30 bg-jid-beige-warm/50 px-4 py-3">
-          <p className="font-arabic text-sm text-jid-olive">
+        <section className="rounded-lg border border-accent/30 bg-surface/50 px-4 py-3">
+          <p className="font-arabic text-sm text-primary">
             فعّل الرد الآلي — تصل ردودك لكل متقدم دون جهد.
           </p>
         </section>
@@ -318,7 +318,7 @@ export function ApplicantTriagePageClient({
         disabled={loading || mutating}
       />
 
-      <p className="font-arabic text-xs text-jid-ink/50">
+      <p className="font-arabic text-xs text-muted-foreground">
         اختصارات: j/k للتنقل، a قبول، r رفض، i مقابلة
       </p>
 

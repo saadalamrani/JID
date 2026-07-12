@@ -51,7 +51,7 @@ export function PlusPlanCompare({
           className={cn(
             'flex-1 rounded-md px-3 py-2 text-sm font-medium transition-colors',
             cycle === 'yearly'
-              ? 'bg-jid-gold text-jid-olive shadow-sm'
+              ? 'bg-accent text-primary shadow-sm'
               : 'text-muted-foreground hover:text-foreground',
           )}
           onClick={() => onCycleChange('yearly')}
@@ -79,18 +79,18 @@ export function PlusPlanCompare({
         </button>
       </div>
 
-      <div className="rounded-xl border border-jid-gold/30 bg-jid-beige-warm/70 p-4">
+      <div className="rounded-xl border border-accent/30 bg-surface/70 p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="font-arabic text-sm font-semibold text-jid-olive">{planName}</p>
-            <p className="mt-1 font-arabic text-xs text-jid-ink-soft">{t('billingNote')}</p>
+            <p className="font-arabic text-sm font-semibold text-primary">{planName}</p>
+            <p className="mt-1 font-arabic text-xs text-muted-foreground">{t('billingNote')}</p>
           </div>
-          <span className="inline-flex rounded-full bg-jid-gold px-2 py-0.5 font-arabic text-xs font-semibold text-jid-olive">
+          <span className="inline-flex rounded-full bg-accent px-2 py-0.5 font-arabic text-xs font-semibold text-primary">
             بلس
           </span>
         </div>
 
-        <p className="mt-4 font-latin text-3xl font-semibold tabular-nums text-jid-olive">
+        <p className="mt-4 font-latin text-3xl font-semibold tabular-nums text-primary">
           {selectedPrice != null && !isLoading ? formatSarAmount(selectedPrice, locale) : '—'}
           <span className="ms-2 font-arabic text-sm font-normal text-muted-foreground">
             / {cycle === 'yearly' ? t('perYear') : t('perMonth')}
@@ -98,7 +98,7 @@ export function PlusPlanCompare({
         </p>
 
         {cycle === 'yearly' && plan ? (
-          <p className="mt-2 font-arabic text-xs text-jid-ink-soft">
+          <p className="mt-2 font-arabic text-xs text-muted-foreground">
             {t('yearlyEquivalent', {
               monthly: formatSarAmount(plan.priceYearlySar / 12, locale),
             })}
@@ -106,10 +106,10 @@ export function PlusPlanCompare({
         ) : null}
       </div>
 
-      <ul className="space-y-2 font-arabic text-sm text-jid-ink-soft">
+      <ul className="space-y-2 font-arabic text-sm text-muted-foreground">
         {(t.raw('includedBullets') as string[]).map((bullet) => (
           <li key={bullet} className="flex items-start gap-2">
-            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-jid-gold" aria-hidden />
+            <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
             <span>{bullet}</span>
           </li>
         ))}

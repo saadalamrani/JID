@@ -56,7 +56,7 @@ export function ClaimsFilters({ className }: ClaimsFiltersProps) {
   return (
     <div className={cn('flex flex-wrap gap-4', className)}>
       <FilterGroup label={t('type')}>
-        {(['all', 'company', 'university', 'mentor'] as const).map((value) => (
+        {(['all', 'business', 'university', 'mentor'] as const).map((value) => (
           <FilterButton
             key={value}
             active={filters.type === value}

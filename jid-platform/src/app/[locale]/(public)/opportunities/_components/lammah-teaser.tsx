@@ -53,12 +53,12 @@ export function LammahTeaser({ variant = 'inline', className }: LammahTeaserProp
   return (
     <section
       className={cn(
-        'rounded-xl border border-jid-gold/30 bg-jid-beige-warm/50 p-4',
+        'rounded-xl border border-accent/30 bg-surface/50 p-4',
         className,
       )}
       aria-label={t('teaserAria')}
     >
-      <p className="font-arabic text-sm font-medium text-jid-olive">{t('teaserHeadline')}</p>
+      <p className="font-arabic text-sm font-medium text-primary">{t('teaserHeadline')}</p>
       <p className="mt-1 font-arabic text-sm text-muted-foreground">
         {t('teaserWeekly', { count: weeklyCount })}
       </p>

@@ -8,7 +8,7 @@ export async function Vision2030Section() {
     <section className="border-b border-border bg-card py-16">
       <div className="container-jid">
         <div className="mx-auto max-w-3xl rounded-2xl border border-border bg-gradient-to-br from-surface to-card p-8 md:p-10">
-          <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+          <p className="text-xs font-semibold uppercase text-accent">
             {t('eyebrow')}
           </p>
           <h2 className="mt-3 font-arabic text-2xl font-semibold text-foreground md:text-3xl">

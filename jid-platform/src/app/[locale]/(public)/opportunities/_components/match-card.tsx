@@ -46,7 +46,7 @@ export function MatchCard({ match, onDismiss, dismissing = false, className }: M
       )}
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="rounded-full bg-jid-gold/20 px-2 py-0.5 font-arabic text-[10px] font-semibold text-jid-olive">
+        <span className="rounded-full bg-accent/20 px-2 py-0.5 font-arabic text-[10px] font-semibold text-primary">
           {ABHATHLI_MATCH_TAG_AR}
         </span>
         <TierBadge tier={match.tier} />

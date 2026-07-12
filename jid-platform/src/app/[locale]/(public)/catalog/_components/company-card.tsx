@@ -1,13 +1,13 @@
 'use client'
 
-import { ExternalLink } from 'lucide-react'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { Link as LocaleLink } from '@/lib/i18n/navigation'
 import { formatRelativeTime } from '@/lib/utils/format-relative-time'
 import type { CompanyCardData } from '@/types/catalog'
 import { cn } from '@/lib/utils'
 import { CompanyLogo } from './company-logo'
 import { OwnershipBadge } from './ownership-badge'
+import { CatalogCta } from './catalog-cta'
 
 type CompanyCardProps = {
   company: CompanyCardData
@@ -15,6 +15,7 @@ type CompanyCardProps = {
 }
 
 export function CompanyCard({ company, className }: CompanyCardProps) {
+  const t = useTranslations('catalogPage.card')
   const displayName = company.name_ar ?? company.name_en
   const subtitle =
     company.name_ar && company.name_en && company.name_ar !== company.name_en
@@ -22,8 +23,7 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
       : null
   const sectorLabel = company.sector?.name_ar ?? company.sector?.name_en
   const regionLabel = company.region?.name_ar ?? company.region?.name_en
-  const isHealthy = company.link_status === 'healthy'
-  const profileHref = company.slug ? `/companies/${company.slug}` : null
+  const detailHref = company.slug ? `/catalog/${company.slug}` : null
 
   return (
     <article
@@ -33,14 +33,14 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
         className,
       )}
     >
-      {profileHref ? (
+      {detailHref ? (
         <LocaleLink
-          href={profileHref}
+          href={detailHref}
           className={cn(
             'absolute inset-0 z-10 rounded-xl',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
           )}
-          aria-label={`عرض ملف ${displayName}`}
+          aria-label={t('viewRecord', { name: displayName })}
         />
       ) : null}
 
@@ -75,41 +75,17 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
       </div>
 
       <div className="relative z-30 mt-4 pointer-events-auto">
-        {isHealthy && company.career_portal_url ? (
-          <Link
-            href={company.career_portal_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-2.5',
-              'font-arabic text-sm font-medium',
-              'bg-primary text-primary-foreground transition-colors hover:bg-primary/90 active:bg-primary/80',
-            )}
-            onClick={(event) => event.stopPropagation()}
-          >
-            بوابة التوظيف
-            <ExternalLink className="h-4 w-4 shrink-0" aria-hidden />
-          </Link>
-        ) : (
-          <span
-            role="button"
-            tabIndex={-1}
-            className={cn(
-              'inline-flex w-full items-center justify-center rounded-lg px-4 py-2.5',
-              'font-arabic text-sm font-medium',
-              'bg-border/30 text-muted-foreground',
-              'pointer-events-none',
-            )}
-            aria-disabled="true"
-            aria-label="الرابط قيد التحديث"
-          >
-            الرابط قيد التحديث
-          </span>
-        )}
+        <CatalogCta
+          slug={company.slug}
+          careerPortalUrl={company.career_portal_url}
+          linkStatus={company.link_status}
+          hasPublishedProfile={company.hasPublishedProfile}
+          onExternalClick={(event) => event.stopPropagation()}
+        />
       </div>
 
       <footer className="relative z-20 mt-3 font-arabic text-xs text-foreground-400 pointer-events-none">
-        آخر فحص للرابط: {formatRelativeTime(company.last_audit_at)}
+        {t('lastAudit', { time: formatRelativeTime(company.last_audit_at) })}
       </footer>
     </article>
   )

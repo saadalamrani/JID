@@ -17,7 +17,7 @@ import { StatusBreakdownBars } from './status-breakdown-bars'
 const pdfStyles = StyleSheet.create({
   page: { padding: 24, fontSize: 12 },
   heading: { fontSize: 18, marginBottom: 6 },
-  subtitle: { fontSize: 10, marginBottom: 14, color: '#555' },
+  subtitle: { fontSize: 10, marginBottom: 14, color: '#555' }, // @react-pdf/renderer requires inline color — no Tailwind in PDF StyleSheet
   section: { marginBottom: 10 },
   row: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 },
 })
@@ -139,15 +139,15 @@ export function UniversityDashboard() {
 
   if (query.isLoading) {
     return (
-      <section className="rounded-2xl border border-jid-line bg-white p-6">
-        <p className="text-sm text-jid-ink/60">جاري تحميل مؤشرات الجامعة...</p>
+      <section className="rounded-2xl border border-border bg-white p-6">
+        <p className="text-sm text-foreground/60">جاري تحميل مؤشرات الجامعة...</p>
       </section>
     )
   }
 
   if (query.isError || !snapshot) {
     return (
-      <section className="rounded-2xl border border-jid-line bg-white p-6">
+      <section className="rounded-2xl border border-border bg-white p-6">
         <p className="text-sm text-red-600">تعذر تحميل بيانات لوحة الجامعة حالياً.</p>
       </section>
     )
@@ -159,16 +159,16 @@ export function UniversityDashboard() {
 
   return (
     <div className="space-y-5">
-      <header className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-jid-line bg-white p-5">
+      <header className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-white p-5">
         <div>
-          <h1 className="text-2xl font-semibold text-jid-ink">لوحة إحصاءات الجامعة</h1>
-          <p className="mt-1 text-sm text-jid-ink/65">
+          <h1 className="text-2xl font-semibold text-foreground">لوحة إحصاءات الجامعة</h1>
+          <p className="mt-1 text-sm text-foreground/65">
             آخر تحديث: {new Date(snapshot.refreshed_at).toLocaleString()}
           </p>
         </div>
         <Button
           type="button"
-          className="gap-2 bg-jid-olive hover:bg-jid-olive/90"
+          className="gap-2 bg-primary hover:bg-primary/90"
           onClick={() => void handleExport()}
           disabled={exporting}
         >
@@ -185,19 +185,19 @@ export function UniversityDashboard() {
       </section>
 
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-        <article className="rounded-2xl border border-jid-line bg-white p-5">
-          <h2 className="mb-3 text-lg font-semibold text-jid-ink">التوزيع حسب الحالة الدراسية</h2>
+        <article className="rounded-2xl border border-border bg-white p-5">
+          <h2 className="mb-3 text-lg font-semibold text-foreground">التوزيع حسب الحالة الدراسية</h2>
           <StatusBreakdownBars data={snapshot.status_breakdown} />
         </article>
-        <article className="rounded-2xl border border-jid-line bg-white p-5">
-          <h2 className="mb-3 text-lg font-semibold text-jid-ink">التوزيع حسب الكليات</h2>
+        <article className="rounded-2xl border border-border bg-white p-5">
+          <h2 className="mb-3 text-lg font-semibold text-foreground">التوزيع حسب الكليات</h2>
           <CollegeDistributionBars data={snapshot.college_distribution} />
         </article>
       </section>
 
-      <section className="rounded-2xl border border-jid-gold/40 bg-jid-beige/50 p-5">
-        <h2 className="text-lg font-semibold text-jid-ink">أثر الإرشاد</h2>
-        <p className="mt-1 text-sm text-jid-ink/70">
+      <section className="rounded-2xl border border-accent/40 bg-background/50 p-5">
+        <h2 className="text-lg font-semibold text-foreground">أثر الإرشاد</h2>
+        <p className="mt-1 text-sm text-foreground/70">
           عدد جلسات الإرشاد المؤكدة/المكتملة: <span className="font-semibold">{snapshot.mentorship_sessions}</span>
         </p>
       </section>

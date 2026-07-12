@@ -73,7 +73,7 @@ export default async function StaffUserDetailPage({ params }: StaffUserDetailPag
           <dl className="mt-4 grid gap-3 sm:grid-cols-2">
             {infoFields.map((field) => (
               <div key={field.label}>
-                <dt className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                <dt className="text-xs font-medium uppercase text-muted-foreground">
                   {field.label}
                 </dt>
                 <dd className="mt-1 break-all text-sm text-foreground">{field.value ?? '—'}</dd>

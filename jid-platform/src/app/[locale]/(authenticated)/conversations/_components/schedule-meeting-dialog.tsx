@@ -101,31 +101,31 @@ export function ScheduleMeetingDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto border-jid-line bg-white sm:max-w-md">
+      <DialogContent className="max-h-[90vh] overflow-y-auto border-border bg-white sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="font-arabic text-jid-ink">{t('dialogTitle')}</DialogTitle>
-          <DialogDescription className="font-arabic text-jid-ink/60">
+          <DialogTitle className="font-arabic text-foreground">{t('dialogTitle')}</DialogTitle>
+          <DialogDescription className="font-arabic text-foreground/60">
             {t('dialogDescription')}
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <label className="block space-y-1.5">
-            <span className="font-arabic text-sm text-jid-ink">{t('when')}</span>
+            <span className="font-arabic text-sm text-foreground">{t('when')}</span>
             <input
               type="datetime-local"
               value={scheduledAtLocal}
               onChange={(event) => setScheduledAtLocal(event.target.value)}
-              className="w-full rounded-xl border border-jid-line px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+              className="w-full rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             />
           </label>
 
           <label className="block space-y-1.5">
-            <span className="font-arabic text-sm text-jid-ink">{t('duration')}</span>
+            <span className="font-arabic text-sm text-foreground">{t('duration')}</span>
             <select
               value={durationMinutes}
               onChange={(event) => setDurationMinutes(event.target.value)}
-              className="w-full rounded-xl border border-jid-line px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+              className="w-full rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               {[30, 45, 60, 90].map((minutes) => (
                 <option key={minutes} value={String(minutes)}>
@@ -136,11 +136,11 @@ export function ScheduleMeetingDialog({
           </label>
 
           <label className="block space-y-1.5">
-            <span className="font-arabic text-sm text-jid-ink">{t('medium')}</span>
+            <span className="font-arabic text-sm text-foreground">{t('medium')}</span>
             <select
               value={medium}
               onChange={(event) => setMedium(event.target.value)}
-              className="w-full rounded-xl border border-jid-line px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+              className="w-full rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               {MENTOR_MEDIUM_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -151,24 +151,24 @@ export function ScheduleMeetingDialog({
           </label>
 
           <label className="block space-y-1.5">
-            <span className="font-arabic text-sm text-jid-ink">{t('link')}</span>
+            <span className="font-arabic text-sm text-foreground">{t('link')}</span>
             <input
               type="url"
               value={meetingUrl}
               onChange={(event) => setMeetingUrl(event.target.value)}
               placeholder={t('linkPlaceholder')}
-              className="w-full rounded-xl border border-jid-line px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+              className="w-full rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             />
           </label>
 
           <label className="block space-y-1.5">
-            <span className="font-arabic text-sm text-jid-ink">{t('notes')}</span>
+            <span className="font-arabic text-sm text-foreground">{t('notes')}</span>
             <textarea
               value={notes}
               onChange={(event) => setNotes(event.target.value)}
               rows={3}
               placeholder={t('notesPlaceholder')}
-              className="w-full resize-none rounded-xl border border-jid-line px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive"
+              className="w-full resize-none rounded-xl border border-border px-3 py-2 font-arabic text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             />
           </label>
         </div>
@@ -184,7 +184,7 @@ export function ScheduleMeetingDialog({
           </Button>
           <Button
             type="button"
-            className="bg-jid-olive font-arabic hover:bg-jid-olive/90"
+            className="bg-primary font-arabic hover:bg-primary/90"
             disabled={submitting}
             onClick={() => void handleSubmit()}
           >

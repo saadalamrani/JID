@@ -49,8 +49,8 @@ export async function fetchAssignedClaimsForStaff(
 ): Promise<StaffDashboardClaimRow[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
-    .from('claim_requests')
-    .select('id, company_name, claimant_name, status, sla_due_at, created_at, claim_type')
+    .from('verification_requests')
+    .select('id, company_name, claimant_name, status, sla_due_at, created_at, verification_type')
     .eq('assigned_staff_id', userId)
     .in('status', [...PENDING_CLAIM_STATUSES])
     .order('sla_due_at', { ascending: true, nullsFirst: false })
@@ -63,8 +63,8 @@ export async function fetchAssignedClaimsForStaff(
 export async function fetchUnassignedClaims(limit = 5): Promise<StaffDashboardClaimRow[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
-    .from('claim_requests')
-    .select('id, company_name, claimant_name, status, sla_due_at, created_at, claim_type')
+    .from('verification_requests')
+    .select('id, company_name, claimant_name, status, sla_due_at, created_at, verification_type')
     .is('assigned_staff_id', null)
     .in('status', [...PENDING_CLAIM_STATUSES])
     .order('created_at', { ascending: true })

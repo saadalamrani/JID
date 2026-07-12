@@ -16,16 +16,16 @@ const STATUS_CONFIG: Record<
   ApplicationStatus,
   { icon: typeof Clock; className: string }
 > = {
-  draft: { icon: Clock, className: 'bg-jid-line/40 text-jid-ink/60' },
-  saved: { icon: Clock, className: 'bg-jid-beige text-jid-ink/70' },
+  draft: { icon: Clock, className: 'bg-border/40 text-foreground/60' },
+  saved: { icon: Clock, className: 'bg-background text-foreground/70' },
   pending: { icon: Clock, className: 'bg-sky-50 text-sky-800' },
   submitted: { icon: Clock, className: 'bg-sky-50 text-sky-800' },
   under_review: { icon: Clock, className: 'bg-amber-50 text-amber-900' },
   shortlisted: { icon: UserCheck, className: 'bg-emerald-50 text-emerald-800' },
   rejected: { icon: UserX, className: 'bg-red-50 text-red-800' },
   invited: { icon: MessageSquare, className: 'bg-violet-50 text-violet-800' },
-  withdrawn: { icon: XCircle, className: 'bg-jid-line/40 text-jid-ink/60' },
-  expired: { icon: XCircle, className: 'bg-jid-line/40 text-jid-ink/60' },
+  withdrawn: { icon: XCircle, className: 'bg-border/40 text-foreground/60' },
+  expired: { icon: XCircle, className: 'bg-border/40 text-foreground/60' },
 }
 
 type StatusBadgeProps = {

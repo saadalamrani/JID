@@ -50,7 +50,7 @@ export function MentorshipTimeline({ userId, meetings, title }: MentorshipTimeli
           <div className="space-y-6">
             {needsFeedback.length > 0 ? (
               <div>
-                <h3 className="mb-3 font-arabic text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <h3 className="mb-3 font-arabic text-xs font-semibold uppercase text-muted-foreground">
                   {t('needsFeedback')}
                 </h3>
                 <ul className="space-y-3">
@@ -65,7 +65,7 @@ export function MentorshipTimeline({ userId, meetings, title }: MentorshipTimeli
 
             {upcoming.length > 0 ? (
               <div>
-                <h3 className="mb-3 font-arabic text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                <h3 className="mb-3 font-arabic text-xs font-semibold uppercase text-muted-foreground">
                   {t('upcoming')}
                 </h3>
                 <ul className="space-y-3">

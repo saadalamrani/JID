@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { CtaSection } from '@/app/[locale]/(public)/_components/landing/cta-section'
-import { HeroManifesto } from '@/app/[locale]/(public)/_components/landing/hero-manifesto'
+import { HomePulseHero } from '@/app/[locale]/(public)/_components/landing/home-pulse-hero'
 import { ModulesShowcase } from '@/app/[locale]/(public)/_components/landing/modules-showcase'
 import { PdplTrustBar } from '@/app/[locale]/(public)/_components/landing/pdpl-trust-bar'
 import { ProblemStatement } from '@/app/[locale]/(public)/_components/landing/problem-statement'
@@ -22,7 +22,7 @@ export default async function LandingPage() {
 
   return (
     <>
-      <HeroManifesto />
+      <HomePulseHero />
       <ProblemStatement />
       <ModulesShowcase />
       <PdplTrustBar />

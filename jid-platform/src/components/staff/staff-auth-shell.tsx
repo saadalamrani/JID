@@ -23,7 +23,7 @@ export function StaffAuthShell({ title, subtitle, children, footer }: StaffAuthS
         </div>
 
         <div className="mb-8 text-center">
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+          <p className="text-xs font-medium uppercase text-muted-foreground">
             Operations portal
           </p>
           <h1 className="mt-2 font-arabic text-xl font-semibold text-foreground">{title}</h1>

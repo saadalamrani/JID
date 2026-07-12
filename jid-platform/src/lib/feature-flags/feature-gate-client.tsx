@@ -20,13 +20,13 @@ function FeatureGateSkeleton({ compact }: { compact?: boolean }) {
   if (compact) {
     return (
       <div
-        className="flex items-center gap-3 rounded-xl border border-jid-gold/20 bg-jid-beige-warm/80 px-4 py-3"
+        className="flex items-center gap-3 rounded-xl border border-accent/20 bg-surface/80 px-4 py-3"
         aria-hidden
       >
-        <Skeleton className="h-9 w-9 shrink-0 rounded-full bg-jid-beige/80" />
+        <Skeleton className="h-9 w-9 shrink-0 rounded-full bg-background/80" />
         <div className="min-w-0 flex-1 space-y-2">
-          <Skeleton className="h-3.5 w-32 bg-jid-beige/80" />
-          <Skeleton className="h-3 w-full max-w-xs bg-jid-beige/70" />
+          <Skeleton className="h-3.5 w-32 bg-background/80" />
+          <Skeleton className="h-3 w-full max-w-xs bg-background/70" />
         </div>
       </div>
     )
@@ -34,12 +34,12 @@ function FeatureGateSkeleton({ compact }: { compact?: boolean }) {
 
   return (
     <div
-      className="rounded-2xl border border-jid-gold/20 bg-jid-beige-warm/80 px-6 py-12 text-center sm:px-10 sm:py-14"
+      className="rounded-2xl border border-accent/20 bg-surface/80 px-6 py-12 text-center sm:px-10 sm:py-14"
       aria-hidden
     >
-      <Skeleton className="mx-auto h-14 w-14 rounded-2xl bg-jid-beige/80" />
-      <Skeleton className="mx-auto mt-6 h-7 w-48 bg-jid-beige/80" />
-      <Skeleton className="mx-auto mt-3 h-4 w-full max-w-md bg-jid-beige/70" />
+      <Skeleton className="mx-auto h-14 w-14 rounded-2xl bg-background/80" />
+      <Skeleton className="mx-auto mt-6 h-7 w-48 bg-background/80" />
+      <Skeleton className="mx-auto mt-3 h-4 w-full max-w-md bg-background/70" />
     </div>
   )
 }

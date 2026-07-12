@@ -14,8 +14,8 @@ export default async function EditAdminAnnouncementPage({ params }: PageProps) {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold text-jid-ink">Edit Announcement</h1>
-        <p className="mt-1 text-sm text-jid-ink/70">Update content and schedule.</p>
+        <h1 className="text-2xl font-semibold text-foreground">Edit Announcement</h1>
+        <p className="mt-1 text-sm text-foreground/70">Update content and schedule.</p>
       </header>
       <AnnouncementForm
         mode="edit"

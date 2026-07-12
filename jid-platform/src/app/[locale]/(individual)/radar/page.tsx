@@ -7,7 +7,8 @@ import { getTranslations } from 'next-intl/server'
 import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
 import { fetchUserApplications } from '@/lib/queries/radar'
 import { radarApplicationsQueryKey } from '@/lib/queries/radar-query-keys'
-import { fetchUpcomingMeetings, timelineMeetingsQueryKey } from '@/lib/queries/timeline'
+import { fetchUpcomingMeetings } from '@/lib/queries/timeline'
+import { timelineMeetingsQueryKey } from '@/lib/queries/timeline-query-keys'
 import { RadarPageShell } from './_components/radar-page-shell'
 
 export default async function RadarPage() {

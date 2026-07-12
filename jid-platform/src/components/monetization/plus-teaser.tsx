@@ -29,36 +29,36 @@ export function PlusTeaser({ feature, className, preview, onUpgradeViewed }: Plu
     <>
       <section
         className={cn(
-          'relative overflow-hidden rounded-xl border border-jid-gold/35 bg-jid-beige-warm/80 p-5 shadow-sm',
+          'relative overflow-hidden rounded-xl border border-accent/35 bg-surface/80 p-5 shadow-sm',
           className,
         )}
         aria-label={t('ariaLabel')}
       >
         <div className="flex items-start gap-3">
-          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-jid-gold/40 bg-jid-gold/20">
-            <Sparkles className="h-4 w-4 text-jid-olive" aria-hidden />
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/20">
+            <Sparkles className="h-4 w-4 text-primary" aria-hidden />
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
-              <h3 className="font-arabic text-base font-semibold text-jid-olive">{t('title')}</h3>
-              <span className="inline-flex items-center rounded-full bg-jid-gold px-2 py-0.5 font-arabic text-xs font-semibold text-jid-olive">
+              <h3 className="font-arabic text-base font-semibold text-primary">{t('title')}</h3>
+              <span className="inline-flex items-center rounded-full bg-accent px-2 py-0.5 font-arabic text-xs font-semibold text-primary">
                 بلس
               </span>
             </div>
-            <p className="mt-1 font-arabic text-sm leading-relaxed text-jid-ink-soft">
+            <p className="mt-1 font-arabic text-sm leading-relaxed text-muted-foreground">
               {t(`features.${feature}.description`)}
             </p>
-            <ul className="mt-3 space-y-1.5 font-arabic text-sm text-jid-ink-soft">
+            <ul className="mt-3 space-y-1.5 font-arabic text-sm text-muted-foreground">
               {(t.raw(`features.${feature}.bullets`) as string[]).map((bullet) => (
                 <li key={bullet} className="flex items-start gap-2">
-                  <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-jid-gold" aria-hidden />
+                  <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" aria-hidden />
                   <span>{bullet}</span>
                 </li>
               ))}
             </ul>
             <Button
               type="button"
-              className="mt-4 bg-jid-olive font-arabic text-primary-foreground hover:bg-jid-olive/90"
+              className="mt-4 bg-primary font-arabic text-primary-foreground hover:bg-primary/90"
               onClick={() => setUpgradeOpen(true)}
             >
               {t('upgradeCta')}
@@ -70,7 +70,7 @@ export function PlusTeaser({ feature, className, preview, onUpgradeViewed }: Plu
           <div className="relative mt-5 overflow-hidden rounded-lg border border-border/60 bg-card/60">
             <div className="pointer-events-none select-none blur-[6px] saturate-75">{preview}</div>
             <div className="absolute inset-0 flex items-center justify-center bg-background/35">
-              <p className="rounded-full border border-jid-gold/40 bg-jid-beige-warm px-3 py-1 font-arabic text-xs font-medium text-jid-olive">
+              <p className="rounded-full border border-accent/40 bg-surface px-3 py-1 font-arabic text-xs font-medium text-primary">
                 {t('previewLocked')}
               </p>
             </div>

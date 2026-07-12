@@ -64,7 +64,7 @@ export default function ResetPasswordPage() {
   if (!ready) {
     return (
       <AuthShell title={t('title')} subtitle={t('loading')}>
-        <p className="text-center text-sm text-jid-ink/70">{t('loading')}</p>
+        <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
       </AuthShell>
     )
   }
@@ -87,7 +87,7 @@ export default function ResetPasswordPage() {
         >
           <PasswordInput id="confirmPassword" disabled={submitting} {...form.register('confirmPassword')} />
         </FormField>
-        <Button type="submit" className="w-full bg-jid-olive hover:bg-jid-olive/90" disabled={submitting}>
+        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

@@ -26,19 +26,19 @@ export default async function AccountSuspendedPage() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <div className="w-full max-w-md rounded-xl border border-red-200 bg-white p-6 text-center shadow-sm">
-        <h1 className="text-xl font-semibold text-jid-ink">{t('title')}</h1>
-        <p className="mt-3 text-sm text-jid-ink/70">{t('message')}</p>
+        <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-3 text-sm text-foreground/70">{t('message')}</p>
         {suspendedAt ? (
-          <p className="mt-2 text-xs text-jid-ink/50">
+          <p className="mt-2 text-xs text-muted-foreground">
             {t('since')}: {new Date(suspendedAt).toLocaleString('ar-SA')}
           </p>
         ) : null}
         {lockedUntil ? (
-          <p className="mt-2 text-xs text-jid-ink/50">
+          <p className="mt-2 text-xs text-muted-foreground">
             {t('until')}: {new Date(lockedUntil).toLocaleString('ar-SA')}
           </p>
         ) : null}
-        <Link href="/login" className="mt-6 inline-block text-sm text-jid-olive hover:underline">
+        <Link href="/login" className="mt-6 inline-block text-sm text-primary hover:underline">
           {t('backToLogin')}
         </Link>
       </div>

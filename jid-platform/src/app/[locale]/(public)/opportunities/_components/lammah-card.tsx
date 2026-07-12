@@ -39,7 +39,7 @@ export function LammahCard({ item, className }: LammahCardProps) {
     <article
       role="listitem"
       className={cn(
-        'relative flex min-h-[300px] flex-col rounded-xl border border-jid-gold/25 bg-card p-4 shadow-sm',
+        'relative flex min-h-[300px] flex-col rounded-xl border border-accent/25 bg-card p-4 shadow-sm',
         className,
       )}
     >

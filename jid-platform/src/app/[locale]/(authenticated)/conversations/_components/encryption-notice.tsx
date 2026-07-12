@@ -51,17 +51,17 @@ export function EncryptionNotice({ conversationId, otherUserName }: EncryptionNo
   if (!visible) return null
 
   return (
-    <div className="mx-4 mb-4 rounded-xl border border-jid-olive/30 bg-jid-olive/5 px-4 py-3">
+    <div className="mx-4 mb-4 rounded-xl border border-primary/30 bg-primary/5 px-4 py-3">
       <div className="flex gap-3">
-        <Shield className="mt-0.5 h-4 w-4 shrink-0 text-jid-olive" aria-hidden />
+        <Shield className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
         <div className="min-w-0">
-          <p className="font-arabic text-sm font-medium text-jid-ink">{t('encryptionNoticeTitle')}</p>
-          <p className="mt-1 font-arabic text-xs text-jid-ink/65">
+          <p className="font-arabic text-sm font-medium text-foreground">{t('encryptionNoticeTitle')}</p>
+          <p className="mt-1 font-arabic text-xs text-foreground/65">
             {buildEncryptionSystemMessage(conversationId, otherUserName, locale).plaintext}
           </p>
           <button
             type="button"
-            className="mt-2 font-arabic text-xs font-medium text-jid-olive hover:underline"
+            className="mt-2 font-arabic text-xs font-medium text-primary hover:underline"
             onClick={() => {
               localStorage.setItem(`${NOTICE_PREFIX}${conversationId}`, '1')
               setVisible(false)
