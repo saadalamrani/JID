@@ -36,7 +36,6 @@ export const MENTOR_PUBLIC_SELECT = `
   years_experience,
   rating_avg,
   sessions_count,
-  avg_response_hours,
   is_accepting_requests,
   is_mentor_of_month,
   active_workshop,
@@ -58,7 +57,6 @@ export const MENTOR_DETAIL_SELECT = `
   years_experience,
   rating_avg,
   sessions_count,
-  avg_response_hours,
   is_accepting_requests,
   is_mentor_of_month,
   active_workshop,
@@ -81,7 +79,6 @@ type MentorListRow = {
   years_experience: number | null
   rating_avg: number | null
   sessions_count: number
-  avg_response_hours: number | null
   is_accepting_requests: boolean
   is_mentor_of_month: boolean
   active_workshop: unknown
@@ -112,7 +109,6 @@ function mapMentorCard(row: MentorListRow): MentorCardData {
     years_experience: row.years_experience,
     rating_avg: row.rating_avg,
     sessions_count: row.sessions_count ?? 0,
-    avg_response_hours: row.avg_response_hours,
     is_accepting_requests: row.is_accepting_requests,
     is_mentor_of_month: row.is_mentor_of_month ?? false,
     active_workshop: parseActiveWorkshopJson(row.active_workshop),

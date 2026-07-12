@@ -1,6 +1,7 @@
 import { notFound, redirect } from 'next/navigation'
 import { MentorProfileView } from '@/components/profile/mentor-profile-view'
 import { RecentReviews } from '@/components/profile/recent-reviews'
+import { fetchMentorResponseStats } from '@/lib/mentor/response-stats'
 import { fetchUserBadges } from '@/lib/profile/badge-helpers'
 import { fetchOwnMentorPageContext, getCurrentViewer } from '@/lib/profile/queries'
 import { createClient } from '@/lib/supabase/server'
@@ -17,7 +18,10 @@ export default async function MentorOwnerProfilePage() {
   }
 
   const supabase = await createClient()
-  const badges = await fetchUserBadges(supabase, viewer.userId)
+  const [badges, responseStats] = await Promise.all([
+    fetchUserBadges(supabase, viewer.userId),
+    fetchMentorResponseStats(viewer.userId),
+  ])
 
   return (
     <MentorProfileView
@@ -25,6 +29,7 @@ export default async function MentorOwnerProfilePage() {
       badges={badges}
       isOwner
       isMentee={false}
+      responseStats={responseStats}
       reviewsSlot={<RecentReviews mentorId={context.mentor.user_id} />}
     />
   )

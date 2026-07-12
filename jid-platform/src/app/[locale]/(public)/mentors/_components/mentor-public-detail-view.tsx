@@ -1,15 +1,19 @@
 'use client'
 
+import { Star } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { ActiveWorkshopCard } from '@/components/profile/active-workshop-card'
 import { MentorBioSection } from '@/components/profile/mentor-bio-section'
 import { MentorExpertiseSection } from '@/components/profile/mentor-expertise-section'
+import { MentorResponseStatsSection } from '@/components/profile/mentor-response-stats'
 import { ProfileAvatar } from '@/components/profile/profile-avatar'
 import { CrownBadge } from '@/components/mentor/crown-badge'
 import { MentorViewedTracker } from '@/components/mentor/mentor-viewed-tracker'
 import { PreferredMediumsIcons } from '@/components/mentor/preferred-mediums-icons'
 import { RequestSessionButton } from '@/components/mentorship/request-session-button'
+import { buildMentorDeclaredSpecializations } from '@/lib/mentor/declared-specializations'
 import { formatMentorNationality } from '@/lib/mentor/nationality-label'
+import type { MentorResponseStats } from '@/lib/mentor/response-stats'
 import { isLiveActiveWorkshop } from '@/lib/mentor/workshop'
 import type { MentorPublicDetail } from '@/types/mentor'
 import { cn } from '@/lib/utils'
@@ -17,13 +21,19 @@ import { cn } from '@/lib/utils'
 type MentorPublicDetailViewProps = {
   mentor: MentorPublicDetail
   locale: 'ar' | 'en'
+  responseStats: MentorResponseStats
 }
 
-export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailViewProps) {
+export function MentorPublicDetailView({
+  mentor,
+  locale,
+  responseStats,
+}: MentorPublicDetailViewProps) {
   const t = useTranslations('mentorship.detail')
   const displayName = mentor.full_name?.trim() || t('unnamed')
   const nationalityLabel = formatMentorNationality(mentor.nationality, locale)
   const liveWorkshop = isLiveActiveWorkshop(mentor.active_workshop) ? mentor.active_workshop : null
+  const declaredSpecializations = buildMentorDeclaredSpecializations(mentor)
 
   return (
     <div className="space-y-6">
@@ -55,25 +65,26 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
         </div>
       </header>
 
-      <section className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <p className="font-arabic text-xs text-muted-foreground">{t('sessionsLabel')}</p>
-          <p className="mt-1 font-arabic text-2xl font-semibold text-foreground">
-            {mentor.sessions_count}
-          </p>
-        </div>
-        <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
-          <p className="font-arabic text-xs text-muted-foreground">{t('ratingLabel')}</p>
-          <p className="mt-1 font-arabic text-2xl font-semibold text-foreground">
-            {mentor.rating_avg != null ? mentor.rating_avg.toFixed(1) : '—'}
-          </p>
-        </div>
-      </section>
+      <MentorResponseStatsSection stats={responseStats} namespace="mentorship.detail" />
+
+      {mentor.rating_avg != null ? (
+        <section className="grid gap-4 sm:grid-cols-1">
+          <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
+            <div className="flex items-center gap-2 text-primary">
+              <Star className="h-5 w-5 shrink-0" aria-hidden />
+              <p className="font-arabic text-xs text-muted-foreground">{t('ratingLabel')}</p>
+            </div>
+            <p className="mt-1 font-arabic text-2xl font-semibold tabular-nums text-foreground">
+              {mentor.rating_avg.toFixed(1)}
+            </p>
+          </div>
+        </section>
+      ) : null}
 
       <MentorBioSection bioLong={mentor.bio_long} careerHistory={mentor.career_history} />
 
       <MentorExpertiseSection
-        sectors={mentor.expertise_areas.length > 0 ? mentor.expertise_areas : mentor.expertise_sectors}
+        declaredSpecializations={declaredSpecializations}
         yearsExperience={mentor.years_experience}
       />
 
@@ -97,9 +108,7 @@ export function MentorPublicDetailView({ mentor, locale }: MentorPublicDetailVie
             mentorId={mentor.user_id}
             mentorName={displayName}
             mentorHeadline={mentor.headline}
-            expertiseAreas={
-              mentor.expertise_areas.length > 0 ? mentor.expertise_areas : mentor.expertise_sectors
-            }
+            expertiseAreas={declaredSpecializations}
             isAccepting={mentor.is_accepting_requests}
             size="default"
             className="disabled:bg-border/30"

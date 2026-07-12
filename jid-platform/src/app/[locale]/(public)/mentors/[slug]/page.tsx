@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { fetchMentorPublicByIdentifier } from '@/lib/queries/mentors'
+import { fetchMentorResponseStats } from '@/lib/mentor/response-stats'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { MentorPublicDetailView } from '../_components/mentor-public-detail-view'
 
@@ -16,9 +17,11 @@ export default async function MentorSlugPage({ params }: MentorSlugPageProps) {
     notFound()
   }
 
+  const responseStats = await fetchMentorResponseStats(mentor.user_id)
+
   return (
     <main dir={dir} className="container-jid py-8" lang={locale}>
-      <MentorPublicDetailView mentor={mentor} locale={locale === 'en' ? 'en' : 'ar'} />
+      <MentorPublicDetailView mentor={mentor} locale={locale === 'en' ? 'en' : 'ar'} responseStats={responseStats} />
     </main>
   )
 }

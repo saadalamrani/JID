@@ -21,7 +21,6 @@ export type MentorCardData = {
   years_experience: number | null
   rating_avg: number | null
   sessions_count: number
-  avg_response_hours: number | null
   is_accepting_requests: boolean
   is_mentor_of_month: boolean
   active_workshop: ParsedActiveWorkshop | null

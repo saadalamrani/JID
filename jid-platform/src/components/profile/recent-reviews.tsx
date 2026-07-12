@@ -30,8 +30,8 @@ export async function RecentReviews({ mentorId }: RecentReviewsProps) {
                   {review.rating}/5
                 </span>
               </div>
-              {review.body ? (
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{review.body}</p>
+              {review.review_text ? (
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{review.review_text}</p>
               ) : null}
               <p className="mt-2 text-xs text-foreground/40">
                 {new Date(review.created_at).toLocaleDateString('ar-SA')}

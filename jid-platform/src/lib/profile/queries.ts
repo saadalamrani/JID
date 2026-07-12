@@ -402,6 +402,8 @@ const MENTOR_SELECT = `
   rating_avg,
   sessions_count,
   expertise_sectors,
+  expertise_areas,
+  specializations,
   years_experience,
   active_workshop
 ` as const
@@ -439,6 +441,8 @@ function mapMentorRow(
     rating_avg: row.rating_avg != null ? Number(row.rating_avg) : null,
     sessions_count: Number(row.sessions_count ?? 0),
     expertise_sectors: (row.expertise_sectors as string[]) ?? [],
+    expertise_areas: (row.expertise_areas as string[]) ?? [],
+    specializations: (row.specializations as string[]) ?? [],
     years_experience: row.years_experience != null ? Number(row.years_experience) : null,
     active_workshop: parseActiveWorkshop(row.active_workshop),
     profile,
@@ -478,8 +482,11 @@ export async function fetchMentorReviews(
   const client = await getOrchestrationClient()
   const { data, error } = await client
     .from('mentor_reviews')
-    .select('id, rating, body, created_at, reviewer_id, profiles:reviewer_id (full_name)')
+    .select(
+      'id, rating, review_text, visibility, created_at, reviewer_id, profiles:reviewer_id (full_name)',
+    )
     .eq('mentor_id', mentorId)
+    .in('visibility', ['public_named', 'public_anonymous'])
     .order('created_at', { ascending: false })
     .limit(limit)
 
@@ -488,12 +495,17 @@ export async function fetchMentorReviews(
   return (data ?? []).map((row) => {
     const record = row as Record<string, unknown>
     const nested = record.profiles as { full_name?: string | null } | null
+    const visibility = String(record.visibility) as MentorReviewRecord['visibility']
+    const reviewerName =
+      visibility === 'public_named' ? (nested?.full_name ?? null) : null
+
     return {
       id: String(record.id),
       rating: Number(record.rating),
-      body: (record.body as string | null) ?? null,
+      review_text: (record.review_text as string | null) ?? null,
+      visibility,
       created_at: String(record.created_at),
-      reviewer_name: nested?.full_name ?? null,
+      reviewer_name: reviewerName,
     }
   })
 }

@@ -99,7 +99,8 @@ export type MentorActiveWorkshop = {
 export type MentorReviewRecord = {
   id: string
   rating: number
-  body: string | null
+  review_text: string | null
+  visibility: 'private' | 'public_named' | 'public_anonymous'
   created_at: string
   reviewer_name: string | null
 }
@@ -115,6 +116,8 @@ export type MentorProfileRecord = {
   rating_avg: number | null
   sessions_count: number
   expertise_sectors: string[]
+  expertise_areas: string[]
+  specializations: string[]
   years_experience: number | null
   active_workshop: MentorActiveWorkshop | null
   profile: Pick<

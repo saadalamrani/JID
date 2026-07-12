@@ -6,7 +6,10 @@ import { MentorBioSection } from '@/components/profile/mentor-bio-section'
 import { MentorExpertiseSection } from '@/components/profile/mentor-expertise-section'
 import { MentorIdentityHeader } from '@/components/profile/mentor-identity-header'
 import { MentorRequestCTA } from '@/components/profile/mentor-request-cta'
+import { MentorResponseStatsSection } from '@/components/profile/mentor-response-stats'
 import { MentorTrustSignals } from '@/components/profile/mentor-trust-signals'
+import { buildMentorDeclaredSpecializations } from '@/lib/mentor/declared-specializations'
+import type { MentorResponseStats } from '@/lib/mentor/response-stats'
 import type { EarnedUserBadge, MentorPageContext } from '@/lib/profile/types'
 
 type MentorProfileViewProps = {
@@ -14,6 +17,7 @@ type MentorProfileViewProps = {
   badges: EarnedUserBadge[]
   isOwner: boolean
   isMentee: boolean
+  responseStats: MentorResponseStats
   reviewsSlot: ReactNode
 }
 
@@ -22,10 +26,12 @@ export function MentorProfileView({
   badges,
   isOwner,
   isMentee,
+  responseStats,
   reviewsSlot,
 }: MentorProfileViewProps) {
   const { mentor } = context
   const displayName = mentor.profile.full_name ?? '—'
+  const declaredSpecializations = buildMentorDeclaredSpecializations(mentor)
 
   return (
     <main className="container-jid space-y-6 py-8">
@@ -36,22 +42,18 @@ export function MentorProfileView({
         bioSnippet={mentor.bio_short}
         avatarUrl={mentor.profile.avatar_url}
         isVerified={mentor.status === 'approved'}
-        avgResponseHours={mentor.avg_response_hours}
         status={mentor.status !== 'approved' ? mentor.status : null}
         editHref={isOwner ? '/mentor/profile/edit' : undefined}
       />
 
-      <MentorTrustSignals
-        badges={badges}
-        ratingAvg={mentor.rating_avg}
-        sessionsCount={mentor.sessions_count}
-        showSessionStats
-      />
+      <MentorResponseStatsSection stats={responseStats} />
+
+      <MentorTrustSignals badges={badges} ratingAvg={mentor.rating_avg} />
 
       <MentorBioSection bioLong={mentor.bio_long} careerHistory={mentor.career_history} />
 
       <MentorExpertiseSection
-        sectors={mentor.expertise_sectors}
+        declaredSpecializations={declaredSpecializations}
         yearsExperience={mentor.years_experience}
       />
 
@@ -66,7 +68,7 @@ export function MentorProfileView({
           mentorId={mentor.user_id}
           mentorName={displayName}
           mentorHeadline={mentor.headline}
-          expertiseAreas={mentor.expertise_sectors}
+          expertiseAreas={declaredSpecializations}
           isAccepting
         />
       ) : null}

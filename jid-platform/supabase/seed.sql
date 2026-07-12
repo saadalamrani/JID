@@ -664,30 +664,4 @@ ON CONFLICT (user_id) DO UPDATE SET
   is_mentor_of_month = EXCLUDED.is_mentor_of_month,
   active_workshop = EXCLUDED.active_workshop;
 
-INSERT INTO public.mentor_reviews (id, mentor_id, reviewer_id, rating, body, created_at)
-VALUES
-  (
-    'e3000000-0000-4000-8000-000000000001',
-    'e0000000-0000-4000-8000-000000000001',
-    'a0000000-0000-4000-8000-000000000002',
-    5,
-    'Ahmed helped me refine my portfolio and I received an offer within six weeks.',
-    now() - interval '14 days'
-  ),
-  (
-    'e3000000-0000-4000-8000-000000000002',
-    'e0000000-0000-4000-8000-000000000001',
-    'a0000000-0000-4000-8000-000000000002',
-    5,
-    'Practical advice on behavioral interviews — highly recommend.',
-    now() - interval '30 days'
-  ),
-  (
-    'e3000000-0000-4000-8000-000000000003',
-    'e0000000-0000-4000-8000-000000000001',
-    'a0000000-0000-4000-8000-000000000001',
-    4,
-    'Great session on career planning in the Saudi tech market.',
-    now() - interval '45 days'
-  )
-ON CONFLICT (id) DO NOTHING;
+-- mentor_reviews: session-anchored only (119) — no decorative rows without completed meetings
