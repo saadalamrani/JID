@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 import {
   platformConfigValueTypeSchema,
+  displayConfigValue,
   type PlatformConfigRow,
 } from '@/lib/sys/platform-config'
-import { displayConfigValue } from '@/lib/sys/platform-config-queries'
 import { Button } from '@/components/ui/button'
 
 export function ConfigRow({ config }: { config: PlatformConfigRow }) {

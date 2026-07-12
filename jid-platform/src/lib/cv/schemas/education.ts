@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { CV_YEAR_MAX, CV_YEAR_MIN } from '@/lib/cv/constants'
 import type { CvEducationRecord } from '@/types/cv'
 
 const monthSchema = z
@@ -11,8 +12,8 @@ const monthSchema = z
 const yearSchema = z
   .number()
   .int()
-  .min(1950, 'السنة غير صالحة')
-  .max(2100, 'السنة غير صالحة')
+  .min(CV_YEAR_MIN, 'السنة غير صالحة')
+  .max(CV_YEAR_MAX, 'السنة غير صالحة')
   .nullable()
 
 const gpaValueSchema = z
@@ -26,8 +27,6 @@ const gpaScaleSchema = z
   .positive('مقياس المعدل يجب أن يكون أكبر من صفر')
   .max(100, 'مقياس المعدل مرتفع جداً')
   .nullable()
-
-const optionalText = z.string().trim().max(200).optional().or(z.literal(''))
 
 function numberFromInput(value: unknown): number | null {
   if (value === '' || value === null || value === undefined) return null

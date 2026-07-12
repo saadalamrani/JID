@@ -52,7 +52,7 @@ export async function fetchStaffEntitiesList(
       { count: 'exact' },
     )
     .eq('entity_state', 'approved')
-    .in('entity_type', ['company', 'university'])
+    .in('entity_type', ['business', 'university'])
     .order('created_at', { ascending: false })
 
   const q = filters.q?.trim()
@@ -110,7 +110,7 @@ export async function fetchStaffEntityDetail(entityId: string): Promise<StaffEnt
     )
     .eq('id', entityId)
     .eq('entity_state', 'approved')
-    .in('entity_type', ['company', 'university'])
+    .in('entity_type', ['business', 'university'])
     .maybeSingle()
 
   if (error) throw new Error(error.message)

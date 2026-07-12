@@ -152,7 +152,7 @@ export async function getCurrentViewer(): Promise<ProfileViewer> {
     .select('company_id, claim_type')
     .eq('user_id', user.id)
     .eq('status', 'approved')
-    .eq('claim_type', 'company')
+    .eq('claim_type', 'business')
     .order('reviewed_at', { ascending: false })
     .limit(1)
     .maybeSingle()
@@ -357,7 +357,7 @@ function mapCompanyRow(row: Record<string, unknown>): CompanyProfileRecord {
     founded_year: row.founded_year != null ? Number(row.founded_year) : null,
     employee_count_range: (row.employee_count_range as string | null) ?? null,
     office_locations: row.office_locations ?? [],
-    entity_type: String(row.entity_type ?? 'company'),
+    entity_type: String(row.entity_type ?? 'business'),
     entity_state: String(row.entity_state ?? 'unclaimed'),
     is_verified: Boolean(row.is_verified),
     is_on_honor_roll: Boolean(row.is_on_honor_roll),

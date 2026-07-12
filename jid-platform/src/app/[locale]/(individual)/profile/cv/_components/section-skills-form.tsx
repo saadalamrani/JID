@@ -36,7 +36,8 @@ export function SectionSkillsForm({ cv }: SectionSkillsFormProps) {
 
   useEffect(() => {
     reset(cvRecordToSkillsSectionValues(cv))
-  }, [cv.id, cv.updated_at, reset, cv])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: cv.id only
+  }, [cv.id, reset])
 
   const save = useCallback(
     async (values: CvSkillsSectionInput) => {
@@ -47,6 +48,7 @@ export function SectionSkillsForm({ cv }: SectionSkillsFormProps) {
       const parsed = cvSkillsSectionSchema.safeParse(candidate)
       if (!parsed.success) return
       await updateSkills.mutateAsync(normalizeSkillsPatch(parsed.data))
+      // Do not reset(parsed.data): stale in-flight saves must not wipe mid-typing.
     },
     [updateSkills],
   )

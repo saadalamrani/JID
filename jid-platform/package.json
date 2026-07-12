@@ -17,6 +17,7 @@
     "brand:import": "tsx scripts/import-brand-logos.ts",
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop",
+    "seed:local": "supabase db reset",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",

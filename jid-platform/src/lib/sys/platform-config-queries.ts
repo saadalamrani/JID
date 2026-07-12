@@ -3,7 +3,6 @@ import 'server-only'
 import {
   platformConfigCategorySchema,
   platformConfigRowSchema,
-  platformConfigValueTypeSchema,
   type PlatformConfigCategory,
   type PlatformConfigRow,
 } from '@/lib/sys/platform-config'
@@ -57,11 +56,4 @@ export function groupPlatformConfigByCategory(rows: PlatformConfigRow[]): Platfo
   }
 
   return grouped
-}
-
-export function displayConfigValue(row: PlatformConfigRow, revealSecret = false): string {
-  if (row.is_secret && !revealSecret) return '••••••••'
-  const valueType = platformConfigValueTypeSchema.parse(row.value_type)
-  if (valueType === 'json') return JSON.stringify(row.value)
-  return String(row.value ?? '')
 }

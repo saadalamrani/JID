@@ -21,16 +21,16 @@ import {
 } from '@/lib/cv/schemas/education'
 import type { CvEducationRecord } from '@/types/cv'
 import { cn } from '@/lib/utils'
+import { CV_YEAR_OPTIONS } from '@/lib/cv/constants'
 
 function fieldError(message: unknown): string | undefined {
   return typeof message === 'string' ? message : undefined
 }
 
 const MONTHS = Array.from({ length: 12 }, (_, index) => index + 1)
-const YEARS = Array.from({ length: 56 }, (_, index) => 2100 - index)
 
 const selectClassName =
-  'flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground'
+  'flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground tabular-nums'
 
 const textareaClassName =
   'flex w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground'
@@ -70,8 +70,11 @@ export function EducationEntryCard({
   } = form
 
   useEffect(() => {
+    // Rehydrate only when the entry identity changes — not on every optimistic
+    // cache write from autosave (that wiped mid-typing values).
     reset(educationRecordToFormValues(entry))
-  }, [entry.id, reset, entry])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: entry.id only
+  }, [entry.id, reset])
 
   const save = useCallback(
     async (values: CvEducationEntryInput) => {
@@ -79,6 +82,7 @@ export function EducationEntryCard({
       const parsed = cvEducationEntrySchema.safeParse(values)
       if (!parsed.success) return
       await onSave(entry.id, normalizeEducationUpdate(parsed.data))
+      // Do not reset(parsed.data): stale in-flight saves must not wipe mid-typing.
     },
     [entry.id, isTemp, onSave],
   )
@@ -227,9 +231,9 @@ export function EducationEntryCard({
                 {...register('start_year')}
               >
                 <option value="">{t('yearPlaceholder')}</option>
-                {YEARS.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
+                {CV_YEAR_OPTIONS.map((year) => (
+                  <option key={year} value={year} lang="en">
+                    {String(year)}
                   </option>
                 ))}
               </select>
@@ -284,9 +288,9 @@ export function EducationEntryCard({
                   {...register('end_year')}
                 >
                   <option value="">{t('yearPlaceholder')}</option>
-                  {YEARS.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
+                  {CV_YEAR_OPTIONS.map((year) => (
+                    <option key={year} value={year} lang="en">
+                      {String(year)}
                     </option>
                   ))}
                 </select>
@@ -333,9 +337,9 @@ export function EducationEntryCard({
               {...register('graduation_year')}
             >
               <option value="">{t('yearPlaceholder')}</option>
-              {YEARS.map((year) => (
-                <option key={year} value={year}>
-                  {year}
+              {CV_YEAR_OPTIONS.map((year) => (
+                <option key={year} value={year} lang="en">
+                  {String(year)}
                 </option>
               ))}
             </select>

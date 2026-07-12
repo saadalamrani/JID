@@ -23,12 +23,12 @@ import type { CvExperienceRecord } from '@/types/cv'
 import { cn } from '@/lib/utils'
 import { BulletEditor } from './bullet-editor'
 import { BulletRefiner } from './bullet-refiner'
+import { CV_YEAR_OPTIONS } from '@/lib/cv/constants'
 
 const MONTHS = Array.from({ length: 12 }, (_, index) => index + 1)
-const YEARS = Array.from({ length: 56 }, (_, index) => 2100 - index)
 
 const selectClassName =
-  'flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground'
+  'flex h-10 w-full rounded-md border border-border bg-card px-3 py-2 text-sm text-foreground tabular-nums'
 
 function fieldError(message: unknown): string | undefined {
   return typeof message === 'string' ? message : undefined
@@ -70,8 +70,11 @@ export function ExperienceEntryCard({
   } = form
 
   useEffect(() => {
+    // Rehydrate only when the entry identity changes — not on every optimistic
+    // cache write from autosave (that wiped mid-typing values).
     reset(experienceRecordToFormValues(entry))
-  }, [entry.id, reset, entry])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: entry.id only
+  }, [entry.id, reset])
 
   const save = useCallback(
     async (values: CvExperienceEntryInput) => {
@@ -79,6 +82,7 @@ export function ExperienceEntryCard({
       const parsed = cvExperienceEntrySchema.safeParse(values)
       if (!parsed.success) return
       await onSave(entry.id, normalizeExperienceUpdate(parsed.data))
+      // Do not reset(parsed.data): stale in-flight saves must not wipe mid-typing.
     },
     [entry.id, isTemp, onSave],
   )
@@ -231,9 +235,9 @@ export function ExperienceEntryCard({
                 {...register('start_year')}
               >
                 <option value="">{t('yearPlaceholder')}</option>
-                {YEARS.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
+                {CV_YEAR_OPTIONS.map((year) => (
+                  <option key={year} value={year} lang="en">
+                    {String(year)}
                   </option>
                 ))}
               </select>
@@ -288,9 +292,9 @@ export function ExperienceEntryCard({
                   {...register('end_year')}
                 >
                   <option value="">{t('yearPlaceholder')}</option>
-                  {YEARS.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
+                  {CV_YEAR_OPTIONS.map((year) => (
+                    <option key={year} value={year} lang="en">
+                      {String(year)}
                     </option>
                   ))}
                 </select>

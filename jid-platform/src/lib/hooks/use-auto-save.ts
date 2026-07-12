@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FieldValues, UseFormGetValues, UseFormWatch } from 'react-hook-form'
 
-export const AUTO_SAVE_DEBOUNCE_MS = 800
+export const AUTO_SAVE_DEBOUNCE_MS = 1000
 
 export type AutoSaveStatus = 'idle' | 'pending' | 'saving' | 'saved' | 'error'
 
@@ -32,6 +32,7 @@ export function useAutoSave<T extends FieldValues>({
   const [secondsAgo, setSecondsAgo] = useState(0)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isMountedRef = useRef(true)
+  const saveSeqRef = useRef(0)
 
   useEffect(() => {
     isMountedRef.current = true
@@ -49,15 +50,17 @@ export function useAutoSave<T extends FieldValues>({
       if (debounceRef.current) clearTimeout(debounceRef.current)
 
       debounceRef.current = setTimeout(() => {
+        const seq = ++saveSeqRef.current
         void (async () => {
           setStatus('saving')
           try {
             await onSave(getValues())
-            if (!isMountedRef.current) return
+            // Ignore stale completions — a newer debounce may already be pending/saving.
+            if (!isMountedRef.current || seq !== saveSeqRef.current) return
             setSavedAt(new Date())
             setStatus('saved')
           } catch {
-            if (!isMountedRef.current) return
+            if (!isMountedRef.current || seq !== saveSeqRef.current) return
             setStatus('error')
             onError?.()
           }

@@ -43,7 +43,7 @@ export async function fetchSitemapCompanies(): Promise<SitemapPathEntry[]> {
     .from('companies')
     .select('slug, updated_at')
     .eq('is_active', true)
-    .eq('entity_type', 'company')
+    .eq('entity_type', 'business')
     .not('slug', 'is', null)
     .order('updated_at', { ascending: false })
     .limit(SITEMAP_ROW_LIMIT)

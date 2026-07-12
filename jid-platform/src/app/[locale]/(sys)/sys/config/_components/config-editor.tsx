@@ -6,9 +6,9 @@ import { useRouter } from '@/lib/i18n/navigation'
 import {
   formatPlatformConfigForEdit,
   platformConfigValueTypeSchema,
+  displayConfigValue,
   type PlatformConfigRow,
 } from '@/lib/sys/platform-config'
-import { displayConfigValue } from '@/lib/sys/platform-config-queries'
 import { updateConfig } from '@/app/[locale]/(sys)/sys/config/actions'
 import { ConfirmDialog } from '@/app/[locale]/(sys)/sys/flags/_components/confirm-dialog'
 import { Button } from '@/components/ui/button'

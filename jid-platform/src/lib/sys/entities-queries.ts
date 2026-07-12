@@ -33,7 +33,7 @@ export async function fetchSysEntitiesList(
   }
 
   const entityType = filters.entityType ?? 'all'
-  if (entityType === 'company') query = query.eq('entity_type', 'company')
+  if (entityType === 'company') query = query.eq('entity_type', 'business')
   if (entityType === 'university') query = query.eq('entity_type', 'university')
 
   const state = filters.state ?? 'all'

@@ -51,7 +51,8 @@ export async function upsertDirectoryRecord(
   const row = {
     name: payload.name,
     name_ar: payload.name_ar,
-    entity_type: payload.entity_type,
+    // Directory UI keeps "company"; DB enum uses "business" (P-101 rename).
+    entity_type: payload.entity_type === 'company' ? 'business' : payload.entity_type,
     ownership_type: payload.ownership_type,
     sector_id: payload.sector_id,
     region_id: payload.region_id,

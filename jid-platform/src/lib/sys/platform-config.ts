@@ -70,3 +70,11 @@ export function formatPlatformConfigForEdit(
 export function maskPlatformConfigValue(isSecret: boolean): string {
   return isSecret ? '••••••••' : ''
 }
+
+/** Display helper for config rows — safe for client components (no DB access). */
+export function displayConfigValue(row: PlatformConfigRow, revealSecret = false): string {
+  if (row.is_secret && !revealSecret) return '••••••••'
+  const valueType = platformConfigValueTypeSchema.parse(row.value_type)
+  if (valueType === 'json') return JSON.stringify(row.value)
+  return String(row.value ?? '')
+}

@@ -41,14 +41,19 @@ export function SectionHeaderForm({ cv }: SectionHeaderFormProps) {
   } = form
 
   useEffect(() => {
+    // Rehydrate only when switching CV documents — not on every optimistic
+    // cache write from autosave (that wiped mid-typing values).
     reset(cvRecordToHeaderSectionValues(cv))
-  }, [cv.id, cv.updated_at, reset, cv])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: cv.id only
+  }, [cv.id, reset])
 
   const save = useCallback(
     async (values: CvHeaderSectionValues) => {
       const parsed = cvHeaderSectionSchema.safeParse(values)
       if (!parsed.success) return
       await updateHeader.mutateAsync(normalizeCvHeaderPatch(parsed.data))
+      // Do not reset(parsed.data): an in-flight save can finish after newer
+      // keystrokes and wipe mid-typing. Rehydrate only on cv.id (above).
     },
     [updateHeader],
   )
@@ -110,7 +115,7 @@ export function SectionHeaderForm({ cv }: SectionHeaderFormProps) {
         <FormField
           id="linkedin_url"
           label={t('linkedin')}
-          hint={t('linkAnchorHint')}
+          hint={t('linkedinHint')}
           error={errors.linkedin_url?.message}
         >
           <Input id="linkedin_url" type="url" {...register('linkedin_url')} placeholder="https://" />
@@ -119,7 +124,7 @@ export function SectionHeaderForm({ cv }: SectionHeaderFormProps) {
         <FormField
           id="github_url"
           label={t('github')}
-          hint={t('linkAnchorHint')}
+          hint={t('githubHint')}
           error={errors.github_url?.message}
         >
           <Input id="github_url" type="url" {...register('github_url')} placeholder="https://" />
@@ -128,7 +133,7 @@ export function SectionHeaderForm({ cv }: SectionHeaderFormProps) {
         <FormField
           id="portfolio_url"
           label={t('portfolio')}
-          hint={t('linkAnchorHint')}
+          hint={t('portfolioHint')}
           error={errors.portfolio_url?.message}
         >
           <Input id="portfolio_url" type="url" {...register('portfolio_url')} placeholder="https://" />

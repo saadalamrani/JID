@@ -34,7 +34,7 @@ export async function checkClaimableProfile(
     .from('companies')
     .select('id, name, name_ar, slug, domains, entity_state')
     .eq('entity_state', 'unclaimed')
-    .eq('entity_type', 'company')
+    .eq('entity_type', 'business')
     .eq('is_active', true)
 
   if (error) throw new Error(error.message)
@@ -84,7 +84,7 @@ export async function submitCatalogClaim(
     .from('companies')
     .select('id, name, name_ar, domains, entity_state, claimed_by')
     .eq('id', input.companyId)
-    .eq('entity_type', 'company')
+    .eq('entity_type', 'business')
     .maybeSingle()
 
   if (companyError) throw new Error(companyError.message)

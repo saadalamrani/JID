@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { CV_YEAR_MAX, CV_YEAR_MIN } from '@/lib/cv/constants'
 import type { CvExperienceRecord } from '@/types/cv'
 
 const monthSchema = z
@@ -11,8 +12,8 @@ const monthSchema = z
 const yearSchema = z
   .number()
   .int()
-  .min(1950, 'السنة غير صالحة')
-  .max(2100, 'السنة غير صالحة')
+  .min(CV_YEAR_MIN, 'السنة غير صالحة')
+  .max(CV_YEAR_MAX, 'السنة غير صالحة')
   .nullable()
 
 function numberFromInput(value: unknown): number | null {

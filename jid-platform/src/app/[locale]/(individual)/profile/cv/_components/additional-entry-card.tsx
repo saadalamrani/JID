@@ -52,7 +52,8 @@ export function AdditionalEntryCard({
 
   useEffect(() => {
     reset(additionalRecordToFormValues(entry))
-  }, [entry.id, reset, entry])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: entry.id only
+  }, [entry.id, reset])
 
   const save = useCallback(
     async (values: CvAdditionalEntryInput) => {
@@ -60,6 +61,7 @@ export function AdditionalEntryCard({
       const parsed = cvAdditionalEntrySchema.safeParse(values)
       if (!parsed.success) return
       await onSave(entry.id, normalizeAdditionalUpdate(parsed.data))
+      // Do not reset(parsed.data): stale in-flight saves must not wipe mid-typing.
     },
     [entry.id, isTemp, onSave],
   )

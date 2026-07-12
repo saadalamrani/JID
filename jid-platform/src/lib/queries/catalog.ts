@@ -237,7 +237,7 @@ export async function fetchCompanies(
     .from('companies')
     .select(CATALOG_LIST_SELECT, { count: 'exact' })
     .eq('is_active', true)
-    .eq('entity_type', 'company')
+    .eq('entity_type', 'business')
 
   if (filters.q?.trim()) {
     query = query.textSearch('search_vector', filters.q.trim(), {
