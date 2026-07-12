@@ -86,24 +86,29 @@ CREATE POLICY applications_owner_update_status
   );
 
 -- ---------------------------------------------------------------------------
--- Enforce jobs.business_profile_id NOT NULL (only after pre-check passes)
+-- Enforce jobs.business_profile_id NOT NULL (only when every row is backfilled)
 -- ---------------------------------------------------------------------------
 
-ALTER TABLE public.jobs
-  ALTER COLUMN business_profile_id SET NOT NULL;
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM public.jobs WHERE business_profile_id IS NULL) THEN
+    ALTER TABLE public.jobs
+      ALTER COLUMN business_profile_id SET NOT NULL;
+  END IF;
+END;
+$$;
 
 -- ---------------------------------------------------------------------------
 -- Drop deprecated companies ownership columns (P-101 / P-110)
--- Present per P-101 Step 0: claimed_by, claim_requested_at
--- Conditionally present (106 deprecation comments): claim_status, is_claimed,
--- claim_approved_at, claim_approved_by
+-- Skipped in automated bootstrap: claimed_by is still referenced by legacy
+-- policies/functions. Apply column drops manually after verify-backfill-integrity PASS.
 -- ---------------------------------------------------------------------------
 
-ALTER TABLE public.companies DROP COLUMN IF EXISTS claimed_by;
-ALTER TABLE public.companies DROP COLUMN IF EXISTS claim_status;
-ALTER TABLE public.companies DROP COLUMN IF EXISTS is_claimed;
-ALTER TABLE public.companies DROP COLUMN IF EXISTS claim_requested_at;
-ALTER TABLE public.companies DROP COLUMN IF EXISTS claim_approved_at;
-ALTER TABLE public.companies DROP COLUMN IF EXISTS claim_approved_by;
+-- ALTER TABLE public.companies DROP COLUMN IF EXISTS claimed_by;
+-- ALTER TABLE public.companies DROP COLUMN IF EXISTS claim_status;
+-- ALTER TABLE public.companies DROP COLUMN IF EXISTS is_claimed;
+-- ALTER TABLE public.companies DROP COLUMN IF EXISTS claim_requested_at;
+-- ALTER TABLE public.companies DROP COLUMN IF EXISTS claim_approved_at;
+-- ALTER TABLE public.companies DROP COLUMN IF EXISTS claim_approved_by;
 
 NOTIFY pgrst, 'reload schema';

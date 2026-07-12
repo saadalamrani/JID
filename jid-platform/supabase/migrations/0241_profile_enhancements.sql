@@ -1,17 +1,29 @@
 -- Unified Profile System — profile enhancements (Section 5 / Section 12 Step 1)
 
-CREATE TYPE public.profile_state_enum AS ENUM (
-  'incomplete',
-  'active',
-  'suspended',
-  'deleted'
-);
+DO $$
+BEGIN
+  CREATE TYPE public.profile_state_enum AS ENUM (
+    'incomplete',
+    'active',
+    'suspended',
+    'deleted'
+  );
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END;
+$$;
 
-CREATE TYPE public.profile_visibility_enum AS ENUM (
-  'private',
-  'discoverable',
-  'public'
-);
+DO $$
+BEGIN
+  CREATE TYPE public.profile_visibility_enum AS ENUM (
+    'private',
+    'discoverable',
+    'public'
+  );
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END;
+$$;
 
 -- Minimal catalog tables referenced by completion scoring (full catalog ships later)
 CREATE TABLE IF NOT EXISTS public.universities (

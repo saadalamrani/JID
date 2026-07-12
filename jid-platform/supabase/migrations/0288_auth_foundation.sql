@@ -1,13 +1,19 @@
 -- JID Auth/RBAC foundation: roles, profile auth columns, role escalation guard
 -- Section 11 Step 1
 
-CREATE TYPE public.user_role_enum AS ENUM (
-  'individual',
-  'entity',
-  'staff',
-  'admin',
-  'super_admin'
-);
+DO $$
+BEGIN
+  CREATE TYPE public.user_role_enum AS ENUM (
+    'individual',
+    'entity',
+    'staff',
+    'admin',
+    'super_admin'
+  );
+EXCEPTION
+  WHEN duplicate_object THEN NULL;
+END;
+$$;
 
 -- Base profiles table (catalog migrations may have created this already)
 CREATE TABLE IF NOT EXISTS public.profiles (

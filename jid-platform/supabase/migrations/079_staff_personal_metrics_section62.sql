@@ -1,6 +1,10 @@
 -- Section 6.2 — extend v_staff_personal_metrics with review KPIs
+-- Column order changes require drop/recreate (CREATE OR REPLACE cannot rename columns).
 
-CREATE OR REPLACE VIEW public.v_staff_personal_metrics AS
+DROP FUNCTION IF EXISTS public.get_staff_personal_metrics();
+DROP VIEW IF EXISTS public.v_staff_personal_metrics;
+
+CREATE VIEW public.v_staff_personal_metrics AS
 SELECT
   staff.id AS staff_user_id,
   COALESCE(audit_stats.total_actions, 0)::bigint AS total_actions,
@@ -71,3 +75,24 @@ LEFT JOIN LATERAL (
 WHERE staff.role IN ('staff', 'admin', 'super_admin');
 
 GRANT SELECT ON public.v_staff_personal_metrics TO authenticated;
+
+CREATE OR REPLACE FUNCTION public.get_staff_personal_metrics()
+RETURNS SETOF public.v_staff_personal_metrics
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT m.*
+  FROM public.v_staff_personal_metrics m
+  WHERE m.staff_user_id = auth.uid()
+    AND EXISTS (
+      SELECT 1
+      FROM public.profiles p
+      WHERE p.id = auth.uid()
+        AND p.role IN ('staff', 'admin', 'super_admin')
+    );
+$$;
+
+REVOKE ALL ON FUNCTION public.get_staff_personal_metrics() FROM PUBLIC, anon;
+GRANT EXECUTE ON FUNCTION public.get_staff_personal_metrics() TO authenticated;

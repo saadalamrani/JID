@@ -129,7 +129,7 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         password: values.password,
         options: {
           emailRedirectTo: redirectTo,
-          data: { full_name: values.full_name },
+          data: { full_name: values.full_name, role: 'entity', locale: 'ar' },
         },
       })
 
@@ -138,11 +138,10 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         return
       }
 
-      if (data.user) {
+      if (data.user && data.session) {
         const { error: profileError } = await supabase.from('profiles').upsert({
           id: data.user.id,
           full_name: values.full_name,
-          role: 'entity',
           locale: 'ar',
           updated_at: new Date().toISOString(),
         })

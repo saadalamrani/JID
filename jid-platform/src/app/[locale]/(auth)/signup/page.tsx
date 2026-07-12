@@ -52,7 +52,7 @@ export default function SignupPage() {
         password: values.password,
         options: {
           emailRedirectTo: redirectTo,
-          data: { full_name: values.full_name },
+          data: { full_name: values.full_name, locale: 'ar' },
         },
       })
 
@@ -62,17 +62,20 @@ export default function SignupPage() {
       }
 
       if (data.user) {
-        const { error: profileError } = await supabase.from('profiles').upsert({
-          id: data.user.id,
-          full_name: values.full_name,
-          role: 'individual',
-          locale: 'ar',
-          updated_at: new Date().toISOString(),
-        })
+        // Profile row is created by handle_new_user() trigger (no session until email confirmed).
+        // If a session already exists (confirmations off), keep profile fields in sync.
+        if (data.session) {
+          const { error: profileError } = await supabase.from('profiles').upsert({
+            id: data.user.id,
+            full_name: values.full_name,
+            locale: 'ar',
+            updated_at: new Date().toISOString(),
+          })
 
-        if (profileError) {
-          toast.error(profileError.message)
-          return
+          if (profileError) {
+            toast.error(profileError.message)
+            return
+          }
         }
       }
 

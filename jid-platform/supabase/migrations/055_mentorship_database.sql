@@ -79,6 +79,8 @@ CREATE TABLE IF NOT EXISTS public.mentor_profiles (
 );
 
 ALTER TABLE public.mentor_profiles
+  ADD COLUMN IF NOT EXISTS headline text,
+  ADD COLUMN IF NOT EXISTS bio_short text,
   ADD COLUMN IF NOT EXISTS avg_response_hours numeric(8, 2),
   ADD COLUMN IF NOT EXISTS bio_long text,
   ADD COLUMN IF NOT EXISTS career_history jsonb NOT NULL DEFAULT '[]'::jsonb,

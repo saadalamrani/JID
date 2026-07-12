@@ -1,5 +1,7 @@
 -- Profile view stats enhancement + staff reinstate (Section 12 Steps 14–15)
 
+DROP FUNCTION IF EXISTS public.get_profile_view_stats(uuid);
+
 CREATE OR REPLACE FUNCTION public.get_profile_view_stats(p_profile_id uuid)
 RETURNS TABLE (
   total_views bigint,

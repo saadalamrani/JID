@@ -42,11 +42,18 @@ UPDATE public.companies
 SET name = COALESCE(NULLIF(trim(name), ''), NULLIF(trim(name_ar), ''), 'Company')
 WHERE name IS NULL;
 
-UPDATE public.companies
-SET is_verified = (verification_status = 'approved')
-WHERE EXISTS (
-  SELECT 1 FROM information_schema.columns
-  WHERE table_schema = 'public' AND table_name = 'companies' AND column_name = 'verification_status'
-);
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_schema = 'public' AND table_name = 'companies' AND column_name = 'verification_status'
+  ) THEN
+    EXECUTE $sql$
+      UPDATE public.companies
+      SET is_verified = (verification_status = 'approved')
+    $sql$;
+  END IF;
+END;
+$$;
 
 NOTIFY pgrst, 'reload schema';

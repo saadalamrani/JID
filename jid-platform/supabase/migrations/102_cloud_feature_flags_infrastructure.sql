@@ -1,14 +1,14 @@
 -- 102_cloud_feature_flags_infrastructure.sql
 -- Feature-flags ONLY — cloud-reconciled extract from 074 + 075 + FLAG_KEYS seeds.
 -- Does NOT create platform_config, emergency_actions, or sys metrics (074 scope excluded).
--- Uses public.user_role (cloud) instead of user_role_enum.
+-- Uses public.user_role_enum (cloud) instead of user_role_enum.
 
 -- ---------------------------------------------------------------------------
 -- Prerequisites (036) — required by is_feature_enabled
 -- ---------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION public.current_user_role()
-RETURNS public.user_role
+RETURNS public.user_role_enum
 LANGUAGE sql
 STABLE
 SECURITY DEFINER
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS public.feature_flags (
   description_ar text,
   description_en text,
   is_enabled boolean NOT NULL DEFAULT true,
-  min_role public.user_role NOT NULL DEFAULT 'individual',
+  min_role public.user_role_enum NOT NULL DEFAULT 'individual',
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
   updated_by uuid REFERENCES public.profiles (id) ON DELETE SET NULL
@@ -67,7 +67,7 @@ CREATE INDEX IF NOT EXISTS idx_feature_flags_enabled ON public.feature_flags (is
 
 ALTER TABLE public.feature_flags
   ADD COLUMN IF NOT EXISTS category text NOT NULL DEFAULT 'modules',
-  ADD COLUMN IF NOT EXISTS enabled_for_roles public.user_role[] NOT NULL DEFAULT '{}',
+  ADD COLUMN IF NOT EXISTS enabled_for_roles public.user_role_enum[] NOT NULL DEFAULT '{}',
   ADD COLUMN IF NOT EXISTS user_overrides jsonb NOT NULL DEFAULT '{}'::jsonb;
 
 CREATE INDEX IF NOT EXISTS idx_feature_flags_category
@@ -77,7 +77,7 @@ CREATE INDEX IF NOT EXISTS idx_feature_flags_category
 -- 074 §3.6 helpers + 075 is_feature_enabled (layered)
 -- ---------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION public._user_role_rank(p_role public.user_role)
+CREATE OR REPLACE FUNCTION public._user_role_rank(p_role public.user_role_enum)
 RETURNS integer
 LANGUAGE sql
 IMMUTABLE
@@ -102,7 +102,7 @@ SET search_path = public
 AS $$
 DECLARE
   v_flag public.feature_flags%ROWTYPE;
-  v_role public.user_role;
+  v_role public.user_role_enum;
   v_uid text;
   v_override text;
 BEGIN
@@ -112,13 +112,13 @@ BEGIN
   END IF;
 
   IF auth.uid() IS NULL THEN
-    v_role := 'individual'::public.user_role;
+    v_role := 'individual'::public.user_role_enum;
     v_uid := NULL;
   ELSE
     v_uid := auth.uid()::text;
     v_role := public.current_user_role();
     IF v_role IS NULL THEN
-      v_role := 'individual'::public.user_role;
+      v_role := 'individual'::public.user_role_enum;
     END IF;
   END IF;
 

@@ -106,7 +106,7 @@ BEGIN
     PERFORM cron.schedule(
       'expire-subscriptions',
       '30 0 * * *',
-      $$SELECT public.expire_lapsed_subscriptions();$$
+      $cron$SELECT public.expire_lapsed_subscriptions();$cron$
     );
   END IF;
 END;

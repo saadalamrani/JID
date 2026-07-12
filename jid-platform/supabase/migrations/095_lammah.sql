@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS public.lammah_opportunities (
   external_ref_hash TEXT NOT NULL UNIQUE,
   source_published_at TIMESTAMPTZ NOT NULL,
   scraped_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  expires_at TIMESTAMPTZ GENERATED ALWAYS AS (scraped_at + INTERVAL '14 days') STORED,
+  expires_at TIMESTAMPTZ NOT NULL,
   status public.lammah_status_enum NOT NULL DEFAULT 'active',
   superseded_by_job_id UUID REFERENCES public.jobs(id) ON DELETE SET NULL,
   extraction_confidence NUMERIC(3, 2) NOT NULL DEFAULT 1.0,
@@ -75,6 +75,22 @@ CREATE INDEX IF NOT EXISTS idx_lammah_taxonomy
 CREATE INDEX IF NOT EXISTS idx_lammah_moderation
   ON public.lammah_opportunities (status, extraction_confidence ASC, scraped_at DESC)
   WHERE status = 'hidden';
+
+CREATE OR REPLACE FUNCTION public.set_lammah_opportunity_expires_at()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  NEW.expires_at := COALESCE(NEW.scraped_at, NOW()) + INTERVAL '14 days';
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_lammah_opportunities_expires_at ON public.lammah_opportunities;
+CREATE TRIGGER trg_lammah_opportunities_expires_at
+  BEFORE INSERT OR UPDATE OF scraped_at ON public.lammah_opportunities
+  FOR EACH ROW
+  EXECUTE FUNCTION public.set_lammah_opportunity_expires_at();
 
 CREATE TABLE IF NOT EXISTS public.lammah_radar_items (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),

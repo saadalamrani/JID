@@ -4,10 +4,7 @@
 
 -- ---------------------------------------------------------------------------
 -- Section 3.1 — claim_requests assignment + first-view tracking
--- ---------------------------------------------------------------------------
-
-ALTER TYPE public.claim_status_enum ADD VALUE IF NOT EXISTS 'submitted';
-ALTER TYPE public.claim_status_enum ADD VALUE IF NOT EXISTS 'needs_more_info';
+-- (submitted, needs_more_info are created in 027/031 claim_status_enum)
 
 ALTER TABLE public.claim_requests
   ADD COLUMN IF NOT EXISTS assigned_staff_id uuid REFERENCES auth.users (id) ON DELETE SET NULL,

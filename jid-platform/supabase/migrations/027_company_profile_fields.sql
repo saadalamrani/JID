@@ -92,7 +92,10 @@ DO $$
 BEGIN
   CREATE TYPE public.claim_status_enum AS ENUM (
     'pending',
+    'submitted',
+    'pending_review',
     'under_review',
+    'needs_more_info',
     'approved',
     'rejected',
     'cancelled'

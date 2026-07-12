@@ -14,6 +14,8 @@ SET
   value = EXCLUDED.value,
   description = COALESCE(public.platform_config.description, EXCLUDED.description);
 
+DROP FUNCTION IF EXISTS public.email_quota_status();
+
 CREATE OR REPLACE FUNCTION public.email_quota_status()
 RETURNS TABLE (
   daily_limit integer,

@@ -19,6 +19,20 @@ CREATE TABLE IF NOT EXISTS public.feature_flags (
   updated_by uuid REFERENCES public.profiles (id) ON DELETE SET NULL
 );
 
+ALTER TABLE public.feature_flags
+  ADD COLUMN IF NOT EXISTS label_ar text,
+  ADD COLUMN IF NOT EXISTS label_en text,
+  ADD COLUMN IF NOT EXISTS description_ar text,
+  ADD COLUMN IF NOT EXISTS description_en text,
+  ADD COLUMN IF NOT EXISTS min_role public.user_role_enum NOT NULL DEFAULT 'individual',
+  ADD COLUMN IF NOT EXISTS updated_by uuid REFERENCES public.profiles (id) ON DELETE SET NULL;
+
+UPDATE public.feature_flags
+SET
+  label_ar = coalesce(label_ar, key),
+  label_en = coalesce(label_en, key)
+WHERE label_ar IS NULL OR label_en IS NULL;
+
 CREATE INDEX IF NOT EXISTS idx_feature_flags_enabled ON public.feature_flags (is_enabled);
 
 INSERT INTO public.feature_flags (
@@ -253,14 +267,9 @@ CREATE POLICY emergency_actions_update_super_admin
   USING (public.current_user_role() = 'super_admin')
   WITH CHECK (public.current_user_role() = 'super_admin');
 
-ALTER MATERIALIZED VIEW public.mv_sys_dashboard_metrics ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS mv_sys_dashboard_metrics_select_admin ON public.mv_sys_dashboard_metrics;
-CREATE POLICY mv_sys_dashboard_metrics_select_admin
-  ON public.mv_sys_dashboard_metrics
-  FOR SELECT
-  TO authenticated
-  USING (public.is_admin_or_above());
+-- Materialized views cannot have RLS in PostgreSQL; access is enforced at the app layer (/sys routes).
+REVOKE ALL ON public.mv_sys_dashboard_metrics FROM PUBLIC, anon;
+GRANT SELECT ON public.mv_sys_dashboard_metrics TO authenticated;
 
 -- ---------------------------------------------------------------------------
 -- 3.6 is_feature_enabled(), refresh_sys_metrics()

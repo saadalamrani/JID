@@ -166,7 +166,7 @@ AS $$
     FROM public.companies c
     WHERE c.id = p_company_id
       AND c.claimed_by = auth.uid()
-      AND c.claim_status = 'claimed'
+      AND c.entity_state = 'approved'
   )
   OR EXISTS (
     SELECT 1
@@ -189,7 +189,7 @@ AS $$
     INNER JOIN public.companies c ON c.id = j.company_id
     WHERE j.id = p_job_id
       AND c.claimed_by = auth.uid()
-      AND c.claim_status = 'claimed'
+      AND c.entity_state = 'approved'
   )
   OR EXISTS (
     SELECT 1

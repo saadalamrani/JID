@@ -8,8 +8,6 @@ EXCEPTION
 END;
 $$;
 
-ALTER TYPE public.claim_status_enum ADD VALUE IF NOT EXISTS 'pending_review';
-
 CREATE TABLE IF NOT EXISTS public.companies (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,

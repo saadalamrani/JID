@@ -183,7 +183,7 @@ VALUES
     'Software engineering graduate seeking internships',
     'Passionate about building products that help students find meaningful careers in Saudi Arabia.',
     'https://api.dicebear.com/7.x/avataaars/svg?seed=complete-test',
-    'b0000000-0000-4000-8000-000000000001',
+    NULL,
     ARRAY['Technology', 'Finance'],
     ARRAY['Riyadh'],
     NULL,
@@ -236,6 +236,12 @@ SET
   suspended_reason = 'Policy violation (seed fixture)'
 WHERE id = 'a0000000-0000-4000-8000-000000000003';
 
+UPDATE public.profiles
+SET university_id = (
+  SELECT id FROM public.universities_catalog WHERE short_code = 'KSU' LIMIT 1
+)
+WHERE id = 'a0000000-0000-4000-8000-000000000002';
+
 INSERT INTO public.profile_skills (profile_id, skill_id)
 VALUES
   ('a0000000-0000-4000-8000-000000000002', 'c0000000-0000-4000-8000-000000000001'),
@@ -278,7 +284,7 @@ VALUES
     'Unclaimed Startup Co',
     'شركة ناشئة غير مطالب بها',
     ARRAY['unclaimed-test.jid.local'],
-    'company',
+    'business',
     'unclaimed',
     false,
     'Building the future of work',
@@ -298,7 +304,7 @@ VALUES
     'Approved Tech Corp',
     'شركة التقنية المعتمدة',
     ARRAY['approved-tech.jid.local'],
-    'company',
+    'business',
     'approved',
     true,
     'Hiring Saudi tech talent',
@@ -318,7 +324,7 @@ VALUES
     'Suspended Corp',
     'شركة موقوفة',
     ARRAY['suspended-corp.jid.local'],
-    'company',
+    'business',
     'suspended',
     false,
     'Former employer profile',
@@ -420,15 +426,15 @@ VALUES (
 )
 ON CONFLICT (id) DO UPDATE SET role = 'company_admin', full_name = EXCLUDED.full_name;
 
-INSERT INTO public.claim_requests (
+INSERT INTO public.verification_requests (
   id,
-  user_id,
-  company_id,
+  applicant_user_id,
+  directory_id,
   company_name,
   business_email,
   claimant_name,
   status,
-  claim_type,
+  verification_type,
   reviewed_at
 )
 VALUES (
@@ -439,7 +445,7 @@ VALUES (
   'hr@approved-tech.jid.local',
   'Company Admin Test',
   'approved',
-  'company',
+  'business',
   now()
 )
 ON CONFLICT (id) DO UPDATE SET
@@ -632,6 +638,7 @@ VALUES
   (
     'e0000000-0000-4000-8000-000000000002',
     'pending',
+    'pending-mentor',
     'Pending mentor application',
     'Not yet visible to the public.',
     NULL,
@@ -640,7 +647,14 @@ VALUES
     NULL,
     0,
     '{}',
+    '{}',
+    '{}',
+    '{}',
+    '{}',
     NULL,
+    NULL,
+    false,
+    false,
     NULL
   )
 ON CONFLICT (user_id) DO UPDATE SET
