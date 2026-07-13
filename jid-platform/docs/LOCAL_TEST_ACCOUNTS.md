@@ -7,6 +7,8 @@
 
 Do not use these credentials outside local development.
 
+For **shareable non-production cloud** friend testing, see [`docs/SHAREABLE_TEST_ACCESS.md`](./SHAREABLE_TEST_ACCESS.md) and `pnpm seed:cloud-test`. Never seed production.
+
 ## Login matrix
 
 | Persona | Email | Role | Portal |

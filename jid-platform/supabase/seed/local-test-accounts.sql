@@ -1,8 +1,11 @@
 -- =============================================================================
 -- LOCAL TEST ACCOUNTS — deterministic fixtures for manual portal testing
 -- Password for ALL accounts below: JidSeed123!
--- Domain: @jidseed.test (local only — never use outside local Supabase)
--- Idempotent: safe to re-run via `pnpm seed:local` / `supabase db reset`
+-- Domain: @jidseed.test (fixtures for local + approved NON-PROD cloud only)
+-- Never apply against production / jid.sa.
+-- Local: `pnpm seed:local` / `supabase db reset`
+-- Non-prod cloud: `pnpm seed:cloud-test --execute --i-confirm-non-production`
+-- Idempotent: safe to re-run
 -- =============================================================================
 -- Architecture notes (Step 0):
 --   • Public actors: Individual | Business (company_admin) | University (university_admin)
@@ -999,6 +1002,6 @@ ON CONFLICT (id) DO UPDATE SET
 -- =============================================================================
 
 COMMENT ON FUNCTION public._seed_local_auth_user(uuid, text, text, text) IS
-  'LOCAL DEV ONLY — creates auth.users + identities for jidseed.test fixtures.';
+  'TEST FIXTURES — creates auth.users + identities for jidseed.test (local or approved non-prod only).';
 
 COMMIT;
