@@ -61,15 +61,15 @@ export async function reviewClaim(input: ReviewClaimInput): Promise<ReviewClaimA
 
   const supabase = await createClient()
 
-  const { data: claim } = await supabase
-    .from('claim_requests')
-    .select('user_id')
+  const { data: verification } = await supabase
+    .from('verification_requests')
+    .select('applicant_user_id')
     .eq('id', claimId)
     .maybeSingle()
 
-  if (!claim) return { ok: false, error: 'Claim not found' }
-  if (claim.user_id === actor.userId) {
-    return { ok: false, error: 'Cannot review your own claim' }
+  if (!verification) return { ok: false, error: 'Verification request not found' }
+  if (verification.applicant_user_id === actor.userId) {
+    return { ok: false, error: 'Cannot review your own verification request' }
   }
 
   const { error } = await supabase.rpc('review_claim', {

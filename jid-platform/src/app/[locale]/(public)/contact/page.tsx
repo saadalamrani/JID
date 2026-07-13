@@ -31,7 +31,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
   } = await supabase.auth.getUser()
 
   let defaultFullName = ''
-  let defaultEmail = user?.email ?? ''
+  const defaultEmail = user?.email ?? ''
 
   if (user) {
     const { data: profile } = await supabase

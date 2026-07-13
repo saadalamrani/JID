@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { ErrorPageShell, ErrorState } from '@/components/shared/error-state'
 import { useTranslations } from 'next-intl'
 

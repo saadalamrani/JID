@@ -13,7 +13,7 @@ function revalidateLammahPaths() {
 }
 
 export async function approveLammahOpportunity(opportunityId: string): Promise<LammahStaffActionResult> {
-  const staff = await requireStaffShellAccess()
+  await requireStaffShellAccess()
   const supabase = await createClient()
 
   const { error } = await supabase

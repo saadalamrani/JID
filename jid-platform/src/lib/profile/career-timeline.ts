@@ -1,6 +1,6 @@
 import 'server-only'
 
-import type { CvAdditionalRecord, CvEducationRecord, CvExperienceRecord } from '@/types/cv'
+import type { CvEducationRecord, CvExperienceRecord } from '@/types/cv'
 import type { UserApplication } from '@/types/application'
 
 export type CareerTimelineEntryKind =

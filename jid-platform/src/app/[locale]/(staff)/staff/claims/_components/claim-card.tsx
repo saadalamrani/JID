@@ -19,13 +19,13 @@ type ClaimCardProps = {
 }
 
 const TYPE_BADGE_LABEL: Record<StaffClaimsQueueItem['queueType'], string> = {
-  company: 'شركة',
+  business: 'شركة',
   university: 'جامعة',
   mentor: 'مرشد',
 }
 
 const TYPE_BADGE_CLASS: Record<StaffClaimsQueueItem['queueType'], string> = {
-  company: 'bg-primary/10 text-primary',
+  business: 'bg-primary/10 text-primary',
   university: 'bg-blue-100 text-blue-800',
   mentor: 'bg-purple-100 text-purple-800',
 }

@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
 import { EntityActionsMenu } from '@/app/[locale]/(sys)/sys/entities/_components/entity-actions-menu'
 import {
-  fetchSysEntityClaimHistory,
+  fetchSysEntityVerificationHistory,
   fetchSysEntityDetail,
 } from '@/lib/sys/entities-queries'
 
@@ -15,7 +15,7 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
   const t = await getTranslations('sys.entities.detail')
   const [entity, claims] = await Promise.all([
     fetchSysEntityDetail(params.id),
-    fetchSysEntityClaimHistory(params.id),
+    fetchSysEntityVerificationHistory(params.id),
   ])
 
   if (!entity) notFound()
@@ -97,7 +97,7 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
                       </p>
                     </td>
                     <td className="px-3 py-2">{claim.status}</td>
-                    <td className="px-3 py-2">{claim.claim_type}</td>
+                    <td className="px-3 py-2">{claim.verification_type}</td>
                     <td className="px-3 py-2">{new Date(claim.created_at).toLocaleString()}</td>
                     <td className="px-3 py-2">
                       {claim.reviewed_at ? new Date(claim.reviewed_at).toLocaleString() : '—'}

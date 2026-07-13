@@ -1,4 +1,3 @@
-import { redirect } from 'next/navigation'
 import type { ReactNode } from 'react'
 import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
 

@@ -61,7 +61,7 @@ export function ClaimSubmissionForm({
         locale,
       })
       if (claimType === 'university') {
-        track('university_verification_submitted', { company_id: companyId })
+        track('entity_verification_submitted', { company_id: companyId })
       }
       toast.success(t('submitted'))
       onSuccess()

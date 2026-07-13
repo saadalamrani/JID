@@ -19,6 +19,8 @@ export default async function JobApplicantsPage({ params }: PageProps) {
 
   try {
     const { job } = await assertJobTriageAccess(jobId)
+    if (!job.company_id) notFound()
+
     const [initialData, smartCommunicationEnabled, boostState, boostUsage, boostPerformance] =
       await Promise.all([
         fetchJobApplicantsForTriage(jobId, 'all'),

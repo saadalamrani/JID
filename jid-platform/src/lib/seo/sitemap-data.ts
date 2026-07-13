@@ -2,7 +2,6 @@ import 'server-only'
 
 import { FLAG_KEYS } from '@/lib/feature-flags/keys'
 import { isFeatureEnabled } from '@/lib/feature-flags/server'
-import { SITEMAP_STATIC_ROUTES } from '@/lib/seo/sitemap-routes'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 import { DEFAULT_JOB_FILTERS, publicStatusToDbStatus } from '@/types/job'

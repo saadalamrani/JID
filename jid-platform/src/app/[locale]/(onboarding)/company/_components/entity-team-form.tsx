@@ -13,7 +13,6 @@ import { track } from '@/lib/analytics/track'
 import { saveEntityTeamInvites } from '@/lib/onboarding/entity-actions'
 import {
   entityTeamInvitesSchema,
-  type EntityTeamInvitesValues,
 } from '@/lib/validations/entity-onboarding'
 
 type TeamFormValues = {

@@ -42,7 +42,7 @@ export function InvitePanel({ jobId, screening, applicants, onInvited }: InviteP
     setBusy(true)
     setMessage(null)
     try {
-      const count = await inviteSsisApplicantsAction(screening.id, jobId, [...selected])
+      const count = await inviteSsisApplicantsAction(screening.id, jobId, Array.from(selected))
       setMessage(t('invitedCount', { count }))
       setSelected(new Set())
       onInvited()

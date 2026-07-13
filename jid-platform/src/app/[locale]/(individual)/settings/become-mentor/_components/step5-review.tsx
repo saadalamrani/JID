@@ -54,7 +54,7 @@ export function Step5Review({ draft, fullName, avatarUrl }: Step5ReviewProps) {
         />
 
         <MentorExpertiseSection
-          sectors={draft.expertise_areas}
+          declaredSpecializations={draft.expertise_areas}
           yearsExperience={draft.years_experience}
         />
 

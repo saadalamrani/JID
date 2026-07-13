@@ -16,7 +16,7 @@ export type RejectedClaimView = {
 export async function getLatestRejectedVerification(
   supabase: Client,
   userId: string,
-  verificationType?: Database['public']['Enums']['claim_type'],
+  verificationType?: Database['public']['Enums']['claim_type_enum'],
 ): Promise<RejectedClaimView | null> {
   let query = supabase
     .from('verification_requests')

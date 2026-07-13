@@ -1,7 +1,7 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { NOTIFICATION_CATEGORIES } from '@/lib/notifications/categories'
+import { parseNotificationCategory } from '@/lib/notifications/categories'
 import { mergeOnboardingSmartLinks } from '@/lib/onboarding/smart-links'
 import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -178,7 +178,8 @@ async function dispatchWelcomeNotification(
 
   // TODO(platform.announcement): Day 1 / migration 087 — notification_category_enum
   // lacks `platform.announcement`. Enable dispatch_notification here once the enum is extended.
-  if (!(NOTIFICATION_CATEGORIES as readonly string[]).includes(welcomeCategory)) {
+  const category = parseNotificationCategory(welcomeCategory)
+  if (!category) {
     console.info(
       `[onboarding] Skipping welcome notification — category "${welcomeCategory}" is not in NOTIFICATION_CATEGORIES yet.`,
     )
@@ -187,7 +188,7 @@ async function dispatchWelcomeNotification(
 
   const { error } = await supabase.rpc('dispatch_notification', {
     p_recipient_id: userId,
-    p_category: welcomeCategory,
+    p_category: category,
     p_title_ar: 'مرحباً بك في JID',
     p_title_en: 'Welcome to JID',
     p_body_ar: 'اكتمل إعداد حسابك. ابدأ باستكشاف الفرص والإرشاد على المنصة.',

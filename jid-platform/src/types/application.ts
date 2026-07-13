@@ -148,8 +148,8 @@ export type JobTriageHeader = {
   id: string
   title_ar: string
   title_en: string | null
-  application_deadline: string
-  daysUntilClose: number
+  application_deadline: string | null
+  daysUntilClose: number | null
   applicantCount: number
   acceptedCount: number
 }

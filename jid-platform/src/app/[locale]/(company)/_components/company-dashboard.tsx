@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import { Link } from '@/lib/i18n/navigation'
 import { getTranslations } from 'next-intl/server'
 import { CompanyLogo } from '@/app/[locale]/(public)/catalog/_components/company-logo'

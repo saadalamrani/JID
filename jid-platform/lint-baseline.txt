@@ -1,0 +1,139 @@
+﻿
+> jid-platform@0.1.0 lint C:\Users\saada\Downloads\Desktop\JID-1\jid-platform
+> next lint
+
+node.exe : 
+At C:\Users\saada\AppData\Roaming\npm\pnpm.ps1:24 char:5
++     & "node$exe"  "$basedir/node_modules/pnpm/bin/pnpm.cjs" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+./src/app/[locale]/(auth)/login/page.tsx
+19:10  Error: 'PRIVILEGED_STAFF_ROLES' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(authenticated)/layout.tsx
+1:10  Error: 'redirect' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(company)/_components/company-dashboard.tsx
+1:15  Error: 'ReactNode' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(individual)/profile/cv/_components/live-preview-pane.tsx
+9:10  Error: 'getCvFormatDocumentComponent' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-hub-dashboard.tsx
+8:10  Error: 'MentorHubStubTab' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-hub-stub-tab.tsx
+4:15  Error: 'MentorHubSettings' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+5:10  Error: 'cn' is defined but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(onboarding)/company/_components/entity-team-form.tsx
+16:8  Error: 'EntityTeamInvitesValues' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(onboarding)/individual/_components/step-three-form.tsx
+28:9  Error: 'locale' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(public)/contact/page.tsx
+34:7  Error: 'defaultEmail' is never reassigned. Use 'const' instead.  prefer-const
+
+./src/app/[locale]/(public)/mentors/_components/mentor-filter-context.tsx
+65:9  Warning: The 'mentors' logical expression could make the dependencies of useMemo Hook (at line 83) change on 
+every render. To fix this, wrap the initialization of 'mentors' in its own useMemo() Hook.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/(public)/opportunities/_components/job-filter-context.tsx
+72:9  Warning: The 'jobs' logical expression could make the dependencies of useMemo Hook (at line 114) change on every 
+render. Move it inside the useMemo callback. Alternatively, wrap the initialization of 'jobs' in its own useMemo() 
+Hook.  react-hooks/exhaustive-deps
+
+./src/app/[locale]/(public)/pulse/page.tsx
+4:10  Error: 'AnnouncementsBillboard' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+5:10  Error: 'BillboardSkeleton' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(staff)/staff/lammah/actions.ts
+16:9  Error: 'staff' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(staff)/staff/verification/[id]/_components/verification-review-workspace.tsx
+51:9  Warning: The 'checklistKeys' conditional could make the dependencies of useMemo Hook (at line 86) change on 
+every render. To fix this, wrap the initialization of 'checklistKeys' in its own useMemo() Hook.  
+react-hooks/exhaustive-deps
+
+./src/app/[locale]/(sys)/sys/flags/actions.ts
+12:10  Error: 'fetchFeatureFlagByKey' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(sys)/sys/system/emergency/_components/kill-switch-card.tsx
+7:10  Error: 'Button' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/(sys)/sys/system/sessions/actions.ts
+6:10  Error: 'createClient' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/app/[locale]/error.tsx
+3:10  Error: 'Button' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/components/mentor/mentor-share-card-button.tsx
+3:10  Error: 'useEffect' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+4:10  Error: 'Download' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/components/notifications/category-icon.tsx
+5:3  Error: 'AlertTriangle' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/components/profile/workspace/profile-skills-section.tsx
+3:18  Error: 'ShieldCheck' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/lib/cv/formats/global-ats-document.tsx
+15:3  Error: 'formatGraduationYearLine' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/lib/cv/formats/harvard-document.tsx
+295:3  Error: 'locale' is defined but never used. Allowed unused args must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/lib/cv/pdf-helpers.ts
+30:10  Error: `import()` type annotations are forbidden.  @typescript-eslint/consistent-type-imports
+
+./src/lib/hooks/use-glow-state.ts
+36:5  Warning: React Hook useMemo has a missing dependency: 'application'. Either include it or remove the dependency 
+array.  react-hooks/exhaustive-deps
+
+./src/lib/profile/career-timeline.ts
+3:15  Error: 'CvAdditionalRecord' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/lib/queries/radar.ts
+4:10  Error: 'radarApplicationsQueryKey' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/lib/seo/sitemap-data.ts
+5:10  Error: 'SITEMAP_STATIC_ROUTES' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/lib/sys/audit-catalog.ts
+19:3  Error: 'Users' is defined but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+./src/lib/timeline/client.ts
+12:9  Error: 'nowMs' is assigned a value but never used. Allowed unused vars must match /^_/u.  
+@typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: 
+https://nextjs.org/docs/basic-features/eslint#disabling-rules
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 1.

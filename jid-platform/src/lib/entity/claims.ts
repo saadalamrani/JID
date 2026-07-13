@@ -19,7 +19,9 @@ export type SubmitClaimInput = ClaimSubmissionFormValues & {
 
 export { SLA_HOURS } from '@/lib/entity/constants'
 
-function toVerificationType(claimType: EntitySignupType): Database['public']['Enums']['claim_type'] {
+function toVerificationType(
+  claimType: EntitySignupType,
+): Database['public']['Enums']['claim_type_enum'] {
   return claimType === 'company' ? 'business' : 'university'
 }
 

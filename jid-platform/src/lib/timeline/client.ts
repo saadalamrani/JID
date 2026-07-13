@@ -9,7 +9,6 @@ export async function fetchUpcomingMeetingsClient(
   userId: string,
 ): Promise<UpcomingMeetingsResult> {
   const supabase = createClient()
-  const nowMs = Date.now()
 
   const { data, error } = await supabase
     .from('mentorship_meetings')

@@ -30,6 +30,7 @@ export function OnboardingProgress() {
   if (!onComplete) {
     for (let index = 0; index < steps.length; index++) {
       const step = steps[index]
+      if (!step) continue
       if (currentPath === step.path || currentPath.startsWith(`${step.path}/`)) {
         activeIndex = index
       }

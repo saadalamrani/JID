@@ -1,8 +1,10 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/lib/supabase/server'
 import { assertJobTriageAccess } from '@/lib/applications/triage-access'
+import { createClient } from '@/lib/supabase/server'
+import type { Json } from '@/lib/supabase/types'
+import type { SsisRubricCriterion } from '@/lib/ssis/types'
 
 export async function acknowledgeSsisPreviewAction(screeningId: string, jobId: string) {
   await assertJobTriageAccess(jobId)
@@ -27,7 +29,7 @@ export async function approveSsisScreeningAction(screeningId: string, jobId: str
 export async function updateSsisBlockAction(
   blockId: string,
   jobId: string,
-  payload: { prompt_ar: string; rubric: unknown },
+  payload: { prompt_ar: string; rubric: SsisRubricCriterion[] },
 ) {
   await assertJobTriageAccess(jobId)
   const supabase = await createClient()
@@ -35,7 +37,7 @@ export async function updateSsisBlockAction(
     .from('ssis_blocks')
     .update({
       prompt_ar: payload.prompt_ar,
-      rubric: payload.rubric,
+      rubric: payload.rubric as Json,
       edited_by_human: true,
       updated_at: new Date().toISOString(),
     })

@@ -6,7 +6,7 @@ import type {
   FlagStatus,
 } from '@/lib/validations/staff'
 
-export type ClaimRequestRow = Database['public']['Tables']['claim_requests']['Row']
+export type VerificationRequestRow = Database['public']['Tables']['verification_requests']['Row']
 export type ContentFlagRow = Database['public']['Tables']['content_flags']['Row']
 
 export type StaffPersonalMetrics = {
@@ -30,7 +30,7 @@ export type StaffDashboardClaimRow = {
   status: string
   sla_due_at: string | null
   created_at: string
-  claim_type: string
+  verification_type: string
 }
 
 export type ReviewClaimRpcInput = {

@@ -1,0 +1,91 @@
+﻿
+> jid-platform@0.1.0 type-check C:\Users\saada\Downloads\Desktop\JID-1\jid-platform
+> tsc --noEmit
+
+src/app/[locale]/(company)/jobs/[jobId]/screening/_components/invite-panel.tsx(45,79): error TS2802: Type 'Set<string>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+src/app/[locale]/(individual)/screenings/[invitationId]/_components/session-runner.tsx(52,37): error TS18048: 'block' is possibly 'undefined'.
+src/app/[locale]/(individual)/screenings/[invitationId]/_components/session-runner.tsx(56,45): error TS18048: 'block' is possibly 'undefined'.
+src/app/[locale]/(individual)/screenings/[invitationId]/_components/session-runner.tsx(134,17): error TS18048: 'block' is possibly 'undefined'.
+src/app/[locale]/(individual)/screenings/[invitationId]/_components/session-runner.tsx(135,24): error TS18048: 'block' is possibly 'undefined'.
+src/app/[locale]/(individual)/screenings/[invitationId]/_components/session-runner.tsx(136,60): error TS18048: 'block' is possibly 'undefined'.
+src/app/[locale]/(individual)/screenings/[invitationId]/_components/session-runner.tsx(137,15): error TS18048: 'block' is possibly 'undefined'.
+src/app/[locale]/(individual)/settings/become-mentor/_components/step5-review.tsx(57,11): error TS2322: Type '{ sectors: string[]; yearsExperience: number; }' is not assignable to type 'IntrinsicAttributes & MentorExpertiseSectionProps'.
+  Property 'sectors' does not exist on type 'IntrinsicAttributes & MentorExpertiseSectionProps'.
+src/app/[locale]/(onboarding)/_components/onboarding-progress.tsx(33,27): error TS18048: 'step' is possibly 'undefined'.
+src/app/[locale]/(onboarding)/_components/onboarding-progress.tsx(33,66): error TS18048: 'step' is possibly 'undefined'.
+src/app/[locale]/(onboarding)/individual/_components/step-three-form.tsx(28,18): error TS2304: Cannot find name 'useLocale'.
+src/app/[locale]/(public)/mentors/page.tsx(25,5): error TS2322: Type 'MentorsListResult' is not assignable to type '{ mentors: never[]; count: number; stats: { activeMentorCount: number; totalSessionsCount: number; }; }'.
+  Types of property 'mentors' are incompatible.
+    Type 'MentorCardData[]' is not assignable to type 'never[]'.
+      Type 'MentorCardData' is not assignable to type 'never'.
+src/app/[locale]/(public)/opportunities/abhathli-actions.ts(106,5): error TS2322: Type 'string | null' is not assignable to type 'string | undefined'.
+  Type 'null' is not assignable to type 'string | undefined'.
+src/app/[locale]/(public)/opportunities/page.tsx(20,5): error TS2322: Type 'JobsListResult' is not assignable to type '{ jobs: never[]; count: number; page: number; limit: number; }'.
+  Types of property 'jobs' are incompatible.
+    Type 'JobCardData[]' is not assignable to type 'never[]'.
+      Type 'JobCardData' is not assignable to type 'never'.
+src/app/[locale]/(staff)/_components/mentor-application-review-modal.tsx(117,13): error TS2322: Type '{ sectors: string[]; yearsExperience: number | null; }' is not assignable to type 'IntrinsicAttributes & MentorExpertiseSectionProps'.
+  Property 'sectors' does not exist on type 'IntrinsicAttributes & MentorExpertiseSectionProps'.
+src/app/[locale]/(staff)/staff/claims/_components/claim-card.tsx(22,3): error TS2353: Object literal may only specify known properties, and 'company' does not exist in type 'Record<StaffQueueItemType, string>'.
+src/app/[locale]/(staff)/staff/claims/_components/claim-card.tsx(28,3): error TS2353: Object literal may only specify known properties, and 'company' does not exist in type 'Record<StaffQueueItemType, string>'.
+src/app/[locale]/(staff)/staff/mentor-applications/[id]/_components/mentor-application-workspace.tsx(133,13): error TS2322: Type '{ sectors: string[]; yearsExperience: number | null; }' is not assignable to type 'IntrinsicAttributes & MentorExpertiseSectionProps'.
+  Property 'sectors' does not exist on type 'IntrinsicAttributes & MentorExpertiseSectionProps'.
+src/components/entity/claim-submission-form.tsx(64,15): error TS2345: Argument of type '"university_verification_submitted"' is not assignable to parameter of type 'AnalyticsEvent'.
+src/components/notifications/category-icon.tsx(33,7): error TS2739: Type '{ 'auth.email_verified': ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>; ... 31 more ...; 'digest.daily_summary': ForwardRefExoticComponent<...>; }' is missing the following properties from type 'Record<"auth.email_verified" | "auth.mfa_disabled" | "auth.mfa_enabled" | "auth.new_device_login" | "auth.password_changed" | "auth.password_reset_requested" | "auth.phone_verified" | ... 27 more ... | "ssis.evaluation_ready", LucideIcon>': "ssis.invitation", "ssis.evaluation_ready"
+src/components/ssis/ssis-timeline-line.tsx(40,22): error TS18048: 'latest' is possibly 'undefined'.
+src/components/ssis/ssis-timeline-line.tsx(43,5): error TS18048: 'latest' is possibly 'undefined'.
+src/components/ssis/ssis-timeline-line.tsx(44,39): error TS18048: 'latest' is possibly 'undefined'.
+src/components/ssis/ssis-timeline-line.tsx(49,20): error TS18048: 'latest' is possibly 'undefined'.
+src/lib/applications/triage-access.ts(73,3): error TS2322: Type '{ id: string; company_id: string | null; title_ar: string; title_en: string | null; application_deadline: string | null; applicant_count: number; }' is not assignable to type 'TriageJobRef'.
+  Types of property 'company_id' are incompatible.
+    Type 'string | null' is not assignable to type 'string'.
+      Type 'null' is not assignable to type 'string'.
+src/lib/applications/triage-mutations.ts(35,31): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string'.
+  Type 'null' is not assignable to type 'string'.
+src/lib/applications/triage-mutations.ts(37,3): error TS2322: Type '{ id: string; job_id: string | null; status: string; }' is not assignable to type '{ id: string; job_id: string; status: "draft" | "submitted" | "under_review" | "shortlisted" | "rejected" | "invited" | "withdrawn" | "expired" | "saved" | "pending"; }'.
+  Types of property 'job_id' are incompatible.
+    Type 'string | null' is not assignable to type 'string'.
+      Type 'null' is not assignable to type 'string'.
+src/lib/applications/triage-mutations.ts(140,33): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'string'.
+  Type 'null' is not assignable to type 'string'.
+src/lib/entity/claims.ts(22,87): error TS2339: Property 'claim_type' does not exist on type '{ additional_category_enum: "certification" | "language" | "project" | "award" | "volunteer" | "publication" | "other" | "leadership"; announcement_category_enum: "jobs" | "mentorship" | "events" | "platform" | "community"; ... 35 more ...; user_role_enum: "individual" | ... 5 more ... | "university_admin"; }'.
+src/lib/entity/companies.ts(45,24): error TS2345: Argument of type 'EntitySignupType' is not assignable to parameter of type 'NonNullable<"university" | "business">'.
+  Type '"company"' is not assignable to type 'NonNullable<"university" | "business">'.
+src/lib/entity/companies.ts(89,6): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(values: { about_long_ar?: string | null | undefined; about_long_en?: string | null | undefined; avg_response_days?: number | null | undefined; broken_since?: string | null | undefined; ... 40 more ...; website_url?: string | ... 1 more ... | undefined; }, options?: { ...; } | undefined): PostgrestFilterBuilder<...>', gave the following error.
+    Type 'EntitySignupType' is not assignable to type '"university" | "business" | undefined'.
+      Type '"company"' is not assignable to type '"university" | "business" | undefined'.
+  Overload 2 of 2, '(values: { about_long_ar?: string | null | undefined; about_long_en?: string | null | undefined; avg_response_days?: number | null | undefined; broken_since?: string | null | undefined; ... 40 more ...; website_url?: string | ... 1 more ... | undefined; }[], options?: { ...; } | undefined): PostgrestFilterBuilder<...>', gave the following error.
+    Object literal may only specify known properties, and 'name' does not exist in type '{ about_long_ar?: string | null | undefined; about_long_en?: string | null | undefined; avg_response_days?: number | null | undefined; broken_since?: string | null | undefined; career_portal_url?: string | ... 1 more ... | undefined; ... 39 more ...; website_url?: string | ... 1 more ... | undefined; }[]'.
+src/lib/entity/rejected-claim.ts(19,50): error TS2339: Property 'claim_type' does not exist on type '{ additional_category_enum: "certification" | "language" | "project" | "award" | "volunteer" | "publication" | "other" | "leadership"; announcement_category_enum: "jobs" | "mentorship" | "events" | "platform" | "community"; ... 35 more ...; user_role_enum: "individual" | ... 5 more ... | "university_admin"; }'.
+src/lib/features/pulse-admin-queries.ts(58,3): error TS2322: Type '{ metric_key: string; label_en: string; label_ar: string; min_value: number; current_value: number; is_met: boolean | null; }[]' is not assignable to type 'MetricThresholdRow[]'.
+  Type '{ metric_key: string; label_en: string; label_ar: string; min_value: number; current_value: number; is_met: boolean | null; }' is not assignable to type 'MetricThresholdRow'.
+    Types of property 'is_met' are incompatible.
+      Type 'boolean | null' is not assignable to type 'boolean'.
+        Type 'null' is not assignable to type 'boolean'.
+src/lib/onboarding/actions.ts(190,5): error TS2322: Type '"platform.announcement"' is not assignable to type '"auth.email_verified" | "auth.mfa_disabled" | "auth.mfa_enabled" | "auth.new_device_login" | "auth.password_changed" | "auth.password_reset_requested" | "auth.phone_verified" | ... 27 more ... | "ssis.evaluation_ready"'.
+src/lib/onboarding/entity-actions.ts(130,28): error TS2802: Type 'Set<string>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+src/lib/onboarding/entity-queries.ts(96,28): error TS2345: Argument of type 'EntityOnboardingProfile' is not assignable to parameter of type 'OnboardingProfileSnapshot'.
+  Property 'role' is missing in type 'EntityOnboardingProfile' but required in type 'OnboardingProfileSnapshot'.
+src/lib/onboarding/entity-resume.ts(25,28): error TS2345: Argument of type 'EntityOnboardingProfile' is not assignable to parameter of type 'OnboardingProfileSnapshot'.
+  Property 'role' is missing in type 'EntityOnboardingProfile' but required in type 'OnboardingProfileSnapshot'.
+src/lib/onboarding/queries.ts(88,28): error TS2345: Argument of type 'IndividualOnboardingProfile' is not assignable to parameter of type 'OnboardingProfileSnapshot'.
+  Property 'role' is missing in type 'IndividualOnboardingProfile' but required in type 'OnboardingProfileSnapshot'.
+src/lib/onboarding/resume.ts(32,28): error TS2345: Argument of type 'IndividualOnboardingProfile' is not assignable to parameter of type 'OnboardingProfileSnapshot'.
+  Property 'role' is missing in type 'IndividualOnboardingProfile' but required in type 'OnboardingProfileSnapshot'.
+src/lib/pulse/queries.ts(94,5): error TS2322: Type 'string | null' is not assignable to type 'string'.
+  Type 'null' is not assignable to type 'string'.
+src/lib/pulse/queries.ts(122,3): error TS2322: Type '{ metric_key: string; label_en: string; label_ar: string; min_value: number; current_value: number; is_displayed: boolean | null; }[]' is not assignable to type 'PulseMetricThreshold[]'.
+  Type '{ metric_key: string; label_en: string; label_ar: string; min_value: number; current_value: number; is_displayed: boolean | null; }' is not assignable to type 'PulseMetricThreshold'.
+    Types of property 'is_displayed' are incompatible.
+      Type 'boolean | null' is not assignable to type 'boolean'.
+        Type 'null' is not assignable to type 'boolean'.
+src/lib/seo/robots-config.ts(36,17): error TS2367: This comparison appears to be unintentional because the types '"/staff" | "/api" | "/sys" | "/individual" | "/me" | "/settings" | "/profile" | "/radar" | "/notifications" | "/cv-builder" | "/conversations" | "/company" | "/university" | "/mentor" | "/welcome" | "/account" | "/admin"' and '"/"' have no overlap.
+src/lib/seo/robots-config.ts(40,14): error TS2802: Type 'Set<string>' can only be iterated through when using the '--downlevelIteration' flag or with a '--target' of 'es2015' or higher.
+src/lib/ssis/actions.ts(38,7): error TS2322: Type 'unknown' is not assignable to type 'Json | undefined'.
+src/lib/staff/dashboard-queries.ts(60,10): error TS2352: Conversion of type '{ id: string; company_name: string; claimant_name: string; status: "pending" | "under_review" | "cancelled" | "submitted" | "pending_review" | "needs_more_info" | "approved" | "rejected"; sla_due_at: string | null; created_at: string; verification_type: "university" | "business"; }[]' to type 'StaffDashboardClaimRow[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'claim_type' is missing in type '{ id: string; company_name: string; claimant_name: string; status: "pending" | "under_review" | "cancelled" | "submitted" | "pending_review" | "needs_more_info" | "approved" | "rejected"; sla_due_at: string | null; created_at: string; verification_type: "university" | "business"; }' but required in type 'StaffDashboardClaimRow'.
+src/lib/staff/dashboard-queries.ts(74,10): error TS2352: Conversion of type '{ id: string; company_name: string; claimant_name: string; status: "pending" | "under_review" | "cancelled" | "submitted" | "pending_review" | "needs_more_info" | "approved" | "rejected"; sla_due_at: string | null; created_at: string; verification_type: "university" | "business"; }[]' to type 'StaffDashboardClaimRow[]' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Property 'claim_type' is missing in type '{ id: string; company_name: string; claimant_name: string; status: "pending" | "under_review" | "cancelled" | "submitted" | "pending_review" | "needs_more_info" | "approved" | "rejected"; sla_due_at: string | null; created_at: string; verification_type: "university" | "business"; }' but required in type 'StaffDashboardClaimRow'.
+src/lib/staff/entities-queries.ts(208,46): error TS18047: 'app.job_id' is possibly 'null'.
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 2.

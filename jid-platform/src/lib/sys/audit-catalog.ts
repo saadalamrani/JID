@@ -16,7 +16,6 @@ import {
   UserCog,
   UserMinus,
   UserPlus,
-  Users,
 } from 'lucide-react'
 
 export type AuditCatalogEntry = {

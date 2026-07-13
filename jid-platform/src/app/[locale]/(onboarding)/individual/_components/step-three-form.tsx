@@ -25,7 +25,6 @@ type StepThreeFormProps = {
 export function StepThreeForm({ defaultValues }: StepThreeFormProps) {
   const t = useTranslations('onboarding.individual.step3')
   const tValidation = useTranslations('onboarding.validation')
-  const locale = useLocale()
   const [isPending, startTransition] = useTransition()
   const sectorsQuery = useCatalogSectors()
 

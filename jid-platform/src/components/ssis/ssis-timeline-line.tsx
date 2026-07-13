@@ -34,6 +34,8 @@ export function SsisTimelineLine({ applicationId, className }: SsisTimelineLineP
   if (entries.length === 0) return null
 
   const latest = entries[entries.length - 1]
+  if (!latest) return null
+
   const dateLabel = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
     dateStyle: 'medium',
     timeStyle: 'short',

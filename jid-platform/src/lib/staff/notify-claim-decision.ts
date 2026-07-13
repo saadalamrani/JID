@@ -32,7 +32,7 @@ export async function notifyClaimDecision(client: Client, input: NotifyClaimInpu
   let rejectionReason: string | null = null
   if (input.decision === 'reject') {
     const { data } = await client
-      .from('claim_requests')
+      .from('verification_requests')
       .select('rejection_reason')
       .eq('id', input.claimId)
       .maybeSingle()

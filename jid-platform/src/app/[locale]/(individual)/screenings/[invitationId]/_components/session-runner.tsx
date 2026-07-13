@@ -49,6 +49,7 @@ export function SessionRunner({ invitation, blocks, timeLimitMinutes }: SessionR
 
   const persistCurrent = useCallback(async () => {
     const block = blocks[indexRef.current]
+    if (!block) return
     const text = answersRef.current[block.id]?.trim()
     if (!text) return
     setSaving(true)
@@ -70,6 +71,7 @@ export function SessionRunner({ invitation, blocks, timeLimitMinutes }: SessionR
   }, [persistCurrent])
 
   const block = blocks[index]
+
   const deadline = invitation.started_at
     ? new Date(invitation.started_at).getTime() + timeLimitMinutes * 60_000
     : Date.now() + timeLimitMinutes * 60_000
@@ -115,6 +117,12 @@ export function SessionRunner({ invitation, blocks, timeLimitMinutes }: SessionR
 
   if (completed) {
     return <CompletionReceipt />
+  }
+
+  if (!block) {
+    return (
+      <p className="font-arabic text-sm text-muted-foreground">لا توجد أسئلة في هذا الفحص.</p>
+    )
   }
 
   return (

@@ -1,7 +1,7 @@
 import { fetchJobs } from '@/lib/queries/jobs'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { dbOfflineHint, isDbOfflineError } from '@/lib/supabase/offline-error'
-import { DEFAULT_JOB_FILTERS } from '@/types/job'
+import { DEFAULT_JOB_FILTERS, type JobsListResult } from '@/types/job'
 import { JobBoardPageClient } from './_components/job-board-page-client'
 
 type OpportunitiesPageProps = {
@@ -12,7 +12,7 @@ export default async function OpportunitiesPage({ params }: OpportunitiesPagePro
   const locale = params.locale as Locale
   const dir = localeConfig.direction[locale] ?? 'rtl'
 
-  const emptyData = { jobs: [], count: 0, page: 1, limit: 50 }
+  const emptyData: JobsListResult = { jobs: [], count: 0, page: 1, limit: 50 }
   let initialData = emptyData
   let setupHint: string | undefined
 

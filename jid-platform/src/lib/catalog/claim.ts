@@ -71,7 +71,7 @@ export type SubmitCatalogClaimResult = {
 }
 
 /**
- * Catalog claim submission — inserts claim_requests + updates companies (reconciled schema).
+ * Directory verification submission — inserts verification_requests + updates companies state.
  */
 export async function submitCatalogClaim(
   supabase: CompanyClient,
@@ -103,39 +103,39 @@ export async function submitCatalogClaim(
   }
 
   const { data: existingClaim } = await supabase
-    .from('claim_requests')
+    .from('verification_requests')
     .select('id')
-    .eq('company_id', input.companyId)
+    .eq('directory_id', input.companyId)
     .in('status', ['pending', 'pending_review', 'under_review'])
     .maybeSingle()
 
   if (existingClaim) {
     throw new Error(
       locale === 'ar'
-        ? 'يوجد طلب مطالبة قيد المراجعة لهذه الجهة'
-        : 'A claim request for this company is already pending review',
+        ? 'يوجد طلب تحقق قيد المراجعة لهذه الجهة'
+        : 'A verification request for this company is already pending review',
     )
   }
 
   const { data: claim, error: claimError } = await supabase
-    .from('claim_requests')
+    .from('verification_requests')
     .insert({
-      user_id: input.userId,
-      company_id: company.id,
+      applicant_user_id: input.userId,
+      directory_id: company.id,
       company_name: company.name,
       business_email: businessEmail,
       claimant_name: input.claimantName.trim(),
       claimant_title: input.claimantTitle?.trim() || null,
       evidence_urls: [],
       status: 'pending_review',
-      claim_type: 'company',
+      verification_type: 'business',
       domain_verified: true,
     })
     .select('id, status')
     .single()
 
   if (claimError || !claim) {
-    throw new Error(claimError?.message ?? 'Failed to submit claim')
+    throw new Error(claimError?.message ?? 'Failed to submit verification request')
   }
 
   const admin = createAdminClient()
@@ -153,7 +153,7 @@ export async function submitCatalogClaim(
     .eq('entity_state', 'unclaimed')
 
   if (companyUpdateError) {
-    await admin.from('claim_requests').delete().eq('id', claim.id)
+    await admin.from('verification_requests').delete().eq('id', claim.id)
     throw new Error(companyUpdateError.message)
   }
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { Pencil, ShieldCheck } from 'lucide-react'
+import { Pencil } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 import type { ProfileSkillDisplay } from '@/lib/profile/individual-projection-types'

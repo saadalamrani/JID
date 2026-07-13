@@ -114,7 +114,7 @@ export function MentorApplicationReviewModal({
           />
 
           <MentorExpertiseSection
-            sectors={application.expertise_areas}
+            declaredSpecializations={application.expertise_areas}
             yearsExperience={application.years_experience}
           />
 

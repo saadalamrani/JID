@@ -39,7 +39,7 @@ export function JobTriageHeaderBar({ job }: JobTriageHeaderProps) {
           <div>
             <dt className="font-arabic text-xs text-foreground/60">أيام حتى الإغلاق</dt>
             <dd className="font-arabic text-lg font-semibold text-foreground">
-              {formatNumber(job.daysUntilClose, 'ar')}
+              {job.daysUntilClose != null ? formatNumber(job.daysUntilClose, 'ar') : '—'}
             </dd>
           </div>
         </div>

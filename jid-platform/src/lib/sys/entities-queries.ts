@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import type {
   SysEntitiesListFilters,
   SysEntitiesListResult,
-  SysEntityClaimRow,
+  SysEntityVerificationRow,
   SysEntityDetail,
   SysEntityListRow,
 } from '@/types/sys-entities'
@@ -92,26 +92,31 @@ export async function fetchSysEntityDetail(entityId: string): Promise<SysEntityD
   }
 }
 
-export async function fetchSysEntityClaimHistory(entityId: string): Promise<SysEntityClaimRow[]> {
+export async function fetchSysEntityVerificationHistory(
+  entityId: string,
+): Promise<SysEntityVerificationRow[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
-    .from('claim_requests')
+    .from('verification_requests')
     .select(
-      'id, user_id, status, claim_type, claimant_name, business_email, created_at, reviewed_at, reviewed_by, review_notes, rejection_reason',
+      'id, applicant_user_id, status, verification_type, claimant_name, business_email, created_at, reviewed_at, reviewed_by, review_notes, rejection_reason',
     )
-    .eq('company_id', entityId)
+    .eq('directory_id', entityId)
     .order('created_at', { ascending: false })
 
   if (error) throw new Error(error.message)
-  return (data ?? []) as SysEntityClaimRow[]
+  return (data ?? []) as SysEntityVerificationRow[]
 }
 
-export async function fetchLatestPendingClaimForEntity(entityId: string) {
+/** @deprecated Use fetchSysEntityVerificationHistory */
+export const fetchSysEntityClaimHistory = fetchSysEntityVerificationHistory
+
+export async function fetchLatestPendingVerificationForEntity(entityId: string) {
   const supabase = await createClient()
   const { data, error } = await supabase
-    .from('claim_requests')
-    .select('id, user_id, status, claim_type, company_id')
-    .eq('company_id', entityId)
+    .from('verification_requests')
+    .select('id, applicant_user_id, status, verification_type, directory_id')
+    .eq('directory_id', entityId)
     .in('status', ['pending', 'pending_review', 'under_review'])
     .order('created_at', { ascending: false })
     .limit(1)
@@ -120,3 +125,6 @@ export async function fetchLatestPendingClaimForEntity(entityId: string) {
   if (error) throw new Error(error.message)
   return data
 }
+
+/** @deprecated Use fetchLatestPendingVerificationForEntity */
+export const fetchLatestPendingClaimForEntity = fetchLatestPendingVerificationForEntity

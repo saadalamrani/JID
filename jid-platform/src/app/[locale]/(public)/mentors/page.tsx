@@ -1,7 +1,7 @@
 import { fetchMentors } from '@/lib/queries/mentors'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { dbOfflineHint, isDbOfflineError } from '@/lib/supabase/offline-error'
-import { DEFAULT_MENTOR_FILTERS } from '@/types/mentor'
+import { DEFAULT_MENTOR_FILTERS, type MentorsListResult } from '@/types/mentor'
 import { MentorsPageClient } from './_components/mentors-page-client'
 
 type MentorsPageProps = {
@@ -12,7 +12,7 @@ export default async function MentorsPage({ params }: MentorsPageProps) {
   const locale = params.locale as Locale
   const dir = localeConfig.direction[locale] ?? 'rtl'
 
-  const emptyData = {
+  const emptyData: MentorsListResult = {
     mentors: [],
     count: 0,
     stats: { activeMentorCount: 0, totalSessionsCount: 0 },

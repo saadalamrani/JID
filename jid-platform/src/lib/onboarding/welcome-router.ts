@@ -1,7 +1,7 @@
 import type { UserRole } from '@/lib/auth/rbac'
 
 export type OnboardingProfileSnapshot = {
-  role: UserRole
+  role?: UserRole
   onboarding_completed_at: string | null
   onboarding_skipped_at: string | null
 }

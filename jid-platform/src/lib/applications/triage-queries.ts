@@ -97,19 +97,25 @@ const ACTIVE_TRIAGE_STATUSES: ApplicationStatus[] = [
   'invited',
 ]
 
-function buildJobHeader(job: {
-  id: string
-  title_ar: string
-  title_en: string | null
-  application_deadline: string
-  applicant_count: number
-}, acceptedCount: number): JobTriageHeader {
+function buildJobHeader(
+  job: {
+    id: string
+    title_ar: string
+    title_en: string | null
+    application_deadline: string | null
+    applicant_count: number
+  },
+  acceptedCount: number,
+): JobTriageHeader {
   return {
     id: job.id,
     title_ar: job.title_ar,
     title_en: job.title_en,
     application_deadline: job.application_deadline,
-    daysUntilClose: computeDeadlineDaysLeft(job.application_deadline),
+    daysUntilClose:
+      job.application_deadline != null
+        ? computeDeadlineDaysLeft(job.application_deadline)
+        : null,
     applicantCount: job.applicant_count,
     acceptedCount,
   }

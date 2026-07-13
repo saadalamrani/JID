@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { GeneratePanel } from './_components/generate-panel'
-import { ScreeningBuilder } from './_components/screening-builder'
-import { InvitePanel } from './_components/invite-panel'
-import { ResultsBoard } from './_components/results-board'
+import { GeneratePanel } from './generate-panel'
+import { ScreeningBuilder } from './screening-builder'
+import { InvitePanel } from './invite-panel'
+import { ResultsBoard } from './results-board'
 import type { SsisResultRow, SsisScreening } from '@/lib/ssis/types'
 
 type ApplicantOption = {

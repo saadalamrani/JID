@@ -1,8 +1,6 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import type { MentorHubSettings } from '@/lib/mentor-hub/queries'
-import { cn } from '@/lib/utils'
 
 type MentorHubStubTabProps = {
   tab: 'chats' | 'upcoming' | 'workshops'

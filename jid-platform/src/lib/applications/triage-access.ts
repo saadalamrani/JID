@@ -17,10 +17,10 @@ export type TriageViewer = {
 
 export type TriageJobRef = {
   id: string
-  company_id: string
+  company_id: string | null
   title_ar: string
   title_en: string | null
-  application_deadline: string
+  application_deadline: string | null
   applicant_count: number
 }
 

@@ -33,11 +33,11 @@ function buildDisallowList(): string[] {
     paths.add(path)
     for (const locale of locales) {
       if (locale === 'ar') continue
-      paths.add(path === '/' ? `/${locale}` : `/${locale}${path}`)
+      paths.add(`/${locale}${path}`)
     }
   }
 
-  return [...paths]
+  return Array.from(paths)
 }
 
 /** Section 14 — robots.txt rules for the whole site. */

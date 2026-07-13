@@ -10,7 +10,7 @@ import {
   SSIS_STATIC_NOTE_AR,
 } from '@/lib/ssis/constants'
 import type { SsisBlock, SsisInvitation, SsisScreening } from '@/lib/ssis/types'
-import { SessionRunner } from './_components/session-runner'
+import { SessionRunner } from './session-runner'
 
 type ScreeningSessionClientProps = {
   invitation: SsisInvitation

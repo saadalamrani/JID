@@ -292,7 +292,7 @@ function SkillsInterestsSection({
 
 function LegacySkillsLine({
   skills,
-  locale,
+  locale: _locale,
   labels,
 }: {
   skills: CvSkillData[]

@@ -202,6 +202,7 @@ export async function fetchStaffEntitySlaHistory(entityId: string): Promise<Staf
       .limit(20)
 
     for (const app of expiredApps ?? []) {
+      if (!app.job_id) continue
       events.push({
         id: app.id,
         kind: 'application_expired',

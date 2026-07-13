@@ -2,6 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
 import { parseDomainsInput } from '@/lib/entity/domains'
 import type { EntitySignupType } from '@/lib/entity/constants'
+import { toDbEntityType } from '@/lib/entity/constants'
 
 export type CompanyRecord = {
   id: string
@@ -42,7 +43,7 @@ export async function searchCompanies(
   let builder = supabase
     .from('companies')
     .select('id, name, name_ar, domains, entity_type, is_verified')
-    .eq('entity_type', entityType)
+    .eq('entity_type', toDbEntityType(entityType))
     .eq('is_verified', true)
     .order('name', { ascending: true })
     .limit(20)
@@ -90,7 +91,7 @@ export async function createUnverifiedCompany(
       name: input.name,
       name_ar: input.name_ar,
       domains,
-      entity_type: input.entityType,
+      entity_type: toDbEntityType(input.entityType),
       is_verified: false,
     })
     .select('id, name, name_ar, domains, entity_type, is_verified')

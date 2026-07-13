@@ -32,9 +32,17 @@ async function verifyApplicationAccess(
     throw new MutationError('طلب التقديم غير موجود', 404)
   }
 
+  if (!application.job_id) {
+    throw new MutationError('طلب التقديم غير مرتبط بفرصة', 400)
+  }
+
   await assertJobTriageAccess(application.job_id)
 
-  return application
+  return {
+    id: application.id,
+    job_id: application.job_id,
+    status: application.status as ApplicationStatus,
+  }
 }
 
 export class MutationError extends Error {
@@ -135,7 +143,9 @@ export async function bulkUpdateApplicationStatuses(
     throw new MutationError('طلبات التقديم غير موجودة', 404)
   }
 
-  const jobIds = Array.from(new Set(rows.map((row) => row.job_id)))
+  const jobIds = Array.from(
+    new Set(rows.map((row) => row.job_id).filter((jobId): jobId is string => Boolean(jobId))),
+  )
   for (const jobId of jobIds) {
     await assertJobTriageAccess(jobId)
   }

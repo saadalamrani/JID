@@ -127,7 +127,7 @@ export async function saveEntityTeamInvites(
   const { supabase, userId, companyId, smartLinks } = await requireEntityAdmin()
   const now = new Date().toISOString()
 
-  const uniqueEmails = [...new Set(parsed.data.invites.map((email) => email.toLowerCase()))]
+  const uniqueEmails = Array.from(new Set(parsed.data.invites.map((email) => email.toLowerCase())))
 
   if (uniqueEmails.length > 0) {
     const inviteResult = await inviteEntityTeamMembers({

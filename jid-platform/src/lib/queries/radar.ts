@@ -1,7 +1,6 @@
 import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
-import { radarApplicationsQueryKey } from '@/lib/queries/radar-query-keys'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
 import type {

@@ -13,7 +13,7 @@ type ClaimRealtimeRow = {
 }
 
 /**
- * Section 7.3 — Supabase Realtime on claim_requests (INSERT + status UPDATE).
+ * Section 7.3 — Supabase Realtime on verification_requests (INSERT + status UPDATE).
  * One channel per tab; staff team size stays well under free-tier 200 connections.
  */
 export function RealtimeClaimsUpdater() {
@@ -27,7 +27,7 @@ export function RealtimeClaimsUpdater() {
       .channel('staff-claims-queue')
       .on(
         'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'claim_requests' },
+        { event: 'INSERT', schema: 'public', table: 'verification_requests' },
         (payload) => {
           const row = payload.new as ClaimRealtimeRow
           toast.message(t('newClaim', { company: row.company_name }))
@@ -36,7 +36,7 @@ export function RealtimeClaimsUpdater() {
       )
       .on(
         'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'claim_requests' },
+        { event: 'UPDATE', schema: 'public', table: 'verification_requests' },
         (payload) => {
           const previous = payload.old as Partial<ClaimRealtimeRow> | undefined
           const current = payload.new as ClaimRealtimeRow

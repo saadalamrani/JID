@@ -148,11 +148,11 @@ export async function getCurrentViewer(): Promise<ProfileViewer> {
   const isAdmin = role !== null && (PRIVILEGED_STAFF_ROLES as readonly string[]).includes(role)
 
   const { data: companyClaim } = await asUntyped(supabase)
-    .from('claim_requests')
-    .select('company_id, claim_type')
-    .eq('user_id', user.id)
+    .from('verification_requests')
+    .select('directory_id, verification_type')
+    .eq('applicant_user_id', user.id)
     .eq('status', 'approved')
-    .eq('claim_type', 'business')
+    .eq('verification_type', 'business')
     .order('reviewed_at', { ascending: false })
     .limit(1)
     .maybeSingle()
@@ -163,8 +163,8 @@ export async function getCurrentViewer(): Promise<ProfileViewer> {
     .eq('user_id', user.id)
     .maybeSingle()
 
-  const claimRow = companyClaim as { company_id?: string } | null
-  const companyId = claimRow?.company_id ?? null
+  const claimRow = companyClaim as { directory_id?: string } | null
+  const companyId = claimRow?.directory_id ?? null
   const isVerified =
     role !== null &&
     (role as string) === 'company_admin' &&

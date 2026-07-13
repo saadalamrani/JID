@@ -2,7 +2,7 @@
  * Section 6.1 — PDF formatting helpers.
  */
 
-import { ADDITIONAL_CATEGORIES, type AdditionalCategory, type CvAdditionalData } from '@/types/cv'
+import { ADDITIONAL_CATEGORIES, type AdditionalCategory, type CvAdditionalData, type CvLanguageProficiency } from '@/types/cv'
 
 export const SECTION_LABELS = {
   en: {
@@ -27,7 +27,7 @@ export const SECTION_LABELS = {
 
 export const LANGUAGE_PROFICIENCY_LABELS: Record<
   'ar' | 'en',
-  Record<import('@/types/cv').CvLanguageProficiency, string>
+  Record<CvLanguageProficiency, string>
 > = {
   en: {
     native: 'Native',

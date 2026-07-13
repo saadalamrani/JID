@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import {
-  fetchLatestPendingClaimForEntity,
+  fetchLatestPendingVerificationForEntity,
   fetchSysEntityDetail,
 } from '@/lib/sys/entities-queries'
 import {
@@ -37,11 +37,11 @@ export async function forceApproveEntity(
   const before = await fetchSysEntityDetail(entityId)
   if (!before) return { ok: false, error: 'Entity not found' }
 
-  const pendingClaim = await fetchLatestPendingClaimForEntity(entityId)
+  const pendingVerification = await fetchLatestPendingVerificationForEntity(entityId)
   const supabase = await createClient()
   const now = new Date().toISOString()
 
-  const claimedBy = pendingClaim?.user_id ?? before.claimed_by
+  const claimedBy = pendingVerification?.applicant_user_id ?? before.claimed_by
 
   const { error: entityError } = await supabase
     .from('companies')
@@ -56,9 +56,9 @@ export async function forceApproveEntity(
 
   if (entityError) return { ok: false, error: entityError.message }
 
-  if (pendingClaim) {
-    const { error: claimError } = await supabase
-      .from('claim_requests')
+  if (pendingVerification) {
+    const { error: verificationError } = await supabase
+      .from('verification_requests')
       .update({
         status: 'approved',
         review_notes: `[Super Admin override] ${reason.trim()}`,
@@ -67,13 +67,14 @@ export async function forceApproveEntity(
         rejection_reason: null,
         updated_at: now,
       })
-      .eq('id', pendingClaim.id)
+      .eq('id', pendingVerification.id)
 
-    if (claimError) return { ok: false, error: claimError.message }
+    if (verificationError) return { ok: false, error: verificationError.message }
 
-    const newRole = pendingClaim.claim_type === 'university' ? 'university_admin' : 'company_admin'
+    const newRole =
+      pendingVerification.verification_type === 'university' ? 'university_admin' : 'company_admin'
     const { error: roleError } = await supabase.rpc('set_user_role', {
-      p_target_user_id: pendingClaim.user_id,
+      p_target_user_id: pendingVerification.applicant_user_id,
       p_new_role: newRole,
     })
     if (roleError) return { ok: false, error: roleError.message }
@@ -98,7 +99,7 @@ export async function forceApproveEntity(
     extraMetadata: {
       super_admin_override: true,
       bypass_staff_review: true,
-      claim_id: pendingClaim?.id ?? null,
+      claim_id: pendingVerification?.id ?? null,
       target_resource_id: entityId,
     },
   })
@@ -137,15 +138,15 @@ export async function forceRejectEntity(
 
   if (entityError) return { ok: false, error: entityError.message }
 
-  const { data: pendingClaims } = await supabase
-    .from('claim_requests')
+  const { data: pendingVerifications } = await supabase
+    .from('verification_requests')
     .select('id, status')
-    .eq('company_id', entityId)
+    .eq('directory_id', entityId)
     .in('status', ['pending', 'pending_review', 'under_review'])
 
-  if (pendingClaims && pendingClaims.length > 0) {
-    const { error: claimError } = await supabase
-      .from('claim_requests')
+  if (pendingVerifications && pendingVerifications.length > 0) {
+    const { error: verificationError } = await supabase
+      .from('verification_requests')
       .update({
         status: 'rejected',
         review_notes: `[Super Admin override] ${reason.trim()}`,
@@ -156,10 +157,10 @@ export async function forceRejectEntity(
       })
       .in(
         'id',
-        pendingClaims.map((c) => c.id),
+        pendingVerifications.map((c) => c.id),
       )
 
-    if (claimError) return { ok: false, error: claimError.message }
+    if (verificationError) return { ok: false, error: verificationError.message }
   }
 
   const auditError = await writeSysAuditLog({

@@ -96,7 +96,7 @@ export async function fetchDashboardMetrics(): Promise<SysDashboardMetrics> {
 export async function fetchPendingClaimsPreview(): Promise<PendingClaimPreview[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
-    .from('claim_requests')
+    .from('verification_requests')
     .select('id, company_name, claimant_name, status, created_at')
     .in('status', [...PENDING_CLAIM_STATUSES])
     .order('created_at', { ascending: true })

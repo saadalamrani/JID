@@ -12,7 +12,6 @@ import {
   formatDateRange,
   formatDegreeLine,
   formatGpaLine,
-  formatGraduationYearLine,
   getAnchorText,
   groupAdditional,
   LANGUAGE_PROFICIENCY_LABELS,

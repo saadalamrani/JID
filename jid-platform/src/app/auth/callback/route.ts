@@ -5,14 +5,18 @@ import { getPublicEnv } from '@/lib/env'
 import type { Database } from '@/lib/supabase/types'
 
 function resolveEntityCallbackPath(
-  claimType: string | null | undefined,
-  claimStatus: string | null | undefined,
+  verificationType: string | null | undefined,
+  verificationStatus: string | null | undefined,
 ): string {
-  const pending = claimStatus && ['pending_review', 'pending', 'under_review'].includes(claimStatus)
+  const pending =
+    verificationStatus &&
+    ['pending_review', 'pending', 'under_review'].includes(verificationStatus)
   if (pending) {
-    return claimType === 'university' ? '/university/pending-review' : '/company/pending-review'
+    return verificationType === 'university'
+      ? '/university/pending-review'
+      : '/company/pending-review'
   }
-  return claimType === 'university' ? '/signup/university' : '/signup/company'
+  return verificationType === 'university' ? '/signup/university' : '/signup/company'
 }
 
 export async function GET(request: NextRequest) {
@@ -79,15 +83,18 @@ export async function GET(request: NextRequest) {
       .maybeSingle()
 
     if (profile?.role === 'entity') {
-      const { data: claim } = await supabase
-        .from('claim_requests')
-        .select('claim_type, status')
-        .eq('user_id', user.id)
+      const { data: verification } = await supabase
+        .from('verification_requests')
+        .select('verification_type, status')
+        .eq('applicant_user_id', user.id)
         .order('created_at', { ascending: false })
         .limit(1)
         .maybeSingle()
 
-      destination = resolveEntityCallbackPath(claim?.claim_type, claim?.status)
+      destination = resolveEntityCallbackPath(
+        verification?.verification_type,
+        verification?.status,
+      )
     } else if (
       profile?.role === 'individual' &&
       !profile.onboarding_completed_at &&

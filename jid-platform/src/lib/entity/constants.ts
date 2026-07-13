@@ -6,6 +6,10 @@ export type EntityWizardStep = (typeof ENTITY_WIZARD_STEPS)[number]
 
 export type EntitySignupType = 'company' | 'university'
 
+export function toDbEntityType(entityType: EntitySignupType): 'business' | 'university' {
+  return entityType === 'company' ? 'business' : 'university'
+}
+
 export const ENTITY_SIGNUP_STORAGE_KEY = {
   company: 'jid-entity-signup-company',
   university: 'jid-entity-signup-university',

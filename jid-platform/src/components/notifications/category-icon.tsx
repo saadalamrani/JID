@@ -2,7 +2,6 @@
 
 import type { LucideIcon } from 'lucide-react'
 import {
-  AlertTriangle,
   Bell,
   Briefcase,
   Building2,
@@ -63,6 +62,8 @@ const CATEGORY_ICONS: Record<NotificationCategory, LucideIcon> = {
   'mentorship.request_declined': Users,
   'mentorship.request_received': Users,
   'staff.claim_assigned': ClipboardList,
+  'ssis.invitation': ClipboardList,
+  'ssis.evaluation_ready': Briefcase,
   'digest.daily_summary': Mail,
 }
 

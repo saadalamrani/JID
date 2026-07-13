@@ -3,7 +3,6 @@
 import { revalidatePath } from 'next/cache'
 import { trackServer } from '@/lib/analytics/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { createClient } from '@/lib/supabase/server'
 import {
   requireSuperAdminActor,
   validateReason,

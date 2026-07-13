@@ -4,7 +4,6 @@ import { useState, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
 import { useRouter } from '@/lib/i18n/navigation'
 import { ConfirmDialog } from '@/app/[locale]/(sys)/sys/flags/_components/confirm-dialog'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 type KillSwitchCardProps = {

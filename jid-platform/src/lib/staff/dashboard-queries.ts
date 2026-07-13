@@ -57,7 +57,15 @@ export async function fetchAssignedClaimsForStaff(
     .limit(limit)
 
   if (error) throw new Error(error.message)
-  return (data ?? []) as StaffDashboardClaimRow[]
+  return (data ?? []).map((row) => ({
+    id: row.id,
+    company_name: row.company_name,
+    claimant_name: row.claimant_name,
+    status: row.status,
+    sla_due_at: row.sla_due_at,
+    created_at: row.created_at,
+    verification_type: row.verification_type,
+  }))
 }
 
 export async function fetchUnassignedClaims(limit = 5): Promise<StaffDashboardClaimRow[]> {
@@ -71,7 +79,15 @@ export async function fetchUnassignedClaims(limit = 5): Promise<StaffDashboardCl
     .limit(limit)
 
   if (error) throw new Error(error.message)
-  return (data ?? []) as StaffDashboardClaimRow[]
+  return (data ?? []).map((row) => ({
+    id: row.id,
+    company_name: row.company_name,
+    claimant_name: row.claimant_name,
+    status: row.status,
+    sla_due_at: row.sla_due_at,
+    created_at: row.created_at,
+    verification_type: row.verification_type,
+  }))
 }
 
 export async function fetchStaffRecentActions(

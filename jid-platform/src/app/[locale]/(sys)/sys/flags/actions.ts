@@ -9,7 +9,7 @@ import { userRoleSchema } from '@/lib/governance/schemas'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 import { getDevTestSuperAdminProfile } from '@/lib/sys/dev-test-access'
-import { fetchFeatureFlagByKey, resolveUserIdByEmail } from '@/lib/sys/feature-flags'
+import { resolveUserIdByEmail } from '@/lib/sys/feature-flags'
 
 export type FlagActionResult = { ok: true } | { ok: false; error: string }
 

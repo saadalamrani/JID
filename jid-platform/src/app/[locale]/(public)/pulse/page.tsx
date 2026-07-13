@@ -1,8 +1,6 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { AnnouncementsBillboard } from '@/app/[locale]/(public)/pulse/_components/announcements-billboard'
-import { BillboardSkeleton } from '@/app/[locale]/(public)/pulse/_components/billboard-skeleton'
 import { HeroGrid } from '@/app/[locale]/(public)/pulse/_components/hero-grid'
 import { MarketTrendsSection } from '@/app/[locale]/(public)/pulse/_components/market-trends-section'
 import { PulseDisabledPlaceholder } from '@/app/[locale]/(public)/pulse/_components/empty-state'

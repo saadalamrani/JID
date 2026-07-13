@@ -20,6 +20,8 @@ export default async function JobScreeningPage({ params }: PageProps) {
 
   try {
     const { job } = await assertJobTriageAccess(jobId)
+    if (!job.company_id) notFound()
+
     const [screening, ssisEnabled, applicantsData] = await Promise.all([
       fetchJobScreening(jobId),
       companyHasSsis(job.company_id),
@@ -27,7 +29,7 @@ export default async function JobScreeningPage({ params }: PageProps) {
     ])
 
     const results = screening ? await fetchScreeningResults(screening.id) : []
-    const applicants = applicantsData.applications.map((app) => ({
+    const applicants = applicantsData.applicants.map((app) => ({
       id: app.id,
       label: app.contact_email ?? app.applicant_id.slice(0, 8),
       status: app.status,

@@ -103,7 +103,7 @@ export async function dismissMandateMatch(
 export async function markMandateMatchesSeen(mandateId?: string): Promise<AbhathliActionResult> {
   const supabase = await createClient()
   const { error } = await supabase.rpc('mark_mandate_matches_seen', {
-    p_mandate_id: mandateId ?? null,
+    p_mandate_id: mandateId,
   })
   if (error) return { ok: false, error: error.message }
 

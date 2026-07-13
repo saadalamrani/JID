@@ -12,6 +12,7 @@ export const ONBOARDING_ANALYTICS_EVENTS = [
   'entity_profile_saved',
   'entity_team_invites_sent',
   'entity_setup_completed',
+  'entity_verification_submitted',
   'mentor_setup_completed',
 ] as const
 

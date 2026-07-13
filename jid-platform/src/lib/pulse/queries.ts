@@ -91,7 +91,7 @@ export async function fetchPlatformMetricsSnapshot(): Promise<PlatformMetricsSna
 
   return {
     id: Number(data.id),
-    refreshed_at: data.refreshed_at,
+    refreshed_at: data.refreshed_at ?? new Date().toISOString(),
     total_candidates: Number(data.total_candidates),
     directory_coverage_count: Number(data.directory_coverage_count),
     verified_business_profiles_count: Number(data.verified_business_profiles_count),
@@ -125,7 +125,7 @@ export async function fetchPulseMetricThresholds(): Promise<PulseMetricThreshold
     label_ar: row.label_ar,
     min_value: Number(row.min_value),
     current_value: Number(row.current_value),
-    is_displayed: row.is_met,
+    is_displayed: row.is_met ?? false,
   }))
 }
 

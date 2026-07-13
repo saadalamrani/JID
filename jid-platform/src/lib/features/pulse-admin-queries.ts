@@ -61,6 +61,6 @@ export async function fetchMetricThresholds(): Promise<MetricThresholdRow[]> {
     label_ar: row.label_ar,
     min_value: Number(row.min_value),
     current_value: Number(row.current_value),
-    is_met: row.is_met,
+    is_met: row.is_met ?? false,
   }))
 }

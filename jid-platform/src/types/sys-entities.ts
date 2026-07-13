@@ -58,11 +58,11 @@ export type SysEntityDetail = {
   claimant_name: string | null
 }
 
-export type SysEntityClaimRow = {
+export type SysEntityVerificationRow = {
   id: string
-  user_id: string
+  applicant_user_id: string
   status: string
-  claim_type: string
+  verification_type: string
   claimant_name: string
   business_email: string
   created_at: string
@@ -71,6 +71,9 @@ export type SysEntityClaimRow = {
   review_notes: string | null
   rejection_reason: string | null
 }
+
+/** @deprecated Use SysEntityVerificationRow */
+export type SysEntityClaimRow = SysEntityVerificationRow
 
 export type SysEntityMetadataInput = {
   name?: string

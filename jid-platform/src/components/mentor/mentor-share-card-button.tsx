@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { Download, Loader2, Share2 } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { Loader2, Share2 } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { toPng } from 'html-to-image'
 import { toast } from 'sonner'
