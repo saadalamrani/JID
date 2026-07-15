@@ -31,6 +31,25 @@ type EntitySignupWizardProps = {
 
 type EntityPhase = 'selection' | 'claim'
 
+const HYDRATION_TIMEOUT_MS = 5_000
+
+function withTimeout<T>(promise: PromiseLike<T>, message: string): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error(message)), HYDRATION_TIMEOUT_MS)
+
+    Promise.resolve(promise).then(
+      (value) => {
+        clearTimeout(timeout)
+        resolve(value)
+      },
+      (error) => {
+        clearTimeout(timeout)
+        reject(error)
+      },
+    )
+  })
+}
+
 function pendingReviewPath(entityType: EntitySignupType) {
   return entityType === 'university'
     ? '/university/pending-review'
@@ -81,11 +100,18 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         const saved = loadWizardState(entityType)
         const supabase = createClient()
         const {
-          data: { user },
-        } = await supabase.auth.getUser()
+          data: { session },
+        } = await withTimeout(
+          supabase.auth.getSession(),
+          'Timed out while restoring the signup session',
+        )
+        const user = session?.user ?? null
 
         if (user) {
-          const claim = await getLatestClaimForUser(supabase, user.id)
+          const claim = await withTimeout(
+            getLatestClaimForUser(supabase, user.id),
+            'Timed out while restoring the latest entity claim',
+          )
           if (claim && ['pending_review', 'pending', 'under_review'].includes(claim.status)) {
             router.replace(pendingReviewPath(entityType))
             return

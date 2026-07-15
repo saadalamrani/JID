@@ -99,6 +99,9 @@ export function StepEntitySelection({
   )
 
   const selectedCompany = companies.find((company) => company.id === selectedId) ?? null
+  const selectedUniversity = universities.find((university) => university.id === selectedId) ?? null
+  const canContinue =
+    entityType === 'university' ? Boolean(selectedUniversity) : Boolean(selectedCompany)
 
   function translateError(message?: string) {
     if (!message?.startsWith('entity.validation.')) return message
@@ -106,25 +109,29 @@ export function StepEntitySelection({
   }
 
   async function handleExistingContinue() {
-    if (entityType === 'university') {
-      const selectedUniversity = universities.find((u) => u.id === selectedId)
-      if (!selectedUniversity) return
-      const supabase = createClient()
-      const linked = await ensureUniversityCompany(supabase, selectedUniversity)
-      onContinue({
-        companyId: linked.id,
-        companyName: linked.name_ar ?? linked.name,
-        companyDomains: linked.domains,
-      })
-      return
-    }
+    setSubmitting(true)
+    try {
+      if (entityType === 'university') {
+        if (!selectedUniversity) return
+        const supabase = createClient()
+        const linked = await ensureUniversityCompany(supabase, selectedUniversity)
+        onContinue({
+          companyId: linked.id,
+          companyName: linked.name_ar ?? linked.name,
+          companyDomains: linked.domains,
+        })
+        return
+      }
 
-    if (!selectedCompany) return
-    onContinue({
-      companyId: selectedCompany.id,
-      companyName: selectedCompany.name_ar ?? selectedCompany.name,
-      companyDomains: selectedCompany.domains,
-    })
+      if (!selectedCompany) return
+      onContinue({
+        companyId: selectedCompany.id,
+        companyName: selectedCompany.name_ar ?? selectedCompany.name,
+        companyDomains: selectedCompany.domains,
+      })
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   async function handleNewSubmit(values: NewCompanyFormValues) {
@@ -151,7 +158,10 @@ export function StepEntitySelection({
 
   return (
     <div className="space-y-4">
-      <Tabs value={canCreateNew ? tab : 'existing'} onValueChange={(value) => setTab(value as 'existing' | 'new')}>
+      <Tabs
+        value={canCreateNew ? tab : 'existing'}
+        onValueChange={(value) => setTab(value as 'existing' | 'new')}
+      >
         <TabsList>
           <TabsTrigger value="existing">
             {entityType === 'university' ? 'اختر الجامعة' : t('tabs.existing')}
@@ -173,8 +183,10 @@ export function StepEntitySelection({
           </FormField>
 
           {selectedCompany && entityType !== 'university' ? (
-            <div className="rounded-md bg-background p-3 text-sm text-foreground/80">
-              <p className="font-medium text-foreground">{selectedCompany.name_ar ?? selectedCompany.name}</p>
+            <div className="text-foreground/80 rounded-md bg-background p-3 text-sm">
+              <p className="font-medium text-foreground">
+                {selectedCompany.name_ar ?? selectedCompany.name}
+              </p>
               <p className="mt-1">
                 {t('approvedDomains')}: {formatDomainsList(selectedCompany.domains)}
               </p>
@@ -187,11 +199,11 @@ export function StepEntitySelection({
             </Button>
             <Button
               type="button"
-              className="flex-1 bg-primary hover:bg-primary/90"
-              disabled={!selectedCompany}
+              className="hover:bg-primary/90 flex-1 bg-primary"
+              disabled={!canContinue || submitting}
               onClick={handleExistingContinue}
             >
-              {t('continue')}
+              {submitting ? t('submitting') : t('continue')}
             </Button>
           </div>
         </TabsContent>
@@ -216,7 +228,7 @@ export function StepEntitySelection({
 
             <FormField
               id="domains"
-              label={t('newDomains')}
+              label={t('newDomains'}
               hint={t('newDomainsHint')}
               error={translateError(newForm.formState.errors.domains?.message)}
             >
@@ -226,7 +238,7 @@ export function StepEntitySelection({
                 className="text-start font-mono text-sm"
                 placeholder="example.com, example.sa"
                 disabled={submitting}
-                {...newForm.register('domains')}
+                {...newForm.register('domains'}
               />
             </FormField>
 
@@ -236,7 +248,7 @@ export function StepEntitySelection({
               </Button>
               <Button
                 type="submit"
-                className="flex-1 bg-primary hover:bg-primary/90"
+                className="hover:bg-primary/90 flex-1 bg-primary"
                 disabled={submitting}
               >
                 {submitting ? t('submitting') : t('continue')}
