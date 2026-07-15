@@ -18,6 +18,17 @@ export default async function CompanyGroupLayout({ children }: CompanyGroupLayou
     return <StandardCompanyLayout>{children}</StandardCompanyLayout>
   }
 
+  const { data: universityProfile } = await supabase
+    .from('university_profiles')
+    .select('id')
+    .eq('owner_user_id', userId)
+    .neq('status', 'suspended')
+    .maybeSingle()
+
+  if (universityProfile) {
+    return <UniversityLayout>{children}</UniversityLayout>
+  }
+
   const { data: company } = await supabase
     .from('companies')
     .select('entity_type')

@@ -77,38 +77,43 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
 
   useEffect(() => {
     async function hydrate() {
-      const saved = loadWizardState(entityType)
-      const supabase = createClient()
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
+      try {
+        const saved = loadWizardState(entityType)
+        const supabase = createClient()
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
 
-      if (user) {
-        const claim = await getLatestClaimForUser(supabase, user.id)
-        if (claim && ['pending_review', 'pending', 'under_review'].includes(claim.status)) {
-          router.replace(pendingReviewPath(entityType))
-          return
+        if (user) {
+          const claim = await getLatestClaimForUser(supabase, user.id)
+          if (claim && ['pending_review', 'pending', 'under_review'].includes(claim.status)) {
+            router.replace(pendingReviewPath(entityType))
+            return
+          }
         }
-      }
 
-      if (saved) {
-        setState(saved)
-        setStep(saved.step)
-        if (saved.companyId) setEntityPhase('claim')
-      } else if (user) {
-        const next: EntityWizardState = {
-          step: user.email_confirmed_at ? 'entity' : 'verify_email',
-          accountEmail: user.email ?? undefined,
+        if (saved) {
+          setState(saved)
+          setStep(saved.step)
+          if (saved.companyId) setEntityPhase('claim')
+        } else if (user) {
+          const next: EntityWizardState = {
+            step: user.email_confirmed_at ? 'entity' : 'verify_email',
+            accountEmail: user.email ?? undefined,
+          }
+          setState(next)
+          setStep(next.step)
         }
-        setState(next)
-        setStep(next.step)
+      } catch (error) {
+        console.error('[entity-signup] Failed to restore signup state', error)
+        toast.error(t('account.error'))
+      } finally {
+        setHydrated(true)
       }
-
-      setHydrated(true)
     }
 
     void hydrate()
-  }, [entityType, router])
+  }, [entityType, router, t])
 
   useEffect(() => {
     if (step === 'pending') {
@@ -192,7 +197,7 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         currentStep="account"
         stepLabels={stepLabels}
       >
-        <p className="text-center text-sm text-foreground/60">{t('loading')}</p>
+        <p className="text-foreground/60 text-center text-sm">{t('loading')}</p>
       </WizardShell>
     )
   }

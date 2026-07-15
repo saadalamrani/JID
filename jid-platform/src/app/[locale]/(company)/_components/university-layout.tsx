@@ -7,15 +7,15 @@ type UniversityLayoutProps = {
 }
 
 const UNIVERSITY_NAV = [
-  { href: '/company/dashboard', label: 'لوحة الإحصاءات', icon: BarChart3 },
-  { href: '/company/profile', label: 'ملف الجامعة', icon: Building2 },
+  { href: '/university/dashboard', label: 'لوحة الإحصاءات', icon: BarChart3 },
+  { href: '/universities', label: 'دليل الجامعات', icon: Building2 },
 ] as const
 
 export function UniversityLayout({ children }: UniversityLayoutProps) {
   return (
     <div className="container-jid grid min-h-[calc(100vh-3.5rem)] grid-cols-1 gap-6 py-6 md:grid-cols-[260px_1fr]">
-      <aside className="rounded-2xl border border-border bg-background/40 p-4">
-        <h2 className="mb-3 text-sm font-semibold text-foreground/70">لوحة الجامعة</h2>
+      <aside className="bg-background/40 rounded-2xl border border-border p-4">
+        <h2 className="text-foreground/70 mb-3 text-sm font-semibold">لوحة الجامعة</h2>
         <nav className="space-y-2">
           {UNIVERSITY_NAV.map((item) => {
             const Icon = item.icon

@@ -11,21 +11,14 @@ import { PasswordInput } from '@/components/auth/password-input'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Link, useRouter } from '@/lib/i18n/navigation'
-import {
-  getMfaAssuranceLevel,
-  needsMfaEnrollment,
-} from '@/lib/auth/mfa'
+import { getMfaAssuranceLevel, needsMfaEnrollment } from '@/lib/auth/mfa'
 import { resolvePostLoginDestination, requiresMfaAtLogin } from '@/lib/auth/portal-routes'
 import { isRoleAllowed } from '@/lib/auth/rbac'
 import { track } from '@/lib/analytics/track'
 import { fetchProfileForUser, isProfileSuspended } from '@/lib/auth/session'
 import { recordActiveSessionFromBrowser } from '@/lib/auth/sessions'
 import { createClient } from '@/lib/supabase/client'
-import {
-  loginSchema,
-  MIN_LOGIN_DELAY_MS,
-  type LoginFormValues,
-} from '@/lib/validations/auth'
+import { loginSchema, MIN_LOGIN_DELAY_MS, type LoginFormValues } from '@/lib/validations/auth'
 
 export default function LoginPage() {
   const t = useTranslations('auth.login')
@@ -34,7 +27,7 @@ export default function LoginPage() {
     <Suspense
       fallback={
         <AuthShell title={t('title')} subtitle={t('subtitle')}>
-          <p className="text-center text-sm text-foreground/70">{t('submitting')}</p>
+          <p className="text-foreground/70 text-center text-sm">{t('submitting')}</p>
         </AuthShell>
       }
     >
@@ -119,7 +112,24 @@ function LoginPageContent() {
       if (isRoleAllowed(profile.role, ['staff', 'admin'])) {
         track('staff.login_succeeded', { user_id: data.user.id })
       }
-      router.push(resolvePostLoginDestination(profile.role, { next: nextParam }))
+
+      let destination = resolvePostLoginDestination(profile.role, { next: nextParam })
+      if (profile.role === 'entity' && !nextParam) {
+        const { data: verification } = await supabase
+          .from('verification_requests')
+          .select('verification_type')
+          .eq('applicant_user_id', data.user.id)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle()
+
+        destination =
+          verification?.verification_type === 'university'
+            ? '/university/pending-review'
+            : '/company/verification-pending'
+      }
+
+      router.push(destination)
     } catch {
       await new Promise((resolve) =>
         setTimeout(resolve, Math.max(0, MIN_LOGIN_DELAY_MS - (Date.now() - startedAt))),
@@ -143,7 +153,10 @@ function LoginPageContent() {
           </p>
           <p>
             {t('noAccount')}{' '}
-            <Link href="/signup" className="font-medium text-primary underline-offset-4 hover:underline">
+            <Link
+              href="/signup"
+              className="font-medium text-primary underline-offset-4 hover:underline"
+            >
               {t('signupLink')}
             </Link>
           </p>
@@ -152,7 +165,10 @@ function LoginPageContent() {
     >
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
         {formError ? (
-          <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive" role="alert">
+          <p
+            className="bg-destructive/10 rounded-md px-3 py-2 text-sm text-destructive"
+            role="alert"
+          >
             {formError}
           </p>
         ) : null}
@@ -186,7 +202,11 @@ function LoginPageContent() {
           />
         </FormField>
 
-        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
+        <Button
+          type="submit"
+          className="hover:bg-primary/90 w-full bg-primary"
+          disabled={submitting}
+        >
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>
