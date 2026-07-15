@@ -228,7 +228,7 @@ export function StepEntitySelection({
 
             <FormField
               id="domains"
-              label={t('newDomains'}
+              label={t('newDomains')}
               hint={t('newDomainsHint')}
               error={translateError(newForm.formState.errors.domains?.message)}
             >
@@ -238,7 +238,7 @@ export function StepEntitySelection({
                 className="text-start font-mono text-sm"
                 placeholder="example.com, example.sa"
                 disabled={submitting}
-                {...newForm.register('domains'}
+                {...newForm.register('domains')}
               />
             </FormField>
 
