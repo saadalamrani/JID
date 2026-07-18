@@ -43,13 +43,13 @@ async function resolveUniversityName(
 ): Promise<string | null> {
   if (!universityId) return null
   const { data } = await client
-    .from('universities')
-    .select('name, name_ar')
+    .from('universities_catalog')
+    .select('name_ar, name_en')
     .eq('id', universityId)
     .maybeSingle()
   if (!data) return null
-  const row = data as { name: string; name_ar: string | null }
-  return locale === 'ar' && row.name_ar ? row.name_ar : row.name
+  const row = data as { name_ar: string | null; name_en: string }
+  return locale === 'ar' && row.name_ar ? row.name_ar : row.name_en
 }
 
 async function resolveCollegeName(
@@ -59,13 +59,13 @@ async function resolveCollegeName(
 ): Promise<string | null> {
   if (!collegeId) return null
   const { data } = await client
-    .from('colleges')
-    .select('name, name_ar')
+    .from('colleges_catalog')
+    .select('name_ar, name_en')
     .eq('id', collegeId)
     .maybeSingle()
   if (!data) return null
-  const row = data as { name: string; name_ar: string | null }
-  return locale === 'ar' && row.name_ar ? row.name_ar : row.name
+  const row = data as { name_ar: string | null; name_en: string }
+  return locale === 'ar' && row.name_ar ? row.name_ar : row.name_en
 }
 
 export async function buildMenteeSnapshot(

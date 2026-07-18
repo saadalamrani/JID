@@ -239,25 +239,25 @@ export async function fetchProfilePageContext(profileId: string): Promise<Profil
 
   if (profile.university_id) {
     const { data: uni } = await client
-      .from('universities')
-      .select('name, name_ar')
+      .from('universities_catalog')
+      .select('name_ar, name_en')
       .eq('id', profile.university_id)
       .maybeSingle()
     if (uni) {
-      const u = uni as { name: string; name_ar: string | null }
-      universityName = u.name_ar ?? u.name
+      const u = uni as { name_ar: string | null; name_en: string }
+      universityName = u.name_ar ?? u.name_en
     }
   }
 
   if (profile.college_id) {
     const { data: col } = await client
-      .from('colleges')
-      .select('name, name_ar')
+      .from('colleges_catalog')
+      .select('name_ar, name_en')
       .eq('id', profile.college_id)
       .maybeSingle()
     if (col) {
-      const c = col as { name: string; name_ar: string | null }
-      collegeName = c.name_ar ?? c.name
+      const c = col as { name_ar: string | null; name_en: string }
+      collegeName = c.name_ar ?? c.name_en
     }
   }
 

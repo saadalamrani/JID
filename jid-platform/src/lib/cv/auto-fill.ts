@@ -123,25 +123,25 @@ async function loadAutofillSource(userId: string, authEmail?: string): Promise<A
 
   if (profile.university_id) {
     const { data: uni } = await supabase
-      .from('universities')
-      .select('name, name_ar')
+      .from('universities_catalog')
+      .select('name_ar, name_en')
       .eq('id', profile.university_id)
       .maybeSingle()
     if (uni) {
-      const row = uni as { name: string; name_ar: string | null }
-      universityName = row.name_ar ?? row.name
+      const row = uni as { name_ar: string | null; name_en: string }
+      universityName = row.name_ar ?? row.name_en
     }
   }
 
   if (profile.college_id) {
     const { data: col } = await supabase
-      .from('colleges')
-      .select('name, name_ar')
+      .from('colleges_catalog')
+      .select('name_ar, name_en')
       .eq('id', profile.college_id)
       .maybeSingle()
     if (col) {
-      const row = col as { name: string; name_ar: string | null }
-      collegeName = row.name_ar ?? row.name
+      const row = col as { name_ar: string | null; name_en: string }
+      collegeName = row.name_ar ?? row.name_en
     }
   }
 
