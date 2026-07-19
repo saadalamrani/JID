@@ -39,8 +39,9 @@ export function SectionFormPane({ section, cv, isLoading }: SectionFormPaneProps
           <SectionAdditionalForm cv={cv} />
         ) : (
           <div className="flex flex-1 flex-col justify-center rounded-lg border border-dashed border-border bg-background/20 p-6 text-center">
-            <p className="text-sm font-medium text-muted-foreground">{t('formPlaceholderTitle')}</p>
-            <p className="mt-2 text-xs text-muted-foreground">{t('formPlaceholderBody')}</p>
+            <p className="text-sm font-medium text-muted-foreground">
+              {isLoading ? t('loadingState') : t('unavailableState')}
+            </p>
           </div>
         )}
       </div>

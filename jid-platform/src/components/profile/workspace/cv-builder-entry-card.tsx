@@ -1,6 +1,6 @@
 'use client'
 
-import { Download, FileText } from 'lucide-react'
+import { FileText } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/lib/i18n/navigation'
@@ -24,12 +24,6 @@ export function CvBuilderEntryCard({ visible }: CvBuilderEntryCardProps) {
             <Link href="/profile/cv">
               <FileText className="h-4 w-4" aria-hidden />
               {t('openBuilder')}
-            </Link>
-          </Button>
-          <Button asChild size="sm" variant="ghost" className="gap-2">
-            <Link href="/profile/cv">
-              <Download className="h-4 w-4" aria-hidden />
-              {t('exportCv')}
             </Link>
           </Button>
         </div>
