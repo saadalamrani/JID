@@ -69,7 +69,7 @@ export function JobFilterProvider({ children, initialData }: JobFilterProviderPr
   const { data: regions = [] } = useCatalogRegions()
   const { data: sectors = [] } = useCatalogSectors()
 
-  const jobs = data?.jobs ?? []
+  const jobs = useMemo(() => data?.jobs ?? [], [data?.jobs])
   const resultCount = data?.count ?? initialData?.count ?? 0
 
   const filterTrackReady = useRef(false)
