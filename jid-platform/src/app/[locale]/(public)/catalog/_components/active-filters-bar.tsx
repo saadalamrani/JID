@@ -1,6 +1,7 @@
 'use client'
 
 import { X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { OWNERSHIP_LABELS } from '@/types/catalog'
 import { cn } from '@/lib/utils'
@@ -13,6 +14,7 @@ type ActiveFilterPill = {
 }
 
 export function ActiveFiltersBar() {
+  const t = useTranslations('catalogPage.search')
   const {
     filters,
     debouncedQ,
@@ -33,7 +35,7 @@ export function ActiveFiltersBar() {
   if (debouncedQ.trim()) {
     pills.push({
       key: `q:${debouncedQ}`,
-      label: `بحث: ${debouncedQ.trim()}`,
+      label: t('searchFilter', { query: debouncedQ.trim() }),
       onRemove: clearSearch,
     })
   }
@@ -79,7 +81,7 @@ export function ActiveFiltersBar() {
             type="button"
             onClick={pill.onRemove}
             className="rounded-full p-0.5 text-muted-foreground hover:bg-background hover:text-foreground"
-            aria-label={`إزالة ${pill.label}`}
+            aria-label={t('removeFilter', { filter: pill.label })}
           >
             <X className="h-3 w-3" />
           </button>
@@ -92,7 +94,7 @@ export function ActiveFiltersBar() {
         onClick={clearAll}
         className="h-7 font-arabic text-xs text-primary hover:bg-background hover:text-primary"
       >
-        مسح الكل
+        {t('clearAll')}
       </Button>
     </div>
   )

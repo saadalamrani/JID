@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, type RefObject } from 'react'
+import { useTranslations } from 'next-intl'
 import type { CompanyCardData } from '@/types/catalog'
 import { useVirtualizedGrid } from '@/lib/hooks/use-virtualized-grid'
 import { CompanyCard } from './company-card'
@@ -20,6 +21,7 @@ export function VirtualizedCardGrid({
   hasMore = false,
   isLoadingMore = false,
 }: VirtualizedCardGridProps) {
+  const t = useTranslations('catalogPage.search')
   const { virtualRows, totalHeight, getRowItems, gridStyle, gap, rowVirtualizer, rowCount } =
     useVirtualizedGrid({
       items: companies,
@@ -43,7 +45,7 @@ export function VirtualizedCardGrid({
       style={{ height: totalHeight }}
       aria-busy={isLoadingMore}
       role="list"
-      aria-label="قائمة الجهات"
+      aria-label={t('listLabel')}
     >
       {virtualRows.map((virtualRow) => {
         const rowCompanies = getRowItems(virtualRow.index)

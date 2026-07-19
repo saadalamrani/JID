@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import { useTranslations } from 'next-intl'
 import { Suspense, useEffect, useRef } from 'react'
 import type { CatalogCompaniesResult } from '@/types/catalog'
 import { ActiveFiltersBar } from './active-filters-bar'
@@ -46,7 +47,8 @@ function CatalogSkeletonGrid() {
   )
 }
 
-function CatalogResultsSection() {
+export function CatalogResultsSection() {
+  const t = useTranslations('catalogPage.search')
   const scrollRef = useRef<HTMLElement | null>(null)
   const {
     companies,
@@ -66,8 +68,8 @@ function CatalogResultsSection() {
 
   if (error) {
     return (
-      <p className="font-arabic text-sm text-destructive">
-        تعذّر تحميل النتائج: {error.message}
+      <p role="alert" className="font-arabic text-sm text-destructive">
+        {t('error', { message: error.message })}
       </p>
     )
   }
@@ -81,7 +83,7 @@ function CatalogResultsSection() {
   }
 
   if (companies.length === 0) {
-    return <p className="font-arabic text-sm text-muted-foreground">لا توجد جهات مسجّلة.</p>
+    return <p className="font-arabic text-sm text-muted-foreground">{t('unavailable')}</p>
   }
 
   return (
@@ -96,6 +98,8 @@ function CatalogResultsSection() {
 }
 
 function CatalogPageContent({ setupHint }: { setupHint?: string }) {
+  const t = useTranslations('catalogPage.search')
+
   return (
     <>
       {setupHint ? (
@@ -129,7 +133,7 @@ function CatalogPageContent({ setupHint }: { setupHint?: string }) {
         <RegionFilterChips />
       </StickyFilterBar>
       <ActiveFiltersBar />
-      <section className="mt-6" aria-label="نتائج دليل الجهات">
+      <section className="mt-6" aria-label={t('resultsLabel')}>
         <CatalogResultsSection />
       </section>
     </>

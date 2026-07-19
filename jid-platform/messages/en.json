@@ -272,6 +272,31 @@
     }
   },
   "catalogPage": {
+    "search": {
+      "placeholder": "Search by name, sector, or description...",
+      "inputLabel": "Search the organization directory",
+      "loading": "Loading results...",
+      "resultCount": "{count} results",
+      "keyboardInstructions": "Results update as you type. Press Escape to clear the search.",
+      "emptyTitle": "No organizations match your filters",
+      "emptyDescription": "Try broadening your search",
+      "resetFilters": "Reset filters",
+      "error": "Could not load results: {message}",
+      "unavailable": "No organizations are currently listed.",
+      "filtersLabel": "Organization directory filters",
+      "resultsLabel": "Organization directory results",
+      "listLabel": "Organizations",
+      "searchFilter": "Search: {query}",
+      "ownershipFilter": "Ownership: {value}",
+      "regionFilter": "Region: {value}",
+      "sectorFilter": "Sector: {value}",
+      "sortFilter": "Sort: {value}",
+      "removeFilter": "Remove {filter}",
+      "clearAll": "Clear all",
+      "noFilters": "No filters",
+      "summarySeparator": ", ",
+      "announcement": "{count} results. {summary}"
+    },
     "card": {
       "viewRecord": "View record for {name}",
       "lastAudit": "Last link check: {time}"

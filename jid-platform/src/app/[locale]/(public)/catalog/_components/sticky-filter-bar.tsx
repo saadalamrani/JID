@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 
 type StickyFilterBarProps = {
@@ -7,6 +8,8 @@ type StickyFilterBarProps = {
 }
 
 export function StickyFilterBar({ children, className }: StickyFilterBarProps) {
+  const t = useTranslations('catalogPage.search')
+
   return (
     <div
       className={cn(
@@ -14,7 +17,7 @@ export function StickyFilterBar({ children, className }: StickyFilterBarProps) {
         className,
       )}
       role="search"
-      aria-label="فلاتر دليل الجهات"
+      aria-label={t('filtersLabel')}
     >
       <div className="flex flex-col gap-4">{children}</div>
     </div>
