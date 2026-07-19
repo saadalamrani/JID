@@ -8,7 +8,6 @@ import { useLammahFeedQuery } from '@/lib/hooks/use-lammah-feed-query'
 import { Radar } from 'lucide-react'
 import { JobCardSkeleton } from './job-card-skeleton'
 import { useJobFilters } from './job-filter-context'
-import { LammahTeaser } from './lammah-teaser'
 import { VirtualizedLammahGrid } from './virtualized-lammah-grid'
 
 const SKELETON_COUNT = 8
@@ -79,9 +78,22 @@ function LammahFeedUnlocked() {
   )
 }
 
+function LammahUnavailableState() {
+  const t = useTranslations('opportunities.lammah')
+
+  return (
+    <EmptyState
+      icon={Radar}
+      title={t('unavailableTitle')}
+      description={t('unavailableDescription')}
+      className="py-12"
+    />
+  )
+}
+
 export function LammahFeed() {
   return (
-    <PlusGate feature="lammah_feed" teaserPreview={<LammahTeaser variant="preview" />}>
+    <PlusGate feature="lammah_feed" fallback={<LammahUnavailableState />}>
       <LammahFeedUnlocked />
     </PlusGate>
   )

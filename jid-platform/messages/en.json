@@ -4378,6 +4378,8 @@
       "loadError": "Could not load Lammah",
       "emptyTitle": "No matching Lammah opportunities",
       "emptyDescription": "Try adjusting filters or check back after the next crawl cycle.",
+      "unavailableTitle": "Lammah is not available yet",
+      "unavailableDescription": "External opportunities will appear here only when they come from a verified source.",
       "teaserAria": "Lammah preview",
       "teaserHeadline": "Lammah — Plus-exclusive external opportunities",
       "teaserWeekly": "Added this week: {count} opportunities"
