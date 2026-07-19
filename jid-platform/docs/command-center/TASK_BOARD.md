@@ -19,7 +19,8 @@ Generated from JID-000. Work packages are journey-sized, dependency-aware, and l
 | JID-203 Staff Security and Financial Boundaries | Role approval, self-role denial, security-definer/audit coverage, founder-only finance boundary, emergency controls | JID-101 | P0 |
 | JID-104 React Hook Warning Closure | Resolve and test four existing `react-hooks/exhaustive-deps` warnings in mentor filters, opportunity filters, verification review, and glow state without broad behavior changes | JID-101 | P1 |
 | JID-105 Disposable RLS Gate — COMPLETE / RED | Isolated local stack applied all 120 migrations; profiles RLS passed 2 assertions; ownership/jobs suites skipped 12 assertions because fixture enum value `complete` is invalid; disposable resources fully removed | JID-101; evidence in `JID-105_DISPOSABLE_RLS_GATE_REPORT.md` | P0 |
-| JID-106 RLS Fixture/Schema Drift Closure | Reconcile `profile_state_enum` fixture values with repository truth; make teardown safe after partial setup; rerun all 14 RLS assertions in a fresh disposable stack without weakening policies | JID-105; explicit disposable-local database-write authorization | P0 |
+| JID-106 RLS Fixture/Schema Drift Closure — BLOCKED / RED | Fixture drift closed with valid `active` enum, safe teardown, and final-schema job fixtures. All 14 assertions executed: 13 passed, 1 proved an owner can self-unsuspend a Business Profile by direct UPDATE. Evidence: `JID-106_RLS_FIXTURE_SCHEMA_DRIFT_REPORT.md` | JID-105; blocks JID-102/JID-103 until JID-107 is green | P0 |
+| JID-107 Suspended Profile Transition Boundary | Prevent owners from transitioning a currently suspended Business or University Profile while retaining staff-only audited reinstate RPCs; verify both profile types in a fresh disposable local stack | JID-106 exact policy evidence; explicit disposable-local database-write authorization required | P0 |
 
 ## Wave 3
 

@@ -31,11 +31,10 @@ export async function createRlsUserWithRole(
   const { error: profileError } = await admin.from('profiles').upsert({
     id: data.user.id,
     full_name: `RLS ${label}`,
-    role,
     locale: 'ar',
     visibility: 'private',
     show_profile_to_companies: false,
-    profile_state: 'complete',
+    profile_state: 'active',
   })
 
   if (profileError) {
@@ -43,10 +42,26 @@ export async function createRlsUserWithRole(
     throw new Error(`Failed to seed profile (${label}): ${profileError.message}`)
   }
 
+  if (role !== 'individual') {
+    const { error: roleError } = await admin.rpc('rls_test_set_user_role', {
+      p_target_user_id: data.user.id,
+      p_new_role: role,
+    })
+
+    if (roleError) {
+      await admin.auth.admin.deleteUser(data.user.id)
+      throw new Error(`Failed to assign fixture role (${label}): ${roleError.message}`)
+    }
+  }
+
   return { id: data.user.id, email, password: TEST_PASSWORD }
 }
 
 export async function deleteRlsUser(admin: SupabaseClient, userId: string): Promise<void> {
+  const { error: auditError } = await admin.rpc('rls_test_clear_user_audit', { p_user_id: userId })
+  if (auditError) {
+    throw new Error(`Failed to clear local RLS audit fixtures (${userId}): ${auditError.message}`)
+  }
   const { error } = await admin.auth.admin.deleteUser(userId)
   if (error) {
     throw new Error(`Failed to delete RLS user (${userId}): ${error.message}`)

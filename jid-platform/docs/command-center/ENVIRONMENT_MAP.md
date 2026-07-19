@@ -40,3 +40,9 @@ JID-105 copied the repository config and 120 migrations into an untracked checko
 The disposable schema applied all migrations. `tests/rls/profiles.rls.test.ts` passed 2 assertions. The ownership-law and jobs-reanchor suites skipped 12 assertions after their shared fixture supplied enum value `complete`, which the applied `profile_state_enum` rejects. Cleanup removed every disposable container, volume, network, and temporary file. See `JID-105_DISPOSABLE_RLS_GATE_REPORT.md`.
 
 Cloud production, cloud non-production, and deployed RLS parity remain unverified.
+
+## JID-106 disposable RLS result
+
+JID-106 used disposable project `jid-106-disposable` on loopback ports 56320–56329. All 120 repository migrations applied. The fixture now uses repository-valid `profile_state_enum` value `active`; teardown and final-schema job fixtures were aligned without changing a migration or policy. All 14 assertions executed: 13 passed and 1 failed because an owner can directly change a suspended Business Profile to `draft` under migration 110's update policy.
+
+The disposable containers, network, workdir, and database data were deleted without backup. The existing shared `jid-platform` stack was preserved and never targeted. Cloud production, cloud non-production, and deployed RLS parity remain unverified and were not contacted. See `JID-106_RLS_FIXTURE_SCHEMA_DRIFT_REPORT.md`.

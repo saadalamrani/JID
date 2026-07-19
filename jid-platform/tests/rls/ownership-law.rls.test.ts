@@ -62,29 +62,31 @@ describeRls('Ownership Law RLS — zero-leak proofs (P-103)', () => {
   afterAll(async () => {
     if (!admin) return
 
-    await deleteCorrectionSuggestionsForDirectory(admin, directoryA.id)
-    await deleteCorrectionSuggestionsForDirectory(admin, directoryB.id)
-    await deleteVerificationRequest(admin, verification.id)
-    await deleteBusinessProfile(admin, profileA.id)
-    await deleteBusinessProfile(admin, profileB.id)
-    await deleteDirectoryCompany(admin, directoryA.id)
-    await deleteDirectoryCompany(admin, directoryB.id)
-    await deleteRlsUser(admin, outsider.id)
-    await deleteRlsUser(admin, staff.id)
-    await deleteRlsUser(admin, ownerB.id)
-    await deleteRlsUser(admin, ownerA.id)
+    if (directoryA?.id) await deleteCorrectionSuggestionsForDirectory(admin, directoryA.id)
+    if (directoryB?.id) await deleteCorrectionSuggestionsForDirectory(admin, directoryB.id)
+    if (verification?.id) await deleteVerificationRequest(admin, verification.id)
+    if (profileA?.id) await deleteBusinessProfile(admin, profileA.id)
+    if (profileB?.id) await deleteBusinessProfile(admin, profileB.id)
+    if (directoryA?.id) await deleteDirectoryCompany(admin, directoryA.id)
+    if (directoryB?.id) await deleteDirectoryCompany(admin, directoryB.id)
+    if (outsider?.id) await deleteRlsUser(admin, outsider.id)
+    if (staff?.id) await deleteRlsUser(admin, staff.id)
+    if (ownerB?.id) await deleteRlsUser(admin, ownerB.id)
+    if (ownerA?.id) await deleteRlsUser(admin, ownerA.id)
   })
 
   it('1 — org owner CANNOT UPDATE companies (Directory) directly', async () => {
     if (!admin || !env) return
     const client = await createAuthenticatedClient(env, ownerA.email, ownerA.password)
 
-    const { error } = await client
+    const { data, error } = await client
       .from('companies')
       .update({ city: 'RLS-Blocked-City' })
       .eq('id', directoryA.id)
+      .select('id')
 
-    expect(error).not.toBeNull()
+    expect(error).toBeNull()
+    expect(data).toEqual([])
 
     const { data: row } = await admin.from('companies').select('city').eq('id', directoryA.id).single()
     expect(row?.city).not.toBe('RLS-Blocked-City')
@@ -117,12 +119,14 @@ describeRls('Ownership Law RLS — zero-leak proofs (P-103)', () => {
     expect(selectError).toBeNull()
     expect(peek).toBeNull()
 
-    const { error: updateError } = await client
+    const { data: updated, error: updateError } = await client
       .from('business_profiles')
       .update({ display_name_ar: 'tampered' })
       .eq('id', profileB.id)
+      .select('id')
 
-    expect(updateError).not.toBeNull()
+    expect(updateError).toBeNull()
+    expect(updated).toEqual([])
   })
 
   it('4 — user without owned profile CANNOT INSERT directory_correction_suggestions', async () => {
@@ -144,12 +148,14 @@ describeRls('Ownership Law RLS — zero-leak proofs (P-103)', () => {
     if (!admin || !env) return
     const client = await createAuthenticatedClient(env, staff.email, staff.password)
 
-    const { error } = await client
+    const { data, error } = await client
       .from('verification_requests')
       .update({ status: 'approved' })
       .eq('id', verification.id)
+      .select('id')
 
-    expect(error).not.toBeNull()
+    expect(error).toBeNull()
+    expect(data).toEqual([])
 
     const { data: row } = await admin
       .from('verification_requests')
@@ -179,12 +185,14 @@ describeRls('Ownership Law RLS — zero-leak proofs (P-103)', () => {
       .single()
     expect(suspended?.status).toBe('suspended')
 
-    const { error: ownerUpdateError } = await ownerClient
+    const { data: ownerUpdated, error: ownerUpdateError } = await ownerClient
       .from('business_profiles')
       .update({ status: 'draft' })
       .eq('id', profileA.id)
+      .select('id')
 
-    expect(ownerUpdateError).not.toBeNull()
+    expect(ownerUpdateError).toBeNull()
+    expect(ownerUpdated).toEqual([{ id: profileA.id }])
 
     const { data: stillSuspended } = await admin
       .from('business_profiles')

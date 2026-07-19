@@ -46,13 +46,11 @@ describeRls('Jobs re-anchoring RLS — zero-leak proofs (P-104)', () => {
 
   let profileA: BusinessProfileFixture
   let profileB: BusinessProfileFixture
+  let legacyProfile: BusinessProfileFixture
 
   let jobA: JobFixture
   let jobB: JobFixture
   let legacyJob: JobFixture
-  let transitionalNullJob: JobFixture
-
-  let applicationOnLegacy: string
 
   beforeAll(async () => {
     if (!admin || !env) return
@@ -68,6 +66,12 @@ describeRls('Jobs re-anchoring RLS — zero-leak proofs (P-104)', () => {
 
     profileA = await createBusinessProfileFixture(admin, ownerA.id, directoryA.id, 'jobs-a')
     profileB = await createBusinessProfileFixture(admin, ownerB.id, directoryB.id, 'jobs-b')
+    legacyProfile = await createBusinessProfileFixture(
+      admin,
+      ownerB.id,
+      legacyDirectory.id,
+      'jobs-legacy-anchor',
+    )
 
     jobA = await seedJobFixture(admin, {
       companyId: directoryA.id,
@@ -81,39 +85,27 @@ describeRls('Jobs re-anchoring RLS — zero-leak proofs (P-104)', () => {
     })
     legacyJob = await seedJobFixture(admin, {
       companyId: legacyDirectory.id,
-      businessProfileId: null,
-      title: 'وظيفة قديمة',
-    })
-    transitionalNullJob = await seedJobFixture(admin, {
-      companyId: directoryA.id,
-      businessProfileId: null,
-      title: 'وظيفة انتقالية',
-    })
-
-    applicationOnLegacy = await seedApplicationFixture(admin, {
-      jobId: legacyJob.id,
-      companyId: legacyDirectory.id,
-      applicantUserId: applicant.id,
+      businessProfileId: legacyProfile.id,
+      title: 'وظيفة مرتبطة بملف',
     })
   })
 
   afterAll(async () => {
     if (!admin) return
 
-    await deleteApplicationFixture(admin, applicationOnLegacy)
-    await deleteJobFixture(admin, transitionalNullJob.id)
-    await deleteJobFixture(admin, legacyJob.id)
-    await deleteJobFixture(admin, jobB.id)
-    await deleteJobFixture(admin, jobA.id)
-    await deleteBusinessProfile(admin, profileB.id)
-    await deleteBusinessProfile(admin, profileA.id)
-    await deleteDirectoryCompany(admin, legacyDirectory.id)
-    await deleteDirectoryCompany(admin, directoryB.id)
-    await deleteDirectoryCompany(admin, directoryA.id)
-    await deleteRlsUser(admin, applicant.id)
-    await deleteRlsUser(admin, legacyOwner.id)
-    await deleteRlsUser(admin, ownerB.id)
-    await deleteRlsUser(admin, ownerA.id)
+    if (legacyJob?.id) await deleteJobFixture(admin, legacyJob.id)
+    if (jobB?.id) await deleteJobFixture(admin, jobB.id)
+    if (jobA?.id) await deleteJobFixture(admin, jobA.id)
+    if (legacyProfile?.id) await deleteBusinessProfile(admin, legacyProfile.id)
+    if (profileB?.id) await deleteBusinessProfile(admin, profileB.id)
+    if (profileA?.id) await deleteBusinessProfile(admin, profileA.id)
+    if (legacyDirectory?.id) await deleteDirectoryCompany(admin, legacyDirectory.id)
+    if (directoryB?.id) await deleteDirectoryCompany(admin, directoryB.id)
+    if (directoryA?.id) await deleteDirectoryCompany(admin, directoryA.id)
+    if (applicant?.id) await deleteRlsUser(admin, applicant.id)
+    if (legacyOwner?.id) await deleteRlsUser(admin, legacyOwner.id)
+    if (ownerB?.id) await deleteRlsUser(admin, ownerB.id)
+    if (ownerA?.id) await deleteRlsUser(admin, ownerA.id)
   })
 
   it('1 — owner can INSERT only with own business_profile_id', async () => {
@@ -148,20 +140,20 @@ describeRls('Jobs re-anchoring RLS — zero-leak proofs (P-104)', () => {
     if (goodRow?.id) await deleteJobFixture(admin, goodRow.id)
   })
 
-  it('2 — owner A cannot SELECT or UPDATE owner B jobs (profile + transitional NULL)', async () => {
+  it('2 — owner A cannot SELECT or UPDATE owner B jobs', async () => {
     if (!env) return
     const client = await createAuthenticatedClient(env, ownerA.email, ownerA.password)
 
-    for (const targetId of [jobB.id, transitionalNullJob.id]) {
-      const { data: peek } = await client.from('jobs').select('id').eq('id', targetId).maybeSingle()
-      expect(peek).toBeNull()
+    const { data: peek } = await client.from('jobs').select('id').eq('id', jobB.id).maybeSingle()
+    expect(peek).toBeNull()
 
-      const { error: updateError } = await client
-        .from('jobs')
-        .update({ title_ar: 'tampered' })
-        .eq('id', targetId)
-      expect(updateError).not.toBeNull()
-    }
+    const { data: updated, error: updateError } = await client
+      .from('jobs')
+      .update({ title_ar: 'tampered' })
+      .eq('id', jobB.id)
+      .select('id')
+    expect(updateError).toBeNull()
+    expect(updated).toEqual([])
   })
 
   it('3 — INSERT without business_profile_id is rejected', async () => {
@@ -179,10 +171,10 @@ describeRls('Jobs re-anchoring RLS — zero-leak proofs (P-104)', () => {
     expect(error).not.toBeNull()
   })
 
-  it('4 — transitional claimed_by grants legacy read/update without leaking to other orgs', async () => {
+  it('4 — Directory claimed_by alone grants no job read or update access', async () => {
     if (!env) return
     const legacyClient = await createAuthenticatedClient(env, legacyOwner.email, legacyOwner.password)
-    const otherClient = await createAuthenticatedClient(env, ownerA.email, ownerA.password)
+    const profileOwnerClient = await createAuthenticatedClient(env, ownerB.email, ownerB.password)
 
     const { data: legacyPeek, error: legacyReadError } = await legacyClient
       .from('jobs')
@@ -191,42 +183,27 @@ describeRls('Jobs re-anchoring RLS — zero-leak proofs (P-104)', () => {
       .maybeSingle()
 
     expect(legacyReadError).toBeNull()
-    expect(legacyPeek?.id).toBe(legacyJob.id)
-    expect(legacyPeek?.business_profile_id).toBeNull()
+    expect(legacyPeek).toBeNull()
 
-    const { error: legacyUpdateError } = await legacyClient
+    const { data: legacyUpdated, error: legacyUpdateError } = await legacyClient
       .from('jobs')
       .update({ title_ar: 'تحديث قديم' })
       .eq('id', legacyJob.id)
+      .select('id')
     expect(legacyUpdateError).toBeNull()
+    expect(legacyUpdated).toEqual([])
 
-    const { data: leakPeek } = await otherClient
+    const { data: ownerPeek } = await profileOwnerClient
       .from('jobs')
       .select('id')
       .eq('id', legacyJob.id)
       .maybeSingle()
-    expect(leakPeek).toBeNull()
+    expect(ownerPeek?.id).toBe(legacyJob.id)
   })
 
-  it('5 — applications policies mirror job isolation (new + transitional paths)', async () => {
+  it('5 — applications policies mirror owned-profile job isolation', async () => {
     if (!env) return
-    const legacyClient = await createAuthenticatedClient(env, legacyOwner.email, legacyOwner.password)
     const ownerAClient = await createAuthenticatedClient(env, ownerA.email, ownerA.password)
-
-    const { data: legacyApp, error: legacyAppError } = await legacyClient
-      .from('applications')
-      .select('id')
-      .eq('id', applicationOnLegacy)
-      .maybeSingle()
-    expect(legacyAppError).toBeNull()
-    expect(legacyApp?.id).toBe(applicationOnLegacy)
-
-    const { data: deniedForA } = await ownerAClient
-      .from('applications')
-      .select('id')
-      .eq('id', applicationOnLegacy)
-      .maybeSingle()
-    expect(deniedForA).toBeNull()
 
     const appOnA = await seedApplicationFixture(admin!, {
       jobId: jobA.id,
