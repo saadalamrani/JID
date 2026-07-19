@@ -7,8 +7,8 @@ Generated from JID-000. Work packages are journey-sized, dependency-aware, and l
 | Package | Scope and acceptance | Dependencies | Parallel safety | Owner / verifier |
 |---|---|---|---|---|
 | JID-101 Reproducible Quality Gate — COMPLETE | Corepack + checkout-local cache pins pnpm 9.15.4; frozen install, type-check, lint, network-enabled build, and 29 safe tests pass. RLS suites deferred because fixtures write to a database. Evidence: `JID-101_QUALITY_GATE_REPORT.md` | None | Infrastructure/docs only; no app-domain files changed | Codex / ChatGPT |
-| JID-102 Constitutional Organization Lifecycle | Remove public/code “claim existing profile” paths and Directory ownership writes; preserve verification then deliberate Business/University Profile creation; re-anchor billing/jobs/access; add lifecycle/RLS tests and AR/EN parity | JID-101 for final gates | Owns auth/org/catalog/profile operational paths and migrations queue | Codex / security reviewer |
-| JID-103 Individual Privacy & Canonical Projection Audit | Prove owner/public/recruiter/university payload separation; reconcile CV to canonical Career Record; add RLS/projection tests; keep missing Evidence Vault scoped as design gap | JID-101 for final gates | Owns individual/profile/privacy/CV paths; no org lifecycle overlap | Codex / security reviewer |
+| JID-102 Constitutional Organization Lifecycle | Remove public/code “claim existing profile” paths and Directory ownership writes; preserve verification then deliberate Business/University Profile creation; re-anchor billing/jobs/access; add lifecycle/RLS tests and AR/EN parity | JID-101; JID-106 must make the local RLS gate green | Owns auth/org/catalog/profile operational paths and migrations queue | Codex / security reviewer |
+| JID-103 Individual Privacy & Canonical Projection Audit | Prove owner/public/recruiter/university payload separation; reconcile CV to canonical Career Record; add RLS/projection tests; keep missing Evidence Vault scoped as design gap | JID-101; JID-106 must make the local RLS gate green | Owns individual/profile/privacy/CV paths; no org lifecycle overlap | Codex / security reviewer |
 
 ## Wave 2
 
@@ -18,7 +18,8 @@ Generated from JID-000. Work packages are journey-sized, dependency-aware, and l
 | JID-202 Honest Surface Closure | Hide/remove Lammah fake cards, Career Canvas/CV placeholders, dead controls; fix hardcoded i18n; verify real-data cards disappear cleanly | JID-101 | P0 |
 | JID-203 Staff Security and Financial Boundaries | Role approval, self-role denial, security-definer/audit coverage, founder-only finance boundary, emergency controls | JID-101 | P0 |
 | JID-104 React Hook Warning Closure | Resolve and test four existing `react-hooks/exhaustive-deps` warnings in mentor filters, opportunity filters, verification review, and glow state without broad behavior changes | JID-101 | P1 |
-| JID-105 Disposable RLS Gate | Run the three existing write-based RLS suites only against an explicitly approved disposable local/non-production database; record schema/fixture parity and cleanup | JID-101; explicit database-write authorization | P0 |
+| JID-105 Disposable RLS Gate — COMPLETE / RED | Isolated local stack applied all 120 migrations; profiles RLS passed 2 assertions; ownership/jobs suites skipped 12 assertions because fixture enum value `complete` is invalid; disposable resources fully removed | JID-101; evidence in `JID-105_DISPOSABLE_RLS_GATE_REPORT.md` | P0 |
+| JID-106 RLS Fixture/Schema Drift Closure | Reconcile `profile_state_enum` fixture values with repository truth; make teardown safe after partial setup; rerun all 14 RLS assertions in a fresh disposable stack without weakening policies | JID-105; explicit disposable-local database-write authorization | P0 |
 
 ## Wave 3
 

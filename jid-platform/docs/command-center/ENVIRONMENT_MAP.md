@@ -11,7 +11,7 @@ Audited: 2026-07-19 (Asia/Riyadh) — updated by JID-101.
 | Package/runtime | Repository pin pnpm 9.15.4; Codex fallback pnpm 11.9.0; Node 24.18.0; Next 14.2.15; React 18.3.1; TypeScript 5.9.3 | Use checkout-local Corepack cache and `corepack pnpm`; quality gates executed |
 | Production | Vercel `jid-platform`; Supabase `znfhladafpajyjwcfzvv`; branch `main` | Prohibited; not contacted |
 | Non-production | Vercel `jid-dev`; Supabase `hmjuijmaefajdjrjdsxu` | Not contacted during JID-000 |
-| Local Supabase | `supabase/config.toml`, 120 migrations, seed tooling, 18 Edge Function directories | Inspected as files only; not started/reset/seeded |
+| Local Supabase | CLI 2.20.12; repository config on 5432x; 120 migrations; 18 Edge Function directories | JID-105 used isolated project `jid-105-disposable` on loopback 5532x; all migrations applied; stack fully deleted |
 | Environment templates | `.env.example`, `.env.seed.nonprod.example` | Presence verified; no secrets read or modified |
 | Deployment config | `next.config.mjs`, `vercel.json` | Static inspection only; no deployment |
 
@@ -32,3 +32,11 @@ corepack pnpm test -- tests/unit src/lib/auth/organization-profile.test.ts
 Corepack must report pnpm 9.15.4. The unqualified `pnpm` fallback reports 11.9.0 and must not be used for this checkout. Build needs outbound access to Google Fonts. The safe unit/auth selection performs no database writes. Do not run `tests/rls` during a no-database-write task: its fixtures create and delete users and rows and invoke write RPCs.
 
 JID-101 results: diff check, frozen install, type-check, lint, approved-network build, and 29 safe tests passed. Live RLS state, deployed configuration, credentials, test accounts, browser behavior, Supabase schema parity, and Vercel readiness remain unverified.
+
+## Disposable RLS workflow
+
+JID-105 copied the repository config and 120 migrations into an untracked checkout-local workdir, changed only the temporary project ID/ports, disabled automatic seeds, and started the minimal stack on a Docker network bound to `127.0.0.1`. The pre-existing `jid-platform` local stack was not used.
+
+The disposable schema applied all migrations. `tests/rls/profiles.rls.test.ts` passed 2 assertions. The ownership-law and jobs-reanchor suites skipped 12 assertions after their shared fixture supplied enum value `complete`, which the applied `profile_state_enum` rejects. Cleanup removed every disposable container, volume, network, and temporary file. See `JID-105_DISPOSABLE_RLS_GATE_REPORT.md`.
+
+Cloud production, cloud non-production, and deployed RLS parity remain unverified.
