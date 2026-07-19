@@ -6,7 +6,7 @@ Generated from JID-000. Work packages are journey-sized, dependency-aware, and l
 
 | Package | Scope and acceptance | Dependencies | Parallel safety | Owner / verifier |
 |---|---|---|---|---|
-| JID-101 Reproducible Quality Gate | Make frozen pnpm install/check execution reproducible; run type-check, lint, build, unit/RLS tests; document exact failures without dependency changes | None | Infrastructure/docs only; avoid app-domain files | Codex / ChatGPT |
+| JID-101 Reproducible Quality Gate — COMPLETE | Corepack + checkout-local cache pins pnpm 9.15.4; frozen install, type-check, lint, network-enabled build, and 29 safe tests pass. RLS suites deferred because fixtures write to a database. Evidence: `JID-101_QUALITY_GATE_REPORT.md` | None | Infrastructure/docs only; no app-domain files changed | Codex / ChatGPT |
 | JID-102 Constitutional Organization Lifecycle | Remove public/code “claim existing profile” paths and Directory ownership writes; preserve verification then deliberate Business/University Profile creation; re-anchor billing/jobs/access; add lifecycle/RLS tests and AR/EN parity | JID-101 for final gates | Owns auth/org/catalog/profile operational paths and migrations queue | Codex / security reviewer |
 | JID-103 Individual Privacy & Canonical Projection Audit | Prove owner/public/recruiter/university payload separation; reconcile CV to canonical Career Record; add RLS/projection tests; keep missing Evidence Vault scoped as design gap | JID-101 for final gates | Owns individual/profile/privacy/CV paths; no org lifecycle overlap | Codex / security reviewer |
 
@@ -17,6 +17,8 @@ Generated from JID-000. Work packages are journey-sized, dependency-aware, and l
 | JID-201 Opportunity-to-Decision Journey | Owned-profile opportunity creation, Normal/Plus entitlements, application/declaration, radar, pipeline, zero-document privacy, cross-tenant denial | JID-102, JID-103 | P0 |
 | JID-202 Honest Surface Closure | Hide/remove Lammah fake cards, Career Canvas/CV placeholders, dead controls; fix hardcoded i18n; verify real-data cards disappear cleanly | JID-101 | P0 |
 | JID-203 Staff Security and Financial Boundaries | Role approval, self-role denial, security-definer/audit coverage, founder-only finance boundary, emergency controls | JID-101 | P0 |
+| JID-104 React Hook Warning Closure | Resolve and test four existing `react-hooks/exhaustive-deps` warnings in mentor filters, opportunity filters, verification review, and glow state without broad behavior changes | JID-101 | P1 |
+| JID-105 Disposable RLS Gate | Run the three existing write-based RLS suites only against an explicitly approved disposable local/non-production database; record schema/fixture parity and cleanup | JID-101; explicit database-write authorization | P0 |
 
 ## Wave 3
 
