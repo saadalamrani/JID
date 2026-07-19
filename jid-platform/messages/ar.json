@@ -272,6 +272,31 @@
     }
   },
   "catalogPage": {
+    "search": {
+      "placeholder": "ابحث بالاسم أو القطاع أو الوصف...",
+      "inputLabel": "بحث في دليل الجهات",
+      "loading": "جارٍ تحميل النتائج...",
+      "resultCount": "{count} نتيجة",
+      "keyboardInstructions": "تتحدّث النتائج أثناء الكتابة. اضغط Escape لمسح البحث.",
+      "emptyTitle": "لم نجد جهات تطابق فلاترك",
+      "emptyDescription": "جرّب توسيع نطاق البحث",
+      "resetFilters": "إعادة تعيين الفلاتر",
+      "error": "تعذّر تحميل النتائج: {message}",
+      "unavailable": "لا توجد جهات مسجّلة.",
+      "filtersLabel": "فلاتر دليل الجهات",
+      "resultsLabel": "نتائج دليل الجهات",
+      "listLabel": "قائمة الجهات",
+      "searchFilter": "بحث: {query}",
+      "ownershipFilter": "ملكية: {value}",
+      "regionFilter": "منطقة: {value}",
+      "sectorFilter": "قطاع: {value}",
+      "sortFilter": "ترتيب: {value}",
+      "removeFilter": "إزالة {filter}",
+      "clearAll": "مسح الكل",
+      "noFilters": "بدون فلاتر",
+      "summarySeparator": "، ",
+      "announcement": "{count} نتيجة. {summary}"
+    },
     "card": {
       "viewRecord": "عرض سجل {name}",
       "lastAudit": "آخر فحص للرابط: {time}"
