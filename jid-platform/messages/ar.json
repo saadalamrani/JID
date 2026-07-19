@@ -4344,6 +4344,8 @@
       "loadError": "تعذّر تحميل لمّاح",
       "emptyTitle": "لا توجد فرص لمّاح مطابقة",
       "emptyDescription": "جرّب تعديل الفلاتر أو عد لاحقاً بعد دورة الرصد.",
+      "unavailableTitle": "لمّاح غير متاح بعد",
+      "unavailableDescription": "ستظهر الفرص الخارجية هنا فقط عند ورودها من مصدر موثوق.",
       "teaserAria": "معاينة لمّاح",
       "teaserHeadline": "لمّاح — فرص خارجية حصرية لمشتركي بلس",
       "teaserWeekly": "أُضيف هذا الأسبوع: {count} فرصة"
