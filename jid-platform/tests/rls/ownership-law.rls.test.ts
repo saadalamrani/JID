@@ -192,7 +192,7 @@ describeRls('Ownership Law RLS — zero-leak proofs (P-103)', () => {
       .select('id')
 
     expect(ownerUpdateError).toBeNull()
-    expect(ownerUpdated).toEqual([{ id: profileA.id }])
+    expect(ownerUpdated).toEqual([])
 
     const { data: stillSuspended } = await admin
       .from('business_profiles')

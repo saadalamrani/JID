@@ -12,7 +12,7 @@ const TEST_PASSWORD = 'RlsTest1!pass'
 export async function createRlsUserWithRole(
   admin: SupabaseClient,
   label: string,
-  role: 'individual' | 'company_admin' | 'staff' | 'super_admin',
+  role: 'individual' | 'company_admin' | 'university_admin' | 'staff' | 'super_admin',
 ): Promise<RlsRoleUser> {
   const id = randomUUID()
   const email = `rls-${label}-${id}@jid.local.test`
@@ -75,6 +75,7 @@ export type DirectoryFixture = {
 export async function createDirectoryCompany(
   admin: SupabaseClient,
   label: string,
+  entityType: 'business' | 'university' = 'business',
 ): Promise<DirectoryFixture> {
   const id = randomUUID()
   const slug = `rls-dir-${label}-${id.slice(0, 8)}`
@@ -84,7 +85,7 @@ export async function createDirectoryCompany(
     name: `RLS Directory ${label}`,
     name_ar: `دليل ${label}`,
     domains: [`${slug}.test`],
-    entity_type: 'business',
+    entity_type: entityType,
     is_verified: true,
     is_active: true,
     slug,
@@ -139,6 +140,44 @@ export async function deleteBusinessProfile(admin: SupabaseClient, profileId: st
   const { error } = await admin.from('business_profiles').delete().eq('id', profileId)
   if (error) {
     throw new Error(`Failed to delete business profile (${profileId}): ${error.message}`)
+  }
+}
+
+export type UniversityProfileFixture = {
+  id: string
+  directoryId: string
+}
+
+export async function createUniversityProfileFixture(
+  admin: SupabaseClient,
+  ownerUserId: string,
+  directoryId: string,
+  label: string,
+): Promise<UniversityProfileFixture> {
+  const { data, error } = await admin
+    .from('university_profiles')
+    .insert({
+      directory_id: directoryId,
+      owner_user_id: ownerUserId,
+      display_name_ar: `جامعة ${label}`,
+      display_name_en: `University ${label}`,
+      status: 'draft',
+      verified_domains: ['university.example.test'],
+    })
+    .select('id')
+    .single()
+
+  if (error || !data) {
+    throw new Error(`Failed to seed university profile (${label}): ${error?.message ?? 'no row'}`)
+  }
+
+  return { id: data.id, directoryId }
+}
+
+export async function deleteUniversityProfile(admin: SupabaseClient, profileId: string): Promise<void> {
+  const { error } = await admin.from('university_profiles').delete().eq('id', profileId)
+  if (error) {
+    throw new Error(`Failed to delete university profile (${profileId}): ${error.message}`)
   }
 }
 

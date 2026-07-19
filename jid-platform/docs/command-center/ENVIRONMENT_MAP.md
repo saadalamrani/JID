@@ -46,3 +46,9 @@ Cloud production, cloud non-production, and deployed RLS parity remain unverifie
 JID-106 used disposable project `jid-106-disposable` on loopback ports 56320–56329. All 120 repository migrations applied. The fixture now uses repository-valid `profile_state_enum` value `active`; teardown and final-schema job fixtures were aligned without changing a migration or policy. All 14 assertions executed: 13 passed and 1 failed because an owner can directly change a suspended Business Profile to `draft` under migration 110's update policy.
 
 The disposable containers, network, workdir, and database data were deleted without backup. The existing shared `jid-platform` stack was preserved and never targeted. Cloud production, cloud non-production, and deployed RLS parity remain unverified and were not contacted. See `JID-106_RLS_FIXTURE_SCHEMA_DRIFT_REPORT.md`.
+
+## JID-107 suspended-profile boundary result
+
+JID-107 used fresh disposable project `jid-107-disposable` on loopback ports 57320–57329. It applied all 121 migrations, including `20260719100425_enforce_suspended_profile_transition_boundary.sql`, with repository seeds disabled. Both owned-Profile update policies and boundary triggers were verified in the local catalog. The complete RLS gate passed 24/24 tests: the previous 14 plus 10 Business/University moderation assertions, with zero failures or skips.
+
+Test fixtures cleaned to zero users and owned Profiles before teardown. Disposable containers, network, workdir, and database data were deleted without backup. The shared `jid-platform` stack remained present with 10 containers and was never targeted. Cloud production, cloud non-production, Vercel, and deployed schema parity remain unverified and were not contacted. See `JID-107_SUSPENDED_PROFILE_BOUNDARY_REPORT.md`.
