@@ -3299,8 +3299,7 @@
       "cvBuilder": {
         "title": "CV builder",
         "hint": "Your CV is an independent snapshot — open the builder to edit or export.",
-        "openBuilder": "Open CV builder",
-        "exportCv": "Export CV"
+        "openBuilder": "Open CV builder"
       },
       "overview": {
         "title": "Overview",
@@ -3310,11 +3309,11 @@
       },
       "canvas": {
         "title": "Career canvas summary",
-        "unavailable": "Full Career Canvas is not live yet — this card shows a summary from your profile data.",
+        "emptyUnavailable": "Career Canvas editing is unavailable. No profile direction is available to summarize yet.",
         "direction": "Declared direction",
         "aspiration": "Aspiration",
         "highlights": "Selected highlights",
-        "fullCanvasTodo": "Full Career Canvas will open when the module ships."
+        "readOnlyNotice": "Read-only summary derived from your profile. Career Canvas editing is unavailable."
       },
       "timeline": {
         "title": "Career timeline",
@@ -4032,8 +4031,8 @@
       "previewTitle": "Live preview",
       "zoomLabel": "Preview zoom",
       "syncing": "Syncing…",
-      "formPlaceholderTitle": "Section form coming soon",
-      "formPlaceholderBody": "This column will host the active section editor. Server data is loaded via TanStack Query.",
+      "loadingState": "Loading this CV section…",
+      "unavailableState": "This CV section is unavailable right now.",
       "currentDraft": "Draft for {name}",
       "sections": {
         "header": "Header & contact",

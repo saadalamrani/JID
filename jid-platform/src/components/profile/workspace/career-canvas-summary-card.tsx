@@ -14,7 +14,7 @@ export async function CareerCanvasSummaryCard({ canvas }: CareerCanvasSummaryCar
       <h2 className="mb-3 text-lg font-semibold text-foreground">{t('title')}</h2>
       <div className="rounded-xl border border-border bg-card p-5 shadow-sm">
         {!canvas.direction && !canvas.aspiration && canvas.highlights.length === 0 ? (
-          <p className="text-sm text-muted-foreground">{t('unavailable')}</p>
+          <p className="text-sm text-muted-foreground">{t('emptyUnavailable')}</p>
         ) : (
           <div className="space-y-3">
             {canvas.direction ? (
@@ -51,7 +51,7 @@ export async function CareerCanvasSummaryCard({ canvas }: CareerCanvasSummaryCar
           !canvas.available ? (
             <p className="mt-4 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
               <Compass className="h-3.5 w-3.5" aria-hidden />
-              {t('fullCanvasTodo')}
+              {t('readOnlyNotice')}
             </p>
           ) : null
         ) : null}
