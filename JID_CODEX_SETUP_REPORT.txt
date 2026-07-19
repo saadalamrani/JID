@@ -1,0 +1,22 @@
+﻿JID Codex bootstrap completed.
+
+Project path: C:\Users\saada\Documents\Codex\JID-Project
+Application root: C:\Users\saada\Documents\Codex\JID-Project\jid-platform
+Branch: agent/nonprod-signup-fix
+Starting commit: 6f0ed77225dba07b37abca6a5f580576dda99011
+Origin: https://github.com/saadalamrani/JID.git
+Created at: 2026-07-19 07:29:06
+
+Safety:
+- No Supabase action performed.
+- No Vercel action performed.
+- No database action performed.
+- No migration executed.
+- No production action performed.
+- No remote commit or push performed by this bootstrap.
+
+Next:
+1. In Codex choose this project folder.
+2. Keep Ask for approval enabled.
+3. Open FIRST_PROMPT_JID-000.txt.
+4. Copy all text into Codex and send it.

@@ -1,0 +1,36 @@
+# JID Task Board
+
+Generated from JID-000. Work packages are journey-sized, dependency-aware, and limited to three non-conflicting packages in Wave 1. No production write is included.
+
+## Wave 1 — maximum three parallel packages
+
+| Package | Scope and acceptance | Dependencies | Parallel safety | Owner / verifier |
+|---|---|---|---|---|
+| JID-101 Reproducible Quality Gate | Make frozen pnpm install/check execution reproducible; run type-check, lint, build, unit/RLS tests; document exact failures without dependency changes | None | Infrastructure/docs only; avoid app-domain files | Codex / ChatGPT |
+| JID-102 Constitutional Organization Lifecycle | Remove public/code “claim existing profile” paths and Directory ownership writes; preserve verification then deliberate Business/University Profile creation; re-anchor billing/jobs/access; add lifecycle/RLS tests and AR/EN parity | JID-101 for final gates | Owns auth/org/catalog/profile operational paths and migrations queue | Codex / security reviewer |
+| JID-103 Individual Privacy & Canonical Projection Audit | Prove owner/public/recruiter/university payload separation; reconcile CV to canonical Career Record; add RLS/projection tests; keep missing Evidence Vault scoped as design gap | JID-101 for final gates | Owns individual/profile/privacy/CV paths; no org lifecycle overlap | Codex / security reviewer |
+
+## Wave 2
+
+| Package | Scope | Depends on | Priority |
+|---|---|---|---|
+| JID-201 Opportunity-to-Decision Journey | Owned-profile opportunity creation, Normal/Plus entitlements, application/declaration, radar, pipeline, zero-document privacy, cross-tenant denial | JID-102, JID-103 | P0 |
+| JID-202 Honest Surface Closure | Hide/remove Lammah fake cards, Career Canvas/CV placeholders, dead controls; fix hardcoded i18n; verify real-data cards disappear cleanly | JID-101 | P0 |
+| JID-203 Staff Security and Financial Boundaries | Role approval, self-role denial, security-definer/audit coverage, founder-only finance boundary, emergency controls | JID-101 | P0 |
+
+## Wave 3
+
+| Package | Scope | Depends on | Priority |
+|---|---|---|---|
+| JID-301 Communications & Notifications | Auto-reply disclaimer lock, smart batches, conversations/scheduling, preferences, quota/bounce/digest behavior | JID-201 | P1 |
+| JID-302 Smart Features | SSIS, Search-for-me, Lammah crawler, explainability, provider failures, entitlements; hide anything without real output | JID-201, JID-202 | P1 |
+| JID-303 University Consent Journey | Verification/profile, declared graduate relationship, consented outcomes, institutional reports, export permissions | JID-103 | P1 |
+| JID-304 Mentorship UI Regression | Complete UI journey against migrations 124–126 without reopening closed backend absent regression | JID-101 | P2 |
+
+## Release and production bundles (later; founder approval required)
+
+- RB-01 Non-production schema reconciliation and seed accounts: migrations, rollback, RLS matrix, test data.
+- RB-02 Preview deployment and full AR/EN mobile journey verification.
+- RB-03 Production release: exact commits/migrations/env changes, backup/PITR evidence, rollback plan, founder approval, smoke tests.
+
+No package may claim completion without focused tests, type-check, diff check, lint/build as applicable, and the constitutional reporting fields.

@@ -1,0 +1,174 @@
+You are now the primary engineering executor for JID.
+
+Operate autonomously within the non-production boundaries defined below.
+
+MANDATORY FIRST READ
+1. Read AGENTS.md.
+2. Read jid-platform/docs/JID_Agent_Operating_Constitution.md in full.
+3. Read jid-platform/docs/command-center/CODEX_OPERATING_MODEL.md.
+4. Read jid-platform/docs/command-center/MASTER_PLAN.md.
+
+The constitution overrides this prompt and all later instructions.
+
+SAFETY BOUNDARIES
+- Do not modify or deploy production.
+- Do not modify any Supabase database during JID-000.
+- Do not run migrations.
+- Do not modify Vercel projects or environment variables.
+- Do not push to main.
+- Work only on the branch selected by the bootstrap:
+  agent/nonprod-signup-fix when available, otherwise codex/jid-000-audit.
+- Do not discard or overwrite uncommitted work.
+- Do not implement features during this task.
+
+TASK
+Execute JID-000 — Repository and Runtime Truth Audit.
+
+STEP 0 — REPOSITORY RECONCILIATION
+Confirm and record:
+- repository root
+- application root: jid-platform/
+- current branch
+- Git status
+- origin URL
+- package manager
+- package scripts
+- framework and runtime versions visible in the repository
+- location and presence of the four operating documents
+- whether the current checkout differs from origin
+- whether safe repository checks can run without database writes
+
+Do not claim a runtime or environment state that you did not verify.
+
+AUDIT SCOPE
+Inspect the complete repository, including:
+- routes and layouts
+- pages and components
+- server actions and API routes
+- database queries and generated types
+- migrations, RLS, grants, functions and triggers
+- Supabase Edge Functions
+- storage usage
+- middleware and route guards
+- feature flags and entitlements
+- localization files
+- tests and test scripts
+- seed and fixture tooling
+- environment templates
+- Vercel and deployment configuration
+- placeholders, mock data, dead controls and broken links
+
+Cover at minimum:
+- Authentication
+- Signup, login, logout and password recovery
+- Onboarding
+- Individual profile and its constitutional layers
+- Privacy and audience-specific projections
+- Business verification and Business Profile
+- University verification and University Profile
+- Company Directory / Catalog
+- Search
+- Opportunities
+- Applications and declarations
+- Applicant pipeline
+- Screening Interview
+- Smart Communication
+- Employer auto replies
+- Lammah
+- Search-for-me
+- SSIS
+- CV Builder
+- Mentorship
+- Billing, plans and entitlements
+- Notifications
+- Staff, Admin and role approvals
+- Budget and income visibility
+- RLS and privileged writes
+- Storage
+- Edge Functions
+- Arabic/English parity
+- RTL/LTR and mobile behavior
+- Tests
+- Preview/runtime readiness
+
+CLASSIFICATION
+Classify every feature as exactly one of:
+- VERIFIED_WORKING
+- PRESENT_UNTESTED
+- BROKEN
+- PLACEHOLDER
+- HIDDEN
+- DEFERRED
+- FORBIDDEN
+- MISSING
+
+Code presence alone is not VERIFIED_WORKING.
+
+For every feature, record:
+- feature ID and name
+- actor
+- status
+- implementation evidence
+- relevant paths
+- database dependencies
+- tests found
+- runtime verification state
+- constitutional conflicts
+- security/privacy risks
+- exact next action
+- priority
+- proposed executor
+- proposed verifier
+
+REQUIRED OUTPUT FILES
+Create or update:
+- jid-platform/docs/command-center/FEATURE_LEDGER.md
+- jid-platform/docs/command-center/TASK_BOARD.md
+- jid-platform/docs/command-center/ENVIRONMENT_MAP.md
+- jid-platform/docs/command-center/JID-000_AUDIT_REPORT.md
+
+TASK BOARD RULES
+- Group related defects into complete work packages.
+- Do not create tiny relay-style tasks.
+- Mark dependencies and safe parallel work.
+- Limit the first execution wave to three non-conflicting work packages.
+- Production writes must be grouped into later release bundles.
+- Do not reopen constitutionally closed work without direct regression evidence.
+
+SAFE CHECKS
+Run only checks that do not write to a database or production.
+Prefer checks already defined in package.json.
+At minimum, attempt where available:
+- git diff --check
+- pnpm type-check
+- pnpm lint
+- pnpm build
+
+If dependencies are unavailable, report that precisely rather than changing package versions.
+Do not add dependencies for this audit.
+
+DELIVERY
+- Review the diff for scope compliance.
+- Include the operating bootstrap files and JID-000 audit documents in one documentation-only commit.
+- Push only to the current non-production branch if GitHub credentials permit.
+- Never push to main.
+- If push is blocked, preserve the local commit and report the exact cause.
+
+Do not stop for routine questions that the constitution, repository or this task already answers.
+After two failed attempts at the same repair or command, stop that line of work and record the root cause.
+
+Your final response must include:
+- branch
+- commit SHA, if created
+- push state
+- checks actually run and their results
+- changed files
+- unresolved blockers
+
+The final line must be exactly one of:
+
+CODE_COMPLETE
+
+or
+
+BLOCKED_WITH_EXACT_CAUSE
