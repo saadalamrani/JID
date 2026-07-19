@@ -48,11 +48,15 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
   const { verification, directory, applicant, relatedHistory, isSelfReview } = data
 
   const isMentorType = verification.verification_type === ('mentor' as typeof verification.verification_type)
-  const checklistKeys = isMentorType
-    ? [...MENTOR_CHECKLIST_KEYS]
-    : verification.verification_type === 'university'
-      ? [...UNIVERSITY_CHECKLIST_KEYS]
-      : [...BUSINESS_CHECKLIST_KEYS]
+  const checklistKeys = useMemo(
+    () =>
+      isMentorType
+        ? [...MENTOR_CHECKLIST_KEYS]
+        : verification.verification_type === 'university'
+          ? [...UNIVERSITY_CHECKLIST_KEYS]
+          : [...BUSINESS_CHECKLIST_KEYS],
+    [isMentorType, verification.verification_type],
+  )
 
   const [checklist, setChecklist] = useState<Record<string, boolean>>(() =>
     isMentorType

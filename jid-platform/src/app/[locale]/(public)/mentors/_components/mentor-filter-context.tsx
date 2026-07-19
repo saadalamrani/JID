@@ -62,7 +62,10 @@ export function MentorFilterProvider({ children, initialData }: MentorFilterProv
 
   const { data: sectors = [] } = useCatalogSectors()
 
-  const mentors = data?.mentors ?? initialData?.mentors ?? []
+  const mentors = useMemo(
+    () => data?.mentors ?? initialData?.mentors ?? [],
+    [data?.mentors, initialData?.mentors],
+  )
   const resultCount = data?.count ?? initialData?.count ?? 0
   const stats = data?.stats ?? initialData?.stats ?? {
     activeMentorCount: 0,

@@ -31,13 +31,29 @@ export function useGlowState(
   >,
   userId: string,
 ): boolean {
+  const {
+    applicant_id,
+    last_seen_by_user_at,
+    status_changed_at,
+    status_changed_by,
+  } = application
+
   return useMemo(
-    () => hasUnseenCompanyStatusChange(application, userId),
+    () =>
+      hasUnseenCompanyStatusChange(
+        {
+          applicant_id,
+          last_seen_by_user_at,
+          status_changed_at,
+          status_changed_by,
+        },
+        userId,
+      ),
     [
-      application.applicant_id,
-      application.last_seen_by_user_at,
-      application.status_changed_at,
-      application.status_changed_by,
+      applicant_id,
+      last_seen_by_user_at,
+      status_changed_at,
+      status_changed_by,
       userId,
     ],
   )
