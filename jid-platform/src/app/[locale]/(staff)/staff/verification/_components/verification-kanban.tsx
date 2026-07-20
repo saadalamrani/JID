@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { ClaimCard } from '../../claims/_components/claim-card'
+import { VerificationCard } from './verification-card'
 import type { StaffClaimsQueueItem } from '@/lib/staff/claims-queue'
 
 type VerificationKanbanProps = {
@@ -31,7 +31,7 @@ function KanbanColumn({
         ) : (
           items.map((item) => (
             <li key={item.id}>
-              <ClaimCard item={item} showAssignment />
+              <VerificationCard item={item} showAssignment />
             </li>
           ))
         )}

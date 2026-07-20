@@ -2,13 +2,13 @@
 
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
-import type { RelatedClaimHistoryItem } from '@/lib/staff/claim-review-shared'
+import type { RelatedVerificationHistoryItem } from '@/lib/staff/verification-review-shared'
 
 type RelatedHistoryPanelProps = {
-  items: RelatedClaimHistoryItem[]
+  items: RelatedVerificationHistoryItem[]
 }
 
-/** Section 7.4 — previous claims from same user or same entity. */
+/** Section 7.4 — previous verification requests from same user or same entity. */
 export function RelatedHistoryPanel({ items }: RelatedHistoryPanelProps) {
   const t = useTranslations('staff.claimReview.workspace.relatedHistory')
 
@@ -32,7 +32,7 @@ export function RelatedHistoryPanel({ items }: RelatedHistoryPanelProps) {
                     {item.company_name}
                   </Link>
                   <p className="text-xs text-muted-foreground">
-                    {t(`relation.${item.relation}`)} · {item.claim_type}
+                    {t(`relation.${item.relation}`)} · {item.verification_type}
                   </p>
                 </div>
                 <span className="shrink-0 rounded-full bg-background px-2 py-0.5 text-[10px] font-medium uppercase text-muted-foreground">

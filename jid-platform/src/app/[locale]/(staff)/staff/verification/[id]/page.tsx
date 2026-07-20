@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
-import { fetchVerificationReviewWorkspace } from '@/lib/staff/claim-review-queries'
+import { fetchVerificationReviewWorkspace } from '@/lib/staff/verification-review-queries'
 import { VerificationReviewWorkspace } from './_components/verification-review-workspace'
 
 type VerificationReviewPageProps = {

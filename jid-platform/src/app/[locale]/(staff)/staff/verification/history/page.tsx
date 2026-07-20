@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
-import { ClaimsListWithFilters } from '../../claims/_components/claims-list'
+import { VerificationListWithFilters } from '../_components/verification-list'
 import { fetchMyClaimsHistory } from '@/lib/staff/claims-queue'
 
 export default async function VerificationHistoryPage() {
@@ -16,7 +16,7 @@ export default async function VerificationHistoryPage() {
         <h1 className="mt-2 text-2xl font-semibold text-foreground">{t('title')}</h1>
         <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
-      <ClaimsListWithFilters items={items} showAssignment={false} />
+      <VerificationListWithFilters items={items} showAssignment={false} />
     </div>
   )
 }

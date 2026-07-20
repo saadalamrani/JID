@@ -7,7 +7,7 @@ import {
   rejectVerificationRequest,
 } from '@/lib/auth/verification'
 import { trackServer } from '@/lib/analytics/server'
-import { notifyClaimDecision } from '@/lib/staff/notify-claim-decision'
+import { notifyVerificationDecision } from '@/lib/staff/notify-verification-decision'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 
@@ -87,7 +87,7 @@ export async function reviewVerification(
         verificationId,
         reviewNotes: reason,
       })
-      await notifyClaimDecision(supabase, { claimId: verificationId, decision: 'approve' })
+      await notifyVerificationDecision(supabase, { verificationId, decision: 'approve' })
     } else {
       await rejectVerificationRequest(supabase, {
         verificationId,
@@ -95,7 +95,7 @@ export async function reviewVerification(
         rejectionReason: reason,
         requiredDocuments,
       })
-      await notifyClaimDecision(supabase, { claimId: verificationId, decision: 'reject' })
+      await notifyVerificationDecision(supabase, { verificationId, decision: 'reject' })
     }
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : 'Review failed' }

@@ -1,21 +1,21 @@
 import { emailDomainMatchesAllowed } from '@/lib/entity/domains'
 import { PENDING_CLAIM_STATUSES } from '@/lib/staff/claims'
 
-export type RelatedClaimHistoryItem = {
+export type RelatedVerificationHistoryItem = {
   id: string
   company_name: string
   status: string
-  claim_type: string
+  verification_type: string
   created_at: string
   reviewed_at: string | null
   relation: 'same_user' | 'same_entity'
 }
 
-export function buildDefaultClaimChecklist(
+export function buildDefaultVerificationChecklist(
   businessEmail: string,
   domains: string[],
   claimantTitle: string | null,
-  relatedHistory: RelatedClaimHistoryItem[],
+  relatedHistory: RelatedVerificationHistoryItem[],
 ): Record<string, boolean> {
   const hasDuplicate = relatedHistory.some((item) =>
     ['approved', 'pending', 'pending_review', 'under_review', 'submitted'].includes(item.status),
@@ -30,7 +30,7 @@ export function buildDefaultClaimChecklist(
   }
 }
 
-export function isClaimPendingReview(status: string): boolean {
+export function isVerificationPendingReview(status: string): boolean {
   return (
     (PENDING_CLAIM_STATUSES as readonly string[]).includes(status) || status === 'needs_more_info'
   )

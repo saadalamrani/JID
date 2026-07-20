@@ -5,20 +5,20 @@ import { DASHBOARD_ALERT_THRESHOLDS } from '@/lib/sys/dashboard-constants'
 import { fetchMaintenanceMode } from '@/lib/sys/shell-context'
 import { createClient } from '@/lib/supabase/server'
 import type {
-  PendingClaimPreview,
+  PendingVerificationPreview,
   RecentAuditActivity,
   SysDashboardData,
   SystemHealthSnapshot,
 } from '@/types/sys-dashboard'
 
 export type {
-  PendingClaimPreview,
+  PendingVerificationPreview,
   RecentAuditActivity,
   SysDashboardData,
   SystemHealthSnapshot,
 } from '@/types/sys-dashboard'
 
-const PENDING_CLAIM_STATUSES = ['pending', 'pending_review', 'under_review'] as const
+const PENDING_VERIFICATION_STATUSES = ['pending', 'pending_review', 'under_review'] as const
 const SLA_HOURS = DASHBOARD_ALERT_THRESHOLDS.slaHours
 const CRON_STALE_MINUTES = DASHBOARD_ALERT_THRESHOLDS.cronStaleMinutes
 const DB_LATENCY_DEGRADED_MS = DASHBOARD_ALERT_THRESHOLDS.dbLatencyDegradedMs
@@ -92,13 +92,13 @@ export async function fetchDashboardMetrics(): Promise<SysDashboardMetrics> {
   })
 }
 
-/** Section 6.1 — top 5 pending claims ordered by earliest SLA proxy (created_at ASC). */
-export async function fetchPendingClaimsPreview(): Promise<PendingClaimPreview[]> {
+/** Section 6.1 — top 5 pending verification requests ordered by earliest SLA proxy (created_at ASC). */
+export async function fetchPendingVerificationsPreview(): Promise<PendingVerificationPreview[]> {
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('verification_requests')
     .select('id, company_name, claimant_name, status, created_at')
-    .in('status', [...PENDING_CLAIM_STATUSES])
+    .in('status', [...PENDING_VERIFICATION_STATUSES])
     .order('created_at', { ascending: true })
     .limit(5)
 
@@ -195,12 +195,12 @@ export async function fetchSystemHealth(): Promise<SystemHealthSnapshot> {
 
 /** Section 6.1 — parallel dashboard data loader (four queries). */
 export async function fetchSysDashboardData(): Promise<SysDashboardData> {
-  const [metrics, claims, activity, health] = await Promise.all([
+  const [metrics, pendingVerifications, activity, health] = await Promise.all([
     fetchDashboardMetrics(),
-    fetchPendingClaimsPreview(),
+    fetchPendingVerificationsPreview(),
     fetchRecentAuditActivity(),
     fetchSystemHealth(),
   ])
 
-  return { metrics, claims, activity, health }
+  return { metrics, pendingVerifications, activity, health }
 }

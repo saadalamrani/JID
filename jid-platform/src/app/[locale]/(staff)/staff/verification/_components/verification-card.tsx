@@ -5,15 +5,15 @@ import { arSA } from 'date-fns/locale'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/lib/i18n/navigation'
 import {
-  getClaimUrgencyTier,
+  getVerificationUrgencyTier,
   hoursUntilSla,
   URGENCY_BORDER_CLASS,
-  type ClaimUrgencyTier,
-} from '@/lib/staff/claim-urgency'
+  type VerificationUrgencyTier,
+} from '@/lib/staff/verification-urgency'
 import type { StaffClaimsQueueItem } from '@/lib/staff/claims-queue'
 import { cn } from '@/lib/utils'
 
-type ClaimCardProps = {
+type VerificationCardProps = {
   item: StaffClaimsQueueItem
   showAssignment?: boolean
 }
@@ -30,7 +30,7 @@ const TYPE_BADGE_CLASS: Record<StaffClaimsQueueItem['queueType'], string> = {
   mentor: 'bg-purple-100 text-purple-800',
 }
 
-function formatSlaCountdown(slaDueAt: string, tier: ClaimUrgencyTier): string {
+function formatSlaCountdown(slaDueAt: string, tier: VerificationUrgencyTier): string {
   if (tier === 'overdue') return 'تجاوز SLA'
 
   const hours = hoursUntilSla(slaDueAt)
@@ -40,10 +40,10 @@ function formatSlaCountdown(slaDueAt: string, tier: ClaimUrgencyTier): string {
   return `متبقٍ ${Math.ceil(hours)} ساعة`
 }
 
-/** Section 7.1 — urgency-colored claim card with Arabic SLA countdown. */
-export function ClaimCard({ item, showAssignment = true }: ClaimCardProps) {
+/** Section 7.1 — urgency-colored verification card with Arabic SLA countdown. */
+export function VerificationCard({ item, showAssignment = true }: VerificationCardProps) {
   const t = useTranslations('staff.claims.card')
-  const tier = getClaimUrgencyTier(item.slaDueAt)
+  const tier = getVerificationUrgencyTier(item.slaDueAt)
   const submittedLabel = formatDistance(new Date(item.submittedAt), new Date(), {
     addSuffix: true,
     locale: arSA,

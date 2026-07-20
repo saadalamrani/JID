@@ -4,18 +4,18 @@ import type { ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 import { usePathname, useRouter } from '@/lib/i18n/navigation'
 import { useSearchParams } from 'next/navigation'
-import type { ClaimUrgencyFilter } from '@/lib/staff/claim-urgency'
-import { getClaimUrgencyTier, matchesUrgencyFilter } from '@/lib/staff/claim-urgency'
+import type { VerificationUrgencyFilter } from '@/lib/staff/verification-urgency'
+import { getVerificationUrgencyTier, matchesUrgencyFilter } from '@/lib/staff/verification-urgency'
 import type { StaffQueueItemType } from '@/lib/staff/claims-queue'
 import { cn } from '@/lib/utils'
 
-export type ClaimsFilterState = {
+export type VerificationFilterState = {
   type: 'all' | StaffQueueItemType
-  urgency: ClaimUrgencyFilter
+  urgency: VerificationUrgencyFilter
   assigned: 'all' | 'unassigned' | 'assigned'
 }
 
-type ClaimsFiltersProps = {
+type VerificationFiltersProps = {
   className?: string
 }
 
@@ -28,19 +28,19 @@ function readFilter(
 }
 
 /** Section 7.2 — URL-synced queue filters. */
-export function ClaimsFilters({ className }: ClaimsFiltersProps) {
+export function VerificationFilters({ className }: VerificationFiltersProps) {
   const t = useTranslations('staff.claims.filters')
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const filters: ClaimsFilterState = {
-    type: readFilter(searchParams, 'type', 'all') as ClaimsFilterState['type'],
-    urgency: readFilter(searchParams, 'urgency', 'all') as ClaimsFilterState['urgency'],
-    assigned: readFilter(searchParams, 'assigned', 'all') as ClaimsFilterState['assigned'],
+  const filters: VerificationFilterState = {
+    type: readFilter(searchParams, 'type', 'all') as VerificationFilterState['type'],
+    urgency: readFilter(searchParams, 'urgency', 'all') as VerificationFilterState['urgency'],
+    assigned: readFilter(searchParams, 'assigned', 'all') as VerificationFilterState['assigned'],
   }
 
-  function update(partial: Partial<ClaimsFilterState>) {
+  function update(partial: Partial<VerificationFilterState>) {
     const next = new URLSearchParams(searchParams.toString())
     for (const [key, value] of Object.entries({ ...filters, ...partial })) {
       if (value === 'all') {
@@ -128,18 +128,18 @@ function FilterButton({
   )
 }
 
-export function filterClaimsItems<T extends {
+export function filterVerificationItems<T extends {
   queueType: StaffQueueItemType
   slaDueAt: string
   assignedStaffId: string | null
 }>(
   items: T[],
-  filters: ClaimsFilterState,
+  filters: VerificationFilterState,
 ): T[] {
   return items.filter((item) => {
     if (filters.type !== 'all' && item.queueType !== filters.type) return false
 
-    const tier = getClaimUrgencyTier(item.slaDueAt)
+    const tier = getVerificationUrgencyTier(item.slaDueAt)
     if (!matchesUrgencyFilter(tier, filters.urgency)) return false
 
     if (filters.assigned === 'unassigned' && item.assignedStaffId) return false

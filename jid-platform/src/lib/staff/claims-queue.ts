@@ -2,7 +2,7 @@ import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
 import { requireStaffShellAccess } from '@/lib/staff/require-staff-access'
-import { resolveSlaDueAt } from '@/lib/staff/claim-urgency'
+import { resolveSlaDueAt } from '@/lib/staff/verification-urgency'
 import { PENDING_CLAIM_STATUSES } from '@/lib/staff/claims'
 import { listPendingMentorApplications } from '@/lib/staff/mentor-applications'
 

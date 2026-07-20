@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
-import { ClaimsListWithFilters } from '@/app/[locale]/(staff)/staff/claims/_components/claims-list'
-import { RealtimeClaimsUpdater } from '@/app/[locale]/(staff)/staff/claims/_components/realtime-claims-updater'
+import { VerificationListWithFilters } from './_components/verification-list'
+import { RealtimeVerificationUpdater } from './_components/realtime-verification-updater'
 import { VerificationKanban } from './_components/verification-kanban'
 import {
   fetchPendingClaimsQueue,
@@ -20,7 +20,7 @@ export default async function StaffVerificationPage() {
 
   return (
     <div className="space-y-6">
-      <RealtimeClaimsUpdater />
+      <RealtimeVerificationUpdater />
 
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
@@ -45,7 +45,7 @@ export default async function StaffVerificationPage() {
 
       <p className="text-sm text-muted-foreground">{t('count', { count: items.length })}</p>
 
-      <ClaimsListWithFilters items={items} />
+      <VerificationListWithFilters items={items} />
     </div>
   )
 }

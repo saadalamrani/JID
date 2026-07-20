@@ -2,7 +2,6 @@ import type { LucideIcon } from 'lucide-react'
 import {
   AlertTriangle,
   Building2,
-  ClipboardList,
   Flag,
   GraduationCap,
   LayoutDashboard,
@@ -37,7 +36,6 @@ export const SYS_NAV_SECTIONS: SysNavSection[] = [
     items: [
       { key: 'users', href: '/sys/users', icon: Users },
       { key: 'entities', href: '/sys/entities', icon: Building2 },
-      { key: 'claims', href: '/sys/claims', icon: ClipboardList },
       { key: 'mentorApplications', href: '/sys/mentor-applications', icon: GraduationCap },
     ],
   },
@@ -82,7 +80,6 @@ export const SYS_QUICK_ACTIONS: SysQuickAction[] = [
   { key: 'dashboard', href: '/sys/dashboard', keywords: ['home', 'overview'] },
   { key: 'users', href: '/sys/users', keywords: ['people', 'profiles'] },
   { key: 'entities', href: '/sys/entities', keywords: ['companies', 'organizations'] },
-  { key: 'claims', href: '/sys/claims', keywords: ['queue', 'ownership'] },
   { key: 'inviteStaff', href: '/sys/staff/new', keywords: ['invite', 'staff'] },
   { key: 'audit', href: '/sys/audit', keywords: ['log', 'history'] },
   { key: 'emergency', href: '/sys/system/emergency', keywords: ['kill', 'danger'] },

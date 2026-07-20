@@ -9,14 +9,14 @@ import { toast } from 'sonner'
 import { reviewVerification } from '@/app/[locale]/(staff)/staff/verification/actions'
 import { Link, useRouter } from '@/lib/i18n/navigation'
 import {
-  buildDefaultClaimChecklist,
-  isClaimPendingReview,
+  buildDefaultVerificationChecklist,
+  isVerificationPendingReview,
   MENTOR_CHECKLIST_KEYS,
   buildDefaultMentorChecklist,
-} from '@/lib/staff/claim-review-shared'
-import type { VerificationReviewWorkspaceData } from '@/lib/staff/claim-review-queries'
-import { ChecklistPanel, isChecklistComplete } from '@/app/[locale]/(staff)/staff/claims/[id]/_components/checklist-panel'
-import { RelatedHistoryPanel } from '@/app/[locale]/(staff)/staff/claims/[id]/_components/related-history-panel'
+} from '@/lib/staff/verification-review-shared'
+import type { VerificationReviewWorkspaceData } from '@/lib/staff/verification-review-queries'
+import { ChecklistPanel, isChecklistComplete } from '@/app/[locale]/(staff)/_components/checklist-panel'
+import { RelatedHistoryPanel } from './related-history-panel'
 import {
   VerificationDecisionForm,
   type VerificationDecisionFormState,
@@ -61,7 +61,7 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
   const [checklist, setChecklist] = useState<Record<string, boolean>>(() =>
     isMentorType
       ? buildDefaultMentorChecklist(null)
-      : buildDefaultClaimChecklist(
+      : buildDefaultVerificationChecklist(
           verification.business_email,
           directory?.domains ?? [],
           verification.claimant_title,
@@ -91,7 +91,7 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
   )
 
   const checklistComplete = isChecklistComplete(checklist, checklistKeys)
-  const pendingReview = isClaimPendingReview(verification.status)
+  const pendingReview = isVerificationPendingReview(verification.status)
 
   const mutation = useMutation({
     mutationFn: async () => {

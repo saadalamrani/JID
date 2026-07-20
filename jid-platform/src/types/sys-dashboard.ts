@@ -1,12 +1,12 @@
 import type { SysDashboardMetrics } from '@/lib/governance/schemas'
 
-export type PendingClaimPreview = {
+export type PendingVerificationPreview = {
   id: string
   company_name: string
   claimant_name: string
   status: string
   created_at: string
-  /** Proxy SLA deadline — claim_requests has no sla_due_at (reconciled Day 1). */
+  /** Proxy SLA deadline — verification_requests has no sla_due_at (reconciled Day 1). */
   sla_due_at: string
 }
 
@@ -33,7 +33,7 @@ export type SystemHealthSnapshot = {
 
 export type SysDashboardData = {
   metrics: SysDashboardMetrics
-  claims: PendingClaimPreview[]
+  pendingVerifications: PendingVerificationPreview[]
   activity: RecentAuditActivity[]
   health: SystemHealthSnapshot
 }

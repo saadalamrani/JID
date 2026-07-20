@@ -3,9 +3,9 @@ import 'server-only'
 import { fetchProfileForUser } from '@/lib/auth/session'
 import { createClient } from '@/lib/supabase/server'
 import { requireStaffShellAccess } from '@/lib/staff/require-staff-access'
-import type { RelatedClaimHistoryItem } from '@/lib/staff/claim-review-shared'
+import type { RelatedVerificationHistoryItem } from '@/lib/staff/verification-review-shared'
 
-export type { RelatedClaimHistoryItem } from '@/lib/staff/claim-review-shared'
+export type { RelatedVerificationHistoryItem } from '@/lib/staff/verification-review-shared'
 
 export type VerificationDetail = {
   id: string
@@ -50,20 +50,9 @@ export type VerificationReviewWorkspaceData = {
   verification: VerificationDetail
   directory: DirectoryDetail | null
   applicant: ApplicantProfile | null
-  relatedHistory: RelatedClaimHistoryItem[]
+  relatedHistory: RelatedVerificationHistoryItem[]
   currentUserId: string
   isSelfReview: boolean
-}
-
-/** @deprecated Use VerificationReviewWorkspaceData */
-export type ClaimReviewWorkspaceData = VerificationReviewWorkspaceData & {
-  claim: VerificationDetail & {
-    user_id: string
-    company_id: string
-    claim_type: 'business' | 'university'
-  }
-  entity: DirectoryDetail | null
-  claimant: ApplicantProfile | null
 }
 
 async function assignVerificationToSelfIfUnassigned(
@@ -163,32 +152,12 @@ export async function fetchVerificationReviewWorkspace(
   }
 }
 
-/** Back-compat alias for migrated routes. */
-export async function fetchClaimReviewWorkspace(
-  claimId: string,
-): Promise<ClaimReviewWorkspaceData | null> {
-  const data = await fetchVerificationReviewWorkspace(claimId)
-  if (!data) return null
-
-  return {
-    ...data,
-    claim: {
-      ...data.verification,
-      user_id: data.verification.applicant_user_id,
-      company_id: data.verification.directory_id,
-      claim_type: data.verification.verification_type,
-    },
-    entity: data.directory,
-    claimant: data.applicant,
-  }
-}
-
 async function fetchRelatedVerificationHistory(
   supabase: Awaited<ReturnType<typeof createClient>>,
   verificationId: string,
   userId: string,
   directoryId: string,
-): Promise<RelatedClaimHistoryItem[]> {
+): Promise<RelatedVerificationHistoryItem[]> {
   const { data, error } = await supabase
     .from('verification_requests')
     .select(
@@ -205,7 +174,7 @@ async function fetchRelatedVerificationHistory(
     id: row.id,
     company_name: row.company_name,
     status: row.status,
-    claim_type: row.verification_type,
+    verification_type: row.verification_type,
     created_at: row.created_at,
     reviewed_at: row.reviewed_at,
     relation: row.applicant_user_id === userId ? 'same_user' : 'same_entity',

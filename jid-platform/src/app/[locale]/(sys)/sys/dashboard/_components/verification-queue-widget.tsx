@@ -1,21 +1,29 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { Link } from '@/lib/i18n/navigation'
-import type { PendingClaimPreview } from '@/types/sys-dashboard'
+import type { PendingVerificationPreview } from '@/types/sys-dashboard'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-type ClaimsQueueWidgetProps = {
-  claims: PendingClaimPreview[]
+type VerificationQueueWidgetProps = {
+  items: PendingVerificationPreview[]
 }
 
 function isSlaOverdue(slaDueAt: string): boolean {
   return new Date(slaDueAt).getTime() < Date.now()
 }
 
-/** Section 6 — top 5 pending claims by earliest SLA proxy (created_at ASC). */
-export function ClaimsQueueWidget({ claims }: ClaimsQueueWidgetProps) {
+/**
+ * Section 6 — top 5 pending verification requests by earliest SLA proxy (created_at ASC).
+ *
+ * JID-102D1: this widget previously linked to /sys/claims, a route that has
+ * never existed in src/app — there is no system-level verification queue
+ * page to send staff to yet. The "view all" affordance was removed rather
+ * than invented; adding a real destination is a product decision outside
+ * this cleanup's scope. Staff can still work the live queue at
+ * /staff/verification.
+ */
+export function VerificationQueueWidget({ items }: VerificationQueueWidgetProps) {
   const t = useTranslations('sys.dashboard.claimsWidget')
 
   return (
@@ -25,22 +33,19 @@ export function ClaimsQueueWidget({ claims }: ClaimsQueueWidgetProps) {
           <CardTitle className="text-base">{t('title')}</CardTitle>
           <CardDescription>{t('subtitle')}</CardDescription>
         </div>
-        <Link href="/sys/claims" className="text-sm font-medium text-primary hover:underline">
-          {t('viewAll')}
-        </Link>
       </CardHeader>
       <CardContent>
-        {claims.length === 0 ? (
+        {items.length === 0 ? (
           <p className="py-6 text-center text-sm text-muted-foreground">{t('empty')}</p>
         ) : (
           <ul className="divide-y divide-border">
-            {claims.map((claim) => {
-              const overdue = isSlaOverdue(claim.sla_due_at)
+            {items.map((item) => {
+              const overdue = isSlaOverdue(item.sla_due_at)
               return (
-                <li key={claim.id} className="flex items-start justify-between gap-3 py-3 first:pt-0">
+                <li key={item.id} className="flex items-start justify-between gap-3 py-3 first:pt-0">
                   <div className="min-w-0">
-                    <p className="truncate font-medium text-foreground">{claim.company_name}</p>
-                    <p className="truncate text-xs text-muted-foreground">{claim.claimant_name}</p>
+                    <p className="truncate font-medium text-foreground">{item.company_name}</p>
+                    <p className="truncate text-xs text-muted-foreground">{item.claimant_name}</p>
                   </div>
                   <div className="shrink-0 text-end">
                     <p
@@ -52,7 +57,7 @@ export function ClaimsQueueWidget({ claims }: ClaimsQueueWidgetProps) {
                       {overdue ? t('overdue') : t('due')}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {new Date(claim.sla_due_at).toLocaleDateString()}
+                      {new Date(item.sla_due_at).toLocaleDateString()}
                     </p>
                   </div>
                 </li>

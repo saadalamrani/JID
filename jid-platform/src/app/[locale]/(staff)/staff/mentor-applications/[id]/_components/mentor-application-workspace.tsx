@@ -11,13 +11,13 @@ import { MentorIdentityHeader } from '@/components/profile/mentor-identity-heade
 import {
   ChecklistPanel,
   isChecklistComplete,
-} from '@/app/[locale]/(staff)/staff/claims/[id]/_components/checklist-panel'
+} from '@/app/[locale]/(staff)/_components/checklist-panel'
 import { reviewMentorApplicationAction } from '@/app/[locale]/(staff)/staff/mentor-applications/actions'
 import { Link, useRouter } from '@/lib/i18n/navigation'
 import {
   buildDefaultMentorChecklist,
   MENTOR_CHECKLIST_KEYS,
-} from '@/lib/staff/claim-review-shared'
+} from '@/lib/staff/verification-review-shared'
 import type { MentorApplicationQueueItem } from '@/lib/staff/mentor-applications'
 import { MentorDecisionForm, type MentorDecisionFormState } from './mentor-decision-form'
 
