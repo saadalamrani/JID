@@ -47,6 +47,12 @@ JID-106 used disposable project `jid-106-disposable` on loopback ports 56320–5
 
 The disposable containers, network, workdir, and database data were deleted without backup. The existing shared `jid-platform` stack was preserved and never targeted. Cloud production, cloud non-production, and deployed RLS parity remain unverified and were not contacted. See `JID-106_RLS_FIXTURE_SCHEMA_DRIFT_REPORT.md`.
 
+## Repository-native CI
+
+JID-110 defines `.github/workflows/ci.yml` for pull requests, pushes to `agent/nonprod-signup-fix` and `codex/**`, and manual dispatch. It runs on GitHub-hosted Ubuntu with Node 20, Corepack, and the repository pin pnpm 9.15.4 from `jid-platform/`. The single required `CI / Quality Gate` status checks repository hygiene, frozen dependency installation without manifest/lockfile mutation, zero-warning lint, TypeScript, safe tests, and the production build. It has read-only repository permission, uses no secrets, and performs no deployment.
+
+No repository-native RLS workflow exists yet. The JID-107 24/24 result remains the current baseline. A future RLS CI package must turn the proven disposable procedure into a committed harness that allocates unique loopback-only ports and an isolated Docker network, disables repository seeds, applies every migration, obtains only ephemeral local keys, runs all RLS assertions with zero skips, and always removes containers, volumes, network, and temporary data on failure or success. It must never reference either Supabase cloud project.
+
 ## JID-107 suspended-profile boundary result
 
 JID-107 used fresh disposable project `jid-107-disposable` on loopback ports 57320–57329. It applied all 121 migrations, including `20260719100425_enforce_suspended_profile_transition_boundary.sql`, with repository seeds disabled. Both owned-Profile update policies and boundary triggers were verified in the local catalog. The complete RLS gate passed 24/24 tests: the previous 14 plus 10 Business/University moderation assertions, with zero failures or skips.

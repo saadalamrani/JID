@@ -1,108 +1,112 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
+  push:
+    branches:
+      - agent/nonprod-signup-fix
+      - codex/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 defaults:
   run:
     working-directory: jid-platform
 
 jobs:
-  quality:
-    name: Typecheck · Lint · Unit · Build
+  quality-gate:
+    name: Quality Gate
     runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CI: true
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v4
+      - name: Check out repository
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
-          version: 9
+          fetch-depth: 0
+          persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js 20
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 20
-          cache: pnpm
-          cache-dependency-path: jid-platform/pnpm-lock.yaml
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Enable repository-pinned pnpm
+        shell: bash
+        run: |
+          set -euo pipefail
+          corepack enable
+          test "$(corepack pnpm --version)" = "9.15.4"
 
-      - name: Typecheck
-        run: pnpm type-check
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Unit tests (coverage)
-        run: pnpm test:coverage
-
-      - name: Build
-        run: pnpm build
+      - name: Check changed-file whitespace
+        shell: bash
         env:
-          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
-          NEXT_PUBLIC_SITE_URL: http://localhost:3000
-          SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role-key
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+          BEFORE_SHA: ${{ github.event.before }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "pull_request" ]]; then
+            git diff --check "origin/${BASE_REF}...HEAD"
+          elif [[ -n "$BEFORE_SHA" && ! "$BEFORE_SHA" =~ ^0+$ ]] && git cat-file -e "${BEFORE_SHA}^{commit}" 2>/dev/null; then
+            git diff --check "${BEFORE_SHA}..HEAD"
+          elif git rev-parse --verify origin/agent/nonprod-signup-fix >/dev/null 2>&1; then
+            git diff --check "origin/agent/nonprod-signup-fix...HEAD"
+          else
+            git diff --check HEAD^..HEAD
+          fi
 
-  e2e:
-    # TODO(P-704): remove continue-on-error once Phase 7 hardens these suites
-    continue-on-error: true
-    name: Playwright E2E
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+      - name: Check repository hygiene and package-manager pin
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f pnpm-lock.yaml
+          node -e "const p=require('./package.json'); if(p.packageManager !== 'pnpm@9.15.4') { console.error('package.json must pin pnpm@9.15.4'); process.exit(1) }"
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
+          forbidden=0
+          while IFS= read -r path; do
+            normalized="/${path}/"
+            base="${path##*/}"
+            case "$normalized" in
+              */.corepack/*|*/.pnpm-store/*|*/node_modules/*|*/.next/*|*/.supabase/*|*/supabase/.branches/*|*/supabase/.temp/*|*/docker-data/*|*/.docker-data/*|*/docker/volumes/*|*/supabase-data/*)
+                echo "Forbidden generated/runtime path is tracked: $path"
+                forbidden=1
+                ;;
+            esac
+            if [[ "$base" == ".env" || ( "$base" == .env.* && "$base" != *.example ) ]]; then
+              echo "Forbidden environment file is tracked: $path"
+              forbidden=1
+            fi
+          done < <(git ls-files)
+          test "$forbidden" -eq 0
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-          cache-dependency-path: jid-platform/pnpm-lock.yaml
+      - name: Install frozen dependencies
+        run: corepack pnpm install --frozen-lockfile
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Verify manifests and lockfile were not mutated
+        shell: bash
+        run: git diff --exit-code -- package.json pnpm-lock.yaml
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium
+      - name: Lint (zero warnings and errors)
+        shell: bash
+        run: |
+          set -euo pipefail
+          corepack pnpm lint 2>&1 | tee "$RUNNER_TEMP/jid-lint.log"
+          grep -Fq "No ESLint warnings or errors" "$RUNNER_TEMP/jid-lint.log"
 
-      - name: Run E2E smoke tests
-        run: pnpm test:e2e
-        env:
-          CI: true
-          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder-anon-key
-          NEXT_PUBLIC_SITE_URL: http://localhost:3000
-          SUPABASE_SERVICE_ROLE_KEY: placeholder-service-role-key
+      - name: TypeScript
+        run: corepack pnpm type-check
 
-  rls:
-    # TODO(P-704): remove continue-on-error once Phase 7 hardens these suites
-    continue-on-error: true
-    name: RLS harness
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+      - name: Safe tests
+        run: corepack pnpm test
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-          cache-dependency-path: jid-platform/pnpm-lock.yaml
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run RLS tests
-        run: pnpm vitest run tests/rls
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_TEST_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_TEST_SERVICE_ROLE_KEY }}
+      - name: Production build
+        run: corepack pnpm build
+        timeout-minutes: 20

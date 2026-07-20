@@ -1,0 +1,13 @@
+# Checkout-local package-manager caches
+/.corepack/
+/.pnpm-store/
+
+# Codex worktrees and task scratch space
+/.worktrees/
+/codex-tasks/
+
+# Local runtime data must never be committed
+**/.supabase/
+**/docker-data/
+**/.docker-data/
+**/supabase-data/
