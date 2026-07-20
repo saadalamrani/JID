@@ -304,9 +304,9 @@ describe('profile creation RPC guards (JID-102B)', () => {
 })
 
 describe('profile creation i18n parity (JID-102B)', () => {
-  it('13 — AR/EN keys exist for university and business create-profile copy', () => {
-    const { readFileSync } = require('node:fs') as typeof import('node:fs')
-    const { join } = require('node:path') as typeof import('node:path')
+  it('13 — AR/EN keys exist for university and business create-profile copy', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { join } = await import('node:path')
     const root = join(process.cwd(), 'messages')
     const enText = readFileSync(join(root, 'en.json'), 'utf8')
     const arText = readFileSync(join(root, 'ar.json'), 'utf8')
