@@ -10,7 +10,7 @@ No Supabase cloud project, remote database, Vercel project, production resource,
 
 ## Step 0 — Inspection summary
 
-- Base branch: `agent/nonprod-signup-form`
+- Base branch: `agent/nonprod-signup-fix`
 - Required base HEAD confirmed: `8772951a92c1e46b968d682ed3aad89ae99c9e20`
 - Worktree branch: `cursor/jid-102a1-verification-boundary`
 - Final INSERT policy before fix (migration `111`): `WITH CHECK (applicant_user_id = auth.uid())` only
