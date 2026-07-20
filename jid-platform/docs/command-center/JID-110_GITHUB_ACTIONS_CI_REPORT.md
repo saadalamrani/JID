@@ -4,7 +4,9 @@ Date: 2026-07-20 (Asia/Riyadh)
 
 ## Result
 
-Implementation and local validation are in progress. GitHub-hosted validation will be recorded after the first branch push; JID-110 is not complete until `.github/workflows/ci.yml` succeeds on GitHub.
+JID-110 is complete. The repository-native CI workflow was committed on `codex/jid-110-github-actions-ci` at `11d812c1e71a6d109b03cf729a8ab9d203bd000b`, pushed to GitHub, and validated by GitHub Actions run `29711645470`.
+
+Quality Gate result: completed / success. The single `Quality Gate` job and every reported step completed successfully.
 
 ## Step 0 inventory
 
@@ -84,7 +86,14 @@ JID-110 implements none of the deployment stages.
 
 ## GitHub Actions validation
 
-Pending first branch push. The run ID/URL and every job/step conclusion will be recorded here after the required workflow completes.
+- Branch: `codex/jid-110-github-actions-ci`.
+- Commit: `11d812c1e71a6d109b03cf729a8ab9d203bd000b`.
+- Run ID: `29711645470`.
+- Run URL: `https://github.com/saadalamrani/JID/actions/runs/29711645470`.
+- Quality Gate: completed / success.
+- Job: `Quality Gate` completed / success.
+- Step results: all reported steps completed / success.
+- Code change required after hosted validation: none.
 
 ## Remaining risks
 
