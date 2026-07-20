@@ -8,7 +8,6 @@ import { CompanyIdentityHeader } from '@/components/profile/company-identity-hea
 import { CompanyPartnerMentors } from '@/components/profile/company-partner-mentors'
 import { CompanyTrustSignals } from '@/components/profile/company-trust-signals'
 import { OwnerCompanyActions } from '@/components/profile/owner-company-actions'
-import { UnclaimedCTA } from '@/components/profile/unclaimed-cta'
 import type { CompanyPageContext } from '@/lib/profile/types'
 import type { EarnedEntityBadge } from '@/lib/profile/types'
 
@@ -23,7 +22,6 @@ export function CompanyProfileView({ context, badges, isOwner }: CompanyProfileV
   const { company, activeJobsCount } = context
   const tagline =
     locale === 'ar' && company.tagline_ar ? company.tagline_ar : company.tagline_en ?? company.tagline_ar
-  const isUnclaimed = company.entity_state === 'unclaimed'
 
   return (
     <main className="container-jid space-y-6 py-8">
@@ -40,8 +38,6 @@ export function CompanyProfileView({ context, badges, isOwner }: CompanyProfileV
       />
 
       <CompanyTrustSignals badges={badges} isOnHonorRoll={company.is_on_honor_roll} />
-
-      {isUnclaimed ? <UnclaimedCTA companyId={company.id} /> : null}
 
       <CompanyAboutSection company={company} />
       <CompanyActiveJobs

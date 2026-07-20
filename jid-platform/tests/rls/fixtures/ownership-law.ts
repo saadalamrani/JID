@@ -72,19 +72,27 @@ export type DirectoryFixture = {
   id: string
 }
 
+export type DirectoryCompanyFixture = DirectoryFixture & {
+  name: string
+  domain: string
+  entityType: 'business' | 'university'
+}
+
 export async function createDirectoryCompany(
   admin: SupabaseClient,
   label: string,
   entityType: 'business' | 'university' = 'business',
-): Promise<DirectoryFixture> {
+): Promise<DirectoryCompanyFixture> {
   const id = randomUUID()
   const slug = `rls-dir-${label}-${id.slice(0, 8)}`
+  const name = `RLS Directory ${label}`
+  const domain = `${slug}.test`
 
   const { error } = await admin.from('companies').insert({
     id,
-    name: `RLS Directory ${label}`,
+    name,
     name_ar: `دليل ${label}`,
-    domains: [`${slug}.test`],
+    domains: [domain],
     entity_type: entityType,
     is_verified: true,
     is_active: true,
@@ -95,7 +103,7 @@ export async function createDirectoryCompany(
     throw new Error(`Failed to seed directory company (${label}): ${error.message}`)
   }
 
-  return { id }
+  return { id, name, domain, entityType }
 }
 
 export async function deleteDirectoryCompany(admin: SupabaseClient, directoryId: string): Promise<void> {
