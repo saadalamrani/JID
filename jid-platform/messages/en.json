@@ -1042,14 +1042,14 @@
       "steps": {
         "identity": "Identity",
         "story": "Story & brand",
-        "preview": "Preview & publish"
+        "preview": "Preview & create"
       },
       "back": "Back",
       "next": "Next",
-      "publish": "Publish now",
-      "publishing": "Publishing...",
-      "published": "Your business profile is live",
-      "publishFailed": "Could not publish profile",
+      "create": "Create draft profile",
+      "creating": "Creating...",
+      "created": "Your business profile draft is ready",
+      "createFailed": "Could not create profile",
       "validationFailed": "Please fix the required fields",
       "identity": {
         "directoryHint": "Official directory name: {name}. You may choose a different public profile name.",
@@ -1114,6 +1114,40 @@
       "title": "Profile suspended",
       "message": "The platform has suspended your university's public profile. Contact support for assistance — reinstatement is not available self-service from this page.",
       "contactSupport": "Contact support"
+    },
+    "profileCreation": {
+      "title": "Create your university profile",
+      "subtitle": "You are authoring a public profile for your institution — it may differ from the official directory listing.",
+      "steps": {
+        "identity": "Identity",
+        "preview": "Preview & create"
+      },
+      "back": "Back",
+      "next": "Next",
+      "create": "Create draft profile",
+      "creating": "Creating...",
+      "created": "Your university profile draft is ready",
+      "createFailed": "Could not create profile",
+      "validationFailed": "Please fix the required fields",
+      "identity": {
+        "directoryHint": "Official directory name: {name}. You may choose a different public profile name.",
+        "displayNameAr": "Display name (Arabic)",
+        "displayNameEn": "Display name (English — optional)",
+        "aboutAr": "About (Arabic — optional)",
+        "aboutEn": "About (English — optional)"
+      },
+      "preview": {
+        "intro": "This is how visitors will see your university profile — an honest stranger's-eye preview.",
+        "unnamed": "Institution",
+        "verifiedBadge": "Verified",
+        "noAbout": "No about text yet.",
+        "strangerNote": "Visitor preview — not the edit surface."
+      }
+    },
+    "approvedWithoutProfile": {
+      "title": "Verification approved",
+      "message": "Your university verification is approved. Create your owned profile to continue.",
+      "cta": "Create university profile"
     }
   },
   "entity": {

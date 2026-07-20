@@ -104,9 +104,14 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: ['entity'],
   },
   {
-    id: 'university-rejected',
+    id: 'university-create-profile',
+    pattern: new RegExp(`^${L}/university/create-profile(?:/|$)`),
+    allowedRoles: ['entity', 'university_admin'],
+  },
+  {
+    id: 'university-rejected-page',
     pattern: new RegExp(`^${L}/university/rejected(?:/|$)`),
-    allowedRoles: ['entity'],
+    allowedRoles: ['entity', 'university_admin'],
   },
 
   // ── Entity pending review (before claim approval gate) ──────────────────────
@@ -118,7 +123,7 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   {
     id: 'university-pending-review',
     pattern: new RegExp(`^${L}/university/pending-review(?:/|$)`),
-    allowedRoles: ['entity'],
+    allowedRoles: ['entity', 'university_admin'],
   },
 
   // ── Verification / onboarding landing pages (before organization_profile gate) ──

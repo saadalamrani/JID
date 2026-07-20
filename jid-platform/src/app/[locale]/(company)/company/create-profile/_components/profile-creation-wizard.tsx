@@ -12,7 +12,7 @@ import {
   EMPTY_BUSINESS_PROFILE_DRAFT,
   type BusinessProfileDraft,
 } from '@/lib/validations/business-profile'
-import { publishBusinessProfileAction } from '../actions'
+import { createBusinessProfileAction } from '../actions'
 import {
   PROFILE_WIZARD_STEPS,
   ProfileWizardShell,
@@ -54,7 +54,7 @@ export function ProfileCreationWizard({
     display_name_ar: suggestedDisplayNameAr,
   })
   const [errors, setErrors] = useState<Partial<Record<keyof BusinessProfileDraft, string>>>({})
-  const [publishing, setPublishing] = useState(false)
+  const [creating, setCreating] = useState(false)
 
   const stepLabels: Record<ProfileWizardStep, string> = {
     identity: t('steps.identity'),
@@ -95,7 +95,7 @@ export function ProfileCreationWizard({
     if (prev) setStep(prev)
   }
 
-  async function handlePublish() {
+  async function handleCreate() {
     const full = businessProfileDraftSchema.safeParse(draft)
     if (!full.success) {
       setErrors(zodFieldErrors(full.error.errors))
@@ -103,16 +103,16 @@ export function ProfileCreationWizard({
       return
     }
 
-    setPublishing(true)
+    setCreating(true)
     try {
-      await publishBusinessProfileAction(verificationId, full.data)
-      toast.success(t('published'))
+      await createBusinessProfileAction(verificationId, full.data)
+      toast.success(t('created'))
       router.push('/company/dashboard')
     } catch (error) {
-      const message = error instanceof Error ? error.message : t('publishFailed')
+      const message = error instanceof Error ? error.message : t('createFailed')
       toast.error(message)
     } finally {
-      setPublishing(false)
+      setCreating(false)
     }
   }
 
@@ -142,7 +142,7 @@ export function ProfileCreationWizard({
 
       <div className="mt-6 flex flex-wrap justify-between gap-3">
         {stepIndex > 0 ? (
-          <Button type="button" variant="outline" onClick={goBack} disabled={publishing}>
+          <Button type="button" variant="outline" onClick={goBack} disabled={creating}>
             {t('back')}
           </Button>
         ) : (
@@ -154,8 +154,8 @@ export function ProfileCreationWizard({
             {t('next')}
           </Button>
         ) : (
-          <Button type="button" onClick={() => void handlePublish()} disabled={publishing}>
-            {publishing ? t('publishing') : t('publish')}
+          <Button type="button" onClick={() => void handleCreate()} disabled={creating}>
+            {creating ? t('creating') : t('create')}
           </Button>
         )}
       </div>

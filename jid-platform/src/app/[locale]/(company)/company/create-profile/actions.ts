@@ -1,5 +1,6 @@
 'use server'
 
+import { buildBusinessProfileContentPatch } from '@/lib/auth/profile-creation-content'
 import { createBusinessProfile } from '@/lib/auth/verification'
 import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
 import { createClient } from '@/lib/supabase/server'
@@ -10,7 +11,8 @@ function emptyToNull(value: string | null | undefined): string | null {
   return trimmed ? trimmed : null
 }
 
-export async function publishBusinessProfileAction(
+/** Layer 2 → Layer 3: RPC creates draft profile; owner may enrich content fields only. */
+export async function createBusinessProfileAction(
   verificationId: string,
   draft: BusinessProfileDraft,
 ): Promise<{ profileId: string }> {
@@ -23,20 +25,9 @@ export async function publishBusinessProfileAction(
     displayNameEn: emptyToNull(draft.display_name_en ?? ''),
   })
 
-  const now = new Date().toISOString()
-
   const { error } = await supabase
     .from('business_profiles')
-    .update({
-      tagline_ar: emptyToNull(draft.tagline_ar ?? ''),
-      about_ar: emptyToNull(draft.about_ar ?? ''),
-      about_en: emptyToNull(draft.about_en ?? ''),
-      founded_year: draft.founded_year ?? null,
-      employee_count_range: draft.employee_count_range ?? null,
-      cover_image_url: emptyToNull(draft.cover_image_url ?? ''),
-      status: 'published',
-      published_at: now,
-    })
+    .update(buildBusinessProfileContentPatch(draft))
     .eq('id', profileId)
     .eq('owner_user_id', userId)
 
@@ -59,12 +50,7 @@ export async function updateOwnerBusinessProfileAction(
     .update({
       display_name_ar: draft.display_name_ar.trim(),
       display_name_en: emptyToNull(draft.display_name_en ?? ''),
-      tagline_ar: emptyToNull(draft.tagline_ar ?? ''),
-      about_ar: emptyToNull(draft.about_ar ?? ''),
-      about_en: emptyToNull(draft.about_en ?? ''),
-      founded_year: draft.founded_year ?? null,
-      employee_count_range: draft.employee_count_range ?? null,
-      cover_image_url: emptyToNull(draft.cover_image_url ?? ''),
+      ...buildBusinessProfileContentPatch(draft),
     })
     .eq('id', profileId)
     .eq('owner_user_id', userId)

@@ -8,7 +8,7 @@ type ProfileWizardShellProps = {
   title: string
   subtitle?: string
   currentStep: ProfileWizardStep
-  stepLabels: Record<ProfileWizardStep, string>
+  stepLabels: Record<string, string>
   children: ReactNode
 }
 

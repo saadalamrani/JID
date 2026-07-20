@@ -35,8 +35,7 @@ function orgRoutes(orgType: OrganizationType) {
       orgType === 'business' ? `${base}/verification-pending` : `${base}/pending-review`,
     rejected:
       orgType === 'business' ? `${base}/verification-rejected` : `${base}/rejected`,
-    createProfile:
-      orgType === 'business' ? `${base}/create-profile` : `${base}/pending-review`,
+    createProfile: `${base}/create-profile`,
     suspended: `${base}/profile-suspended`,
   }
 }
