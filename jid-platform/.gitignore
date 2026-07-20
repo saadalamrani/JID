@@ -21,6 +21,9 @@
 # production
 /build
 
+# disposable local Supabase workdirs (never commit)
+.jid-local/
+
 # misc
 .DS_Store
 *.pem

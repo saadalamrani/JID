@@ -154,8 +154,11 @@ describeRls('Ownership Law RLS — zero-leak proofs (P-103)', () => {
       .eq('id', verification.id)
       .select('id')
 
-    expect(error).toBeNull()
-    expect(data).toEqual([])
+    // JID-102A1 may revoke table UPDATE (42501) in addition to zero UPDATE policies
+    // (PostgREST empty result). Either denial shape must leave the row unchanged.
+    const deniedByPrivilege = error?.code === '42501'
+    const deniedByRls = error === null && Array.isArray(data) && data.length === 0
+    expect(deniedByPrivilege || deniedByRls).toBe(true)
 
     const { data: row } = await admin
       .from('verification_requests')
