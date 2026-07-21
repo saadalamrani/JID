@@ -1,7 +1,7 @@
 # PSW-001 — Organization Draft Profile Management
 
-**Date:** 2026-07-21  
-**Branch:** `cursor/psw-001-organization-draft-management`  
+**Date:** 2026-07-21
+**Branch:** `cursor/psw-001-organization-draft-management`
 **Base:** `agent/nonprod-signup-fix` @ `b74bfb3621e72fab36969dfc8cb99c365770d06e`
 
 ## Working routes
