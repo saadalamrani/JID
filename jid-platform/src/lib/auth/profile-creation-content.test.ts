@@ -28,10 +28,14 @@ describe('profile creation content patches (JID-102B)', () => {
       ...EMPTY_UNIVERSITY_PROFILE_DRAFT,
       display_name_ar: 'جامعة',
       about_ar: 'نبذة',
+      university_type: 'government',
+      cover_image_url: 'https://example.com/cover.jpg',
     })
 
     for (const key of FORBIDDEN_PROFILE_MODERATION_KEYS) {
       expect(Object.keys(patch)).not.toContain(key)
     }
+    expect(patch.university_type).toBe('government')
+    expect(patch.cover_image_url).toBe('https://example.com/cover.jpg')
   })
 })

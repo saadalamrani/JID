@@ -3,6 +3,7 @@
 import { buildUniversityProfileContentPatch } from '@/lib/auth/profile-creation-content'
 import { createUniversityProfile } from '@/lib/auth/verification'
 import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
+import { updateOwnerUniversityProfile } from '@/lib/profile/organization-profile-update'
 import { createClient } from '@/lib/supabase/server'
 import type { UniversityProfileDraft } from '@/lib/validations/university-profile'
 
@@ -36,4 +37,17 @@ export async function createUniversityProfileAction(
   }
 
   return { profileId }
+}
+
+export async function updateOwnerUniversityProfileAction(
+  profileId: string,
+  draft: UniversityProfileDraft,
+): Promise<void> {
+  const userId = await requireAuthenticatedUser()
+  const supabase = await createClient()
+
+  const result = await updateOwnerUniversityProfile(supabase, userId, profileId, draft)
+  if (!result.ok) {
+    throw new Error(result.message ?? 'Could not save profile')
+  }
 }

@@ -1,12 +1,12 @@
 import { notFound, redirect } from 'next/navigation'
-import { BusinessProfileManagement } from '@/components/organization-profile/business-profile-management'
+import { UniversityProfileManagement } from '@/components/organization-profile/university-profile-management'
 import type { OrganizationProfileSection } from '@/components/organization-profile/organization-profile-shell'
 import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
 import {
   fetchDirectoryCorrectionLookups,
   fetchOrganizationDirectoryReference,
 } from '@/lib/profile/organization-directory-reference'
-import { fetchOwnerBusinessProfile } from '@/lib/profile/owner-business-profile'
+import { fetchOwnerUniversityProfile } from '@/lib/profile/owner-university-profile'
 import { createClient } from '@/lib/supabase/server'
 
 const VALID_SECTIONS = new Set<OrganizationProfileSection>([
@@ -19,17 +19,17 @@ const VALID_SECTIONS = new Set<OrganizationProfileSection>([
   'correction',
 ])
 
-type CompanyProfileEditPageProps = {
+type UniversityProfileEditPageProps = {
   searchParams: Promise<{ section?: string }>
 }
 
-export default async function CompanyProfileEditPage({ searchParams }: CompanyProfileEditPageProps) {
+export default async function UniversityProfileEditPage({ searchParams }: UniversityProfileEditPageProps) {
   const userId = await requireAuthenticatedUser()
   const supabase = await createClient()
-  const profile = await fetchOwnerBusinessProfile(supabase, userId)
+  const profile = await fetchOwnerUniversityProfile(supabase, userId)
 
   if (!profile) {
-    redirect('/company/create-profile')
+    redirect('/university/create-profile')
   }
 
   if (!profile.id) {
@@ -52,7 +52,7 @@ export default async function CompanyProfileEditPage({ searchParams }: CompanyPr
   }
 
   return (
-    <BusinessProfileManagement
+    <UniversityProfileManagement
       profile={profile}
       directory={directory}
       sectors={lookups.sectors}

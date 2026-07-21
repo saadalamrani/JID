@@ -212,9 +212,18 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   {
     id: 'company-profile-owner',
     pattern: new RegExp(`^${L}/company/profile(?:/|$)`),
-    allowedRoles: ['company_admin'],
+    allowedRoles: ['entity', 'company_admin'],
     conditions: ['organization_profile'],
     organizationProfileType: 'business',
+  },
+
+  // ── University profile owner ────────────────────────────────────────────────
+  {
+    id: 'university-profile-owner',
+    pattern: new RegExp(`^${L}/university/profile(?:/|$)`),
+    allowedRoles: ['entity', 'university_admin'],
+    conditions: ['organization_profile'],
+    organizationProfileType: 'university',
   },
 
   // ── Mentor profile owner (pending mentors may edit; no mentor_status gate) ──

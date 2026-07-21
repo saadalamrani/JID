@@ -1109,6 +1109,140 @@
       "validationFailed": "Please fix the required fields"
     }
   },
+  "organizationProfile": {
+    "publicationBoundary": {
+      "message": "Your Profile is currently a draft. Publication controls will appear when the publication workflow is enabled."
+    },
+    "state": {
+      "draft": "Draft",
+      "published": "Published",
+      "suspended": "Suspended"
+    },
+    "nav": {
+      "label": "Profile sections",
+      "overview": "Overview",
+      "identity": "Identity",
+      "details": "Story & details",
+      "media": "Media",
+      "preview": "Visitor preview",
+      "reference": "Directory reference",
+      "correction": "Request correction"
+    },
+    "checklist": {
+      "title": "Required information",
+      "edit": "Edit",
+      "status": {
+        "required": "Required",
+        "added": "Added",
+        "optional": "Optional"
+      },
+      "fields": {
+        "display_name_ar": "Arabic display name",
+        "display_name_en": "English display name",
+        "about": "Organization overview",
+        "tagline_ar": "Tagline",
+        "cover_image": "Cover image",
+        "university_type": "Institution type"
+      }
+    },
+    "directoryReference": {
+      "title": "Official directory reference",
+      "readOnlyNote": "This reference is read-only. Profile edits do not change the directory record.",
+      "officialName": "Official name",
+      "entityType": "Organization type",
+      "website": "Official website",
+      "noWebsite": "No official website in the directory reference."
+    },
+    "emptyState": {
+      "noFabricatedData": "No fabricated data is shown."
+    },
+    "unsavedChanges": {
+      "title": "Unsaved changes",
+      "message": "You have unsaved changes. If you leave now, your changes will be lost.",
+      "stay": "Stay on this page",
+      "discard": "Discard changes"
+    },
+    "overview": {
+      "checklistTitle": "Required information",
+      "checklistDescription": "Complete the items below in your owned Profile.",
+      "directoryTitle": "Official reference is separate",
+      "directoryDescription": "Directory data is shown for reference only.",
+      "opportunitiesTitle": "Opportunities",
+      "opportunitiesEmptyTitle": "No opportunities added yet",
+      "opportunitiesEmptyDescription": "No opportunities have been added to this Profile yet.",
+      "programsTitle": "Programs & opportunities",
+      "programsEmptyTitle": "No programs added yet",
+      "programsEmptyDescription": "No programs or opportunities have been added to this Profile yet.",
+      "manageProfile": "Manage Profile",
+      "openPreview": "Open visitor preview"
+    },
+    "sections": {
+      "identityTitle": "Edit identity",
+      "detailsTitle": "Business story",
+      "institutionTitle": "Institutional information",
+      "mediaTitle": "Logo & cover",
+      "mediaDescription": "Cover images save to your owned Profile. Logo comes from the directory reference.",
+      "previewTitle": "Visitor preview",
+      "referenceTitle": "Directory reference",
+      "referenceDescription": "Official reference data — not editable from Profile management.",
+      "correctionTitle": "Directory correction request",
+      "correctionDescription": "Suggest a correction to the official directory record.",
+      "profileOnlyNote": "These names belong to the owned Profile and do not edit the Directory record.",
+      "logoDirectoryNote": "Logo is sourced from the directory reference. Cover image is saved on your owned Profile."
+    },
+    "save": {
+      "action": "Save",
+      "saving": "Saving...",
+      "success": "Changes saved",
+      "failure": "Could not save changes"
+    },
+    "preview": {
+      "banner": "This is a visitor preview. Profile data cannot be edited from preview mode.",
+      "returnToEdit": "Return to editing"
+    },
+    "dashboard": {
+      "businessLabel": "Business Profile",
+      "universityLabel": "University Profile",
+      "checklistTitle": "Required information",
+      "checklistDescription": "Required information for your draft Profile.",
+      "directoryTitle": "Official reference is separate",
+      "directoryDescription": "Directory reference data is read-only.",
+      "opportunitiesTitle": "Opportunities",
+      "opportunitiesEmptyTitle": "No opportunities added yet",
+      "opportunitiesEmptyDescription": "No opportunities have been added to this Profile yet.",
+      "programsTitle": "Programs & opportunities",
+      "programsEmptyTitle": "No programs added yet",
+      "programsEmptyDescription": "No programs or opportunities have been added to this Profile yet.",
+      "manageProfile": "Manage Profile",
+      "openPreview": "Open visitor preview"
+    },
+    "universityInstitution": {
+      "type": "Institution type",
+      "typePlaceholder": "Select institution type",
+      "types": {
+        "government": "Government",
+        "private": "Private"
+      },
+      "establishedYear": "Year established",
+      "coverImage": "Cover image",
+      "coverUpload": "Upload cover image",
+      "coverPreviewAlt": "Cover image preview",
+      "coverEmpty": "No image added"
+    },
+    "universityPreview": {
+      "banner": "This is a visitor preview. Profile data cannot be edited from preview mode.",
+      "unnamed": "Institution",
+      "verified": "Verified",
+      "institutionType": "Institution type",
+      "established": "Established",
+      "noAbout": "No about text yet.",
+      "coverAlt": "Profile cover image",
+      "types": {
+        "government": "Government",
+        "private": "Private"
+      }
+    }
+  },
   "university": {
     "profileSuspended": {
       "title": "Profile suspended",

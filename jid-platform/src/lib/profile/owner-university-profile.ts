@@ -6,18 +6,18 @@ import { createClient } from '@/lib/supabase/server'
 
 type Client = SupabaseClient<Database>
 
-export type OwnerBusinessProfile = Database['public']['Tables']['business_profiles']['Row'] & {
+export type OwnerUniversityProfile = Database['public']['Tables']['university_profiles']['Row'] & {
   directory_logo_url: string | null
   directory_name_ar: string | null
   directory_slug: string | null
 }
 
-export async function fetchOwnerBusinessProfile(
+export async function fetchOwnerUniversityProfile(
   client: Client,
   userId: string,
-): Promise<OwnerBusinessProfile | null> {
+): Promise<OwnerUniversityProfile | null> {
   const { data: profile, error } = await client
-    .from('business_profiles')
+    .from('university_profiles')
     .select('*')
     .eq('owner_user_id', userId)
     .neq('status', 'suspended')
@@ -48,9 +48,9 @@ export async function fetchOwnerBusinessProfile(
   }
 }
 
-export async function getOwnerBusinessProfileForUser(
+export async function getOwnerUniversityProfileForUser(
   userId: string,
-): Promise<OwnerBusinessProfile | null> {
+): Promise<OwnerUniversityProfile | null> {
   const supabase = await createClient()
-  return fetchOwnerBusinessProfile(supabase, userId)
+  return fetchOwnerUniversityProfile(supabase, userId)
 }

@@ -1109,6 +1109,140 @@
       "validationFailed": "راجع الحقول المطلوبة"
     }
   },
+  "organizationProfile": {
+    "publicationBoundary": {
+      "message": "ملفك حاليًا في وضع المسودة. ستظهر عناصر التحكم بالنشر عند تفعيل مسار النشر."
+    },
+    "state": {
+      "draft": "مسودة",
+      "published": "منشور",
+      "suspended": "موقوف"
+    },
+    "nav": {
+      "label": "أقسام الملف",
+      "overview": "نظرة عامة",
+      "identity": "الهوية",
+      "details": "النبذة والتفاصيل",
+      "media": "الوسائط",
+      "preview": "معاينة الزائر",
+      "reference": "مرجع الدليل",
+      "correction": "طلب تصحيح"
+    },
+    "checklist": {
+      "title": "المعلومات المطلوبة",
+      "edit": "تعديل",
+      "status": {
+        "required": "مطلوب",
+        "added": "مضاف",
+        "optional": "اختياري"
+      },
+      "fields": {
+        "display_name_ar": "الاسم المعروض بالعربية",
+        "display_name_en": "الاسم المعروض بالإنجليزية",
+        "about": "نبذة المنشأة",
+        "tagline_ar": "الشعار",
+        "cover_image": "صورة الغلاف",
+        "university_type": "نوع المؤسسة"
+      }
+    },
+    "directoryReference": {
+      "title": "المرجع الرسمي من الدليل",
+      "readOnlyNote": "هذا المرجع للقراءة فقط. تعديل الملف المملوك لا يغيّر سجل الدليل.",
+      "officialName": "الاسم الرسمي",
+      "entityType": "نوع المنظمة",
+      "website": "الموقع الرسمي",
+      "noWebsite": "لا يوجد موقع رسمي في مرجع الدليل."
+    },
+    "emptyState": {
+      "noFabricatedData": "لا تُعرض بيانات مُختلَقة."
+    },
+    "unsavedChanges": {
+      "title": "تغييرات غير محفوظة",
+      "message": "لديك تغييرات غير محفوظة. إذا غادرت الآن، ستفقد التغييرات التي أجريتها.",
+      "stay": "البقاء في الصفحة",
+      "discard": "تجاهل التغييرات"
+    },
+    "overview": {
+      "checklistTitle": "المعلومات المطلوبة",
+      "checklistDescription": "أكمل العناصر التالية في ملفك المملوك.",
+      "directoryTitle": "المرجع الرسمي منفصل",
+      "directoryDescription": "بيانات الدليل تُعرض للمرجع فقط.",
+      "opportunitiesTitle": "الفرص",
+      "opportunitiesEmptyTitle": "لا توجد فرص مضافة",
+      "opportunitiesEmptyDescription": "لا توجد فرص مضافة إلى الملف حتى الآن.",
+      "programsTitle": "البرامج والفرص",
+      "programsEmptyTitle": "لا توجد برامج مضافة",
+      "programsEmptyDescription": "لا توجد برامج أو فرص مضافة إلى الملف حتى الآن.",
+      "manageProfile": "إدارة الملف",
+      "openPreview": "فتح معاينة الزائر"
+    },
+    "sections": {
+      "identityTitle": "تعديل الهوية",
+      "detailsTitle": "نبذة المنشأة",
+      "institutionTitle": "المعلومات المؤسسية",
+      "mediaTitle": "الشعار والغلاف",
+      "mediaDescription": "صورة الغلاف تُحفظ في ملفك المملوك. الشعار يأتي من مرجع الدليل.",
+      "previewTitle": "معاينة الزائر",
+      "referenceTitle": "مرجع الدليل",
+      "referenceDescription": "بيانات المرجع الرسمي — غير قابلة للتعديل من إدارة الملف.",
+      "correctionTitle": "طلب تصحيح الدليل",
+      "correctionDescription": "اقترح تصحيحاً على سجل الدليل الرسمي.",
+      "profileOnlyNote": "الأسماء هنا تخص الملف المملوك، وليست تعديلًا لسجل الدليل.",
+      "logoDirectoryNote": "الشعار يُستمد من مرجع الدليل. صورة الغلاف تُحفظ في ملفك المملوك."
+    },
+    "save": {
+      "action": "حفظ",
+      "saving": "جاري الحفظ...",
+      "success": "تم حفظ التغييرات",
+      "failure": "تعذّر حفظ التغييرات"
+    },
+    "preview": {
+      "banner": "هذه معاينة لما قد يراه الزائر. أنت لا تعدّل البيانات من داخل المعاينة.",
+      "returnToEdit": "العودة إلى التعديل"
+    },
+    "dashboard": {
+      "businessLabel": "ملف المنشأة",
+      "universityLabel": "ملف الجامعة",
+      "checklistTitle": "المعلومات المطلوبة",
+      "checklistDescription": "المعلومات المطلوبة لملفك في وضع المسودة.",
+      "directoryTitle": "المرجع الرسمي منفصل",
+      "directoryDescription": "بيانات مرجع الدليل للقراءة فقط.",
+      "opportunitiesTitle": "الفرص",
+      "opportunitiesEmptyTitle": "لا توجد فرص مضافة",
+      "opportunitiesEmptyDescription": "لا توجد فرص مضافة إلى الملف حتى الآن.",
+      "programsTitle": "البرامج والفرص",
+      "programsEmptyTitle": "لا توجد برامج مضافة",
+      "programsEmptyDescription": "لا توجد برامج أو فرص مضافة إلى الملف حتى الآن.",
+      "manageProfile": "إدارة الملف",
+      "openPreview": "فتح معاينة الزائر"
+    },
+    "universityInstitution": {
+      "type": "نوع المؤسسة",
+      "typePlaceholder": "اختر نوع المؤسسة",
+      "types": {
+        "government": "حكومية",
+        "private": "أهلية"
+      },
+      "establishedYear": "سنة التأسيس",
+      "coverImage": "صورة الغلاف",
+      "coverUpload": "رفع صورة الغلاف",
+      "coverPreviewAlt": "معاينة صورة الغلاف",
+      "coverEmpty": "لا توجد صورة مضافة"
+    },
+    "universityPreview": {
+      "banner": "هذه معاينة لما قد يراه الزائر. أنت لا تعدّل البيانات من داخل المعاينة.",
+      "unnamed": "مؤسسة",
+      "verified": "موثّقة",
+      "institutionType": "نوع المؤسسة",
+      "established": "سنة التأسيس",
+      "noAbout": "لا توجد نبذة بعد.",
+      "coverAlt": "صورة غلاف الملف",
+      "types": {
+        "government": "حكومية",
+        "private": "أهلية"
+      }
+    }
+  },
   "university": {
     "profileSuspended": {
       "title": "الملف التعريفي موقوف",

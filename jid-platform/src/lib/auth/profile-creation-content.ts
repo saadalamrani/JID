@@ -23,6 +23,9 @@ export function buildUniversityProfileContentPatch(draft: UniversityProfileDraft
   return {
     about_ar: emptyToNull(draft.about_ar ?? ''),
     about_en: emptyToNull(draft.about_en ?? ''),
+    university_type: draft.university_type ?? null,
+    established_year: draft.established_year ?? null,
+    cover_image_url: emptyToNull(draft.cover_image_url ?? ''),
   }
 }
 

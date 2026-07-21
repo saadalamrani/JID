@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useRouter } from '@/lib/i18n/navigation'
 import {
+  universityProfileDraftSchema,
   universityProfileIdentitySchema,
   EMPTY_UNIVERSITY_PROFILE_DRAFT,
   type UniversityProfileDraft,
@@ -71,7 +72,7 @@ export function UniversityProfileCreationWizard({
   }
 
   async function handleCreate() {
-    const full = universityProfileIdentitySchema.safeParse(draft)
+    const full = universityProfileDraftSchema.safeParse(draft)
     if (!full.success) {
       setErrors(zodFieldErrors(full.error.errors))
       toast.error(t('validationFailed'))

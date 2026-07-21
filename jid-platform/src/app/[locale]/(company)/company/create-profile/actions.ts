@@ -3,6 +3,7 @@
 import { buildBusinessProfileContentPatch } from '@/lib/auth/profile-creation-content'
 import { createBusinessProfile } from '@/lib/auth/verification'
 import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
+import { updateOwnerBusinessProfile } from '@/lib/profile/organization-profile-update'
 import { createClient } from '@/lib/supabase/server'
 import type { BusinessProfileDraft } from '@/lib/validations/business-profile'
 
@@ -45,17 +46,8 @@ export async function updateOwnerBusinessProfileAction(
   const userId = await requireAuthenticatedUser()
   const supabase = await createClient()
 
-  const { error } = await supabase
-    .from('business_profiles')
-    .update({
-      display_name_ar: draft.display_name_ar.trim(),
-      display_name_en: emptyToNull(draft.display_name_en ?? ''),
-      ...buildBusinessProfileContentPatch(draft),
-    })
-    .eq('id', profileId)
-    .eq('owner_user_id', userId)
-
-  if (error) {
-    throw new Error(error.message)
+  const result = await updateOwnerBusinessProfile(supabase, userId, profileId, draft)
+  if (!result.ok) {
+    throw new Error(result.message ?? 'Could not save profile')
   }
 }
