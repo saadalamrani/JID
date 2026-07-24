@@ -72,6 +72,55 @@ export async function rejectVerificationRequest(
   }
 }
 
+/**
+ * Super Admin override approval — ignores assigned_staff_id; audits assignment_overridden.
+ * Signature mirrors approveVerificationRequest; do not call for non-super_admin callers.
+ */
+export async function approveVerificationRequestOverride(
+  client: Client,
+  input: ApproveVerificationInput,
+): Promise<void> {
+  const notes = input.reviewNotes.trim()
+  if (!notes) {
+    throw new Error('Review notes are required')
+  }
+
+  const { error } = await client.rpc('approve_verification_request_override', {
+    p_verification_id: input.verificationId,
+    p_review_notes: notes,
+    p_verified_domains: input.verifiedDomains ?? undefined,
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
+/**
+ * Super Admin override rejection — ignores assigned_staff_id; audits assignment_overridden.
+ * Signature mirrors rejectVerificationRequest; do not call for non-super_admin callers.
+ */
+export async function rejectVerificationRequestOverride(
+  client: Client,
+  input: RejectVerificationInput,
+): Promise<void> {
+  const notes = input.reviewNotes.trim()
+  if (!notes && !input.rejectionReason?.trim()) {
+    throw new Error('Review notes are required')
+  }
+
+  const { error } = await client.rpc('reject_verification_request_override', {
+    p_verification_id: input.verificationId,
+    p_review_notes: notes,
+    p_rejection_reason: input.rejectionReason?.trim() || undefined,
+    p_required_documents: input.requiredDocuments ?? undefined,
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+}
+
 /** Approved verifications awaiting Layer-3 profile creation (P-105 wizard gate). */
 export async function getMyApprovedVerifications(client: Client): Promise<VerificationRequestRow[]> {
   const { data, error } = await client.rpc('get_my_approved_verifications')

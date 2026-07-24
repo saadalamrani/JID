@@ -12,7 +12,7 @@ const TEST_PASSWORD = 'RlsTest1!pass'
 export async function createRlsUserWithRole(
   admin: SupabaseClient,
   label: string,
-  role: 'individual' | 'company_admin' | 'university_admin' | 'staff' | 'super_admin',
+  role: 'individual' | 'company_admin' | 'university_admin' | 'staff' | 'admin' | 'super_admin',
 ): Promise<RlsRoleUser> {
   const id = randomUUID()
   const email = `rls-${label}-${id}@jid.local.test`

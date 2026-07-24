@@ -1655,6 +1655,7 @@
           },
           "selfReviewBlocked": "You cannot review your own request",
           "checklistRequired": "Complete the checklist before approving",
+          "notAssignedReviewer": "Only the assigned reviewer can decide this request",
           "submit": "Submit decision",
           "submitting": "Saving…",
           "success": {

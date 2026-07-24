@@ -1,10 +1,12 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { PRIVILEGED_STAFF_ROLES, type UserRole } from '@/lib/auth/rbac'
+import type { UserRole } from '@/lib/auth/rbac'
 import {
   approveVerificationRequest,
+  approveVerificationRequestOverride,
   rejectVerificationRequest,
+  rejectVerificationRequestOverride,
 } from '@/lib/auth/verification'
 import { trackServer } from '@/lib/analytics/server'
 import { notifyVerificationDecision } from '@/lib/staff/notify-verification-decision'
@@ -20,11 +22,20 @@ const reviewVerificationSchema = z.object({
   requiredDocuments: z
     .array(z.enum(['commercial_registry', 'domain_ownership_proof', 'authorization_letter']))
     .optional(),
+  /** Explicit Super Admin override only; absent/false means normal RPC path. */
+  overrideAssignment: z.boolean().optional(),
 })
 
-type StaffActor = { ok: true; userId: string } | { ok: false; error: string }
+type DecisionActor =
+  | { ok: true; userId: string; role: 'staff' | 'super_admin' }
+  | { ok: false; error: string }
 
-async function requireStaffActor(): Promise<StaffActor> {
+/**
+ * Spec 02-B — decision authorization derives role fresh from profiles.role.
+ * Do NOT use PRIVILEGED_STAFF_ROLES here: it includes admin, who must never
+ * reach a decision RPC (normal or override).
+ */
+async function requireDecisionActor(): Promise<DecisionActor> {
   const supabase = await createClient()
   const {
     data: { user },
@@ -39,11 +50,16 @@ async function requireStaffActor(): Promise<StaffActor> {
     .maybeSingle()
 
   const role = profile?.role as UserRole | undefined
-  if (!role || !(PRIVILEGED_STAFF_ROLES as readonly string[]).includes(role)) {
+
+  if (role === 'admin') {
+    return { ok: false, error: 'Admin cannot decide verification requests' }
+  }
+
+  if (role !== 'staff' && role !== 'super_admin') {
     return { ok: false, error: 'Only staff can review verification requests' }
   }
 
-  return { ok: true, userId: user.id }
+  return { ok: true, userId: user.id, role }
 }
 
 function revalidateVerificationPaths(verificationId: string) {
@@ -58,7 +74,7 @@ function revalidateVerificationPaths(verificationId: string) {
 export async function reviewVerification(
   input: z.infer<typeof reviewVerificationSchema>,
 ): Promise<ReviewVerificationActionResult> {
-  const actor = await requireStaffActor()
+  const actor = await requireDecisionActor()
   if (!actor.ok) return { ok: false, error: actor.error }
 
   const parsed = reviewVerificationSchema.safeParse(input)
@@ -67,7 +83,7 @@ export async function reviewVerification(
     return { ok: false, error: message }
   }
 
-  const { verificationId, decision, reason, requiredDocuments } = parsed.data
+  const { verificationId, decision, reason, requiredDocuments, overrideAssignment } = parsed.data
   const supabase = await createClient()
 
   const { data: verification } = await supabase
@@ -77,17 +93,36 @@ export async function reviewVerification(
     .maybeSingle()
 
   if (!verification) return { ok: false, error: 'Verification request not found' }
+
+  // Self-review denied for every role (including overriding super_admin) before RPC selection.
   if (verification.applicant_user_id === actor.userId) {
     return { ok: false, error: 'Cannot review your own verification request' }
   }
 
+  const useOverride = actor.role === 'super_admin' && overrideAssignment === true
+
   try {
     if (decision === 'approved') {
-      await approveVerificationRequest(supabase, {
+      if (useOverride) {
+        await approveVerificationRequestOverride(supabase, {
+          verificationId,
+          reviewNotes: reason,
+        })
+      } else {
+        await approveVerificationRequest(supabase, {
+          verificationId,
+          reviewNotes: reason,
+        })
+      }
+      await notifyVerificationDecision(supabase, { verificationId, decision: 'approve' })
+    } else if (useOverride) {
+      await rejectVerificationRequestOverride(supabase, {
         verificationId,
         reviewNotes: reason,
+        rejectionReason: reason,
+        requiredDocuments,
       })
-      await notifyVerificationDecision(supabase, { verificationId, decision: 'approve' })
+      await notifyVerificationDecision(supabase, { verificationId, decision: 'reject' })
     } else {
       await rejectVerificationRequest(supabase, {
         verificationId,

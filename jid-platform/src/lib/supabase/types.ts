@@ -4991,6 +4991,14 @@ export type Database = {
         }
         Returns: undefined
       }
+      approve_verification_request_override: {
+        Args: {
+          p_verification_id: string
+          p_review_notes: string
+          p_verified_domains?: string[]
+        }
+        Returns: undefined
+      }
       assemble_ssis_generation_context: {
         Args: { p_job_id: string }
         Returns: Json
@@ -5527,6 +5535,15 @@ export type Database = {
         Returns: undefined
       }
       reject_verification_request: {
+        Args: {
+          p_verification_id: string
+          p_review_notes: string
+          p_rejection_reason?: string
+          p_required_documents?: string[]
+        }
+        Returns: undefined
+      }
+      reject_verification_request_override: {
         Args: {
           p_verification_id: string
           p_review_notes: string

@@ -1645,6 +1645,7 @@
           },
           "selfReviewBlocked": "لا يمكنك مراجعة طلبك الخاص",
           "checklistRequired": "أكمل قائمة التحقق قبل الموافقة",
+          "notAssignedReviewer": "يمكن للمراجع المعيّن فقط اتخاذ قرار بشأن هذا الطلب",
           "submit": "تسجيل القرار",
           "submitting": "جاري الحفظ...",
           "success": {
