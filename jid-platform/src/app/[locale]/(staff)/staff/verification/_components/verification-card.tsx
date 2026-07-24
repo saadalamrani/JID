@@ -18,32 +18,32 @@ type VerificationCardProps = {
   showAssignment?: boolean
 }
 
-const TYPE_BADGE_LABEL: Record<StaffClaimsQueueItem['queueType'], string> = {
-  business: 'شركة',
-  university: 'جامعة',
-  mentor: 'مرشد',
-}
-
 const TYPE_BADGE_CLASS: Record<StaffClaimsQueueItem['queueType'], string> = {
   business: 'bg-primary/10 text-primary',
   university: 'bg-blue-100 text-blue-800',
   mentor: 'bg-purple-100 text-purple-800',
 }
 
-function formatSlaCountdown(slaDueAt: string, tier: VerificationUrgencyTier): string {
-  if (tier === 'overdue') return 'تجاوز SLA'
+/** PSW-002 — was hardcoded Arabic regardless of active locale; now goes through next-intl. */
+function formatSlaCountdown(
+  slaDueAt: string,
+  tier: VerificationUrgencyTier,
+  t: (key: string, values?: Record<string, number>) => string,
+): string {
+  if (tier === 'overdue') return t('sla.overdue')
 
   const hours = hoursUntilSla(slaDueAt)
   if (hours < 1) {
-    return `متبقٍ ${Math.max(1, Math.ceil(hours * 60))} دقيقة`
+    return t('sla.minutesLeft', { minutes: Math.max(1, Math.ceil(hours * 60)) })
   }
-  return `متبقٍ ${Math.ceil(hours)} ساعة`
+  return t('sla.hoursLeft', { hours: Math.ceil(hours) })
 }
 
-/** Section 7.1 — urgency-colored verification card with Arabic SLA countdown. */
+/** Section 7.1 — urgency-colored verification card with locale-aware SLA countdown. */
 export function VerificationCard({ item, showAssignment = true }: VerificationCardProps) {
   const t = useTranslations('staff.claims.card')
   const tier = getVerificationUrgencyTier(item.slaDueAt)
+  const typeLabel = t(`type.${item.queueType}`)
   const submittedLabel = formatDistance(new Date(item.submittedAt), new Date(), {
     addSuffix: true,
     locale: arSA,
@@ -65,7 +65,7 @@ export function VerificationCard({ item, showAssignment = true }: VerificationCa
                 TYPE_BADGE_CLASS[item.queueType],
               )}
             >
-              {TYPE_BADGE_LABEL[item.queueType]}
+              {typeLabel}
             </span>
             <span className="text-xs text-muted-foreground">{item.status}</span>
           </div>
@@ -89,7 +89,7 @@ export function VerificationCard({ item, showAssignment = true }: VerificationCa
                     : 'text-muted-foreground',
             )}
           >
-            {formatSlaCountdown(item.slaDueAt, tier)}
+            {formatSlaCountdown(item.slaDueAt, tier, t)}
           </p>
           {showAssignment ? (
             <p className="mt-1 text-xs text-muted-foreground">

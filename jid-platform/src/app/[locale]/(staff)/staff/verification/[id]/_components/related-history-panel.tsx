@@ -10,7 +10,7 @@ type RelatedHistoryPanelProps = {
 
 /** Section 7.4 — previous verification requests from same user or same entity. */
 export function RelatedHistoryPanel({ items }: RelatedHistoryPanelProps) {
-  const t = useTranslations('staff.claimReview.workspace.relatedHistory')
+  const t = useTranslations('staff.verificationReview.workspace.relatedHistory')
 
   return (
     <div className="rounded-lg border border-border bg-card p-4">

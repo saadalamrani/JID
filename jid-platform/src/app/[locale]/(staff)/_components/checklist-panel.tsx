@@ -15,7 +15,10 @@ type ChecklistPanelProps = {
   value: Record<string, boolean>
   onChange: (next: Record<string, boolean>) => void
   disabled?: boolean
-  translationNamespace?: 'staff.claimReview.workspace.checklist' | 'staff.mentorApplications.workspace.checklist'
+  translationNamespace?:
+    | 'staff.claimReview.workspace.checklist'
+    | 'staff.mentorApplications.workspace.checklist'
+    | 'staff.verificationReview.workspace.checklist'
 }
 
 export function isChecklistComplete(value: Record<string, boolean>, keys: string[]): boolean {

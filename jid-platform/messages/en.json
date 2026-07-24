@@ -1612,8 +1612,18 @@
           "linkedin": "LinkedIn",
           "missing": "No linked directory record"
         },
+        "relatedHistory": {
+          "title": "Related history",
+          "subtitle": "Previous verification requests from the same applicant or organization",
+          "empty": "No related requests",
+          "relation": {
+            "same_user": "Same applicant",
+            "same_entity": "Same organization"
+          }
+        },
         "checklist": {
           "title": "Review checklist",
+          "progress": "{completed} of {total} complete",
           "businessHint": "Confirm domain match and institutional details.",
           "universityHint": "University path — domain match is lighter than private sector.",
           "mentorHint": "Mentor path — lighter checklist (no institutional domain match).",
@@ -1648,11 +1658,12 @@
           "submit": "Submit decision",
           "submitting": "Saving…",
           "success": {
-            "approved": "Verification approved",
+            "approved": "Verification approved. No Profile was created automatically.",
             "rejected": "Verification rejected"
           }
         },
-        "alreadyReviewed": "This request was already reviewed ({status})"
+        "alreadyReviewed": "This request was already reviewed ({status})",
+        "approvedNoProfileNotice": "No Profile was created automatically. The verified representative must sign in and create their own Profile."
       }
     },
     "directory": {
@@ -1773,14 +1784,24 @@
         }
       },
       "list": {
-        "empty": "No claims match your filters"
+        "empty": "No verification requests match your filters"
       },
       "card": {
         "assigned": "Assigned",
-        "unassigned": "Unassigned"
+        "unassigned": "Unassigned",
+        "type": {
+          "business": "Business",
+          "university": "University",
+          "mentor": "Mentor"
+        },
+        "sla": {
+          "overdue": "SLA overdue",
+          "minutesLeft": "{minutes}m left",
+          "hoursLeft": "{hours}h left"
+        }
       },
       "realtime": {
-        "newClaim": "New claim: {company}"
+        "newClaim": "New verification request: {company}"
       },
       "myQueue": {
         "title": "My assigned claims",

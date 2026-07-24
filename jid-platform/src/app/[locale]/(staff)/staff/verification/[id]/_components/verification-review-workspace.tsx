@@ -257,6 +257,11 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
               {verification.review_notes ? (
                 <p className="mt-2 whitespace-pre-wrap">{verification.review_notes}</p>
               ) : null}
+              {verification.status === 'approved' ? (
+                <p className="mt-3 rounded-md border border-sem-warning/30 bg-sem-warning/10 px-3 py-2 text-sm text-sem-warning">
+                  {t('approvedNoProfileNotice')}
+                </p>
+              ) : null}
             </div>
           )}
         </div>
@@ -277,6 +282,7 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
                 value={checklist}
                 onChange={setChecklist}
                 disabled={!pendingReview || isSelfReview}
+                translationNamespace="staff.verificationReview.workspace.checklist"
               />
             </div>
           </div>
