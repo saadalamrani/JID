@@ -134,3 +134,107 @@ describe('6/9. Approve is blocked client-side until the checklist is complete', 
     expect(screen.getByRole('button', { name: /submit/i })).not.toBeDisabled()
   })
 })
+
+describe('Spec 02-C Super Admin override checkbox', () => {
+  const readyValue = {
+    decision: 'approved' as const,
+    reason: 'A sufficiently long reason here.',
+    requiredDocuments: [] as [],
+  }
+
+  it('does not render any override control when override props are omitted (staff path)', () => {
+    const { container, rerender } = render(
+      <VerificationDecisionForm
+        value={readyValue}
+        onChange={() => {}}
+        checklistComplete
+        isSelfReview={false}
+        submitting={false}
+        onSubmit={() => {}}
+      />,
+    )
+
+    expect(screen.queryByTestId('assignment-override-checkbox')).toBeNull()
+    expect(container.querySelector('[data-testid="assignment-override-checkbox"]')).toBeNull()
+    expect(container.innerHTML).not.toMatch(/overrideAssignment/)
+
+    // Re-render still without override props — props surface must stay free of override keys.
+    rerender(
+      <VerificationDecisionForm
+        value={readyValue}
+        onChange={() => {}}
+        checklistComplete
+        isSelfReview={false}
+        submitting={false}
+        onSubmit={() => {}}
+      />,
+    )
+    expect(screen.queryByTestId('assignment-override-checkbox')).toBeNull()
+  })
+
+  it('renders override checkbox unchecked by default for super_admin and keeps submit disabled', () => {
+    render(
+      <VerificationDecisionForm
+        value={readyValue}
+        onChange={() => {}}
+        checklistComplete
+        isSelfReview={false}
+        submitting={false}
+        onSubmit={() => {}}
+        allowAssignmentOverride
+        overrideAssignment={false}
+        onOverrideAssignmentChange={() => {}}
+      />,
+    )
+
+    const checkbox = screen.getByTestId('assignment-override-checkbox')
+    expect(checkbox).toBeInTheDocument()
+    expect(checkbox).not.toBeChecked()
+    expect(screen.getByRole('button', { name: /submit/i })).toBeDisabled()
+    for (const radio of screen.getAllByRole('radio')) {
+      expect(radio).toBeDisabled()
+    }
+  })
+
+  it('enables submit only after override checkbox is explicitly checked', () => {
+    render(
+      <VerificationDecisionForm
+        value={readyValue}
+        onChange={() => {}}
+        checklistComplete
+        isSelfReview={false}
+        submitting={false}
+        onSubmit={() => {}}
+        allowAssignmentOverride
+        overrideAssignment
+        onOverrideAssignmentChange={() => {}}
+      />,
+    )
+
+    expect(screen.getByTestId('assignment-override-checkbox')).toBeChecked()
+    expect(screen.getByRole('button', { name: /submit/i })).not.toBeDisabled()
+  })
+
+  it('self-review still disables every control even with override props present', () => {
+    render(
+      <VerificationDecisionForm
+        value={readyValue}
+        onChange={() => {}}
+        checklistComplete
+        isSelfReview
+        submitting={false}
+        onSubmit={() => {}}
+        allowAssignmentOverride
+        overrideAssignment
+        onOverrideAssignmentChange={() => {}}
+      />,
+    )
+
+    expect(screen.getByTestId('assignment-override-checkbox')).toBeDisabled()
+    for (const radio of screen.getAllByRole('radio')) {
+      expect(radio).toBeDisabled()
+    }
+    expect(screen.getByRole('textbox')).toBeDisabled()
+    expect(screen.getByRole('button', { name: /submit/i })).toBeDisabled()
+  })
+})

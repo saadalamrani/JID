@@ -45,7 +45,8 @@ type VerificationReviewWorkspaceProps = {
 export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspaceProps) {
   const t = useTranslations('staff.verificationReview.workspace')
   const router = useRouter()
-  const { verification, directory, applicant, relatedHistory, isSelfReview } = data
+  const { verification, directory, applicant, relatedHistory, currentUserId, viewerRole, isSelfReview } =
+    data
 
   const isMentorType = verification.verification_type === ('mentor' as typeof verification.verification_type)
   const checklistKeys = useMemo(
@@ -74,6 +75,7 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
     reason: '',
     requiredDocuments: [],
   })
+  const [overrideAssignment, setOverrideAssignment] = useState(false)
 
   const checklistItems = useMemo(
     () =>
@@ -92,6 +94,13 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
 
   const checklistComplete = isChecklistComplete(checklist, checklistKeys)
   const pendingReview = isVerificationPendingReview(verification.status)
+  const assignedToOther =
+    verification.assigned_staff_id != null &&
+    verification.assigned_staff_id !== currentUserId
+  // Self-review takes precedence over view-only / override states.
+  const showViewOnlyBanner = pendingReview && !isSelfReview && assignedToOther && viewerRole !== 'super_admin'
+  const showSuperAdminOverride =
+    pendingReview && !isSelfReview && assignedToOther && viewerRole === 'super_admin'
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -101,6 +110,7 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
         reason: form.reason.trim(),
         requiredDocuments:
           form.decision === 'rejected' ? form.requiredDocuments : undefined,
+        overrideAssignment: showSuperAdminOverride ? overrideAssignment : undefined,
       })
       if (!result.ok) throw new Error(result.error)
     },
@@ -110,6 +120,10 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
       router.refresh()
     },
     onError: (error: Error) => {
+      if (error.message.includes('not_assigned_reviewer')) {
+        toast.error(t('decision.notAssignedReviewer'))
+        return
+      }
       toast.error(error.message)
     },
   })
@@ -243,14 +257,36 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
           </section>
 
           {pendingReview ? (
-            <VerificationDecisionForm
-              value={form}
-              onChange={setForm}
-              checklistComplete={checklistComplete}
-              isSelfReview={isSelfReview}
-              submitting={mutation.isPending}
-              onSubmit={() => mutation.mutate()}
-            />
+            showViewOnlyBanner ? (
+              <div
+                data-testid="assigned-to-other-banner"
+                className="rounded-lg border border-sem-warning/30 bg-sem-warning/10 p-5 text-sm text-sem-warning"
+              >
+                <p className="font-semibold text-foreground">{t('assignedToOther.title')}</p>
+                <p className="mt-2 text-muted-foreground">{t('assignedToOther.body')}</p>
+              </div>
+            ) : showSuperAdminOverride ? (
+              <VerificationDecisionForm
+                value={form}
+                onChange={setForm}
+                checklistComplete={checklistComplete}
+                isSelfReview={isSelfReview}
+                submitting={mutation.isPending}
+                onSubmit={() => mutation.mutate()}
+                allowAssignmentOverride
+                overrideAssignment={overrideAssignment}
+                onOverrideAssignmentChange={setOverrideAssignment}
+              />
+            ) : (
+              <VerificationDecisionForm
+                value={form}
+                onChange={setForm}
+                checklistComplete={checklistComplete}
+                isSelfReview={isSelfReview}
+                submitting={mutation.isPending}
+                onSubmit={() => mutation.mutate()}
+              />
+            )
           ) : (
             <div className="rounded-lg border border-border bg-background/40 p-5 text-sm text-muted-foreground">
               {t('alreadyReviewed', { status: verification.status })}
@@ -281,7 +317,7 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
                 items={checklistItems}
                 value={checklist}
                 onChange={setChecklist}
-                disabled={!pendingReview || isSelfReview}
+                disabled={!pendingReview || isSelfReview || showViewOnlyBanner}
                 translationNamespace="staff.verificationReview.workspace.checklist"
               />
             </div>

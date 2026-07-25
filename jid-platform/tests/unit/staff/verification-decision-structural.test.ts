@@ -100,7 +100,9 @@ describe('8. Terminal (already-decided) requests are read-only', () => {
     const workspace = read(
       'app/[locale]/(staff)/staff/verification/[id]/_components/verification-review-workspace.tsx',
     )
-    expect(workspace).toMatch(/pendingReview \? \(\s*<VerificationDecisionForm/)
+    expect(workspace).toMatch(/pendingReview \?/)
+    expect(workspace).toMatch(/VerificationDecisionForm/)
+    expect(workspace).toMatch(/showViewOnlyBanner/)
   })
 })
 

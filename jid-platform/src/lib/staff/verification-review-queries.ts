@@ -1,6 +1,7 @@
 import 'server-only'
 
 import { fetchProfileForUser } from '@/lib/auth/session'
+import type { UserRole } from '@/lib/auth/rbac'
 import { createClient } from '@/lib/supabase/server'
 import { requireStaffShellAccess } from '@/lib/staff/require-staff-access'
 import type { RelatedVerificationHistoryItem } from '@/lib/staff/verification-review-shared'
@@ -52,6 +53,7 @@ export type VerificationReviewWorkspaceData = {
   applicant: ApplicantProfile | null
   relatedHistory: RelatedVerificationHistoryItem[]
   currentUserId: string
+  viewerRole: UserRole
   isSelfReview: boolean
 }
 
@@ -148,6 +150,7 @@ export async function fetchVerificationReviewWorkspace(
       : null,
     relatedHistory,
     currentUserId: staffProfile.id,
+    viewerRole: staffProfile.role,
     isSelfReview: verification.applicant_user_id === staffProfile.id,
   }
 }

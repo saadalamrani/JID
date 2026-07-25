@@ -1656,12 +1656,22 @@
           "selfReviewBlocked": "You cannot review your own request",
           "checklistRequired": "Complete the checklist before approving",
           "notAssignedReviewer": "Only the assigned reviewer can decide this request",
+          "overrideAssignment": {
+            "label": "Override assignment and decide this request",
+            "help": "Only Super Admin may override. Leave unchecked to stay view-only.",
+            "confirm": "You are about to decide a request assigned to another reviewer.",
+            "uncheckedHint": "Check the override box to enable decision controls."
+          },
           "submit": "Submit decision",
           "submitting": "Saving…",
           "success": {
             "approved": "Verification approved. No Profile was created automatically.",
             "rejected": "Verification rejected"
           }
+        },
+        "assignedToOther": {
+          "title": "Assigned to another reviewer",
+          "body": "This verification request is assigned to another staff member. You can view the details, but you cannot submit a decision."
         },
         "alreadyReviewed": "This request was already reviewed ({status})",
         "approvedNoProfileNotice": "No Profile was created automatically. The verified representative must sign in and create their own Profile."

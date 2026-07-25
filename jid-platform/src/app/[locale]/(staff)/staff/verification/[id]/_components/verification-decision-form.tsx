@@ -16,7 +16,7 @@ export type VerificationDecisionFormState = {
   requiredDocuments: RequiredDoc[]
 }
 
-type VerificationDecisionFormProps = {
+type VerificationDecisionFormBaseProps = {
   value: VerificationDecisionFormState
   onChange: (next: VerificationDecisionFormState) => void
   checklistComplete: boolean
@@ -25,24 +25,55 @@ type VerificationDecisionFormProps = {
   onSubmit: () => void
 }
 
+/**
+ * Override props are only passed for super_admin viewing another's assigned
+ * request. Ordinary staff must never receive these props at all.
+ */
+type VerificationDecisionFormOverrideProps = {
+  allowAssignmentOverride: true
+  overrideAssignment: boolean
+  onOverrideAssignmentChange: (next: boolean) => void
+}
+
+export type VerificationDecisionFormProps =
+  | VerificationDecisionFormBaseProps
+  | (VerificationDecisionFormBaseProps & VerificationDecisionFormOverrideProps)
+
+function hasOverrideControls(
+  props: VerificationDecisionFormProps,
+): props is VerificationDecisionFormBaseProps & VerificationDecisionFormOverrideProps {
+  return 'allowAssignmentOverride' in props && props.allowAssignmentOverride === true
+}
+
 const DECISION_OPTIONS: VerificationDecision[] = ['approved', 'rejected']
 
-/** P-108 — approve/reject only (P-102 verification RPCs). */
-export function VerificationDecisionForm({
-  value,
-  onChange,
-  checklistComplete,
-  isSelfReview,
-  submitting,
-  onSubmit,
-}: VerificationDecisionFormProps) {
+/** P-108 — approve/reject only (P-102 verification RPCs). Spec 02-C adds optional override gate. */
+export function VerificationDecisionForm(props: VerificationDecisionFormProps) {
+  const {
+    value,
+    onChange,
+    checklistComplete,
+    isSelfReview,
+    submitting,
+    onSubmit,
+  } = props
   const t = useTranslations('staff.verificationReview.workspace.decision')
+  const showOverride = hasOverrideControls(props)
+  const overrideChecked = showOverride ? props.overrideAssignment : false
+  const overrideBlocksSubmit = showOverride && !overrideChecked
+  const fieldsLocked = isSelfReview || overrideBlocksSubmit
+
   const reasonValid = value.reason.trim().length >= 10
   const rejectDocsValid =
     value.decision !== 'rejected' || value.requiredDocuments.length > 0
   const approveBlocked = value.decision === 'approved' && !checklistComplete
   const canSubmit =
-    !isSelfReview && reasonValid && rejectDocsValid && !approveBlocked && !submitting
+    !isSelfReview &&
+    !overrideBlocksSubmit &&
+    reasonValid &&
+    rejectDocsValid &&
+    !approveBlocked &&
+    !submitting
 
   return (
     <form
@@ -52,6 +83,32 @@ export function VerificationDecisionForm({
         if (canSubmit) onSubmit()
       }}
     >
+      {showOverride ? (
+        <div className="space-y-2 rounded-md border border-border bg-background/40 px-3 py-3">
+          <label className="flex cursor-pointer items-start gap-3 text-sm text-foreground">
+            <input
+              type="checkbox"
+              data-testid="assignment-override-checkbox"
+              checked={overrideChecked}
+              disabled={isSelfReview || submitting}
+              onChange={(event) => props.onOverrideAssignmentChange(event.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
+            />
+            <span className="min-w-0 space-y-1">
+              <span className="block font-medium">{t('overrideAssignment.label')}</span>
+              <span className="block text-xs text-muted-foreground">
+                {t('overrideAssignment.help')}
+              </span>
+            </span>
+          </label>
+          {overrideChecked ? (
+            <p className="text-xs text-sem-warning">{t('overrideAssignment.confirm')}</p>
+          ) : (
+            <p className="text-xs text-muted-foreground">{t('overrideAssignment.uncheckedHint')}</p>
+          )}
+        </div>
+      ) : null}
+
       <div>
         <p className="mb-2 text-sm font-medium text-foreground">{t('decisionLabel')}</p>
         <div className="space-y-2">
@@ -63,7 +120,7 @@ export function VerificationDecisionForm({
                 value.decision === option
                   ? 'border-primary bg-primary/5'
                   : 'border-border bg-card',
-                isSelfReview && 'cursor-not-allowed opacity-60',
+                fieldsLocked && 'cursor-not-allowed opacity-60',
               )}
             >
               <input
@@ -71,7 +128,7 @@ export function VerificationDecisionForm({
                 name="verification_decision"
                 value={option}
                 checked={value.decision === option}
-                disabled={isSelfReview || submitting}
+                disabled={fieldsLocked || submitting}
                 onChange={() => onChange({ ...value, decision: option })}
                 className="h-4 w-4 accent-primary"
               />
@@ -86,7 +143,7 @@ export function VerificationDecisionForm({
         <textarea
           id="review_reason"
           rows={4}
-          disabled={isSelfReview || submitting}
+          disabled={fieldsLocked || submitting}
           value={value.reason}
           onChange={(event) => onChange({ ...value, reason: event.target.value })}
           className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
@@ -106,7 +163,7 @@ export function VerificationDecisionForm({
                   <input
                     type="checkbox"
                     checked={checked}
-                    disabled={isSelfReview || submitting}
+                    disabled={fieldsLocked || submitting}
                     onChange={() => {
                       const next = checked
                         ? value.requiredDocuments.filter((item) => item !== doc)
