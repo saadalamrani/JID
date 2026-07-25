@@ -113,6 +113,11 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     pattern: new RegExp(`^${L}/university/rejected(?:/|$)`),
     allowedRoles: ['entity', 'university_admin'],
   },
+  {
+    id: 'university-reapply',
+    pattern: new RegExp(`^${L}/university/reapply(?:/|$)`),
+    allowedRoles: ['entity', 'university_admin'],
+  },
 
   // ── Entity pending review (before claim approval gate) ──────────────────────
   {

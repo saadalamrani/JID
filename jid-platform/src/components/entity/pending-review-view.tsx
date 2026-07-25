@@ -34,10 +34,23 @@ export function PendingReviewView({ claim }: PendingReviewViewProps) {
             <Clock className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
-            <p className="text-sm text-foreground/70">{t('subtitle')}</p>
+            <h1 className="text-xl font-semibold text-foreground">
+              {claim.status === 'needs_more_info' ? t('needsMoreInfoTitle') : t('title')}
+            </h1>
+            <p className="text-sm text-foreground/70">
+              {claim.status === 'needs_more_info' ? t('needsMoreInfoSubtitle') : t('subtitle')}
+            </p>
           </div>
         </div>
+
+        {claim.status === 'needs_more_info' ? (
+          <p
+            data-testid="awaiting-more-information"
+            className="mb-6 rounded-md border border-border bg-background p-3 text-sm text-foreground"
+          >
+            {t('needsMoreInfoBody')}
+          </p>
+        ) : null}
 
         <div className="mb-6 space-y-2 rounded-md bg-background p-4 text-sm">
           <p>

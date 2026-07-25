@@ -92,14 +92,23 @@ export async function submitClaimRequest(supabase: Client, input: SubmitClaimInp
   return data
 }
 
-export async function getLatestVerificationForUser(supabase: Client, userId: string) {
-  const { data, error } = await supabase
+export async function getLatestVerificationForUser(
+  supabase: Client,
+  userId: string,
+  verificationType?: Database['public']['Enums']['claim_type_enum'],
+) {
+  let query = supabase
     .from('verification_requests')
     .select('*')
     .eq('applicant_user_id', userId)
     .order('created_at', { ascending: false })
     .limit(1)
-    .maybeSingle()
+
+  if (verificationType) {
+    query = query.eq('verification_type', verificationType)
+  }
+
+  const { data, error } = await query.maybeSingle()
 
   if (error) throw new Error(error.message)
   return data

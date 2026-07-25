@@ -22,6 +22,9 @@ export default async function CompanyVerificationRejectedPage() {
   if (!verification) redirect('/signup/entity-type')
 
   const canReapply = canReapplyNow(verification.can_reapply_after)
+  const reasonText = verification.rejection_reason?.trim()
+    ? verification.rejection_reason
+    : t('noReason')
 
   return (
     <div className="mx-auto max-w-lg px-4 py-12">
@@ -32,11 +35,11 @@ export default async function CompanyVerificationRejectedPage() {
         <div className="mt-6 space-y-3 text-sm">
           <p>
             <span className="text-foreground/60">{t('reason')}:</span>{' '}
-            <span className="font-medium">{verification.rejection_reason}</span>
+            <span className="font-medium break-words">{reasonText}</span>
           </p>
           <p>
             <span className="text-foreground/60">{t('requiredDocuments')}:</span>{' '}
-            <span className="font-medium">
+            <span className="font-medium break-words">
               {formatRequiredDocuments(verification.required_documents, locale)}
             </span>
           </p>
@@ -56,7 +59,7 @@ export default async function CompanyVerificationRejectedPage() {
         {canReapply ? (
           <Link
             href="/company/verification/reapply"
-            className="mt-6 inline-flex w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
+            className="mt-6 inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
           >
             {t('reapplyCta')}
           </Link>

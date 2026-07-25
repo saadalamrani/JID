@@ -1,4 +1,5 @@
 import { UniversityProfileCreationWizard } from './_components/university-profile-creation-wizard'
+import { ApprovedWithoutProfileNotice } from './_components/approved-without-profile-notice'
 import { getMyApprovedVerifications } from '@/lib/auth/verification'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
@@ -33,10 +34,13 @@ export default async function CreateUniversityProfilePage() {
     .maybeSingle()
 
   return (
-    <UniversityProfileCreationWizard
-      verificationId={verification.id}
-      directoryNameAr={directoryRow?.name_ar ?? directoryRow?.name ?? verification.company_name}
-      suggestedDisplayNameAr={directoryRow?.name_ar ?? verification.company_name}
-    />
+    <div className="mx-auto max-w-2xl px-4 py-8">
+      <ApprovedWithoutProfileNotice actor="university" />
+      <UniversityProfileCreationWizard
+        verificationId={verification.id}
+        directoryNameAr={directoryRow?.name_ar ?? directoryRow?.name ?? verification.company_name}
+        suggestedDisplayNameAr={directoryRow?.name_ar ?? verification.company_name}
+      />
+    </div>
   )
 }

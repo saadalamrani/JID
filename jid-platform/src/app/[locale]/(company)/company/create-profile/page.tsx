@@ -1,4 +1,5 @@
 import { ProfileCreationWizard } from './_components/profile-creation-wizard'
+import { ApprovedWithoutProfileNotice } from './_components/approved-without-profile-notice'
 import { getMyApprovedVerifications } from '@/lib/auth/verification'
 import { createClient } from '@/lib/supabase/server'
 import type { DirectoryReferenceData } from '@/types/business-profile-public'
@@ -86,10 +87,13 @@ export default async function CreateBusinessProfilePage() {
   }
 
   return (
-    <ProfileCreationWizard
-      verificationId={verification.id}
-      directory={directory}
-      suggestedDisplayNameAr={directory.name_ar ?? verification.company_name}
-    />
+    <div className="mx-auto max-w-2xl px-4 py-8">
+      <ApprovedWithoutProfileNotice actor="business" />
+      <ProfileCreationWizard
+        verificationId={verification.id}
+        directory={directory}
+        suggestedDisplayNameAr={directory.name_ar ?? verification.company_name}
+      />
+    </div>
   )
 }

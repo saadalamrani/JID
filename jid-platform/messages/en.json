@@ -1280,11 +1280,23 @@
     },
     "approvedWithoutProfile": {
       "title": "Verification approved",
-      "message": "Your university verification is approved. Create your owned profile to continue.",
+      "message": "Approval licensed you to create your Profile. Nothing was created automatically — create your owned university Profile to continue.",
       "cta": "Create university profile"
     }
   },
   "entity": {
+    "approvedWithoutProfile": {
+      "business": {
+        "title": "Verification approved",
+        "message": "Approval licensed you to create your Profile. Nothing was created automatically — create your owned Profile to continue.",
+        "cta": "Create business profile"
+      },
+      "university": {
+        "title": "Verification approved",
+        "message": "Approval licensed you to create your Profile. Nothing was created automatically — create your owned university Profile to continue.",
+        "cta": "Create university profile"
+      }
+    },
     "entityType": {
       "title": "Entity account type",
       "subtitle": "Choose the type of organization you represent",
@@ -1292,11 +1304,11 @@
       "loginLink": "Sign in",
       "company": {
         "title": "Company",
-        "description": "Register your company and submit an ownership claim"
+        "description": "Register your company and submit a verification request"
       },
       "university": {
         "title": "University",
-        "description": "Register your university and submit an ownership claim"
+        "description": "Register your university and submit a verification request"
       }
     },
     "wizard": {
@@ -1305,8 +1317,8 @@
         "university": "University signup"
       },
       "subtitle": {
-        "company": "Create an account and submit a company ownership claim",
-        "university": "Create an account and submit a university ownership claim"
+        "company": "Create an account and submit a company verification request",
+        "university": "Create an account and submit a university verification request"
       },
       "loading": "Loading...",
       "steps": {
@@ -1368,6 +1380,9 @@
     "pendingReview": {
       "title": "Your request is under review",
       "subtitle": "The JID team is reviewing your verification request",
+      "needsMoreInfoTitle": "Awaiting more information",
+      "needsMoreInfoSubtitle": "Your verification request needs additional information before review can continue",
+      "needsMoreInfoBody": "Awaiting more information — staff will follow up. There is no self-service response flow on this page.",
       "company": "Entity",
       "submittedBy": "Submitted by",
       "businessEmail": "Business email",
@@ -1380,6 +1395,7 @@
     "rejected": {
       "title": "Verification request rejected",
       "reason": "Rejection reason",
+      "noReason": "No reason recorded",
       "requiredDocuments": "Required documents",
       "blockedUntil": "You can reapply after {date}",
       "canReapplyNow": "You can reapply now",

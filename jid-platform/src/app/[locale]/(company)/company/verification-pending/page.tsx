@@ -1,9 +1,8 @@
 import { PendingReviewView } from '@/components/entity/pending-review-view'
 import { getLatestVerificationForUser } from '@/lib/entity/claims'
+import { resolveVerificationOutcome } from '@/lib/entity/verification-outcome'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
-
-const PENDING_STATUSES = ['pending_review', 'pending', 'under_review'] as const
 
 export default async function CompanyVerificationPendingPage() {
   const supabase = await createClient()
@@ -15,22 +14,24 @@ export default async function CompanyVerificationPendingPage() {
     redirect('/login')
   }
 
-  const verification = await getLatestVerificationForUser(supabase, user.id)
+  const verification = await getLatestVerificationForUser(supabase, user.id, 'business')
+  const outcome = resolveVerificationOutcome({
+    orgType: 'business',
+    authenticated: true,
+    profile: null,
+    verification: verification
+      ? {
+          status: verification.status,
+          resulting_profile_id: verification.resulting_profile_id,
+        }
+      : null,
+  })
 
-  if (
-    !verification ||
-    verification.verification_type !== 'business' ||
-    !PENDING_STATUSES.includes(verification.status as (typeof PENDING_STATUSES)[number])
-  ) {
-    if (verification?.status === 'rejected') {
-      redirect('/company/verification-rejected')
-    }
-    if (verification?.status === 'approved' && !verification.resulting_profile_id) {
-      redirect('/company/create-profile')
-    }
-    if (verification?.resulting_profile_id) {
-      redirect('/company/dashboard')
-    }
+  if (outcome.kind !== 'pending' && outcome.kind !== 'needs_more_info') {
+    redirect(outcome.path)
+  }
+
+  if (!verification) {
     redirect('/signup/entity-type')
   }
 

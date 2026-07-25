@@ -1,5 +1,9 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
+import {
+  orgOutcomeRoutes,
+  resolveVerificationOutcome,
+} from '@/lib/entity/verification-outcome'
 
 export type OrganizationType = 'business' | 'university'
 
@@ -7,49 +11,20 @@ export type OrganizationProfileCheckResult =
   | { satisfied: true }
   | { satisfied: false; suggestedRedirect: string }
 
-const PENDING_VERIFICATION_STATUSES = [
-  'submitted',
-  'pending_review',
-  'pending',
-  'under_review',
-] as const
-
-function orgPortalBase(orgType: OrganizationType): string {
-  return orgType === 'business' ? '/company' : '/university'
-}
-
 /** Static fallback when dynamic redirect is unavailable (safety net per P-109). */
 export function organizationProfileFallbackRedirect(orgType: OrganizationType): string {
-  const base = orgPortalBase(orgType)
-  if (orgType === 'business') {
-    return `${base}/verification-pending`
-  }
-  return `${base}/pending-review`
-}
-
-function orgRoutes(orgType: OrganizationType) {
-  const base = orgPortalBase(orgType)
-  return {
-    signup: '/signup/entity-type',
-    pending:
-      orgType === 'business' ? `${base}/verification-pending` : `${base}/pending-review`,
-    rejected:
-      orgType === 'business' ? `${base}/verification-rejected` : `${base}/rejected`,
-    createProfile: `${base}/create-profile`,
-    suspended: `${base}/profile-suspended`,
-  }
+  return orgOutcomeRoutes(orgType).pending
 }
 
 /**
  * P-109 — Ownership Law lifecycle guard (fast path: existing profile row).
- * Runs on every organization-portal guarded request.
+ * Spec 03 §8 precedence via resolveVerificationOutcome.
  */
 export async function checkOrganizationProfile(
   userId: string,
   orgType: OrganizationType,
   supabase: SupabaseClient<Database>,
 ): Promise<OrganizationProfileCheckResult> {
-  const routes = orgRoutes(orgType)
   const profileTable = orgType === 'business' ? 'business_profiles' : 'university_profiles'
 
   const { data: existingProfile } = await supabase
@@ -59,10 +34,16 @@ export async function checkOrganizationProfile(
     .maybeSingle()
 
   if (existingProfile) {
-    if (existingProfile.status === 'suspended') {
-      return { satisfied: false, suggestedRedirect: routes.suspended }
+    const outcome = resolveVerificationOutcome({
+      orgType,
+      authenticated: true,
+      profile: { status: existingProfile.status },
+      verification: null,
+    })
+    if (outcome.kind === 'dashboard') {
+      return { satisfied: true }
     }
-    return { satisfied: true }
+    return { satisfied: false, suggestedRedirect: outcome.path }
   }
 
   const verificationType = orgType === 'business' ? 'business' : 'university'
@@ -76,23 +57,17 @@ export async function checkOrganizationProfile(
     .limit(1)
     .maybeSingle()
 
-  if (!verification) {
-    return { satisfied: false, suggestedRedirect: routes.signup }
-  }
+  const outcome = resolveVerificationOutcome({
+    orgType,
+    authenticated: true,
+    profile: null,
+    verification: verification
+      ? {
+          status: verification.status,
+          resulting_profile_id: verification.resulting_profile_id,
+        }
+      : null,
+  })
 
-  if (verification.status === 'rejected') {
-    return { satisfied: false, suggestedRedirect: routes.rejected }
-  }
-
-  if (verification.status === 'approved') {
-    return { satisfied: false, suggestedRedirect: routes.createProfile }
-  }
-
-  if (
-    (PENDING_VERIFICATION_STATUSES as readonly string[]).includes(verification.status)
-  ) {
-    return { satisfied: false, suggestedRedirect: routes.pending }
-  }
-
-  return { satisfied: false, suggestedRedirect: routes.signup }
+  return { satisfied: false, suggestedRedirect: outcome.path }
 }
