@@ -1,5 +1,37 @@
 # JID Master Execution Ledger
 
+## Specification 03 — Entity Rejection / Reapply Journey
+
+| Field | Value |
+|---|---|
+| specification | 03 |
+| status | IN_PROGRESS |
+| session | 03-A |
+| Session A base SHA | ed5bc4048733a654b72d544b38248e3854481540 |
+| Session A source branch | cursor/jid-03a-baseline-reconciliation |
+| Spec 02 gate | SHIPPED at tip `ed5bc4048733a654b72d544b38248e3854481540` (required before Spec 03) |
+| duplicate_prevention_gap | false |
+| duplicate_prevention_gap evidence | BEFORE INSERT trigger `enforce_verification_request_applicant_insert_boundary` (migration `20260720072615_harden_verification_request_insert_boundary.sql`) raises `active_verification_request_exists` when the same authenticated applicant already has any row in pending/submitted/pending_review/under_review/needs_more_info (applicant-scoped; covers same-user+same-directory duplicates). RLS suite `verification-insert-boundary.rls.test.ts` asserts the duplicate insert is denied. App-layer `submitClaimRequest` only pre-checks reapply cooldown (no active-duplicate pre-check); the DB trigger remains the authoritative race-safe boundary. |
+| Session A verified files | Business: `company/verification-pending`, `company/verification-rejected` (links `/company/verification/reapply`), `company/verification/reapply` (ClaimSubmissionForm). University: `university/pending-review`, `university/rejected` (CTA links `/signup/university` — **no** `university/.../reapply` route). Helpers: `rejected-claim.ts` (`getLatestRejectedVerification`, `canReapplyNow`, `formatRequiredDocuments`); `claims.ts` `submitClaimRequest`. Messages: `entity.rejected` EN+AR key parity. Migration: `20260720072615_harden_verification_request_insert_boundary.sql`. |
+| Session A local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (213 passed / 46 skipped without disposable env); corepack pnpm build PASS |
+| Session A validation CI | PENDING |
+| Session A target CI | PENDING |
+| Session A Vercel | PENDING |
+| Session A implementation SHA | PENDING (reported after commit; not self-referenced in-commit) |
+| Session A promoted SHA | PENDING (filled after FF promotion to agent/nonprod-signup-fix) |
+
+### Session 03-A scope (this commit)
+- Baseline reconciliation against Spec 02 SHIPPED tip `ed5bc40`.
+- Verified starting-state routes/helpers/messages and insert-boundary migration.
+- Recorded `duplicate_prevention_gap: false` with trigger + RLS-test + application-path evidence (no product fix; no university reapply route built — deferred to Session B).
+
+### Still deferred (Specification 03)
+- University reapply route (Session B)
+- Duplicate-prevention fix (Session C, only if gap were true — not required given Session A finding = false)
+- Needs-more-info respond flow; evidence upload; Spec 06 notifications; Spec 08 visual redesign
+
+---
+
 ## Specification 02 — Staff Verification Decision Experience
 
 | Field | Value |
