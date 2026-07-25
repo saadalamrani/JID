@@ -1,0 +1,52 @@
+SPEC 03 TERMINOLOGY SWEEP
+Scope: entity.rejected | entity.reapply | entity.pendingReview | entity.approvedWithoutProfile
+Source: live message nodes in messages/en.json and messages/ar.json
+Date: 2026-07-25
+
+entity.rejected.title
+  EN: "Verification request rejected"  OK
+  AR: "تم رفض طلب التوثيق"  OK
+entity.rejected.reapplyCta
+  EN: "Resubmit verification request"  OK
+  AR: "إعادة تقديم طلب التوثيق"  OK
+entity.rejected.blockedMessage
+  EN: "Reapplication is blocked until the waiting period ends."  OK
+  AR: "لا يمكن إعادة التقديم حتى انتهاء فترة الانتظار."  OK
+entity.rejected.canReapplyNow
+  EN: "You can reapply now"  OK
+  AR: "يمكنك إعادة التقديم الآن"  OK
+entity.rejected.blockedUntil
+  EN: "You can reapply after {date}"  OK
+  AR: "يمكنك إعادة التقديم بعد {date}"  OK
+entity.reapply.title
+  EN: "Resubmit verification request"  OK
+  AR: "إعادة تقديم طلب التوثيق"  OK
+entity.reapply.blocked
+  EN: "The reapplication window has not opened yet."  OK
+  AR: "لا يزال وقت إعادة التقديم لم يحن بعد."  OK
+entity.pendingReview.title
+  EN: "Your request is under review"  OK
+  AR: "طلبك قيد المراجعة"  OK
+entity.pendingReview.needsMoreInfoBody
+  EN: "Awaiting more information — staff will follow up. There is no self-service response flow on this page."  OK
+  AR: "بانتظار معلومات إضافية — سيتابع فريق الموظفين. لا يوجد مسار رد ذاتي في هذه الصفحة."  OK
+entity.approvedWithoutProfile.business.title
+  EN: "Verification approved"  OK
+  AR: "تمت الموافقة على التحقق"  OK
+entity.approvedWithoutProfile.business.message
+  EN: "Approval licensed you to create your Profile. Nothing was created automatically — create your owned Profile to continue."  OK
+  AR: "الموافقة رخصت لك إنشاء ملفك التعريفي. لم يُنشأ أي ملف تلقائياً — أنشئ ملفك المملوك للمتابعة."  OK
+entity.approvedWithoutProfile.business.cta
+  EN: "Create business profile"  OK
+  AR: "إنشاء ملف المنشأة"  OK
+entity.approvedWithoutProfile.university.title
+  EN: "Verification approved"  OK
+  AR: "تمت الموافقة على التحقق"  OK
+entity.approvedWithoutProfile.university.message
+  EN: "Approval licensed you to create your Profile. Nothing was created automatically — create your owned university Profile to continue."  OK
+  AR: "الموافقة رخصت لك إنشاء ملفك التعريفي. لم يُنشأ أي ملف تلقائياً — أنشئ ملف الجامعة المملوك للمتابعة."  OK
+entity.approvedWithoutProfile.university.cta
+  EN: "Create university profile"  OK
+  AR: "إنشاء ملف الجامعة"  OK
+
+Result: ZERO visible Claim/مطالبة hits in Spec 03 applicant message values above.
