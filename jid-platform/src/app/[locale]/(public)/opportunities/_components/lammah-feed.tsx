@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { PlusGate } from '@/components/monetization/plus-gate'
 import { EmptyState } from '@/components/shared/empty-state'
@@ -8,7 +8,9 @@ import { useLammahFeedQuery } from '@/lib/hooks/use-lammah-feed-query'
 import { Radar } from 'lucide-react'
 import { JobCardSkeleton } from './job-card-skeleton'
 import { useJobFilters } from './job-filter-context'
+import { LammahOpportunityTypeChips } from './lammah-opportunity-type-chips'
 import { VirtualizedLammahGrid } from './virtualized-lammah-grid'
+import type { LammahOpportunityType } from '@/types/lammah'
 
 const SKELETON_COUNT = 8
 
@@ -26,15 +28,23 @@ function LammahFeedUnlocked() {
   const t = useTranslations('opportunities.lammah')
   const scrollRef = useRef<HTMLElement | null>(null)
   const { filters } = useJobFilters()
+  const [opportunityTypes, setOpportunityTypes] = useState<LammahOpportunityType[]>([])
 
   const lammahFilters = useMemo(
     () => ({
       experienceChips: filters.experienceChips,
       ownership: filters.ownership,
+      opportunityTypes,
       regions: filters.regions,
       sectors: filters.sectors,
     }),
-    [filters.experienceChips, filters.ownership, filters.regions, filters.sectors],
+    [
+      filters.experienceChips,
+      filters.ownership,
+      filters.regions,
+      filters.sectors,
+      opportunityTypes,
+    ],
   )
 
   const { data, isLoading, isFetching, error } = useLammahFeedQuery(lammahFilters)
@@ -60,9 +70,8 @@ function LammahFeedUnlocked() {
 
   return (
     <div className="space-y-3">
-      <p className="font-arabic text-sm text-muted-foreground">
-        {t('resultsCount', { count })}
-      </p>
+      <LammahOpportunityTypeChips selected={opportunityTypes} onChange={setOpportunityTypes} />
+      <p className="font-arabic text-sm text-muted-foreground">{t('resultsCount', { count })}</p>
 
       {items.length === 0 ? (
         <EmptyState

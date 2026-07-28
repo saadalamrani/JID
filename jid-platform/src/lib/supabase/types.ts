@@ -2229,6 +2229,7 @@ export type Database = {
           hidden_by: string | null
           hidden_reason: string | null
           id: string
+          opportunity_type: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
           ownership_type: Database["public"]["Enums"]["ownership_enum"] | null
           region: string
           scraped_at: string
@@ -2255,6 +2256,7 @@ export type Database = {
           hidden_by?: string | null
           hidden_reason?: string | null
           id?: string
+          opportunity_type?: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
           ownership_type?: Database["public"]["Enums"]["ownership_enum"] | null
           region: string
           scraped_at?: string
@@ -2281,6 +2283,7 @@ export type Database = {
           hidden_by?: string | null
           hidden_reason?: string | null
           id?: string
+          opportunity_type?: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
           ownership_type?: Database["public"]["Enums"]["ownership_enum"] | null
           region?: string
           scraped_at?: string
@@ -5020,6 +5023,10 @@ export type Database = {
         Args: { p_user_id: string; p_slug: string; p_metadata?: Json }
         Returns: undefined
       }
+      backfill_lammah_native_conflicts: {
+        Args: { p_apply?: boolean }
+        Returns: number
+      }
       build_daily_digests: {
         Args: Record<PropertyKey, never>
         Returns: number
@@ -5054,6 +5061,10 @@ export type Database = {
           status: Database["public"]["Enums"]["comm_batch_status_enum"]
           template_snapshot: Json
         }[]
+      }
+      classify_lammah_opportunity_type: {
+        Args: { p_title_ar: string; p_title_en: string; p_excerpt: string }
+        Returns: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
       }
       close_ssis_screening: {
         Args: { p_screening_id: string }
@@ -5249,6 +5260,18 @@ export type Database = {
         }
         Returns: undefined
       }
+      find_native_job_conflict: {
+        Args: {
+          p_opportunity_type: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
+          p_company_id: string
+          p_title_ar: string
+          p_title_en: string
+          p_external_url: string
+          p_region: string
+          p_experience_level: Database["public"]["Enums"]["experience_level_enum"]
+        }
+        Returns: string
+      }
       get_company_boost_usage: {
         Args: { p_company_id: string }
         Returns: {
@@ -5429,9 +5452,35 @@ export type Database = {
         Args: { p_job_id: string }
         Returns: boolean
       }
+      lammah_native_opportunity_matches: {
+        Args: {
+          p_lammah_type: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
+          p_lammah_company_id: string
+          p_lammah_title_ar: string
+          p_lammah_title_en: string
+          p_lammah_url: string
+          p_lammah_region: string
+          p_lammah_experience: Database["public"]["Enums"]["experience_level_enum"]
+          p_job_company_id: string
+          p_job_title_ar: string
+          p_job_title_en: string
+          p_job_url: string
+          p_job_region: string
+          p_job_experience: Database["public"]["Enums"]["experience_level_enum"]
+        }
+        Returns: boolean
+      }
       lammah_weekly_active_count: {
         Args: Record<PropertyKey, never>
         Returns: number
+      }
+      lock_lammah_native_conflict: {
+        Args: {
+          p_company_id: string
+          p_external_url: string
+          p_external_ref_hash?: string
+        }
+        Returns: undefined
       }
       mandate_dimension_weight: {
         Args: {
@@ -5445,6 +5494,14 @@ export type Database = {
         Args: { p_mandate_id?: string }
         Returns: number
       }
+      normalize_opportunity_title: {
+        Args: { p_text: string }
+        Returns: string
+      }
+      normalize_opportunity_url: {
+        Args: { p_url: string }
+        Returns: string
+      }
       notify_claim_decision: {
         Args: { p_claim_id: string; p_decision: string; p_reason?: string }
         Returns: string
@@ -5452,6 +5509,24 @@ export type Database = {
       notify_radar_status_change: {
         Args: { p_card_id: string; p_old_status: string; p_new_status: string }
         Returns: string
+      }
+      opportunity_title_similarity: {
+        Args: {
+          p_left_ar: string
+          p_left_en: string
+          p_right_ar: string
+          p_right_en: string
+        }
+        Returns: number
+      }
+      opportunity_titles_match_exactly: {
+        Args: {
+          p_left_ar: string
+          p_left_en: string
+          p_right_ar: string
+          p_right_en: string
+        }
+        Returns: boolean
       }
       process_due_radar_items: {
         Args: Record<PropertyKey, never>
@@ -5828,6 +5903,12 @@ export type Database = {
         | "closed"
         | "expired"
         | "pending_review"
+      lammah_opportunity_type_enum:
+        | "job"
+        | "co_op"
+        | "internship"
+        | "fellowship"
+        | "scholarship"
       lammah_status_enum: "active" | "hidden" | "superseded" | "expired"
       link_status_enum: "healthy" | "broken" | "pending"
       mentor_notification_status_enum: "pending" | "sent" | "dismissed"
@@ -6126,6 +6207,13 @@ export const Constants = {
         "closed",
         "expired",
         "pending_review",
+      ],
+      lammah_opportunity_type_enum: [
+        "job",
+        "co_op",
+        "internship",
+        "fellowship",
+        "scholarship",
       ],
       lammah_status_enum: ["active", "hidden", "superseded", "expired"],
       link_status_enum: ["healthy", "broken", "pending"],

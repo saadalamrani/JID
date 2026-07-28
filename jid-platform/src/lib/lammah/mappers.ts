@@ -14,6 +14,7 @@ type LammahFeedRow = Pick<
   | 'region'
   | 'ownership_type'
   | 'experience_level'
+  | 'opportunity_type'
   | 'external_url'
   | 'source_published_at'
   | 'scraped_at'
@@ -39,6 +40,7 @@ export function mapLammahRowToCard(row: LammahFeedRow): LammahOpportunityCard {
     region: row.region,
     ownershipType: row.ownership_type,
     experienceLevel: row.experience_level,
+    opportunityType: row.opportunity_type,
     externalUrl: row.external_url,
     sourcePublishedAt: row.source_published_at,
     scrapedAt: row.scraped_at,

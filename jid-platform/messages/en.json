@@ -4598,7 +4598,15 @@
       "unavailableDescription": "External opportunities will appear here only when they come from a verified source.",
       "teaserAria": "Lammah preview",
       "teaserHeadline": "Lammah — Plus-exclusive external opportunities",
-      "teaserWeekly": "Added this week: {count} opportunities"
+      "teaserWeekly": "Added this week: {count} opportunities",
+      "opportunityTypes": {
+        "label": "Opportunity type",
+        "job": "Job",
+        "co_op": "Co-op",
+        "internship": "Internship",
+        "fellowship": "Fellowship",
+        "scholarship": "Scholarship"
+      }
     },
     "abhathli": {
       "title": "Search For Me",

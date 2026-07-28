@@ -4,6 +4,15 @@ import type { ExperienceLevel } from '@/types/job'
 export const LAMMAH_STATUSES = ['active', 'hidden', 'superseded', 'expired'] as const
 export type LammahStatus = (typeof LAMMAH_STATUSES)[number]
 
+export const LAMMAH_OPPORTUNITY_TYPES = [
+  'job',
+  'co_op',
+  'internship',
+  'fellowship',
+  'scholarship',
+] as const
+export type LammahOpportunityType = (typeof LAMMAH_OPPORTUNITY_TYPES)[number]
+
 export type LammahSourceType = 'career_page' | 'rss' | 'api' | 'official_program'
 
 export type LammahOpportunityCard = {
@@ -19,6 +28,7 @@ export type LammahOpportunityCard = {
   region: string
   ownershipType: OwnershipType | null
   experienceLevel: ExperienceLevel | null
+  opportunityType: LammahOpportunityType
   externalUrl: string
   sourcePublishedAt: string
   scrapedAt: string

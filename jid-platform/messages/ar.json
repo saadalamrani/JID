@@ -4588,7 +4588,15 @@
       "unavailableDescription": "ستظهر الفرص الخارجية هنا فقط عند ورودها من مصدر موثوق.",
       "teaserAria": "معاينة لمّاح",
       "teaserHeadline": "لمّاح — فرص خارجية حصرية لمشتركي بلس",
-      "teaserWeekly": "أُضيف هذا الأسبوع: {count} فرصة"
+      "teaserWeekly": "أُضيف هذا الأسبوع: {count} فرصة",
+      "opportunityTypes": {
+        "label": "نوع الفرصة",
+        "job": "وظيفة",
+        "co_op": "تعاوني",
+        "internship": "تدريب",
+        "fellowship": "زمالة",
+        "scholarship": "منحة"
+      }
     },
     "abhathli": {
       "title": "ابحثلي",

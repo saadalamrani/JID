@@ -2,24 +2,24 @@
 
 import { createClient } from '@/lib/supabase/client'
 import { mapLammahRowToCard } from '@/lib/lammah/mappers'
-import type { LammahFeedResult } from '@/types/lammah'
+import type { LammahFeedResult, LammahOpportunityType } from '@/types/lammah'
 import type { JobFilterState } from '@/types/job'
 import { resolveExperienceLevelsFromChips } from '@/types/job'
 
 export type LammahFeedFilters = Pick<
   JobFilterState,
   'experienceChips' | 'ownership' | 'regions' | 'sectors'
->
+> & {
+  opportunityTypes: LammahOpportunityType[]
+}
 
-export async function fetchLammahFeedClient(
-  filters: LammahFeedFilters,
-): Promise<LammahFeedResult> {
+export async function fetchLammahFeedClient(filters: LammahFeedFilters): Promise<LammahFeedResult> {
   const supabase = createClient()
 
   let query = supabase
     .from('lammah_opportunities')
     .select(
-      'id, source_id, company_id, company_name_raw, title_ar, title_en, excerpt, sector, region, ownership_type, experience_level, external_url, source_published_at, scraped_at, expires_at, status, extraction_confidence, source:lammah_sources(name), company:companies(logo_url)',
+      'id, source_id, company_id, company_name_raw, title_ar, title_en, excerpt, sector, region, ownership_type, experience_level, opportunity_type, external_url, source_published_at, scraped_at, expires_at, status, extraction_confidence, source:lammah_sources(name), company:companies(logo_url)',
       { count: 'exact' },
     )
     .eq('status', 'active')
@@ -41,6 +41,9 @@ export async function fetchLammahFeedClient(
   }
   if (filters.ownership.length > 0) {
     query = query.in('ownership_type', filters.ownership)
+  }
+  if (filters.opportunityTypes.length > 0) {
+    query = query.in('opportunity_type', filters.opportunityTypes)
   }
 
   const [{ data, error, count }, weeklyResult] = await Promise.all([
