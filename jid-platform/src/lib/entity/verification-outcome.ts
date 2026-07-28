@@ -61,8 +61,9 @@ export function isAwaitingMoreInfoStatus(status: string): boolean {
  * no verification → signup;
  * active pending / needs_more_info → pending page (needs_more_info renders awaiting copy);
  * rejected → rejected;
- * approved + no resulting Profile → create-profile;
- * approved + resulting Profile → dashboard;
+ * approved + no owned Profile row → create-profile (including orphaned
+ *   resulting_profile_id — Spec 04-B DEF-04 honest recovery; never dashboard);
+ * approved + owned Profile row already handled above → dashboard;
  * else → unavailable/signup.
  */
 export function resolveVerificationOutcome(input: {
@@ -102,8 +103,9 @@ export function resolveVerificationOutcome(input: {
   }
 
   if (verification.status === 'approved') {
-    // Profile row already handled above. Without an owned Profile, create-profile
-    // is the only safe destination (even if resulting_profile_id is orphaned).
+    // Spec 04-B DEF-04: without an owned Profile row, create-profile is the only
+    // safe destination — including when resulting_profile_id is orphaned.
+    // Create-profile must not redirect to dashboard on the ID alone (DEF-03).
     return { kind: 'create_profile', path: routes.createProfile }
   }
 

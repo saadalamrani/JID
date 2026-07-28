@@ -121,6 +121,14 @@ describe('Spec 03 §8 state-resolution precedence', () => {
       kind: 'create_profile',
     },
     {
+      name: 'approved orphaned resulting_profile_id → create_profile (DEF-04)',
+      orgType: 'business',
+      authenticated: true,
+      profile: null,
+      verification: { status: 'approved', resulting_profile_id: 'orphaned' },
+      kind: 'create_profile',
+    },
+    {
       name: 'profile exists → dashboard',
       orgType: 'business',
       authenticated: true,

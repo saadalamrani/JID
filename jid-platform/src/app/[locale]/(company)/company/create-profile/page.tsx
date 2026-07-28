@@ -1,6 +1,10 @@
 import { ProfileCreationWizard } from './_components/profile-creation-wizard'
 import { ApprovedWithoutProfileNotice } from './_components/approved-without-profile-notice'
-import { getMyApprovedVerifications } from '@/lib/auth/verification'
+import { resolveBusinessCreateProfileGate } from '@/lib/entity/business-create-profile-gate'
+import { getLatestVerificationForUser } from '@/lib/entity/claims'
+import {
+  fetchOwnerBusinessProfileRow,
+} from '@/lib/profile/owner-business-profile'
 import { createClient } from '@/lib/supabase/server'
 import type { DirectoryReferenceData } from '@/types/business-profile-public'
 import type { CatalogRegionRef, CatalogSectorRef, OwnershipType } from '@/types/catalog'
@@ -20,6 +24,10 @@ function mapRegion(
   return { slug: row.slug, name_en: row.name_en, name_ar: row.name_ar }
 }
 
+/**
+ * Spec 04-B DEF-03 / DEF-04 / DEF-05 —
+ * Profile-first gate; Spec §8 outcome when no Profile; orphaned resulting_profile_id stays on wizard.
+ */
 export default async function CreateBusinessProfilePage() {
   const supabase = await createClient()
   const {
@@ -30,17 +38,25 @@ export default async function CreateBusinessProfilePage() {
     redirect('/login')
   }
 
-  const approved = await getMyApprovedVerifications(supabase)
-  const businessApproved = approved.filter((row) => row.verification_type === 'business')
+  const profileRow = await fetchOwnerBusinessProfileRow(supabase, user.id)
+  const verification = await getLatestVerificationForUser(supabase, user.id, 'business')
 
-  if (businessApproved.length === 0) {
-    redirect('/company/verification-pending')
+  const gate = resolveBusinessCreateProfileGate({
+    profile: profileRow ? { status: profileRow.status } : null,
+    verification: verification
+      ? {
+          status: verification.status,
+          resulting_profile_id: verification.resulting_profile_id,
+        }
+      : null,
+  })
+
+  if (gate.action === 'redirect') {
+    redirect(gate.path)
   }
 
-  const verification = businessApproved[0]!
-
-  if (verification.resulting_profile_id) {
-    redirect('/company/dashboard')
+  if (!verification || verification.status !== 'approved') {
+    redirect('/signup/entity-type')
   }
 
   const { data: directoryRaw } = await supabase

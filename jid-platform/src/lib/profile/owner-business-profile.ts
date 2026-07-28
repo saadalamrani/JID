@@ -12,6 +12,26 @@ export type OwnerBusinessProfile = Database['public']['Tables']['business_profil
   directory_slug: string | null
 }
 
+/**
+ * Spec 04-B DEF-08/03 — status-aware owner row including suspended
+ * (fetchOwnerBusinessProfile excludes suspended for normal owner surfaces).
+ */
+export async function fetchOwnerBusinessProfileRow(
+  client: Client,
+  userId: string,
+): Promise<{ id: string; status: string } | null> {
+  const { data, error } = await client
+    .from('business_profiles')
+    .select('id, status')
+    .eq('owner_user_id', userId)
+    .order('updated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (error) throw new Error(error.message)
+  return data
+}
+
 export async function fetchOwnerBusinessProfile(
   client: Client,
   userId: string,

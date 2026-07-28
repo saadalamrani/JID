@@ -1,9 +1,11 @@
 import { PendingReviewView } from '@/components/entity/pending-review-view'
 import { getLatestVerificationForUser } from '@/lib/entity/claims'
 import { resolveVerificationOutcome } from '@/lib/entity/verification-outcome'
+import { fetchOwnerBusinessProfileRow } from '@/lib/profile/owner-business-profile'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
+/** Spec 04-B DEF-08 — load owned Profile (incl. suspended) before Spec §8 resolution. */
 export default async function CompanyVerificationPendingPage() {
   const supabase = await createClient()
   const {
@@ -14,11 +16,12 @@ export default async function CompanyVerificationPendingPage() {
     redirect('/login')
   }
 
+  const profileRow = await fetchOwnerBusinessProfileRow(supabase, user.id)
   const verification = await getLatestVerificationForUser(supabase, user.id, 'business')
   const outcome = resolveVerificationOutcome({
     orgType: 'business',
     authenticated: true,
-    profile: null,
+    profile: profileRow ? { status: profileRow.status } : null,
     verification: verification
       ? {
           status: verification.status,

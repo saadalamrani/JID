@@ -258,8 +258,9 @@ export async function middleware(request: NextRequest) {
     return redirectTo(request, '/account/suspended')
   }
 
+  // Spec 04-B DEF-06 — honest unauthorized redirect (never silent wrong-data 200 / bare 404).
   if (!isRoleAllowed(session.role, guard.allowedRoles)) {
-    return notFoundResponse()
+    return redirectTo(request, '/login', { next: pathname })
   }
 
   if (guard.sessionMaxAge !== undefined && isSessionExpired(session.sessionIssuedAt, guard.sessionMaxAge)) {

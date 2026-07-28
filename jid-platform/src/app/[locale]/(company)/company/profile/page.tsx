@@ -1,22 +1,84 @@
 import { notFound, redirect } from 'next/navigation'
-import { CompanyProfileView } from '@/components/profile/company-profile-view'
-import { fetchEntityBadges } from '@/lib/profile/badge-helpers'
-import { fetchOwnCompanyPageContext, getCurrentViewer } from '@/lib/profile/queries'
+import { Link } from '@/lib/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
+import { BusinessProfileView } from '@/components/profiles/business-profile-view'
+import { Button } from '@/components/ui/button'
+import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
+import { fetchOrganizationDirectoryReference } from '@/lib/profile/organization-directory-reference'
+import { fetchOwnerBusinessProfile } from '@/lib/profile/owner-business-profile'
 import { createClient } from '@/lib/supabase/server'
+import {
+  parseBusinessProfileGallery,
+  type DirectoryReferenceData,
+} from '@/types/business-profile-public'
+import type { Company } from '@/types/catalog'
 
+function mapDirectoryReference(directory: Company): DirectoryReferenceData {
+  return {
+    id: directory.id,
+    slug: directory.slug,
+    name_en: directory.name_en,
+    name_ar: directory.name_ar,
+    logo_url: directory.logo_url,
+    ownership_type: directory.ownership_type,
+    sector: directory.sector,
+    region: directory.region,
+  }
+}
+
+/** Spec 04-B DEF-01 — owned business_profiles view (not Directory claim view). */
 export default async function CompanyOwnerProfilePage() {
-  const viewer = await getCurrentViewer()
-  if (!viewer.companyId) {
-    redirect('/login')
+  const tPreview = await getTranslations('organizationProfile.preview')
+  const tBoundary = await getTranslations('organizationProfile.publicationBoundary')
+  const userId = await requireAuthenticatedUser()
+  const supabase = await createClient()
+  const profile = await fetchOwnerBusinessProfile(supabase, userId)
+
+  if (!profile) {
+    redirect('/company/create-profile')
   }
 
-  const context = await fetchOwnCompanyPageContext()
-  if (!context) {
+  const directory = await fetchOrganizationDirectoryReference(supabase, profile.directory_id)
+  if (!directory) {
     notFound()
   }
 
-  const supabase = await createClient()
-  const badges = await fetchEntityBadges(supabase, 'company', context.company.id)
+  const ownerProfile = {
+    id: profile.id,
+    directory_id: profile.directory_id,
+    display_name_ar: profile.display_name_ar,
+    display_name_en: profile.display_name_en,
+    tagline_ar: profile.tagline_ar,
+    about_ar: profile.about_ar,
+    about_en: profile.about_en,
+    founded_year: profile.founded_year,
+    employee_count_range: profile.employee_count_range,
+    cover_image_url: profile.cover_image_url,
+    gallery: parseBusinessProfileGallery(profile.gallery),
+    verified_badge: profile.verified_badge,
+  }
 
-  return <CompanyProfileView context={context} badges={badges} isOwner />
+  return (
+    <div className="mx-auto w-full max-w-4xl px-4 py-8">
+      {profile.status === 'draft' ? (
+        <p
+          data-testid="owner-profile-draft-notice"
+          className="mb-6 rounded-lg border border-sem-warning/30 bg-sem-warning/10 px-4 py-3 text-sm text-foreground/80"
+        >
+          {tBoundary('message')}
+        </p>
+      ) : null}
+      <BusinessProfileView
+        profile={ownerProfile}
+        directory={mapDirectoryReference(directory)}
+        openings={[]}
+        mode="preview"
+      />
+      <div className="mt-8">
+        <Button type="button" variant="outline" asChild className="min-h-11">
+          <Link href="/company/profile/edit">{tPreview('returnToEdit')}</Link>
+        </Button>
+      </div>
+    </div>
+  )
 }

@@ -6,19 +6,30 @@
 |---|---|
 | specification | 04 |
 | status | IN_PROGRESS |
-| session | 04-A COMPLETE (defect inventory; no product edits) |
+| session | 04-B COMPLETE (chain defects fixed + §20 integration tests) |
 | Session A base SHA | 5af8b8aa6786fc45b19e3ea7eba49cdf52c284f1 |
 | Session A source branch | cursor/jid-04a-chain-reconciliation |
 | Spec 03 gate | SHIPPED; promoted SHA `548b40a8563ac22130d44c055c5eae2c638f4fb7` is an ancestor of Session A base |
 | intervening_commits | `5af8b8a` Harden Lammah against native opportunity duplication |
-| intervening_scope_touch | none — intervening commit does not touch `src/app/[locale]/(company)/**`, `src/lib/profile/owner-business-profile.ts`, or `src/lib/auth/verification.ts` (diff empty). Touches Lammah/public opportunities, messages (Lammah keys), migration `20260726183230_lammah_native_dedup_boundary.sql`, and Lammah tests only. |
-| Session A defect inventory | DEF-01…DEF-08 (see below) — not empty |
-| Session A local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (233 passed / 61 skipped without disposable env); corepack pnpm build PASS (recorded at commit time from pre-flight) |
-| Session A validation CI | PENDING (reported in Session A completion response after push) |
-| Session A target CI | PENDING (reported in Session A completion response after promote) |
-| Session A Vercel | PENDING (reported in Session A completion response after promote) |
-| Session A implementation SHA | PENDING (ledger-only findings commit; reported in completion response) |
-| Session A promoted SHA | PENDING (reported in completion response after FF promotion) |
+| intervening_scope_touch | none — intervening commit does not touch Spec 04 file areas |
+| Session A defect inventory | DEF-01…DEF-08 |
+| Session A local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (233 passed / 61 skipped without disposable env); corepack pnpm build PASS |
+| Session A validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30390061942 (SHA c45f10a) |
+| Session A target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30390421380 (SHA c45f10a on agent/nonprod-signup-fix) |
+| Session A Vercel | PASS — Vercel Preview Comments success (check-run 90380850646) |
+| Session A implementation SHA | c45f10a6c2e286a18307d5311a3e77d1a1a0f030 |
+| Session A promoted SHA | c45f10a6c2e286a18307d5311a3e77d1a1a0f030 |
+| Session B base SHA | c45f10a6c2e286a18307d5311a3e77d1a1a0f030 |
+| Session B source branch | cursor/jid-04b-chain-fixes |
+| Session B defects fixed | DEF-01…DEF-08 (all Session A named defects) |
+| Session B files | company/profile/page.tsx; (company)/layout.tsx; company/create-profile/page.tsx; business-create-profile-gate.ts; verification-outcome.ts; company/verification-pending/page.tsx; (company)/billing/page.tsx; middleware.ts; owner-business-profile.ts; tests/unit/entity/business-journey-chain.test.ts; verification-outcome-ui.test.tsx |
+| Session B observations unfixed | University create-profile / pending-review mirror pre-fix Business anti-patterns (Spec 05). Staff/sys middleware still uses notFound for wrong-role (intentional; DEF-06 scoped to general entity guards). `getCurrentViewer` still resolves Directory id via approved verification (unused by fixed /company/profile). |
+| Session B local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (253 passed / 61 skipped without disposable env); corepack pnpm build PASS |
+| Session B validation CI | PENDING |
+| Session B target CI | PENDING |
+| Session B Vercel | PENDING |
+| Session B implementation SHA | PENDING (reported in completion response) |
+| Session B promoted SHA | PENDING (reported in completion response after FF promotion) |
 
 ### Session 04-A verified starting-state (present)
 - Business signup: `/signup/business` → `/signup/company`; `EntitySignupWizard entityType="company"` (DB type `business` via `toDbEntityType`).
@@ -46,46 +57,22 @@
 | Wizard re-entry with existing Profile | DEF-03 / DEF-04 |
 | Non-owner / wrong-role | DEF-06 (no silent wrong-data 200 on edit) |
 
-### Session 04-A defects for Session B
-1. **DEF-01** — `company/profile/page.tsx` + `lib/profile/queries.ts` (`getCurrentViewer` / `fetchOwnCompanyPageContext`): renders Directory/`companies` via approved `verification_requests.directory_id`, not owned draft `business_profiles`. Expected: owned draft Profile view (non-public).
-2. **DEF-02** — `(company)/layout.tsx`: still selects `companies.claimed_by` and can wrap pages in `UniversityLayout`. Expected: Profile/`owner_user_id` only (no Directory claim ownership for layout).
-3. **DEF-03** — `company/create-profile/page.tsx`: re-entry checks only `resulting_profile_id`, not existing Profile by `owner_user_id`. Expected: existing Profile → redirect (not wizard / RPC error).
-4. **DEF-04** — `verification-outcome.ts` approved branch ignores orphaned `resulting_profile_id` when no profile row; with create-profile’s `resulting_profile_id`→dashboard redirect and middleware `organization_profile`, can loop dashboard↔create-profile. Expected: no loop; honest recovery or dashboard precedence per Spec §8.
-5. **DEF-05** — `company/create-profile/page.tsx`: empty approved list always redirects to `verification-pending`. Expected: Spec §8 via `resolveVerificationOutcome` (rejected → rejected; none → signup).
-6. **DEF-06** — middleware wrong-role → `notFound()` 404. Expected per Spec §14: honest unauthorized redirect (never wrong-data 200; prefer redirect over bare 404).
-7. **DEF-07** — `(company)/billing/page.tsx`: resolves company via `companies.claimed_by`. Expected: owned Profile / non-claim ownership model within `(company)` scope.
-8. **DEF-08** — `company/verification-pending/page.tsx`: passes `profile: null` into `resolveVerificationOutcome`, so owned/suspended Profile precedence is skipped if URL is hit post-profile. Expected: load profile row first per Spec §8.
+### Session 04-A defects for Session B (all FIXED in 04-B)
+1. **DEF-01** — FIXED: `company/profile/page.tsx` now uses `fetchOwnerBusinessProfile` + `BusinessProfileView`.
+2. **DEF-02** — FIXED: `(company)/layout.tsx` removed Directory claim ownership branch.
+3. **DEF-03** — FIXED: create-profile uses `fetchOwnerBusinessProfileRow` + gate helper before wizard.
+4. **DEF-04** — FIXED: orphaned `resulting_profile_id` → create_profile stay (no dashboard loop).
+5. **DEF-05** — FIXED: empty/non-approved paths use Spec §8 via `resolveBusinessCreateProfileGate`.
+6. **DEF-06** — FIXED: middleware entity wrong-role → `redirectTo(/login)`.
+7. **DEF-07** — FIXED: billing uses `fetchOwnerBusinessProfile.directory_id`.
+8. **DEF-08** — FIXED: verification-pending loads profile row into `resolveVerificationOutcome`.
 
-### Session 04-A route map (route → guard → logic)
-| Route | Guard | Logic |
-|---|---|---|
-| `/signup/company` | public signup | EntitySignupWizard company→business |
-| `/signup/business` | public | → `/signup/company` |
-| `/company/verification-pending` | company-verification-pending (no org_profile) | stay pending/needs_more_info; else outcome.path (DEF-08) |
-| `/company/verification-rejected` | company-verification-rejected | latest rejected or → signup |
-| `/company/verification/reapply` | company-verification-reapply | eligible form / blocked / → pending |
-| `/company/pending-review` | legacy | → verification-pending |
-| `/company/rejected` | legacy | → verification-rejected |
-| `/company/claim/reapply` | legacy | → verification/reapply |
-| `/company/create-profile` | company-create-profile (no org_profile) | DEF-03/04/05 gates; else wizard |
-| `/company/dashboard` | company-portal + org_profile | draft/published via fetchOwnerBusinessProfile |
-| `/company/profile` | company-portal + org_profile | DEF-01 Directory view |
-| `/company/profile/edit` | company-portal + org_profile | owner draft management |
-| `/company/profile/preview` | company-portal + org_profile | owner visitor preview |
-| `/company/profile-suspended` | company-profile-suspended | suspended message |
-| `/company/billing` (group) | company-portal + org_profile | DEF-07 claimed_by |
-| `/catalog/[slug]` | public | Directory + correction entry if owner |
-| `/companies/[slug]/profile` | public | published Profile only |
-
-### Session 04-A scope notes
-- No product-code, schema, RLS, or migration changes (ledger-only).
-- Dashboard placeholder metrics retained (Spec 08).
-- Correction apply-path deferred (Spec 06); publication deferred (Spec 07).
-- Terminology note (non-blocking): signup prop `entityType="company"` vs Spec wording "business"; internal Claim* component names remain (external contracts).
+### Session 04-B scope (this commit)
+- Fixed every Session A named defect; added Spec §20 integration suite + per-defect regressions.
+- No schema, RPC, RLS, dashboard-metric, correction-apply-path, or publication changes.
 
 ### Still deferred (Specification 04)
-- Session B: fix DEF-01…DEF-08 only
-- Session closeout / evidence walks
+- Session C closeout / evidence walks / SHIPPED
 
 ---
 

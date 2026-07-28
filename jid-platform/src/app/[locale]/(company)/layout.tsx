@@ -9,6 +9,7 @@ type CompanyGroupLayoutProps = {
   children: ReactNode
 }
 
+/** Spec 04-B DEF-02 — layout from owned Profile rows only (no Directory claim ownership). */
 export default async function CompanyGroupLayout({ children }: CompanyGroupLayoutProps) {
   const userId = await requireAuthenticatedUser()
   const supabase = await createClient()
@@ -26,18 +27,6 @@ export default async function CompanyGroupLayout({ children }: CompanyGroupLayou
     .maybeSingle()
 
   if (universityProfile) {
-    return <UniversityLayout>{children}</UniversityLayout>
-  }
-
-  const { data: company } = await supabase
-    .from('companies')
-    .select('entity_type')
-    .eq('claimed_by', userId)
-    .order('updated_at', { ascending: false })
-    .limit(1)
-    .maybeSingle()
-
-  if (company?.entity_type === 'university') {
     return <UniversityLayout>{children}</UniversityLayout>
   }
 
