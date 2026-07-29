@@ -5,8 +5,8 @@
 | Field | Value |
 |---|---|
 | specification | 05 |
-| status | IN_PROGRESS |
-| session | 05-B owned-university-profile routing and dashboard-honesty wiring |
+| status | SHIPPED |
+| session | 05-D COMPLETE (Session C SKIPPED — rls_gap=false) |
 | Session A base SHA | 68c656d7d01578a1eafb98a2f82d6819d3c63500 |
 | Session A source branch | cursor/jid-05a-chain-reconciliation |
 | Spec 04 gate | SHIPPED; promoted SHA `68c656d7d01578a1eafb98a2f82d6819d3c63500` equals resolved tip of `origin/agent/nonprod-signup-fix` and is an ancestor of that tip |
@@ -27,12 +27,29 @@
 | Session B files | owner-university-profile.ts (+Row); university-create-profile-gate.ts; university/create-profile/page.tsx; university/pending-review/page.tsx; university-dashboard.tsx; empty-university-state.tsx; university-layout.tsx; company/dashboard/page.tsx (claimed_by absence retained); messages en/ar; tests/unit/entity/university-journey-chain.test.ts; university-dashboard-honesty.test.tsx |
 | Session B rls_gap | **false** — `110_profile_ownership_policies.sql`: owner read-own (`owner_user_id = auth.uid()`, no status filter); public published-only SELECT retained; draft/suspended not exposed to anon/non-owner. Query scopes `owner_user_id` server-side. No migration in Session B. |
 | Session B observations unfixed | OBS-01 no `/university/profile` view page; OBS-02 layout omits profile edit nav (i18n only); OBS-03 snapshot via `university_dashboard_view` (pipeline Spec 08); KpiCard footer still hardcoded Arabic (pre-existing; not in Session A inventory) |
-| Session B local validation | PENDING (reported in completion response) |
-| Session B validation CI | PENDING (reported in completion response) |
-| Session B target CI | PENDING (reported in completion response) |
-| Session B Vercel | PENDING (reported in completion response) |
-| Session B implementation SHA | PENDING (reported in completion response — do not self-embed) |
-| Session B promoted SHA | PENDING (reported in completion response after FF promotion) |
+| Session B local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (280 passed / 61 skipped); corepack pnpm build PASS |
+| Session B validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30476431171 (SHA ba9127e on codex/jid-05b-ci-validation) |
+| Session B target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30479086091 (SHA ba9127e on agent/nonprod-signup-fix) |
+| Session B Vercel | PASS — Vercel Preview Comments success (check-run 90669387669) |
+| Session B implementation SHA | ba9127e8de29a76bd6e119411810767460ed69f5 |
+| Session B promoted SHA | ba9127e8de29a76bd6e119411810767460ed69f5 |
+| Session C | **SKIPPED** — mechanical gate: Session B `rls_gap=false`; zero edits/commits; carried-forward SHA `ba9127e8de29a76bd6e119411810767460ed69f5` |
+| Session C migration | none |
+| Session D base SHA | ba9127e8de29a76bd6e119411810767460ed69f5 |
+| Session D source branch | cursor/jid-05d-closeout |
+| Session D regression | PASS — full local suite at Session B tip + closeout commit (evidence + ledger + capture script); no product regressions found |
+| Session D repair | No regressions found. |
+| Session D claimed_by grep | **zero** matches across university journey route/query paths listed below |
+| Session D evidence set | `docs/command-center/reports/ui-evidence/spec-05/` — real Playwright Chromium PNG captures + INDEX.md (AR/EN full chain; rejected/reapply; AR 375px primary + mobile rejected set; both dashboard snapshot states) |
+| Session D route map | see table below |
+| Session D preserved contracts | PASS — Spec 02 decision RPCs untouched; Spec 03 rejected/reapply university routes retained; `verification_requests` / `create_university_profile` unchanged; migrations unchanged (Session C skipped); `viewer_approved_*` / `claim_requests` residue remains deferred (local-only compat view used for smoke, not committed); Catalog / Lammah untouched |
+| Session D disposable fixtures | local project `jid-05d-disposable` ports 58321–58324; seed + ephemeral university fixtures; local-only `claimed_by`+`university_short_code=KSU` for populated snapshot smoke; destroyed after evidence |
+| Session D local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm exec vitest run --testTimeout=30000 PASS (280 passed / 61 skipped; default 5s timeout flakes on Temp filesystem scan tests); corepack pnpm build PASS |
+| Session D validation CI | PENDING (reported in completion response) |
+| Session D target CI | PENDING (reported in completion response) |
+| Session D Vercel | PENDING (reported in completion response) |
+| Session D implementation SHA | PENDING (reported in completion response — do not self-embed) |
+| Session D promoted SHA | PENDING (reported in completion response after FF promotion) |
 
 ### Session 05-A verified starting-state (evidenced at tip `68c656d7`)
 
@@ -140,6 +157,57 @@ Proof files:
 
 - `fetchOwnerUniversityProfile` already existed at Session A tip; Session B aligned it with the business pattern (+Row), retained owned-profile routing on `(university)/dashboard`, and documented company dashboard `claimed_by` absence (already removed pre-Session A).
 - `rls_gap: false` — no Session C migration required unless later disposable proof contradicts policy text.
+
+### Session 05-C mechanical skip
+
+- Gate: Session B ledger `rls_gap | **false**`.
+- Action: zero edits, zero commits, no migration, no promotion.
+- Carried-forward SHA: `ba9127e8de29a76bd6e119411810767460ed69f5`.
+
+### Session 05-D claimed_by grep proof (journey route + query paths)
+
+**ZERO** matches for `claimed_by` in:
+- `src/app/[locale]/(university)/**`
+- `src/app/[locale]/(company)/company/dashboard/**`
+- `src/app/[locale]/(company)/_components/university-dashboard.tsx`
+- `src/app/[locale]/(company)/_components/empty-university-state.tsx`
+- `src/app/[locale]/(company)/_components/university-layout.tsx`
+- `src/lib/queries/university-dashboard.ts`
+- `src/lib/profile/owner-university-profile.ts`
+- `src/lib/entity/university-create-profile-gate.ts`
+- `src/lib/entity/verification-outcome.ts`
+- `src/lib/entity/rejected-claim.ts`
+- `src/lib/entity/claims.ts`
+- `src/middleware.ts`
+
+**Deferred observation (not journey TS):** SQL view `university_dashboard_view` still joins via `companies.claimed_by` + `university_short_code` (migration `023_university_rls_policies.sql`). Snapshot pipeline / view ownership remapping remains Spec 08 / deferred. Local-only smoke set `claimed_by` on the seed university Directory row to exercise the populated KPI path; that fixture was not committed.
+
+### Specification 05 route map (Session D)
+
+| Route | Guard (`guards.ts` / page) | Destination logic |
+|---|---|---|
+| `/signup/university` | public auth signup | `EntitySignupWizard entityType="university"` → pending-review after submit |
+| `/university/pending-review` | `university-pending-review` roles entity/university_admin | Loads owned profile row + latest verification → `resolveVerificationOutcome`; redirects when approved/owned/suspended |
+| `/university/rejected` | `university-rejected-page` | Latest rejected verification + reapply CTA → `/university/reapply` when eligible |
+| `/university/reapply` | `university-reapply` | Spec 03 `ClaimSubmissionForm claimType="university"` |
+| `/university/create-profile` | `university-create-profile` | `resolveUniversityCreateProfileGate` + owned Profile row; orphaned `resulting_profile_id` stays on wizard |
+| `/university/dashboard` | `university-portal` + org profile type university | No owned profile → create-profile; draft → `OrganizationDraftDashboard`; else `UniversityDashboard` (honest empty/present/error) |
+| `/university/profile/edit` | `university-profile-owner` | PSW-001 owner edit/save (Session A shipped) |
+| `/university/profile/preview` | `university-profile-owner` | PSW-001 visitor preview |
+| `/university/profile-suspended` | `university-profile-suspended` | Suspended owner notice |
+| `/company/dashboard` | company portal | Business owned-profile only — **no** university/`claimed_by` branch |
+| `/catalog` | public | Directory reference (published profiles) |
+
+### Still deferred after Specification 05
+
+- Snapshot generation pipeline / remapping `university_dashboard_view` off `companies.claimed_by`
+- Deeper institutional analytics
+- Publication (Specification 07)
+- Visual redesign (Specification 08)
+- New university draft-management UI beyond PSW-001 shipped surfaces
+- Dedicated `/university/profile` view page (OBS-01)
+- Permanent migration repair for `viewer_approved_*` / `claim_requests` residue
+- Catalog automated ingestion and Lammah external opportunity ingestion (never in Spec 05)
 
 ---
 

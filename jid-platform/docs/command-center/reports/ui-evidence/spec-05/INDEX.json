@@ -1,0 +1,344 @@
+[
+  {
+    "file": "01-signup-university-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "anonymous",
+    "route": "/signup/university",
+    "step": "01-signup"
+  },
+  {
+    "file": "02-pending-review-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "pending_review",
+    "route": "/university/pending-review",
+    "step": "02-pending"
+  },
+  {
+    "file": "03-create-profile-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "approved_without_profile",
+    "route": "/university/create-profile",
+    "step": "03-approved-create-profile"
+  },
+  {
+    "file": "04-draft-dashboard-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/dashboard",
+    "step": "04-draft-created"
+  },
+  {
+    "file": "05-profile-edit-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/profile/edit",
+    "step": "05-profile-edit"
+  },
+  {
+    "file": "06-profile-preview-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/profile/preview",
+    "step": "06-visitor-preview"
+  },
+  {
+    "file": "07-dashboard-snapshot-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "published_with_snapshot",
+    "route": "/university/dashboard",
+    "step": "07-dashboard-snapshot-present"
+  },
+  {
+    "file": "08-directory-catalog-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "published_profile",
+    "route": "/catalog",
+    "step": "08-directory-reference"
+  },
+  {
+    "file": "09-correction-entry-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "published_profile",
+    "route": "/university/profile/edit?section=correction",
+    "step": "09-correction-entry"
+  },
+  {
+    "file": "10-dashboard-empty-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "published_no_snapshot",
+    "route": "/university/dashboard",
+    "step": "10-dashboard-snapshot-absent"
+  },
+  {
+    "file": "11-rejected-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "rejected_eligible",
+    "route": "/university/rejected",
+    "step": "11-rejected"
+  },
+  {
+    "file": "12-reapply-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "rejected_eligible",
+    "route": "/university/reapply",
+    "step": "12-reapply"
+  },
+  {
+    "file": "01-signup-university-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "anonymous",
+    "route": "/signup/university",
+    "step": "01-signup"
+  },
+  {
+    "file": "02-pending-review-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "pending_review",
+    "route": "/university/pending-review",
+    "step": "02-pending"
+  },
+  {
+    "file": "03-create-profile-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "approved_without_profile",
+    "route": "/university/create-profile",
+    "step": "03-approved-create-profile"
+  },
+  {
+    "file": "04-draft-dashboard-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/dashboard",
+    "step": "04-draft-created"
+  },
+  {
+    "file": "05-profile-edit-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/profile/edit",
+    "step": "05-profile-edit"
+  },
+  {
+    "file": "06-profile-preview-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/profile/preview",
+    "step": "06-visitor-preview"
+  },
+  {
+    "file": "07-dashboard-snapshot-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "published_with_snapshot",
+    "route": "/university/dashboard",
+    "step": "07-dashboard-snapshot-present"
+  },
+  {
+    "file": "08-directory-catalog-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "published_profile",
+    "route": "/catalog",
+    "step": "08-directory-reference"
+  },
+  {
+    "file": "09-correction-entry-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "published_profile",
+    "route": "/university/profile/edit?section=correction",
+    "step": "09-correction-entry"
+  },
+  {
+    "file": "10-dashboard-empty-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "published_no_snapshot",
+    "route": "/university/dashboard",
+    "step": "10-dashboard-snapshot-absent"
+  },
+  {
+    "file": "11-rejected-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "rejected_eligible",
+    "route": "/university/rejected",
+    "step": "11-rejected"
+  },
+  {
+    "file": "12-reapply-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "university",
+    "state": "rejected_eligible",
+    "route": "/university/reapply",
+    "step": "12-reapply"
+  },
+  {
+    "file": "01-signup-university-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "anonymous",
+    "route": "/signup/university",
+    "step": "01-signup"
+  },
+  {
+    "file": "02-pending-review-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "pending_review",
+    "route": "/university/pending-review",
+    "step": "02-pending"
+  },
+  {
+    "file": "03-create-profile-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "approved_without_profile",
+    "route": "/university/create-profile",
+    "step": "03-approved-create-profile"
+  },
+  {
+    "file": "04-draft-dashboard-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/dashboard",
+    "step": "04-draft-created"
+  },
+  {
+    "file": "05-profile-edit-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/profile/edit",
+    "step": "05-profile-edit"
+  },
+  {
+    "file": "06-profile-preview-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "draft_profile",
+    "route": "/university/profile/preview",
+    "step": "06-visitor-preview"
+  },
+  {
+    "file": "07-dashboard-snapshot-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "published_with_snapshot",
+    "route": "/university/dashboard",
+    "step": "07-dashboard-snapshot-present"
+  },
+  {
+    "file": "08-directory-catalog-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "published_profile",
+    "route": "/catalog",
+    "step": "08-directory-reference"
+  },
+  {
+    "file": "09-correction-entry-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "published_profile",
+    "route": "/university/profile/edit?section=correction",
+    "step": "09-correction-entry"
+  },
+  {
+    "file": "10-dashboard-empty-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "published_no_snapshot",
+    "route": "/university/dashboard",
+    "step": "10-dashboard-snapshot-absent"
+  },
+  {
+    "file": "11-rejected-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "rejected_eligible",
+    "route": "/university/rejected",
+    "step": "11-rejected"
+  },
+  {
+    "file": "12-reapply-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "university",
+    "state": "rejected_eligible",
+    "route": "/university/reapply",
+    "step": "12-reapply"
+  },
+  {
+    "file": "11-rejected-en-mobile-375.png",
+    "locale": "en",
+    "viewport": "375",
+    "actor": "university",
+    "state": "rejected_eligible",
+    "route": "/university/rejected",
+    "step": "11-rejected"
+  },
+  {
+    "file": "12-reapply-en-mobile-375.png",
+    "locale": "en",
+    "viewport": "375",
+    "actor": "university",
+    "state": "rejected_eligible",
+    "route": "/university/reapply",
+    "step": "12-reapply"
+  }
+]
