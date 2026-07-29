@@ -26,7 +26,7 @@
 | Session B defects fixed | DEF-01…DEF-07 (all Session A named defects) |
 | Session B files | owner-university-profile.ts (+Row); university-create-profile-gate.ts; university/create-profile/page.tsx; university/pending-review/page.tsx; university-dashboard.tsx; empty-university-state.tsx; university-layout.tsx; company/dashboard/page.tsx (claimed_by absence retained); messages en/ar; tests/unit/entity/university-journey-chain.test.ts; university-dashboard-honesty.test.tsx |
 | Session B rls_gap | **false** — `110_profile_ownership_policies.sql`: owner read-own (`owner_user_id = auth.uid()`, no status filter); public published-only SELECT retained; draft/suspended not exposed to anon/non-owner. Query scopes `owner_user_id` server-side. No migration in Session B. |
-| Session B observations unfixed | OBS-01 no `/university/profile` view page; OBS-02 layout omits profile edit nav (i18n only); OBS-03 snapshot via `university_dashboard_view` (pipeline Spec 08) |
+| Session B observations unfixed | OBS-01 no `/university/profile` view page; OBS-02 layout omits profile edit nav (i18n only); OBS-03 snapshot via `university_dashboard_view` (pipeline Spec 08); KpiCard footer still hardcoded Arabic (pre-existing; not in Session A inventory) |
 | Session B local validation | PENDING (reported in completion response) |
 | Session B validation CI | PENDING (reported in completion response) |
 | Session B target CI | PENDING (reported in completion response) |

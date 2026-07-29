@@ -101,7 +101,7 @@ describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
           profile_completion_pct: 12.5,
           cv_creation_pct: 8,
           job_applications: 3,
-          mentorship_sessions: 7,
+          mentorship_sessions: 11,
           status_breakdown: { alumni: 5 },
           refreshed_at: '2026-07-20T09:30:00.000Z',
         },
@@ -113,7 +113,7 @@ describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
     expect(screen.getByTestId('university-dashboard-snapshot')).toBeInTheDocument()
     expect(screen.getByText('42')).toBeInTheDocument()
     expect(screen.getByText('3')).toBeInTheDocument()
-    expect(screen.getByText(/7/)).toBeInTheDocument()
+    expect(screen.getByText(/Confirmed\/completed mentorship sessions: 11/)).toBeInTheDocument()
     expect(screen.getByText(/Last updated/i)).toBeInTheDocument()
   })
 
