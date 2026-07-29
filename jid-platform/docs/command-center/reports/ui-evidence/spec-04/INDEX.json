@@ -1,0 +1,425 @@
+[
+  {
+    "file": "01-signup-business-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "anonymous",
+    "route": "/signup/business",
+    "step": "01-signup"
+  },
+  {
+    "file": "01-signup-business-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "anonymous",
+    "route": "/signup/business",
+    "step": "01-signup"
+  },
+  {
+    "file": "01-signup-business-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "anonymous",
+    "route": "/signup/business",
+    "step": "01-signup"
+  },
+  {
+    "file": "02-signup-company-wizard-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "anonymous",
+    "route": "/signup/company",
+    "step": "02-submit-verification-entry"
+  },
+  {
+    "file": "02-signup-company-wizard-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "anonymous",
+    "route": "/signup/company",
+    "step": "02-submit-verification-entry"
+  },
+  {
+    "file": "02-signup-company-wizard-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "anonymous",
+    "route": "/signup/company",
+    "step": "02-submit-verification-entry"
+  },
+  {
+    "file": "03-verification-pending-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "pending_review",
+    "route": "/company/verification-pending",
+    "step": "03-pending"
+  },
+  {
+    "file": "03-verification-pending-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "pending_review",
+    "route": "/company/verification-pending",
+    "step": "03-pending"
+  },
+  {
+    "file": "03-verification-pending-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "pending_review",
+    "route": "/company/verification-pending",
+    "step": "03-pending"
+  },
+  {
+    "file": "04-approved-create-profile-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "approved_without_profile",
+    "route": "/company/create-profile",
+    "step": "04-approved-create-profile"
+  },
+  {
+    "file": "04-approved-create-profile-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "approved_without_profile",
+    "route": "/company/create-profile",
+    "step": "04-approved-create-profile"
+  },
+  {
+    "file": "04-approved-create-profile-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "approved_without_profile",
+    "route": "/company/create-profile",
+    "step": "04-approved-create-profile"
+  },
+  {
+    "file": "05-draft-created-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "draft_profile",
+    "route": "/company/profile",
+    "step": "05-draft-created"
+  },
+  {
+    "file": "05-draft-created-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "draft_profile",
+    "route": "/company/profile",
+    "step": "05-draft-created"
+  },
+  {
+    "file": "05-draft-created-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "draft_profile",
+    "route": "/company/profile",
+    "step": "05-draft-created"
+  },
+  {
+    "file": "05b-profile-view-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile",
+    "step": "05b-profile-view"
+  },
+  {
+    "file": "05b-profile-view-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile",
+    "step": "05b-profile-view"
+  },
+  {
+    "file": "05b-profile-view-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile",
+    "step": "05b-profile-view"
+  },
+  {
+    "file": "06-profile-edit-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "06-profile-edit"
+  },
+  {
+    "file": "06-profile-edit-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "06-profile-edit"
+  },
+  {
+    "file": "06-profile-edit-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "06-profile-edit"
+  },
+  {
+    "file": "07-profile-edit-after-save-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "07-edit-save"
+  },
+  {
+    "file": "07-profile-edit-after-save-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "07-edit-save"
+  },
+  {
+    "file": "07-profile-edit-after-save-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "07-edit-save"
+  },
+  {
+    "file": "08-profile-edit-reload-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "08-edit-reload"
+  },
+  {
+    "file": "08-profile-edit-reload-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "08-edit-reload"
+  },
+  {
+    "file": "08-profile-edit-reload-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit",
+    "step": "08-edit-reload"
+  },
+  {
+    "file": "09-visitor-preview-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/preview",
+    "step": "09-visitor-preview"
+  },
+  {
+    "file": "09-visitor-preview-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/preview",
+    "step": "09-visitor-preview"
+  },
+  {
+    "file": "09-visitor-preview-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/preview",
+    "step": "09-visitor-preview"
+  },
+  {
+    "file": "10-directory-catalog-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/catalog/seed-verified-business-co",
+    "step": "10-directory-reference"
+  },
+  {
+    "file": "10-directory-catalog-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/catalog/seed-verified-business-co",
+    "step": "10-directory-reference"
+  },
+  {
+    "file": "10-directory-catalog-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/catalog/seed-verified-business-co",
+    "step": "10-directory-reference"
+  },
+  {
+    "file": "11-correction-entry-ar-mobile-375.png",
+    "locale": "en",
+    "viewport": "375",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit?section=correction",
+    "step": "11-correction-entry"
+  },
+  {
+    "file": "11-correction-entry-ar.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit?section=correction",
+    "step": "11-correction-entry"
+  },
+  {
+    "file": "11-correction-entry-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/profile/edit?section=correction",
+    "step": "11-correction-entry"
+  },
+  {
+    "file": "12-dashboard-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/dashboard",
+    "step": "12-dashboard"
+  },
+  {
+    "file": "12-dashboard-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/dashboard",
+    "step": "12-dashboard"
+  },
+  {
+    "file": "12-dashboard-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "published_profile",
+    "route": "/company/dashboard",
+    "step": "12-dashboard"
+  },
+  {
+    "file": "13-rejected-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "rejected_eligible",
+    "route": "/company/verification-rejected",
+    "step": "13-rejected"
+  },
+  {
+    "file": "13-rejected-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "rejected_eligible",
+    "route": "/company/verification-rejected",
+    "step": "13-rejected"
+  },
+  {
+    "file": "13-rejected-en-mobile-375.png",
+    "locale": "en",
+    "viewport": "375",
+    "actor": "business",
+    "state": "rejected_eligible",
+    "route": "/company/verification-rejected",
+    "step": "13-rejected"
+  },
+  {
+    "file": "13-rejected-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "rejected_eligible",
+    "route": "/company/verification-rejected",
+    "step": "13-rejected"
+  },
+  {
+    "file": "14-reapply-ar-mobile-375.png",
+    "locale": "ar",
+    "viewport": "375",
+    "actor": "business",
+    "state": "rejected_eligible",
+    "route": "/company/verification/reapply",
+    "step": "14-reapply"
+  },
+  {
+    "file": "14-reapply-ar.png",
+    "locale": "ar",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "rejected_eligible",
+    "route": "/company/verification/reapply",
+    "step": "14-reapply"
+  },
+  {
+    "file": "14-reapply-en-mobile-375.png",
+    "locale": "en",
+    "viewport": "375",
+    "actor": "business",
+    "state": "rejected_eligible",
+    "route": "/company/verification/reapply",
+    "step": "14-reapply"
+  },
+  {
+    "file": "14-reapply-en.png",
+    "locale": "en",
+    "viewport": "desktop",
+    "actor": "business",
+    "state": "rejected_eligible",
+    "route": "/company/verification/reapply",
+    "step": "14-reapply"
+  }
+]

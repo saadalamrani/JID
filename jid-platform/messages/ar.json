@@ -874,7 +874,9 @@
       "submitting": "جاري الإرسال...",
       "sentMessage": "إذا كان البريد مسجلاً، ستصلك رسالة برابط الاستعادة.",
       "backToLogin": "العودة لتسجيل الدخول",
-      "errors": { "generic": "تعذّر إرسال الرابط. حاول مرة أخرى." }
+      "errors": {
+        "generic": "تعذّر إرسال الرابط. حاول مرة أخرى."
+      }
     },
     "resetPassword": {
       "title": "كلمة مرور جديدة",
@@ -1107,6 +1109,74 @@
       "saved": "تم حفظ التغييرات",
       "saveFailed": "تعذّر حفظ التغييرات",
       "validationFailed": "راجع الحقول المطلوبة"
+    },
+    "boost": {
+      "teaserTitle": "الظهور المميّز",
+      "teaserBody": "ارفع ظهور وظائفك في لوحة الفرص مع وسم «مميّزة» شفاف — دون التأثير على ترتيب ابحثلي.",
+      "salesCta": "تواصل مع المبيعات",
+      "toggleTitle": "تمييز هذه الوظيفة",
+      "toggleAria": "تبديل التمييز",
+      "quotaMeter": "{active}/{quota} فرص مميّزة",
+      "windowRemaining": "متبقٍ {days} يوم",
+      "errors": {
+        "subscription_required": "يتطلب اشتراك الظهور المميّز.",
+        "boost_quota_exceeded": "وصلت لحد التمييز المتزامن."
+      },
+      "performance": {
+        "title": "أداء التمييز",
+        "lift": "الظهور ×{multiplier} منذ التمييز",
+        "liftPending": "بيانات كافية لتقدير الرفع قريباً",
+        "empty": "لا توجد إحصاءات بعد",
+        "date": "التاريخ",
+        "impressions": "ظهور",
+        "opens": "فتح",
+        "intents": "نوايا",
+        "declarations": "إقرارات"
+      }
+    },
+    "ssis": {
+      "pageTitle": "الفحص الذكي",
+      "backToApplicants": "العودة للمتقدمين",
+      "teaserTitle": "الفحص الذكي (SSIS)",
+      "teaserBody": "فلترة أولية آلية مخصّصة لدورك وقطاعك — نصّي وسيناريو فقط، بموافقة بشرية قبل النشر.",
+      "salesCta": "تواصل مع المبيعات",
+      "generateTitle": "توليد فحص ذكي",
+      "generateSubtitle": "يُولَّد الاختبار تلقائياً وفق سياق الجهة والقطاع والدور — لا يُقبل سياق من العميل.",
+      "contextLabel": "سيُولَّد الاختبار وفق",
+      "contextPending": "يُجمَع السياق من ملف الشركة والفرصة عند التوليد",
+      "generateCta": "توليد الفحص",
+      "generateError": "تعذّر التوليد",
+      "builderTitle": "محرّر الفحص",
+      "builderSubtitle": "راجع الأسئلة والمعايير قبل الموافقة — الذكاء الاصطناعي يصوغ، أنت تنشر.",
+      "showPreview": "معاينة المرشح",
+      "hidePreview": "إخفاء المعاينة",
+      "confirmPreview": "أقرّ بمعاينة تجربة المرشح",
+      "previewConfirmed": "تمت المعاينة",
+      "previewError": "تعذّر تأكيد المعاينة",
+      "approveCta": "الموافقة وتفعيل الفحص",
+      "approveError": "تعذّر التفعيل — تأكد من المعاينة والاشتراك",
+      "activeBanner": "الفحص نشط — يمكنك دعوة المتقدمين ومراجعة النتائج",
+      "regenerateBlock": "ولّد بديلاً",
+      "regenerateError": "تعذّر إعادة التوليد",
+      "saveBlock": "حفظ التعديل",
+      "saveError": "تعذّر الحفظ",
+      "rubricLabel": "معايير التقييم (للقراءة)",
+      "inviteTitle": "دعوة المتقدمين",
+      "inviteSubtitle": "للمُقرّون فقط — تُرسل الدعوة عبر إشعار المنصة (ولا تُحجب بدون اشتراك التواصل الذكي).",
+      "noApplicants": "لا يوجد متقدمون مؤهلون",
+      "inviteCta": "إرسال دعوة ({count})",
+      "invitedCount": "أُرسلت {count} دعوة",
+      "inviteError": "تعذّر إرسال الدعوات",
+      "resultsTitle": "لوحة النتائج",
+      "thresholdLabel": "عتبة النجاح: {threshold}",
+      "noResults": "لا توجد دعوات بعد",
+      "anonymousApplicant": "متقدم",
+      "pendingEval": "قيد التقييم",
+      "showBreakdown": "تفاصيل المعايير",
+      "hideBreakdown": "إخفاء التفاصيل",
+      "blockScore": "درجة السؤال: {score}",
+      "advanceAction": "تقديم للمرحلة التالية",
+      "declineAction": "رفض"
     }
   },
   "organizationProfile": {
@@ -1634,14 +1704,38 @@
           "universityHint": "مسار جامعي — لا يُشترط تطابق نطاق بريد بنفس صرامة القطاع الخاص.",
           "mentorHint": "مسار مرشد — قائمة تحقق أخف (لا تطابق نطاق مؤسسي).",
           "items": {
-            "domain_match": { "label": "تطابق النطاق", "hint": "النطاقات المسجّلة: {domains}" },
-            "entity_exists": { "label": "الكيان موجود", "hint": "تأكد من وجود سجل الدليل" },
-            "linkedin_verified": { "label": "لينكدإن", "hint": "راجع صفحة لينكدإن إن وُجدت" },
-            "job_reasonable": { "label": "المسمى معقول", "hint": "المسمى يتوافق مع الدور" },
-            "no_duplicates": { "label": "لا تكرار", "hint": "لا طلبات مكررة نشطة" },
-            "linkedin_role": { "label": "دور لينكدإن", "hint": "يتوافق مع خبرة المرشد" },
-            "expertise_plausible": { "label": "مجال الخبرة", "hint": "مجالات الخبرة معقولة" },
-            "bio_quality": { "label": "جودة النبذة", "hint": "نبذة كافية للمراجعة" }
+            "domain_match": {
+              "label": "تطابق النطاق",
+              "hint": "النطاقات المسجّلة: {domains}"
+            },
+            "entity_exists": {
+              "label": "الكيان موجود",
+              "hint": "تأكد من وجود سجل الدليل"
+            },
+            "linkedin_verified": {
+              "label": "لينكدإن",
+              "hint": "راجع صفحة لينكدإن إن وُجدت"
+            },
+            "job_reasonable": {
+              "label": "المسمى معقول",
+              "hint": "المسمى يتوافق مع الدور"
+            },
+            "no_duplicates": {
+              "label": "لا تكرار",
+              "hint": "لا طلبات مكررة نشطة"
+            },
+            "linkedin_role": {
+              "label": "دور لينكدإن",
+              "hint": "يتوافق مع خبرة المرشد"
+            },
+            "expertise_plausible": {
+              "label": "مجال الخبرة",
+              "hint": "مجالات الخبرة معقولة"
+            },
+            "bio_quality": {
+              "label": "جودة النبذة",
+              "hint": "نبذة كافية للمراجعة"
+            }
           }
         },
         "decision": {
@@ -4652,76 +4746,6 @@
         "openExternal": "فتح على المصدر",
         "viewDetails": "عرض التفاصيل"
       }
-    }
-  },
-  "company": {
-    "boost": {
-      "teaserTitle": "الظهور المميّز",
-      "teaserBody": "ارفع ظهور وظائفك في لوحة الفرص مع وسم «مميّزة» شفاف — دون التأثير على ترتيب ابحثلي.",
-      "salesCta": "تواصل مع المبيعات",
-      "toggleTitle": "تمييز هذه الوظيفة",
-      "toggleAria": "تبديل التمييز",
-      "quotaMeter": "{active}/{quota} فرص مميّزة",
-      "windowRemaining": "متبقٍ {days} يوم",
-      "errors": {
-        "subscription_required": "يتطلب اشتراك الظهور المميّز.",
-        "boost_quota_exceeded": "وصلت لحد التمييز المتزامن."
-      },
-      "performance": {
-        "title": "أداء التمييز",
-        "lift": "الظهور ×{multiplier} منذ التمييز",
-        "liftPending": "بيانات كافية لتقدير الرفع قريباً",
-        "empty": "لا توجد إحصاءات بعد",
-        "date": "التاريخ",
-        "impressions": "ظهور",
-        "opens": "فتح",
-        "intents": "نوايا",
-        "declarations": "إقرارات"
-      }
-    },
-    "ssis": {
-      "pageTitle": "الفحص الذكي",
-      "backToApplicants": "العودة للمتقدمين",
-      "teaserTitle": "الفحص الذكي (SSIS)",
-      "teaserBody": "فلترة أولية آلية مخصّصة لدورك وقطاعك — نصّي وسيناريو فقط، بموافقة بشرية قبل النشر.",
-      "salesCta": "تواصل مع المبيعات",
-      "generateTitle": "توليد فحص ذكي",
-      "generateSubtitle": "يُولَّد الاختبار تلقائياً وفق سياق الجهة والقطاع والدور — لا يُقبل سياق من العميل.",
-      "contextLabel": "سيُولَّد الاختبار وفق",
-      "contextPending": "يُجمَع السياق من ملف الشركة والفرصة عند التوليد",
-      "generateCta": "توليد الفحص",
-      "generateError": "تعذّر التوليد",
-      "builderTitle": "محرّر الفحص",
-      "builderSubtitle": "راجع الأسئلة والمعايير قبل الموافقة — الذكاء الاصطناعي يصوغ، أنت تنشر.",
-      "showPreview": "معاينة المرشح",
-      "hidePreview": "إخفاء المعاينة",
-      "confirmPreview": "أقرّ بمعاينة تجربة المرشح",
-      "previewConfirmed": "تمت المعاينة",
-      "previewError": "تعذّر تأكيد المعاينة",
-      "approveCta": "الموافقة وتفعيل الفحص",
-      "approveError": "تعذّر التفعيل — تأكد من المعاينة والاشتراك",
-      "activeBanner": "الفحص نشط — يمكنك دعوة المتقدمين ومراجعة النتائج",
-      "regenerateBlock": "ولّد بديلاً",
-      "regenerateError": "تعذّر إعادة التوليد",
-      "saveBlock": "حفظ التعديل",
-      "saveError": "تعذّر الحفظ",
-      "rubricLabel": "معايير التقييم (للقراءة)",
-      "inviteTitle": "دعوة المتقدمين",
-      "inviteSubtitle": "للمُقرّون فقط — تُرسل الدعوة عبر إشعار المنصة (ولا تُحجب بدون اشتراك التواصل الذكي).",
-      "noApplicants": "لا يوجد متقدمون مؤهلون",
-      "inviteCta": "إرسال دعوة ({count})",
-      "invitedCount": "أُرسلت {count} دعوة",
-      "inviteError": "تعذّر إرسال الدعوات",
-      "resultsTitle": "لوحة النتائج",
-      "thresholdLabel": "عتبة النجاح: {threshold}",
-      "noResults": "لا توجد دعوات بعد",
-      "anonymousApplicant": "متقدم",
-      "pendingEval": "قيد التقييم",
-      "showBreakdown": "تفاصيل المعايير",
-      "hideBreakdown": "إخفاء التفاصيل",
-      "blockScore": "درجة السؤال: {score}",
-      "advanceAction": "تقديم للمرحلة التالية",
-      "declineAction": "رفض"
     }
   },
   "monetization": {

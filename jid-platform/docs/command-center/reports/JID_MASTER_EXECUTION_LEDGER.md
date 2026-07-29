@@ -5,8 +5,8 @@
 | Field | Value |
 |---|---|
 | specification | 04 |
-| status | IN_PROGRESS |
-| session | 04-B COMPLETE (chain defects fixed + §20 integration tests) |
+| status | SHIPPED |
+| session | 04-C closeout (Sessions 04-A, 04-B complete) |
 | Session A base SHA | 5af8b8aa6786fc45b19e3ea7eba49cdf52c284f1 |
 | Session A source branch | cursor/jid-04a-chain-reconciliation |
 | Spec 03 gate | SHIPPED; promoted SHA `548b40a8563ac22130d44c055c5eae2c638f4fb7` is an ancestor of Session A base |
@@ -25,11 +25,24 @@
 | Session B files | company/profile/page.tsx; (company)/layout.tsx; company/create-profile/page.tsx; business-create-profile-gate.ts; verification-outcome.ts; company/verification-pending/page.tsx; (company)/billing/page.tsx; middleware.ts; owner-business-profile.ts; tests/unit/entity/business-journey-chain.test.ts; verification-outcome-ui.test.tsx |
 | Session B observations unfixed | University create-profile / pending-review mirror pre-fix Business anti-patterns (Spec 05). Staff/sys middleware still uses notFound for wrong-role (intentional; DEF-06 scoped to general entity guards). `getCurrentViewer` still resolves Directory id via approved verification (unused by fixed /company/profile). |
 | Session B local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (253 passed / 61 skipped without disposable env); corepack pnpm build PASS |
-| Session B validation CI | PENDING |
-| Session B target CI | PENDING |
-| Session B Vercel | PENDING |
-| Session B implementation SHA | PENDING (reported in completion response) |
-| Session B promoted SHA | PENDING (reported in completion response after FF promotion) |
+| Session B validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30395358647 (SHA 8809b74) |
+| Session B target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30395717616 (SHA 8809b74 on agent/nonprod-signup-fix) |
+| Session B Vercel | PASS — Vercel Preview Comments success (check-run 90398493962) |
+| Session B implementation SHA | 8809b745c8886dcd685b62f288b4e8b35df53b52 |
+| Session B promoted SHA | 8809b745c8886dcd685b62f288b4e8b35df53b52 |
+| Session C base SHA | 8809b745c8886dcd685b62f288b4e8b35df53b52 |
+| Session C source branch | cursor/jid-04c-closeout |
+| Session C regression | PASS — full local suite at Session B tip + closeout commit; one closeout repair (duplicate `company` message key merge) |
+| Session C repair | Merged duplicate top-level `company` keys in `messages/en.json` + `messages/ar.json` so `company.nav` / shell / profileCreation remain with boost/ssis (JSON last-key-wins had shadowed portal copy). Minimal integrity test added. |
+| Session C evidence set | `docs/command-center/reports/ui-evidence/spec-04/` — real Playwright Chromium PNG captures + INDEX.md (AR/EN full chain; rejected/reapply; AR 375px primary + mobile rejected set) |
+| Session C route map | see table below |
+| Session C preserved contracts | PASS — `rejected-claim.ts` byte-identical vs Session B tip; `supabase/migrations` byte-identical; Session B product paths for DEF-01…DEF-08 unchanged in this closeout except messages/tests/docs |
+| Session C local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (254 passed / 61 skipped); corepack pnpm build PASS |
+| Session C validation CI | PENDING (reported in completion response) |
+| Session C target CI | PENDING (reported in completion response) |
+| Session C Vercel | PENDING (reported in completion response) |
+| Session C implementation SHA | PENDING (reported in completion response) |
+| Session C promoted SHA | PENDING (reported in completion response after FF promotion) |
 
 ### Session 04-A verified starting-state (present)
 - Business signup: `/signup/business` → `/signup/company`; `EntitySignupWizard entityType="company"` (DB type `business` via `toDbEntityType`).
@@ -67,12 +80,41 @@
 7. **DEF-07** — FIXED: billing uses `fetchOwnerBusinessProfile.directory_id`.
 8. **DEF-08** — FIXED: verification-pending loads profile row into `resolveVerificationOutcome`.
 
-### Session 04-B scope (this commit)
+### Session 04-B scope (complete)
 - Fixed every Session A named defect; added Spec §20 integration suite + per-defect regressions.
 - No schema, RPC, RLS, dashboard-metric, correction-apply-path, or publication changes.
+- Promoted SHA `8809b745c8886dcd685b62f288b4e8b35df53b52`.
 
-### Still deferred (Specification 04)
-- Session C closeout / evidence walks / SHIPPED
+### Session 04-C scope (complete — closeout)
+- Full regression of Sessions A+B together; real-browser AR/EN smoke walks + 375px primary; Business rejected→reapply both locales; route map; preserved-contract verification; ledger `SHIPPED`.
+- Closeout repair only: duplicate `company` message namespace merge (required for `StandardCompanyLayout` / portal copy after DEF-02).
+
+### Specification 04 route map (Session C)
+
+| Route | Guard (`guards.ts` / page) | Destination logic |
+|---|---|---|
+| `/signup/business` | public | redirect → `/signup/company` |
+| `/signup/company` | public (`onboarding-company-entity`) | Entity signup wizard; submit → pending verification path |
+| `/company/verification-pending` | `entity` \| `company_admin` (no org_profile) | Spec §8 pending / needs_more_info; else redirect via `resolveVerificationOutcome` |
+| `/company/verification-rejected` | `entity` \| `company_admin` | Latest rejected + reapply CTA → `/company/verification/reapply` |
+| `/company/verification/reapply` | `entity` \| `company_admin` | ClaimSubmissionForm when `canReapplyNow`; else blocked copy |
+| `/company/create-profile` | `entity` \| `company_admin` | `resolveBusinessCreateProfileGate` → wizard / redirect (DEF-03/04/05) |
+| `/company/profile` | org_profile business | `fetchOwnerBusinessProfile` + `BusinessProfileView` (DEF-01) |
+| `/company/profile/edit` | org_profile business | Owner management (PSW-001); sections include reference + correction entry |
+| `/company/profile/preview` | org_profile business | Owner visitor preview |
+| `/company/dashboard` | org_profile business | Owner dashboard (placeholder metrics → Spec 08) |
+| `/company/billing` | org_profile business | Billing uses owned Profile `directory_id` (DEF-07) |
+| `/company/profile-suspended` | `entity` \| `company_admin` | Suspended override surface |
+| `/catalog/[slug]` | public | Directory reference + `CorrectionSuggestionForm` entry (apply-path Spec 06) |
+| Entity wrong-role on company routes | middleware | `redirectTo(/login)` (DEF-06); staff/sys still `notFound` |
+
+### Still deferred (not resolved by Specification 04)
+- Dashboard honesty / placeholder metrics (Specification 08)
+- UI restyling (Specification 08 W9-B)
+- Correction apply-path (Specification 06)
+- Publication (Specification 07)
+- University create-profile / pending-review mirror cleanup (Specification 05)
+- Permanent migration repair for `viewer_approved_*` still referencing `claim_requests` after P-101 rename (local disposable compat view used only for Session C smoke)
 
 ---
 

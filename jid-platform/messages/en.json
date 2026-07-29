@@ -874,7 +874,9 @@
       "submitting": "Sending...",
       "sentMessage": "If the email is registered, you will receive a reset link shortly.",
       "backToLogin": "Back to sign in",
-      "errors": { "generic": "Could not send reset link. Try again." }
+      "errors": {
+        "generic": "Could not send reset link. Try again."
+      }
     },
     "resetPassword": {
       "title": "New password",
@@ -1107,6 +1109,74 @@
       "saved": "Changes saved",
       "saveFailed": "Could not save changes",
       "validationFailed": "Please fix the required fields"
+    },
+    "boost": {
+      "teaserTitle": "Priority visibility",
+      "teaserBody": "Elevate job placement on the opportunities board with an honest «مميّزة» label — without affecting Search For Me ranking.",
+      "salesCta": "Contact sales",
+      "toggleTitle": "Boost this job",
+      "toggleAria": "Toggle boost",
+      "quotaMeter": "{active}/{quota} boosted slots",
+      "windowRemaining": "{days} days remaining",
+      "errors": {
+        "subscription_required": "Priority visibility subscription required.",
+        "boost_quota_exceeded": "Concurrent boost quota reached."
+      },
+      "performance": {
+        "title": "Boost performance",
+        "lift": "Impressions ×{multiplier} since boost",
+        "liftPending": "Collecting baseline data for lift estimate",
+        "empty": "No stats yet",
+        "date": "Date",
+        "impressions": "Impressions",
+        "opens": "Opens",
+        "intents": "Intents",
+        "declarations": "Declarations"
+      }
+    },
+    "ssis": {
+      "pageTitle": "Smart screening",
+      "backToApplicants": "Back to applicants",
+      "teaserTitle": "Smart Screening (SSIS)",
+      "teaserBody": "Automated first-round filter aligned to your sector and role — text and scenario only, human approval before publish.",
+      "salesCta": "Contact sales",
+      "generateTitle": "Generate smart screening",
+      "generateSubtitle": "The test is generated from frozen company + job context — client-supplied context is rejected.",
+      "contextLabel": "Will generate for",
+      "contextPending": "Context assembled from catalog + job on generate",
+      "generateCta": "Generate screening",
+      "generateError": "Generation failed",
+      "builderTitle": "Screening builder",
+      "builderSubtitle": "Review questions and rubrics before approval — AI drafts, you publish.",
+      "showPreview": "Candidate preview",
+      "hidePreview": "Hide preview",
+      "confirmPreview": "I reviewed the candidate experience",
+      "previewConfirmed": "Preview confirmed",
+      "previewError": "Could not confirm preview",
+      "approveCta": "Approve and activate",
+      "approveError": "Activation failed — check preview and subscription",
+      "activeBanner": "Screening is active — invite applicants and review results",
+      "regenerateBlock": "Regenerate alternative",
+      "regenerateError": "Regeneration failed",
+      "saveBlock": "Save edit",
+      "saveError": "Save failed",
+      "rubricLabel": "Evaluation rubric (read-only)",
+      "inviteTitle": "Invite applicants",
+      "inviteSubtitle": "Declared applicants only — invites always deliver via platform notification.",
+      "noApplicants": "No eligible applicants",
+      "inviteCta": "Send invites ({count})",
+      "invitedCount": "Sent {count} invite(s)",
+      "inviteError": "Invite failed",
+      "resultsTitle": "Results board",
+      "thresholdLabel": "Pass threshold: {threshold}",
+      "noResults": "No invitations yet",
+      "anonymousApplicant": "Applicant",
+      "pendingEval": "Evaluating",
+      "showBreakdown": "Criterion breakdown",
+      "hideBreakdown": "Hide breakdown",
+      "blockScore": "Block score: {score}",
+      "advanceAction": "Advance",
+      "declineAction": "Decline"
     }
   },
   "organizationProfile": {
@@ -1644,14 +1714,38 @@
           "universityHint": "University path — domain match is lighter than private sector.",
           "mentorHint": "Mentor path — lighter checklist (no institutional domain match).",
           "items": {
-            "domain_match": { "label": "Domain match", "hint": "Registered domains: {domains}" },
-            "entity_exists": { "label": "Entity exists", "hint": "Directory record is present" },
-            "linkedin_verified": { "label": "LinkedIn", "hint": "Review LinkedIn if provided" },
-            "job_reasonable": { "label": "Title plausible", "hint": "Title matches the role" },
-            "no_duplicates": { "label": "No duplicates", "hint": "No other active requests" },
-            "linkedin_role": { "label": "LinkedIn role", "hint": "Matches mentor expertise" },
-            "expertise_plausible": { "label": "Expertise", "hint": "Expertise areas are plausible" },
-            "bio_quality": { "label": "Bio quality", "hint": "Bio is sufficient for review" }
+            "domain_match": {
+              "label": "Domain match",
+              "hint": "Registered domains: {domains}"
+            },
+            "entity_exists": {
+              "label": "Entity exists",
+              "hint": "Directory record is present"
+            },
+            "linkedin_verified": {
+              "label": "LinkedIn",
+              "hint": "Review LinkedIn if provided"
+            },
+            "job_reasonable": {
+              "label": "Title plausible",
+              "hint": "Title matches the role"
+            },
+            "no_duplicates": {
+              "label": "No duplicates",
+              "hint": "No other active requests"
+            },
+            "linkedin_role": {
+              "label": "LinkedIn role",
+              "hint": "Matches mentor expertise"
+            },
+            "expertise_plausible": {
+              "label": "Expertise",
+              "hint": "Expertise areas are plausible"
+            },
+            "bio_quality": {
+              "label": "Bio quality",
+              "hint": "Bio is sufficient for review"
+            }
           }
         },
         "decision": {
@@ -4662,76 +4756,6 @@
         "openExternal": "Open source",
         "viewDetails": "View details"
       }
-    }
-  },
-  "company": {
-    "boost": {
-      "teaserTitle": "Priority visibility",
-      "teaserBody": "Elevate job placement on the opportunities board with an honest «مميّزة» label — without affecting Search For Me ranking.",
-      "salesCta": "Contact sales",
-      "toggleTitle": "Boost this job",
-      "toggleAria": "Toggle boost",
-      "quotaMeter": "{active}/{quota} boosted slots",
-      "windowRemaining": "{days} days remaining",
-      "errors": {
-        "subscription_required": "Priority visibility subscription required.",
-        "boost_quota_exceeded": "Concurrent boost quota reached."
-      },
-      "performance": {
-        "title": "Boost performance",
-        "lift": "Impressions ×{multiplier} since boost",
-        "liftPending": "Collecting baseline data for lift estimate",
-        "empty": "No stats yet",
-        "date": "Date",
-        "impressions": "Impressions",
-        "opens": "Opens",
-        "intents": "Intents",
-        "declarations": "Declarations"
-      }
-    },
-    "ssis": {
-      "pageTitle": "Smart screening",
-      "backToApplicants": "Back to applicants",
-      "teaserTitle": "Smart Screening (SSIS)",
-      "teaserBody": "Automated first-round filter aligned to your sector and role — text and scenario only, human approval before publish.",
-      "salesCta": "Contact sales",
-      "generateTitle": "Generate smart screening",
-      "generateSubtitle": "The test is generated from frozen company + job context — client-supplied context is rejected.",
-      "contextLabel": "Will generate for",
-      "contextPending": "Context assembled from catalog + job on generate",
-      "generateCta": "Generate screening",
-      "generateError": "Generation failed",
-      "builderTitle": "Screening builder",
-      "builderSubtitle": "Review questions and rubrics before approval — AI drafts, you publish.",
-      "showPreview": "Candidate preview",
-      "hidePreview": "Hide preview",
-      "confirmPreview": "I reviewed the candidate experience",
-      "previewConfirmed": "Preview confirmed",
-      "previewError": "Could not confirm preview",
-      "approveCta": "Approve and activate",
-      "approveError": "Activation failed — check preview and subscription",
-      "activeBanner": "Screening is active — invite applicants and review results",
-      "regenerateBlock": "Regenerate alternative",
-      "regenerateError": "Regeneration failed",
-      "saveBlock": "Save edit",
-      "saveError": "Save failed",
-      "rubricLabel": "Evaluation rubric (read-only)",
-      "inviteTitle": "Invite applicants",
-      "inviteSubtitle": "Declared applicants only — invites always deliver via platform notification.",
-      "noApplicants": "No eligible applicants",
-      "inviteCta": "Send invites ({count})",
-      "invitedCount": "Sent {count} invite(s)",
-      "inviteError": "Invite failed",
-      "resultsTitle": "Results board",
-      "thresholdLabel": "Pass threshold: {threshold}",
-      "noResults": "No invitations yet",
-      "anonymousApplicant": "Applicant",
-      "pendingEval": "Evaluating",
-      "showBreakdown": "Criterion breakdown",
-      "hideBreakdown": "Hide breakdown",
-      "blockScore": "Block score: {score}",
-      "advanceAction": "Advance",
-      "declineAction": "Decline"
     }
   },
   "monetization": {
