@@ -1,5 +1,121 @@
 # JID Master Execution Ledger
 
+## Specification 05 — University End-to-End Journey
+
+| Field | Value |
+|---|---|
+| specification | 05 |
+| status | IN_PROGRESS |
+| session | 05-A baseline reconciliation / full-chain defect inventory (read-only product freeze) |
+| Session A base SHA | 68c656d7d01578a1eafb98a2f82d6819d3c63500 |
+| Session A source branch | cursor/jid-05a-chain-reconciliation |
+| Spec 04 gate | SHIPPED; promoted SHA `68c656d7d01578a1eafb98a2f82d6819d3c63500` equals resolved tip of `origin/agent/nonprod-signup-fix` and is an ancestor of that tip |
+| intervening_commits | none — tip equals Spec 04 final promoted SHA |
+| intervening_scope_touch | none — no commits after Spec 04 tip; university / company-dashboard / university-dashboard / owned-profile paths unchanged since Spec 04 ship |
+| Session A defect inventory | DEF-01…DEF-07 (+ observations OBS-01…OBS-03; claimed_by journey-route count = 0) |
+| Session A claimed_by journey routes | **zero** matches under `src/app/[locale]/(university)/**` and `src/app/[locale]/(company)/company/dashboard/page.tsx` |
+| Session A PSW-001 university parity | **SHIPPED** (not business-only) — see finding below |
+| Session A local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (254 passed / 61 skipped); corepack pnpm build PASS |
+| Session A validation CI | PENDING (reported in completion response) |
+| Session A target CI | PENDING (reported in completion response) |
+| Session A Vercel | PENDING (reported in completion response) |
+| Session A implementation SHA | PENDING (reported in completion response — do not self-embed) |
+| Session A promoted SHA | PENDING (reported in completion response after FF promotion) |
+
+### Session 05-A verified starting-state (evidenced at tip `68c656d7`)
+
+| Check | Result | Evidence |
+|---|---|---|
+| `EntitySignupWizard entityType="university"` reachable | verified present | `src/app/[locale]/(auth)/signup/university/page.tsx` returns `<EntitySignupWizard entityType="university" />`; wizard maps university → `/university/pending-review` |
+| `/university/pending-review` | verified present | `…/(university)/university/pending-review/page.tsx` |
+| `/university/rejected` | verified present | `…/university/rejected/page.tsx` |
+| Spec 03 university reapply + rejected link | verified present | `…/university/reapply/page.tsx` (ClaimSubmissionForm `claimType="university"`); rejected CTA `href="/university/reapply"` when `canReapplyNow` |
+| `/university/create-profile` + `create_university_profile` | verified present | create-profile page + wizard; `createUniversityProfile` → `client.rpc('create_university_profile', …)` in `src/lib/auth/verification.ts` |
+| `(university)/…/dashboard/page.tsx` renders `UniversityDashboard` | **partially stale vs Spec §5 wording** | Page does **not** render `UniversityDashboard` unconditionally: redirects if no owned profile; draft → `OrganizationDraftDashboard`; else `<UniversityDashboard />`. Owner query is `fetchOwnerUniversityProfile` (already exists). |
+| `(company)/company/dashboard` university via `companies.claimed_by` | **STALE ASSUMPTION — not true at tip** | Current file uses only `fetchOwnerBusinessProfile` → draft/CompanyDashboard. **No** `claimed_by` read; **no** university branch. Removed earlier (PSW-001 `1e75528`). |
+| `UniversityDashboard` + snapshot + `EmptyUniversityState` | present with honesty defects | Component reads `useUniversityDashboard` → `university_dashboard_view`; `EmptyUniversityState` is a real alternate path but only when `snapshot.total_students === 0`; absent/error path shows Arabic error copy instead of empty state (DEF-04/05/06) |
+| `/university/profile-suspended` | verified present | `…/university/profile-suspended/page.tsx` |
+| PSW-001 university draft management parity | **SHIPPED (both actors)** | Report `docs/command-center/reports/PSW-001_ORGANIZATION_DRAFT_PROFILE_MANAGEMENT_REPORT.md` lists `/university/dashboard`, `/university/profile/edit`, `/university/profile/preview`; code: `university-profile-management.tsx`, `university-profile-view.tsx`, `updateOwnerUniversityProfile` / Action, tests 2/4 in `organization-draft-management.test.tsx` |
+
+### Session 05-A transition inventory
+
+| Transition | Result |
+|---|---|
+| Signup → submit → pending-review | verified correct |
+| Rejected → Spec 03 `/university/reapply` loop | verified correct |
+| Approved → create-profile (happy path) | verified correct (fallback / non-approved paths DEF-02) |
+| Create-profile → draft via `create_university_profile` RPC | verified correct |
+| Wizard re-entry with owned Profile / orphaned `resulting_profile_id` | DEF-01 / DEF-02 |
+| Pending-review Spec §8 with owned/suspended Profile | DEF-03 |
+| Draft → owner edit/save/reload (`/university/profile/edit`) | verified correct (PSW-001) |
+| Owner preview (`/university/profile/preview`) | verified correct |
+| Public draft invisibility (catalog published-only embed) | verified correct (`resolvePublishedProfile` requires `status === 'published'`) |
+| Directory reference + correction entry on edit | verified correct |
+| Dashboard owned-Profile routing (`fetchOwnerUniversityProfile`) | verified correct on `(university)` dashboard; company dashboard has no university/`claimed_by` branch |
+| Snapshot present → real KPIs + PDF | verified correct when snapshot row exists and `total_students !== 0` |
+| Snapshot absent → `EmptyUniversityState`, no export, no zeros | DEF-04 |
+| Snapshot present with `total_students === 0` | DEF-04 (treated as empty; Spec §7 expects real KPIs when snapshot present) |
+| Empty-state CTA target | DEF-05 (`/company/profile`) |
+| Dashboard / empty / layout AR+EN parity | DEF-06 (hardcoded Arabic) |
+| Suspended override on org_profile routes | verified correct via `checkOrganizationProfile` + guards |
+| Suspended on create-profile / pending-review pages | DEF-03 (+ missing Row helper DEF-07) |
+| Non-owner denial on owner surfaces | verified correct (owner_user_id server fetch → redirect/notFound; no draft to visitors) |
+| Journey route `claimed_by` references | verified none (0) |
+
+### Session 05-A defects for Session B
+
+1. **DEF-01** — `university/create-profile/page.tsx` redirects to `/university/dashboard` when `verification.resulting_profile_id` is set, without requiring an owned `university_profiles` row. Expected: mirror Spec 04-B — owned Profile (incl. status) drives redirect; orphaned `resulting_profile_id` stays on wizard (honest recovery).
+2. **DEF-02** — University create-profile lacks a Spec §8 / gate helper equivalent to `resolveBusinessCreateProfileGate` (uses `getMyApprovedVerifications` length-only + `resulting_profile_id` shortcut). Expected: profile-first gate; non-approved / empty verification paths resolve via `resolveVerificationOutcome` for university.
+3. **DEF-03** — `university/pending-review/page.tsx` always passes `profile: null` into `resolveVerificationOutcome` (Business DEF-08 mirror). Expected: load owned university profile row (incl. suspended) before outcome resolution so owned/suspended users leave pending correctly.
+4. **DEF-04** — `university-dashboard.tsx` honesty wiring: `(query.isError \|\| !snapshot)` → error copy; `EmptyUniversityState` only if `snapshot.total_students === 0`. Expected: snapshot absent → `EmptyUniversityState` (no KPI cards, no export, no zero-filled cards); snapshot present → real values (including legitimate zeros) + export; query error → distinct honest error.
+5. **DEF-05** — `empty-university-state.tsx` default `ctaHref = '/company/profile'` (wrong actor). Expected: university owner surface (e.g. `/university/profile/edit`) within existing routes — wiring only.
+6. **DEF-06** — `UniversityDashboard`, `EmptyUniversityState`, and `university-layout.tsx` use hardcoded Arabic strings (no `next-intl`). Expected: full AR/EN parity on namespaces touched by Spec 05 dashboard/empty/layout wiring; Latin digits in Arabic.
+7. **DEF-07** — No `fetchOwnerUniversityProfileRow` (status-aware, includes suspended) mirroring `fetchOwnerBusinessProfileRow`. `fetchOwnerUniversityProfile` already exists and excludes suspended. Expected: add/extend Row helper for DEF-01/DEF-03 gates (query wiring only; no schema/RPC).
+
+### claimed_by reference list (Session A)
+
+**Inside Spec 05 journey route files:** none.
+
+**Outside journey (not Session B unless proven to gate this chain):**
+- `src/app/[locale]/(sys)/sys/entities/actions.ts` — staff Directory claim writes
+- `src/lib/onboarding/entity-queries.ts` / `entity-actions.ts` — legacy onboarding `companies.claimed_by`
+- `src/lib/jobs/company-access.ts` — transitional P-104 path
+- `src/lib/applications/triage-access.ts`
+- `src/lib/hooks/use-current-entity.ts`
+- Types / generated Supabase types / sys+staff entity list selects
+
+**Spec §5 defect statement status:** the `(company)/company/dashboard` university `claimed_by` branch is **already absent** at Spec 04 tip. Session B must not reintroduce it; residual work is university create-profile/pending-review mirrors + dashboard honesty/i18n wiring, not resurrecting a removed branch.
+
+### PSW-001 university-parity finding
+
+**Conclusion: PSW-001 shipped university-side draft management equivalent to business (not business-only).**
+
+Proof files:
+- `docs/command-center/reports/PSW-001_ORGANIZATION_DRAFT_PROFILE_MANAGEMENT_REPORT.md` (routes table includes university edit/preview/dashboard)
+- `src/components/organization-profile/university-profile-management.tsx`
+- `src/components/organization-profile/university-profile-view.tsx`
+- `src/app/[locale]/(university)/university/profile/edit/page.tsx`
+- `src/app/[locale]/(university)/university/profile/preview/page.tsx`
+- `src/lib/profile/organization-profile-update.ts` (`updateOwnerUniversityProfile`)
+- `src/lib/profile/organization-draft-management.test.tsx` (university cases)
+- `src/lib/profile/owner-university-profile.ts` (`fetchOwnerUniversityProfile`)
+
+**Observation (not a Spec 05 build-new-UI ticket):** no `/university/profile` owner view page exists (business has `/company/profile`). Edit + preview + draft dashboard cover management; absence is recorded only — do not invent new management UI in Spec 05.
+
+### Observations (future specs / out of Spec 05 product scope)
+
+- **OBS-01** — No dedicated `/university/profile` view route (business-only surface parity gap for a view page). Deferred; wiring-only Spec 05 must not invent it.
+- **OBS-02** — `UniversityLayout` nav omits profile edit/preview links (owners reach them via draft dashboard). Optional nav wiring only if Session B touches layout for DEF-06.
+- **OBS-03** — Snapshot source is `university_dashboard_view` (not a raw `university_dashboard` table select). Pipeline/generation remains Spec 08 / deferred; honesty wiring only here.
+
+### Session 05-A scope reminder for Session B
+
+- Fix DEF-01…DEF-07 only (wiring/routing/honesty/i18n on existing surfaces).
+- Do **not** build new university draft-management UI; do **not** change snapshot pipeline, RPCs, schema, or `companies` columns.
+- Do **not** add invented KPIs; publication = Spec 07; deeper metrics = Spec 08.
+
+---
+
 ## Specification 04 — Business End-to-End Journey
 
 | Field | Value |
