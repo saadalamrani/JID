@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Download, Loader2 } from 'lucide-react'
 import { Document, Page, StyleSheet, Text, View, pdf } from '@react-pdf/renderer'
+import { useTranslations, useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { track } from '@/lib/analytics/track'
 import {
@@ -43,43 +44,53 @@ function pickSnapshot(rows: UniversityDashboardSnapshot[] | undefined): Universi
   return rows[0] ?? null
 }
 
-function buildPdfDocument(snapshot: UniversityDashboardSnapshot) {
+function buildPdfDocument(snapshot: UniversityDashboardSnapshot, labels: {
+  title: string
+  refreshedAt: string
+  totalStudents: string
+  profileCompletion: string
+  cvCreation: string
+  jobApplications: string
+  mentorshipSessions: string
+  statusBreakdown: string
+  collegeDistribution: string
+}) {
   const statuses = parseMap(snapshot.status_breakdown)
   const colleges = parseMap(snapshot.college_distribution)
 
   return (
     <Document>
       <Page size="A4" style={pdfStyles.page}>
-        <Text style={pdfStyles.heading}>University Dashboard Report</Text>
+        <Text style={pdfStyles.heading}>{labels.title}</Text>
         <Text style={pdfStyles.subtitle}>
-          Refreshed at: {new Date(snapshot.refreshed_at).toLocaleString()}
+          {labels.refreshedAt}: {new Date(snapshot.refreshed_at).toLocaleString('en-US')}
         </Text>
 
         <View style={pdfStyles.section}>
           <View style={pdfStyles.row}>
-            <Text>Total Students</Text>
+            <Text>{labels.totalStudents}</Text>
             <Text>{snapshot.total_students}</Text>
           </View>
           <View style={pdfStyles.row}>
-            <Text>Profile Completion</Text>
+            <Text>{labels.profileCompletion}</Text>
             <Text>{formatPct(snapshot.profile_completion_pct)}</Text>
           </View>
           <View style={pdfStyles.row}>
-            <Text>CV Creation</Text>
+            <Text>{labels.cvCreation}</Text>
             <Text>{formatPct(snapshot.cv_creation_pct)}</Text>
           </View>
           <View style={pdfStyles.row}>
-            <Text>Job Applications</Text>
+            <Text>{labels.jobApplications}</Text>
             <Text>{snapshot.job_applications}</Text>
           </View>
           <View style={pdfStyles.row}>
-            <Text>Mentorship Sessions</Text>
+            <Text>{labels.mentorshipSessions}</Text>
             <Text>{snapshot.mentorship_sessions}</Text>
           </View>
         </View>
 
         <View style={pdfStyles.section}>
-          <Text>Status Breakdown</Text>
+          <Text>{labels.statusBreakdown}</Text>
           {Object.entries(statuses).map(([key, value]) => (
             <View key={key} style={pdfStyles.row}>
               <Text>{key}</Text>
@@ -89,7 +100,7 @@ function buildPdfDocument(snapshot: UniversityDashboardSnapshot) {
         </View>
 
         <View style={pdfStyles.section}>
-          <Text>College Distribution</Text>
+          <Text>{labels.collegeDistribution}</Text>
           {Object.entries(colleges).map(([key, value]) => (
             <View key={key} style={pdfStyles.row}>
               <Text>{key}</Text>
@@ -114,7 +125,10 @@ function downloadBlob(blob: Blob, filename: string) {
   window.setTimeout(() => URL.revokeObjectURL(url), 0)
 }
 
+/** Spec 05-B DEF-04/06 — honest snapshot-present / absent / error states with AR/EN parity. */
 export function UniversityDashboard() {
+  const t = useTranslations('university.dashboard')
+  const locale = useLocale()
   const [exporting, setExporting] = useState(false)
   const query = useUniversityDashboard()
 
@@ -129,7 +143,19 @@ export function UniversityDashboard() {
     if (!snapshot || exporting) return
     setExporting(true)
     try {
-      const blob = await pdf(buildPdfDocument(snapshot)).toBlob()
+      const blob = await pdf(
+        buildPdfDocument(snapshot, {
+          title: t('pdfTitle'),
+          refreshedAt: t('refreshedAt'),
+          totalStudents: t('kpi.totalStudents'),
+          profileCompletion: t('kpi.profileCompletion'),
+          cvCreation: t('kpi.cvCreation'),
+          jobApplications: t('kpi.jobApplications'),
+          mentorshipSessions: t('kpi.mentorshipSessions'),
+          statusBreakdown: t('statusBreakdown'),
+          collegeDistribution: t('collegeDistribution'),
+        }),
+      ).toBlob()
       downloadBlob(blob, `university-dashboard-${snapshot.university_id}.pdf`)
       track('university_dashboard_pdf_exported', { university_id: snapshot.university_id })
     } finally {
@@ -140,30 +166,35 @@ export function UniversityDashboard() {
   if (query.isLoading) {
     return (
       <section className="rounded-2xl border border-border bg-white p-6">
-        <p className="text-sm text-foreground/60">جاري تحميل مؤشرات الجامعة...</p>
+        <p className="text-sm text-foreground/60">{t('loading')}</p>
       </section>
     )
   }
 
-  if (query.isError || !snapshot) {
+  if (query.isError) {
     return (
-      <section className="rounded-2xl border border-border bg-white p-6">
-        <p className="text-sm text-red-600">تعذر تحميل بيانات لوحة الجامعة حالياً.</p>
+      <section className="rounded-2xl border border-border bg-white p-6" data-testid="university-dashboard-error">
+        <p className="text-sm text-red-600">{t('error')}</p>
       </section>
     )
   }
 
-  if (snapshot.total_students === 0) {
+  // Spec 05-B DEF-04: absent snapshot → EmptyUniversityState (not zero-filled KPIs).
+  if (!snapshot) {
     return <EmptyUniversityState />
   }
 
+  const refreshedLabel = new Date(snapshot.refreshed_at).toLocaleString(
+    locale === 'ar' ? 'en-US' : undefined,
+  )
+
   return (
-    <div className="space-y-5">
+    <div className="space-y-5" data-testid="university-dashboard-snapshot">
       <header className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-white p-5">
         <div>
-          <h1 className="text-2xl font-semibold text-foreground">لوحة إحصاءات الجامعة</h1>
+          <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
           <p className="mt-1 text-sm text-foreground/65">
-            آخر تحديث: {new Date(snapshot.refreshed_at).toLocaleString()}
+            {t('refreshedAt')}: {refreshedLabel}
           </p>
         </div>
         <Button
@@ -171,34 +202,36 @@ export function UniversityDashboard() {
           className="gap-2 bg-primary hover:bg-primary/90"
           onClick={() => void handleExport()}
           disabled={exporting}
+          aria-label={t('exportAria')}
+          data-testid="university-dashboard-export"
         >
           {exporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-          {exporting ? 'جاري التصدير...' : 'تصدير PDF'}
+          {exporting ? t('exporting') : t('exportPdf')}
         </Button>
       </header>
 
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-        <KpiCard label="إجمالي الطلاب" value={snapshot.total_students} />
-        <KpiCard label="اكتمال الملفات" value={formatPct(snapshot.profile_completion_pct)} />
-        <KpiCard label="إنشاء السيرة الذاتية" value={formatPct(snapshot.cv_creation_pct)} />
-        <KpiCard label="طلبات التوظيف" value={snapshot.job_applications} />
+        <KpiCard label={t('kpi.totalStudents')} value={snapshot.total_students} />
+        <KpiCard label={t('kpi.profileCompletion')} value={formatPct(snapshot.profile_completion_pct)} />
+        <KpiCard label={t('kpi.cvCreation')} value={formatPct(snapshot.cv_creation_pct)} />
+        <KpiCard label={t('kpi.jobApplications')} value={snapshot.job_applications} />
       </section>
 
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <article className="rounded-2xl border border-border bg-white p-5">
-          <h2 className="mb-3 text-lg font-semibold text-foreground">التوزيع حسب الحالة الدراسية</h2>
+          <h2 className="mb-3 text-lg font-semibold text-foreground">{t('statusBreakdown')}</h2>
           <StatusBreakdownBars data={snapshot.status_breakdown} />
         </article>
         <article className="rounded-2xl border border-border bg-white p-5">
-          <h2 className="mb-3 text-lg font-semibold text-foreground">التوزيع حسب الكليات</h2>
+          <h2 className="mb-3 text-lg font-semibold text-foreground">{t('collegeDistribution')}</h2>
           <CollegeDistributionBars data={snapshot.college_distribution} />
         </article>
       </section>
 
       <section className="rounded-2xl border border-accent/40 bg-background/50 p-5">
-        <h2 className="text-lg font-semibold text-foreground">أثر الإرشاد</h2>
+        <h2 className="text-lg font-semibold text-foreground">{t('mentorshipTitle')}</h2>
         <p className="mt-1 text-sm text-foreground/70">
-          عدد جلسات الإرشاد المؤكدة/المكتملة: <span className="font-semibold">{snapshot.mentorship_sessions}</span>
+          {t('mentorshipBody', { count: snapshot.mentorship_sessions })}
         </p>
       </section>
     </div>

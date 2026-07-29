@@ -12,6 +12,31 @@ export type OwnerUniversityProfile = Database['public']['Tables']['university_pr
   directory_slug: string | null
 }
 
+/**
+ * Spec 05-B DEF-07 / DEF-03 — status-aware owner row including suspended
+ * (fetchOwnerUniversityProfile excludes suspended for normal owner surfaces).
+ */
+export async function fetchOwnerUniversityProfileRow(
+  client: Client,
+  userId: string,
+): Promise<{ id: string; status: string } | null> {
+  const { data, error } = await client
+    .from('university_profiles')
+    .select('id, status')
+    .eq('owner_user_id', userId)
+    .order('updated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+
+  if (error) throw new Error(error.message)
+  return data
+}
+
+/**
+ * Spec 05-B — owned university Profile for authenticated owner routes.
+ * Filters `owner_user_id` to the session user supplied by the server caller;
+ * never trust a client-supplied arbitrary user id from the browser.
+ */
 export async function fetchOwnerUniversityProfile(
   client: Client,
   userId: string,

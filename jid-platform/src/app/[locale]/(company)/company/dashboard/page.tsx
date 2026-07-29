@@ -5,6 +5,10 @@ import { fetchOrganizationDirectoryReference } from '@/lib/profile/organization-
 import { fetchOwnerBusinessProfile } from '@/lib/profile/owner-business-profile'
 import { createClient } from '@/lib/supabase/server'
 
+/**
+ * Spec 05-B — Business dashboard only (owned business Profile).
+ * University owners use the `(university)` dashboard route group.
+ */
 export default async function CompanyDashboardPage() {
   const userId = await requireAuthenticatedUser()
   const supabase = await createClient()

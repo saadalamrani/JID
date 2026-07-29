@@ -1,9 +1,11 @@
 import { PendingReviewView } from '@/components/entity/pending-review-view'
 import { getLatestVerificationForUser } from '@/lib/entity/claims'
 import { resolveVerificationOutcome } from '@/lib/entity/verification-outcome'
+import { fetchOwnerUniversityProfileRow } from '@/lib/profile/owner-university-profile'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
+/** Spec 05-B DEF-03 — load owned Profile (incl. suspended) before Spec §8 resolution. */
 export default async function UniversityPendingReviewPage() {
   const supabase = await createClient()
   const {
@@ -14,11 +16,12 @@ export default async function UniversityPendingReviewPage() {
     redirect('/login')
   }
 
+  const profileRow = await fetchOwnerUniversityProfileRow(supabase, user.id)
   const verification = await getLatestVerificationForUser(supabase, user.id, 'university')
   const outcome = resolveVerificationOutcome({
     orgType: 'university',
     authenticated: true,
-    profile: null,
+    profile: profileRow ? { status: profileRow.status } : null,
     verification: verification
       ? {
           status: verification.status,

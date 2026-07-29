@@ -1314,6 +1314,37 @@
     }
   },
   "university": {
+    "nav": {
+      "shellTitle": "University panel",
+      "dashboard": "Statistics dashboard",
+      "directory": "University directory"
+    },
+    "dashboard": {
+      "title": "University statistics",
+      "loading": "Loading university indicators...",
+      "error": "University dashboard data could not be loaded right now.",
+      "refreshedAt": "Last updated",
+      "exportPdf": "Export PDF",
+      "exporting": "Exporting...",
+      "exportAria": "Export university dashboard as PDF",
+      "pdfTitle": "University Dashboard Report",
+      "statusBreakdown": "Distribution by academic status",
+      "collegeDistribution": "Distribution by college",
+      "mentorshipTitle": "Mentorship impact",
+      "mentorshipBody": "Confirmed/completed mentorship sessions: {count}",
+      "kpi": {
+        "totalStudents": "Total students",
+        "profileCompletion": "Profile completion",
+        "cvCreation": "CV creation",
+        "jobApplications": "Job applications",
+        "mentorshipSessions": "Mentorship sessions"
+      },
+      "empty": {
+        "title": "Not enough data yet",
+        "description": "Update your university profile and complete student data to show statistics-dashboard indicators.",
+        "cta": "Go to university profile"
+      }
+    },
     "profileSuspended": {
       "title": "Profile suspended",
       "message": "The platform has suspended your university's public profile. Contact support for assistance — reinstatement is not available self-service from this page.",

@@ -6,7 +6,7 @@
 |---|---|
 | specification | 05 |
 | status | IN_PROGRESS |
-| session | 05-A baseline reconciliation / full-chain defect inventory (read-only product freeze) |
+| session | 05-B owned-university-profile routing and dashboard-honesty wiring |
 | Session A base SHA | 68c656d7d01578a1eafb98a2f82d6819d3c63500 |
 | Session A source branch | cursor/jid-05a-chain-reconciliation |
 | Spec 04 gate | SHIPPED; promoted SHA `68c656d7d01578a1eafb98a2f82d6819d3c63500` equals resolved tip of `origin/agent/nonprod-signup-fix` and is an ancestor of that tip |
@@ -16,11 +16,23 @@
 | Session A claimed_by journey routes | **zero** matches under `src/app/[locale]/(university)/**` and `src/app/[locale]/(company)/company/dashboard/page.tsx` |
 | Session A PSW-001 university parity | **SHIPPED** (not business-only) — see finding below |
 | Session A local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (254 passed / 61 skipped); corepack pnpm build PASS |
-| Session A validation CI | PENDING (reported in completion response) |
-| Session A target CI | PENDING (reported in completion response) |
-| Session A Vercel | PENDING (reported in completion response) |
-| Session A implementation SHA | PENDING (reported in completion response — do not self-embed) |
-| Session A promoted SHA | PENDING (reported in completion response after FF promotion) |
+| Session A validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30459342420 (SHA 424591f) |
+| Session A target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30459900689 (SHA 424591f on agent/nonprod-signup-fix) |
+| Session A Vercel | PASS — Vercel Preview Comments success (check-run 90603557103); Vercel - jid-dev + jid-platform success |
+| Session A implementation SHA | 424591fdd0669ac6e507177fb7ebac7e53d2e538 |
+| Session A promoted SHA | 424591fdd0669ac6e507177fb7ebac7e53d2e538 |
+| Session B base SHA | 424591fdd0669ac6e507177fb7ebac7e53d2e538 |
+| Session B source branch | cursor/jid-05b-university-routing-and-dashboard-honesty |
+| Session B defects fixed | DEF-01…DEF-07 (all Session A named defects) |
+| Session B files | owner-university-profile.ts (+Row); university-create-profile-gate.ts; university/create-profile/page.tsx; university/pending-review/page.tsx; university-dashboard.tsx; empty-university-state.tsx; university-layout.tsx; company/dashboard/page.tsx (claimed_by absence retained); messages en/ar; tests/unit/entity/university-journey-chain.test.ts; university-dashboard-honesty.test.tsx |
+| Session B rls_gap | **false** — `110_profile_ownership_policies.sql`: owner read-own (`owner_user_id = auth.uid()`, no status filter); public published-only SELECT retained; draft/suspended not exposed to anon/non-owner. Query scopes `owner_user_id` server-side. No migration in Session B. |
+| Session B observations unfixed | OBS-01 no `/university/profile` view page; OBS-02 layout omits profile edit nav (i18n only); OBS-03 snapshot via `university_dashboard_view` (pipeline Spec 08) |
+| Session B local validation | PENDING (reported in completion response) |
+| Session B validation CI | PENDING (reported in completion response) |
+| Session B target CI | PENDING (reported in completion response) |
+| Session B Vercel | PENDING (reported in completion response) |
+| Session B implementation SHA | PENDING (reported in completion response — do not self-embed) |
+| Session B promoted SHA | PENDING (reported in completion response after FF promotion) |
 
 ### Session 05-A verified starting-state (evidenced at tip `68c656d7`)
 
@@ -113,6 +125,21 @@ Proof files:
 - Fix DEF-01…DEF-07 only (wiring/routing/honesty/i18n on existing surfaces).
 - Do **not** build new university draft-management UI; do **not** change snapshot pipeline, RPCs, schema, or `companies` columns.
 - Do **not** add invented KPIs; publication = Spec 07; deeper metrics = Spec 08.
+
+### Session 05-B defects fixed (cross-ref Session A)
+
+1. **DEF-01** — FIXED: create-profile uses owned Profile row via gate; orphaned `resulting_profile_id` stays on wizard.
+2. **DEF-02** — FIXED: `resolveUniversityCreateProfileGate` + Spec §8 outcome paths.
+3. **DEF-03** — FIXED: pending-review loads `fetchOwnerUniversityProfileRow` into `resolveVerificationOutcome`.
+4. **DEF-04** — FIXED: absent snapshot → `EmptyUniversityState`; present (incl. zeros) → real KPIs + export; error → distinct error.
+5. **DEF-05** — FIXED: empty CTA → `/university/profile/edit`.
+6. **DEF-06** — FIXED: `university.dashboard` / `university.nav` / empty copy in EN+AR via next-intl.
+7. **DEF-07** — FIXED: `fetchOwnerUniversityProfileRow` added (mirrors business Row helper).
+
+### Session 05-B scope note
+
+- `fetchOwnerUniversityProfile` already existed at Session A tip; Session B aligned it with the business pattern (+Row), retained owned-profile routing on `(university)/dashboard`, and documented company dashboard `claimed_by` absence (already removed pre-Session A).
+- `rls_gap: false` — no Session C migration required unless later disposable proof contradicts policy text.
 
 ---
 
