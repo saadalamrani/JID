@@ -6,7 +6,27 @@
 |---|---|
 | specification | 06 |
 | status | IN_PROGRESS |
-| session | 06-B COMPLETE (implementation; unpromoted — Session C disposable-DB is promotion gate) |
+| session | 06-C COMPLETE (disposable-DB matrix; promotion pending CI + FF) |
+| Session C base / integration starting SHA | 19cb0112b05752530da3a8dcd9fd89c5958869bc |
+| Session C source branch | cursor/jid-06c-security-validation |
+| Session 06-B implementation SHA | 45020bb37d652bf0f6362ce5fb95b03515ed75ce |
+| Session 06-B ancestry | integration tip is ancestor of 06-B tip (exit 0) |
+| Session C disposable project | `jid-06c-disposable` |
+| Session C disposable ports | API 58421; DB 58422; shadow 58420; Studio 58423; Inbucket 58424; pooler 58429; analytics(disabled) 58427 |
+| Session C migration/reset | first start applied full chain incl. 06-B then failed seed (`_seed_local_auth_user` missing); seed disabled; second start PASS; migrations through `20260730190001`; disposable helper SQL applied (not a product migration) |
+| Session C POSITIVE A | PASS — approve; city only; ownership/verification/status untouched; decided; audit `directory.corrected`; suggester notification (06-A identity supported) |
+| Session C POSITIVE B | PASS — reject; no companies change; decided; audit `directory.correction_rejected`; suggester notification |
+| Session C NEGATIVE | PASS — non-staff RPC; non-staff action path (unit); anon privileged; non-whitelist; ownership/verification field; double/already-decided; missing directory + no orphan; own-read only; foreign suggester denied; anon private read denied; unauthorized companies UPDATE denied; audit/notification forge denied |
+| Session C atomicity | PASS — failing approve (`directory_missing`) leaves pending suggestion, no company/audit/notification partial writes |
+| Session C security-advisor | CLI advisors unavailable (v2.20.12); `supabase db lint --local` ran — pre-existing lint only; no Spec 06 correction-path repair required |
+| Session C scoped repairs | none (matrix/helper/unit coverage only) |
+| Session C cleanup | PASS — stop --no-backup; zero jid-06c containers/volumes/networks; unique ports released; no cloud; no real credentials; config.toml restored |
+| Session C transcript | `docs/command-center/reports/JID_06_disposable_db_transcript.md` |
+| Session C local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm exec vitest run --testTimeout=30000 PASS (294 passed / 74 skipped without disposable env); corepack pnpm build PASS |
+| Session C validation CI | PENDING (reported in completion response) |
+| Session C target CI | PENDING (reported in completion response) |
+| Session C Vercel | PENDING (reported in completion response) |
+| Session C combined / promoted SHA | PENDING (reported in completion response — do not self-embed) |
 | Session B base SHA | 19cb0112b05752530da3a8dcd9fd89c5958869bc |
 | Session B source branch | cursor/jid-06b-correction-implementation |
 | Spec 06-A gate | COMPLETE at tip `19cb0112b05752530da3a8dcd9fd89c5958869bc` (equals Session A promoted SHA; intervening commits: none) |
@@ -14,9 +34,9 @@
 | Session B migrations | `20260730190000_directory_correction_notification_categories.sql`; `20260730190001_directory_correction_apply_hardening.sql` |
 | Session B files | migrations ×2; staff/directory/actions.ts; suggestions-review-list.tsx; messages en/ar; CategoryIcon/categories/category-groups/preference-defaults; supabase/types.ts; tests unit ×2 + rls ×1 |
 | Session B local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (293 passed / 67 skipped); corepack pnpm build PASS |
-| Session B validation CI | PENDING (reported in completion response) |
-| Session B implementation SHA | PENDING (reported in completion response — do not self-embed) |
-| Session B promoted | **no** — intentionally unpromoted; Session 06-C disposable-DB matrix is sole promotion gate |
+| Session B validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30573578420 (SHA 45020bb on codex/jid-06b-ci-validation) |
+| Session B implementation SHA | 45020bb37d652bf0f6362ce5fb95b03515ed75ce |
+| Session B promoted | **yes via Session 06-C** when FF completes (matrix + cleanup + local + validation CI) |
 | Session A base SHA | 958ebf074a78d9883209fe4b63c844c77a37cce2 |
 | Session A source branch | cursor/jid-06a-reconciliation |
 | Spec 05 gate | SHIPPED; required SHA `958ebf074a78d9883209fe4b63c844c77a37cce2` equals resolved tip of `origin/agent/nonprod-signup-fix` and is an ancestor of that tip |

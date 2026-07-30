@@ -87,6 +87,20 @@ describe('reviewCorrectionSuggestion', () => {
     expect(result).toEqual({ ok: false, error: 'directory_missing' })
   })
 
+  it('NEGATIVE — non-staff server/action path denied before RPC', async () => {
+    requireStaffShellAccess.mockRejectedValue(new Error('Staff access required'))
+    const review = await importAction()
+    await expect(
+      review({
+        suggestionId: SUGGESTION_ID,
+        decision: 'approved',
+        reviewNotes: 'Should never reach RPC',
+      }),
+    ).rejects.toThrow(/Staff access required/)
+    expect(approveCorrectionSuggestion).not.toHaveBeenCalled()
+    expect(rejectCorrectionSuggestion).not.toHaveBeenCalled()
+  })
+
   it('rejects via rejectCorrectionSuggestion and does not approve', async () => {
     const review = await importAction()
     const result = await review({
