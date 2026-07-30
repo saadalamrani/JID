@@ -1,5 +1,38 @@
 # JID Master Execution Ledger
 
+## Specification 06 — Directory Correction and Notifications
+
+| Field | Value |
+|---|---|
+| specification | 06 |
+| status | IN_PROGRESS |
+| session | 06-A COMPLETE (read-only reconciliation; ledger/findings only) |
+| Session A base SHA | 958ebf074a78d9883209fe4b63c844c77a37cce2 |
+| Session A source branch | cursor/jid-06a-reconciliation |
+| Spec 05 gate | SHIPPED; required SHA `958ebf074a78d9883209fe4b63c844c77a37cce2` equals resolved tip of `origin/agent/nonprod-signup-fix` and is an ancestor of that tip |
+| intervening_commits | none — tip equals Spec 05 final tip SHA |
+| intervening_scope_touch | none — no commits after Spec 05 tip; Spec 06 §10 areas unchanged since tip |
+| apply_path | **complete** — migration `112_directory_correction_suggestions.sql` defines SECURITY DEFINER `approve_correction_suggestion` / `reject_correction_suggestion` (staff\|super_admin, pending gate, field whitelist, `companies` UPDATE on approve, `_write_audit_log` on both); app wiring `src/lib/staff/moderation.ts` → `staff/directory/actions.ts` `reviewCorrectionSuggestion` → UI `SuggestionsReviewList`; queue via `fetchPendingCorrectionSuggestions`. `staff/entities/actions.ts` is a separate metadata-edit path (not suggestion apply). Equivalent safe path already exists — Session B must not duplicate as `apply_directory_correction` unless extending (e.g. suggester notify). Suggester notify absent from RPCs (see `suggester_identity_supported`). |
+| rls_correct | **true** — quoted from 112: `suggester_reads_own` FOR SELECT TO authenticated USING (`suggested_by = auth.uid()`); `staff_reads_all_suggestions` FOR SELECT TO authenticated USING (`(SELECT role FROM public.profiles WHERE id = auth.uid()) IN ('staff', 'super_admin')`). (Also present: `verified_owner_suggests` INSERT — owner-of-linked-profile only; out of the staff/own-suggester read check.) |
+| notification_render | `CategoryIcon` maps `claim.approved`/`claim.rejected` → Building2, `claim.needs_more_info` → FileQuestion (fallback Bell). `NotificationRow` picks `title_ar`/`body_ar` vs `title_en`/`body_en` by locale; links `action_url` when present. `notify_claim_decision` (108) bilingual copy for all three decisions; **`p_action_url := '/settings'`** with labels View settings / عرض الإعدادات (not Spec 03 outcome surfaces). App `notifyVerificationDecision`: inserts `email_outbox` (`template`=category, payload `claim_id`) + invokes `send-claim-approval`/`send-claim-rejection` (`body.claimId`). |
+| notification_duplicates | **Parallel channels only (both stay):** in-app via RPC `notify_claim_decision` → `dispatch_notification` (idempotency `verification.decision:<id>:<decision>`); email via app `notifyVerificationDecision`. **No PROVEN same-channel duplicate** this session: single in-app insert path; `email_outbox` claim.* rows are not mapped by `process-email-outbox` to claim edge functions (non-expiry → `send-rejection-email`); `dispatch_notification` `pg_notify('email_queue')` + live `send-claim-*` invoke are potential second-email paths but delivery duplication not runtime-proven here. Observation: `send-claim-approval` still SELECTs legacy `claim_requests` (may fail for `verification_requests` ids). |
+| suggester_identity_supported | **yes** — schema column `suggested_by uuid NOT NULL REFERENCES auth.users (id)`; approve/reject RPCs do **not** currently `dispatch_notification` to that recipient |
+| Session A local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (280 passed / 61 skipped); corepack pnpm build PASS |
+| Session A validation CI | PENDING (reported in completion response) |
+| Session A target CI | PENDING (reported in completion response) |
+| Session A Vercel | PENDING (reported in completion response — docs-only may generate none) |
+| Session A implementation SHA | PENDING (reported in completion response — do not self-embed) |
+| Session A promoted SHA | PENDING (reported in completion response after FF promotion) |
+
+### Session 06-A findings detail (evidence)
+
+1. **apply_path = complete** — approve → Directory field apply → audit exists end-to-end (RPC + staff action + review UI + pending queue). Reject path marks suggestion + audit, no Directory write. Missing for later sessions (not apply/audit): suggester notification dispatch.
+2. **rls_correct = true** — staff read-all + own-suggester read policies match Spec §13 expectation.
+3. **notification_render** — claim.* icons + AR/EN title/body rendering real; action URL still generic `/settings`; email path preserved alongside in-app.
+4. **suggester_identity_supported = yes** — `suggested_by` is a notifiable auth user id; notification not wired yet.
+
+---
+
 ## Specification 05 — University End-to-End Journey
 
 | Field | Value |
