@@ -1860,12 +1860,20 @@
         "suggested": "القيمة المقترحة",
         "reason": "سبب المالك",
         "reviewNotes": "ملاحظات المراجعة",
-        "reviewNotesPlaceholder": "اختياري — يُنصح بملاحظة للتدقيق",
+        "reviewNotesPlaceholder": "مطلوبة لجودة التدقيق",
         "approve": "موافقة",
         "reject": "رفض",
+        "alreadyDecided": "تم البت في هذا الاقتراح مسبقاً وهو للعرض فقط.",
         "success": {
           "approved": "تمت الموافقة على التصحيح",
           "rejected": "تم رفض الاقتراح"
+        },
+        "errors": {
+          "alreadyDecided": "تم البت في هذا الاقتراح مسبقاً.",
+          "directoryMissing": "سجل الدليل غير موجود. لم يُطبَّق أي تغيير.",
+          "fieldNotAllowed": "هذا الحقل غير مسموح لتصحيح الدليل.",
+          "reviewNotesRequired": "ملاحظات المراجعة مطلوبة.",
+          "insufficientPrivileges": "ليست لديك صلاحية البت في التصحيحات."
         }
       },
       "profiles": {
@@ -3896,6 +3904,7 @@
         "auth": "الأمان والمصادقة",
         "account": "الحساب",
         "claim": "مطالبات الشركات",
+        "directory": "تصحيحات الدليل",
         "company": "الشركة",
         "job": "الوظائف",
         "legal": "قانوني",
@@ -3923,6 +3932,10 @@
           "approved": "موافقة على مطالبة",
           "needs_more_info": "مطلوب معلومات إضافية",
           "rejected": "رفض مطالبة"
+        },
+        "directory": {
+          "correction_approved": "الموافقة على تصحيح الدليل",
+          "correction_rejected": "رفض تصحيح الدليل"
         },
         "company": {
           "link_broken": "رابط الشركة معطّل"
@@ -4649,6 +4662,10 @@
           "approved": "موافقة على مطالبة",
           "needs_more_info": "مطلوب معلومات إضافية",
           "rejected": "رفض مطالبة"
+        },
+        "directory": {
+          "correction_approved": "الموافقة على تصحيح الدليل",
+          "correction_rejected": "رفض تصحيح الدليل"
         },
         "company": {
           "link_broken": "رابط الشركة معطّل"

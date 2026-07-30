@@ -30,6 +30,8 @@ const DEFAULT_EMAIL_ON = new Set<string>([
   'claim.approved',
   'claim.rejected',
   'claim.needs_more_info',
+  'directory.correction_approved',
+  'directory.correction_rejected',
   'mentor.application_approved',
   'mentor.application_rejected',
   'job.application_status_changed',

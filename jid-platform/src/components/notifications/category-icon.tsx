@@ -43,6 +43,8 @@ const CATEGORY_ICONS: Record<NotificationCategory, LucideIcon> = {
   'claim.approved': Building2,
   'claim.needs_more_info': FileQuestion,
   'claim.rejected': Building2,
+  'directory.correction_approved': Building2,
+  'directory.correction_rejected': Building2,
   'company.link_broken': Link2Off,
   'job.application_expired': Briefcase,
   'job.application_received': Inbox,

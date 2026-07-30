@@ -36,6 +36,26 @@ function revalidateDirectoryPaths() {
   revalidatePath('/staff/directory/profiles')
 }
 
+function mapCorrectionReviewError(message: string): string {
+  const normalized = message.toLowerCase()
+  if (normalized.includes('insufficient_privileges')) {
+    return 'insufficient_privileges'
+  }
+  if (normalized.includes('invalid_or_reviewed')) {
+    return 'already_decided'
+  }
+  if (normalized.includes('directory_missing')) {
+    return 'directory_missing'
+  }
+  if (normalized.includes('field_not_allowed')) {
+    return 'field_not_allowed'
+  }
+  if (normalized.includes('review_notes_required')) {
+    return 'review_notes_required'
+  }
+  return message
+}
+
 export async function upsertDirectoryRecord(
   input: unknown,
 ): Promise<StaffDirectoryActionResult> {
@@ -115,7 +135,12 @@ export async function reviewCorrectionSuggestion(
       })
     }
   } catch (error) {
-    return { ok: false, error: error instanceof Error ? error.message : 'Review failed' }
+    return {
+      ok: false,
+      error: mapCorrectionReviewError(
+        error instanceof Error ? error.message : 'Review failed',
+      ),
+    }
   }
 
   revalidateDirectoryPaths()

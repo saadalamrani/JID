@@ -6,7 +6,17 @@
 |---|---|
 | specification | 06 |
 | status | IN_PROGRESS |
-| session | 06-A COMPLETE (read-only reconciliation; ledger/findings only) |
+| session | 06-B COMPLETE (implementation; unpromoted — Session C disposable-DB is promotion gate) |
+| Session B base SHA | 19cb0112b05752530da3a8dcd9fd89c5958869bc |
+| Session B source branch | cursor/jid-06b-correction-implementation |
+| Spec 06-A gate | COMPLETE at tip `19cb0112b05752530da3a8dcd9fd89c5958869bc` (equals Session A promoted SHA; intervening commits: none) |
+| Session 06-A findings acted on | apply_path=complete → extend existing approve/reject RPCs (no `apply_directory_correction` duplicate); rls_correct=true → no RLS edit; suggester_identity_supported=yes → dispatch_notification to suggested_by; notification_render/duplicates deferred to Session D |
+| Session B migrations | `20260730190000_directory_correction_notification_categories.sql`; `20260730190001_directory_correction_apply_hardening.sql` |
+| Session B files | migrations ×2; staff/directory/actions.ts; suggestions-review-list.tsx; messages en/ar; CategoryIcon/categories/category-groups/preference-defaults; supabase/types.ts; tests unit ×2 + rls ×1 |
+| Session B local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (293 passed / 67 skipped); corepack pnpm build PASS |
+| Session B validation CI | PENDING (reported in completion response) |
+| Session B implementation SHA | PENDING (reported in completion response — do not self-embed) |
+| Session B promoted | **no** — intentionally unpromoted; Session 06-C disposable-DB matrix is sole promotion gate |
 | Session A base SHA | 958ebf074a78d9883209fe4b63c844c77a37cce2 |
 | Session A source branch | cursor/jid-06a-reconciliation |
 | Spec 05 gate | SHIPPED; required SHA `958ebf074a78d9883209fe4b63c844c77a37cce2` equals resolved tip of `origin/agent/nonprod-signup-fix` and is an ancestor of that tip |
@@ -16,13 +26,13 @@
 | rls_correct | **true** — quoted from 112: `suggester_reads_own` FOR SELECT TO authenticated USING (`suggested_by = auth.uid()`); `staff_reads_all_suggestions` FOR SELECT TO authenticated USING (`(SELECT role FROM public.profiles WHERE id = auth.uid()) IN ('staff', 'super_admin')`). (Also present: `verified_owner_suggests` INSERT — owner-of-linked-profile only; out of the staff/own-suggester read check.) |
 | notification_render | `CategoryIcon` maps `claim.approved`/`claim.rejected` → Building2, `claim.needs_more_info` → FileQuestion (fallback Bell). `NotificationRow` picks `title_ar`/`body_ar` vs `title_en`/`body_en` by locale; links `action_url` when present. `notify_claim_decision` (108) bilingual copy for all three decisions; **`p_action_url := '/settings'`** with labels View settings / عرض الإعدادات (not Spec 03 outcome surfaces). App `notifyVerificationDecision`: inserts `email_outbox` (`template`=category, payload `claim_id`) + invokes `send-claim-approval`/`send-claim-rejection` (`body.claimId`). |
 | notification_duplicates | **Parallel channels only (both stay):** in-app via RPC `notify_claim_decision` → `dispatch_notification` (idempotency `verification.decision:<id>:<decision>`); email via app `notifyVerificationDecision`. **No PROVEN same-channel duplicate** this session: single in-app insert path; `email_outbox` claim.* rows are not mapped by `process-email-outbox` to claim edge functions (non-expiry → `send-rejection-email`); `dispatch_notification` `pg_notify('email_queue')` + live `send-claim-*` invoke are potential second-email paths but delivery duplication not runtime-proven here. Observation: `send-claim-approval` still SELECTs legacy `claim_requests` (may fail for `verification_requests` ids). |
-| suggester_identity_supported | **yes** — schema column `suggested_by uuid NOT NULL REFERENCES auth.users (id)`; approve/reject RPCs do **not** currently `dispatch_notification` to that recipient |
+| suggester_identity_supported | **yes** — schema column `suggested_by uuid NOT NULL REFERENCES auth.users (id)`; Session 06-B wires `dispatch_notification` to that recipient on approve/reject |
 | Session A local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm test PASS (280 passed / 61 skipped); corepack pnpm build PASS |
-| Session A validation CI | PENDING (reported in completion response) |
-| Session A target CI | PENDING (reported in completion response) |
-| Session A Vercel | PENDING (reported in completion response — docs-only may generate none) |
-| Session A implementation SHA | PENDING (reported in completion response — do not self-embed) |
-| Session A promoted SHA | PENDING (reported in completion response after FF promotion) |
+| Session A validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30568821680 (SHA 19cb011) |
+| Session A target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30571201036 (SHA 19cb011 on agent/nonprod-signup-form) |
+| Session A Vercel | PASS — Vercel - jid-dev + jid-platform success; Preview Comments success |
+| Session A implementation SHA | 19cb0112b05752530da3a8dcd9fd89c5958869bc |
+| Session A promoted SHA | 19cb0112b05752530da3a8dcd9fd89c5958869bc |
 
 ### Session 06-A findings detail (evidence)
 

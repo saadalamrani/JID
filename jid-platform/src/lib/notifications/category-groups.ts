@@ -29,6 +29,10 @@ export const CATEGORY_GROUPS = [
     categories: ['claim.approved', 'claim.needs_more_info', 'claim.rejected'],
   },
   {
+    id: 'directory',
+    categories: ['directory.correction_approved', 'directory.correction_rejected'],
+  },
+  {
     id: 'company',
     categories: ['company.link_broken'],
   },

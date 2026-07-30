@@ -15,6 +15,8 @@ export const NOTIFICATION_CATEGORIES = [
   'claim.approved',
   'claim.needs_more_info',
   'claim.rejected',
+  'directory.correction_approved',
+  'directory.correction_rejected',
   'company.link_broken',
   'job.application_expired',
   'job.application_received',

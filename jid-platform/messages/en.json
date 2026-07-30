@@ -1870,12 +1870,20 @@
         "suggested": "Suggested value",
         "reason": "Owner reason",
         "reviewNotes": "Review notes",
-        "reviewNotesPlaceholder": "Optional — encouraged for audit quality",
+        "reviewNotesPlaceholder": "Required for audit quality",
         "approve": "Approve",
         "reject": "Reject",
+        "alreadyDecided": "This suggestion was already decided and is read-only.",
         "success": {
           "approved": "Correction approved",
           "rejected": "Suggestion rejected"
+        },
+        "errors": {
+          "alreadyDecided": "This suggestion was already decided.",
+          "directoryMissing": "The Directory record is missing. No change was applied.",
+          "fieldNotAllowed": "That field is not allowed for Directory correction.",
+          "reviewNotesRequired": "Review notes are required.",
+          "insufficientPrivileges": "You do not have permission to decide corrections."
         }
       },
       "profiles": {
@@ -3906,6 +3914,7 @@
         "auth": "Security & authentication",
         "account": "Account",
         "claim": "Company claims",
+        "directory": "Directory corrections",
         "company": "Company",
         "job": "Jobs",
         "legal": "Legal",
@@ -3933,6 +3942,10 @@
           "approved": "Claim approved",
           "needs_more_info": "More info needed",
           "rejected": "Claim rejected"
+        },
+        "directory": {
+          "correction_approved": "Directory correction approved",
+          "correction_rejected": "Directory correction rejected"
         },
         "company": {
           "link_broken": "Company link broken"
@@ -4659,6 +4672,10 @@
           "approved": "Claim approved",
           "needs_more_info": "More info needed",
           "rejected": "Claim rejected"
+        },
+        "directory": {
+          "correction_approved": "Directory correction approved",
+          "correction_rejected": "Directory correction rejected"
         },
         "company": {
           "link_broken": "Company link broken"
