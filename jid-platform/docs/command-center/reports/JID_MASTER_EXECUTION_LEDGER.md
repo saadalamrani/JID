@@ -6,7 +6,21 @@
 |---|---|
 | specification | 06 |
 | status | IN_PROGRESS |
-| session | 06-C COMPLETE (disposable-DB matrix; promotion pending CI + FF) |
+| session | 06-D COMPLETE (notification render + Spec 03 action URLs; promotion pending CI + FF) |
+| Session D starting SHA | 57ab093bd2546cd1faa47b2b9463dbf5e91e0204 |
+| Session D source branch | cursor/jid-06d-notifications |
+| Session 06-A notification findings acted on | notification_render → locale title/body + CategoryIcon + blank action_url hardening; action_url `/settings` → Spec 03 outcome routes via `notify_claim_decision`; notification_duplicates → no same-channel duplicate removed (parallel in-app + email both remain) |
+| Session D files | `20260730190002_notify_claim_decision_outcome_urls.sql`; `notification-row.tsx`; `category-icon.tsx`; `verification-outcome.ts`; tests unit ×2 + rls ×1; `JID_06_notifications_disposable_db_transcript.md`; ledger |
+| Session D migration | `20260730190002_notify_claim_decision_outcome_urls.sql` (CREATE OR REPLACE `notify_claim_decision`; signature + idempotency format preserved) |
+| Session D duplicate action | **none removed** — Session 06-A recorded no proven same-channel duplicate; in-app and email channels both retained (`email_outbox`, `send-claim-approval`, `send-claim-rejection` untouched) |
+| Session D disposable transcript | `docs/command-center/reports/JID_06_notifications_disposable_db_transcript.md` |
+| Session D disposable matrix | PASS — business/university approve+reject URLs; applicant targeting; idempotency single row; cross-applicant + anon denied; no Profile create; verification status unchanged |
+| Session D cleanup | PASS — stop --no-backup; zero jid-06d containers/volumes; ports released; config.toml restored |
+| Session D local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm exec vitest run --testTimeout=30000 PASS (312 passed / 79 skipped without disposable env); corepack pnpm build PASS |
+| Session D validation CI | PENDING (reported in completion response) |
+| Session D target CI | PENDING (reported in completion response) |
+| Session D Vercel | PENDING (reported in completion response) |
+| Session D implementation / promoted SHA | PENDING (reported in completion response — do not self-embed) |
 | Session C base / integration starting SHA | 19cb0112b05752530da3a8dcd9fd89c5958869bc |
 | Session C source branch | cursor/jid-06c-security-validation |
 | Session 06-B implementation SHA | 45020bb37d652bf0f6362ce5fb95b03515ed75ce |
@@ -23,10 +37,10 @@
 | Session C cleanup | PASS — stop --no-backup; zero jid-06c containers/volumes/networks; unique ports released; no cloud; no real credentials; config.toml restored |
 | Session C transcript | `docs/command-center/reports/JID_06_disposable_db_transcript.md` |
 | Session C local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm exec vitest run --testTimeout=30000 PASS (294 passed / 74 skipped without disposable env); corepack pnpm build PASS |
-| Session C validation CI | PENDING (reported in completion response) |
-| Session C target CI | PENDING (reported in completion response) |
-| Session C Vercel | PENDING (reported in completion response) |
-| Session C combined / promoted SHA | PENDING (reported in completion response — do not self-embed) |
+| Session C validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30578760720 (SHA 57ab093) |
+| Session C target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30579146120 (SHA 57ab093 on agent/nonprod-signup-form) |
+| Session C Vercel | PASS — Vercel - jid-dev + jid-platform success; Preview Comments success |
+| Session C combined / promoted SHA | 57ab093bd2546cd1faa47b2b9463dbf5e91e0204 |
 | Session B base SHA | 19cb0112b05752530da3a8dcd9fd89c5958869bc |
 | Session B source branch | cursor/jid-06b-correction-implementation |
 | Spec 06-A gate | COMPLETE at tip `19cb0112b05752530da3a8dcd9fd89c5958869bc` (equals Session A promoted SHA; intervening commits: none) |

@@ -92,14 +92,16 @@ const PRIORITY_STYLES: Record<
 }
 
 type CategoryIconProps = {
-  category: NotificationCategory
-  priority: NotificationPriority
+  category: NotificationCategory | string
+  priority: NotificationPriority | string
   className?: string
 }
 
 export function CategoryIcon({ category, priority, className }: CategoryIconProps) {
-  const Icon = CATEGORY_ICONS[category] ?? Bell
-  const styles = PRIORITY_STYLES[priority]
+  const Icon =
+    CATEGORY_ICONS[category as NotificationCategory] ?? Bell
+  const styles =
+    PRIORITY_STYLES[priority as NotificationPriority] ?? PRIORITY_STYLES.normal
 
   return (
     <span
@@ -109,6 +111,7 @@ export function CategoryIcon({ category, priority, className }: CategoryIconProp
         className,
       )}
       aria-hidden
+      data-category-fallback={CATEGORY_ICONS[category as NotificationCategory] ? undefined : 'bell'}
     >
       <Icon className={cn('h-4 w-4', styles.icon)} />
     </span>

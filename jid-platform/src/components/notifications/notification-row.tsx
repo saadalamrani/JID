@@ -31,9 +31,13 @@ export function NotificationRow({
   variant = 'dropdown',
 }: NotificationRowProps) {
   const locale = useLocale()
-  const title = localizedText(locale, notification.title_ar, notification.title_en)
-  const body = localizedText(locale, notification.body_ar, notification.body_en)
-  const actionLabel = notification.action_url
+  const rawTitle = localizedText(locale, notification.title_ar, notification.title_en).trim()
+  const rawBody = localizedText(locale, notification.body_ar, notification.body_en).trim()
+  const title = rawTitle || (locale === 'ar' ? 'إشعار' : 'Notification')
+  const body = rawBody || (locale === 'ar' ? 'لا تتوفر تفاصيل إضافية.' : 'No additional details.')
+  // Blank / whitespace action_url must not become a dead clickable control.
+  const actionUrl = notification.action_url?.trim() || null
+  const actionLabel = actionUrl
     ? localizedText(
         locale,
         notification.action_label_ar ?? 'عرض',
@@ -93,9 +97,9 @@ export function NotificationRow({
     className,
   )
 
-  if (notification.action_url) {
+  if (actionUrl) {
     return (
-      <Link href={notification.action_url} className={rowClassName}>
+      <Link href={actionUrl} className={rowClassName}>
         {content}
       </Link>
     )

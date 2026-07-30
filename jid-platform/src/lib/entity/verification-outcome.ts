@@ -45,6 +45,24 @@ export function orgOutcomeRoutes(orgType: OrganizationActor) {
   }
 }
 
+/**
+ * Spec 06-D — in-app decision notification destinations (must match
+ * `notify_claim_decision` action_url mapping). Uses existing Spec 03 routes only.
+ */
+export function verificationDecisionActionUrl(
+  orgType: OrganizationActor,
+  decision: 'approve' | 'approved' | 'reject' | 'rejected' | 'needs_more_info',
+): string {
+  const routes = orgOutcomeRoutes(orgType)
+  if (decision === 'approve' || decision === 'approved') {
+    return routes.createProfile
+  }
+  if (decision === 'reject' || decision === 'rejected') {
+    return routes.rejected
+  }
+  return routes.pending
+}
+
 export function isActivePendingStatus(status: string): boolean {
   return (ACTIVE_PENDING_STATUSES as readonly string[]).includes(status)
 }
