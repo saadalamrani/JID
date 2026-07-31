@@ -1183,6 +1183,22 @@
     "publicationBoundary": {
       "message": "Your Profile is currently a draft. Publication controls will appear when the publication workflow is enabled."
     },
+    "publication": {
+      "errors": {
+        "unauthenticated": "Sign in to publish or unpublish your Profile.",
+        "invalid_input": "Invalid publication request.",
+        "profile_not_found": "Profile not found.",
+        "not_profile_owner": "Only the Profile owner can publish or unpublish.",
+        "profile_suspended": "This Profile is suspended. Publication changes require staff reinstatement.",
+        "profile_already_published": "This Profile is already published.",
+        "profile_not_published": "This Profile is not published.",
+        "profile_not_draft": "Only a draft Profile can be published.",
+        "missing_display_name_ar": "Add an Arabic display name before publishing.",
+        "missing_about_ar": "Add an Arabic about section before publishing.",
+        "missing_display_name_ar_and_about_ar": "Add an Arabic display name and Arabic about section before publishing.",
+        "unknown": "Publication could not be completed. Try again."
+      }
+    },
     "state": {
       "draft": "Draft",
       "published": "Published",

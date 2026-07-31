@@ -5532,6 +5532,14 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: number
       }
+      publish_business_profile: {
+        Args: { p_profile_id: string }
+        Returns: Json
+      }
+      publish_university_profile: {
+        Args: { p_profile_id: string }
+        Returns: Json
+      }
       purge_expired_lammah: {
         Args: Record<PropertyKey, never>
         Returns: undefined
@@ -5753,6 +5761,14 @@ export type Database = {
       transition_closing_soon: {
         Args: Record<PropertyKey, never>
         Returns: number
+      }
+      unpublish_business_profile: {
+        Args: { p_profile_id: string }
+        Returns: Json
+      }
+      unpublish_university_profile: {
+        Args: { p_profile_id: string }
+        Returns: Json
       }
       update_feedback_flags: {
         Args: Record<PropertyKey, never>

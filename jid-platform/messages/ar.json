@@ -1183,6 +1183,22 @@
     "publicationBoundary": {
       "message": "ملفك حاليًا في وضع المسودة. ستظهر عناصر التحكم بالنشر عند تفعيل مسار النشر."
     },
+    "publication": {
+      "errors": {
+        "unauthenticated": "سجّل الدخول لنشر ملفك أو إلغاء نشره.",
+        "invalid_input": "طلب النشر غير صالح.",
+        "profile_not_found": "الملف غير موجود.",
+        "not_profile_owner": "يمكن لمالك الملف فقط النشر أو إلغاء النشر.",
+        "profile_suspended": "هذا الملف موقوف. تغييرات النشر تتطلب إعادة التفعيل من الفريق.",
+        "profile_already_published": "هذا الملف منشور بالفعل.",
+        "profile_not_published": "هذا الملف غير منشور.",
+        "profile_not_draft": "يمكن نشر ملف المسودة فقط.",
+        "missing_display_name_ar": "أضف اسم العرض بالعربية قبل النشر.",
+        "missing_about_ar": "أضف النبذة بالعربية قبل النشر.",
+        "missing_display_name_ar_and_about_ar": "أضف اسم العرض والنبذة بالعربية قبل النشر.",
+        "unknown": "تعذر إكمال النشر. حاول مرة أخرى."
+      }
+    },
     "state": {
       "draft": "مسودة",
       "published": "منشور",

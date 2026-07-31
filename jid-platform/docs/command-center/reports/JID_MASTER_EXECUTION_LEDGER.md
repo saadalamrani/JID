@@ -6,13 +6,31 @@
 |---|---|
 | specification | 07 |
 | status | IN_PROGRESS |
-| session | 07-A COMPLETE (read-only reconciliation; ledger/findings only) |
+| session | 07-B (publication RPCs, RLS preserve, server actions — unpromoted; Session C disposable matrix is promotion gate) |
+| Session B base SHA | b29846b644ab2d94ec1d88b3a0954f2f30276452 |
+| Session B source branch | cursor/jid-07b-publication-backend |
+| Session B CI branch | codex/jid-07b-ci-validation |
+| Spec 07-A gate | COMPLETE at tip `b29846b644ab2d94ec1d88b3a0954f2f30276452` (equals Session A promoted SHA; intervening commits: none) |
+| Session 07-A findings acted on | publication_state=partial → add four owner publish/unpublish SECURITY DEFINER RPCs + `published_at` lifecycle; owner_direct_status_write denied by trigger → extend trigger with narrow GUC `jid.profile_publication_rpc` escape (draft↔published + published_at only; never verified_badge/suspended); public SELECT already published-only in `110` → preserve (no DROP/CREATE weaken); suspension_mechanism → leave `suspend_profile`/`reinstate_profile` unchanged; public_route_pattern → university foundation `fetchPublishedUniversityProfileBySlug` + Directory lookup by `directory_id`; locked_minimum_publish_fields → only trim(display_name_ar)+trim(about_ar); owner_surface_mount → actions only (UI Session D); Directory≠Profile preserved |
+| Session B migration | `20260730190003_profile_publication_rpcs.sql` |
+| Session B RPCs | `publish_business_profile(uuid)`; `unpublish_business_profile(uuid)`; `publish_university_profile(uuid)`; `unpublish_university_profile(uuid)` — SECURITY DEFINER; search_path `public, pg_temp`; EXECUTE authenticated only; PUBLIC/anon revoked; authz inside RPC |
+| Session B direct-status prevention | **narrow GUC + existing trigger** — `set_config('jid.profile_publication_rpc','on',true)` inside the four RPCs only; `enforce_owned_profile_moderation_boundary` allows owner draft↔published + published_at when GUC on; raw owner UPDATE of status/verified_badge/published_at still raises `profile_moderation_fields_require_staff`; suspended still blocked |
+| Session B public SELECT | **unchanged from 07-A** — `profile_public_read_published` / `university_profile_public_read_published` USING (status='published') for anon+authenticated; owner read-own any status; staff read-all; Session B migration does not DROP or recreate public policies |
+| Session B public query foundation | `src/lib/queries/published-profile.ts` — `fetchPublishedBusinessProfileById`; `fetchPublishedUniversityProfileBySlug` (route `/universities/[slug]/profile`); public-safe columns only (no owner_user_id / verified_badge); draft/suspended → null |
+| Session B Directory lookup foundation | `lookupPublishedProfileLinkByDirectoryId` — by Directory id; published-only via RLS+status filter; href `/companies|universities/{slug}/profile`; absent/draft/suspended → `{kind:'none'}`; duplicate published → `{kind:'ambiguous'}` + console.error |
+| Session B application files | `src/lib/profile/publication.ts` (wrappers + error map); `src/lib/profile/publication-actions.ts` (`publishOwnedProfileAction` / `unpublishOwnedProfileAction`); `src/lib/queries/published-profile.ts`; `src/lib/supabase/types.ts` (4 RPCs); messages en/ar `organizationProfile.publication.errors`; migration; tests unit+rls; ledger |
+| Session B tests | `tests/unit/profile/publication-backend.test.ts` (migration/grants/fields/GUC/actions/i18n/RLS preserve); `tests/rls/profile-publication.rls.test.ts` (live matrix when disposable env present: publish success+audit, min fields, authz, transitions, public RLS, suspension precedence, Directory lookup) |
+| Session B local validation | PASS — git diff --check; corepack pnpm install --frozen-lockfile; corepack pnpm lint; corepack pnpm type-check; corepack pnpm test (326 passed / 89 skipped without disposable env); corepack pnpm build |
+| Session B validation CI | PENDING (completion response) |
+| Session B implementation SHA | PENDING (completion response — do not self-embed) |
+| Session B promoted | **no** — must remain on `cursor/jid-07b-publication-backend` until Session 07-C disposable authorization/RLS matrix succeeds |
+| session (prior) | 07-A COMPLETE (read-only reconciliation; ledger/findings only) |
 | Session A base SHA | 760b86ade93469fc67ff61d0d95201ae771ee421 |
 | Session A source branch | cursor/jid-07a-reconciliation |
 | Spec 06 gate | SHIPPED; tip of `origin/agent/nonprod-signup-form` equals Spec 06 Session E promoted closeout SHA `760b86ade93469fc67ff61d0d95201ae771ee421` (ancestor of itself) |
 | intervening_commits | none — tip equals Spec 06 final tip SHA |
 | intervening_scope_touch | none — no commits after Spec 06 tip; Spec 07 areas unchanged since tip |
-| publication_state | **partial** — status CHECK draft\|published\|suspended; RLS public SELECT published; business public page + catalog CTA exist; staff suspend/reinstate exist; **no** `publish_*`/`unpublish_*` RPC; **no** owner publish UI (placeholder only); **no** university public profile fetch/route; `published_at` not written by owner lifecycle |
+| publication_state | **backend-ready (UI pending Session D)** — Session B adds owner `publish_*`/`unpublish_*` RPCs + GUC trigger escape + wrappers/actions + university public query + Directory link lookup; public SELECT still published-only from `110`; staff suspend/reinstate unchanged; owner publish UI still placeholder (`DraftPublicationBoundary`); polished public UI deferred to 07-D |
 | owner_direct_status_write | **denied** — trigger `enforce_owned_profile_moderation_boundary` raises `profile_moderation_fields_require_staff` on owner `status`/`verified_badge`/`published_at` change; owner content patches forbid those keys; RLS UPDATE allows non-suspended own rows but trigger is authoritative |
 | RLS business_profiles SELECT | `profile_public_read_published` TO anon,authenticated USING (status='published'); `profile_owner_read_own` TO authenticated USING (owner_user_id=auth.uid()) — any status; `profile_staff_read_all` TO authenticated USING role IN ('staff','super_admin') — from `110_profile_ownership_policies.sql` |
 | RLS business_profiles UPDATE | `profile_owner_update_content` TO authenticated USING/WITH CHECK (owner_user_id=auth.uid() AND status<>'suspended') — from `20260719100425_enforce_suspended_profile_transition_boundary.sql`; no INSERT/DELETE policies |
@@ -21,17 +39,17 @@
 | RLS publication conflict | **none functional** — public published read already present; owner status write blocked by trigger (not RLS column exclusion). Session B must add publish/unpublish SECURITY DEFINER RPCs; must not weaken suspension trigger |
 | suspension_mechanism | Staff actions `suspendProfileAction`/`reinstateProfileAction` (`staff/directory/actions.ts`) → `suspendProfile`/`reinstateProfile` (`lib/staff/moderation.ts`) → SECURITY DEFINER RPCs `suspend_profile`/`reinstate_profile` (`113_profile_moderation_functions.sql`); guard `requireStaffShellAccess`; RPC allow `staff`\|`super_admin` only (`admin` shell-admitted but RPC-denied); audit `profile.suspended` / `profile.reinstated`; tables both profile types; status → `suspended`; reinstate → `draft`\|`published` (default draft); owner surfaces `/company/profile-suspended`, `/university/profile-suspended` (no self-restore) |
 | suspension_authoritative | **yes** — staff RPC + trigger; owners cannot write status or edit suspended rows |
-| public_route_pattern | **Per-type under entity public namespaces; shared catalog for Directory only.** Directory: `/catalog/[slug]` (companies.slug). Business published: `/companies/[slug]/profile` (exists; `fetchPublishedBusinessProfileBySlug`). University published (to build in later sessions): `/universities/[slug]/profile` mirroring same grammar. Evidence: `catalog-cta.tsx` CTA hardcodes `/companies/${slug}/profile`; university public profile route/fetch **absent**. Identifier: Directory `slug` → `directory_id` → profile. notFound: missing/inactive Directory or no published profile → `notFound()`. Locale: `localePrefix: 'as-needed'`. Published-only lookup: query layer + RLS |
+| public_route_pattern | **Per-type under entity public namespaces; shared catalog for Directory only.** Directory: `/catalog/[slug]`. Business published: `/companies/[slug]/profile` (exists). University published foundation: `fetchPublishedUniversityProfileBySlug` for `/universities/[slug]/profile` (route/UI polish in later session). CatalogCta university href fix deferred with university public page. Identifier: Directory `slug` → `directory_id` → profile. notFound: missing/inactive Directory or no published profile. Locale: `localePrefix: 'as-needed'`. Published-only lookup: query layer + RLS |
 | profile_status_values | CHECK `draft` \| `published` \| `suspended` on both tables (`103`/`104`); no additional values in repo |
 | profile_schema_spec07_fields | Both: id, directory_id, owner_user_id, status, published_at, display_name_ar/en, about_ar/en, cover_image_url, verified_domains. Business-only: tagline_ar, founded_year, employee_count_range. University substitutes: established_year (no founded_year/employee_count_range/tagline_ar) |
 | locked_minimum_publish_fields | Both tables support `display_name_ar` + `about_ar` (display_name_ar NOT NULL; about_ar nullable). No completeness %/score for org profiles. Session B must require only those two non-empty Arabic fields |
 | directory_detail_mount | `catalog/[slug]/page.tsx` → `catalog-detail-view.tsx` → `CatalogCta` (`hasPublishedProfile` from `resolvePublishedProfile` in `lib/queries/catalog.ts`). Lookup: `business_profiles`/`university_profiles` by `directory_id` + `status='published'`. Directory≠Profile remains. Never expose owner_user_id, claimed_by, draft/suspended rows, moderation internals |
 | owner_surface_mount_points | Primary: `DraftPublicationBoundary` in `organization-profile-shell.tsx` + `organization-draft-dashboard.tsx` (placeholder copy under `organizationProfile.publicationBoundary`). Also draft dashboard CTA row; `/company/profile` draft notice. University: dashboard + `/university/profile/edit` (no `/university/profile` view — OBS-01). Suspended: separate `profile-suspended` routes. i18n: `organizationProfile.*` shared |
 | Session A pre-flight | PASS — git diff --check; corepack pnpm install --frozen-lockfile; lint; type-check; vitest 312 passed / 79 skipped; build |
-| Session A validation CI | PENDING (completion response) |
-| Session A target CI | PENDING (completion response) |
-| Session A Vercel | PENDING (completion response) |
-| Session A implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+| Session A validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30596183050 |
+| Session A target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30596371271 |
+| Session A Vercel | PASS — non-prod Vercel on promoted tip |
+| Session A implementation / promoted SHA | b29846b644ab2d94ec1d88b3a0954f2f30276452 |
 
 ### Session 07-A findings detail (evidence)
 
