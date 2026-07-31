@@ -1,10 +1,10 @@
 # Spec 07 — External Contract Proof (Session 07-E)
 
-**Worktree:** `C:\Users\saada\Downloads\Desktop\JID-1-wt-07e`  
-**Canonical tip at Session E start:** `b77fca0d6083ac24c456696e8e3f1af3dcb65a7c` (`origin/agent/nonprod-signup-fix`)  
-**Session 07-D source:** `cursor/jid-07d-publication-ui`  
-**Session 07-C tip:** `738ecaec3a564faf67fa3a44cac0ceb581cafe12`  
-**Method:** `git diff` / `git log` on migrations and publication/staff surfaces; tree `rg` for completeness metrics and public field exposure; Session E evidence scripts do not redefine SQL contracts.  
+**Worktree:** `C:\Users\saada\Downloads\Desktop\JID-1-wt-07e`
+**Canonical tip at Session E start:** `b77fca0d6083ac24c456696e8e3f1af3dcb65a7c` (`origin/agent/nonprod-signup-fix`)
+**Session 07-D source:** `cursor/jid-07d-publication-ui`
+**Session 07-C tip:** `738ecaec3a564faf67fa3a44cac0ceb581cafe12`
+**Method:** `git diff` / `git log` on migrations and publication/staff surfaces; tree `rg` for completeness metrics and public field exposure; Session E evidence scripts do not redefine SQL contracts.
 **Verdict rule:** A contract is **UNCHANGED** if its identifier/signature/grants/behavior boundary was not renamed, removed, weakened, or redefined by Session 07-D or 07-E product edits.
 
 ## Spec 07 commits examined (after Session 07-C)

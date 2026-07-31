@@ -30,4 +30,3 @@
 | 12-business-ar-desktop-suspended-public-not-found.png | /companies/synth-07e-biz-jid07e-1785524038244/profile | ar | desktop | anonymous | business | jid07e-1785524038244 | suspended_public_not_found | Suspended Business Profile returns not found to anonymous visitor | HTTP 200; run marker not visible; notFoundUi=true | PASS |
 | 13-university-ar-desktop-suspended-owner.png | /university/profile/edit | ar | desktop | university_owner | university | jid07e-1785524038244 | suspended_owner | Owner is redirected to /university/profile-suspended | /university/profile-suspended | PASS |
 | 14-university-ar-desktop-suspended-public-not-found.png | /universities/synth-07e-uni-jid07e-1785524038244/profile | ar | desktop | anonymous | university | jid07e-1785524038244 | suspended_public_not_found | Suspended University Profile returns not found to anonymous visitor | HTTP 200; run marker not visible; notFoundUi=true | PASS |
-

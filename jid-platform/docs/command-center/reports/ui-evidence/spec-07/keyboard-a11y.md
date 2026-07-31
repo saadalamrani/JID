@@ -1,9 +1,9 @@
 # Spec 07-E keyboard accessibility note
 
-Run: `jid07e-1785524038244`  
-Actor: synthetic Business owner  
-Locale: `ar`  
-Viewport: desktop  
+Run: `jid07e-1785524038244`
+Actor: synthetic Business owner
+Locale: `ar`
+Viewport: desktop
 Input: keyboard focus + Enter only for publication controls (login/navigation outside this walk)
 
 ## Publish flow — PASS
