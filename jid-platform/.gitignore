@@ -58,3 +58,6 @@ supabase/.temp
 
 # cache
 .cache/
+
+# disposable UI-evidence credentials
+/scripts/.tmp/

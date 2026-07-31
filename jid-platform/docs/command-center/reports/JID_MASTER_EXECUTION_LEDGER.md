@@ -5,8 +5,37 @@
 | Field | Value |
 |---|---|
 | specification | 07 |
-| status | IN_PROGRESS |
-| session | 07-D (publication UI, public Profile routes, Directory links) |
+| status | SHIPPED |
+| session | 07-E COMPLETE |
+| Session E canonical starting SHA | b77fca0d6083ac24c456696e8e3f1af3dcb65a7c |
+| Session E source branch | cursor/jid-07e-closeout |
+| Session E CI branch | codex/jid-07e-ci-validation |
+| Session 07-D gate | COMPLETE — source `cursor/jid-07d-publication-ui`; Business+University owner publication controls; public `/companies/[slug]/profile` + `/universities/[slug]/profile`; Directory published-Profile link; no Session D migration; publication RPCs/grants/RLS/suspension unchanged; tip equals promoted Session D SHA `b77fca0d6083ac24c456696e8e3f1af3dcb65a7c` |
+| Session E deployment URL | https://jid-dev.vercel.app (browser smoke executed against local Next + disposable Supabase matching tip; Vercel tip verified separately) |
+| Session E deployment project | jid-dev (also jid-platform check success on tip) |
+| Session E tested SHA | b77fca0d6083ac24c456696e8e3f1af3dcb65a7c |
+| JID07E_RUN_ID | jid07e-1785524038244 |
+| Session E Business smoke | PASS — draft AR/EN/375; missing about_ar failure; publish; public page; Directory link; unpublish→not-found; staff suspend→owner suspended + public not-found |
+| Session E University smoke | PASS — equivalent matrix on `/university/profile/edit` and `/universities/[slug]/profile` |
+| Session E public visibility negatives | PASS — absent/draft/suspended not-found; published visible; anon/non-owner published-only; owner draft via owner surface only |
+| Session E authorization | PASS — anon/non-owner/cross-type denied; owner cannot raw status/suspend/restore; RPCs + audits for success; failed publish no success audit |
+| Session E accessibility | PASS — keyboard publish/unpublish dialogs; focus; text status badges; descriptive links; single h1; no trap (`keyboard-a11y.md`) |
+| Session E AR/EN | PASS — publication copy, confirmations, status labels, missing-field errors translated; no Claim/مطالبة; Latin digits; RTL/LTR OK |
+| Session E console/links | PASS for publication/Directory outcomes — RSC prefetch aborts + disposable `/api/me/encryption-key` 409 noise recorded in `console-network.md`; no dead publication links; no `/settings` publication outcome |
+| Session E evidence index | `docs/command-center/reports/ui-evidence/spec-07/INDEX.md` |
+| Session E contract proof | `docs/command-center/reports/ui-evidence/spec-07/CONTRACT_PROOF.md` — 17 contracts UNCHANGED/CONFIRMED |
+| Session E audit verification | PASS — Business+University `profile.published` / `profile.unpublished` rows verified (`audit-notes.md`) |
+| Session E regressions | no regressions found |
+| Session E fixture cleanup | PASS — run-scoped Profiles/Directory/auth users removed (`cleanup-result.md`); disposable stop --no-backup; config.toml restored; no secrets committed |
+| Session E preserved contracts | publication RPC signatures/grants; public published-only RLS; owner status-write prevention; staff suspend/reinstate; Profile-creation + Spec 02 decision RPCs; Directory reference-only; Verification≠publish; no completeness metric; no public draft/suspended; `agent/nonprod-signup-form` untouched |
+| Session E deferred | Spec 08 visual waves; request-more-info; evidence upload; staff checklist; unsupported metrics; university_dashboard_view claimed_by residue; viewer_approved_*/claim_requests residue; Catalog/Lammah/ابحثلي |
+| Session E local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test; build (recorded in completion response) |
+| Session E validation CI | PENDING (completion response) |
+| Session E target CI | PENDING (completion response) |
+| Session E Vercel | PENDING (completion response) |
+| Session E implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+| Session E mirror branch | `agent/nonprod-signup-form` not changed |
+| session (prior) | 07-D (publication UI, public Profile routes, Directory links) |
 | Session D canonical starting SHA | 738ecaec3a564faf67fa3a44cac0ceb581cafe12 |
 | Session D source branch | cursor/jid-07d-publication-ui |
 | Session D CI branch | codex/jid-07d-ci-validation |
@@ -25,7 +54,7 @@
 | Session D RPC/grants/RLS/suspension | unchanged |
 | Session D local validation | PASS — git diff --check; install; lint; type-check; test; build |
 | Session D mirror branch | `agent/nonprod-signup-form` not changed |
-| Session D implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+| Session D implementation / promoted SHA | b77fca0d6083ac24c456696e8e3f1af3dcb65a7c |
 | session (prior) | 07-C (disposable-DB authorization/RLS matrix — promotion gate for Session 07-B) |
 | Session C canonical integration starting SHA | b29846b644ab2d94ec1d88b3a0954f2f30276452 |
 | Session C source branch | cursor/jid-07c-security-validation |

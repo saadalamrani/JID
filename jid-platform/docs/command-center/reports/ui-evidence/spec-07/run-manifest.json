@@ -1,0 +1,31 @@
+{
+  "runId": "jid07e-1785524038244",
+  "createdAt": "2026-07-31T18:54:00.291Z",
+  "users": {
+    "businessOwner": {
+      "id": "18d544d7-cbfa-47ce-ada6-50d0de0819d2"
+    },
+    "universityOwner": {
+      "id": "147f0668-2f2b-4504-909a-b7725ff89c0e"
+    },
+    "staff": {
+      "id": "a83a91d7-adc3-4cb4-ae93-c1883615fcbd"
+    }
+  },
+  "directories": {
+    "business": {
+      "id": "57d46abb-7559-49e3-8b92-7deea6a02abd"
+    },
+    "university": {
+      "id": "6d8c8e07-0b83-4f93-b74b-5a71c4831a6c"
+    }
+  },
+  "profiles": {
+    "business": {
+      "id": "17ce8106-1e41-4de3-aa4c-afff8688b855"
+    },
+    "university": {
+      "id": "84e2321d-76a3-4688-b82e-255aaaab0589"
+    }
+  }
+}
