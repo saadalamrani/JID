@@ -5,8 +5,25 @@
 | Field | Value |
 |---|---|
 | specification | 06 |
-| status | IN_PROGRESS |
-| session | 06-D COMPLETE (notification render + Spec 03 action URLs; promotion pending CI + FF) |
+| status | SHIPPED |
+| session | 06-E COMPLETE |
+| Session E starting SHA | f6397f27b0fde5717a2df8bf3cae6526c3bdc896 |
+| Session E source branch | cursor/jid-06e-closeout |
+| Session E regression (tip, pre-smoke) | PASS — git diff --check; install --frozen-lockfile; lint; type-check; vitest 312 passed / 79 skipped; build |
+| Session E repairs | no regressions found |
+| Session E evidence index | `docs/command-center/reports/ui-evidence/spec-06/INDEX.md` |
+| Session E browser coverage | Correction + notification primary: AR desktop, EN desktop, AR mobile 375px; honest states missing-target / non-staff denied / blank action_url / post-decision queue |
+| Session E synthetic run | `jid06e-1785457887205` (disposable `jid-06e-disposable` API 58621) |
+| Session E corrections smoke | PASS — owner submit; staff approve city→Jeddah-SYNTH; reject leaves website unchanged; missing-target honest failure; non-staff denied |
+| Session E notifications smoke | PASS — claim.approved/rejected bell+dropdown AR/EN/mobile; create-profile / verification-rejected destinations; fallback blank action_url |
+| Session E contract proof | `docs/command-center/reports/ui-evidence/spec-06/CONTRACT_PROOF.md` — all 11 contracts UNCHANGED |
+| Session E fixture cleanup | PASS run-scoped objects; disposable destroyed stop --no-backup; config.toml restored; no secrets committed |
+| Session E preserved/deferred | Directory reference-only; corrections→Directory fields only; Verification≠Profile create; in-app+email both remain; request-more-info/prefs/digest deferred; redesign→Spec 08; Catalog/Lammah/ابحثلي separate |
+| Session E validation CI | PENDING (completion response) |
+| Session E target CI | PENDING (completion response) |
+| Session E Vercel | PENDING (completion response) |
+| Session E implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+| session (prior) | 06-D COMPLETE (notification render + Spec 03 action URLs; promoted) |
 | Session D starting SHA | 57ab093bd2546cd1faa47b2b9463dbf5e91e0204 |
 | Session D source branch | cursor/jid-06d-notifications |
 | Session 06-A notification findings acted on | notification_render → locale title/body + CategoryIcon + blank action_url hardening; action_url `/settings` → Spec 03 outcome routes via `notify_claim_decision`; notification_duplicates → no same-channel duplicate removed (parallel in-app + email both remain) |
@@ -17,10 +34,10 @@
 | Session D disposable matrix | PASS — business/university approve+reject URLs; applicant targeting; idempotency single row; cross-applicant + anon denied; no Profile create; verification status unchanged |
 | Session D cleanup | PASS — stop --no-backup; zero jid-06d containers/volumes; ports released; config.toml restored |
 | Session D local validation | git diff --check PASS; corepack pnpm install --frozen-lockfile PASS; corepack pnpm lint PASS; corepack pnpm type-check PASS; corepack pnpm exec vitest run --testTimeout=30000 PASS (312 passed / 79 skipped without disposable env); corepack pnpm build PASS |
-| Session D validation CI | PENDING (reported in completion response) |
-| Session D target CI | PENDING (reported in completion response) |
-| Session D Vercel | PENDING (reported in completion response) |
-| Session D implementation / promoted SHA | PENDING (reported in completion response — do not self-embed) |
+| Session D validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30582082216 |
+| Session D target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30582419403 |
+| Session D Vercel | PASS — non-prod Vercel checks on promoted tip |
+| Session D implementation / promoted SHA | f6397f27b0fde5717a2df8bf3cae6526c3bdc896 |
 | Session C base / integration starting SHA | 19cb0112b05752530da3a8dcd9fd89c5958869bc |
 | Session C source branch | cursor/jid-06c-security-validation |
 | Session 06-B implementation SHA | 45020bb37d652bf0f6362ce5fb95b03515ed75ce |

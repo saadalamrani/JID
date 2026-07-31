@@ -1,0 +1,116 @@
+{
+  "runId": "jid06e-1785457887205",
+  "createdAt": "2026-07-31T00:31:27.205Z",
+  "passwordHint": "synthetic local-only (not committed as secret value in INDEX)",
+  "users": {
+    "staff": {
+      "id": "14ef7bbf-f1f1-4fee-ae28-7aef5265123d",
+      "email": "staff-jid06e-1785457887205@jid.local.test",
+      "role": "staff"
+    },
+    "owner": {
+      "id": "4bbba9ba-0b6b-483f-befb-df469f2a01d3",
+      "email": "owner-jid06e-1785457887205@jid.local.test",
+      "role": "company_admin"
+    },
+    "individual": {
+      "id": "059536c5-5a01-4c8a-94f4-64a6d0ddaefc",
+      "email": "individual-jid06e-1785457887205@jid.local.test",
+      "role": "individual"
+    },
+    "applicant-biz": {
+      "id": "6151aa14-f41e-45ba-b553-36bdb839f80f",
+      "email": "applicant-biz-jid06e-1785457887205@jid.local.test",
+      "role": "individual"
+    },
+    "applicant-uni": {
+      "id": "b6984b96-0fb0-4e84-a5f7-4006834439c8",
+      "email": "applicant-uni-jid06e-1785457887205@jid.local.test",
+      "role": "individual"
+    }
+  },
+  "companies": {
+    "primary": {
+      "id": "6e788bd9-ef28-471c-bf89-71d59edaafea",
+      "slug": "synth-06e-jid06e-1785457887205",
+      "cityBefore": "Riyadh"
+    },
+    "university": {
+      "id": "a330cb94-76ed-44c6-9e95-46303ab3bce5",
+      "slug": "synth-06e-uni-jid06e-1785457887205"
+    }
+  },
+  "suggestions": {
+    "approve": {
+      "id": "fae0626b-034e-4d06-b18b-68a83504f07c",
+      "field": "city",
+      "value": "Jeddah-SYNTH-jid06e-1785457887205",
+      "status": "pending"
+    },
+    "reject": {
+      "id": "75a69918-7ab5-4cb5-a264-b7983d595630",
+      "field": "website_url",
+      "value": "https://synth-reject-jid06e-1785457887205.example.test",
+      "status": "pending"
+    },
+    "already_decided": {
+      "id": "e35ea5f5-7fd8-4dd4-a752-77a39d96ebca",
+      "field": "linkedin_url",
+      "value": "https://linkedin.example/jid06e-1785457887205",
+      "status": "approved"
+    },
+    "missing_target": {
+      "id": "a6c56645-8417-4ce5-9bc7-b06db0b9ed89",
+      "directoryId": "9ed364bf-3ed2-40cf-b307-2e2392bb6abb"
+    }
+  },
+  "notifications": {
+    "biz_approve": {
+      "id": "9bf3e910-6ec5-491c-80ab-125e2ee38153",
+      "recipientId": "6151aa14-f41e-45ba-b553-36bdb839f80f",
+      "category": "claim.approved",
+      "actionUrl": "/company/create-profile",
+      "vrId": "9df2e251-967a-4664-ad42-0529a7b0b904"
+    },
+    "biz_reject": {
+      "id": "8531c33d-3e3d-4951-822f-661362a12fb0",
+      "recipientId": "6151aa14-f41e-45ba-b553-36bdb839f80f",
+      "category": "claim.rejected",
+      "actionUrl": "/company/verification-rejected",
+      "vrId": "45a45e68-5db2-46ae-8d22-0faf419e955a"
+    }
+  },
+  "verifications": {
+    "biz_approve": {
+      "id": "9df2e251-967a-4664-ad42-0529a7b0b904",
+      "applicantId": "6151aa14-f41e-45ba-b553-36bdb839f80f",
+      "type": "business",
+      "status": "approved"
+    },
+    "biz_reject": {
+      "id": "45a45e68-5db2-46ae-8d22-0faf419e955a",
+      "applicantId": "6151aa14-f41e-45ba-b553-36bdb839f80f",
+      "type": "business",
+      "status": "rejected"
+    },
+    "uni_approve": {
+      "id": "6ffab5ac-704f-4901-810e-c76ec5a2bb55",
+      "applicantId": "b6984b96-0fb0-4e84-a5f7-4006834439c8",
+      "type": "university",
+      "status": "approved"
+    },
+    "uni_reject": {
+      "id": "f2f40c07-13db-43c9-8fbf-c05262c953e4",
+      "applicantId": "b6984b96-0fb0-4e84-a5f7-4006834439c8",
+      "type": "university",
+      "status": "rejected"
+    }
+  },
+  "profiles": {
+    "business": {
+      "id": "c125f979-5b36-4165-a2f9-2031057fa351",
+      "ownerId": "4bbba9ba-0b6b-483f-befb-df469f2a01d3",
+      "directoryId": "6e788bd9-ef28-471c-bf89-71d59edaafea"
+    }
+  }
+}

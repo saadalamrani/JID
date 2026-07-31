@@ -1,0 +1,30 @@
+﻿{
+    "runId":  "jid06e-1785457887205",
+    "deletedUserCount":  5,
+    "beforeCompanies":  [
+                            {
+                                "id":  "a330cb94-76ed-44c6-9e95-46303ab3bce5",
+                                "slug":  "synth-06e-uni-jid06e-1785457887205",
+                                "city":  null,
+                                "website_url":  null
+                            },
+                            {
+                                "id":  "6e788bd9-ef28-471c-bf89-71d59edaafea",
+                                "slug":  "synth-06e-jid06e-1785457887205",
+                                "city":  "Jeddah-SYNTH-jid06e-1785457887205",
+                                "website_url":  "https://synth-before.example.test"
+                            }
+                        ],
+    "leftoverProfiles":  [
+                             {
+                                 "id":  "14ef7bbf-f1f1-4fee-ae28-7aef5265123d",
+                                 "full_name":  "SYNTH staff jid06e-1785457887205"
+                             }
+                         ],
+    "leftoverCompanies":  [
+
+                          ],
+    "notes":  "Only run-scoped synthetic objects removed. No shared/pre-existing rows deleted by ID outside this run.",
+    "staffProfileDeleteBlockedByAuditImmutability":  true,
+    "disposableDestroy":  "PASS — supabase stop --no-backup; config.toml restored to jid-platform/54321"
+}
