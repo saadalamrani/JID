@@ -6,6 +6,7 @@ import {
   fetchCompanyBySlug,
   fetchViewerOwnsDirectory,
 } from '@/lib/queries/catalog'
+import { lookupPublishedProfileLinkByDirectoryId } from '@/lib/queries/published-profile'
 import { CatalogDetailView } from '../_components/catalog-detail-view'
 
 type CatalogDetailPageProps = {
@@ -18,11 +19,15 @@ export default async function CatalogDetailPage({ params }: CatalogDetailPagePro
     notFound()
   }
 
-  const [isDirectoryOwner, sectors, regions] = await Promise.all([
+  const [isDirectoryOwner, sectors, regions, publishedLookup] = await Promise.all([
     fetchViewerOwnsDirectory(company.id),
     fetchCatalogSectorOptions(),
     fetchCatalogRegionOptions(),
+    lookupPublishedProfileLinkByDirectoryId(company.id),
   ])
+
+  const publishedProfileHref =
+    publishedLookup.kind === 'link' ? publishedLookup.target.href : null
 
   return (
     <main className="container-jid py-8">
@@ -31,6 +36,7 @@ export default async function CatalogDetailPage({ params }: CatalogDetailPagePro
         isDirectoryOwner={isDirectoryOwner}
         sectors={sectors}
         regions={regions}
+        publishedProfileHref={publishedProfileHref}
       />
     </main>
   )

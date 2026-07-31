@@ -18,6 +18,8 @@ type OrganizationProfileShellProps = {
   orgKind: 'business' | 'university'
   displayName: string
   status: string
+  profileId: string
+  publicSlug?: string | null
   children: ReactNode
   sectionNav: ReactNode
   mobileHeader?: ReactNode
@@ -27,10 +29,14 @@ export function OrganizationProfileShell({
   orgKind,
   displayName,
   status,
+  profileId,
+  publicSlug = null,
   children,
   sectionNav,
   mobileHeader,
 }: OrganizationProfileShellProps) {
+  const editHref = orgKind === 'business' ? '/company/profile/edit' : '/university/profile/edit'
+
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:py-8">
       <header className="mb-6 space-y-3">
@@ -44,7 +50,13 @@ export function OrganizationProfileShell({
           </div>
           <ProfileStateBadge status={status} />
         </div>
-        <DraftPublicationBoundary />
+        <DraftPublicationBoundary
+          profileId={profileId}
+          profileType={orgKind}
+          status={status}
+          publicSlug={publicSlug}
+          editHref={editHref}
+        />
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">

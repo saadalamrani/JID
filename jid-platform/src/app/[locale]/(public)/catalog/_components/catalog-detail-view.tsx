@@ -15,6 +15,8 @@ type CatalogDetailViewProps = {
   isDirectoryOwner: boolean
   sectors: CatalogLookupOption[]
   regions: CatalogLookupOption[]
+  /** Server-validated published Profile href; null when absent/draft/suspended/ambiguous. */
+  publishedProfileHref?: string | null
 }
 
 export function CatalogDetailView({
@@ -22,6 +24,7 @@ export function CatalogDetailView({
   isDirectoryOwner,
   sectors,
   regions,
+  publishedProfileHref = null,
 }: CatalogDetailViewProps) {
   const t = useTranslations('catalogPage.detail')
   const displayName = company.name_ar ?? company.name_en
@@ -32,8 +35,9 @@ export function CatalogDetailView({
   const sectorLabel = company.sector?.name_ar ?? company.sector?.name_en
   const regionLabel = company.region?.name_ar ?? company.region?.name_en
 
-  const primaryTagline = company.hasPublishedProfile ? company.profile_tagline_ar : null
-  const primaryAbout = company.hasPublishedProfile
+  const hasPublishedProfileLink = Boolean(publishedProfileHref)
+  const primaryTagline = hasPublishedProfileLink ? company.profile_tagline_ar : null
+  const primaryAbout = hasPublishedProfileLink
     ? company.profile_about_ar
     : company.description_ar
 
@@ -80,7 +84,7 @@ export function CatalogDetailView({
           <p className="text-sm text-muted-foreground">{t('aboutEmpty')}</p>
         )}
 
-        {company.hasPublishedProfile && company.description_ar ? (
+        {hasPublishedProfileLink && company.description_ar ? (
           <p className="border-t border-border pt-3 text-xs text-muted-foreground">
             <span className="font-medium">{t('directoryRecordNote')}</span> {company.description_ar}
           </p>
@@ -92,7 +96,9 @@ export function CatalogDetailView({
           slug={company.slug}
           careerPortalUrl={company.career_portal_url}
           linkStatus={company.link_status}
-          hasPublishedProfile={company.hasPublishedProfile}
+          hasPublishedProfile={hasPublishedProfileLink}
+          publishedProfileHref={publishedProfileHref}
+          entityType={company.entity_type}
         />
       </div>
 

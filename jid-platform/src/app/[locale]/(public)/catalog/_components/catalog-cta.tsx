@@ -18,8 +18,17 @@ type CatalogCtaProps = {
   careerPortalUrl: string | null
   linkStatus: string
   hasPublishedProfile: boolean
+  /** Absolute in-app path to published Profile, when lookup confirms a single published Profile. */
+  publishedProfileHref?: string | null
+  entityType?: string | null
   className?: string
   onExternalClick?: (event: MouseEvent) => void
+}
+
+function defaultProfileHref(slug: string, entityType: string | null | undefined): string {
+  return entityType === 'university'
+    ? `/universities/${slug}/profile`
+    : `/companies/${slug}/profile`
 }
 
 export function CatalogCta({
@@ -27,15 +36,20 @@ export function CatalogCta({
   careerPortalUrl,
   linkStatus,
   hasPublishedProfile,
+  publishedProfileHref = null,
+  entityType = null,
   className,
   onExternalClick,
 }: CatalogCtaProps) {
   const t = useTranslations('catalogPage.cta')
   const isHealthy = linkStatus === 'healthy'
   const hasPortal = isHealthy && Boolean(careerPortalUrl)
-  const profilePath = slug ? `/companies/${slug}/profile` : null
+  const profilePath =
+    publishedProfileHref ??
+    (hasPublishedProfile && slug ? defaultProfileHref(slug, entityType) : null)
+  const showPublishedLink = Boolean(hasPublishedProfile && profilePath)
 
-  if (hasPublishedProfile && profilePath) {
+  if (showPublishedLink && profilePath) {
     return (
       <div className={cn('flex items-center gap-2', className)}>
         <LocaleLink
@@ -46,6 +60,7 @@ export function CatalogCta({
             'bg-primary text-primary-foreground transition-colors hover:bg-primary/90 active:bg-primary/80',
           )}
           onClick={onExternalClick}
+          aria-label={t('jidProfileAria')}
         >
           {t('jidProfile')}
         </LocaleLink>

@@ -190,6 +190,8 @@ export function UniversityProfileManagement({
         orgKind="university"
         displayName={profile.display_name_ar}
         status={profile.status}
+        profileId={profile.id}
+        publicSlug={directory.slug}
         sectionNav={
           <ProfileSectionNav
             activeSection={section}

@@ -303,6 +303,7 @@
     },
     "cta": {
       "jidProfile": "الملف التعريفي على جِد ↗",
+      "jidProfileAria": "فتح الملف التعريفي المنشور على جِد",
       "careerPortal": "بوابة التوظيف",
       "officialPortalTooltip": "بوابة التوظيف الرسمية",
       "linkPending": "الرابط قيد التحديث"
@@ -1184,6 +1185,31 @@
       "message": "ملفك حاليًا في وضع المسودة. ستظهر عناصر التحكم بالنشر عند تفعيل مسار النشر."
     },
     "publication": {
+      "draftTitle": "ملف مسودة",
+      "draftBody": "النشر يجعل ملفك المملوك ظاهرًا للعامة. سجل الدليل يبقى منفصلًا ولا يُحوَّل إلى ملكية عبر النشر.",
+      "publishedTitle": "ملف منشور",
+      "publishedBody": "هذا الملف ظاهر للعامة. يمكنك إلغاء النشر في أي وقت لإعادته إلى المسودة.",
+      "suspendedTitle": "الملف موقوف",
+      "suspendedBody": "إيقاف الفريق يتجاوز النشر. النشر وإلغاء النشر غير متاحين حتى يعيد الفريق تفعيل الملف. التعديل لا يتجاوز الإيقاف.",
+      "publish": "نشر الملف",
+      "unpublish": "إلغاء نشر الملف",
+      "publishing": "جارٍ النشر…",
+      "unpublishing": "جارٍ إلغاء النشر…",
+      "cancel": "إلغاء",
+      "editProfile": "تعديل الحقول المطلوبة",
+      "viewPublicProfile": "عرض الملف العام",
+      "confirmPublishTitle": "نشر هذا الملف؟",
+      "confirmPublishBody": "النشر يجعل ملفك المملوك ظاهرًا للعامة. هذا لا ينقل ملكية سجل الدليل، وليس نهائيًا—يمكنك إلغاء النشر لاحقًا.",
+      "confirmPublish": "تأكيد النشر",
+      "confirmUnpublishTitle": "إلغاء نشر هذا الملف؟",
+      "confirmUnpublishBody": "إلغاء النشر يجعل الملف العام غير متاح ويعيد الملف إلى المسودة. هذا لا يحذف ملفك.",
+      "confirmUnpublish": "تأكيد إلغاء النشر",
+      "announcePublished": "تم نشر الملف. أصبح ظاهرًا للعامة.",
+      "announceUnpublished": "تم إلغاء نشر الملف. عاد إلى المسودة.",
+      "missingFields": {
+        "display_name_ar": "الاسم المعروض بالعربية",
+        "about_ar": "النبذة بالعربية"
+      },
       "errors": {
         "unauthenticated": "سجّل الدخول لنشر ملفك أو إلغاء نشره.",
         "invalid_input": "طلب النشر غير صالح.",
@@ -1327,6 +1353,14 @@
         "government": "حكومية",
         "private": "أهلية"
       }
+    },
+    "universityPublic": {
+      "unnamed": "مؤسسة",
+      "established": "سنة التأسيس",
+      "coverAlt": "صورة غلاف الملف",
+      "verifiedDomains": "النطاقات الموثّقة",
+      "directoryLink": "عرض سجل الدليل",
+      "metaFallback": "ملف الجامعة"
     }
   },
   "university": {

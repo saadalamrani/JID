@@ -303,6 +303,7 @@
     },
     "cta": {
       "jidProfile": "Profile on JID ↗",
+      "jidProfileAria": "Open published Profile on JID",
       "careerPortal": "Careers portal",
       "officialPortalTooltip": "Official careers portal",
       "linkPending": "Link being updated"
@@ -1184,6 +1185,31 @@
       "message": "Your Profile is currently a draft. Publication controls will appear when the publication workflow is enabled."
     },
     "publication": {
+      "draftTitle": "Draft Profile",
+      "draftBody": "Publishing makes this owned Profile publicly visible. The Directory record stays separate and is not claimed or owned through publication.",
+      "publishedTitle": "Published Profile",
+      "publishedBody": "This Profile is publicly visible. You can unpublish it at any time to return it to draft.",
+      "suspendedTitle": "Profile suspended",
+      "suspendedBody": "Staff suspension overrides publication. Publication and unpublication are unavailable until staff reinstates this Profile. Editing does not bypass suspension.",
+      "publish": "Publish Profile",
+      "unpublish": "Unpublish Profile",
+      "publishing": "Publishing…",
+      "unpublishing": "Unpublishing…",
+      "cancel": "Cancel",
+      "editProfile": "Edit required fields",
+      "viewPublicProfile": "View public Profile",
+      "confirmPublishTitle": "Publish this Profile?",
+      "confirmPublishBody": "Publishing makes your owned Profile publicly visible. This does not transfer Directory ownership, and it is not irreversible—you can unpublish later.",
+      "confirmPublish": "Confirm publish",
+      "confirmUnpublishTitle": "Unpublish this Profile?",
+      "confirmUnpublishBody": "Unpublishing makes the public Profile unavailable and returns the Profile to draft. This does not delete your Profile.",
+      "confirmUnpublish": "Confirm unpublish",
+      "announcePublished": "Profile published. It is now publicly visible.",
+      "announceUnpublished": "Profile unpublished. It is back in draft.",
+      "missingFields": {
+        "display_name_ar": "Arabic display name",
+        "about_ar": "Arabic about"
+      },
       "errors": {
         "unauthenticated": "Sign in to publish or unpublish your Profile.",
         "invalid_input": "Invalid publication request.",
@@ -1327,6 +1353,14 @@
         "government": "Government",
         "private": "Private"
       }
+    },
+    "universityPublic": {
+      "unnamed": "Institution",
+      "established": "Established",
+      "coverAlt": "Profile cover image",
+      "verifiedDomains": "Verified domains",
+      "directoryLink": "View Directory record",
+      "metaFallback": "University Profile"
     }
   },
   "university": {

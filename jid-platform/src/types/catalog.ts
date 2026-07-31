@@ -121,6 +121,7 @@ export type CompanyCardData = {
   slug: string | null
   name_ar: string | null
   name_en: string
+  entity_type: string
   sector: CatalogSectorRef | null
   region: CatalogRegionRef | null
   logo_url: string | null

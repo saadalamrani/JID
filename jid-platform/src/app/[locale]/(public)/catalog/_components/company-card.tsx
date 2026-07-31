@@ -80,6 +80,7 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
           careerPortalUrl={company.career_portal_url}
           linkStatus={company.link_status}
           hasPublishedProfile={company.hasPublishedProfile}
+          entityType={company.entity_type}
           onExternalClick={(event) => event.stopPropagation()}
         />
       </div>

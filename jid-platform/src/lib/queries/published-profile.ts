@@ -164,14 +164,14 @@ export async function fetchPublishedUniversityProfileBySlug(
   slug: string,
 ): Promise<{
   profile: PublicPublishedUniversityProfile
-  directory: { id: string; slug: string | null }
+  directory: { id: string; slug: string | null; logo_url: string | null }
 } | null> {
   const supabase = await createClient()
   const client = asUntyped(supabase)
 
   const { data: directoryData, error: directoryError } = await client
     .from('companies')
-    .select('id, slug, entity_type, is_active')
+    .select('id, slug, entity_type, is_active, logo_url')
     .eq('slug', slug)
     .eq('is_active', true)
     .maybeSingle()
@@ -184,6 +184,7 @@ export async function fetchPublishedUniversityProfileBySlug(
     slug: string | null
     entity_type: string
     is_active: boolean
+    logo_url: string | null
   }
 
   if (directory.entity_type !== 'university') return null
@@ -203,7 +204,7 @@ export async function fetchPublishedUniversityProfileBySlug(
 
   return {
     profile: mapUniversity(row),
-    directory: { id: directory.id, slug: directory.slug },
+    directory: { id: directory.id, slug: directory.slug, logo_url: directory.logo_url },
   }
 }
 

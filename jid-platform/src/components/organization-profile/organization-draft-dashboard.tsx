@@ -61,7 +61,13 @@ export function OrganizationDraftDashboard(props: OrganizationDraftDashboardProp
         <ProfileStateBadge status={profile.status} />
       </header>
 
-      <DraftPublicationBoundary />
+      <DraftPublicationBoundary
+        profileId={profile.id}
+        profileType={orgKind}
+        status={profile.status}
+        publicSlug={directory.slug}
+        editHref={editHref}
+      />
 
       <div className="grid gap-6 lg:grid-cols-2">
         <article className="rounded-2xl border border-border bg-white p-5">

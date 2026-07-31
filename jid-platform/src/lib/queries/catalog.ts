@@ -159,6 +159,7 @@ function mapCompanyCard(row: CatalogListRow): CompanyCardData {
     slug: row.slug,
     name_en: row.name,
     name_ar: row.name_ar,
+    entity_type: row.entity_type,
     sector: mapSectorRef(sector),
     region: mapRegionRef(region),
     logo_url: row.logo_url,
