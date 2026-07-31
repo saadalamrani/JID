@@ -6,7 +6,34 @@
 |---|---|
 | specification | 07 |
 | status | IN_PROGRESS |
-| session | 07-B (publication RPCs, RLS preserve, server actions — unpromoted; Session C disposable matrix is promotion gate) |
+| session | 07-C (disposable-DB authorization/RLS matrix — promotion gate for Session 07-B) |
+| Session C canonical integration starting SHA | b29846b644ab2d94ec1d88b3a0954f2f30276452 |
+| Session C source branch | cursor/jid-07c-security-validation |
+| Session C CI branch | codex/jid-07c-ci-validation |
+| Session 07-B implementation SHA (from branch tip) | 46244bd43f660f7ac046d23d114d0abb8b65cdcf |
+| Session 07-B migration | `20260730190003_profile_publication_rpcs.sql` |
+| Session C disposable project | `jid-07c-disposable` |
+| Session C disposable ports | API 58721; DB 58722; shadow 58720; Studio 58723; Inbucket 58724; pooler 58729; analytics(disabled) 58727 |
+| Session C migration/reset | PASS — `supabase start` applied full chain through `20260730190003`; seed disabled; rls-test helper SQL applied (not product migration); no cloud link |
+| Session C POSITIVE publish | PASS — Business + University: owner publish; min fields only; status/published_at; one `profile.published`; Directory/owner unchanged; anon public SELECT |
+| Session C POSITIVE unpublish | PASS — Business + University: draft + null published_at; one `profile.unpublished`; public hide; row retained |
+| Session C minimum-field | PASS — missing name / about / both independently; optional fields not required; no success audit on failure |
+| Session C RPC authorization | PASS — anon denied; non-owner denied; cross-type denied; EXECUTE authenticated only (anon false); no forged success audit |
+| Session C direct-status-write | PASS — owner raw status transitions denied; content edit OK; non-owner/anon UPDATE denied; suspended owner blocked (RLS and/or trigger) |
+| Session C public SELECT RLS | PASS — anon/non-owner published-only; owner reads all own statuses; staff reads suspended |
+| Session C suspension precedence | PASS — staff suspend; owner cannot suspend/restore; suspended cannot publish/unpublish; not public; Super Admin reinstate retained |
+| Session C audit | PASS — success publish/unpublish audited; failures/unauthorized no success audit; client forge denied |
+| Session C Directory lookup | PASS — published link ids distinct; draft/suspended/absent none |
+| Session C atomicity | PASS — republish/draft-unpublish honest failures; failed publish leaves draft |
+| Session C security-advisor | not available locally (CLI v2.20.12); `supabase db lint --local` pre-existing only; no 07-B publication repair |
+| Session C scoped repairs | none to product RPCs/RLS; matrix harness test only |
+| Session C transcript | `docs/command-center/reports/JID_07_disposable_db_transcript.md` |
+| Session C cleanup | PASS — stop --no-backup; zero jid-07c containers/volumes; ports released; config.toml restored; no cloud; no secrets |
+| Session C local validation | PASS — git diff --check; corepack pnpm install --frozen-lockfile; corepack pnpm lint; corepack pnpm type-check; corepack pnpm test (326 passed / 100 skipped without disposable env); corepack pnpm build; publication RLS matrix 21/21 against disposable before cleanup |
+| Session C validation CI | PENDING (completion response) |
+| Session C combined / promoted SHA | PENDING (completion response — do not self-embed) |
+| Session C mirror branch | `agent/nonprod-signup-form` **not updated** (historical mirror only) |
+| session (prior) | 07-B (publication RPCs, RLS preserve, server actions — unpromoted until this Session C) |
 | Session B base SHA | b29846b644ab2d94ec1d88b3a0954f2f30276452 |
 | Session B source branch | cursor/jid-07b-publication-backend |
 | Session B CI branch | codex/jid-07b-ci-validation |
@@ -19,11 +46,11 @@
 | Session B public query foundation | `src/lib/queries/published-profile.ts` — `fetchPublishedBusinessProfileById`; `fetchPublishedUniversityProfileBySlug` (route `/universities/[slug]/profile`); public-safe columns only (no owner_user_id / verified_badge); draft/suspended → null |
 | Session B Directory lookup foundation | `lookupPublishedProfileLinkByDirectoryId` — by Directory id; published-only via RLS+status filter; href `/companies|universities/{slug}/profile`; absent/draft/suspended → `{kind:'none'}`; duplicate published → `{kind:'ambiguous'}` + console.error |
 | Session B application files | `src/lib/profile/publication.ts` (wrappers + error map); `src/lib/profile/publication-actions.ts` (`publishOwnedProfileAction` / `unpublishOwnedProfileAction`); `src/lib/queries/published-profile.ts`; `src/lib/supabase/types.ts` (4 RPCs); messages en/ar `organizationProfile.publication.errors`; migration; tests unit+rls; ledger |
-| Session B tests | `tests/unit/profile/publication-backend.test.ts` (migration/grants/fields/GUC/actions/i18n/RLS preserve); `tests/rls/profile-publication.rls.test.ts` (live matrix when disposable env present: publish success+audit, min fields, authz, transitions, public RLS, suspension precedence, Directory lookup) |
+| Session B tests | `tests/unit/profile/publication-backend.test.ts`; `tests/rls/profile-publication.rls.test.ts`; Session C adds `tests/rls/profile-publication-matrix.rls.test.ts` |
 | Session B local validation | PASS — git diff --check; corepack pnpm install --frozen-lockfile; corepack pnpm lint; corepack pnpm type-check; corepack pnpm test (326 passed / 89 skipped without disposable env); corepack pnpm build |
-| Session B validation CI | PENDING (completion response) |
-| Session B implementation SHA | PENDING (completion response — do not self-embed) |
-| Session B promoted | **no** — must remain on `cursor/jid-07b-publication-backend` until Session 07-C disposable authorization/RLS matrix succeeds |
+| Session B validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30602710065 |
+| Session B implementation SHA | 46244bd43f660f7ac046d23d114d0abb8b65cdcf |
+| Session B promoted | **via Session 07-C** when FF completes (matrix + cleanup + local + validation CI) |
 | session (prior) | 07-A COMPLETE (read-only reconciliation; ledger/findings only) |
 | Session A base SHA | 760b86ade93469fc67ff61d0d95201ae771ee421 |
 | Session A source branch | cursor/jid-07a-reconciliation |
