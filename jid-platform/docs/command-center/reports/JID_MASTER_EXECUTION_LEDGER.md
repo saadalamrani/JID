@@ -1,5 +1,48 @@
 # JID Master Execution Ledger
 
+## Specification 07 — Publication and Public Visibility
+
+| Field | Value |
+|---|---|
+| specification | 07 |
+| status | IN_PROGRESS |
+| session | 07-A COMPLETE (read-only reconciliation; ledger/findings only) |
+| Session A base SHA | 760b86ade93469fc67ff61d0d95201ae771ee421 |
+| Session A source branch | cursor/jid-07a-reconciliation |
+| Spec 06 gate | SHIPPED; tip of `origin/agent/nonprod-signup-form` equals Spec 06 Session E promoted closeout SHA `760b86ade93469fc67ff61d0d95201ae771ee421` (ancestor of itself) |
+| intervening_commits | none — tip equals Spec 06 final tip SHA |
+| intervening_scope_touch | none — no commits after Spec 06 tip; Spec 07 areas unchanged since tip |
+| publication_state | **partial** — status CHECK draft\|published\|suspended; RLS public SELECT published; business public page + catalog CTA exist; staff suspend/reinstate exist; **no** `publish_*`/`unpublish_*` RPC; **no** owner publish UI (placeholder only); **no** university public profile fetch/route; `published_at` not written by owner lifecycle |
+| owner_direct_status_write | **denied** — trigger `enforce_owned_profile_moderation_boundary` raises `profile_moderation_fields_require_staff` on owner `status`/`verified_badge`/`published_at` change; owner content patches forbid those keys; RLS UPDATE allows non-suspended own rows but trigger is authoritative |
+| RLS business_profiles SELECT | `profile_public_read_published` TO anon,authenticated USING (status='published'); `profile_owner_read_own` TO authenticated USING (owner_user_id=auth.uid()) — any status; `profile_staff_read_all` TO authenticated USING role IN ('staff','super_admin') — from `110_profile_ownership_policies.sql` |
+| RLS business_profiles UPDATE | `profile_owner_update_content` TO authenticated USING/WITH CHECK (owner_user_id=auth.uid() AND status<>'suspended') — from `20260719100425_enforce_suspended_profile_transition_boundary.sql`; no INSERT/DELETE policies |
+| RLS university_profiles SELECT | `university_profile_public_read_published` / `university_profile_owner_read_own` / `university_profile_staff_read_all` — same shape as business — `110` |
+| RLS university_profiles UPDATE | `university_profile_owner_update_content` — same shape as business — `20260719100425` |
+| RLS publication conflict | **none functional** — public published read already present; owner status write blocked by trigger (not RLS column exclusion). Session B must add publish/unpublish SECURITY DEFINER RPCs; must not weaken suspension trigger |
+| suspension_mechanism | Staff actions `suspendProfileAction`/`reinstateProfileAction` (`staff/directory/actions.ts`) → `suspendProfile`/`reinstateProfile` (`lib/staff/moderation.ts`) → SECURITY DEFINER RPCs `suspend_profile`/`reinstate_profile` (`113_profile_moderation_functions.sql`); guard `requireStaffShellAccess`; RPC allow `staff`\|`super_admin` only (`admin` shell-admitted but RPC-denied); audit `profile.suspended` / `profile.reinstated`; tables both profile types; status → `suspended`; reinstate → `draft`\|`published` (default draft); owner surfaces `/company/profile-suspended`, `/university/profile-suspended` (no self-restore) |
+| suspension_authoritative | **yes** — staff RPC + trigger; owners cannot write status or edit suspended rows |
+| public_route_pattern | **Per-type under entity public namespaces; shared catalog for Directory only.** Directory: `/catalog/[slug]` (companies.slug). Business published: `/companies/[slug]/profile` (exists; `fetchPublishedBusinessProfileBySlug`). University published (to build in later sessions): `/universities/[slug]/profile` mirroring same grammar. Evidence: `catalog-cta.tsx` CTA hardcodes `/companies/${slug}/profile`; university public profile route/fetch **absent**. Identifier: Directory `slug` → `directory_id` → profile. notFound: missing/inactive Directory or no published profile → `notFound()`. Locale: `localePrefix: 'as-needed'`. Published-only lookup: query layer + RLS |
+| profile_status_values | CHECK `draft` \| `published` \| `suspended` on both tables (`103`/`104`); no additional values in repo |
+| profile_schema_spec07_fields | Both: id, directory_id, owner_user_id, status, published_at, display_name_ar/en, about_ar/en, cover_image_url, verified_domains. Business-only: tagline_ar, founded_year, employee_count_range. University substitutes: established_year (no founded_year/employee_count_range/tagline_ar) |
+| locked_minimum_publish_fields | Both tables support `display_name_ar` + `about_ar` (display_name_ar NOT NULL; about_ar nullable). No completeness %/score for org profiles. Session B must require only those two non-empty Arabic fields |
+| directory_detail_mount | `catalog/[slug]/page.tsx` → `catalog-detail-view.tsx` → `CatalogCta` (`hasPublishedProfile` from `resolvePublishedProfile` in `lib/queries/catalog.ts`). Lookup: `business_profiles`/`university_profiles` by `directory_id` + `status='published'`. Directory≠Profile remains. Never expose owner_user_id, claimed_by, draft/suspended rows, moderation internals |
+| owner_surface_mount_points | Primary: `DraftPublicationBoundary` in `organization-profile-shell.tsx` + `organization-draft-dashboard.tsx` (placeholder copy under `organizationProfile.publicationBoundary`). Also draft dashboard CTA row; `/company/profile` draft notice. University: dashboard + `/university/profile/edit` (no `/university/profile` view — OBS-01). Suspended: separate `profile-suspended` routes. i18n: `organizationProfile.*` shared |
+| Session A pre-flight | PASS — git diff --check; corepack pnpm install --frozen-lockfile; lint; type-check; vitest 312 passed / 79 skipped; build |
+| Session A validation CI | PENDING (completion response) |
+| Session A target CI | PENDING (completion response) |
+| Session A Vercel | PENDING (completion response) |
+| Session A implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+
+### Session 07-A findings detail (evidence)
+
+1. **RLS** — Public published SELECT already exists for both Profile tables; owners read own any status; staff/super_admin read all; no owner INSERT/DELETE policies; owner UPDATE content-scoped with suspended exclusion; status/`published_at` owner writes blocked by moderation trigger.
+2. **Suspension** — Complete staff RPC path with audit and owner suspended surfaces; reinstate exists; do not redesign in Spec 07.
+3. **Routes** — Reuse `/companies/[slug]/profile` for business; add mirrored `/universities/[slug]/profile` for university; keep `/catalog/[slug]` Directory-only; fix CatalogCta to be entity-type-aware when university public page ships (today always `/companies/...`).
+4. **publication_state=partial** — Do not treat public business read as full Spec 07; Session B must add publish/unpublish RPCs + `published_at` lifecycle; Session D UI mounts on `DraftPublicationBoundary`.
+5. **Minimum fields** — Locked set only: non-empty `display_name_ar` AND non-empty `about_ar`. No percentage/score.
+
+---
+
 ## Specification 06 — Directory Correction and Notifications
 
 | Field | Value |
@@ -19,10 +62,10 @@
 | Session E contract proof | `docs/command-center/reports/ui-evidence/spec-06/CONTRACT_PROOF.md` — all 11 contracts UNCHANGED |
 | Session E fixture cleanup | PASS run-scoped objects; disposable destroyed stop --no-backup; config.toml restored; no secrets committed |
 | Session E preserved/deferred | Directory reference-only; corrections→Directory fields only; Verification≠Profile create; in-app+email both remain; request-more-info/prefs/digest deferred; redesign→Spec 08; Catalog/Lammah/ابحثلي separate |
-| Session E validation CI | PENDING (completion response) |
-| Session E target CI | PENDING (completion response) |
-| Session E Vercel | PENDING (completion response) |
-| Session E implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+| Session E validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30595421094 |
+| Session E target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30595593660 |
+| Session E Vercel | PASS — Vercel - jid-dev + jid-platform success; Preview Comments success |
+| Session E implementation / promoted SHA | 760b86ade93469fc67ff61d0d95201ae771ee421 |
 | session (prior) | 06-D COMPLETE (notification render + Spec 03 action URLs; promoted) |
 | Session D starting SHA | 57ab093bd2546cd1faa47b2b9463dbf5e91e0204 |
 | Session D source branch | cursor/jid-06d-notifications |
