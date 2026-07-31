@@ -1,5 +1,42 @@
 # JID Master Execution Ledger
 
+## Specification 08 — Dashboards and UI Implementation
+
+| Field | Value |
+|---|---|
+| specification | 08 |
+| status | IN_PROGRESS |
+| session | 08-A COMPLETE (read-only reconciliation; ledger + report only) |
+| Session A canonical starting SHA | 4214040ad2f058af88280a9a7cee7767ef9d89fa |
+| Session A source branch | cursor/jid-08a-reconciliation |
+| Session A CI branch | codex/jid-08a-ci-validation |
+| Spec 07 gate | SHIPPED; Session 07-E COMPLETE; tip equals Spec 07 closeout SHA `4214040ad2f058af88280a9a7cee7767ef9d89fa`; evidence `docs/command-center/reports/ui-evidence/spec-07/INDEX.md`; contract proof `docs/command-center/reports/ui-evidence/spec-07/CONTRACT_PROOF.md` |
+| Specs 02–06 gate | SHIPPED (02 via Spec 03 gate tip `ed5bc4048733a654b72d544b38248e3854481540`; 03–06 dedicated SHIPPED sections); all recorded predecessor SHAs are ancestors of tip |
+| intervening_commits after expected SHA | none — tip equals expected starting SHA |
+| intervening after Spec 07-E start (`b77fca0`) | `ee2afeb` Session E evidence/ledger; `4214040` whitespace trim — documentation only; Spec 08 assumptions intact |
+| dashboard placeholder finding | CONFIRMED — `company-dashboard.tsx:87` renders `placeholderMetrics` honesty copy; **zero numeric KPI cards** on Business dashboard |
+| Business metric jobs-posted | **B** `read_only_owner_count_needed` — candidate `fetchOwnerJobs` (`src/lib/queries/jobs.ts`); not wired on dashboard today |
+| Business metric applications-received | **B** with triage `claimed_by` access caveat — do not invent; honest unavailable if blocked without RLS change |
+| Business decorative metrics | none rendered; placeholder is non-numeric honesty (**C** as a value source) |
+| University dashboard | snapshot via `university_dashboard_view`; absent→`EmptyUniversityState` (no export); present zeros OK + export; honesty tests green |
+| university_dashboard_view claimed_by | CONFIRMED residue in `023_university_rls_policies.sql` — **deferred**; Spec 08 makes no DB/view/RLS change |
+| visual-drift inventory | COMPLETE in `JID_08_Reconciliation_and_Wave_Mapping.md` §3 — five waves; gradients/shadows/multi-hue status/urgency; shell EN eyebrows; profile hero forks |
+| Wave 2A mapping | preliminary — pack files not in repo; map VerificationCard/Kanban/ChecklistPanel/DecisionForm/RelatedHistoryPanel → real staff paths; complete in Session 08-C against committed pack |
+| unsupported capabilities | evidence viewer = no; request-more-information staff option = no; persisted checklist = no — honest absent/deferred only |
+| bounded arSA inventory | staff verification card/workspace/related-history always AR; university reapply cooldown EN; university dashboard AR header forced en-US; PDF en-US — fix in wave sessions only |
+| component-reuse / fork-risk | HIGH on triple profile heroes; staff vs radar kanban; prefer restyle-in-place + shared shells |
+| Session A product code | none changed |
+| Session A database | none changed |
+| Session A mirror branch | `agent/nonprod-signup-form` not changed |
+| Session A reconciliation report | `docs/command-center/reports/JID_08_Reconciliation_and_Wave_Mapping.md` |
+| Session A local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 351 passed / 100 skipped; build |
+| Session A validation CI | PENDING (completion response) |
+| Session A target CI | PENDING (completion response) |
+| Session A Vercel | PENDING (completion response — docs-only) |
+| Session A implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+
+---
+
 ## Specification 07 — Publication and Public Visibility
 
 | Field | Value |
