@@ -1,5 +1,39 @@
 # JID Master Execution Ledger
 
+## Specification 09 — End-to-End QA and Presentable Release
+
+| Field | Value |
+|---|---|
+| specification | 09 |
+| status | IN_PROGRESS |
+| session | 09-A COMPLETE — QA reconciliation and synthetic environment setup |
+| Session A canonical starting SHA | eead420cdfcd99e4195dcef5fc9a32e1daf4ea06 |
+| Spec 08 gate | SHIPPED — `SPEC_08_SHIPPED e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11` ancestral to tip `eead420…` |
+| Specs 02–07 gate | SHIPPED (ledger sections + Spec 03 records Spec 02 SHIPPED at `ed5bc40…`) |
+| non-production deployment | `https://jid-dev.vercel.app` (jid-dev) — AR/EN HTTP 200; Vercel commit statuses success for tip |
+| approved Supabase project ref | `hmjuijmaefajdjrjdsxu` |
+| environment binding | `.env.seed.nonprod` (gitignored) — URL + anon key + session-mode pooler `SEED_DATABASE_URL`; production ref absent |
+| e2e harness finding | Playwright config + `tests/e2e/smoke.spec.ts` present; use as capture tool only; no new harness invented |
+| JID09_RUN_ID | `jid09-20260801-7d956c` |
+| fixture manifest | `docs/command-center/reports/JID_09_QA_Fixture_Manifest.md` |
+| QA plan | `docs/command-center/reports/JID_09_QA_Plan.md` |
+| synthetic actors | business/university applicants + owners (draft/published/suspended/no-profile), staff A/B, super admin, individual, correction suggester, assignment applicants, anon |
+| synthetic states | unassigned/assigned/self-review/terminal verifications; draft/published/suspended profiles; pending correction; job+application; notification fixtures; snapshot-present attempt |
+| credentials committed | no |
+| real data used | no |
+| database / migration / schema / RLS / RPC / auth product changes | none |
+| Session A source branch | cursor/jid-09a-qa-setup |
+| Session A CI branch | codex/jid-09a-ci-validation |
+| Session A mirror branch | `agent/nonprod-signup-form` not changed |
+| Session A local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 379 passed / 100 skipped; build |
+| Session A validation CI | pending promotion evidence |
+| Session A target CI | pending promotion evidence |
+| Session A Vercel | pending promotion evidence |
+| Session A implementation / promoted SHA | pending promotion evidence |
+| next session | 09-B |
+
+---
+
 ## Specification 08 — Dashboards and UI Implementation
 
 | Field | Value |
@@ -45,8 +79,8 @@
 | Session E implementation / promoted SHA | e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 |
 | Session 08-E completion token | SPEC_08_SHIPPED e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 |
 | Session 08-E ledger-closeout note | A later documentation-only ledger-fill commit may advance the tip; it does not change the Session 08-E Spec 08 SHIPPED promoted SHA. Future gates must verify e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 is equal to or ancestral to the current canonical tip. |
-| next specification | 09 |
-| next session | 09-A |
+| next specification | 09 (IN_PROGRESS — see Specification 09 section) |
+| next session | 09-B |
 | session (prior) | 08-D COMPLETE — W-Lifecycle + W-ProfileMgmt + W-Publication visual waves |
 | Session D canonical starting SHA | b8004ab1244b41ad9d88d70ab758c98e021d985f |
 | Session D source branch | cursor/jid-08d-remaining-waves |
