@@ -1,13 +1,13 @@
 # JID Spec 09 — QA Fixture Manifest
 
-**Session:** 09-A  
-**JID09_RUN_ID:** `jid09-20260801-7d956c`  
-**Created (UTC):** `2026-08-01T22:17:31.406Z`  
-**Environment:** non-production only  
-**Supabase project ref:** `hmjuijmaefajdjrjdsxu`  
-**Deployment URL:** `https://jid-dev.vercel.app`  
-**Credentials committed:** no  
-**Real personal/organizational data used:** no  
+**Session:** 09-A
+**JID09_RUN_ID:** `jid09-20260801-7d956c`
+**Created (UTC):** `2026-08-01T22:17:31.406Z`
+**Environment:** non-production only
+**Supabase project ref:** `hmjuijmaefajdjrjdsxu`
+**Deployment URL:** `https://jid-dev.vercel.app`
+**Credentials committed:** no
+**Real personal/organizational data used:** no
 
 ## Creation mechanism
 

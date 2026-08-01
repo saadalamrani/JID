@@ -1,10 +1,10 @@
 # JID Spec 09 — QA Plan
 
-**Session authoring:** 09-A  
-**JID09_RUN_ID:** `jid09-20260801-7d956c`  
-**Fixture manifest:** `docs/command-center/reports/JID_09_QA_Fixture_Manifest.md`  
-**Non-production deployment:** `https://jid-dev.vercel.app`  
-**Canonical tip at Session 09-A start:** `eead420cdfcd99e4195dcef5fc9a32e1daf4ea06`  
+**Session authoring:** 09-A
+**JID09_RUN_ID:** `jid09-20260801-7d956c`
+**Fixture manifest:** `docs/command-center/reports/JID_09_QA_Fixture_Manifest.md`
+**Non-production deployment:** `https://jid-dev.vercel.app`
+**Canonical tip at Session 09-A start:** `eead420cdfcd99e4195dcef5fc9a32e1daf4ea06`
 **Spec 08 SHIPPED token:** `SPEC_08_SHIPPED e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11` (ancestral to tip)
 
 ## Environment and harness reality
@@ -25,9 +25,9 @@ docs/command-center/reports/ui-evidence/final-qa/
   J{n}-{slug}__{locale}__{viewport}__{state}.png
 ```
 
-- `J{n}` = journey number 1–6  
-- `locale` = `ar` \| `en`  
-- `viewport` = `desktop` \| `375`  
+- `J{n}` = journey number 1–6
+- `locale` = `ar` \| `en`
+- `viewport` = `desktop` \| `375`
 - `state` = short state token (e.g. `pending`, `rejected`, `published`, `view-only`)
 
 Index entries must cite actor alias from the fixture manifest (never passwords).
@@ -91,15 +91,15 @@ Every cell must be evidenced (screenshot and/or server denial note):
 
 ## Accessibility passes (Spec §17) — Session 09-C
 
-1. One full keyboard-only staff decision walk.  
-2. Focus-visible spot checks on decision and publish controls.  
-3. Screen-reader label spot checks on those controls.  
+1. One full keyboard-only staff decision walk.
+2. Focus-visible spot checks on decision and publish controls.
+3. Screen-reader label spot checks on those controls.
 4. AR terminology sweep on rendered pages: no visible `Claim` / `مطالبة`; Latin digits in Arabic.
 
 ## Defect handling
 
-- Journeys B/C **record** defects in `JID_09_Defect_Register.md` — they do not fix product code.  
-- Honest empty / unavailable / deferred states are correct outcomes.  
+- Journeys B/C **record** defects in `JID_09_Defect_Register.md` — they do not fix product code.
+- Honest empty / unavailable / deferred states are correct outcomes.
 - Session 09-D is mechanically gated on the classified 09-C register.
 
 ## Session boundaries
