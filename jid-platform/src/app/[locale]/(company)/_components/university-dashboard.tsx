@@ -44,26 +44,38 @@ function pickSnapshot(rows: UniversityDashboardSnapshot[] | undefined): Universi
   return rows[0] ?? null
 }
 
-function buildPdfDocument(snapshot: UniversityDashboardSnapshot, labels: {
-  title: string
-  refreshedAt: string
-  totalStudents: string
-  profileCompletion: string
-  cvCreation: string
-  jobApplications: string
-  mentorshipSessions: string
-  statusBreakdown: string
-  collegeDistribution: string
-}) {
+function dateLocaleTag(locale: string): string {
+  return locale.startsWith('ar') ? 'ar-SA' : 'en-US'
+}
+
+function buildPdfDocument(
+  snapshot: UniversityDashboardSnapshot,
+  labels: {
+    title: string
+    refreshedAt: string
+    totalStudents: string
+    profileCompletion: string
+    cvCreation: string
+    jobApplications: string
+    mentorshipSessions: string
+    statusBreakdown: string
+    collegeDistribution: string
+  },
+  locale: string,
+) {
   const statuses = parseMap(snapshot.status_breakdown)
   const colleges = parseMap(snapshot.college_distribution)
+  const dateTag = dateLocaleTag(locale)
 
   return (
     <Document>
       <Page size="A4" style={pdfStyles.page}>
         <Text style={pdfStyles.heading}>{labels.title}</Text>
         <Text style={pdfStyles.subtitle}>
-          {labels.refreshedAt}: {new Date(snapshot.refreshed_at).toLocaleString('en-US')}
+          {labels.refreshedAt}:{' '}
+          {new Date(snapshot.refreshed_at).toLocaleString(dateTag, {
+            numberingSystem: 'latn',
+          })}
         </Text>
 
         <View style={pdfStyles.section}>
@@ -144,17 +156,21 @@ export function UniversityDashboard() {
     setExporting(true)
     try {
       const blob = await pdf(
-        buildPdfDocument(snapshot, {
-          title: t('pdfTitle'),
-          refreshedAt: t('refreshedAt'),
-          totalStudents: t('kpi.totalStudents'),
-          profileCompletion: t('kpi.profileCompletion'),
-          cvCreation: t('kpi.cvCreation'),
-          jobApplications: t('kpi.jobApplications'),
-          mentorshipSessions: t('kpi.mentorshipSessions'),
-          statusBreakdown: t('statusBreakdown'),
-          collegeDistribution: t('collegeDistribution'),
-        }),
+        buildPdfDocument(
+          snapshot,
+          {
+            title: t('pdfTitle'),
+            refreshedAt: t('refreshedAt'),
+            totalStudents: t('kpi.totalStudents'),
+            profileCompletion: t('kpi.profileCompletion'),
+            cvCreation: t('kpi.cvCreation'),
+            jobApplications: t('kpi.jobApplications'),
+            mentorshipSessions: t('kpi.mentorshipSessions'),
+            statusBreakdown: t('statusBreakdown'),
+            collegeDistribution: t('collegeDistribution'),
+          },
+          locale,
+        ),
       ).toBlob()
       downloadBlob(blob, `university-dashboard-${snapshot.university_id}.pdf`)
       track('university_dashboard_pdf_exported', { university_id: snapshot.university_id })
@@ -165,7 +181,7 @@ export function UniversityDashboard() {
 
   if (query.isLoading) {
     return (
-      <section className="rounded-2xl border border-border bg-white p-6">
+      <section className="rounded-2xl border border-border bg-background p-6" role="status">
         <p className="text-sm text-foreground/60">{t('loading')}</p>
       </section>
     )
@@ -173,8 +189,13 @@ export function UniversityDashboard() {
 
   if (query.isError) {
     return (
-      <section className="rounded-2xl border border-border bg-white p-6" data-testid="university-dashboard-error">
-        <p className="text-sm text-red-600">{t('error')}</p>
+      <section
+        className="rounded-2xl border border-border bg-background p-6"
+        data-testid="university-dashboard-error"
+      >
+        <p className="text-sm text-destructive" role="alert">
+          {t('error')}
+        </p>
       </section>
     )
   }
@@ -184,13 +205,14 @@ export function UniversityDashboard() {
     return <EmptyUniversityState />
   }
 
-  const refreshedLabel = new Date(snapshot.refreshed_at).toLocaleString(
-    locale === 'ar' ? 'en-US' : undefined,
-  )
+  const refreshedLabel = new Date(snapshot.refreshed_at).toLocaleString(dateLocaleTag(locale), {
+    numberingSystem: 'latn',
+  })
+  const kpiHint = t('kpiHint')
 
   return (
     <div className="space-y-5" data-testid="university-dashboard-snapshot">
-      <header className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-white p-5">
+      <header className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-background p-5">
         <div>
           <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
           <p className="mt-1 text-sm text-foreground/65">
@@ -199,7 +221,7 @@ export function UniversityDashboard() {
         </div>
         <Button
           type="button"
-          className="gap-2 bg-primary hover:bg-primary/90"
+          className="min-h-11 gap-2 bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring"
           onClick={() => void handleExport()}
           disabled={exporting}
           aria-label={t('exportAria')}
@@ -211,18 +233,30 @@ export function UniversityDashboard() {
       </header>
 
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-        <KpiCard label={t('kpi.totalStudents')} value={snapshot.total_students} />
-        <KpiCard label={t('kpi.profileCompletion')} value={formatPct(snapshot.profile_completion_pct)} />
-        <KpiCard label={t('kpi.cvCreation')} value={formatPct(snapshot.cv_creation_pct)} />
-        <KpiCard label={t('kpi.jobApplications')} value={snapshot.job_applications} />
+        <KpiCard label={t('kpi.totalStudents')} value={snapshot.total_students} hint={kpiHint} />
+        <KpiCard
+          label={t('kpi.profileCompletion')}
+          value={formatPct(snapshot.profile_completion_pct)}
+          hint={kpiHint}
+        />
+        <KpiCard
+          label={t('kpi.cvCreation')}
+          value={formatPct(snapshot.cv_creation_pct)}
+          hint={kpiHint}
+        />
+        <KpiCard
+          label={t('kpi.jobApplications')}
+          value={snapshot.job_applications}
+          hint={kpiHint}
+        />
       </section>
 
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-2">
-        <article className="rounded-2xl border border-border bg-white p-5">
+        <article className="rounded-2xl border border-border bg-background p-5">
           <h2 className="mb-3 text-lg font-semibold text-foreground">{t('statusBreakdown')}</h2>
           <StatusBreakdownBars data={snapshot.status_breakdown} />
         </article>
-        <article className="rounded-2xl border border-border bg-white p-5">
+        <article className="rounded-2xl border border-border bg-background p-5">
           <h2 className="mb-3 text-lg font-semibold text-foreground">{t('collegeDistribution')}</h2>
           <CollegeDistributionBars data={snapshot.college_distribution} />
         </article>

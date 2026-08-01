@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 type StatusBreakdownBarsProps = {
   data: Record<string, number> | string | null | undefined
 }
@@ -17,24 +19,14 @@ function parseJsonMap(input: Record<string, number> | string | null | undefined)
   return input
 }
 
-function formatLabel(key: string): string {
-  const map: Record<string, string> = {
-    current_student: 'طالب حالي',
-    expected_graduate: 'متوقع التخرج',
-    graduate: 'خريج',
-    alumni: 'خريج سابق',
-    other: 'أخرى',
-    unspecified: 'غير محدد',
-  }
-  return map[key] ?? key
-}
-
+/** Spec 08-B — status breakdown bars with i18n empty/labels (no hardcoded AR-only copy). */
 export function StatusBreakdownBars({ data }: StatusBreakdownBarsProps) {
+  const t = useTranslations('university.dashboard.statusBars')
   const entries = Object.entries(parseJsonMap(data)).filter(([, value]) => Number(value) > 0)
   const total = entries.reduce((sum, [, value]) => sum + Number(value), 0)
 
   if (!entries.length || total === 0) {
-    return <p className="text-sm text-foreground/60">لا توجد بيانات حالة دراسية حالياً.</p>
+    return <p className="text-sm text-foreground/60">{t('empty')}</p>
   }
 
   return (
@@ -42,13 +34,24 @@ export function StatusBreakdownBars({ data }: StatusBreakdownBarsProps) {
       {entries.map(([status, raw]) => {
         const value = Number(raw)
         const pct = Math.max(2, Math.round((value / total) * 100))
+        const knownLabels = [
+          'current_student',
+          'expected_graduate',
+          'graduate',
+          'alumni',
+          'other',
+          'unspecified',
+        ] as const
+        const label = (knownLabels as readonly string[]).includes(status)
+          ? t(`labels.${status as (typeof knownLabels)[number]}`)
+          : status
         return (
           <div key={status} className="space-y-1">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-foreground">{formatLabel(status)}</span>
-              <span className="font-medium text-foreground/70">{value}</span>
+              <span className="text-foreground">{label}</span>
+              <span className="font-medium tabular-nums text-foreground/70">{value}</span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-background">
+            <div className="h-2 overflow-hidden rounded-full bg-muted">
               <div className="h-full rounded-full bg-primary" style={{ width: `${pct}%` }} />
             </div>
           </div>

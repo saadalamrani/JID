@@ -6,34 +6,48 @@
 |---|---|
 | specification | 08 |
 | status | IN_PROGRESS |
-| session | 08-A COMPLETE (read-only reconciliation; ledger + report only) |
+| session | 08-B (Business dashboard honesty + University dashboard regression + W-Dashboards bounded visual/locale) |
+| Session B canonical starting SHA | e9132d0268434bf205415507f435710b82da6e2e |
+| Session B source branch | cursor/jid-08b-dashboards-honesty |
+| Session B CI branch | codex/jid-08b-ci-validation |
+| Session 08-A gate | COMPLETE — tip equals Session A promoted SHA `e9132d0268434bf205415507f435710b82da6e2e`; report `JID_08_Reconciliation_and_Wave_Mapping.md`; intervening commits after 08-A: none; Spec 08 assumptions intact |
+| Spec 07 gate | SHIPPED; Session 07-E COMPLETE; tip ancestral via 08-A (`4214040ad2f058af88280a9a7cee7767ef9d89fa` → `e9132d0…`) |
+| Specs 02–06 gate | SHIPPED; predecessor SHAs ancestral to tip |
+| intervening_commits after 08-A | none — tip equals Session A promoted SHA at Session B start |
+| placeholder source removed | `company.dashboard.placeholderMetrics` + `CompanyDashboard` honesty-only placeholder block — replaced by real metric cards; key removed from `messages/ar.json` + `messages/en.json` |
+| Business metric: Profile status pill | **A** — kept as status chrome from `fetchOwnerBusinessProfile` / `profile.status` |
+| Business metric: Jobs posted | **B** → implemented — `countOwnerJobsPosted` in `src/lib/queries/company-dashboard-metrics.ts`; owner-scoped via server `business_profile_id` from `fetchOwnerBusinessProfile`; legitimate 0 OK; error ≠ 0 |
+| Business metric: Applications received | **B** (claimed_by triage deferred) → implemented without claimed_by — `countOwnerApplicationsReceived` counts `applications` where `job_id` IN owner jobs by `business_profile_id`; no triage path; legitimate 0 OK; error ≠ 0 |
+| Business decorative / C metrics | none invented; placeholder **C** source removed rather than zero-filled |
+| Business state resolution | per-metric `{status:'ok'\|'error'}` + UI `data-metric-state` loading/ok/error/unavailable; zero ≠ unavailable ≠ error |
+| University snapshot present | PASS — real KPIs + legitimate zeros + refreshed_at + export; locale-aware dates |
+| University snapshot absent | PASS — `EmptyUniversityState`; no KPI zeros; no export; no fake refreshed_at |
+| University query error | PASS — distinct `university-dashboard-error`; not empty; not zero KPIs |
+| university_dashboard_view claimed_by | **deferred** — view/RLS/migration untouched; fixture-only claimed_by for disposable residue testing |
+| W-Dashboards visual | flat cards; no heavy shadows; semantic status/error; focus-visible; reuse existing empty/KPI components |
+| bounded date-locale | university dashboard `useLocale()` → `ar-SA`/`en-US` + Latin digits; PDF locale aligned; no codebase-wide sweep |
+| AR/EN namespaces | `company.dashboard.metrics.*`; `university.dashboard.kpiHint`; `university.dashboard.statusBars.*`; `university.dashboard.collegeBars.*` |
+| tests added | `company-dashboard-honesty.test.tsx`; `company-dashboard-metrics.test.ts`; university honesty locale/kpi updates |
+| browser evidence index | `docs/command-center/reports/ui-evidence/w-dashboards/INDEX.md` (+ INDEX.json) |
+| fixture cleanup | PASS — run `jid08b-1785541618847`; `cleanup-result.md`; disposable destroyed; config.toml restored; secrets under `scripts/.tmp/` (gitignored) |
+| database / migration | none — no schema, view, RLS, grant, RPC, or trigger changes |
+| Specs 02–07 behavior | unchanged — no publication/Verification/ownership/Directory/notification/suspension expectation edits |
+| Session B mirror branch | `agent/nonprod-signup-form` not changed |
+| Session B local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 366 passed / 100 skipped; build |
+| Session B validation CI | PENDING (completion response) |
+| Session B target CI | PENDING (completion response) |
+| Session B Vercel | PENDING (completion response) |
+| Session B implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+| session (prior) | 08-A COMPLETE (read-only reconciliation; ledger + report only) |
 | Session A canonical starting SHA | 4214040ad2f058af88280a9a7cee7767ef9d89fa |
 | Session A source branch | cursor/jid-08a-reconciliation |
 | Session A CI branch | codex/jid-08a-ci-validation |
-| Spec 07 gate | SHIPPED; Session 07-E COMPLETE; tip equals Spec 07 closeout SHA `4214040ad2f058af88280a9a7cee7767ef9d89fa`; evidence `docs/command-center/reports/ui-evidence/spec-07/INDEX.md`; contract proof `docs/command-center/reports/ui-evidence/spec-07/CONTRACT_PROOF.md` |
-| Specs 02–06 gate | SHIPPED (02 via Spec 03 gate tip `ed5bc4048733a654b72d544b38248e3854481540`; 03–06 dedicated SHIPPED sections); all recorded predecessor SHAs are ancestors of tip |
-| intervening_commits after expected SHA | none — tip equals expected starting SHA |
-| intervening after Spec 07-E start (`b77fca0`) | `ee2afeb` Session E evidence/ledger; `4214040` whitespace trim — documentation only; Spec 08 assumptions intact |
-| dashboard placeholder finding | CONFIRMED — `company-dashboard.tsx:87` renders `placeholderMetrics` honesty copy; **zero numeric KPI cards** on Business dashboard |
-| Business metric jobs-posted | **B** `read_only_owner_count_needed` — candidate `fetchOwnerJobs` (`src/lib/queries/jobs.ts`); not wired on dashboard today |
-| Business metric applications-received | **B** with triage `claimed_by` access caveat — do not invent; honest unavailable if blocked without RLS change |
-| Business decorative metrics | none rendered; placeholder is non-numeric honesty (**C** as a value source) |
-| University dashboard | snapshot via `university_dashboard_view`; absent→`EmptyUniversityState` (no export); present zeros OK + export; honesty tests green |
-| university_dashboard_view claimed_by | CONFIRMED residue in `023_university_rls_policies.sql` — **deferred**; Spec 08 makes no DB/view/RLS change |
-| visual-drift inventory | COMPLETE in `JID_08_Reconciliation_and_Wave_Mapping.md` §3 — five waves; gradients/shadows/multi-hue status/urgency; shell EN eyebrows; profile hero forks |
-| Wave 2A mapping | preliminary — pack files not in repo; map VerificationCard/Kanban/ChecklistPanel/DecisionForm/RelatedHistoryPanel → real staff paths; complete in Session 08-C against committed pack |
-| unsupported capabilities | evidence viewer = no; request-more-information staff option = no; persisted checklist = no — honest absent/deferred only |
-| bounded arSA inventory | staff verification card/workspace/related-history always AR; university reapply cooldown EN; university dashboard AR header forced en-US; PDF en-US — fix in wave sessions only |
-| component-reuse / fork-risk | HIGH on triple profile heroes; staff vs radar kanban; prefer restyle-in-place + shared shells |
 | Session A product code | none changed |
 | Session A database | none changed |
 | Session A mirror branch | `agent/nonprod-signup-form` not changed |
 | Session A reconciliation report | `docs/command-center/reports/JID_08_Reconciliation_and_Wave_Mapping.md` |
 | Session A local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 351 passed / 100 skipped; build |
-| Session A validation CI | PENDING (completion response) |
-| Session A target CI | PENDING (completion response) |
-| Session A Vercel | PENDING (completion response — docs-only) |
-| Session A implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+| Session A implementation / promoted SHA | e9132d0268434bf205415507f435710b82da6e2e |
 
 ---
 

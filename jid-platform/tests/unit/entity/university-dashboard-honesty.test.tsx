@@ -1,8 +1,11 @@
 /**
  * Spec 05-B DEF-04 — University dashboard honesty (absent / present / error).
+ * Spec 08-B — locale-aware dates + i18n KPI hint regression.
  */
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import en from '../../../messages/en.json'
 import { UniversityDashboard } from '@/app/[locale]/(company)/_components/university-dashboard'
 import { EmptyUniversityState } from '@/app/[locale]/(company)/_components/empty-university-state'
@@ -130,6 +133,36 @@ describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
     expect(screen.getByTestId('university-dashboard-error')).toBeInTheDocument()
     expect(screen.queryByTestId('university-dashboard-empty')).not.toBeInTheDocument()
     expect(screen.queryByTestId('university-dashboard-export')).not.toBeInTheDocument()
+  })
+
+  it('locale-aware refreshed_at uses Latin digits pattern and kpi hint from i18n', () => {
+    useUniversityDashboard.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      data: [
+        {
+          university_id: 'u-3',
+          total_students: 1,
+          college_distribution: {},
+          profile_completion_pct: 0,
+          cv_creation_pct: 0,
+          job_applications: 0,
+          mentorship_sessions: 0,
+          status_breakdown: {},
+          refreshed_at: '2026-07-20T09:30:00.000Z',
+        },
+      ],
+    })
+
+    render(<UniversityDashboard />)
+    expect(screen.getAllByText(/Updated on the scheduled refresh cycle/i).length).toBeGreaterThan(0)
+    const source = readFileSync(
+      join(process.cwd(), 'src/app/[locale]/(company)/_components/university-dashboard.tsx'),
+      'utf8',
+    )
+    expect(source).toContain("numberingSystem: 'latn'")
+    expect(source).toContain("locale.startsWith('ar') ? 'ar-SA' : 'en-US'")
+    expect(source).not.toMatch(/locale === 'ar' \? 'en-US'/)
   })
 
   it('EmptyUniversityState CTA points at university profile edit', () => {

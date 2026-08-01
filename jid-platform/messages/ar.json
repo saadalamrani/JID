@@ -1022,7 +1022,13 @@
       "title": "لوحة المنشأة",
       "noProfile": "لم يُنشأ ملف منشأتك بعد. أكمل إنشاء الملف للوصول إلى لوحة التحكم.",
       "createProfileCta": "أنشئ ملف منشأتك",
-      "placeholderMetrics": "سيتم توسيع المؤشرات والتقارير في تحديث لاحق.",
+      "metrics": {
+        "jobsPosted": "الوظائف المنشورة",
+        "applicationsReceived": "الطلبات المستلمة",
+        "value": "{count}",
+        "loading": "جاري تحميل مؤشرات اللوحة…",
+        "error": "تعذر تحميل هذا المؤشر حالياً."
+      },
       "links": {
         "jobs": "الوظائف",
         "applicants": "المتقدمون",
@@ -1382,12 +1388,27 @@
       "collegeDistribution": "التوزيع حسب الكليات",
       "mentorshipTitle": "أثر الإرشاد",
       "mentorshipBody": "عدد جلسات الإرشاد المؤكدة/المكتملة: {count}",
+      "kpiHint": "يُحدَّث ضمن دورة التحديث المجدولة.",
       "kpi": {
         "totalStudents": "إجمالي الطلاب",
         "profileCompletion": "اكتمال الملفات",
         "cvCreation": "إنشاء السيرة الذاتية",
         "jobApplications": "طلبات التوظيف",
         "mentorshipSessions": "جلسات الإرشاد"
+      },
+      "statusBars": {
+        "empty": "لا توجد بيانات حالة دراسية حالياً.",
+        "labels": {
+          "current_student": "طالب حالي",
+          "expected_graduate": "متوقع التخرج",
+          "graduate": "خريج",
+          "alumni": "خريج سابق",
+          "other": "أخرى",
+          "unspecified": "غير محدد"
+        }
+      },
+      "collegeBars": {
+        "empty": "لا توجد بيانات توزيع الكليات حالياً."
       },
       "empty": {
         "title": "لا توجد بيانات كافية حالياً",

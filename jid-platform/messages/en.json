@@ -1022,7 +1022,13 @@
       "title": "Employer dashboard",
       "noProfile": "You have not created your business profile yet. Finish profile creation to access the dashboard.",
       "createProfileCta": "Create your business profile",
-      "placeholderMetrics": "Metrics and reports will expand in a future update.",
+      "metrics": {
+        "jobsPosted": "Jobs posted",
+        "applicationsReceived": "Applications received",
+        "value": "{count}",
+        "loading": "Loading dashboard metrics…",
+        "error": "This metric could not be loaded right now."
+      },
       "links": {
         "jobs": "Jobs",
         "applicants": "Applicants",
@@ -1382,12 +1388,27 @@
       "collegeDistribution": "Distribution by college",
       "mentorshipTitle": "Mentorship impact",
       "mentorshipBody": "Confirmed/completed mentorship sessions: {count}",
+      "kpiHint": "Updated on the scheduled refresh cycle.",
       "kpi": {
         "totalStudents": "Total students",
         "profileCompletion": "Profile completion",
         "cvCreation": "CV creation",
         "jobApplications": "Job applications",
         "mentorshipSessions": "Mentorship sessions"
+      },
+      "statusBars": {
+        "empty": "No academic-status data is available yet.",
+        "labels": {
+          "current_student": "Current student",
+          "expected_graduate": "Expected graduate",
+          "graduate": "Graduate",
+          "alumni": "Alumni",
+          "other": "Other",
+          "unspecified": "Unspecified"
+        }
+      },
+      "collegeBars": {
+        "empty": "No college-distribution data is available yet."
       },
       "empty": {
         "title": "Not enough data yet",

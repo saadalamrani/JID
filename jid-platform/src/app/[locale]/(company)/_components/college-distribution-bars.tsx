@@ -1,5 +1,7 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
+
 type CollegeDistributionBarsProps = {
   data: Record<string, number> | string | null | undefined
 }
@@ -17,7 +19,9 @@ function parseJsonMap(input: Record<string, number> | string | null | undefined)
   return input
 }
 
+/** Spec 08-B — college distribution bars with i18n empty copy. */
 export function CollegeDistributionBars({ data }: CollegeDistributionBarsProps) {
+  const t = useTranslations('university.dashboard.collegeBars')
   const entries = Object.entries(parseJsonMap(data))
     .map(([name, value]) => [name, Number(value)] as const)
     .filter(([, value]) => value > 0)
@@ -27,7 +31,7 @@ export function CollegeDistributionBars({ data }: CollegeDistributionBarsProps) 
   const max = entries[0]?.[1] ?? 0
 
   if (!entries.length || total === 0) {
-    return <p className="text-sm text-foreground/60">لا توجد بيانات توزيع الكليات حالياً.</p>
+    return <p className="text-sm text-foreground/60">{t('empty')}</p>
   }
 
   return (
@@ -37,13 +41,13 @@ export function CollegeDistributionBars({ data }: CollegeDistributionBarsProps) 
         const ratio = Math.round((value / total) * 100)
         return (
           <div key={name} className="space-y-1">
-            <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center justify-between gap-2 text-sm">
               <span className="truncate text-foreground">{name}</span>
-              <span className="font-medium text-foreground/70">
+              <span className="shrink-0 font-medium tabular-nums text-foreground/70">
                 {value} ({ratio}%)
               </span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-background">
+            <div className="h-2 overflow-hidden rounded-full bg-muted">
               <div className="h-full rounded-full bg-accent" style={{ width: `${pct}%` }} />
             </div>
           </div>

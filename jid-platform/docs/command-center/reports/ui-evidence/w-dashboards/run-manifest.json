@@ -1,0 +1,23 @@
+{
+  "runId": "jid08b-1785541618847",
+  "users": {
+    "businessOwner": {
+      "id": "c3a2899f-9746-495a-944a-0a7dccc24faa"
+    },
+    "universityOwner": {
+      "id": "bf45d47b-e1ce-4bf5-9015-d98d802f0f32"
+    }
+  },
+  "directories": {
+    "business": "9b73ed19-6f5a-4ef6-8701-f468007e587b",
+    "university": "2f1cafbd-09a8-4829-bfbd-cab91fb91393"
+  },
+  "profiles": {
+    "business": "cbf69c94-9aa4-4ffc-9486-0d7a301936f1",
+    "university": "8ab4e1cb-dc3a-409a-b6bc-8ee23fea41ff"
+  },
+  "slugs": {
+    "business": "synth-08b-biz-jid08b-1785541618847",
+    "university": "synth-08b-uni-jid08b-1785541618847"
+  }
+}
