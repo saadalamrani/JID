@@ -5,8 +5,47 @@
 | Field | Value |
 |---|---|
 | specification | 08 |
-| status | IN_PROGRESS |
-| session | 08-D COMPLETE — W-Lifecycle + W-ProfileMgmt + W-Publication visual waves |
+| status | SHIPPED |
+| session | 08-E COMPLETE — Evidence consolidation and Specification 08 closeout |
+| Session E canonical starting SHA | 8bf6bac76198533a5bff84dca24465ca4459368a |
+| Session 08-D promoted SHA (implementation) | 03bb0d29bb98f1e8dd1a6ea0d591bea2724e9f9b |
+| Session 08-D gate result | COMPLETE — implementation SHA ancestral to tip; ledger-closeout `8bf6bac76198533a5bff84dca24465ca4459368a` equals tip at Session E start |
+| intervening_commits after 08-D implementation | `8bf6bac` docs-only Session 08-D ledger closeout — no product/dashboard/Staff/lifecycle/Profile/publication/auth/evidence-baseline change |
+| consolidated evidence index | `docs/command-center/reports/ui-evidence/SPEC_08_CONSOLIDATED_INDEX.md` (+ `.json`) |
+| per-wave evidence indexes | `ui-evidence/w-dashboards|w-staff|w-lifecycle|w-profilemgmt|w-publication/INDEX.md` |
+| per-wave Anti-Slop Reviews | all five waves present (W-Dashboards Anti-Slop finalized in 08-E) |
+| dashboard honesty | PASS — Business real owner-scoped counts; University present/absent/error honesty; no placeholderMetrics; zeros ≠ errors |
+| Staff State Matrix | PASS — assigned/first-view/other-reviewer/SA override/Admin no invented override/self-review/terminals/SLA urgency/deferred capabilities; Spec 02 contracts preserved by tests |
+| lifecycle result | PASS — pending/rejected/reapply/approved-no-auto-Profile visual wave; Spec 03 behavior preserved |
+| Profile-management result | PASS — deliberate create/draft/edit/save/reload/suspension visual wave; Specs 04/05 behavior preserved; no invented `/university/profile` |
+| publication result | PASS — publish/unpublish/min-fields/public/Directory-link/draft+suspended denial visual wave; Spec 07 RPCs/auth unchanged |
+| AR/EN | PASS — touched Spec 08 namespaces parity; no visible Claim/مطالبة on Spec 08 surfaces |
+| RTL/LTR | PASS — logical properties; both directions evidenced |
+| Latin digits | PASS — date/SLA formatting via locale helpers with Latin numbering |
+| Arabic tracking | PASS — no Arabic letter-spacing on Spec 08 touched surfaces |
+| 375px | PASS — dashboards/Staff/lifecycle/profile/publication captures operable; no desktop-sidebar obstruction in evidence |
+| accessibility | PASS — status text, landmarks/headings on restyled surfaces, focus rings, deferred capabilities not fake-interactive |
+| privacy / synthetic-data review | PASS — Spec 08 wave captures synthetic only; no secrets in wave evidence paths |
+| complete regression (Specs 02–08) | PASS — see Session E local validation |
+| Specs 02–07 behavior preservation | PASS — no protected-behavior weakening; no schema/RLS/RPC/auth/ownership/route changes in 08-E |
+| bounded repairs | none required beyond missing W-Dashboards Anti-Slop + consolidated index documentation |
+| fixture cleanup | PASS — prior wave cleanup records retained; 08-E created no disposable DB fixtures |
+| deferred capability register | real evidence viewer; request-more-information workflow; persisted checklist; Profile analytics; broader theming; codebase-wide locale sweep; University snapshot generation pipeline; `university_dashboard_view` claimed_by residue; `viewer_approved_*` or equivalent legacy residue |
+| unresolved observation register | no dedicated Staff no-filter-match screenshot file (empty + unit/UI coverage retained); no `/university/profile` owner view (not invented); Wave 2A university type badge retains Spec 02 `bg-blue-100` |
+| rollback point | 8bf6bac76198533a5bff84dca24465ca4459368a (pre-08-E tip) |
+| Session E source branch | cursor/jid-08e-closeout |
+| Session E CI branch | codex/jid-08e-ci-validation |
+| database / migration / schema / view / RLS / grant / RPC / trigger / authorization / ownership / route / environment / production | none |
+| Session E mirror branch | `agent/nonprod-signup-form` not changed |
+| Session E local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 379 passed / 100 skipped; build |
+| Session E validation CI | PENDING_FILL |
+| Session E target CI | PENDING_FILL |
+| Session E Vercel | PENDING_FILL |
+| Session E implementation / promoted SHA | PENDING_FILL |
+| Session 08-E completion token | PENDING_FILL |
+| next specification | 09 |
+| next session | 09-A |
+| session (prior) | 08-D COMPLETE — W-Lifecycle + W-ProfileMgmt + W-Publication visual waves |
 | Session D canonical starting SHA | b8004ab1244b41ad9d88d70ab758c98e021d985f |
 | Session D source branch | cursor/jid-08d-remaining-waves |
 | Session D CI branch | codex/jid-08d-ci-validation |
@@ -35,7 +74,6 @@
 | Session D implementation / promoted SHA | 03bb0d29bb98f1e8dd1a6ea0d591bea2724e9f9b |
 | Session 08-D completion token | SPEC_08_SESSION_D_COMPLETE 03bb0d29bb98f1e8dd1a6ea0d591bea2724e9f9b |
 | Session 08-D ledger-closeout note | The later ledger-only closeout commit does not change the Session 08-D implementation SHA. Future gates must verify the Session 08-D implementation SHA is equal to or ancestral to the current canonical tip. |
-| next session | 08-E |
 | session (prior) | 08-C COMPLETE — Wave 2A staff verification design application |
 | Session C canonical starting SHA | e8e1aed5af5084aa2c0a5c50fde946251e871a67 |
 | Session C source branch | cursor/jid-08c-staff-wave-2a |
