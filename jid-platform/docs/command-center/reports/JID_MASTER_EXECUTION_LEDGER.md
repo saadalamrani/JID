@@ -6,7 +6,7 @@
 |---|---|
 | specification | 08 |
 | status | IN_PROGRESS |
-| session | 08-D (W-Lifecycle + W-ProfileMgmt + W-Publication visual waves — unpromoted until CI) |
+| session | 08-D COMPLETE — W-Lifecycle + W-ProfileMgmt + W-Publication visual waves |
 | Session D canonical starting SHA | b8004ab1244b41ad9d88d70ab758c98e021d985f |
 | Session D source branch | cursor/jid-08d-remaining-waves |
 | Session D CI branch | codex/jid-08d-ci-validation |
@@ -29,10 +29,12 @@
 | database / migration / RLS / RPC | none |
 | Session D mirror branch | `agent/nonprod-signup-form` not changed |
 | Session D local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 379 passed / 100 skipped; build |
-| Session D validation CI | PENDING |
-| Session D target CI | PENDING |
-| Session D Vercel | PENDING |
-| Session D implementation / promoted SHA | PENDING |
+| Session D validation CI | PASS — GitHub Actions Quality Gate run 30715328533 completed successfully for codex/jid-08d-ci-validation at 03bb0d29bb98f1e8dd1a6ea0d591bea2724e9f9b |
+| Session D target CI | PASS — GitHub Actions Quality Gate run 30715476364 completed successfully for agent/nonprod-signup-fix at 03bb0d29bb98f1e8dd1a6ea0d591bea2724e9f9b |
+| Session D Vercel | PASS — READY for commit 03bb0d29bb98f1e8dd1a6ea0d591bea2724e9f9b: jid-dev `dpl_3th3i5Q6JVKLYuc8w2FscAub7M2M`, `dpl_HhcqR8Y3Gp1231uCMKL4x5MkmCFc`; jid-platform `dpl_BzTp3T3rXjHDh8NrxXaJEHK1pDMb`, `dpl_FzGmWECubBeCSmCtybLLSpmPGA4L` |
+| Session D implementation / promoted SHA | 03bb0d29bb98f1e8dd1a6ea0d591bea2724e9f9b |
+| Session 08-D completion token | SPEC_08_SESSION_D_COMPLETE 03bb0d29bb98f1e8dd1a6ea0d591bea2724e9f9b |
+| Session 08-D ledger-closeout note | The later ledger-only closeout commit does not change the Session 08-D implementation SHA. Future gates must verify the Session 08-D implementation SHA is equal to or ancestral to the current canonical tip. |
 | next session | 08-E |
 | session (prior) | 08-C COMPLETE — Wave 2A staff verification design application |
 | Session C canonical starting SHA | e8e1aed5af5084aa2c0a5c50fde946251e871a67 |
