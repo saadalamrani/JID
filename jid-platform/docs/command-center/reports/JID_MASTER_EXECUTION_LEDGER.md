@@ -6,7 +6,7 @@
 |---|---|
 | specification | 08 |
 | status | IN_PROGRESS |
-| session | 08-C (Wave 2A staff verification design application — unpromoted until CI) |
+| session | 08-C COMPLETE — Wave 2A staff verification design application |
 | Session C canonical starting SHA | e8e1aed5af5084aa2c0a5c50fde946251e871a67 |
 | Session C source branch | cursor/jid-08c-staff-wave-2a |
 | Session C CI branch | codex/jid-08c-ci-validation |
@@ -23,10 +23,14 @@
 | database / migration / RLS / RPC | none |
 | Session C mirror branch | `agent/nonprod-signup-form` not changed |
 | Session C local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 371 passed / 100 skipped; build |
-| Session C validation CI | PENDING |
-| Session C target CI | PENDING |
-| Session C Vercel | PENDING |
-| Session C implementation / promoted SHA | PENDING |
+| Session C validation CI | PASS — GitHub Actions Quality Gate run 30710496452 completed successfully for codex/jid-08c-ci-validation at 77432d71bef79ac5c4a5f1cf8a1e1992c95de9fb |
+| Session C target CI | PASS — GitHub Actions Quality Gate run 30710611929 completed successfully for agent/nonprod-signup-fix at 77432d71bef79ac5c4a5f1cf8a1e1992c95de9fb |
+| Session C Vercel | PASS — READY deployments for commit 77432d71bef79ac5c4a5f1cf8a1e1992c95de9fb: jid-dev source `dpl_2XbpBTYMfpfa4pENp83C7NdQDUiU`, validation `dpl_2RKBR2MMBBLFvuwQZ5aWxXFgYkCu`, canonical `dpl_NZz4K8qUzFVEMoNxomKLGXdHFbsn`; jid-platform source `dpl_4dgbbqc2KAqsQTEJRqc14e7fk7ce`, validation `dpl_FrVcdv9DoSZ6Mx24kCFbdJz9NeRH`, canonical `dpl_CVkvjExYXnR56oC2S93pceYDUvFP` |
+| Session C implementation / promoted SHA | 77432d71bef79ac5c4a5f1cf8a1e1992c95de9fb |
+| Session 08-C completion token | SPEC_08_SESSION_C_COMPLETE 77432d71bef79ac5c4a5f1cf8a1e1992c95de9fb |
+| Session 08-C artifact recovery check | PASS — the committed Wave 2A prototype SHA-256 is 8cc54006e1f88a384c0ea921a5916210433f0428ff5b03b38cca1eb590791130; JID_style_test and its test copy are absent from the canonical Git tree. |
+| Session 08-C mapping encoding repair | PASS — restored correct UTF-8 punctuation from f89e4f91c9d601462e456108cc39c81d8347e2f4 and removed trailing whitespace without changing the mapping's meaning. |
+| Session 08-C ledger-closeout note | The later documentation-only recovery commit does not change the Session 08-C implementation/promoted SHA. Future gates must verify the recorded Session 08-C implementation SHA is equal to or ancestral to the current canonical tip. |
 | next session | 08-D |
 | session (prior) | 08-B COMPLETE — Business dashboard honesty + University dashboard regression + W-Dashboards bounded visual/locale |
 | Session B canonical starting SHA | e9132d0268434bf205415507f435710b82da6e2e |
