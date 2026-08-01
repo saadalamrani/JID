@@ -22,9 +22,9 @@ export function RequiredInformationChecklist({
           key={item.id}
           className={cn(
             'flex flex-wrap items-center justify-between gap-2 rounded-lg border px-3 py-2 text-sm',
-            item.status === 'required' && 'border-amber-200 bg-amber-50/50',
-            item.status === 'added' && 'border-emerald-200 bg-emerald-50/40',
-            item.status === 'optional' && 'border-border bg-background',
+            item.status === 'required' && 'border-jid-gold/40 bg-jid-beige/70',
+            item.status === 'added' && 'border-primary/20 bg-primary/5',
+            item.status === 'optional' && 'border-border bg-card',
           )}
         >
           <div>

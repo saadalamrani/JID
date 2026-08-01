@@ -113,10 +113,10 @@ export function DraftPublicationBoundary({
     return (
       <div
         role="status"
-        className="space-y-2 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-950"
+        className="space-y-2 rounded-lg border border-border border-s-4 border-s-destructive bg-destructive/5 px-4 py-3 text-sm text-foreground"
       >
-        <p className="font-medium">{t('suspendedTitle')}</p>
-        <p>{t('suspendedBody')}</p>
+        <p className="font-medium text-destructive">{t('suspendedTitle')}</p>
+        <p className="text-muted-foreground">{t('suspendedBody')}</p>
       </div>
     )
   }
@@ -130,7 +130,7 @@ export function DraftPublicationBoundary({
   }
 
   return (
-    <div className="space-y-3 rounded-lg border border-border bg-background/80 px-4 py-3 text-sm text-foreground">
+    <div className="space-y-3 rounded-lg border border-border bg-card px-4 py-3 text-sm text-foreground">
       <p id={statusId} role="status" className="sr-only" aria-live="polite">
         {announce}
       </p>
@@ -139,7 +139,7 @@ export function DraftPublicationBoundary({
         <div className="space-y-3">
           <div>
             <p className="font-medium text-foreground">{t('draftTitle')}</p>
-            <p className="mt-1 text-foreground/75">{t('draftBody')}</p>
+            <p className="mt-1 text-muted-foreground">{t('draftBody')}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Button
@@ -166,13 +166,13 @@ export function DraftPublicationBoundary({
         <div className="space-y-3">
           <div>
             <p className="font-medium text-foreground">{t('publishedTitle')}</p>
-            <p className="mt-1 text-foreground/75">{t('publishedBody')}</p>
+            <p className="mt-1 text-muted-foreground">{t('publishedBody')}</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             {profileLink ? (
               <Link
                 href={profileLink}
-                className="inline-flex min-h-11 items-center rounded-md border border-border px-4 text-sm font-medium text-primary underline-offset-4 hover:underline"
+                className="inline-flex min-h-11 items-center rounded-md border border-border px-4 text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-gold/60"
               >
                 {t('viewPublicProfile')}
               </Link>
@@ -198,7 +198,7 @@ export function DraftPublicationBoundary({
         <div
           role="alert"
           className={cn(
-            'rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-amber-950',
+            'rounded-md border border-jid-gold/40 bg-jid-beige px-3 py-2 text-foreground',
           )}
         >
           <p>{tErrors(errorCode)}</p>

@@ -1,5 +1,5 @@
 import { ProfileCreationWizard } from './_components/profile-creation-wizard'
-import { ApprovedWithoutProfileNotice } from './_components/approved-without-profile-notice'
+import { ApprovedWithoutProfileNotice } from '@/components/entity/approved-without-profile-notice'
 import { resolveBusinessCreateProfileGate } from '@/lib/entity/business-create-profile-gate'
 import { getLatestVerificationForUser } from '@/lib/entity/claims'
 import {

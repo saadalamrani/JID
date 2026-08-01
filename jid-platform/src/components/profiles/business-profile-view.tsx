@@ -31,7 +31,7 @@ export function BusinessProfileView({
 
   return (
     <div className="space-y-8">
-      <article className="overflow-hidden rounded-xl border border-border bg-white shadow-sm">
+      <article className="overflow-hidden rounded-lg border border-border bg-card">
         {profile.cover_image_url ? (
           <div
             className="h-36 w-full bg-cover bg-center sm:h-44"
@@ -40,7 +40,7 @@ export function BusinessProfileView({
             aria-label={t('coverAlt')}
           />
         ) : (
-          <div className="h-36 w-full bg-gradient-to-br from-jid-olive-50 to-jid-beige-100 sm:h-44" />
+          <div className="h-36 w-full bg-jid-beige sm:h-44" aria-hidden />
         )}
 
         <div className="relative px-5 pb-6 pt-0 sm:px-8">
@@ -48,7 +48,7 @@ export function BusinessProfileView({
             <CompanyLogo
               name={displayName}
               logoUrl={directory.logo_url}
-              className="h-16 w-16 border-4 border-white shadow-sm sm:h-20 sm:w-20"
+              className="h-16 w-16 border-4 border-card sm:h-20 sm:w-20"
             />
           </div>
 

@@ -55,9 +55,10 @@ export function CatalogCta({
         <LocaleLink
           href={profilePath}
           className={cn(
-            'inline-flex min-h-[42px] flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5',
+            'inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-md px-4 py-2.5',
             'font-arabic text-sm font-medium',
             'bg-primary text-primary-foreground transition-colors hover:bg-primary/90 active:bg-primary/80',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-gold/60 focus-visible:ring-offset-2',
           )}
           onClick={onExternalClick}
           aria-label={t('jidProfileAria')}

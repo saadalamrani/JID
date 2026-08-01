@@ -1,8 +1,9 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { ClaimSubmissionForm } from '@/components/entity/claim-submission-form'
+import { OrgOutcomePanel } from '@/components/entity/org-outcome-panel'
 import {
   canReapplyNow,
   getLatestRejectedVerification,
@@ -10,9 +11,11 @@ import {
 } from '@/lib/entity/rejected-claim'
 import { createClient } from '@/lib/supabase/client'
 import { Link, useRouter } from '@/lib/i18n/navigation'
+import { formatDateTime } from '@/lib/utils/format'
 
 export default function CompanyVerificationReapplyPage() {
   const t = useTranslations('entity.reapply')
+  const locale = useLocale()
   const router = useRouter()
   const [verification, setVerification] = useState<RejectedClaimView | null>(null)
   const [loading, setLoading] = useState(true)
@@ -49,30 +52,55 @@ export default function CompanyVerificationReapplyPage() {
     void load()
   }, [router])
 
-  if (loading) return <p className="p-8 text-sm text-foreground/60">{t('loading')}</p>
+  if (loading) {
+    return (
+      <OrgOutcomePanel tone="neutral" testId="reapply-loading">
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          {t('loading')}
+        </p>
+      </OrgOutcomePanel>
+    )
+  }
 
   if (blocked && verification) {
     return (
-      <div className="mx-auto max-w-lg p-8">
-        <p className="text-sm text-red-600">{t('blocked')}</p>
+      <OrgOutcomePanel tone="blocked" testId="reapply-blocked">
+        <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
+        <p className="mt-3 text-sm text-destructive" role="status">
+          {t('blocked')}
+        </p>
+        {verification.can_reapply_after ? (
+          <p className="mt-2 text-sm text-muted-foreground" data-testid="reapply-cooldown-reason">
+            {formatDateTime(
+              verification.can_reapply_after,
+              locale.startsWith('ar') ? 'ar-SA' : 'en-US',
+            )}
+          </p>
+        ) : null}
         <Link
           href="/company/verification-rejected"
-          className="mt-4 inline-block text-sm text-primary hover:underline"
+          className="mt-4 inline-flex min-h-11 items-center text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-gold/60"
         >
           {t('back')}
         </Link>
-      </div>
+      </OrgOutcomePanel>
     )
   }
 
   if (!verification?.directory_id) {
-    return <p className="p-8 text-sm text-red-600">{t('error')}</p>
+    return (
+      <OrgOutcomePanel tone="blocked" testId="reapply-error">
+        <p className="text-sm text-destructive" role="alert">
+          {t('error')}
+        </p>
+      </OrgOutcomePanel>
+    )
   }
 
   return (
-    <div className="mx-auto max-w-lg px-4 py-10">
+    <OrgOutcomePanel tone="neutral" testId="reapply-form">
       <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
-      <p className="mt-2 text-sm text-foreground/70">{verification.company_name}</p>
+      <p className="mt-2 text-sm text-muted-foreground">{verification.company_name}</p>
       <div className="mt-6">
         <ClaimSubmissionForm
           companyId={verification.directory_id}
@@ -81,6 +109,6 @@ export default function CompanyVerificationReapplyPage() {
           onSuccess={() => router.push('/company/verification-pending')}
         />
       </div>
-    </div>
+    </OrgOutcomePanel>
   )
 }

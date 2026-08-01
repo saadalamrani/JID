@@ -1,5 +1,5 @@
 import { UniversityProfileCreationWizard } from './_components/university-profile-creation-wizard'
-import { ApprovedWithoutProfileNotice } from './_components/approved-without-profile-notice'
+import { ApprovedWithoutProfileNotice } from '@/components/entity/approved-without-profile-notice'
 import { getLatestVerificationForUser } from '@/lib/entity/claims'
 import { resolveUniversityCreateProfileGate } from '@/lib/entity/university-create-profile-gate'
 import { fetchOwnerUniversityProfileRow } from '@/lib/profile/owner-university-profile'

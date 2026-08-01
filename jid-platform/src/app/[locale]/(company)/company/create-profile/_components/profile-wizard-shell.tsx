@@ -27,10 +27,13 @@ export function ProfileWizardShell({
     <div className="mx-auto w-full max-w-2xl px-4 py-10">
       <div className="mb-8 text-center">
         <h1 className="text-2xl font-semibold text-foreground">{title}</h1>
-        {subtitle ? <p className="mt-2 text-sm text-foreground/70">{subtitle}</p> : null}
+        {subtitle ? <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p> : null}
       </div>
 
-      <ol className={cn('mb-8 grid gap-2', colClass)}>
+      <ol
+        className={cn('mb-8 grid gap-2', colClass)}
+        aria-label={title}
+      >
         {steps.map((step, index) => {
           const isActive = index === currentIndex
           const isComplete = index < currentIndex
@@ -39,18 +42,19 @@ export function ProfileWizardShell({
             <li key={step} className="text-center">
               <div
                 className={cn(
-                  'mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold',
-                  isActive && 'bg-primary text-white',
-                  isComplete && 'bg-accent text-foreground',
-                  !isActive && !isComplete && 'bg-border text-muted-foreground',
+                  'mx-auto mb-2 flex h-8 w-8 items-center justify-center rounded-md text-xs font-semibold',
+                  isActive && 'bg-primary text-primary-foreground',
+                  isComplete && 'bg-jid-gold/30 text-foreground',
+                  !isActive && !isComplete && 'border border-border bg-jid-beige/40 text-muted-foreground',
                 )}
+                aria-current={isActive ? 'step' : undefined}
               >
                 {index + 1}
               </div>
               <p
                 className={cn(
                   'text-xs',
-                  isActive ? 'font-medium text-foreground' : 'text-foreground/60',
+                  isActive ? 'font-medium text-foreground' : 'text-muted-foreground',
                 )}
               >
                 {stepLabels[step]}
@@ -60,7 +64,7 @@ export function ProfileWizardShell({
         })}
       </ol>
 
-      <div className="rounded-xl border border-border bg-white p-6 shadow-sm">{children}</div>
+      <div className="rounded-lg border border-border bg-card p-6">{children}</div>
     </div>
   )
 }

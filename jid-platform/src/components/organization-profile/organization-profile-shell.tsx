@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 import { DraftPublicationBoundary } from './draft-publication-boundary'
 import { ProfileStateBadge } from './profile-state-badge'
 
@@ -13,6 +13,8 @@ export type OrganizationProfileSection =
   | 'preview'
   | 'reference'
   | 'correction'
+
+export { OrganizationProfilePanel } from './organization-profile-section'
 
 type OrganizationProfileShellProps = {
   orgKind: 'business' | 'university'
@@ -35,6 +37,7 @@ export function OrganizationProfileShell({
   sectionNav,
   mobileHeader,
 }: OrganizationProfileShellProps) {
+  const t = useTranslations('organizationProfile.shell')
   const editHref = orgKind === 'business' ? '/company/profile/edit' : '/university/profile/edit'
 
   return (
@@ -43,8 +46,8 @@ export function OrganizationProfileShell({
         {mobileHeader}
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
-            <p className="text-xs font-medium uppercase text-foreground/50">
-              {orgKind === 'business' ? 'Business' : 'University'}
+            <p className="text-xs font-medium text-muted-foreground">
+              {orgKind === 'business' ? t('business') : t('university')}
             </p>
             <h1 className="text-2xl font-semibold text-foreground">{displayName}</h1>
           </div>
@@ -64,27 +67,5 @@ export function OrganizationProfileShell({
         <main className="min-w-0">{children}</main>
       </div>
     </div>
-  )
-}
-
-export function OrganizationProfilePanel({
-  title,
-  description,
-  children,
-  className,
-}: {
-  title: string
-  description?: string
-  children: ReactNode
-  className?: string
-}) {
-  return (
-    <section className={cn('rounded-xl border border-border bg-white p-5 shadow-sm sm:p-6', className)}>
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
-        {description ? <p className="mt-1 text-sm text-foreground/70">{description}</p> : null}
-      </div>
-      {children}
-    </section>
   )
 }

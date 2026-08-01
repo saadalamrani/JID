@@ -6,7 +6,35 @@
 |---|---|
 | specification | 08 |
 | status | IN_PROGRESS |
-| session | 08-C COMPLETE — Wave 2A staff verification design application |
+| session | 08-D (W-Lifecycle + W-ProfileMgmt + W-Publication visual waves — unpromoted until CI) |
+| Session D canonical starting SHA | b8004ab1244b41ad9d88d70ab758c98e021d985f |
+| Session D source branch | cursor/jid-08d-remaining-waves |
+| Session D CI branch | codex/jid-08d-ci-validation |
+| Session 08-C gate | COMPLETE — product implementation SHA `77432d71bef79ac5c4a5f1cf8a1e1992c95de9fb`; documentation recovery SHA `b8004ab1244b41ad9d88d70ab758c98e021d985f` equals tip at Session D start; recovery documentation-only; intervening commits after recovery: none |
+| Session 08-C implementation SHA | 77432d71bef79ac5c4a5f1cf8a1e1992c95de9fb |
+| Session 08-C documentation recovery SHA | b8004ab1244b41ad9d88d70ab758c98e021d985f |
+| intervening_commits after 08-C recovery | none |
+| W-Lifecycle routes | `/company/verification-pending`, `/company/verification-rejected`, `/company/verification/reapply`, `/company/create-profile`; `/university/pending-review`, `/university/rejected`, `/university/reapply`, `/university/create-profile` |
+| W-ProfileMgmt routes | `/company/create-profile`, `/company/profile`, `/company/profile/edit`, `/company/profile-suspended`; `/university/create-profile`, `/university/profile/edit`, `/university/profile/preview`, `/university/profile-suspended` — gap: no `/university/profile` owner view (not invented) |
+| W-Publication routes | owner `DraftPublicationBoundary` on edit/dashboard; public `/companies/[slug]/profile`, `/universities/[slug]/profile`; Directory link via `/catalog/[slug]` `CatalogCta` |
+| bounded date-locale | rejected pages + reapply pages → `formatDateTime(..., ar-SA\|en-US)` with Latin numbering via `@/lib/utils/format`; removed university reapply hardcoded `en-US` |
+| AR/EN parity | `organizationProfile.shell.business\|university` added; touched `entity.*` / `organizationProfile.*` / `catalogPage.cta` remain Claim-free |
+| RTL/LTR | logical properties retained (`ps-`, `border-s-`); both directions captured in evidence |
+| accessibility | status text + rails; progressbar labels on SLA; focus rings on primary CTAs; suspended/publish alerts use role=status/alert |
+| 375px | lifecycle pending/reapply, profile wizards, public profiles captured at 375 |
+| Spec 03/04/05/07 behavior | preserved — state resolution, create-profile gates, PSW-001 save/reload, publish/unpublish RPCs untouched |
+| evidence indexes | `docs/command-center/reports/ui-evidence/w-lifecycle/INDEX.md`; `.../w-profilemgmt/INDEX.md`; `.../w-publication/INDEX.md` |
+| Anti-Slop Review | `.../w-lifecycle/ANTI_SLOP_REVIEW.md`; `.../w-profilemgmt/ANTI_SLOP_REVIEW.md`; `.../w-publication/ANTI_SLOP_REVIEW.md` |
+| fixture cleanup | PASS — synthetic Playwright HTML captures only; no disposable DB fixtures created |
+| database / migration / RLS / RPC | none |
+| Session D mirror branch | `agent/nonprod-signup-form` not changed |
+| Session D local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 379 passed / 100 skipped; build |
+| Session D validation CI | PENDING |
+| Session D target CI | PENDING |
+| Session D Vercel | PENDING |
+| Session D implementation / promoted SHA | PENDING |
+| next session | 08-E |
+| session (prior) | 08-C COMPLETE — Wave 2A staff verification design application |
 | Session C canonical starting SHA | e8e1aed5af5084aa2c0a5c50fde946251e871a67 |
 | Session C source branch | cursor/jid-08c-staff-wave-2a |
 | Session C CI branch | codex/jid-08c-ci-validation |
