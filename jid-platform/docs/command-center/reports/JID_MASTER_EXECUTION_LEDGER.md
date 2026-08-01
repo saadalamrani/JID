@@ -38,11 +38,13 @@
 | database / migration / schema / view / RLS / grant / RPC / trigger / authorization / ownership / route / environment / production | none |
 | Session E mirror branch | `agent/nonprod-signup-form` not changed |
 | Session E local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 379 passed / 100 skipped; build |
-| Session E validation CI | PENDING_FILL |
-| Session E target CI | PENDING_FILL |
-| Session E Vercel | PENDING_FILL |
-| Session E implementation / promoted SHA | PENDING_FILL |
-| Session 08-E completion token | PENDING_FILL |
+| Session E evidence consolidation SHA | e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 |
+| Session E validation CI | PASS — GitHub Actions CI/Quality Gate run 30716480280 completed successfully for codex/jid-08e-ci-validation at e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 |
+| Session E target CI | PASS — GitHub Actions CI/Quality Gate run 30716895763 completed successfully for agent/nonprod-signup-fix at e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 |
+| Session E Vercel | PASS — READY for commit e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11: jid-dev https://vercel.com/jidplatform/jid-dev/CCEcEd9DPkMkbbC5so2EgDBwxv6u; jid-platform https://vercel.com/jidplatform/jid-platform/3ZmeFKo9jqcyGfJUFaH8g7zPzuMq (plus prior validation-branch READY: jid-dev EYzXzy3wNUN3ASxWFjRaE6DNTLab; jid-platform 3mtXDp3EJzMYjU5M1KuwxzFpH32k) |
+| Session E implementation / promoted SHA | e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 |
+| Session 08-E completion token | SPEC_08_SHIPPED e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 |
+| Session 08-E ledger-closeout note | A later documentation-only ledger-fill commit may advance the tip; it does not change the Session 08-E Spec 08 SHIPPED promoted SHA. Future gates must verify e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11 is equal to or ancestral to the current canonical tip. |
 | next specification | 09 |
 | next session | 09-A |
 | session (prior) | 08-D COMPLETE — W-Lifecycle + W-ProfileMgmt + W-Publication visual waves |
