@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JID — تجربة فريق العمل للتحقق</title>
+<style>
+:root{
+  --olive:#2F3A2E;
+  --olive-2:#414D40;
+  --gold:#E6B43A;
+  --off:#F7F5EF;
+  --overdue:#B3452F;
+  --border:#DAD5C7;
+  --muted:#6B6F63;
+  --white:#FFFFFF;
+  --radius:6px;
+  --gap:16px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  background:var(--off);
+  color:var(--olive);
+  font-family:"Segoe UI","Tahoma","Geeza Pro","Helvetica Neue",Arial,sans-serif;
+  font-size:15px;
+  line-height:1.6;
+}
+[dir="rtl"] body{font-family:"Segoe UI","Tahoma","Geeza Pro",sans-serif;}
+button{font-family:inherit;font-size:inherit;}
+a{color:inherit;}
+h1,h2,h3,h4{margin:0 0 4px 0;font-weight:600;color:var(--olive);}
+p{margin:0 0 8px 0;}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+.skip-link{position:absolute;inset-inline-start:8px;top:-40px;background:var(--olive);color:#fff;padding:8px 14px;border-radius:4px;z-index:100;transition:top .15s;}
+.skip-link:focus{top:8px;}
+
+/* Shell */
+#app{display:flex;min-height:100vh;}
+.sidenav{
+  width:220px;flex:none;background:var(--white);border-inline-end:1px solid var(--border);
+  display:flex;flex-direction:column;padding:20px 0;
+}
+.sidenav .brand{padding:0 20px 20px 20px;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.sidenav .brand .wordmark{font-weight:700;font-size:18px;color:var(--olive);}
+.sidenav .brand .tagline{font-size:12px;color:var(--muted);}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:10px 20px;color:var(--olive-2);
+  text-decoration:none;font-size:14px;border-inline-start:3px solid transparent;cursor:pointer;background:none;border-top:none;border-bottom:none;border-end:none;width:100%;text-align:start;
+}
+.nav-item:hover{background:var(--off);}
+.nav-item.active{border-inline-start-color:var(--gold);color:var(--olive);font-weight:600;background:var(--off);}
+.nav-item:focus-visible, a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline:3px solid var(--gold);outline-offset:2px;
+}
+.main-col{flex:1;display:flex;flex-direction:column;min-width:0;}
+.topbar{
+  background:var(--white);border-bottom:1px solid var(--border);padding:12px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+}
+.topbar .controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.pill-toggle{display:inline-flex;border:1px solid var(--border);border-radius:20px;overflow:hidden;}
+.pill-toggle button{
+  padding:6px 14px;background:var(--white);border:none;color:var(--olive-2);cursor:pointer;font-size:13px;
+}
+.pill-toggle button.active{background:var(--olive);color:#fff;}
+.demo-note{font-size:11px;color:var(--muted);border:1px dashed var(--border);border-radius:4px;padding:4px 8px;}
+select, .select-like{
+  border:1px solid var(--border);border-radius:4px;padding:6px 10px;background:var(--white);color:var(--olive);font-size:13px;
+}
+main{flex:1;padding:24px;max-width:1100px;width:100%;margin:0;}
+[dir="ltr"] main{margin:0;}
+.screen-header{margin-bottom:18px;}
+.screen-header h1{font-size:22px;}
+.screen-header .subtitle{color:var(--muted);font-size:14px;}
+.back-link{display:inline-block;margin-bottom:14px;font-size:13px;color:var(--olive-2);text-decoration:none;}
+.back-link:hover{text-decoration:underline;}
+
+/* Filters */
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;padding:12px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);}
+.filter-bar input[type="search"]{border:1px solid var(--border);border-radius:4px;padding:7px 10px;font-size:13px;min-width:200px;flex:1;}
+.filter-group label{font-size:12px;color:var(--muted);display:block;margin-bottom:2px;}
+.preview-state-bar{display:flex;gap:8px;align-items:center;margin-bottom:14px;font-size:12px;color:var(--muted);flex-wrap:wrap;}
+.preview-state-bar .label{border:1px dashed var(--border);padding:3px 8px;border-radius:4px;}
+.preview-state-bar button{border:1px solid var(--border);background:var(--white);border-radius:4px;padding:4px 10px;font-size:12px;cursor:pointer;color:var(--olive-2);}
+.preview-state-bar button.active{background:var(--olive-2);color:#fff;border-color:var(--olive-2);}
+
+/* Cards / list */
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.v-card{
+  display:block;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px 16px;text-decoration:none;color:inherit;cursor:pointer;
+}
+.v-card:hover{border-color:var(--olive-2);}
+.v-card-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+.v-card .org{font-weight:600;font-size:15px;color:var(--olive);}
+.v-card .claimant{font-size:13px;color:var(--muted);margin-top:2px;}
+.v-card .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:3px 9px;border-radius:20px;border:1px solid var(--border);white-space:nowrap;}
+.badge-type-business{background:#EEF0EA;color:var(--olive);border-color:var(--olive);}
+.badge-type-university{background:#EAECE9;color:var(--olive-2);border-color:var(--olive-2);}
+.badge-status{background:var(--off);color:var(--olive-2);}
+.badge-status.status-approved{color:#2F3A2E;border-color:var(--olive);}
+.badge-status.status-rejected{color:var(--overdue);border-color:var(--overdue);}
+.badge-urgency{font-weight:600;}
+.badge-urgency.overdue{color:var(--overdue);border-color:var(--overdue);background:#FBEDE9;}
+.badge-urgency.critical{color:#8A5A16;border-color:#8A5A16;background:#FBF1DD;}
+.badge-urgency.warning{color:var(--olive-2);}
+.badge-urgency.normal{color:var(--muted);}
+.self-flag{font-size:11px;color:var(--overdue);border:1px solid var(--overdue);background:#FBEDE9;padding:2px 8px;border-radius:20px;}
+
+/* Empty / error / skeleton */
+.state-block{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 20px;text-align:center;color:var(--muted);}
+.state-block h3{color:var(--olive);}
+.state-block .btn{margin-top:10px;}
+.skeleton-row{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;}
+.skeleton-bar{height:12px;border-radius:3px;background:linear-gradient(90deg,#EDEAE0,#F4F2EA,#EDEAE0);background-size:200% 100%;animation:sk 1.2s infinite;margin-bottom:8px;}
+@keyframes sk{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+.skeleton-bar.w-40{width:40%;}
+.skeleton-bar.w-25{width:25%;}
+.skeleton-bar.w-60{width:60%;}
+
+/* Buttons */
+.btn{border-radius:4px;padding:9px 16px;font-size:14px;cursor:pointer;border:1px solid var(--olive);background:var(--white);color:var(--olive);}
+.btn:hover{background:var(--off);}
+.btn-primary{background:var(--olive);color:#fff;border-color:var(--olive);}
+.btn-primary:hover{background:#26301F;}
+.btn-gold{background:var(--gold);color:var(--olive);border-color:var(--gold);font-weight:600;}
+.btn-gold:hover{background:#D9A62E;}
+.btn-danger-outline{border-color:var(--overdue);color:var(--overdue);background:var(--white);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+.btn-block{width:100%;display:block;text-align:center;}
+.btn-sm{padding:5px 10px;font-size:12px;}
+
+/* Workspace layout */
+.workspace-grid{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start;}
+@media (max-width: 900px){.workspace-grid{grid-template-columns:1fr;}}
+.panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px;}
+.panel h2{font-size:15px;text-transform:none;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;}
+dl.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;margin:0;}
+@media (max-width:520px){dl.info-grid{grid-template-columns:1fr;}}
+dl.info-grid dt{font-size:12px;color:var(--muted);margin:0;}
+dl.info-grid dd{font-size:14px;margin:0;color:var(--olive);font-weight:500;}
+.sticky-rail{position:sticky;top:16px;}
+.notice-banner{background:#EEF0EA;border:1px solid var(--olive-2);border-radius:var(--radius);padding:10px 14px;font-size:13px;margin-bottom:14px;}
+.notice-banner.warn{background:#FBF1DD;border-color:#8A5A16;}
+.notice-banner.block{background:#FBEDE9;border-color:var(--overdue);color:var(--overdue);}
+
+/* evidence list */
+.evidence-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+.evidence-item:last-child{border-bottom:none;}
+.evidence-item .fname{font-size:13px;}
+.evidence-item .funavail{font-size:12px;color:var(--muted);font-style:italic;}
+
+/* checklist */
+.checklist-item{border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;}
+.checklist-item input[type=checkbox]{margin-top:3px;width:16px;height:16px;accent-color:var(--olive);}
+.checklist-item .label{font-size:13px;font-weight:600;}
+.checklist-item .hint{font-size:12px;color:var(--muted);margin-top:2px;}
+.checklist-progress{font-size:12px;color:var(--muted);margin-bottom:10px;}
+
+/* decision panel */
+.decision-options{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+.decision-option{border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.decision-option.selected{border-color:var(--olive);background:var(--off);}
+.decision-option input{accent-color:var(--olive);}
+textarea{width:100%;border:1px solid var(--border);border-radius:4px;padding:9px;font-family:inherit;font-size:13px;min-height:90px;resize:vertical;}
+textarea.invalid{border-color:var(--overdue);}
+.field-error{color:var(--overdue);font-size:12px;margin-top:4px;}
+.field-hint{color:var(--muted);font-size:12px;margin-top:4px;}
+
+/* evidence viewer modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(47,58,46,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50;}
+.modal{background:#fff;border-radius:var(--radius);max-width:640px;width:100%;max-height:90vh;overflow:auto;padding:20px;}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.modal-close{background:none;border:1px solid var(--border);border-radius:4px;padding:4px 10px;cursor:pointer;}
+.doc-frame{border:1px dashed var(--border);border-radius:4px;min-height:220px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;background:var(--off);margin:12px 0;text-align:center;padding:20px;}
+
+footer.demo-footer{padding:14px 24px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);}
+.sr-live{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">تخطي إلى المحتوى الرئيسي / Skip to main content</a>
+<div id="app"></div>
+<div aria-live="polite" class="sr-live" id="live-region"></div>
+<script>
+/* ============================================================
+   JID — Staff Verification Experience Prototype
+   Clickable, no-backend prototype. All data below is fictional
+   placeholder content. In-memory only: reload resets everything.
+   ============================================================ */
+(function(){
+"use strict";
+
+/* ---------- i18n ---------- */
+const T = {
+ar: {
+  wordmark: "جِد", tagline: "عمليات فريق العمل",
+  nav_queue: "طلبات التحقق", nav_myqueue: "قائمتي للمراجعة", nav_history: "الطلبات المرفوضة", nav_sys: "لوحة النظام (معاينة)",
+  lang_ar: "العربية", lang_en: "English",
+  identity_staff: "ليلى الفهد (فريق العمل)", identity_applicant: "أنت — مقدّم الطلب على VR-1004",
+  identity_label: "عرض كـ:",
+  skip: "تخطي إلى المحتوى الرئيسي",
+  queue_title: "طلبات التحقق", queue_subtitle: "راجع طلبات تحقق الشركات والجامعات",
+  myqueue_title: "قائمتي للمراجعة", myqueue_subtitle: "الطلبات المُسندة إليك",
+  history_title: "الطلبات المرفوضة", history_subtitle: "سجل القرارات السلبية وتاريخ إعادة التقديم",
+  sys_title: "طلبات التحقق المعلّقة", sys_subtitle: "أحدث ٥ طلبات تحقق حسب موعد المعالجة",
+  filter_all: "الكل", filter_unassigned: "غير مُسندة", filter_mine: "مُسندة لي",
+  filter_type_all: "كل الأنواع", filter_type_business: "شركة", filter_type_university: "جامعة",
+  filter_urgency_all: "كل درجات الأولوية", filter_urgency_overdue: "متجاوزة المهلة", filter_urgency_critical: "حرجة", filter_urgency_normal: "عادية",
+  search_ph: "ابحث بالاسم أو مقدّم الطلب",
+  type_business: "شركة", type_university: "جامعة",
+  status_pending: "قيد الانتظار", status_under_review: "قيد المراجعة", status_needs_more_info: "بانتظار معلومات إضافية",
+  status_approved: "مقبول", status_rejected: "مرفوض",
+  urgency_overdue: "متجاوز المهلة", urgency_critical: "حرج", urgency_warning: "تحذير", urgency_normal: "عادي",
+  self_flag: "مُقدَّم من حسابك",
+  empty_queue_title: "لا توجد طلبات مطابقة", empty_queue_sub: "جرّب تصفية مختلفة",
+  empty_myqueue_title: "لا توجد طلبات مُسندة إليك حالياً", empty_myqueue_sub: "يمكنك العودة إلى القائمة الكاملة لالتقاط طلب غير مُسند",
+  empty_history_title: "لا توجد طلبات مرفوضة", empty_history_sub: "لا يوجد سجل رفض حالياً",
+  empty_sys_title: "لا توجد طلبات معلّقة",
+  goto_full_queue: "عرض قائمة الطلبات الكاملة",
+  error_title: "تعذّر تحميل البيانات", error_sub: "حدث خطأ غير متوقع.", retry: "إعادة المحاولة",
+  loading: "جارٍ التحميل…",
+  preview_label: "معاينة حالة الشاشة (للعرض التوضيحي فقط):",
+  preview_populated: "معبأة", preview_loading: "تحميل", preview_empty: "فارغة", preview_error: "خطأ",
+  back_to_queue: "العودة إلى قائمة الطلبات",
+  ws_request_details: "بيانات الطلب", ws_applicant: "مقدّم الطلب", ws_org: "الجهة (سجل الدليل)",
+  ws_evidence: "الأدلة المرفقة", ws_related: "طلبات ذات صلة", ws_audit: "سجل التدقيق", ws_checklist: "قائمة المراجعة",
+  ws_decision: "القرار",
+  status_line: "الحالة: {status} · قُدّم {time}",
+  already_decided: "تم اتخاذ قرار بشأن هذا الطلب مسبقاً",
+  assigned_other: "هذا الطلب مُسند إلى عضو آخر من الفريق ولا يمكنك مراجعته.",
+  field_name: "الاسم", field_email: "البريد الإلكتروني المؤسسي", field_title: "المنصب المُعلن",
+  field_domains_onfile: "النطاقات المسجّلة", field_entity_state: "حالة الجهة", field_domain_declared: "النطاق المُعلن",
+  domain_match_yes: "مطابق", domain_match_no: "غير مطابق",
+  no_related: "لا توجد طلبات ذات صلة",
+  no_evidence_title: "لم يتم إرفاق هذا الدليل",
+  unsupported_title: "تعذّر عرض هذا الملف داخل النظام. النوع غير مدعوم للمعاينة.",
+  evidence_privacy: "يحتوي هذا الملف على معلومات خاصة بمقدّم الطلب. لا تتم مشاركته خارج نطاق المراجعة.",
+  evidence_loading: "جارٍ تحميل المستند…",
+  evidence_fetcherr: "تعذّر تحميل المستند. حاول مرة أخرى.",
+  view_evidence: "عرض الدليل",
+  close: "إغلاق", download_secure: "تنزيل آمن", simulate_error: "محاكاة فشل التحميل (للعرض)",
+  checklist_domain: "تطابق النطاق مع سجل الجهة",
+  checklist_title_biz: "منصب مقدّم الطلب معقول",
+  checklist_dup: "لا تكرار لطلبات نشطة على نفس الجهة",
+  checklist_exists_biz: "الجهة موجودة في الدليل",
+  checklist_exists_uni: "الجامعة موجودة في الدليل",
+  checklist_progress: "تم استيفاء {n} من {m} عناصر",
+  decision_approve: "قبول", decision_reject: "رفض", decision_more_info: "طلب مزيد من المعلومات",
+  reason_label: "سبب القرار (سيُشارك مع مقدّم الطلب عند الرفض أو طلب المعلومات)",
+  reason_ph: "اكتب سبباً واضحاً ومحدداً",
+  reason_error: "السبب مطلوب (١٠ أحرف على الأقل)",
+  approve_locked: "أكمل جميع عناصر قائمة المراجعة أولاً",
+  confirm_decision: "تأكيد القرار",
+  submitting: "جارٍ الإرسال…",
+  self_block_title: "لا يمكنك مراجعة هذا الطلب",
+  self_block_body: "لا يمكنك مراجعة طلب تحقق مقدَّم من حسابك الخاص. سيقوم عضو آخر من الفريق بمراجعته.",
+  moreinfo_title: "تم إرسال طلب المعلومات الإضافية",
+  moreinfo_body: "تم إشعار مقدّم الطلب بالسبب التالي، وستظهر الحالة كـ «بانتظار معلومات إضافية» حتى يقوم بالرد.",
+  approved_title: "تم قبول طلب التحقق",
+  approved_body: "تم تسجيل هذا القرار. لم يتم إنشاء أي ملف تعريف (Profile) تلقائياً — يجب على الممثل المُتحقق منه تسجيل الدخول وإنشاء ملفه التعريفي بنفسه.",
+  rejected_note: "تم رفض هذا الطلب.",
+  reapply_after: "يمكن إعادة التقديم بعد", reapply_now: "يمكن لمقدّم الطلب إعادة التقديم الآن",
+  reviewed_by: "روجع بواسطة", decision_date: "تاريخ القرار", rejection_reason: "سبب الرفض",
+  audit_submitted: "تم تقديم الطلب", audit_assigned: "تم إسناد الطلب تلقائياً عند أول عرض",
+  audit_evidence_view: "تمت مشاهدة دليل", audit_decision: "تم تسجيل القرار",
+  reset_demo: "إعادة تعيين بيانات العرض التوضيحي",
+  demo_banner: "نموذج تصميم تفاعلي — لا يوجد اتصال بخادم حقيقي. جميع البيانات وهمية.",
+  not_found: "الطلب غير موجود أو لا تملك صلاحية الوصول إليه.",
+},
+en: {
+  wordmark: "JID", tagline: "Staff Operations",
+  nav_queue: "Verification Requests", nav_myqueue: "My Review Queue", nav_history: "Rejected Requests", nav_sys: "System Dashboard (preview)",
+  lang_ar: "العربية", lang_en: "English",
+  identity_staff: "Layla Al-Fahad (Staff)", identity_applicant: "You — applicant on VR-1004",
+  identity_label: "View as:",
+  skip: "Skip to main content",
+  queue_title: "Verification Requests", queue_subtitle: "Review Business and University verification requests",
+  myqueue_title: "My Review Queue", myqueue_subtitle: "Requests assigned to you",
+  history_title: "Rejected Requests", history_subtitle: "Rejection record and reapplication history",
+  sys_title: "Pending Verifications", sys_subtitle: "Top 5 by earliest SLA",
+  filter_all: "All", filter_unassigned: "Unassigned", filter_mine: "Assigned to me",
+  filter_type_all: "All types", filter_type_business: "Business", filter_type_university: "University",
+  filter_urgency_all: "All urgency", filter_urgency_overdue: "Overdue", filter_urgency_critical: "Critical", filter_urgency_normal: "Normal",
+  search_ph: "Search by organization or claimant",
+  type_business: "Business", type_university: "University",
+  status_pending: "Pending", status_under_review: "Under review", status_needs_more_info: "Needs more information",
+  status_approved: "Approved", status_rejected: "Rejected",
+  urgency_overdue: "Overdue", urgency_critical: "Critical", urgency_warning: "Warning", urgency_normal: "Normal",
+  self_flag: "Submitted by your account",
+  empty_queue_title: "No matching requests", empty_queue_sub: "Try a different filter",
+  empty_myqueue_title: "You have no requests assigned right now", empty_myqueue_sub: "You can browse the full queue to pick up unassigned work",
+  empty_history_title: "No rejected requests", empty_history_sub: "There's no rejection record right now",
+  empty_sys_title: "No pending requests",
+  goto_full_queue: "View full queue",
+  error_title: "Couldn't load data", error_sub: "Something went wrong.", retry: "Try again",
+  loading: "Loading…",
+  preview_label: "Preview screen state (demo only):",
+  preview_populated: "Populated", preview_loading: "Loading", preview_empty: "Empty", preview_error: "Error",
+  back_to_queue: "Back to queue",
+  ws_request_details: "Request details", ws_applicant: "Applicant", ws_org: "Organization (Directory reference)",
+  ws_evidence: "Submitted evidence", ws_related: "Related requests", ws_audit: "Audit trail", ws_checklist: "Review checklist",
+  ws_decision: "Decision",
+  status_line: "Status: {status} · submitted {time}",
+  already_decided: "This request has already been reviewed",
+  assigned_other: "This request is assigned to another team member and can't be reviewed by you.",
+  field_name: "Name", field_email: "Business email", field_title: "Stated title",
+  field_domains_onfile: "Domains on file", field_entity_state: "Entity state", field_domain_declared: "Declared domain",
+  domain_match_yes: "Match", domain_match_no: "No match",
+  no_related: "No related requests found",
+  no_evidence_title: "No document was attached for this evidence item",
+  unsupported_title: "This file type can't be previewed in the system.",
+  evidence_privacy: "This file contains information about the applicant. Do not share it outside this review.",
+  evidence_loading: "Loading document…",
+  evidence_fetcherr: "Couldn't load this document. Try again.",
+  view_evidence: "View evidence",
+  close: "Close", download_secure: "Secure download", simulate_error: "Simulate load failure (demo)",
+  checklist_domain: "Domain matches organization record",
+  checklist_title_biz: "Applicant's stated title is reasonable",
+  checklist_dup: "No duplicate active request for this organization",
+  checklist_exists_biz: "Organization exists in the Directory",
+  checklist_exists_uni: "University is listed in the Directory",
+  checklist_progress: "{n} of {m} items complete",
+  decision_approve: "Approve", decision_reject: "Reject", decision_more_info: "Request more information",
+  reason_label: "Reason (shared with the applicant on reject or request-more-information)",
+  reason_ph: "Write a clear, specific reason",
+  reason_error: "A reason is required (10 characters minimum)",
+  approve_locked: "Complete the checklist before approving",
+  confirm_decision: "Confirm decision",
+  submitting: "Submitting…",
+  self_block_title: "You can't review this request",
+  self_block_body: "You can't review a verification request submitted by your own account. Another team member will review it.",
+  moreinfo_title: "Request for more information sent",
+  moreinfo_body: "The applicant has been notified with the reason below, and the status will show as “Needs more information” until they respond.",
+  approved_title: "Verification approved",
+  approved_body: "This decision has been recorded. No Profile was created automatically — the verified representative must sign in and create their Profile themselves.",
+  rejected_note: "This request has been rejected.",
+  reapply_after: "Can reapply after", reapply_now: "The applicant can reapply now",
+  reviewed_by: "Reviewed by", decision_date: "Decision date", rejection_reason: "Rejection reason",
+  audit_submitted: "Request submitted", audit_assigned: "Auto-assigned on first view",
+  audit_evidence_view: "Evidence viewed", audit_decision: "Decision recorded",
+  reset_demo: "Reset demo data",
+  demo_banner: "Interactive design prototype — no real backend. All data is fictional.",
+  not_found: "This request doesn't exist or you're not authorized to view it.",
+}
+};
+
+/* ---------- Sample data (fictional placeholders only) ---------- */
+const CURRENT_STAFF_ID = "staff-layla";
+
+function seedData(){ return [
+  { id:"VR-1001", type:"business",
+    org_en:"Al Rawabi Logistics", org_ar:"شركة الروابي للخدمات اللوجستية",
+    claimant_en:"Yousef Al-Mansour", claimant_ar:"يوسف المنصور", title_en:"Head of Talent Acquisition", title_ar:"رئيس اكتساب المواهب",
+    email:"hr@alrawabi-example.com", declared_domain:"alrawabi-example.com",
+    domains_onfile:["alrawabi-example.com","group.alrawabi-example.com"],
+    status:"under_review", assigned:CURRENT_STAFF_ID, applicant_id:"user-1001", sla_hours:-1, submitted_hours_ago:36,
+    entity_state_en:"Listed", entity_state_ar:"مُدرجة",
+    evidence:[{id:"e1",kind:"doc",name_en:"Commercial registry",name_ar:"السجل التجاري",format:"pdf",available:true},
+              {id:"e2",kind:"doc",name_en:"Authorization letter",name_ar:"خطاب تفويض",format:"pdf",available:true}],
+    related:["VR-1006-old"], review_notes:null, rejection_reason:null, can_reapply_after:null,
+  },
+  { id:"VR-1002", type:"university",
+    org_en:"Al-Noor National University", org_ar:"جامعة النور الوطنية",
+    claimant_en:"Dr. Faisal Al-Harbi", claimant_ar:"د. فيصل الحربي", title_en:"Director of Career Services", title_ar:"مدير خدمات التوظيف",
+    email:"careers@alnoor-example.edu", declared_domain:"alnoor-example.edu",
+    domains_onfile:["alnoor-example.edu"],
+    status:"pending", assigned:null, applicant_id:"user-1002", sla_hours:60, submitted_hours_ago:4,
+    entity_state_en:"Listed", entity_state_ar:"مُدرجة",
+    evidence:[{id:"e1",kind:"doc",name_en:"Authorization letter",name_ar:"خطاب تفويض",format:"pdf",available:true}],
+    related:[], review_notes:null, rejection_reason:null, can_reapply_after:null,
+  },
+  { id:"VR-1003", type:"business",
+    org_en:"Sahel Retail Group", org_ar:"مجموعة ساحل للتجزئة",
+    claimant_en:"Huda Al-Zahrani", claimant_ar:"هدى الزهراني", title_en:"People Operations Lead", title_ar:"مسؤولة عمليات الموارد البشرية",
+    email:"people@sahelretail-example.com", declared_domain:"sahelretail-example.com",
+    domains_onfile:["sahelretail-example.com"],
+    status:"needs_more_info", assigned:CURRENT_STAFF_ID, applicant_id:"user-1003", sla_hours:20, submitted_hours_ago:50,
+    entity_state_en:"Listed", entity_state_ar:"مُدرجة",
+    evidence:[{id:"e1",kind:"doc",name_en:"Authorization letter (unclear scan)",name_ar:"خطاب تفويض (نسخة غير واضحة)",format:"jpg",available:true}],
+    related:[], review_notes:"Authorization letter scan is illegible — please resubmit a clearer copy.",
+    rejection_reason:null, can_reapply_after:null,
+  },
+  { id:"VR-1004", type:"business",
+    org_en:"Prime Analytics", org_ar:"برايم للتحليلات",
+    claimant_en:"Layla Al-Fahad", claimant_ar:"ليلى الفهد", title_en:"Operations Manager", title_ar:"مديرة العمليات",
+    email:"layla@primeanalytics-example.com", declared_domain:"primeanalytics-example.com",
+    domains_onfile:["primeanalytics-example.com"],
+    status:"pending", assigned:CURRENT_STAFF_ID, applicant_id:CURRENT_STAFF_ID, sla_hours:65, submitted_hours_ago:2,
+    entity_state_en:"Listed", entity_state_ar:"مُدرجة",
+    evidence:[{id:"e1",kind:"doc",name_en:"Commercial registry",name_ar:"السجل التجاري",format:"pdf",available:true}],
+    related:[], review_notes:null, rejection_reason:null, can_reapply_after:null,
+  },
+  { id:"VR-1005", type:"university",
+    org_en:"Eastern Coast University", org_ar:"جامعة الساحل الشرقي",
+    claimant_en:"Dr. Mona Al-Otaibi", claimant_ar:"د. منى العتيبي", title_en:"Registrar", title_ar:"عميدة القبول والتسجيل",
+    email:"registrar@easterncoast-example.edu", declared_domain:"easterncoast-example.edu",
+    domains_onfile:["easterncoast-example.edu"],
+    status:"approved", assigned:CURRENT_STAFF_ID, applicant_id:"user-1005", sla_hours:0, submitted_hours_ago:96,
+    entity_state_en:"Listed", entity_state_ar:"مُدرجة",
+    evidence:[{id:"e1",kind:"doc",name_en:"Authorization letter",name_ar:"خطاب تفويض",format:"pdf",available:true}],
+    related:[], review_notes:"All evidence verified against Directory record.", rejection_reason:null,
+    can_reapply_after:null, decided_hours_ago:20,
+  },
+  { id:"VR-1006", type:"business",
+    org_en:"Bright Path Consulting", org_ar:"المسار المشرق للاستشارات",
+    claimant_en:"Omar Al-Sabti", claimant_ar:"عمر السبتي", title_en:"HR Coordinator", title_ar:"منسق الموارد البشرية",
+    email:"omar@brightpath-example.com", declared_domain:"gmail-example.com",
+    domains_onfile:["brightpath-example.com"],
+    status:"rejected", assigned:CURRENT_STAFF_ID, applicant_id:"user-1006", sla_hours:0, submitted_hours_ago:200,
+    entity_state_en:"Listed", entity_state_ar:"مُدرجة",
+    evidence:[{id:"e1",kind:"doc",name_en:"Authorization letter",name_ar:"خطاب تفويض",format:"pdf",available:true}],
+    related:[], review_notes:"Domain does not match organization record; no commercial registry provided.",
+    rejection_reason:"Business email domain does not match the organization's domains on file, and no commercial registry was provided.",
+    can_reapply_after_days:14, decided_hours_ago:48,
+  },
+  { id:"VR-1007", type:"business",
+    org_en:"Amber Field Trading", org_ar:"حقل العنبر للتجارة",
+    claimant_en:"Reem Al-Qahtani", claimant_ar:"ريم القحطاني", title_en:"Talent Partner", title_ar:"شريكة استقطاب المواهب",
+    email:"reem@amberfield-example.com", declared_domain:"amberfield-example.com",
+    domains_onfile:["amberfield-example.com"],
+    status:"pending", assigned:null, applicant_id:"user-1007", sla_hours:-30, submitted_hours_ago:120,
+    entity_state_en:"Listed", entity_state_ar:"مُدرجة",
+    evidence:[], related:[], review_notes:null, rejection_reason:null, can_reapply_after:null,
+  },
+  { id:"VR-1008", type:"university",
+    org_en:"Al-Noor National University", org_ar:"جامعة النور الوطنية",
+    claimant_en:"Sara Al-Dossari", claimant_ar:"سارة الدوسري", title_en:"Employer Relations Officer", title_ar:"مسؤولة علاقات أصحاب العمل",
+    email:"employer.relations@alnoor-example.edu", declared_domain:"alnoor-example.edu",
+    domains_onfile:["alnoor-example.edu"],
+    status:"under_review", assigned:CURRENT_STAFF_ID, applicant_id:"user-1008", sla_hours:10, submitted_hours_ago:8,
+    entity_state_en:"Listed", entity_state_ar:"مُدرجة",
+    evidence:[{id:"e1",kind:"doc",name_en:"Authorization letter (video file, wrong upload)",name_ar:"خطاب تفويض (ملف فيديو، رفع خاطئ)",format:"mov",available:true}],
+    related:["VR-1002"], review_notes:null, rejection_reason:null, can_reapply_after:null,
+  },
+];}
+
+let DATA = seedData();
+function findReq(id){ return DATA.find(r=>r.id===id); }
+
+const CHECKLIST_DEFS = {
+  business:[
+    {key:"domain_match", labelKey:"checklist_domain"},
+    {key:"title_reasonable", labelKey:"checklist_title_biz"},
+    {key:"no_duplicate", labelKey:"checklist_dup"},
+    {key:"exists_in_directory", labelKey:"checklist_exists_biz"},
+  ],
+  university:[
+    {key:"domain_match", labelKey:"checklist_domain"},
+    {key:"title_reasonable", labelKey:"checklist_title_biz"},
+    {key:"no_duplicate", labelKey:"checklist_dup"},
+    {key:"exists_in_directory", labelKey:"checklist_exists_uni"},
+  ],
+};
+
+/* ---------- App state ---------- */
+const state = {
+  locale: "ar",
+  identity: "staff", // 'staff' | 'applicant'
+  previewOverride: {}, // per-screen key -> 'loading'|'empty'|'error'|null
+  checklists: {},      // requestId -> {key:bool}
+  evidenceModal: null, // {reqId, evId, simError:bool}
+};
+
+function t(key, vars){
+  let s = T[state.locale][key] || key;
+  if(vars){ Object.keys(vars).forEach(k=>{ s = s.replace("{"+k+"}", vars[k]); }); }
+  return s;
+}
+function orgName(r){ return state.locale==="ar" ? r.org_ar : r.org_en; }
+function claimantName(r){ return state.locale==="ar" ? r.claimant_ar : r.claimant_en; }
+function titleText(r){ return state.locale==="ar" ? r.title_ar : r.title_en; }
+function entityStateText(r){ return state.locale==="ar" ? r.entity_state_ar : r.entity_state_en; }
+function evName(e){ return state.locale==="ar" ? e.name_ar : e.name_en; }
+
+function urgencyTier(r){
+  if(r.status==="approved"||r.status==="rejected") return null;
+  if(r.sla_hours<0) return "overdue";
+  if(r.sla_hours<4) return "critical";
+  if(r.sla_hours<12) return "warning";
+  return "normal";
+}
+function announce(msg){ const el=document.getElementById("live-region"); if(el){ el.textContent=""; setTimeout(()=>{el.textContent=msg;},30); } }
+
+/* ---------- Small render helpers ---------- */
+function typeBadge(r){
+  const cls = r.type==="business" ? "badge-type-business" : "badge-type-university";
+  const label = r.type==="business" ? t("type_business") : t("type_university");
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+function statusBadge(r){
+  const label = t("status_"+r.status);
+  return `<span class="badge badge-status status-${r.status}">${label}</span>`;
+}
+function urgencyBadge(r){
+  const tier = urgencyTier(r);
+  if(!tier) return "";
+  return `<span class="badge badge-urgency ${tier}">${t("urgency_"+tier)}</span>`;
+}
+function selfFlag(r){
+  return r.applicant_id===CURRENT_STAFF_ID ? `<span class="self-flag">${t("self_flag")}</span>` : "";
+}
+function relTime(hours){
+  if(state.locale==="ar") return hours<24 ? `منذ ${hours} ساعة` : `منذ ${Math.round(hours/24)} يوم`;
+  return hours<24 ? `${hours}h ago` : `${Math.round(hours/24)}d ago`;
+}
+
+function skeletonList(n){
+  let out = `<div class="list">`;
+  for(let i=0;i<n;i++){
+    out += `<div class="skeleton-row"><div class="skeleton-bar w-40"></div><div class="skeleton-bar w-25"></div></div>`;
+  }
+  return out + `</div>`;
+}
+function errorBlock(onRetryAttr){
+  return `<div class="state-block" role="alert">
+    <h3>${t("error_title")}</h3><p>${t("error_sub")}</p>
+    <button class="btn btn-primary" ${onRetryAttr}>${t("retry")}</button>
+  </div>`;
+}
+function emptyBlock(title, sub, secondaryHtml){
+  return `<div class="state-block">
+    <h3>${title}</h3><p>${sub}</p>${secondaryHtml||""}
+  </div>`;
+}
+function previewBar(screenKey){
+  const cur = state.previewOverride[screenKey] || "populated";
+  const opts = [["populated","preview_populated"],["loading","preview_loading"],["empty","preview_empty"],["error","preview_error"]];
+  let btns = opts.map(([val,labelKey])=>
+    `<button class="${cur===val?'active':''}" data-action="set-preview" data-screen="${screenKey}" data-value="${val}">${t(labelKey)}</button>`
+  ).join("");
+  return `<div class="preview-state-bar"><span class="label">${t("preview_label")}</span>${btns}</div>`;
+}
+
+function card(r){
+  return `<a class="v-card" href="#/workspace/${r.id}" data-nav="1">
+    <div class="v-card-row">
+      <div>
+        <div class="org">${orgName(r)}</div>
+        <div class="claimant">${claimantName(r)}</div>
+      </div>
+      <div class="meta">${selfFlag(r)}${typeBadge(r)}${statusBadge(r)}${urgencyBadge(r)}</div>
+    </div>
+  </a>`;
+}
+
+function filterMatches(r, f){
+  if(f.type!=="all" && r.type!==f.type) return false;
+  if(f.assign==="mine" && r.assigned!==CURRENT_STAFF_ID) return false;
+  if(f.assign==="unassigned" && r.assigned!==null) return false;
+  if(f.urgency!=="all" && urgencyTier(r)!==f.urgency) return false;
+  if(f.q){
+    const q=f.q.toLowerCase();
+    if(!(orgName(r).toLowerCase().includes(q) || claimantName(r).toLowerCase().includes(q))) return false;
+  }
+  return true;
+}
+
+let queueFilter = {type:"all", assign:"all", urgency:"all", q:""};
+let myQueueFilter = {type:"all", assign:"mine", urgency:"all", q:""};
+
+function filterControls(screenKey, f, showAssign){
+  return `<div class="filter-bar">
+    <div class="filter-group"><label>${t("search_ph")}</label>
+      <input type="search" placeholder="${t("search_ph")}" value="${f.q}" data-action="filter-q" data-screen="${screenKey}" aria-label="${t("search_ph")}">
+    </div>
+    <div class="filter-group"><label>${t("filter_type_all")}</label>
+      <select data-action="filter-type" data-screen="${screenKey}">
+        <option value="all" ${f.type==="all"?"selected":""}>${t("filter_type_all")}</option>
+        <option value="business" ${f.type==="business"?"selected":""}>${t("filter_type_business")}</option>
+        <option value="university" ${f.type==="university"?"selected":""}>${t("filter_type_university")}</option>
+      </select>
+    </div>
+    ${showAssign ? `<div class="filter-group"><label>${t("filter_all")}</label>
+      <select data-action="filter-assign" data-screen="${screenKey}">
+        <option value="all" ${f.assign==="all"?"selected":""}>${t("filter_all")}</option>
+        <option value="unassigned" ${f.assign==="unassigned"?"selected":""}>${t("filter_unassigned")}</option>
+        <option value="mine" ${f.assign==="mine"?"selected":""}>${t("filter_mine")}</option>
+      </select>
+    </div>` : ""}
+    <div class="filter-group"><label>${t("filter_urgency_all")}</label>
+      <select data-action="filter-urgency" data-screen="${screenKey}">
+        <option value="all" ${f.urgency==="all"?"selected":""}>${t("filter_urgency_all")}</option>
+        <option value="overdue" ${f.urgency==="overdue"?"selected":""}>${t("filter_urgency_overdue")}</option>
+        <option value="critical" ${f.urgency==="critical"?"selected":""}>${t("filter_urgency_critical")}</option>
+        <option value="normal" ${f.urgency==="normal"?"selected":""}>${t("filter_urgency_normal")}</option>
+      </select>
+    </div>
+  </div>`;
+}
+
+/* ---------- Screen renderers ---------- */
+function renderListScreen(opts){
+  const {screenKey, title, subtitle, filter, showAssign, items, emptyTitle, emptySub, extraEmptyAction} = opts;
+  const preview = state.previewOverride[screenKey] || "populated";
+  let body;
+  if(preview==="loading"){ body = skeletonList(4); }
+  else if(preview==="error"){ body = errorBlock(`data-action="clear-preview" data-screen="${screenKey}"`); }
+  else if(preview==="empty" || items.length===0){
+    const isFilterEmpty = preview!=="empty" && (filter.type!=="all"||filter.assign!=="all"&&showAssign||filter.urgency!=="all"||filter.q);
+    body = emptyBlock(
+      isFilterEmpty ? emptyTitle : emptyTitle,
+      isFilterEmpty ? t("empty_queue_sub") : (emptySub||""),
+      extraEmptyAction||""
+    );
+  } else {
+    body = `<ul class="list" style="list-style:none;padding:0;margin:0;">` + items.map(r=>`<li>${card(r)}</li>`).join("") + `</ul>`;
+  }
+  return `
+    <div class="screen-header"><h1>${title}</h1><p class="subtitle">${subtitle}</p></div>
+    ${previewBar(screenKey)}
+    ${filterControls(screenKey, filter, showAssign)}
+    ${body}
+  `;
+}
+
+function renderQueue(){
+  const items = DATA.filter(r=>filterMatches(r, queueFilter));
+  return renderListScreen({
+    screenKey:"queue", title:t("queue_title"), subtitle:t("queue_subtitle"),
+    filter:queueFilter, showAssign:true, items,
+    emptyTitle:t("empty_queue_title"), emptySub:t("empty_queue_sub"),
+  });
+}
+function renderMyQueue(){
+  const items = DATA.filter(r=>filterMatches(r, myQueueFilter));
+  return renderListScreen({
+    screenKey:"myqueue", title:t("myqueue_title"), subtitle:t("myqueue_subtitle"),
+    filter:myQueueFilter, showAssign:false, items,
+    emptyTitle:t("empty_myqueue_title"), emptySub:t("empty_myqueue_sub"),
+    extraEmptyAction:`<a class="btn btn-sm" href="#/queue" data-nav="1">${t("goto_full_queue")}</a>`,
+  });
+}
+function renderHistory(){
+  const items = DATA.filter(r=>r.status==="rejected");
+  const preview = state.previewOverride["history"] || "populated";
+  let body;
+  if(preview==="loading"){ body = skeletonList(2); }
+  else if(preview==="error"){ body = errorBlock(`data-action="clear-preview" data-screen="history"`); }
+  else if(preview==="empty" || items.length===0){ body = emptyBlock(t("empty_history_title"), t("empty_history_sub"), ""); }
+  else {
+    body = `<ul class="list" style="list-style:none;padding:0;margin:0;">` + items.map(r=>{
+      const reapplyDays = r.can_reapply_after_days||0;
+      const eligible = reapplyDays<=0;
+      return `<li><a class="v-card" href="#/workspace/${r.id}" data-nav="1">
+        <div class="v-card-row">
+          <div><div class="org">${orgName(r)}</div><div class="claimant">${claimantName(r)}</div></div>
+          <div class="meta">${typeBadge(r)}</div>
+        </div>
+        <dl class="info-grid" style="margin-top:10px;">
+          <div><dt>${t("rejection_reason")}</dt><dd>${r.rejection_reason||""}</dd></div>
+          <div><dt>${t("decision_date")}</dt><dd>${relTime(r.decided_hours_ago||0)}</dd></div>
+          <div><dt>${t("reviewed_by")}</dt><dd>${T[state.locale].identity_staff}</dd></div>
+          <div><dt>${eligible? "" : t("reapply_after")}</dt><dd>${eligible ? t("reapply_now") : (state.locale==="ar"? "خلال "+reapplyDays+" يوماً" : "in "+reapplyDays+" days")}</dd></div>
+        </dl>
+      </a></li>`;
+    }).join("") + `</ul>`;
+  }
+  return `
+    <div class="screen-header"><h1>${t("history_title")}</h1><p class="subtitle">${t("history_subtitle")}</p></div>
+    ${previewBar("history")}
+    ${body}
+  `;
+}
+function renderSysDashboard(){
+  const preview = state.previewOverride["sys"] || "populated";
+  const items = DATA.filter(r=>r.status==="pending"||r.status==="under_review"||r.status==="needs_more_info")
+    .sort((a,b)=> a.sla_hours - b.sla_hours).slice(0,5);
+  let body;
+  if(preview==="loading"){ body = skeletonList(5); }
+  else if(preview==="error"){ body = errorBlock(`data-action="clear-preview" data-screen="sys"`); }
+  else if(preview==="empty" || items.length===0){ body = emptyBlock(t("empty_sys_title"), "", ""); }
+  else {
+    body = `<ul class="list" style="list-style:none;padding:0;margin:0;">` + items.map(r=>`
+      <li class="v-card" style="cursor:default;" aria-label="${orgName(r)}">
+        <div class="v-card-row">
+          <div><div class="org">${orgName(r)}</div><div class="claimant">${claimantName(r)}</div></div>
+          <div class="meta">${typeBadge(r)}${statusBadge(r)}${urgencyBadge(r)}</div>
+        </div>
+      </li>`).join("") + `</ul>
+      <p class="field-hint" style="margin-top:10px;">${state.locale==="ar" ? "معاينة للقراءة فقط — لا يوجد رابط إلى /sys/claims أو أي مسار غير موجود." : "Read-only preview — no link to /sys/claims or any nonexistent route."}</p>`;
+  }
+  return `
+    <div class="screen-header"><h1>${t("sys_title")}</h1><p class="subtitle">${t("sys_subtitle")}</p></div>
+    ${previewBar("sys")}
+    <div class="panel" style="max-width:520px;">${body}</div>
+  `;
+}
+
+/* ---------- Workspace (request detail) ---------- */
+function auditTrail(r){
+  const items = [
+    {k:"audit_submitted", h:r.submitted_hours_ago},
+  ];
+  if(r.assigned) items.push({k:"audit_assigned", h:Math.max(r.submitted_hours_ago-1,0)});
+  if((r.evidence||[]).length) items.push({k:"audit_evidence_view", h:Math.max(r.submitted_hours_ago-2,0)});
+  if(r.status==="approved"||r.status==="rejected") items.push({k:"audit_decision", h:r.decided_hours_ago||0});
+  return items.sort((a,b)=>b.h-a.h).map(i=>`<li>${t(i.k)} — <span class="claimant">${relTime(i.h)}</span></li>`).join("");
+}
+
+function checklistPanel(r){
+  const defs = CHECKLIST_DEFS[r.type];
+  const cl = state.checklists[r.id] || {};
+  const domainMatch = (r.domains_onfile||[]).includes(r.declared_domain);
+  let rows = defs.map(d=>{
+    const checked = !!cl[d.key];
+    const hint = d.key==="domain_match" ? `<div class="field-hint">${t("field_domain_declared")}: ${r.declared_domain} — ${domainMatch? t("domain_match_yes") : t("domain_match_no")}</div>` : "";
+    return `<div class="checklist-item">
+      <input type="checkbox" id="cl-${d.key}" data-action="toggle-checklist" data-req="${r.id}" data-key="${d.key}" ${checked?"checked":""} ${r.status==="approved"||r.status==="rejected"?"disabled":""}>
+      <label for="cl-${d.key}">${t(d.labelKey)}${hint}</label>
+    </div>`;
+  }).join("");
+  const done = defs.filter(d=>cl[d.key]).length;
+  return `<div class="panel">
+    <h2>${t("ws_checklist")}</h2>
+    ${rows}
+    <p class="field-hint" style="margin-top:8px;">${t("checklist_progress",{n:done,m:defs.length})}</p>
+  </div>`;
+}
+function checklistComplete(r){
+  const defs = CHECKLIST_DEFS[r.type];
+  const cl = state.checklists[r.id] || {};
+  return defs.every(d=>cl[d.key]);
+}
+
+function decisionPanel(r){
+  if(r.status==="approved") return `<div class="panel"><h2>${t("ws_decision")}</h2><div class="notice-banner">${t("approved_body")}</div></div>`;
+  if(r.status==="rejected") return `<div class="panel"><h2>${t("ws_decision")}</h2><div class="notice-banner block">${t("rejected_note")} ${r.rejection_reason||""}</div></div>`;
+
+  const isSelf = r.applicant_id===CURRENT_STAFF_ID;
+  if(isSelf){
+    return `<div class="panel"><h2>${t("ws_decision")}</h2>
+      <div class="notice-banner block"><strong>${t("self_block_title")}</strong><br>${t("self_block_body")}</div>
+    </div>`;
+  }
+  if(r.assigned && r.assigned!==CURRENT_STAFF_ID){
+    return `<div class="panel"><h2>${t("ws_decision")}</h2><div class="notice-banner warn">${t("assigned_other")}</div></div>`;
+  }
+  const complete = checklistComplete(r);
+  return `<div class="panel">
+    <h2>${t("ws_decision")}</h2>
+    <div class="decision-options" role="radiogroup" aria-label="${t('ws_decision')}">
+      <label class="decision-option"><input type="radio" name="decision" value="approve" data-action="pick-decision" ${!complete?"disabled":""}> ${t("decision_approve")}</label>
+      <label class="decision-option"><input type="radio" name="decision" value="reject" data-action="pick-decision"> ${t("decision_reject")}</label>
+      <label class="decision-option"><input type="radio" name="decision" value="more_info" data-action="pick-decision"> ${t("decision_more_info")}</label>
+    </div>
+    ${!complete ? `<p class="field-hint">${t("approve_locked")}</p>` : ""}
+    <div id="reason-wrap" style="display:none;margin-top:10px;">
+      <label for="reason-field">${t("reason_label")}</label>
+      <textarea id="reason-field" data-action="reason-input" placeholder="${t('reason_ph')}"></textarea>
+      <p class="field-hint" id="reason-error" style="display:none;color:var(--overdue);">${t("reason_error")}</p>
+    </div>
+    <div style="margin-top:12px;">
+      <button class="btn btn-primary" data-action="submit-decision" data-req="${r.id}">${t("confirm_decision")}</button>
+    </div>
+  </div>`;
+}
+
+function evidenceList(r){
+  if(!r.evidence || r.evidence.length===0){
+    return `<div class="panel"><h2>${t("ws_evidence")}</h2><p class="field-hint">${t("no_evidence_title")}</p></div>`;
+  }
+  const rows = r.evidence.map(e=>`
+    <div class="evidence-item">
+      <span>${evName(e)} <span class="field-hint">(.${e.format})</span></span>
+      <button class="btn btn-sm" data-action="open-evidence" data-req="${r.id}" data-ev="${e.id}">${t("view_evidence")}</button>
+    </div>`).join("");
+  return `<div class="panel"><h2>${t("ws_evidence")}</h2>${rows}</div>`;
+}
+
+function relatedList(r){
+  if(!r.related || r.related.length===0) return `<div class="panel"><h2>${t("ws_related")}</h2><p class="field-hint">${t("no_related")}</p></div>`;
+  const rows = r.related.map(id=>`<li>${id}</li>`).join("");
+  return `<div class="panel"><h2>${t("ws_related")}</h2><ul>${rows}</ul></div>`;
+}
+
+function renderWorkspace(id){
+  const r = findReq(id);
+  if(!r){
+    return `<div class="screen-header"><h1>${t("queue_title")}</h1></div>${emptyBlock(t("not_found"),"",`<a class="btn btn-sm" href="#/queue" data-nav="1">${t("back_to_queue")}</a>`)}`;
+  }
+  const domainMatch = (r.domains_onfile||[]).includes(r.declared_domain);
+  return `
+    <a class="btn btn-sm" href="#/queue" data-nav="1" style="margin-bottom:14px;display:inline-block;">&larr; ${t("back_to_queue")}</a>
+    <div class="screen-header">
+      <h1>${orgName(r)}</h1>
+      <p class="subtitle">${t("status_line",{status:t("status_"+r.status), time:relTime(r.submitted_hours_ago)})}</p>
+      <div style="margin-top:6px;">${typeBadge(r)}${statusBadge(r)}${urgencyBadge(r)}${selfFlag(r)}</div>
+    </div>
+    <div class="workspace-grid">
+      <div>
+        <div class="panel">
+          <h2>${t("ws_applicant")}</h2>
+          <dl class="info-grid">
+            <div><dt>${t("field_name")}</dt><dd>${claimantName(r)}</dd></div>
+            <div><dt>${t("field_title")}</dt><dd>${titleText(r)}</dd></div>
+            <div><dt>${t("field_email")}</dt><dd>${r.email}</dd></div>
+            <div><dt>${t("field_domain_declared")}</dt><dd>${r.declared_domain} — ${domainMatch? t("domain_match_yes") : t("domain_match_no")}</dd></div>
+          </dl>
+        </div>
+        <div class="panel">
+          <h2>${t("ws_org")}</h2>
+          <dl class="info-grid">
+            <div><dt>${t("field_entity_state")}</dt><dd>${entityStateText(r)}</dd></div>
+            <div><dt>${t("field_domains_onfile")}</dt><dd>${(r.domains_onfile||[]).join(", ")}</dd></div>
+          </dl>
+        </div>
+        ${evidenceList(r)}
+        ${relatedList(r)}
+        <div class="panel"><h2>${t("ws_audit")}</h2><ul>${auditTrail(r)}</ul></div>
+      </div>
+      <div>
+        ${r.status==="approved"||r.status==="rejected" ? "" : checklistPanel(r)}
+        ${decisionPanel(r)}
+      </div>
+    </div>
+  `;
+}
+
+/* ---------- Evidence viewer modal ---------- */
+function evidenceModalHtml(){
+  const m = state.evidenceModal;
+  if(!m) return "";
+  const r = findReq(m.reqId);
+  const e = r && (r.evidence||[]).find(x=>x.id===m.evId);
+  const SUPPORTED = ["pdf","jpg","png"];
+  let body;
+  if(!e){
+    body = `<div class="state-block"><h3>${t("no_evidence_title")}</h3></div>`;
+  } else if(m.simError){
+    body = errorBlock(`data-action="evidence-retry"`);
+  } else if(!SUPPORTED.includes(e.format)){
+    body = `<div class="state-block"><h3>${t("unsupported_title")}</h3></div>`;
+  } else {
+    body = `<div class="state-block"><p>${evName(e)}.${e.format}</p><p class="field-hint">${t("evidence_loading")} (${t("demo_banner")})</p></div>`;
+  }
+  return `<div class="modal-backdrop" data-action="close-evidence">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="${t('view_evidence')}" onclick="event.stopPropagation()">
+      <div class="notice-banner warn">${t("evidence_privacy")}</div>
+      ${body}
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-sm" data-action="close-evidence">${t("close")}</button>
+        ${e && SUPPORTED.includes(e.format) && !m.simError ? `<button class="btn btn-sm" data-action="noop">${t("download_secure")}</button>` : ""}
+        ${e && !m.simError ? `<button class="btn btn-sm btn-danger-outline" data-action="evidence-sim-error">${t("simulate_error")}</button>` : ""}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- Decision confirmation screens ---------- */
+function renderConfirmation(id, kind){
+  const r = findReq(id);
+  if(!r) return renderWorkspace(id);
+  const titleKey = kind==="approved" ? "approved_title" : "moreinfo_title";
+  const bodyKey = kind==="approved" ? "approved_body" : "moreinfo_body";
+  return `
+    <a class="btn btn-sm" href="#/queue" data-nav="1" style="margin-bottom:14px;display:inline-block;">&larr; ${t("back_to_queue")}</a>
+    <div class="screen-header"><h1>${t(titleKey)}</h1></div>
+    <div class="panel" style="max-width:640px;">
+      <p>${t(bodyKey)}</p>
+      ${kind!=="approved" && r.review_notes ? `<div class="notice-banner" style="margin-top:12px;">${r.review_notes}</div>` : ""}
+      <div style="margin-top:16px;"><a class="btn btn-primary" href="#/queue" data-nav="1">${t("back_to_queue")}</a></div>
+    </div>
+  `;
+}
+
+/* ---------- Router ---------- */
+function currentRoute(){
+  const h = location.hash.replace(/^#\/?/, "");
+  const parts = h.split("/").filter(Boolean);
+  return parts;
+}
+function render(){
+  const parts = currentRoute();
+  const main = document.getElementById("main");
+  const navKey = document.getElementById("app");
+  let html = "";
+  let activeNav = "queue";
+
+  if(parts.length===0 || parts[0]==="queue"){ html = renderQueue(); activeNav="queue"; }
+  else if(parts[0]==="my-queue"){ html = renderMyQueue(); activeNav="myqueue"; }
+  else if(parts[0]==="history"){ html = renderHistory(); activeNav="history"; }
+  else if(parts[0]==="sys-dashboard"){ html = renderSysDashboard(); activeNav="sys"; }
+  else if(parts[0]==="workspace" && parts[1]){ html = renderWorkspace(parts[1]); activeNav="queue"; }
+  else if(parts[0]==="confirm" && parts[1] && parts[2]){ html = renderConfirmation(parts[1], parts[2]); activeNav="queue"; }
+  else { html = renderQueue(); activeNav="queue"; }
+
+  main.innerHTML = html;
+  main.appendChild(strToNode(evidenceModalHtml()));
+  document.querySelectorAll(".sidenav a").forEach(a=>{
+    a.classList.toggle("active", a.getAttribute("data-navkey")===activeNav);
+  });
+  document.documentElement.dir = state.locale==="ar" ? "rtl" : "ltr";
+  document.documentElement.lang = state.locale;
+}
+function strToNode(html){
+  const d = document.createElement("div");
+  d.innerHTML = html;
+  return d.firstElementChild || document.createTextNode("");
+}
+function go(hash){ location.hash = hash; }
+
+/* ---------- Shell (static chrome, rendered once) ---------- */
+function renderShell(){
+  document.getElementById("app").innerHTML = `
+    <nav class="sidenav" aria-label="Primary">
+      <div class="brand"><div class="wordmark">${t("wordmark")}</div><div class="tagline">${t("tagline")}</div></div>
+      <a class="nav-item" href="#/queue" data-nav="1" data-navkey="queue">${t("nav_queue")}</a>
+      <a class="nav-item" href="#/my-queue" data-nav="1" data-navkey="myqueue">${t("nav_myqueue")}</a>
+      <a class="nav-item" href="#/history" data-nav="1" data-navkey="history">${t("nav_history")}</a>
+      <a class="nav-item" href="#/sys-dashboard" data-nav="1" data-navkey="sys">${t("nav_sys")}</a>
+    </nav>
+    <div class="main-col">
+      <div class="topbar">
+        <div class="demo-note">${t("demo_banner")}</div>
+        <div class="controls">
+          <span class="field-hint">${t("identity_label")}</span>
+          <select data-action="set-identity" aria-label="${t('identity_label')}">
+            <option value="staff" ${state.identity==="staff"?"selected":""}>${t("identity_staff")}</option>
+            <option value="applicant" ${state.identity==="applicant"?"selected":""}>${t("identity_applicant")}</option>
+          </select>
+          <div class="pill-toggle" role="group" aria-label="Language">
+            <button class="${state.locale==='ar'?'active':''}" data-action="set-locale" data-value="ar">${t("lang_ar")}</button>
+            <button class="${state.locale==='en'?'active':''}" data-action="set-locale" data-value="en">${t("lang_en")}</button>
+          </div>
+        </div>
+      </div>
+      <main id="main" tabindex="-1"></main>
+      <footer class="demo-footer">${t("demo_banner")} · <button data-action="reset-demo" style="background:none;border:none;color:var(--olive-2);text-decoration:underline;cursor:pointer;padding:0;font:inherit;">${t("reset_demo")}</button></footer>
+    </div>
+  `;
+}
+
+/* ---------- Event delegation ---------- */
+document.addEventListener("click", function(ev){
+  const el = ev.target.closest("[data-action]");
+  const navEl = ev.target.closest("[data-nav]");
+  if(navEl && navEl.tagName==="A"){
+    // allow default hash navigation; just announce after
+    setTimeout(()=>announce(document.querySelector(".screen-header h1")?.textContent||""), 60);
+  }
+  if(!el) return;
+  const action = el.getAttribute("data-action");
+
+  if(action==="set-locale"){
+    state.locale = el.getAttribute("data-value");
+    renderShell(); render();
+  }
+  else if(action==="set-identity"){ /* handled on change, ignore click on select itself */ }
+  else if(action==="set-preview"){
+    state.previewOverride[el.getAttribute("data-screen")] = el.getAttribute("data-value")==="populated" ? null : el.getAttribute("data-value");
+    render();
+  }
+  else if(action==="clear-preview"){
+    state.previewOverride[el.getAttribute("data-screen")] = null;
+    render();
+  }
+  else if(action==="toggle-checklist"){
+    const req = el.getAttribute("data-req"), key = el.getAttribute("data-key");
+    state.checklists[req] = state.checklists[req] || {};
+    state.checklists[req][key] = el.checked;
+    render();
+  }
+  else if(action==="pick-decision"){
+    const wrap = document.getElementById("reason-wrap");
+    if(wrap) wrap.style.display = (el.value==="reject"||el.value==="more_info") ? "block" : "none";
+  }
+  else if(action==="submit-decision"){
+    const reqId = el.getAttribute("data-req");
+    const picked = document.querySelector('input[name="decision"]:checked');
+    if(!picked){ announce(t("reason_error")); return; }
+    const val = picked.value;
+    const reasonField = document.getElementById("reason-field");
+    const reasonVal = reasonField ? reasonField.value.trim() : "";
+    if((val==="reject"||val==="more_info") && reasonVal.length<10){
+      const err = document.getElementById("reason-error");
+      if(err) err.style.display = "block";
+      return;
+    }
+    const r = findReq(reqId);
+    if(!r) return;
+    if(val==="approve"){
+      r.status = "approved"; r.decided_hours_ago = 0;
+      go("#/confirm/"+reqId+"/approved");
+    } else if(val==="reject"){
+      r.status = "rejected"; r.rejection_reason = reasonVal; r.review_notes = reasonVal; r.decided_hours_ago = 0; r.can_reapply_after_days = 14;
+      go("#/confirm/"+reqId+"/rejected");
+    } else {
+      r.status = "needs_more_info"; r.review_notes = reasonVal;
+      go("#/confirm/"+reqId+"/moreinfo");
+    }
+  }
+  else if(action==="open-evidence"){
+    state.evidenceModal = {reqId: el.getAttribute("data-req"), evId: el.getAttribute("data-ev"), simError:false};
+    render();
+  }
+  else if(action==="close-evidence"){
+    state.evidenceModal = null;
+    render();
+  }
+  else if(action==="evidence-sim-error"){
+    if(state.evidenceModal){ state.evidenceModal.simError = true; render(); }
+  }
+  else if(action==="evidence-retry"){
+    if(state.evidenceModal){ state.evidenceModal.simError = false; render(); }
+  }
+  else if(action==="reset-demo"){
+    DATA = seedData();
+    state.checklists = {};
+    state.previewOverride = {};
+    state.evidenceModal = null;
+    go("#/queue");
+    render();
+    announce(t("reset_demo"));
+  }
+});
+
+document.addEventListener("input", function(ev){
+  const el = ev.target;
+  if(el.getAttribute && el.getAttribute("data-action")==="filter-q"){
+    const screen = el.getAttribute("data-screen");
+    (screen==="queue"?queueFilter:myQueueFilter).q = el.value;
+    render();
+    const focusSel = `[data-action="filter-q"][data-screen="${screen}"]`;
+    const toFocus = document.querySelector(focusSel);
+    if(toFocus){ toFocus.focus(); toFocus.selectionStart = toFocus.selectionEnd = toFocus.value.length; }
+  }
+  if(el.getAttribute && el.getAttribute("data-action")==="reason-input"){
+    const err = document.getElementById("reason-error");
+    if(err && el.value.trim().length>=10) err.style.display = "none";
+  }
+});
+
+document.addEventListener("change", function(ev){
+  const el = ev.target;
+  const action = el.getAttribute && el.getAttribute("data-action");
+  if(action==="filter-type"){
+    const screen = el.getAttribute("data-screen");
+    (screen==="queue"?queueFilter:myQueueFilter).type = el.value; render();
+  }
+  else if(action==="filter-assign"){
+    queueFilter.assign = el.value; render();
+  }
+  else if(action==="filter-urgency"){
+    const screen = el.getAttribute("data-screen");
+    (screen==="queue"?queueFilter:myQueueFilter).urgency = el.value; render();
+  }
+  else if(action==="set-identity"){
+    state.identity = el.value;
+    render();
+  }
+});
+
+/* ---------- Init ---------- */
+function init(){
+  renderShell();
+  render();
+}
+window.addEventListener("hashchange", render);
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
+
+})();
+</script>
+</body>
+</html>

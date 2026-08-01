@@ -27,10 +27,10 @@ export function VerificationQueueWidget({ items }: VerificationQueueWidgetProps)
   const t = useTranslations('sys.dashboard.claimsWidget')
 
   return (
-    <Card className="border-border bg-card">
+    <Card className="border-border bg-card shadow-none">
       <CardHeader className="flex flex-row items-start justify-between gap-4">
         <div>
-          <CardTitle className="text-base">{t('title')}</CardTitle>
+          <CardTitle className="text-base text-jid-olive">{t('title')}</CardTitle>
           <CardDescription>{t('subtitle')}</CardDescription>
         </div>
       </CardHeader>

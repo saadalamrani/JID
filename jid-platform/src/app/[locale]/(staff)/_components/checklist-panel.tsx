@@ -51,7 +51,7 @@ export function ChecklistPanel({
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-muted">
           <div
-            className="h-full rounded-full bg-primary transition-all"
+            className="h-full rounded-full bg-jid-olive transition-all"
             style={{ width: `${percent}%` }}
             role="progressbar"
             aria-valuenow={percent}
@@ -73,8 +73,8 @@ export function ChecklistPanel({
                 disabled={disabled}
                 onClick={() => toggle(item.key)}
                 className={cn(
-                  'flex w-full items-start gap-3 rounded-md border p-3 text-start transition-colors',
-                  checked ? 'border-primary/25 bg-muted' : 'border-border bg-card',
+                  'flex w-full items-start gap-3 rounded-md border p-3 text-start transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-gold',
+                  checked ? 'border-jid-olive/30 bg-jid-beige/60' : 'border-border bg-card',
                   disabled && 'cursor-not-allowed opacity-60',
                 )}
               >

@@ -1886,7 +1886,13 @@
           "body": "This verification request is assigned to another staff member. You can view the details, but you cannot submit a decision."
         },
         "alreadyReviewed": "This request was already reviewed ({status})",
-        "approvedNoProfileNotice": "No Profile was created automatically. The verified representative must sign in and create their own Profile."
+        "approvedNoProfileNotice": "No Profile was created automatically. The verified representative must sign in and create their own Profile.",
+        "deferred": {
+          "title": "Capabilities not available in this workspace",
+          "evidenceViewer": "Evidence document viewer and secure download are not available yet — no file storage is connected for Verification evidence.",
+          "requestMoreInfo": "Request more information is not offered as a Staff decision here — the backend workflow is not available.",
+          "persistedChecklist": "Checklist progress is session-only and is not saved to the database or decision audit."
+        }
       }
     },
     "directory": {

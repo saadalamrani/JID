@@ -21,8 +21,8 @@ function KanbanColumn({
 }) {
   return (
     <div className="flex min-h-[12rem] flex-col rounded-lg border border-border bg-card">
-      <div className="border-b border-border px-4 py-3">
-        <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+      <div className="border-b border-border bg-jid-beige/50 px-4 py-3">
+        <h3 className="text-sm font-semibold text-jid-olive">{title}</h3>
         <p className="text-xs text-muted-foreground">{items.length}</p>
       </div>
       <ul className="flex-1 space-y-2 overflow-y-auto p-3">

@@ -35,9 +35,13 @@ export function matchesUrgencyFilter(
   return tier === 'normal'
 }
 
+/**
+ * Wave 2A — urgency rail uses olive/gold/neutral except overdue, which may use
+ * one restrained red (semantic destructive). No multi-hue decorative status colors.
+ */
 export const URGENCY_BORDER_CLASS: Record<VerificationUrgencyTier, string> = {
-  overdue: 'border-s-4 border-s-red-600',
-  critical: 'border-s-4 border-s-orange-500',
-  warning: 'border-s-4 border-s-amber-400',
-  normal: 'border-s-4 border-s-gray-300',
+  overdue: 'border-s-4 border-s-destructive',
+  critical: 'border-s-4 border-s-jid-gold',
+  warning: 'border-s-4 border-s-jid-gold/50',
+  normal: 'border-s-4 border-s-jid-line/40',
 }

@@ -146,7 +146,7 @@ export function VerificationDecisionForm(props: VerificationDecisionFormProps) {
           disabled={fieldsLocked || submitting}
           value={value.reason}
           onChange={(event) => onChange({ ...value, reason: event.target.value })}
-          className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-accent"
+          className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-jid-gold"
           placeholder={t('reasonPlaceholder')}
         />
         <p className="text-xs text-muted-foreground">{t('reasonHint')}</p>
@@ -192,7 +192,7 @@ export function VerificationDecisionForm(props: VerificationDecisionFormProps) {
 
       <Button
         type="submit"
-        className="w-full bg-primary hover:bg-primary/90"
+        className="w-full bg-jid-olive text-jid-beige hover:bg-jid-olive/90 focus-visible:ring-2 focus-visible:ring-jid-gold"
         disabled={!canSubmit}
       >
         {submitting ? t('submitting') : t('submit')}

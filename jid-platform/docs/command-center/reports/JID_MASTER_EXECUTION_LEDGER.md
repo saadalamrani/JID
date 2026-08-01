@@ -6,7 +6,29 @@
 |---|---|
 | specification | 08 |
 | status | IN_PROGRESS |
-| session | 08-B COMPLETE — Business dashboard honesty + University dashboard regression + W-Dashboards bounded visual/locale |
+| session | 08-C (Wave 2A staff verification design application — unpromoted until CI) |
+| Session C canonical starting SHA | e8e1aed5af5084aa2c0a5c50fde946251e871a67 |
+| Session C source branch | cursor/jid-08c-staff-wave-2a |
+| Session C CI branch | codex/jid-08c-ci-validation |
+| Session 08-B gate | COMPLETE — implementation SHA `4369d3b57f24f450e0a297afa465d9cf3b7e8752`; ledger-closeout `e8e1aed5af5084aa2c0a5c50fde946251e871a67` equals tip at Session C start; intervening commits: none |
+| design pack paths | `docs/command-center/design/wave-2a/JID_Staff_Verification_Experience_Design_Spec_v1.md`; `..._Component_Inventory_v1.md`; `..._State_Matrix_v1.md`; `..._Prototype_v1.html` |
+| design pack SHA-256 | Design Spec `fb9be4e3a0e5121b49a84072f36955eb63a73b3367965e4d55fe15a14cd9d218`; Inventory `96ec34fa6a89c40f2d88d235015a03a70ca77357288e16e5373755d2f5917d40`; State Matrix `4e9636e75b57bafa7ab0a5adf147cf201530531fe90168e32901de74b56990a5`; Prototype `8cc54006e1f88a384c0ea921a5916210433f0428ff5b03b38cca1eb590791130` |
+| completed mapping | `docs/command-center/reports/JID_08_Wave2A_Completed_Mapping.md` |
+| Wave 2A application | Restyled real `/staff/verification*` components in place; sys dashboard verification preview restyled; no new routes; no prototype AccountSwitcher |
+| Spec 02 contracts preserved | assigned-reviewer, Super Admin override, self-review denial, approve/reject-only, terminal read-only — behavior unchanged; Spec 02 university `bg-blue-100` badge retained |
+| unsupported capabilities | evidence viewer / request-more-info Staff option / persisted checklist — honest deferred notice on workspace; no fake controls |
+| bounded locale | `verification-card`, `verification-review-workspace`, `related-history-panel` → locale-aware `arSA`/`enUS` or `ar-SA`/`en-US` + Latin digits |
+| evidence index | `docs/command-center/reports/ui-evidence/w-staff/INDEX.md` |
+| Anti-Slop Review | `docs/command-center/reports/ui-evidence/w-staff/ANTI_SLOP_REVIEW.md` |
+| database / migration / RLS / RPC | none |
+| Session C mirror branch | `agent/nonprod-signup-form` not changed |
+| Session C local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 371 passed / 100 skipped; build |
+| Session C validation CI | PENDING |
+| Session C target CI | PENDING |
+| Session C Vercel | PENDING |
+| Session C implementation / promoted SHA | PENDING |
+| next session | 08-D |
+| session (prior) | 08-B COMPLETE — Business dashboard honesty + University dashboard regression + W-Dashboards bounded visual/locale |
 | Session B canonical starting SHA | e9132d0268434bf205415507f435710b82da6e2e |
 | Session B source branch | cursor/jid-08b-dashboards-honesty |
 | Session B CI branch | codex/jid-08b-ci-validation |

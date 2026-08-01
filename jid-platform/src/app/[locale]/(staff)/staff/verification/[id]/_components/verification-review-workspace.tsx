@@ -2,8 +2,8 @@
 
 import { useMutation } from '@tanstack/react-query'
 import { formatDistance } from 'date-fns'
-import { arSA } from 'date-fns/locale'
-import { useTranslations } from 'next-intl'
+import { arSA, enUS } from 'date-fns/locale'
+import { useLocale, useTranslations } from 'next-intl'
 import { useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import { reviewVerification } from '@/app/[locale]/(staff)/staff/verification/actions'
@@ -128,9 +128,11 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
     },
   })
 
+  const locale = useLocale()
+  const dateLocale = locale.startsWith('ar') ? arSA : enUS
   const submittedLabel = formatDistance(new Date(verification.created_at), new Date(), {
     addSuffix: true,
-    locale: arSA,
+    locale: dateLocale,
   })
 
   return (
@@ -139,11 +141,11 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
         <div>
           <Link
             href="/staff/verification"
-            className="text-sm text-primary hover:underline"
+            className="text-sm font-medium text-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-gold/60"
           >
             {t('backToQueue')}
           </Link>
-          <h1 className="mt-2 text-2xl font-semibold text-foreground">
+          <h1 className="mt-2 text-2xl font-semibold text-jid-olive">
             {t('title', { company: verification.company_name })}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -151,7 +153,7 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
           </p>
         </div>
         {verification.assigned_staff_id ? (
-          <span className="rounded-full bg-background px-3 py-1 text-xs font-medium text-muted-foreground">
+          <span className="rounded-md border border-border bg-jid-beige px-3 py-1 text-xs font-medium text-jid-olive">
             {t('assigned')}
           </span>
         ) : null}
@@ -323,6 +325,23 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
             </div>
           </div>
           <RelatedHistoryPanel items={relatedHistory} />
+          <section
+            data-testid="verification-deferred-capabilities"
+            className="rounded-lg border border-dashed border-jid-line/50 bg-jid-beige/60 p-4"
+            aria-labelledby="verification-deferred-heading"
+          >
+            <h3
+              id="verification-deferred-heading"
+              className="text-sm font-semibold text-jid-olive"
+            >
+              {t('deferred.title')}
+            </h3>
+            <ul className="mt-2 list-disc space-y-1 ps-5 text-xs text-muted-foreground">
+              <li>{t('deferred.evidenceViewer')}</li>
+              <li>{t('deferred.requestMoreInfo')}</li>
+              <li>{t('deferred.persistedChecklist')}</li>
+            </ul>
+          </section>
         </aside>
       </div>
     </div>

@@ -53,8 +53,8 @@ export function VerificationFilters({ className }: VerificationFiltersProps) {
     router.replace(query ? `${pathname}?${query}` : pathname)
   }
 
-  return (
-    <div className={cn('flex flex-wrap gap-4', className)}>
+  const filterGroups = (
+    <>
       <FilterGroup label={t('type')}>
         {(['all', 'business', 'university', 'mentor'] as const).map((value) => (
           <FilterButton
@@ -90,6 +90,18 @@ export function VerificationFilters({ className }: VerificationFiltersProps) {
           </FilterButton>
         ))}
       </FilterGroup>
+    </>
+  )
+
+  return (
+    <div className={cn('space-y-3', className)}>
+      <details className="rounded-lg border border-border bg-card p-3 sm:hidden">
+        <summary className="cursor-pointer text-sm font-medium text-jid-olive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-gold">
+          {t('type')} · {t('urgency')} · {t('assigned')}
+        </summary>
+        <div className="mt-3 flex flex-col gap-4">{filterGroups}</div>
+      </details>
+      <div className="hidden flex-wrap gap-4 sm:flex">{filterGroups}</div>
     </div>
   )
 }
@@ -117,10 +129,10 @@ function FilterButton({
       type="button"
       onClick={onClick}
       className={cn(
-        'rounded-full border px-3 py-1 text-xs font-medium transition-colors',
+        'rounded-md border px-3 py-1.5 text-xs font-medium transition-colors',
         active
-          ? 'border-primary bg-primary/10 text-primary'
-          : 'border-border bg-card text-muted-foreground hover:bg-background/50',
+          ? 'border-jid-olive bg-jid-olive text-jid-beige focus-visible:ring-2 focus-visible:ring-jid-gold'
+          : 'border-border bg-card text-muted-foreground hover:bg-jid-beige/50 focus-visible:ring-2 focus-visible:ring-jid-gold/50',
       )}
     >
       {children}
