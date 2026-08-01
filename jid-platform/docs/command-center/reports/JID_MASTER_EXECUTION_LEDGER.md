@@ -26,10 +26,12 @@
 | Session A CI branch | codex/jid-09a-ci-validation |
 | Session A mirror branch | `agent/nonprod-signup-form` not changed |
 | Session A local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 379 passed / 100 skipped; build |
-| Session A validation CI | pending promotion evidence |
-| Session A target CI | pending promotion evidence |
-| Session A Vercel | pending promotion evidence |
-| Session A implementation / promoted SHA | pending promotion evidence |
+| Session A validation CI | PASS — GitHub Actions Quality Gate run 30723936082 completed successfully for codex/jid-09a-ci-validation at 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
+| Session A target CI | PASS — GitHub Actions Quality Gate run 30724071892 completed successfully for agent/nonprod-signup-fix at 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
+| Session A Vercel | PASS — READY for commit 5d2f66888b6771708dd0c03833976f1a2f305fb4: jid-dev https://vercel.com/jidplatform/jid-dev/6CHQnQN1BbnRLETCQkRHKEUvkFBe; jid-platform https://vercel.com/jidplatform/jid-platform/BQjWwoEXNjVTSf7Ar7KsXBkY9bmL |
+| Session A implementation / promoted SHA | 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
+| Session 09-A completion token | SPEC_09_SESSION_A_COMPLETE 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
+| Session 09-A ledger-closeout note | A later documentation-only ledger-fill commit may advance the tip; it does not change the Session 09-A promoted SHA. Future gates must verify 5d2f66888b6771708dd0c03833976f1a2f305fb4 is equal to or ancestral to the current canonical tip. |
 | next session | 09-B |
 
 ---
