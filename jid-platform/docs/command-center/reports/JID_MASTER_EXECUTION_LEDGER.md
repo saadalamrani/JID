@@ -6,7 +6,7 @@
 |---|---|
 | specification | 08 |
 | status | IN_PROGRESS |
-| session | 08-B (Business dashboard honesty + University dashboard regression + W-Dashboards bounded visual/locale) |
+| session | 08-B COMPLETE — Business dashboard honesty + University dashboard regression + W-Dashboards bounded visual/locale |
 | Session B canonical starting SHA | e9132d0268434bf205415507f435710b82da6e2e |
 | Session B source branch | cursor/jid-08b-dashboards-honesty |
 | Session B CI branch | codex/jid-08b-ci-validation |
@@ -34,10 +34,12 @@
 | Specs 02–07 behavior | unchanged — no publication/Verification/ownership/Directory/notification/suspension expectation edits |
 | Session B mirror branch | `agent/nonprod-signup-form` not changed |
 | Session B local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 366 passed / 100 skipped; build |
-| Session B validation CI | PENDING (completion response) |
-| Session B target CI | PENDING (completion response) |
-| Session B Vercel | PENDING (completion response) |
-| Session B implementation / promoted SHA | PENDING (completion response — do not self-embed) |
+| Session B validation CI | PASS — GitHub Actions run 30676390619; Quality Gate completed successfully at `4369d3b57f24f450e0a297afa465d9cf3b7e8752` |
+| Session B target CI | PASS — GitHub Actions run 30676572404; canonical target Quality Gate completed successfully at `4369d3b57f24f450e0a297afa465d9cf3b7e8752` |
+| Session B Vercel | PASS — jid-dev deployment `dpl_CXjCoLXw22NvwXfrswzmwjo7dhbS` READY; jid-platform deployment `dpl_475se1u1V9xob3zUR7a8iLNxRG1C` READY; both correspond to commit `4369d3b57f24f450e0a297afa465d9cf3b7e8752` |
+| Session B implementation / promoted SHA | 4369d3b57f24f450e0a297afa465d9cf3b7e8752 |
+| Session 08-B completion token | SPEC_08_SESSION_B_COMPLETE `4369d3b57f24f450e0a297afa465d9cf3b7e8752` |
+| Session 08-B ledger-closeout note | The later ledger-only closeout commit does not change the Session 08-B implementation SHA. Future gates must verify the Session 08-B implementation SHA is equal to or ancestral to the current canonical tip. |
 | session (prior) | 08-A COMPLETE (read-only reconciliation; ledger + report only) |
 | Session A canonical starting SHA | 4214040ad2f058af88280a9a7cee7767ef9d89fa |
 | Session A source branch | cursor/jid-08a-reconciliation |
