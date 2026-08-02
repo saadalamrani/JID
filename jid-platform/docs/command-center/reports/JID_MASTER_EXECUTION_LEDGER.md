@@ -48,11 +48,13 @@
 | Session 09-A completion token | SPEC_09_SESSION_A_COMPLETE 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
 | Session B source branch | cursor/jid-09b-journeys-1-3 |
 | Session B CI branch | codex/jid-09b-ci-validation |
-| Session B implementation SHA | c0b6af63253d01319425aedace6ae10dbefbd148 |
-| Session B validation CI | _(filled after CI)_ |
-| Session B promoted SHA | _(filled after fast-forward)_ |
-| Session B target CI | _(filled after promote)_ |
-| Session B Vercel | _(filled after promote)_ |
+| Session B evidence / implementation SHA | c0b6af63253d01319425aedace6ae10dbefbd148 |
+| Session B promoted tip (CI + whitespace closeout) | 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
+| Session B validation CI | PASS — GitHub Actions CI/Quality Gate run 30726177819 completed successfully for codex/jid-09b-ci-validation at 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
+| Session B promoted SHA | 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
+| Session B target CI | PASS — GitHub Actions CI/Quality Gate run 30726287156 completed successfully for agent/nonprod-signup-fix at 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
+| Session B Vercel | PASS — READY for 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2: jid-dev https://vercel.com/jidplatform/jid-dev/CVbS5bkc6uHUVA7Kq2yUmp2GshWb; jid-platform https://vercel.com/jidplatform/jid-platform/Af4HR9JbiayU8xW7B2M5aw3Cq2Wp |
+| Session B completion token | SPEC_09_SESSION_B_COMPLETE 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
 | Session B mirror branch | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
 | database / migration / schema / RLS / RPC / auth / route / package / production changes | none in 09-B |
 | next session | 09-C |
