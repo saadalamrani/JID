@@ -87,8 +87,23 @@ Owned by Specification 09. Session **09-E** may remove or retire only fixtures t
 | `notif-approved` | `957d6ad3-0e20-4e00-b3f0-cc5ba4c598db` | In-app approval notification fixture |
 | `notif-rejected` | `91d7dc5e-e486-4d6e-9975-c9b0d4be92a2` | In-app rejection notification fixture |
 
+## Session 09-B continuity updates (non-secret)
+
+| Field | Value |
+|---|---|
+| continuity check (UTC) | 2026-08-02 |
+| actors authenticating | 19/19 synthetic aliases (plus anon) |
+| verification rows present | unassigned, assignedA, assignedB, selfReview, approvedTerminal, rejectedTerminal, uniApplicantPending |
+| business_profiles present | draft / published / suspended for RUN_ID owners |
+| university_profiles present | draft / published / suspended / snap-attempt for RUN_ID owners |
+| Staff MFA | enrolled for `staffA`, `staffB`, `superAdmin`, `staffSelfReviewApplicant` (secrets remain gitignored; not recorded here) |
+| app-layer read health | FAIL — authenticated reads hit missing relation `public.claim_requests` (see Defect Register DEF-09B-002) |
+| destructive cleanup | none (reserved for 09-E) |
+| preserved for 09-C | Directory correction pending; approval/rejection notification fixtures; Business published/suspended public cells; University profile rows; Staff assignment/self-review/terminal verifications |
+
 ## Known gaps for later sessions
 
-1. Staff / Super Admin MFA not enrolled — enroll before Staff walks in 09-B if the shell requires AAL2.
-2. University snapshot-present depends on `universities_catalog.short_code` linkage + dashboard snapshot refresh; verify empirically in 09-B.
+1. Staff / Super Admin MFA — enrolled during 09-B (secrets local only).
+2. University snapshot-present still depends on catalog linkage + dashboard refresh; owner dashboard surfaces blocked in 09-B by DEF-09B-002.
 3. Anonymous actor needs no account; exercise via logged-out browser only.
+4. Non-prod RLS references missing `public.claim_requests` — blocks trustworthy owner/applicant/Staff data reads until repaired outside 09-B.

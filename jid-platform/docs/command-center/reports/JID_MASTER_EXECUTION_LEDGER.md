@@ -6,33 +6,56 @@
 |---|---|
 | specification | 09 |
 | status | IN_PROGRESS |
-| session | 09-A COMPLETE — QA reconciliation and synthetic environment setup |
-| Session A canonical starting SHA | eead420cdfcd99e4195dcef5fc9a32e1daf4ea06 |
-| Spec 08 gate | SHIPPED — `SPEC_08_SHIPPED e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11` ancestral to tip `eead420…` |
-| Specs 02–07 gate | SHIPPED (ledger sections + Spec 03 records Spec 02 SHIPPED at `ed5bc40…`) |
-| non-production deployment | `https://jid-dev.vercel.app` (jid-dev) — AR/EN HTTP 200; Vercel commit statuses success for tip |
-| approved Supabase project ref | `hmjuijmaefajdjrjdsxu` |
-| environment binding | `.env.seed.nonprod` (gitignored) — URL + anon key + session-mode pooler `SEED_DATABASE_URL`; production ref absent |
-| e2e harness finding | Playwright config + `tests/e2e/smoke.spec.ts` present; use as capture tool only; no new harness invented |
+| session | 09-B COMPLETE — Business, University, and Staff journey walks |
+| canonical starting SHA (09-B) | 781eda57be124b798d66b7492cd71484e5b9ebed |
+| Session 09-A implementation / promoted SHA | 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
+| Session 09-A documentation closeout / 09-B start tip | 781eda57be124b798d66b7492cd71484e5b9ebed |
+| Session 09-A gate result | COMPLETE — implementation SHA ancestral to tip; docs-only closeout `781eda57…` equals tip at 09-B entry |
+| intervening-commit inspection | sole commit after `5d2f668…` is documentation ledger closeout — no product/routes/fixtures/auth/authorization/QA-assumption/deploy-config change |
+| Spec 08 gate | SHIPPED — `SPEC_08_SHIPPED e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11` ancestral to tip |
+| Specs 02–07 gate | SHIPPED |
 | JID09_RUN_ID | `jid09-20260801-7d956c` |
 | fixture manifest | `docs/command-center/reports/JID_09_QA_Fixture_Manifest.md` |
 | QA plan | `docs/command-center/reports/JID_09_QA_Plan.md` |
-| synthetic actors | business/university applicants + owners (draft/published/suspended/no-profile), staff A/B, super admin, individual, correction suggester, assignment applicants, anon |
-| synthetic states | unassigned/assigned/self-review/terminal verifications; draft/published/suspended profiles; pending correction; job+application; notification fixtures; snapshot-present attempt |
-| credentials committed | no |
-| real data used | no |
-| database / migration / schema / RLS / RPC / auth product changes | none |
+| fixture-continuity result | actors/verifications/profiles present for RUN_ID; Staff MFA enrolled locally; app-layer reads blocked by missing `public.claim_requests` (DEF-09B-002) |
+| deployed non-production URL | `https://jid-dev.vercel.app` |
+| deployed / served SHA | tip `781eda57be124b798d66b7492cd71484e5b9ebed` (Vercel jid-dev + jid-platform commit statuses success) |
+| approved Supabase project ref | `hmjuijmaefajdjrjdsxu` |
+| environment binding | `.env.seed.nonprod` (gitignored) bound to approved ref; no secret values recorded |
+| Business journey result | PARTIAL FAIL — public published Business Profile PASS; applicant/owner authenticated surfaces FAIL under DEF-09B-002; create-profile i18n FAIL (DEF-09B-003); entity-type Claim terminology DEF-09B-001 |
+| University journey result | FAIL dominant — public published University Profile 404 (DEF-09B-004); rejected route 404 (DEF-09B-005); dashboards/create blocked by DEF-09B-002; snapshot-present not fabricated |
+| Staff journey result | MFA PASS; verification queue/workspace FAIL page-load after MFA (DEF-09B-002); view-only/self-review/override functional cells blocked by load failure |
+| Arabic coverage | exercised (desktop + 375 where captured) |
+| English coverage | exercised (desktop + 375 where captured) |
+| desktop coverage | exercised |
+| 375px coverage | exercised |
+| console summary | Server Components render errors on company/university/staff verification surfaces; React #419; staff `/api/me/encryption-key` 409 |
+| broken-link summary | no `/sys/claims` links observed on walked surfaces; University public slug 404; locale switch not independently broken beyond failing pages |
+| privacy summary | queue/private payloads not successfully loaded (blocked by DEF-09B-002); public Business Profile synthetic only; no secrets in evidence |
+| evidence index path | `docs/command-center/reports/ui-evidence/final-qa/INDEX.md` (+ `INDEX.json`) |
+| running Defect Register path | `docs/command-center/reports/JID_09_Defect_Register.md` |
+| open defect count | 5 |
+| fixture state preserved for 09-C | yes — correction pending, notification fixtures, Business published/suspended public cells, University profile rows, Staff assignment/self-review/terminals retained; no 09-E cleanup |
+| no-product-code-change confirmation | confirmed for Session 09-B |
+| test-drift result | no behavior tests modified |
 | Session A source branch | cursor/jid-09a-qa-setup |
 | Session A CI branch | codex/jid-09a-ci-validation |
 | Session A mirror branch | `agent/nonprod-signup-form` not changed |
 | Session A local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test 379 passed / 100 skipped; build |
-| Session A validation CI | PASS — GitHub Actions Quality Gate run 30723936082 completed successfully for codex/jid-09a-ci-validation at 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
-| Session A target CI | PASS — GitHub Actions Quality Gate run 30724071892 completed successfully for agent/nonprod-signup-fix at 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
-| Session A Vercel | PASS — READY for commit 5d2f66888b6771708dd0c03833976f1a2f305fb4: jid-dev https://vercel.com/jidplatform/jid-dev/6CHQnQN1BbnRLETCQkRHKEUvkFBe; jid-platform https://vercel.com/jidplatform/jid-platform/BQjWwoEXNjVTSf7Ar7KsXBkY9bmL |
-| Session A implementation / promoted SHA | 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
+| Session A validation CI | PASS — GitHub Actions Quality Gate run 30723936082 for codex/jid-09a-ci-validation at 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
+| Session A target CI | PASS — GitHub Actions Quality Gate run 30724071892 for agent/nonprod-signup-fix at 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
+| Session A Vercel | PASS — READY for 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
 | Session 09-A completion token | SPEC_09_SESSION_A_COMPLETE 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
-| Session 09-A ledger-closeout note | A later documentation-only ledger-fill commit may advance the tip; it does not change the Session 09-A promoted SHA. Future gates must verify 5d2f66888b6771708dd0c03833976f1a2f305fb4 is equal to or ancestral to the current canonical tip. |
-| next session | 09-B |
+| Session B source branch | cursor/jid-09b-journeys-1-3 |
+| Session B CI branch | codex/jid-09b-ci-validation |
+| Session B implementation SHA | _(filled after commit)_ |
+| Session B validation CI | _(filled after CI)_ |
+| Session B promoted SHA | _(filled after fast-forward)_ |
+| Session B target CI | _(filled after promote)_ |
+| Session B Vercel | _(filled after promote)_ |
+| Session B mirror branch | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| database / migration / schema / RLS / RPC / auth / route / package / production changes | none in 09-B |
+| next session | 09-C |
 
 ---
 
