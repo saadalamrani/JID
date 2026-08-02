@@ -1,0 +1,33 @@
+{
+  "runId": "jid-rem-20260802-7535ec",
+  "at": "2026-08-02T08:28:21.265Z",
+  "after": [
+    {
+      "t": "companies",
+      "n": 0
+    },
+    {
+      "t": "business_profiles",
+      "n": 0
+    },
+    {
+      "t": "university_profiles",
+      "n": 0
+    },
+    {
+      "t": "auth_users_run_email",
+      "n": 7
+    }
+  ],
+  "retainedAuthUsers": [
+    "qa-biz-owner-jid-rem-20260802-7535ec@jidrem.test",
+    "qa-corrector-jid-rem-20260802-7535ec@jidrem.test",
+    "qa-individual-jid-rem-20260802-7535ec@jidrem.test",
+    "qa-staff-a-jid-rem-20260802-7535ec@jidrem.test",
+    "qa-staff-self-jid-rem-20260802-7535ec@jidrem.test",
+    "qa-super-admin-jid-rem-20260802-7535ec@jidrem.test",
+    "qa-uni-owner-jid-rem-20260802-7535ec@jidrem.test"
+  ],
+  "note": "Directory/profile/RUN_ID slug rows deleted. Auth users retained because audit_logs actor_id immutability prevents delete; synthetic emails only; non-production; shared seed accounts untouched.",
+  "result": "CLEAN_PROFILES_AUTH_RETAINED_AUDIT"
+}

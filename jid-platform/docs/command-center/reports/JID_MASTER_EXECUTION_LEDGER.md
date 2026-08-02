@@ -5,8 +5,8 @@
 | Field | Value |
 |---|---|
 | program | Post-Spec 09 Release Remediation (separate from Specification 09) |
-| status | BLOCKED — alias live gate |
-| declaration | RELEASE_REMEDIATION_BLOCKED_WITH_EXACT_CAUSE |
+| status | COMPLETE |
+| declaration | ZERO_KNOWN_OPEN_RELEASE_DEFECTS |
 | intent | Zero known open release defects and named presentability blockers before any Production Readiness Review is allowed |
 | not | production release; main merge; Production Readiness Review; Production Release Plan |
 | starting SHA | `aa4cc11ab053fe120fb3737e3752a8bdc317d399` |
@@ -15,22 +15,24 @@
 | RUN_ID | `jid-rem-20260802-7535ec` |
 | source branch | `cursor/jid-post-spec09-zero-defect-remediation` |
 | validation branch | `codex/jid-zero-defect-ci-validation` |
-| implementation / promoted SHA | `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5` |
+| implementation SHA | `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5` |
 | validation CI | PASS — GitHub Actions run 30738525542 |
 | target CI | PASS — GitHub Actions run 30738669137 |
-| Vercel Preview | READY — jid-dev https://vercel.com/jidplatform/jid-dev/9St1XZybzZH9knkDSx68kTKz26GJ ; jid-platform https://vercel.com/jidplatform/jid-platform/6qhJiYWUkJHgEMs99f9CvVAQrd8b |
-| Vercel alias live gate | FAIL — `jid-dev.vercel.app` still pre-remediation (`/sys/claims`→login; university sticky `/404` Age≈27339); preview URLs SSO-protected; no agent Vercel token to reassign domain |
-| closed defects (code+evidence) | DEF-09C-015, DEF-09C-017 |
-| remaining open | DEF-09C-016 (live alias); University sticky public `/404` presentability blocker |
-| University public CDN | code fix landed; live alias not yet serving it |
+| Vercel Preview | READY — jid-dev https://vercel.com/jidplatform/jid-dev/9St1XZybzZH9knkDSx68kTKz26GJ |
+| Vercel alias assign | PASS — founder-authorized CLI: `jid-dev.vercel.app` → `jid-7f5q430nm-jidplatform.vercel.app` |
+| Vercel alias live gate | PASS — `/sys/claims` EN/AR hard 404; published university EN/AR 200 (`X-Matched-Path` profile route, Age=0); draft/suspended content denied (no display_name leakage) |
+| closed defects | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
+| final open release-defect count | 0 |
+| University public CDN | resolved on alias after assign |
 | Staff keyboard | KEYBOARD_PASS (desktop AR full journey; 375 capture present) |
 | disposable DB | PASS — `JID_Post_Spec09_Disposable_DB_Transcript.md` |
 | remediation report | `docs/command-center/reports/JID_Post_Spec09_Release_Remediation_Report.md` |
 | evidence | `docs/command-center/reports/ui-evidence/post-spec09-remediation/` |
-| fixtures | RETAINED explicitly for alias re-verify — `fixture-cleanup-result.md` |
+| fixtures | profiles/directories CLEAN; 7 synthetic auth users retained (audit immutability) — `fixture-cleanup-result.md` |
 | historical mirror | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
 | main / production | untouched |
-| next action | Founder/operator: assign `jid-dev.vercel.app` to deployment for `fdaf5d1…` (or provide Vercel token); re-probe uni 200 + claims 404; then cleanup fixtures and close with ZERO_KNOWN_OPEN_RELEASE_DEFECTS |
+| Production Readiness Review allowed | yes — zero known open release defects gate passed (PRR itself not executed here) |
+| completion token | JID_ZERO_KNOWN_OPEN_RELEASE_DEFECTS_COMPLETE `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5` |
 
 ## Specification 09 -- End-to-End QA and Presentable Release
 

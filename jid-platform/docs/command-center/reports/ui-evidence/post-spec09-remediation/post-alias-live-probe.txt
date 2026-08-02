@@ -1,0 +1,14 @@
+probed_at=2026-08-02T08:25:00Z
+alias_action=vercel alias set jid-7f5q430nm-jidplatform.vercel.app -> jid-dev.vercel.app (scope jidplatform)
+deployment=dpl_9St1XZybzZH9knkDSx68kTKz26GJ (product SHA fdaf5d1)
+operator=vercel CLI after founder device authorize
+
+CLAIMS_EN=404 (hard; no login funnel)
+CLAIMS_AR=404 (hard; no login funnel)
+UNI_PUB_EN=200 X-Matched-Path=/[locale]/universities/[slug]/profile Cache-Control=private,no-store Age=0
+UNI_PUB_AR=200 (via locale redirect) same matched path
+UNI_DRAFT_EN=200 soft-not-found shell; display_name draft NOT present in body (denied)
+UNI_SUSPENDED_EN=200 soft-not-found shell; display_name suspended NOT present in body (denied)
+BIZ_PUB_EN=200 control OK
+
+RESULT=ALIAS_LIVE_GATE_PASS

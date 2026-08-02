@@ -1,25 +1,24 @@
 # Fixture cleanup / retention — Post-Spec 09 Remediation
 
 **RUN_ID:** `jid-rem-20260802-7535ec`
-**At:** `2026-08-02T08:05:00Z`
+**At:** `2026-08-02T08:28:21Z`
+**Result:** `CLEAN_PROFILES_AUTH_RETAINED_AUDIT`
 
-## Decision
+## Deleted (verified count 0)
 
-**RETAINED** (explicit reason) — not deleted at program end.
+- companies with slug `jidrem-*%jid-rem-20260802-7535ec%`
+- business_profiles / university_profiles linked to those directories
 
-## Reason
+## Retained with explicit reason
 
-Zero-defect live gate against `https://jid-dev.vercel.app` is blocked: alias still serves pre-remediation behavior after promote of `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5`.
+- 7 synthetic `auth.users` with `@jidrem.test` RUN_ID emails
 
-Retained synthetic published university/business Profiles and draft/suspended counterparts are required for immediate re-verification once the non-production alias serves the promoted SHA (university public 200 + draft/suspended denial + `/sys/claims` hard 404).
+**Reason:** `audit_logs` immutability trigger blocks `actor_id` nulling / user delete after remediation audit rows were written. Users are synthetic-only, non-production, not shared seed accounts.
 
-## Ownership
+## Not touched
 
-- Synthetic only; non-production `hmjuijmaefajdjrjdsxu` only
-- Credentials remain gitignored under `scripts/.tmp/jid-rem-secrets.json`
-- Cleanup script ready: `scripts/.tmp/jid-rem-cleanup.mjs` (run after alias flip)
-- Shared seed accounts untouched
+- Shared jidseed / friend accounts
+- Production
+- Historical mirror
 
-## Must delete after alias verification
-
-All `jidrem-*%jid-rem-20260802-7535ec%` directory/profile rows and run-owned verification/correction fixtures.
+See `fixture-cleanup-result.json`.

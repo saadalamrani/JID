@@ -15,7 +15,7 @@
 | Class | Count | IDs |
 |---|---|---|
 | CLASS_A closed in 09-D | 12 | DEF-09B-001, DEF-09B-002, DEF-09B-003, DEF-09B-004, DEF-09B-005, DEF-09C-001, DEF-09C-008, DEF-09C-009, DEF-09C-010, DEF-09C-011, DEF-09C-012, DEF-09C-013 |
-| CLASS_B open at Spec 09 close (carried) | 3 | DEF-09C-015/017 CLOSED in remediation; DEF-09C-016 remains OPEN pending live alias |
+| CLASS_B open at Spec 09 close (carried) | 3 | DEF-09C-015, DEF-09C-016, DEF-09C-017 — all CLOSED in Post-Spec 09 Release Remediation |
 | Duplicate/symptom of DEF-09B-002 (not separately counted) | -- | DEF-09C-002, DEF-09C-004, DEF-09C-005, DEF-09C-006, DEF-09C-007, DEF-09C-014 -> closed with DEF-09B-002 |
 
 ---
@@ -256,15 +256,15 @@
 | evidence | `ui-evidence/post-spec09-remediation/live-rpc-audit-proof.md`; keyboard `KB-self-review__ar__desktop.png` |
 | changed files | `tests/rls/verification-assigned-reviewer.rls.test.ts`; `tests/unit/staff/verification-assigned-reviewer-action.test.ts` |
 
-## DEF-09C-016 (CLASS_B — code landed; live alias not verified)
+## DEF-09C-016 (CLASS_B — closed in Post-Spec 09 Release Remediation)
 
 | Field | Value |
 |---|---|
 | final classification | CLASS_B |
-| status | OPEN |
-| rationale | Middleware hard-404 implemented and locally verified; regression tests added; public alias `jid-dev.vercel.app` still routes `/sys/claims` into Super Admin login after promote of `fdaf5d1…` (Deployment Protection blocks preview probe; alias not flipped). Cannot CLOSE without live alias proof. |
-| remediation attempt | Post-Spec 09 Release Remediation `jid-rem-20260802-7535ec` |
-| evidence | local 404; `staff-system-claim-surface-cleanup.test.ts`; live FAIL `post-promote-live-probe.txt` |
+| status | CLOSED |
+| rationale | `/sys/claims` hard-404 before Super Admin login funnel on live alias after founder-authorized Vercel alias assign to remediation deployment; Claim Existing Profile remains cancelled; external claim.* contracts preserved |
+| closed by | Post-Spec 09 Release Remediation `jid-rem-20260802-7535ec` |
+| evidence | local 404; `staff-system-claim-surface-cleanup.test.ts`; live alias PASS `post-alias-live-probe.txt` (EN/AR 404, no login funnel) |
 | changed files | `src/middleware.ts`; `tests/unit/security/staff-system-claim-surface-cleanup.test.ts` |
 
 ## DEF-09C-017 (CLASS_B — closed in Post-Spec 09 Release Remediation)
@@ -320,7 +320,7 @@ Closed with DEF-09B-002: DEF-09C-002, DEF-09C-004…007, DEF-09C-014.
 | DEF-09C-012 | CLOSED |
 | DEF-09C-013 | CLOSED |
 | DEF-09C-015 | CLOSED (Post-Spec 09 Release Remediation) |
-| DEF-09C-016 | OPEN (code landed; live alias still login-funnel — see remediation report) |
+| DEF-09C-016 | CLOSED (Post-Spec 09 Release Remediation — live alias verified) |
 | DEF-09C-017 | CLOSED (Post-Spec 09 Release Remediation) |
 
 ---
@@ -333,8 +333,9 @@ Closed with DEF-09B-002: DEF-09C-002, DEF-09C-004…007, DEF-09C-014.
 | RUN_ID | `jid-rem-20260802-7535ec` |
 | report | `docs/command-center/reports/JID_Post_Spec09_Release_Remediation_Report.md` |
 | starting open CLASS_B | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
-| ending open release defects | 1 numbered (DEF-09C-016) + University public alias sticky-404 presentability blocker |
+| ending open release defects | 0 |
 | OPEN BLOCKED CLASS_A | 0 |
-| declaration | RELEASE_REMEDIATION_BLOCKED_WITH_EXACT_CAUSE |
+| declaration | ZERO_KNOWN_OPEN_RELEASE_DEFECTS |
 | Spec 09 program status | remains CLOSED / SHIPPED |
 | Spec 09 release declaration at close | PROGRAM_PARTIALLY_SHIPPED (historical; not rewritten) |
+| alias assign | `jid-dev.vercel.app` → `jid-7f5q430nm-jidplatform.vercel.app` (`dpl_9St1XZybzZH9knkDSx68kTKz26GJ`) after founder Vercel device authorize |
