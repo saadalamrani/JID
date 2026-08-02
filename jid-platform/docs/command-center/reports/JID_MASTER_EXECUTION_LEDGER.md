@@ -5,37 +5,55 @@
 | Field | Value |
 |---|---|
 | specification | 09 |
-| status | IN_PROGRESS |
-| session | 09-D COMPLETE -- CLASS_A defect micro-fixes |
-| canonical starting SHA (09-D) | 1955f5e63f62bff3bead7f7e13e76f8ca5bf36d0 |
-| Session 09-C promoted SHA | d7de682adb023867ee69ad5f708e93672eb40a6c |
-| Session 09-C tip at 09-D entry | 1955f5e63f62bff3bead7f7e13e76f8ca5bf36d0 |
-| Session 09-C gate result | COMPLETE -- promoted SHA ancestral to tip; closeout 1955f5e documentation-only |
-| intervening-commit inspection (after 09-C promote) | 1955f5e docs-only ledger CI/Vercel closeout -- no product/auth/fixture/deploy-config change |
-| register gate result | FINALIZED -- CLASS_A 12 / CLASS_B 3; Branch B selected |
+| status | SHIPPED |
+| program status | CLOSED |
+| session | 09-E COMPLETE -- final release report, locked-program audit 02-09, fixture cleanup, Spec 09 QA-program closeout |
+| release declaration | PROGRAM_PARTIALLY_SHIPPED |
+| SHIPPED meaning | Spec 09 QA/release program completed durable audit, reporting, evidence, fixture cleanup, CI, and closeout. SHIPPED does **not** mean PRESENTABLE_MILESTONE_SHIPPED (declaration is PROGRAM_PARTIALLY_SHIPPED). |
+| canonical starting SHA (09-E) | 1438f437af964aa96a22e0cae7cf8cac4fe86a5e |
+| Session 09-D outcome | COMPLETE |
+| Session 09-D promoted SHA | 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
+| intervening commits after 09-D promote | 1438f43 docs-only Session 09-D CI/Vercel closeout -- no product/auth/fixture/deploy-config change |
 | JID09_RUN_ID | `jid09-20260801-7d956c` |
-| CLASS_A attempted / closed / remaining | 12 / 12 / 0 |
-| CLASS_B carried | 3 (DEF-09C-015, DEF-09C-016, DEF-09C-017) to Session 09-E |
-| per-defect changed files | migration 20260802090000_repair_claim_requests_residue_helpers.sql; src/middleware.ts; universities/[slug]/profile/page.tsx; unit tests |
-| regression tests | residue-repair unit; DEF-06 privilegedDeny; Spec 07 migration allowlist; disposable RLS suites |
-| disposable transcript | `docs/command-center/reports/JID_09_Session_D_Disposable_DB_Transcript.md` |
-| re-test evidence | ui-evidence/final-qa/captures/J09D-*; catalog load PASS after non-prod migration |
-| fixture continuity | retained -- RUN_ID fixtures present; claim_requests residue cleared on approved non-prod |
-| deployed non-production URL | `https://jid-dev.vercel.app` |
-| approved Supabase project ref | `hmjuijmaefajdjrjdsxu` |
-| finalized Defect Register path | `docs/command-center/reports/JID_09_Defect_Register.md` |
-| Session C completion token | SPEC_09_SESSION_C_COMPLETE d7de682adb023867ee69ad5f708e93672eb40a6c |
-| Session D source branch | cursor/jid-09d-defect-microfixes |
-| Session D CI branch | codex/jid-09d-ci-validation |
-| Session D implementation SHA | 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
-| Session D validation CI | PASS — GitHub Actions CI/Quality Gate run 30734152499 for codex/jid-09d-ci-validation at 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
-| Session D promoted SHA | 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
-| Session D target CI | PASS — GitHub Actions CI/Quality Gate run 30734274685 for agent/nonprod-signup-fix at 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
-| Session D Vercel | PASS — READY for 396b86b09a6af8e46dc1d297eb544dcb1f1d857b: jid-dev https://vercel.com/jidplatform/jid-dev/7geGLPoKNaWipamqkyLbKFhP3DRd; jid-platform https://vercel.com/jidplatform/jid-platform/7QoDpz6x4uYtRGooLKhJsj6EWLXk |
-| Session D completion token | SPEC_09_SESSION_D_COMPLETE 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
-| Session D mirror branch | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| final validation (local) | PASS -- git diff --check; install --frozen-lockfile; lint; type-check; test 382 passed / 100 skipped; build; package/lockfile unchanged |
+| locked-program audit | COMPLETE -- Specs 02-09 SHAs ancestral; actor/Directory/Verification/RLS/notifications/data-truth/a11y/privacy audited from committed evidence |
+| Release Report path | `docs/command-center/reports/JID_Final_Release_Report.md` |
+| Defect Register path | `docs/command-center/reports/JID_09_Defect_Register.md` |
+| QA Plan | `docs/command-center/reports/JID_09_QA_Plan.md` |
+| Fixture Manifest | `docs/command-center/reports/JID_09_QA_Fixture_Manifest.md` |
+| QA evidence index | `docs/command-center/reports/ui-evidence/final-qa/INDEX.md` |
+| negative matrix | `docs/command-center/reports/JID_09_Negative_Authorization_Matrix.md` |
+| audit-row notes | `docs/command-center/reports/JID_09_Audit_Row_Verification_Notes.md` |
+| accessibility | `docs/command-center/reports/JID_09_Accessibility_QA.md` |
+| disposable transcript (09-D) | `docs/command-center/reports/JID_09_Session_D_Disposable_DB_Transcript.md` |
+| privacy | PASS for synthetic evidence + cleanup; no secrets committed |
+| AR/EN | PASS on Spec 08 + walked Spec 09 surfaces; entity-type source Verification wording |
+| RTL/LTR | PASS logical properties / direction evidence |
+| desktop/375px | PASS captures present; not every post-09-D surface re-captured at 375 |
+| fixture cleanup | PASS -- `ui-evidence/final-qa/jid09-cleanup-result.md`; RUN_ID auth/profiles/directories/VRs deleted; shared jidseed.test retained (10) |
+| retained fixtures | none RUN_ID-owned; shared friend accounts retained by policy |
+| open defects | 3 CLASS_B -- DEF-09C-015, DEF-09C-016, DEF-09C-017 |
+| closed defects | 12 CLASS_A |
+| unresolved observations | university alias CDN sticky 404 residual; `/sys/claims` residual; incomplete apply/publish audit proofs; self-review inconclusive; deferred capabilities register below |
+| deferred capabilities | real evidence viewer; request-more-information; persisted checklist; Profile analytics; snapshot pipeline; broader theming; locale sweep; university_dashboard_view claimed_by residue |
+| standalone tracks not absorbed | Catalog automated ingestion; Lammah ingestion; ابحث لي |
+| per-spec SHAs | 02 `ed5bc404…`; 03 `548b40a…`; 04 `68c656d7…`; 05 `958ebf07…`; 06 `760b86ad…`; 07 `4214040…`/`b77fca0…`; 08 `e65134c…`; 09-D `396b86b…` |
+| rollback points | 8bf6bac… (pre-08-E); e65134c… (08 SHIPPED); 396b86b… (09-D); 1438f43… (09-E entry) |
+| Session E source branch | cursor/jid-09e-release-closeout |
+| Session E CI branch | codex/jid-09e-ci-validation |
+| Session E implementation SHA | PENDING_PROMOTE |
+| Session E validation CI | PENDING_PROMOTE |
+| Session E promoted SHA | PENDING_PROMOTE |
+| Session E target CI | PENDING_PROMOTE |
+| Session E Vercel | PENDING_PROMOTE |
 | no production access | confirmed |
-| next session | 09-E |
+| no unauthorized database architecture change | confirmed (09-E: fixture data cleanup only; no migration/schema/RLS/RPC/grant/view/trigger) |
+| historical mirror | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| next action | one post-program Fable audit |
+| Session 09-D retained detail | COMPLETE -- CLASS_A 12/12 closed; validation CI 30734152499; target CI 30734274685; Vercel READY for 396b86b… |
+| Session 09-C promoted SHA | d7de682adb023867ee69ad5f708e93672eb40a6c |
+| Session D completion token | SPEC_09_SESSION_D_COMPLETE 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
+| Session E completion token | PENDING_PROMOTE |
 
 ## Specification 08 — Dashboards and UI Implementation
 

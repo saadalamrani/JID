@@ -1,11 +1,13 @@
-# JID Spec 09 â€” Final QA Evidence Index
+# JID Spec 09 -- Final QA Evidence Index
 
 **JID09_RUN_ID:** `jid09-20260801-7d956c`
-**Sessions:** 09-B + 09-C
+**Sessions:** 09-B + 09-C + 09-D re-test + 09-E cleanup
 **Defect register:** `docs/command-center/reports/JID_09_Defect_Register.md`
 **Negative matrix:** `docs/command-center/reports/JID_09_Negative_Authorization_Matrix.md`
 **Audit notes:** `docs/command-center/reports/JID_09_Audit_Row_Verification_Notes.md`
 **Accessibility:** `docs/command-center/reports/JID_09_Accessibility_QA.md`
+**Release report:** `docs/command-center/reports/JID_Final_Release_Report.md`
+**Fixture cleanup:** `jid09-cleanup-result.md` (+ `.json`) -- PASS
 
 ## Capture count
 

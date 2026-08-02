@@ -1,0 +1,99 @@
+{
+  "runId": "jid09-20260801-7d956c",
+  "projectRef": "hmjuijmaefajdjrjdsxu",
+  "startedAt": "2026-08-02T06:02:15.090Z",
+  "actions": [
+    {
+      "kind": "DELETE",
+      "target": "applications",
+      "rowCount": 1
+    },
+    {
+      "kind": "DELETE",
+      "target": "jobs",
+      "rowCount": 1
+    },
+    {
+      "kind": "DELETE",
+      "target": "notifications",
+      "rowCount": 2
+    },
+    {
+      "kind": "DELETE",
+      "target": "directory_correction_suggestions",
+      "rowCount": 1
+    },
+    {
+      "kind": "DELETE",
+      "target": "verification_requests",
+      "rowCount": 7
+    },
+    {
+      "kind": "DELETE",
+      "target": "business_profiles",
+      "rowCount": 3
+    },
+    {
+      "kind": "DELETE",
+      "target": "university_profiles",
+      "rowCount": 4
+    },
+    {
+      "kind": "DELETE",
+      "target": "companies",
+      "rowCount": 17
+    },
+    {
+      "kind": "DELETE",
+      "target": "mfa_factors",
+      "rowCount": 4
+    },
+    {
+      "kind": "DELETE",
+      "target": "auth.identities",
+      "rowCount": 19
+    },
+    {
+      "kind": "DELETE",
+      "target": "public.profiles",
+      "rowCount": 19
+    },
+    {
+      "kind": "DELETE",
+      "target": "audit_logs (run-scoped)",
+      "rowCount": 0
+    },
+    {
+      "kind": "DELETE",
+      "target": "notifications (recipient-scoped remainder)",
+      "rowCount": 0
+    },
+    {
+      "kind": "DELETE",
+      "target": "auth.users",
+      "rowCount": 19
+    },
+    {
+      "kind": "DROP",
+      "target": "_jid09_seed_auth_user",
+      "rowCount": 1
+    }
+  ],
+  "verifyBefore": {
+    "authUsers": 19,
+    "profilesOwned": 3,
+    "uniProfilesOwned": 4,
+    "verifications": 7
+  },
+  "verifyAfter": {
+    "authUsers": 0,
+    "profilesOwned": 0,
+    "uniProfilesOwned": 0,
+    "verifications": 0,
+    "directories": 0,
+    "sharedFriendAccounts": 10
+  },
+  "retained": [],
+  "pass": true,
+  "completedAt": "2026-08-02T06:02:35.520Z"
+}

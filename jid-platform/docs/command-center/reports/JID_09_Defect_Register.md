@@ -1,11 +1,14 @@
-# JID Spec 09 -- Defect Register (FINALIZED in Session 09-C; Session 09-D evaluated)
+# JID Spec 09 -- Defect Register (FINALIZED in Session 09-C; Session 09-D evaluated; Session 09-E closeout)
 
 **JID09_RUN_ID:** `jid09-20260801-7d956c`
 **Environment:** non-production only (`hmjuijmaefajdjrjdsxu`, `https://jid-dev.vercel.app`)
 **Session 09-D result:** COMPLETE — CLASS_A micro-fixes
 **Session 09-D mechanical branch:** B (CLASS_A present)
 **Canonical starting SHA (09-D):** `1955f5e63f62bff3bead7f7e13e76f8ca5bf36d0`
-**CLASS_B defects:** carried to Session 09-E (not fixed in 09-D)
+**Session 09-E result:** COMPLETE — locked-program audit + release report + fixture cleanup
+**Release declaration:** PROGRAM_PARTIALLY_SHIPPED
+**Release report path:** `docs/command-center/reports/JID_Final_Release_Report.md`
+**CLASS_B defects:** remain OPEN at program close (not closed merely because Spec 09 ended)
 
 ## Classification summary
 
@@ -271,3 +274,42 @@
 ## Linked symptoms of DEF-09B-002
 
 Closed with DEF-09B-002: DEF-09C-002, DEF-09C-004…007, DEF-09C-014.
+
+---
+
+## Session 09-E audit closeout
+
+| Field | Value |
+|---|---|
+| audit result | COMPLETE — Specs 02–09 ledger/SHA ancestry + locked-program audit recorded in Final Release Report |
+| release declaration | PROGRAM_PARTIALLY_SHIPPED |
+| release report | `docs/command-center/reports/JID_Final_Release_Report.md` |
+| fixture cleanup | PASS — `ui-evidence/final-qa/jid09-cleanup-result.md` |
+| open count | 3 (all CLASS_B) |
+| closed count | 12 CLASS_A (+ linked symptoms of DEF-09B-002) |
+| OPEN CLASS_B IDs | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
+| OPEN BLOCKED CLASS_A | 0 |
+| NOT REPRODUCIBLE | 0 |
+| DUPLICATE | linked symptoms closed with DEF-09B-002 (canonical) |
+| provisional / unclassified removed | none |
+| closed without re-test | none — CLASS_A closed in 09-D with re-test evidence |
+
+### Final status list
+
+| ID | Final status |
+|---|---|
+| DEF-09B-001 | CLOSED |
+| DEF-09B-002 | CLOSED |
+| DEF-09B-003 | CLOSED |
+| DEF-09B-004 | CLOSED |
+| DEF-09B-005 | CLOSED |
+| DEF-09C-001 | CLOSED |
+| DEF-09C-008 | CLOSED |
+| DEF-09C-009 | CLOSED |
+| DEF-09C-010 | CLOSED |
+| DEF-09C-011 | CLOSED |
+| DEF-09C-012 | CLOSED |
+| DEF-09C-013 | CLOSED |
+| DEF-09C-015 | OPEN CLASS_B |
+| DEF-09C-016 | OPEN CLASS_B |
+| DEF-09C-017 | OPEN CLASS_B |

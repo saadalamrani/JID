@@ -121,3 +121,36 @@ Owned by Specification 09. Session **09-E** may remove or retire only fixtures t
 | app-layer read health | still FAIL (`public.claim_requests` missing) |
 | destructive cleanup | none (reserved for 09-E) |
 | preserved for 09-D / 09-E | all RUN_ID actors/objects retained; CLASS_A defects open for micro-fix |
+
+## Session 09-E cleanup (executed)
+
+| Field | Value |
+|---|---|
+| cleanup UTC | 2026-08-02T06:02:35.520Z |
+| ownership gate | only `jid09-20260801-7d956c` emails / Directory slug+name markers |
+| confirmation flag | `--i-confirm-non-production` |
+| project ref | `hmjuijmaefajdjrjdsxu` |
+| result | PASS |
+| evidence | `docs/command-center/reports/ui-evidence/final-qa/jid09-cleanup-result.md` |
+
+### Cleanup action table
+
+| Fixture | Identifier / class | Action | Reason / verify |
+|---|---|---|---|
+| Synthetic auth users (19) | emails `*jid09-20260801-7d956c@jid09.test` | DELETE | verify after = 0 |
+| auth.identities / mfa_factors | owned user IDs | DELETE | removed with users |
+| public.profiles | owned user IDs | DELETE | removed |
+| business_profiles | owned profile IDs | DELETE | verify after = 0 |
+| university_profiles | owned profile IDs | DELETE | verify after = 0 |
+| companies Directory rows | owned directory IDs | DELETE | verify after = 0 |
+| verification_requests | owned VR IDs | DELETE | verify after = 0 |
+| jobs / applications | owned IDs | DELETE | removed |
+| notifications (fixture + recipient) | owned IDs / recipients | DELETE | removed |
+| directory_correction_suggestions | owned correction ID | DELETE | removed |
+| `_jid09_seed_auth_user` | helper function | DROP | cleanup of seed helper |
+| Shared `jidseed.test` friend accounts | pre-existing shared | RETAIN | not RUN_ID-owned; count remains 10 |
+| Unrelated Directory / production | out of scope | never selected | production ref refused |
+
+### Retained fixtures (RUN_ID-owned)
+
+None after cleanup. Shared non-RUN_ID accounts remain under shared ownership (not this run).
