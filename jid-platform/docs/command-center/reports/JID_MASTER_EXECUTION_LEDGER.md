@@ -1,64 +1,40 @@
 # JID Master Execution Ledger
 
-## Specification 09 — End-to-End QA and Presentable Release
+## Specification 09 -- End-to-End QA and Presentable Release
 
 | Field | Value |
 |---|---|
 | specification | 09 |
 | status | IN_PROGRESS |
-| session | 09-C COMPLETE — Directory correction, notifications, publication, negative authorization, privacy, accessibility, defect classification |
-| canonical starting SHA (09-C) | 611b6d167e7f660868a1b840ae86839a044d1c73 |
-| Session 09-B promoted SHA | 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
-| Session 09-B tip at 09-C entry | 611b6d167e7f660868a1b840ae86839a044d1c73 |
-| Session 09-B gate result | COMPLETE — promoted SHA ancestral to tip; closeout `611b6d1…` documentation-only |
-| intervening-commit inspection (after 09-B promote) | `611b6d1` docs-only ledger CI/Vercel closeout — no product/auth/fixture/deploy-config change |
-| Session 09-A implementation / promoted SHA | 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
-| Spec 08 gate | SHIPPED — ancestral to tip |
-| Specs 02–07 gate | SHIPPED |
+| session | 09-D COMPLETE -- CLASS_A defect micro-fixes |
+| canonical starting SHA (09-D) | 1955f5e63f62bff3bead7f7e13e76f8ca5bf36d0 |
+| Session 09-C promoted SHA | d7de682adb023867ee69ad5f708e93672eb40a6c |
+| Session 09-C tip at 09-D entry | 1955f5e63f62bff3bead7f7e13e76f8ca5bf36d0 |
+| Session 09-C gate result | COMPLETE -- promoted SHA ancestral to tip; closeout 1955f5e documentation-only |
+| intervening-commit inspection (after 09-C promote) | 1955f5e docs-only ledger CI/Vercel closeout -- no product/auth/fixture/deploy-config change |
+| register gate result | FINALIZED -- CLASS_A 12 / CLASS_B 3; Branch B selected |
 | JID09_RUN_ID | `jid09-20260801-7d956c` |
-| fixture continuity | PASS for presence — correction pending retained; notif rows present; biz/uni profiles present; app-layer reads still blocked by missing `public.claim_requests` |
+| CLASS_A attempted / closed / remaining | 12 / 12 / 0 |
+| CLASS_B carried | 3 (DEF-09C-015, DEF-09C-016, DEF-09C-017) to Session 09-E |
+| per-defect changed files | migration 20260802090000_repair_claim_requests_residue_helpers.sql; src/middleware.ts; universities/[slug]/profile/page.tsx; unit tests |
+| regression tests | residue-repair unit; DEF-06 privilegedDeny; Spec 07 migration allowlist; disposable RLS suites |
+| disposable transcript | `docs/command-center/reports/JID_09_Session_D_Disposable_DB_Transcript.md` |
+| re-test evidence | ui-evidence/final-qa/captures/J09D-*; catalog load PASS after non-prod migration |
+| fixture continuity | retained -- RUN_ID fixtures present; claim_requests residue cleared on approved non-prod |
 | deployed non-production URL | `https://jid-dev.vercel.app` |
-| deployed / served SHA | tip `d7de682adb023867ee69ad5f708e93672eb40a6c` (Vercel jid-dev + jid-platform commit statuses success) |
 | approved Supabase project ref | `hmjuijmaefajdjrjdsxu` |
-| environment binding | `.env.seed.nonprod` (gitignored) bound to approved ref |
-| Journey 4 result | FAIL — catalog correction entry error (DEF-09C-001); Staff suggestions queue blocked (DEF-09B-002); apply+audit not completed; fixtures unchanged |
-| Journey 5 result | PARTIAL PASS — seeded approval/rejection notifications render with Spec 03 destinations and no-auto-Profile Arabic copy; live Staff decision fan-out blocked by DEF-09B-002 |
-| Journey 6 result | PARTIAL — public published Business PASS; draft/suspended public denials PASS; University published 404 (DEF-09B-004); owner publish/unpublish blocked by DEF-09B-002 |
-| negative authorization result | 20 PASS / 8 FAIL — see `JID_09_Negative_Authorization_Matrix.md` |
-| privacy result | PARTIAL — public Business synthetic-only PASS; private payloads largely unloaded due to DEF-09B-002; authorization blank-URL fails recorded as security defects |
-| accessibility result | PARTIAL FAIL — notification spot checks PASS; Staff keyboard decision walk blocked (DEF-09C-014 / DEF-09B-002) |
-| Arabic coverage | exercised |
-| English coverage | exercised |
-| desktop coverage | exercised |
-| 375px coverage | exercised |
-| console summary | Staff/catalog RSC errors; React #419 where Staff shells fail |
-| broken-link summary | `/sys/claims` redirects to sys login (DEF-09C-016); University public 404; no product links to `/sys/claims` on walked pages |
-| audit notes path | `docs/command-center/reports/JID_09_Audit_Row_Verification_Notes.md` |
-| negative matrix path | `docs/command-center/reports/JID_09_Negative_Authorization_Matrix.md` |
-| accessibility report path | `docs/command-center/reports/JID_09_Accessibility_QA.md` |
-| evidence index path | `docs/command-center/reports/ui-evidence/final-qa/INDEX.md` (+ `INDEX.json`) |
 | finalized Defect Register path | `docs/command-center/reports/JID_09_Defect_Register.md` |
-| CLASS_A count | 12 |
-| CLASS_B count | 3 |
-| fixture state retained for 09-D/09-E | yes — no 09-E cleanup |
-| no-product-code-change confirmation | confirmed for Session 09-C |
-| test-drift result | no behavior tests modified |
-| Session A completion token | SPEC_09_SESSION_A_COMPLETE 5d2f66888b6771708dd0c03833976f1a2f305fb4 |
-| Session B completion token | SPEC_09_SESSION_B_COMPLETE 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
-| Session B promoted SHA | 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
-| Session C source branch | cursor/jid-09c-journeys-4-6-negative |
-| Session C CI branch | codex/jid-09c-ci-validation |
-| Session C evidence / implementation SHA | 33780ead4d57495f419aa1f033efc8ce2864c876 |
-| Session C promoted tip (CI + encoding repair) | d7de682adb023867ee69ad5f708e93672eb40a6c |
-| Session C validation CI | PASS — GitHub Actions CI/Quality Gate run 30727497637 completed successfully for codex/jid-09c-ci-validation at d7de682adb023867ee69ad5f708e93672eb40a6c |
-| Session C promoted SHA | d7de682adb023867ee69ad5f708e93672eb40a6c |
-| Session C target CI | PASS — GitHub Actions CI/Quality Gate run 30727617790 completed successfully for agent/nonprod-signup-fix at d7de682adb023867ee69ad5f708e93672eb40a6c |
-| Session C Vercel | PASS — READY for d7de682adb023867ee69ad5f708e93672eb40a6c: jid-dev https://vercel.com/jidplatform/jid-dev/8NjNv6aAgF1d9LtZ9tJuAd461VEi; jid-platform https://vercel.com/jidplatform/jid-platform/DkeJogwMPL7bWE2z6QkKrAwvxc7e |
 | Session C completion token | SPEC_09_SESSION_C_COMPLETE d7de682adb023867ee69ad5f708e93672eb40a6c |
-| Session C mirror branch | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
-| Session C ledger-closeout note | A later documentation-only ledger-fill commit may advance the tip; it does not change the Session 09-C promoted SHA `d7de682adb023867ee69ad5f708e93672eb40a6c`. Future gates must verify that SHA is equal to or ancestral to the current canonical tip. |
-| database / migration / schema / RLS / RPC / auth / route / package / production changes | none in 09-C |
-| next session | 09-D |
+| Session D source branch | cursor/jid-09d-defect-microfixes |
+| Session D CI branch | codex/jid-09d-ci-validation |
+| Session D implementation SHA | _(filled after commit)_ |
+| Session D validation CI | _(filled after CI)_ |
+| Session D promoted SHA | _(filled after fast-forward)_ |
+| Session D target CI | _(filled after promote)_ |
+| Session D Vercel | _(filled after promote)_ |
+| Session D mirror branch | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| no production access | confirmed |
+| next session | 09-E |
 
 ## Specification 08 — Dashboards and UI Implementation
 

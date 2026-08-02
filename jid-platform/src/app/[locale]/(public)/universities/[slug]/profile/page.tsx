@@ -7,6 +7,9 @@ import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { fetchPublishedUniversityProfileBySlug } from '@/lib/queries/published-profile'
 import { truncateForMeta } from '@/types/business-profile-public'
 
+/** Avoid stale edge-cached soft-404s for published university Profiles (DEF-09B-004). */
+export const dynamic = 'force-dynamic'
+
 type UniversityProfilePageProps = {
   params: { locale: string; slug: string }
 }

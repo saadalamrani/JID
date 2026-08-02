@@ -223,10 +223,14 @@ describe('Spec 07-D — AR/EN publication UI parity', () => {
 })
 
 describe('Spec 07-D — backend contract regression (no migration / RPC edits)', () => {
-  it('does not add a new migration after Session 07-C publication RPCs', () => {
+  it('does not add publication RPC migrations after Session 07-C (Spec 09-D residue repair allowlisted)', () => {
     const migrations = readdirSync(MIGRATIONS).filter((name) => name.endsWith('.sql')).sort()
     const later = migrations.filter((name) => name > '20260730190003_profile_publication_rpcs.sql')
-    expect(later).toEqual([])
+    // Spec 09-D: claim_requests → verification_requests helper repair only.
+    expect(later).toEqual(['20260802090000_repair_claim_requests_residue_helpers.sql'])
+    const repair = readFileSync(join(MIGRATIONS, later[0]), 'utf-8')
+    expect(repair).not.toMatch(/publish_business_profile|publish_university_profile/)
+    expect(repair).toMatch(/viewer_approved_company_id/)
   })
 
   it('leaves publication RPC migration content unchanged at known markers', () => {

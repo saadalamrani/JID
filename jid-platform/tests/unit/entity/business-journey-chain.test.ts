@@ -250,8 +250,9 @@ describe('Spec 04-B per-defect regressions', () => {
     const mw = readSrc('src/middleware.ts')
     expect(mw).toMatch(/Spec 04-B DEF-06/)
     expect(mw).toMatch(/redirectTo\(request, '\/login'/)
-    // Staff / Super Admin portals retain notFound obscurity.
-    expect(mw).toMatch(/handleStaffPortal[\s\S]*notFoundResponse\(\)/)
+    // Spec 09 DEF-09C-008/013 — Staff/Sys wrong-role uses visible deny redirect (not empty 404).
+    expect(mw).toMatch(/handleStaffPortal[\s\S]*privilegedDenyResponse\(request, pathname\)/)
+    expect(mw).toMatch(/handleSuperAdminPortal[\s\S]*privilegedDenyResponse\(request, pathname\)/)
   })
 
   it('DEF-07: billing resolves via fetchOwnerBusinessProfile.directory_id', () => {

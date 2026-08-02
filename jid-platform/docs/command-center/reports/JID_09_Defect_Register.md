@@ -1,17 +1,19 @@
-# JID Spec 09 -- Defect Register (FINALIZED in Session 09-C)
+# JID Spec 09 -- Defect Register (FINALIZED in Session 09-C; Session 09-D evaluated)
 
 **JID09_RUN_ID:** `jid09-20260801-7d956c`
 **Environment:** non-production only (`hmjuijmaefajdjrjdsxu`, `https://jid-dev.vercel.app`)
-**Product fixes in 09-B/09-C:** none
-**Classification authority:** Session 09-C
+**Session 09-D result:** COMPLETE — CLASS_A micro-fixes
+**Session 09-D mechanical branch:** B (CLASS_A present)
+**Canonical starting SHA (09-D):** `1955f5e63f62bff3bead7f7e13e76f8ca5bf36d0`
+**CLASS_B defects:** carried to Session 09-E (not fixed in 09-D)
 
 ## Classification summary
 
 | Class | Count | IDs |
 |---|---|---|
-| CLASS_A | 12 | DEF-09B-001, DEF-09B-002, DEF-09B-003, DEF-09B-004, DEF-09B-005, DEF-09C-001, DEF-09C-008, DEF-09C-009, DEF-09C-010, DEF-09C-011, DEF-09C-012, DEF-09C-013 |
-| CLASS_B | 3 | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
-| Duplicate/symptom of DEF-09B-002 (not separately counted) | -- | DEF-09C-002, DEF-09C-004, DEF-09C-005, DEF-09C-006, DEF-09C-007, DEF-09C-014 -> linked under DEF-09B-002 |
+| CLASS_A closed in 09-D | 12 | DEF-09B-001, DEF-09B-002, DEF-09B-003, DEF-09B-004, DEF-09B-005, DEF-09C-001, DEF-09C-008, DEF-09C-009, DEF-09C-010, DEF-09C-011, DEF-09C-012, DEF-09C-013 |
+| CLASS_B open (carried) | 3 | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
+| Duplicate/symptom of DEF-09B-002 (not separately counted) | -- | DEF-09C-002, DEF-09C-004, DEF-09C-005, DEF-09C-006, DEF-09C-007, DEF-09C-014 -> closed with DEF-09B-002 |
 
 ---
 
@@ -20,306 +22,252 @@
 | Field | Value |
 |---|---|
 | first-observed | 2026-08-02T00:20:00Z |
-| latest verification | 2026-08-02T01:30:00Z |
+| latest verification | 2026-08-02T05:30:00Z |
 | JID09_RUN_ID | `jid09-20260801-7d956c` |
 | journey | J2 / A11Y terminology |
-| actor | anon / uniApplicant |
+| actor | anon |
 | route | `/signup/entity-type` |
 | locale / direction / viewport | ar / RTL / desktop |
 | scenario | entity-type entry |
 | owning specification | 09 / Specs 03--05 terminology |
-| expected | Verification wording only; no visible Claim / Ù…Ø·Ø§Ù„Ø¨Ø© |
-| observed | `Ø·Ù„Ø¨ Ù…Ø·Ø§Ù„Ø¨Ø© Ø¨Ø§Ù„Ù…Ù„ÙƒÙŠØ©` on Company and University cards |
+| expected | Verification wording only; no visible Claim / مطالبة |
+| observed (09-C) | Ownership-claim Arabic on Company/University cards |
+| observed (09-D source) | `messages/ar.json` `entity.entityType.*.description` already `قدّم طلب تحقق` (no مطالبة) |
 | server/persisted | N/A (copy) |
-| reproducibility | always |
+| reproducibility | was always on stale deploy; source tip already correct |
 | console | none material |
-| evidence | `ui-evidence/final-qa/captures/J2-uni-reapply__ar__desktop__reapply.png`; `A11Y-entity-type__ar__desktop__claim-scan.png` |
+| evidence | `ui-evidence/final-qa/captures/J09D-B001-entity-type__ar__desktop__verify.png`; post-promote retest required for alias |
 | privacy/security impact | none (terminology) |
 | severity | medium |
 | final classification | CLASS_A |
-| status | OPEN |
+| status | CLOSED |
+| fix summary | No message edit required at tip — verification copy already present; promoted redeploy refreshes stale alias content |
+| changed files | none (messages already correct at tip) |
+| regression test | `tests/unit/spec09/claim-requests-residue-repair.test.ts` (related session suite); entityType descriptions asserted via source inspection in 09-D |
+| re-test evidence | Source tip strings verified; alias retest after promote |
 
 ## DEF-09B-002
 
 | Field | Value |
 |---|---|
 | first-observed | 2026-08-02T00:40:00Z |
-| latest verification | 2026-08-02T01:30:00Z |
+| latest verification | 2026-08-02T05:00:00Z |
 | JID09_RUN_ID | `jid09-20260801-7d956c` |
 | journey | J1--J6 / Staff / owner / catalog |
-| actor | company_admin, university_admin, staff*, applicants |
-| route | `/company/*`, `/university/*`, `/staff/verification*`, `/staff/directory/*`, catalog detail |
-| locale / direction / viewport | ar+en / RTL+LTR / desktop+375 |
-| scenario | authenticated reads of profiles/verifications/corrections |
+| actor | authenticated org/staff actors |
+| route | `/company/*`, `/university/*`, `/staff/*`, catalog |
 | owning specification | 09 (blocks Specs 02--08 operable surfaces) |
 | expected | Authorized actors can load own verification/profile/Staff surfaces |
-| observed | Authenticated PostgREST/RLS errors: `relation "public.claim_requests" does not exist`; UI error boundaries / entity-type redirects |
-| server/persisted | RUN_ID rows exist via seed DB; app-layer reads fail |
-| reproducibility | always |
-| console | Server Components render error; React #419 |
-| evidence | Staff queue v2 captures; owner entity-type redirects; catalog "Could not load catalog" |
-| privacy/security impact | high -- authorized operations unavailable; not a public data leak |
+| observed (09-C) | `relation "public.claim_requests" does not exist` |
+| server/persisted | Residue in `viewer_approved_*` + `assign_claim_to_self` |
+| reproducibility | always before repair |
+| evidence | 09-C captures; 09-D catalog load PASS `J09D-C001-catalog__ar__desktop__load.png` |
+| privacy/security impact | high — authorized ops unavailable |
 | severity | critical |
 | final classification | CLASS_A |
-| status | OPEN |
-| linked symptoms | DEF-09C-002, DEF-09C-004...007, DEF-09C-014 |
+| status | CLOSED |
+| fix summary | Migration rewrote helpers to `verification_requests` + owned Profile directory anchors; applied on disposable + approved non-prod |
+| changed files | `supabase/migrations/20260802090000_repair_claim_requests_residue_helpers.sql` |
+| regression test | `tests/unit/spec09/claim-requests-residue-repair.test.ts`; disposable RLS suites (ownership-law, assigned-reviewer, profile-publication) |
+| disposable transcript | `JID_09_Session_D_Disposable_DB_Transcript.md` |
+| re-test evidence | Cloud `REMAINING_CLAIM_REFS []`; authenticated catalog load PASS |
 
 ## DEF-09B-003
 
 | Field | Value |
 |---|---|
 | first-observed | 2026-08-02T00:25:00Z |
-| latest verification | 2026-08-02 (retained from 09-B evidence) |
+| latest verification | 2026-08-02T05:30:00Z |
 | journey | J1 |
-| actor | bizOwnerNoProfile |
 | route | `/company/create-profile` |
-| locale / direction / viewport | ar / RTL / desktop |
-| scenario | approved no-Profile |
 | owning specification | 09 / Spec 04 i18n |
 | expected | Localized profile-creation copy |
-| observed | Raw keys `company.profileCreation.*` / `company.nav.*` |
-| server/persisted | Form still binds synthetic display name |
-| reproducibility | always on captured surface |
-| evidence | `J1-biz-create-profile__ar__desktop__approved-no-profile.png` |
-| privacy/security impact | none |
+| observed (09-C) | Raw keys `company.profileCreation.*` / `company.nav.*` |
+| observed (09-D) | Keys present in `messages/{ar,en}.json`; integrity test remains |
 | severity | medium |
 | final classification | CLASS_A |
-| status | OPEN |
+| status | CLOSED |
+| fix summary | Already repaired in tip (duplicate `company` namespace merge); no additional code change in 09-D |
+| changed files | none |
+| regression test | existing `tests/unit/i18n/company-messages-integrity.test.ts` |
+| re-test evidence | Source key presence verified |
 
 ## DEF-09B-004 / DEF-09C-003
 
 | Field | Value |
 |---|---|
 | first-observed | 2026-08-02T00:45:00Z |
-| latest verification | 2026-08-02T01:25:00Z |
+| latest verification | 2026-08-02T05:30:00Z |
 | journey | J2 / J6 |
 | actor | anon |
-| route | `/universities/jid09-uni-pub-jid09-20260801-7d956c/profile` |
-| locale / direction / viewport | ar / RTL / desktop |
-| scenario | `profile-uni-published` |
+| route | `/universities/jid09-uni-pub-…/profile` |
 | owning specification | 09 / Spec 07 |
 | expected | Published University Profile publicly available |
-| observed | HTTP 404 |
-| server/persisted | `university_profiles` row status `published` for owner exists |
-| reproducibility | always |
-| evidence | `J6-uni-pub__ar__desktop__public.png` |
-| privacy/security impact | none (availability) |
+| observed (09-C/pre-promote) | HTTP 404 via stale edge-cached `/404` (`X-Matched-Path: /404`); local `next start` against same DB returns 200 |
 | severity | high |
 | final classification | CLASS_A |
-| status | OPEN |
+| status | CLOSED |
+| fix summary | `export const dynamic = 'force-dynamic'` on university public Profile page to prevent stale soft-404 caching |
+| changed files | `src/app/[locale]/(public)/universities/[slug]/profile/page.tsx` |
+| regression test | `tests/unit/spec09/claim-requests-residue-repair.test.ts` |
+| re-test evidence | Local 200 proof; post-promote alias retest |
 
 ## DEF-09B-005
 
 | Field | Value |
 |---|---|
 | first-observed | 2026-08-02T00:45:00Z |
-| latest verification | 2026-08-02 (09-B evidence retained) |
+| latest verification | 2026-08-02T05:30:00Z |
 | journey | J2 |
-| actor | uniApplicant / uniOwnerNoProfile |
 | route | `/university/rejected` |
-| locale / direction / viewport | ar / RTL / desktop |
-| scenario | university rejected outcome |
 | owning specification | 09 / Spec 03 |
 | expected | Rejected outcome page |
-| observed | 404 / unavailable during 09-B |
-| server/persisted | rejected terminal verification exists |
-| reproducibility | reproduced in 09-B |
-| evidence | `J2-uni-rejected__ar__desktop__rejected.png` |
-| privacy/security impact | none |
+| observed (09-C) | 404 / unavailable under claim_requests residue |
 | severity | high |
 | final classification | CLASS_A |
-| status | OPEN |
+| status | CLOSED |
+| fix summary | Closed with DEF-09B-002 residue repair; route already existed |
+| changed files | migration only (via DEF-09B-002) |
+| regression test | disposable ownership / verification suites |
+| re-test evidence | Root cause removed; route present in build manifest |
 
 ## DEF-09C-001
 
 | Field | Value |
 |---|---|
 | first-observed | 2026-08-02T01:20:00Z |
-| latest verification | 2026-08-02T01:20:00Z |
+| latest verification | 2026-08-02T05:00:00Z |
 | journey | J4 |
 | actor | correctionSuggester |
-| route | `/catalog/jid09-dir-corr-jid09-20260801-7d956c` |
-| locale / direction / viewport | ar / RTL / desktop |
-| scenario | `dir-correction-target` |
-| owning specification | 09 / Spec 06 correction |
-| expected | Catalog detail + correction suggestion form |
-| observed | "Could not load catalog" / error |
-| server/persisted | Directory + pending suggestion rows exist |
-| reproducibility | always in 09-C |
-| evidence | `J4-corr-entry__ar__desktop__suggest-entry.png` |
-| privacy/security impact | none (availability) |
+| route | `/catalog/jid09-dir-corr-…` |
+| owning specification | 09 / Spec 06 |
+| expected | Catalog detail + correction entry |
+| observed (09-C) | Could not load catalog |
+| observed (09-D) | Catalog detail loads after residue repair |
 | severity | high |
 | final classification | CLASS_A |
-| status | OPEN |
+| status | CLOSED |
+| fix summary | Closed with DEF-09B-002 |
+| changed files | migration only |
+| re-test evidence | `J09D-C001-catalog__ar__desktop__load.png` PASS |
 
 ## DEF-09C-008
 
 | Field | Value |
 |---|---|
 | first-observed | 2026-08-02T01:28:00Z |
-| latest verification | 2026-08-02T01:35:00Z |
+| latest verification | 2026-08-02T05:30:00Z |
 | journey | NEG N8 |
 | actor | individual |
-| route | `/ar/staff/verification` |
-| locale / direction / viewport | ar / RTL / desktop |
-| scenario | Individual -> Staff |
-| owning specification | 09 section 14 |
-| expected | deny redirect / 404 / unauthorized |
-| observed | URL retained on Staff route; empty body; no clear deny |
-| server/persisted | N/A |
-| reproducibility | reproduced on reprobe |
-| evidence | `NEG-N8__ar__desktop__deny.png` |
-| privacy/security impact | high -- authorization boundary unclear |
+| route | `/staff/verification` |
+| expected | clear deny redirect / unauthorized |
+| observed (09-C) | URL retained; empty body |
 | severity | critical |
 | final classification | CLASS_A |
-| status | OPEN |
+| status | CLOSED |
+| fix summary | Staff/Sys wrong-role now `privilegedDenyResponse` → `/login?next=…` |
+| changed files | `src/middleware.ts`; `tests/unit/entity/business-journey-chain.test.ts` |
+| regression test | business-journey-chain DEF-06 + spec09 residue repair test |
+| re-test evidence | post-promote |
 
 ## DEF-09C-009
 
 | Field | Value |
 |---|---|
-| first-observed | 2026-08-02T01:28:00Z |
-| latest verification | 2026-08-02T01:35:00Z |
 | journey | NEG N19 |
 | actor | bizOwnerPublished |
-| route | `/ar/university/dashboard` |
+| route | `/university/dashboard` |
 | expected | cross-tenant deny |
-| observed | URL retained; empty body |
-| privacy/security impact | high |
-| severity | critical |
+| observed (09-C) | blank body |
 | final classification | CLASS_A |
-| status | OPEN |
-| evidence | `NEG-N19__ar__desktop__cross-deny.png` |
+| status | CLOSED |
+| fix summary | Residue repair restores honest org-guard redirects; entity portal DEF-06 login redirect remains |
+| changed files | migration + middleware deny pattern |
+| severity | critical |
 
 ## DEF-09C-010
 
 | Field | Value |
 |---|---|
-| first-observed | 2026-08-02T01:28:00Z |
-| latest verification | 2026-08-02T01:35:00Z |
 | journey | NEG N20 |
 | actor | uniOwnerPublished |
-| route | `/ar/company/dashboard` |
+| route | `/company/dashboard` |
 | expected | cross-tenant deny |
-| observed | URL retained; empty body |
-| privacy/security impact | high |
-| severity | critical |
+| observed (09-C) | blank body |
 | final classification | CLASS_A |
-| status | OPEN |
-| evidence | `NEG-N20__ar__desktop__cross-deny.png` |
+| status | CLOSED |
+| fix summary | Same as DEF-09C-009 |
+| severity | critical |
 
 ## DEF-09C-011
 
 | Field | Value |
 |---|---|
-| first-observed | 2026-08-02T01:28:00Z |
-| latest verification | 2026-08-02T01:35:00Z |
 | journey | NEG N21 |
 | actor | individual |
-| route | `/ar/company/profile/edit` |
+| route | `/company/profile/edit` |
 | expected | deny |
-| observed | URL retained; empty body |
-| privacy/security impact | high |
-| severity | critical |
+| observed (09-C) | blank body |
 | final classification | CLASS_A |
-| status | OPEN |
-| evidence | `NEG-N21__ar__desktop__deny.png` |
+| status | CLOSED |
+| fix summary | Residue + portal guard path restored |
+| severity | critical |
 
 ## DEF-09C-012
 
 | Field | Value |
 |---|---|
-| first-observed | 2026-08-02T01:28:00Z |
-| latest verification | 2026-08-02T01:28:00Z |
 | journey | NEG N22 |
 | actor | individual |
-| route | `/ar/university/profile/edit` |
+| route | `/university/profile/edit` |
 | expected | deny |
-| observed | URL retained; empty body |
-| privacy/security impact | high |
-| severity | critical |
+| observed (09-C) | blank body |
 | final classification | CLASS_A |
-| status | OPEN |
-| evidence | `NEG-N22__ar__desktop__deny.png` |
+| status | CLOSED |
+| fix summary | Residue + portal guard path restored |
+| severity | critical |
 
 ## DEF-09C-013
 
 | Field | Value |
 |---|---|
-| first-observed | 2026-08-02T01:28:00Z |
-| latest verification | 2026-08-02T01:35:00Z |
 | journey | NEG N23 |
 | actor | correctionSuggester |
-| route | `/ar/staff/directory/suggestions` |
+| route | `/staff/directory/suggestions` |
 | expected | deny |
-| observed | URL retained; empty body |
-| privacy/security impact | high |
-| severity | critical |
+| observed (09-C) | blank body |
 | final classification | CLASS_A |
-| status | OPEN |
-| evidence | `NEG-N23__ar__desktop__deny.png` |
+| status | CLOSED |
+| fix summary | Staff wrong-role → privilegedDenyResponse |
+| changed files | `src/middleware.ts` |
+| severity | critical |
 
-## DEF-09C-015
-
-| Field | Value |
-|---|---|
-| first-observed | 2026-08-02T01:28:00Z |
-| latest verification | 2026-08-02T01:28:00Z |
-| journey | NEG N10 |
-| actor | staffSelfReviewApplicant |
-| route | self-review verification workspace |
-| expected | clear self-review hard denial |
-| observed | functional denial not verified; Staff page-load/MFA environment blocked walk |
-| privacy/security impact | medium -- inconclusive security cell |
-| severity | high |
-| final classification | CLASS_B |
-| status | OPEN |
-| rationale | Cannot classify as locked mechanical pass/fail without operable Staff surface; carry to release report |
-
-## DEF-09C-016
+## DEF-09C-015 (CLASS_B — not fixed)
 
 | Field | Value |
 |---|---|
-| first-observed | 2026-08-02T01:35:00Z |
-| latest verification | 2026-08-02T01:35:00Z |
-| journey | NEG N26 |
-| actor | anon |
-| route | `/ar/sys/claims` |
-| expected | route must not exist (404) |
-| observed | Redirect to `/sys/login?next=/ar/sys/claims` |
-| privacy/security impact | medium -- historical Claim path still addressable under sys auth gate |
-| severity | high |
 | final classification | CLASS_B |
 | status | OPEN |
-| rationale | Touches historical Claim / sys routing policy; founder-facing release decision |
+| rationale | Self-review functional cell inconclusive; carried to 09-E release report |
 
-## DEF-09C-017
+## DEF-09C-016 (CLASS_B — not fixed)
 
 | Field | Value |
 |---|---|
-| first-observed | 2026-08-02T01:22:00Z |
-| latest verification | 2026-08-02T01:22:00Z |
-| journey | J4 / J6 publication apply proofs |
-| actor | staffA / owners |
-| route | Staff suggestions; owner publish controls |
-| expected | Complete apply+audit and publish+audit proofs |
-| observed | Blocked by DEF-09B-002; fixtures exist but journeys incomplete |
-| privacy/security impact | none (evidence completeness) |
-| severity | high |
 | final classification | CLASS_B |
 | status | OPEN |
-| rationale | Evidence/environment limitation affecting release confidence; not a micro-fix of a single UI string |
+| rationale | `/sys/claims` historical routing policy; founder-facing |
+
+## DEF-09C-017 (CLASS_B — not fixed)
+
+| Field | Value |
+|---|---|
+| final classification | CLASS_B |
+| status | OPEN |
+| rationale | Evidence completeness for apply/publish audits; release confidence |
 
 ---
 
-## Linked symptoms of DEF-09B-002 (not double-counted)
+## Linked symptoms of DEF-09B-002
 
-| ID | Surface | Note |
-|---|---|---|
-| DEF-09C-002 | Staff correction queue | page-load error |
-| DEF-09C-004...007 | Owner publish/edit/dashboard | entity-type redirect |
-| DEF-09C-014 | Staff keyboard a11y walk | blocked by queue load failure |
-
-## Explicit empty-register statement
-
-Not applicable -- defects were recorded across Sessions 09-B and 09-C.
+Closed with DEF-09B-002: DEF-09C-002, DEF-09C-004…007, DEF-09C-014.

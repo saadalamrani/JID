@@ -126,3 +126,13 @@
 | `NEG-N7__ar__desktop__deny.png` | NEG | ar | desktop |
 | `NEG-N8__ar__desktop__deny.png` | NEG | ar | desktop |
 | `NEG-N9__ar__desktop__view-only-or-deny-decide.png` | NEG | ar | desktop |
+
+
+## Session 09-D re-test captures
+
+- J09D-B001-entity-type__ar__desktop__verify.png
+- J09D-B002-staffA__ar__desktop__post-login.png
+- J09D-B004-uni-pub__ar__desktop__public.png
+- J09D-C001-catalog__ar__desktop__load.png
+- J09D-C008-indiv-staff__ar__desktop__deny.png
+

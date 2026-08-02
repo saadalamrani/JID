@@ -45,8 +45,21 @@ function shouldSkipAuth(pathname: string): boolean {
   return SKIP_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))
 }
 
+/** Feature-flag off: empty 404 (no protected shell). Not used for wrong-role Staff/Sys. */
 function notFoundResponse(): NextResponse {
   return new NextResponse(null, { status: 404 })
+}
+
+/**
+ * Honest unauthorized for privileged portals.
+ * Never return an empty-body 404 that retains a protected URL with a blank page
+ * (Spec 09 DEF-09C-008/013). Prefer a visible deny redirect.
+ */
+function privilegedDenyResponse(
+  request: NextRequest,
+  pathname: string,
+): NextResponse {
+  return redirectTo(request, '/login', { next: pathname })
 }
 
 function redirectTo(request: NextRequest, path: string, query?: Record<string, string>): NextResponse {
@@ -94,7 +107,7 @@ async function handleSuperAdminPortal(
   }
 
   if (!isRoleAllowed(session.role, ['super_admin'])) {
-    return notFoundResponse()
+    return privilegedDenyResponse(request, pathname)
   }
 
   if (!session.isAal2) {
@@ -140,7 +153,7 @@ async function handleStaffPortal(
   }
 
   if (!isRoleAllowed(session.role, PRIVILEGED_STAFF_ROLES)) {
-    return notFoundResponse()
+    return privilegedDenyResponse(request, pathname)
   }
 
   if (!session.isAal2) {
