@@ -1,0 +1,55 @@
+﻿probed_at=2026-08-02T11:05:01.4238803+03:00
+promoted_sha=fdaf5d1a1d6325073b890bffdbbfdbf1765893f5
+--- claims alias ---
+HTTP/1.1 307 Temporary Redirect
+Cache-Control: public, max-age=0, must-revalidate
+Content-Type: text/plain
+Date: Sun, 02 Aug 2026 08:05:02 GMT
+Location: /en/sys/login?next=%2Fen%2Fsys%2Fclaims
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+Referrer-Policy: origin-when-cross-origin
+Server: Vercel
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+X-Dns-Prefetch-Control: on
+X-Frame-Options: SAMEORIGIN
+X-Robots-Tag: noindex, nofollow
+X-Vercel-Id: bom1::fnlkr-1785657902345-f6a37ae917f6
+
+--- uni en alias ---
+HTTP/1.1 404 Not Found
+Accept-Ranges: bytes
+Access-Control-Allow-Origin: *
+Age: 27339
+Cache-Control: public, max-age=0, must-revalidate
+Content-Disposition: inline; filename="404"
+Content-Length: 7726
+Content-Type: text/html; charset=utf-8
+Date: Sun, 02 Aug 2026 08:05:03 GMT
+Etag: "2d525008e87a534db5739955b630f62e"
+Last-Modified: Sun, 02 Aug 2026 00:29:23 GMT
+Link: <https://jid-dev.vercel.app/universities/jidrem-uni-pub-jid-rem-20260802-7535ec/profile>; rel="alternate"; hreflang="ar", <https://jid-dev.vercel.app/en/universities/jidrem-uni-pub-jid-rem-20260802-7535ec/profile>; rel="alternate"; hreflang="en", <https://jid-dev.vercel.app/universities/jidrem-uni-pub-jid-rem-20260802-7535ec/profile>; rel="alternate"; hreflang="x-default"
+Permissions-Policy: camera=(), microphone=(), geolocation=()
+Referrer-Policy: origin-when-cross-origin
+Server: Vercel
+Set-Cookie: NEXT_LOCALE=en; Path=/; Expires=Mon, 02 Aug 2027 08:05:03 GMT; Max-Age=31536000; SameSite=lax
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+X-Content-Type-Options: nosniff
+X-Dns-Prefetch-Control: on
+X-Frame-Options: SAMEORIGIN
+X-Matched-Path: /404
+X-Next-Error-Status: 404
+X-Pathname: /en/universities/jidrem-uni-pub-jid-rem-20260802-7535ec/profile
+X-Vercel-Cache: HIT
+X-Vercel-Id: bom1::md7dk-1785657903260-85b71aec918f
+
+--- biz control ---
+HTTP/1.1 200 OK
+X-Matched-Path: /[locale]/companies/[slug]/profile
+X-Vercel-Cache: MISS
+X-Vercel-Id: bom1::fra1::wqtrc-1785657904134-fd797d04512c
+--- vercel statuses ---
+--- mirror/main ---
+fdaf5d1a1d6325073b890bffdbbfdbf1765893f5	refs/heads/agent/nonprod-signup-fix
+b29846b644ab2d94ec1d88b3a0954f2f30276452	refs/heads/agent/nonprod-signup-form
+23997d53be91618fabb30f038753575a245dd305	refs/heads/main

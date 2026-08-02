@@ -46,8 +46,8 @@ Synthetic-only, non-production, RUN_ID-scoped actors and Profiles under `jid-rem
 | root cause | Middleware treated retired path as Super Admin portal surface. |
 | fix | `isRetiredSysClaimsPath` → hard `notFoundResponse()` before portal handling. External claim.* / claim_id contracts preserved. |
 | tests | `tests/unit/security/staff-system-claim-surface-cleanup.test.ts` |
-| live re-test | Local PASS 404; post-promote deploy must return hard 404 (not login). |
-| status | CLOSED (with post-promote verification required) |
+| live re-test | Local PASS 404; **live alias FAIL** — still 307 to `/sys/login?next=…/sys/claims` after promote (`post-promote-live-probe.txt`) |
+| status | OPEN (code landed; live alias residual) |
 
 ## DEF-09C-017 — Apply and publish audit proof
 
@@ -125,15 +125,21 @@ None that remained open after fix. Nonprod migration lag treated as environment 
 
 Performed at program end for RUN_ID-owned rows; verify via safe reads. Shared seed accounts retained by policy.
 
-## Final declaration (fill after gates)
+## Final declaration
 
 | Field | Value |
 |---|---|
-| final open release-defect count | _pending promote verification_ |
-| declaration | _pending_ |
-| implementation SHA | _pending_ |
-| promoted SHA | _pending_ |
-| validation CI | _pending_ |
-| target CI | _pending_ |
-| Vercel | _pending_ |
-| Production Readiness Review allowed | only if `ZERO_KNOWN_OPEN_RELEASE_DEFECTS` |
+| final open release-defect count | cannot claim 0 while live alias gate fails (register CLOSED for 015–017 with code/evidence; live alias residual remains a release presentability blocker) |
+| declaration | **RELEASE_REMEDIATION_BLOCKED_WITH_EXACT_CAUSE** |
+| exact cause | After FF-promote of `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5` to `agent/nonprod-signup-fix`, GitHub Vercel Preview for jid-dev reports success, but public alias `https://jid-dev.vercel.app` still serves pre-remediation behavior: `/sys/claims` → 307 login funnel (middleware fix absent on alias); published university Profile sticky `X-Matched-Path: /404` with `Age: 27339` / `Last-Modified: 2026-08-02T00:29:23Z`. Preview deployment URLs are SSO-protected, so alias is the only public verification surface and it has not flipped. No Vercel token available in this agent environment to reassign the domain. |
+| implementation SHA | `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5` |
+| promoted SHA | `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5` |
+| validation CI | PASS — run `30738525542` |
+| target CI | PASS — run `30738669137` |
+| Vercel Preview | READY — https://vercel.com/jidplatform/jid-dev/9St1XZybzZH9knkDSx68kTKz26GJ |
+| Vercel alias live gate | FAIL — see `ui-evidence/post-spec09-remediation/post-promote-live-probe.txt` |
+| fixture cleanup | RETAINED with explicit reason — `fixture-cleanup-result.md` |
+| Production Readiness Review allowed | **no** |
+| local validation | PASS — diff-check; frozen install; lint; type-check; test 384 passed / 101 skipped; build |
+| main / production / mirror | untouched; mirror remains `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| Spec 09 history | SHIPPED / CLOSED unchanged |
