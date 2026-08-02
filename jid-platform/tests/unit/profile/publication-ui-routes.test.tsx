@@ -227,8 +227,9 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
     const migrations = readdirSync(MIGRATIONS).filter((name) => name.endsWith('.sql')).sort()
     const later = migrations.filter((name) => name > '20260730190003_profile_publication_rpcs.sql')
     // Spec 09-D: claim_requests → verification_requests helper repair only.
-    expect(later).toEqual(['20260802090000_repair_claim_requests_residue_helpers.sql'])
-    const repair = readFileSync(join(MIGRATIONS, later[0]), 'utf-8')
+    const allowed = '20260802090000_repair_claim_requests_residue_helpers.sql'
+    expect(later).toEqual([allowed])
+    const repair = readFileSync(join(MIGRATIONS, allowed), 'utf-8')
     expect(repair).not.toMatch(/publish_business_profile|publish_university_profile/)
     expect(repair).toMatch(/viewer_approved_company_id/)
   })
