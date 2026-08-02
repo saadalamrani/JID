@@ -1,11 +1,11 @@
 # JID Final Release Report — Specifications 02 through 09
 
-**Session:** 09-E  
-**JID09_RUN_ID:** `jid09-20260801-7d956c`  
-**Canonical integration branch:** `agent/nonprod-signup-fix`  
-**Approved non-production Supabase project:** `hmjuijmaefajdjrjdsxu`  
-**Deployed non-production app:** `https://jid-dev.vercel.app`  
-**Report date (UTC):** 2026-08-02  
+**Session:** 09-E
+**JID09_RUN_ID:** `jid09-20260801-7d956c`
+**Canonical integration branch:** `agent/nonprod-signup-fix`
+**Approved non-production Supabase project:** `hmjuijmaefajdjrjdsxu`
+**Deployed non-production app:** `https://jid-dev.vercel.app`
+**Report date (UTC):** 2026-08-02
 
 ---
 
@@ -167,7 +167,7 @@ Session 09-D closed middleware empty-body FAILs (DEF-09C-008…013) and residue-
 | CLASS_B | 3 | OPEN (carried through 09-E; not closed by program end) |
 | Linked symptoms of DEF-09B-002 | — | CLOSED with DEF-09B-002 |
 
-Open: DEF-09C-015, DEF-09C-016, DEF-09C-017.  
+Open: DEF-09C-015, DEF-09C-016, DEF-09C-017.
 Closed: DEF-09B-001…005, DEF-09C-001, DEF-09C-008…013 (+ linked symptoms).
 
 ## 20. Known limitations
