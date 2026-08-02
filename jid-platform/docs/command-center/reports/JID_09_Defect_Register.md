@@ -1,9 +1,9 @@
 # JID Spec 09 — Defect Register (running)
 
-**Session ownership:** opened in 09-B; final CLASS_A / CLASS_B owned by 09-C  
-**JID09_RUN_ID:** `jid09-20260801-7d956c`  
-**Environment:** non-production only (`hmjuijmaefajdjrjdsxu`, `https://jid-dev.vercel.app`)  
-**Status convention:** all rows below are `OPEN`  
+**Session ownership:** opened in 09-B; final CLASS_A / CLASS_B owned by 09-C
+**JID09_RUN_ID:** `jid09-20260801-7d956c`
+**Environment:** non-production only (`hmjuijmaefajdjrjdsxu`, `https://jid-dev.vercel.app`)
+**Status convention:** all rows below are `OPEN`
 **Product fixes in 09-B:** none
 
 ## Environment blocker (affects Journeys 1–3)
@@ -153,3 +153,4 @@ This is observed via the approved non-production binding (no secrets recorded). 
 - Suspended Business public denial capture retained for 09-C continuity.
 - Deferred Staff evidence viewer / request-more-information not asserted as working.
 - Snapshot-present University dashboard remains an environment limitation when owner routes cannot load (see DEF-09B-002); not fabricated.
+
