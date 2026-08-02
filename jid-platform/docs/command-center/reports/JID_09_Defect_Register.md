@@ -8,14 +8,14 @@
 **Session 09-E result:** COMPLETE — locked-program audit + release report + fixture cleanup
 **Release declaration:** PROGRAM_PARTIALLY_SHIPPED
 **Release report path:** `docs/command-center/reports/JID_Final_Release_Report.md`
-**CLASS_B defects:** remain OPEN at program close (not closed merely because Spec 09 ended)
+**CLASS_B defects:** were OPEN at Spec 09 program close (PROGRAM_PARTIALLY_SHIPPED); closed later in Post-Spec 09 Release Remediation (see closeout section; Spec 09 history not rewritten)
 
 ## Classification summary
 
 | Class | Count | IDs |
 |---|---|---|
 | CLASS_A closed in 09-D | 12 | DEF-09B-001, DEF-09B-002, DEF-09B-003, DEF-09B-004, DEF-09B-005, DEF-09C-001, DEF-09C-008, DEF-09C-009, DEF-09C-010, DEF-09C-011, DEF-09C-012, DEF-09C-013 |
-| CLASS_B open (carried) | 3 | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
+| CLASS_B open at Spec 09 close (carried) | 3 | DEF-09C-015, DEF-09C-016, DEF-09C-017 — CLOSED in Post-Spec 09 Release Remediation |
 | Duplicate/symptom of DEF-09B-002 (not separately counted) | -- | DEF-09C-002, DEF-09C-004, DEF-09C-005, DEF-09C-006, DEF-09C-007, DEF-09C-014 -> closed with DEF-09B-002 |
 
 ---
@@ -245,29 +245,38 @@
 | changed files | `src/middleware.ts` |
 | severity | critical |
 
-## DEF-09C-015 (CLASS_B — not fixed)
+## DEF-09C-015 (CLASS_B — closed in Post-Spec 09 Release Remediation)
 
 | Field | Value |
 |---|---|
 | final classification | CLASS_B |
-| status | OPEN |
-| rationale | Self-review functional cell inconclusive; carried to 09-E release report |
+| status | CLOSED |
+| rationale | Self-review denial proven at RPC (staff + Super Admin override), no mutation, no success audit; UI messaging captured; regression tests strengthened |
+| closed by | Post-Spec 09 Release Remediation `jid-rem-20260802-7535ec` |
+| evidence | `ui-evidence/post-spec09-remediation/live-rpc-audit-proof.md`; keyboard `KB-self-review__ar__desktop.png` |
+| changed files | `tests/rls/verification-assigned-reviewer.rls.test.ts`; `tests/unit/staff/verification-assigned-reviewer-action.test.ts` |
 
-## DEF-09C-016 (CLASS_B — not fixed)
-
-| Field | Value |
-|---|---|
-| final classification | CLASS_B |
-| status | OPEN |
-| rationale | `/sys/claims` historical routing policy; founder-facing |
-
-## DEF-09C-017 (CLASS_B — not fixed)
+## DEF-09C-016 (CLASS_B — closed in Post-Spec 09 Release Remediation)
 
 | Field | Value |
 |---|---|
 | final classification | CLASS_B |
-| status | OPEN |
-| rationale | Evidence completeness for apply/publish audits; release confidence |
+| status | CLOSED |
+| rationale | `/sys/claims` hard-404 before Super Admin login funnel; Claim Existing Profile remains cancelled; external claim.* contracts preserved |
+| closed by | Post-Spec 09 Release Remediation `jid-rem-20260802-7535ec` |
+| evidence | local 404; middleware regression in `staff-system-claim-surface-cleanup.test.ts`; post-promote live hard-404 |
+| changed files | `src/middleware.ts`; `tests/unit/security/staff-system-claim-surface-cleanup.test.ts` |
+
+## DEF-09C-017 (CLASS_B — closed in Post-Spec 09 Release Remediation)
+
+| Field | Value |
+|---|---|
+| final classification | CLASS_B |
+| status | CLOSED |
+| rationale | Full Directory correction + Business/University publish/unpublish audit matrix executed live on nonprod with non-duplicated attributed rows; unauthorized denials without fabricated audits |
+| closed by | Post-Spec 09 Release Remediation `jid-rem-20260802-7535ec` |
+| evidence | `ui-evidence/post-spec09-remediation/live-rpc-audit-proof.md`; disposable transcript |
+| changed files | nonprod migration gap apply (approved chain); no fabricated audit rows |
 
 ---
 
@@ -310,6 +319,21 @@ Closed with DEF-09B-002: DEF-09C-002, DEF-09C-004…007, DEF-09C-014.
 | DEF-09C-011 | CLOSED |
 | DEF-09C-012 | CLOSED |
 | DEF-09C-013 | CLOSED |
-| DEF-09C-015 | OPEN CLASS_B |
-| DEF-09C-016 | OPEN CLASS_B |
-| DEF-09C-017 | OPEN CLASS_B |
+| DEF-09C-015 | CLOSED (Post-Spec 09 Release Remediation) |
+| DEF-09C-016 | CLOSED (Post-Spec 09 Release Remediation) |
+| DEF-09C-017 | CLOSED (Post-Spec 09 Release Remediation) |
+
+---
+
+## Post-Spec 09 Release Remediation closeout
+
+| Field | Value |
+|---|---|
+| program | separate post-program remediation (does not reopen Spec 09) |
+| RUN_ID | `jid-rem-20260802-7535ec` |
+| report | `docs/command-center/reports/JID_Post_Spec09_Release_Remediation_Report.md` |
+| starting open CLASS_B | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
+| ending open release defects | 0 (after remediation gates) |
+| OPEN BLOCKED CLASS_A | 0 |
+| Spec 09 program status | remains CLOSED / SHIPPED |
+| Spec 09 release declaration at close | PROGRAM_PARTIALLY_SHIPPED (historical; not rewritten) |

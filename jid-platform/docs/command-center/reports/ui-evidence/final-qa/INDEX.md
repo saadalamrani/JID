@@ -12,7 +12,7 @@
 ## Capture count
 
 - Total PNG captures: 105
-- Includes Journey 1â€“6, NEG matrix, a11y
+- Includes Journey 1-6, NEG matrix, a11y
 
 ## Privacy review
 

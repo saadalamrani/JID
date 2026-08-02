@@ -188,4 +188,27 @@ describe('Spec 02-B action authorization', () => {
     expect(rejectVerificationRequest).not.toHaveBeenCalled()
     expect(rejectVerificationRequestOverride).not.toHaveBeenCalled()
   })
+
+  it('denies self-review reject for super_admin with override before any RPC (DEF-09C-015)', async () => {
+    fakeRole = 'super_admin'
+    fakeUser = { id: 'super-1' }
+    fakeVerification = { applicant_user_id: 'super-1' }
+    const reviewVerification = await importAction()
+
+    const result = await reviewVerification({
+      verificationId: VERIFICATION_ID,
+      decision: 'rejected',
+      reason: VALID_REASON,
+      overrideAssignment: true,
+    })
+
+    expect(result).toEqual({
+      ok: false,
+      error: 'Cannot review your own verification request',
+    })
+    expect(rejectVerificationRequest).not.toHaveBeenCalled()
+    expect(rejectVerificationRequestOverride).not.toHaveBeenCalled()
+    expect(approveVerificationRequest).not.toHaveBeenCalled()
+    expect(approveVerificationRequestOverride).not.toHaveBeenCalled()
+  })
 })

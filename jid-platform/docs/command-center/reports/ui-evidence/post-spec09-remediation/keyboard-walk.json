@@ -1,0 +1,45 @@
+{
+  "steps": [
+    {
+      "name": "authenticated past MFA",
+      "ok": true,
+      "detail": "http://127.0.0.1:3000/staff/verification"
+    },
+    {
+      "name": "queue loaded",
+      "ok": true,
+      "detail": "http://127.0.0.1:3000/staff/verification"
+    },
+    {
+      "name": "focus visible after tab",
+      "ok": true,
+      "detail": "A"
+    },
+    {
+      "name": "request open",
+      "ok": true,
+      "detail": "http://127.0.0.1:3000/staff/verification/b6bd2b83-e5fe-424c-9b27-df22aac35164"
+    },
+    {
+      "name": "validation surfaced or reason focused",
+      "ok": true,
+      "detail": "hintCount=0"
+    },
+    {
+      "name": "375 en capture",
+      "ok": true,
+      "detail": "http://127.0.0.1:3000/en/login?next=%2Fstaff"
+    },
+    {
+      "name": "self-review UI messaging",
+      "ok": true,
+      "detail": "matches=1"
+    },
+    {
+      "name": "local /sys/claims not login funnel",
+      "ok": true,
+      "detail": "404 http://127.0.0.1:3000/ar/sys/claims"
+    }
+  ],
+  "pass": true
+}

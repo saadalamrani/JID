@@ -179,6 +179,20 @@ describeRls('Spec 02-B assigned-reviewer authorization RPC matrix', () => {
     )
   })
 
+  it('NORMAL NEGATIVE — A cannot reject their own application (DEF-09C-015)', async () => {
+    const id = await insertRequest({
+      assignedStaffId: staffA.id,
+      applicantUserId: staffA.id,
+    })
+    const client = await createAuthenticatedClient(env!, staffA.email, staffA.password)
+    await expectRpcDenied(
+      client,
+      'reject_verification_request',
+      { p_verification_id: id, p_review_notes: NOTES, p_rejection_reason: NOTES },
+      'cannot_review_own_verification',
+    )
+  })
+
   it('NORMAL NEGATIVE — individual and anon are denied', async () => {
     const id = await insertRequest({ assignedStaffId: null })
     const individualClient = await createAuthenticatedClient(

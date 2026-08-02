@@ -223,15 +223,27 @@ describe('Spec 07-D — AR/EN publication UI parity', () => {
 })
 
 describe('Spec 07-D — backend contract regression (no migration / RPC edits)', () => {
-  it('does not add publication RPC migrations after Session 07-C (Spec 09-D residue repair allowlisted)', () => {
+  it('does not add publication RPC migrations after Session 07-C (post-Spec09 allowlist)', () => {
     const migrations = readdirSync(MIGRATIONS).filter((name) => name.endsWith('.sql')).sort()
     const later = migrations.filter((name) => name > '20260730190003_profile_publication_rpcs.sql')
-    // Spec 09-D: claim_requests → verification_requests helper repair only.
-    const allowed = '20260802090000_repair_claim_requests_residue_helpers.sql'
-    expect(later).toEqual([allowed])
-    const repair = readFileSync(join(MIGRATIONS, allowed), 'utf-8')
-    expect(repair).not.toMatch(/publish_business_profile|publish_university_profile/)
-    expect(repair).toMatch(/viewer_approved_company_id/)
+    // Spec 09-D residue repair + post-Spec09 university dashboard owner-scope view remap.
+    const allowed = [
+      '20260802090000_repair_claim_requests_residue_helpers.sql',
+      '20260802120000_university_dashboard_view_owner_scope.sql',
+    ]
+    expect(later).toEqual(allowed)
+    for (const name of allowed) {
+      const sql = readFileSync(join(MIGRATIONS, name), 'utf-8')
+      expect(sql).not.toMatch(/CREATE OR REPLACE FUNCTION public\.publish_business_profile/)
+      expect(sql).not.toMatch(/CREATE OR REPLACE FUNCTION public\.publish_university_profile/)
+    }
+    const residueName = allowed[0]!
+    const dashName = allowed[1]!
+    const residue = readFileSync(join(MIGRATIONS, residueName), 'utf-8')
+    expect(residue).toMatch(/viewer_approved_company_id/)
+    const dash = readFileSync(join(MIGRATIONS, dashName), 'utf-8')
+    expect(dash).toMatch(/university_profiles/)
+    expect(dash).toMatch(/owner_user_id/)
   })
 
   it('leaves publication RPC migration content unchanged at known markers', () => {

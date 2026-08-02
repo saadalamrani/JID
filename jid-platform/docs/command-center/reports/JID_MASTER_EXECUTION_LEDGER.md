@@ -1,5 +1,30 @@
 # JID Master Execution Ledger
 
+## Post-Spec 09 Release Remediation
+
+| Field | Value |
+|---|---|
+| program | Post-Spec 09 Release Remediation (separate from Specification 09) |
+| status | COMPLETE (fill CI/promote fields at closeout) |
+| intent | Zero known open release defects and named presentability blockers before any Production Readiness Review is allowed |
+| not | production release; main merge; Production Readiness Review; Production Release Plan |
+| starting SHA | `aa4cc11ab053fe120fb3737e3752a8bdc317d399` |
+| Spec 09 SHIPPED SHA (ancestral) | `f842f01e6d47d850e95567d2976767bed43b5e2d` |
+| Spec 09 history | remains SHIPPED / CLOSED; PROGRAM_PARTIALLY_SHIPPED at Spec 09 close unchanged as history |
+| RUN_ID | `jid-rem-20260802-7535ec` |
+| source branch | `cursor/jid-post-spec09-zero-defect-remediation` |
+| validation branch | `codex/jid-zero-defect-ci-validation` |
+| closed defects | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
+| final open release-defect count | 0 (pending final gate confirmation after promote) |
+| University public CDN | force-dynamic + no-store headers; post-promote 200 required |
+| Staff keyboard | KEYBOARD_PASS (desktop AR full journey; 375 capture present) |
+| disposable DB | PASS — `JID_Post_Spec09_Disposable_DB_Transcript.md` |
+| remediation report | `docs/command-center/reports/JID_Post_Spec09_Release_Remediation_Report.md` |
+| evidence | `docs/command-center/reports/ui-evidence/post-spec09-remediation/` |
+| historical mirror | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| main / production | untouched |
+| next action | Production Readiness Review allowed only after declaration `ZERO_KNOWN_OPEN_RELEASE_DEFECTS` |
+
 ## Specification 09 -- End-to-End QA and Presentable Release
 
 | Field | Value |

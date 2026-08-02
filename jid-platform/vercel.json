@@ -13,6 +13,18 @@
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "Referrer-Policy", "value": "origin-when-cross-origin" }
       ]
+    },
+    {
+      "source": "/universities/:slug/profile",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/:locale/universities/:slug/profile",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, must-revalidate" }
+      ]
     }
   ]
 }

@@ -181,11 +181,21 @@ async function handleStaffPortal(
   return response
 }
 
+/** Retired Claim Existing Profile surface — hard absence (DEF-09C-016). */
+function isRetiredSysClaimsPath(pathname: string): boolean {
+  return /(?:^|\/)sys\/claims(?:\/|$)/.test(pathname)
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (shouldSkipAuth(pathname)) {
     return NextResponse.next()
+  }
+
+  // DEF-09C-016 — /sys/claims must not enter the Super Admin portal login funnel.
+  if (isRetiredSysClaimsPath(pathname)) {
+    return notFoundResponse()
   }
 
   const guard = findMatchingGuard(pathname)

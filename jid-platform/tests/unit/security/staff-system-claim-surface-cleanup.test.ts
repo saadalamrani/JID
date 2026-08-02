@@ -50,6 +50,19 @@ describe('1. No active sys navigation points to /sys/claims', () => {
     const hrefs = SYS_QUICK_ACTIONS.map((action) => action.href)
     expect(hrefs).not.toContain('/sys/claims')
   })
+
+  it('middleware hard-404s retired /sys/claims before Super Admin portal login funnel (DEF-09C-016)', () => {
+    const middleware = read('middleware.ts')
+    expect(middleware).toMatch(/isRetiredSysClaimsPath/)
+    expect(middleware).toMatch(/DEF-09C-016/)
+    // Retired path must return empty 404, not privileged login redirect with next=/sys/claims.
+    const claimsBlock = middleware.slice(
+      middleware.indexOf('isRetiredSysClaimsPath'),
+      middleware.indexOf('const guard = findMatchingGuard'),
+    )
+    expect(claimsBlock).toMatch(/notFoundResponse\(\)/)
+    expect(claimsBlock).not.toMatch(/SYS_LOGIN_PATH|handleSuperAdminPortal/)
+  })
 })
 
 describe('2. No active System dashboard CTA points to a nonexistent Claim route', () => {

@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from 'next/cache'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
@@ -7,8 +8,10 @@ import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { fetchPublishedUniversityProfileBySlug } from '@/lib/queries/published-profile'
 import { truncateForMeta } from '@/types/business-profile-public'
 
-/** Avoid stale edge-cached soft-404s for published university Profiles (DEF-09B-004). */
+/** Avoid stale edge-cached soft-404s for published university Profiles (DEF-09B-004 / post-Spec09). */
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
+export const fetchCache = 'force-no-store'
 
 type UniversityProfilePageProps = {
   params: { locale: string; slug: string }
@@ -25,6 +28,7 @@ function absoluteProfileUrl(slug: string, locale: string) {
 export default async function PublicUniversityProfilePage({
   params,
 }: UniversityProfilePageProps) {
+  noStore()
   const locale = params.locale as Locale
   const dir = localeConfig.direction[locale] ?? 'rtl'
   const data = await fetchPublishedUniversityProfileBySlug(params.slug)

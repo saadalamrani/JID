@@ -1,0 +1,81 @@
+{
+  "cells": [
+    {
+      "name": "RPC surface present",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "university_dashboard_view uses owner_user_id",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "university_dashboard_view not claimed_by",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "self-review deny approve_verification_request",
+      "ok": true,
+      "detail": "cannot_review_own_verification"
+    },
+    {
+      "name": "self-review deny reject_verification_request",
+      "ok": true,
+      "detail": "cannot_review_own_verification"
+    },
+    {
+      "name": "SA override self-review denied",
+      "ok": true,
+      "detail": "cannot_review_own_verification"
+    },
+    {
+      "name": "owner publish",
+      "ok": true
+    },
+    {
+      "name": "publish audit",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "outsider publish denied",
+      "ok": true,
+      "detail": "not_profile_owner"
+    },
+    {
+      "name": "owner unpublish",
+      "ok": true
+    },
+    {
+      "name": "unpublish audit",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "non-staff correction denied",
+      "ok": true,
+      "detail": "insufficient_privileges"
+    },
+    {
+      "name": "staff correction approve",
+      "ok": true
+    },
+    {
+      "name": "city applied",
+      "ok": true,
+      "detail": "Riyadh"
+    },
+    {
+      "name": "correction audit",
+      "ok": true,
+      "detail": "1"
+    }
+  ],
+  "pass": true,
+  "startedAt": "2026-08-02T07:14:46.924Z",
+  "completedAt": "2026-08-02T07:14:54.401Z",
+  "noCloudLink": true,
+  "project": "jid-rem-disposable"
+}
