@@ -40,9 +40,9 @@ Session 09-D promoted implementation SHA (ancestral):
 
 ## 4. Final promoted SHA note
 
-Session 09-E produces a documentation / cleanup-evidence commit on `cursor/jid-09e-release-closeout`, validated on `codex/jid-09e-ci-validation`, then fast-forward promoted to `agent/nonprod-signup-fix`.
+Session 09-E documentation / cleanup-evidence SHA `f842f01e6d47d850e95567d2976767bed43b5e2d` on `cursor/jid-09e-release-closeout`, validated on `codex/jid-09e-ci-validation` (run `30735338964`), fast-forward promoted to `agent/nonprod-signup-fix` (target CI run `30735454051`), Vercel READY (jid-dev + jid-platform).
 
-- Spec 09 **SHIPPED** as QA-release program closeout at the 09-E promoted SHA.
+- Spec 09 **SHIPPED** as QA-release program closeout at `f842f01e6d47d850e95567d2976767bed43b5e2d`.
 - Presentable milestone remains **partial** per section 1.
 - Intervening commit after 09-D promote before 09-E work: `1438f43` — documentation-only Session 09-D CI/Vercel closeout.
 
@@ -57,7 +57,7 @@ Session 09-E produces a documentation / cleanup-evidence commit on `cursor/jid-0
 | 06 | SHIPPED | 06-E | `760b86ade93469fc67ff61d0d95201ae771ee421` | `30595421094` | `30595593660` | `ui-evidence/spec-06/` + disposable transcripts |
 | 07 | SHIPPED | 07-E | tip at 08-A entry `4214040ad2f058af88280a9a7cee7767ef9d89fa` (07-D `b77fca0…`) | PENDING in-ledger | PENDING in-ledger | `ui-evidence/spec-07/` + disposable transcript |
 | 08 | SHIPPED | 08-E | `e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11` | `30716480280` | `30716895763` | `ui-evidence/SPEC_08_CONSOLIDATED_INDEX.md` |
-| 09 | SHIPPED (QA program) | 09-E | *(this session promote)*; 09-D impl `396b86b09a6af8e46dc1d297eb544dcb1f1d857b` | 09-D `30734152499`; 09-E recorded at promote | 09-D `30734274685`; 09-E recorded at promote | Defect Register + `ui-evidence/final-qa/` |
+| 09 | SHIPPED (QA program) | 09-E | `f842f01e6d47d850e95567d2976767bed43b5e2d` (09-D impl `396b86b09a6af8e46dc1d297eb544dcb1f1d857b`) | 09-E `30735338964`; 09-D `30734152499` | 09-E `30735454051`; 09-D `30734274685` | Defect Register + `ui-evidence/final-qa/` |
 
 All listed SHAs verified as commits ancestral to tip `1438f43…` at 09-E entry.
 
@@ -216,7 +216,11 @@ Session 09-D CI/Vercel (implementation):
 - Target CI PASS run `30734274685` @ `396b86b…`
 - Vercel READY for `396b86b…` (jid-dev + jid-platform)
 
-Session 09-E CI/Vercel: recorded in ledger at promote time.
+Session 09-E CI/Vercel:
+
+- Validation CI PASS run `30735338964` @ `f842f01…`
+- Target CI PASS run `30735454051` @ `f842f01…`
+- Vercel READY for `f842f01…` (jid-dev + jid-platform)
 
 ## 24. Rollback points
 
@@ -226,7 +230,7 @@ Session 09-E CI/Vercel: recorded in ledger at promote time.
 | Spec 08 SHIPPED | `e65134c1dc0fc7b3798650a2f2c8ae7dd8842e11` |
 | Session 09-D implementation | `396b86b09a6af8e46dc1d297eb544dcb1f1d857b` |
 | Tip at 09-E entry | `1438f437af964aa96a22e0cae7cf8cac4fe86a5e` |
-| Session 09-E promote | *(final SHA after FF)* |
+| Session 09-E promote | `f842f01e6d47d850e95567d2976767bed43b5e2d` |
 
 ## 25. Fixture cleanup
 

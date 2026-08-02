@@ -41,11 +41,11 @@
 | rollback points | 8bf6bac… (pre-08-E); e65134c… (08 SHIPPED); 396b86b… (09-D); 1438f43… (09-E entry) |
 | Session E source branch | cursor/jid-09e-release-closeout |
 | Session E CI branch | codex/jid-09e-ci-validation |
-| Session E implementation SHA | PENDING_PROMOTE |
-| Session E validation CI | PENDING_PROMOTE |
-| Session E promoted SHA | PENDING_PROMOTE |
-| Session E target CI | PENDING_PROMOTE |
-| Session E Vercel | PENDING_PROMOTE |
+| Session E implementation SHA | f842f01e6d47d850e95567d2976767bed43b5e2d |
+| Session E validation CI | PASS — GitHub Actions CI/Quality Gate run 30735338964 for codex/jid-09e-ci-validation at f842f01e6d47d850e95567d2976767bed43b5e2d |
+| Session E promoted SHA | f842f01e6d47d850e95567d2976767bed43b5e2d |
+| Session E target CI | PASS — GitHub Actions CI/Quality Gate run 30735454051 for agent/nonprod-signup-fix at f842f01e6d47d850e95567d2976767bed43b5e2d |
+| Session E Vercel | PASS — READY for f842f01e6d47d850e95567d2976767bed43b5e2d: jid-dev https://vercel.com/jidplatform/jid-dev/DwzfRkYxhnuBDsnjMG9rrzaDqXre; jid-platform https://vercel.com/jidplatform/jid-platform/GdsqCT1ic2DuxuwJqaLhJw1SPjP5 |
 | no production access | confirmed |
 | no unauthorized database architecture change | confirmed (09-E: fixture data cleanup only; no migration/schema/RLS/RPC/grant/view/trigger) |
 | historical mirror | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
@@ -53,7 +53,8 @@
 | Session 09-D retained detail | COMPLETE -- CLASS_A 12/12 closed; validation CI 30734152499; target CI 30734274685; Vercel READY for 396b86b… |
 | Session 09-C promoted SHA | d7de682adb023867ee69ad5f708e93672eb40a6c |
 | Session D completion token | SPEC_09_SESSION_D_COMPLETE 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
-| Session E completion token | PENDING_PROMOTE |
+| Session E completion token | SPEC_09_SHIPPED f842f01e6d47d850e95567d2976767bed43b5e2d |
+| Session E ledger-closeout note | A later documentation-only ledger-fill commit may advance the tip; it does not change the Session 09-E Spec 09 SHIPPED promoted SHA. Future gates must verify f842f01e6d47d850e95567d2976767bed43b5e2d is equal to or ancestral to the current canonical tip. |
 
 ## Specification 08 — Dashboards and UI Implementation
 
