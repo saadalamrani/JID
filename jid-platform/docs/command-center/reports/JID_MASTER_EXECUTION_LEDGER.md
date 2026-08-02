@@ -48,7 +48,7 @@
 | Session B promoted SHA | 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
 | Session C source branch | cursor/jid-09c-journeys-4-6-negative |
 | Session C CI branch | codex/jid-09c-ci-validation |
-| Session C implementation SHA | _(filled after commit)_ |
+| Session C implementation SHA | 60c30d7abc25270c9d9066f11c6cc64d918a3c79 |
 | Session C validation CI | _(filled after CI)_ |
 | Session C promoted SHA | _(filled after fast-forward)_ |
 | Session C target CI | _(filled after promote)_ |

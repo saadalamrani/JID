@@ -1,4 +1,4 @@
-# JID Spec 09 â€” Defect Register (FINALIZED in Session 09-C)
+# JID Spec 09 -- Defect Register (FINALIZED in Session 09-C)
 
 **JID09_RUN_ID:** `jid09-20260801-7d956c`
 **Environment:** non-production only (`hmjuijmaefajdjrjdsxu`, `https://jid-dev.vercel.app`)
@@ -11,7 +11,7 @@
 |---|---|---|
 | CLASS_A | 12 | DEF-09B-001, DEF-09B-002, DEF-09B-003, DEF-09B-004, DEF-09B-005, DEF-09C-001, DEF-09C-008, DEF-09C-009, DEF-09C-010, DEF-09C-011, DEF-09C-012, DEF-09C-013 |
 | CLASS_B | 3 | DEF-09C-015, DEF-09C-016, DEF-09C-017 |
-| Duplicate/symptom of DEF-09B-002 (not separately counted) | â€” | DEF-09C-002, DEF-09C-004, DEF-09C-005, DEF-09C-006, DEF-09C-007, DEF-09C-014 â†’ linked under DEF-09B-002 |
+| Duplicate/symptom of DEF-09B-002 (not separately counted) | -- | DEF-09C-002, DEF-09C-004, DEF-09C-005, DEF-09C-006, DEF-09C-007, DEF-09C-014 -> linked under DEF-09B-002 |
 
 ---
 
@@ -27,7 +27,7 @@
 | route | `/signup/entity-type` |
 | locale / direction / viewport | ar / RTL / desktop |
 | scenario | entity-type entry |
-| owning specification | 09 / Specs 03â€“05 terminology |
+| owning specification | 09 / Specs 03--05 terminology |
 | expected | Verification wording only; no visible Claim / Ù…Ø·Ø§Ù„Ø¨Ø© |
 | observed | `Ø·Ù„Ø¨ Ù…Ø·Ø§Ù„Ø¨Ø© Ø¨Ø§Ù„Ù…Ù„ÙƒÙŠØ©` on Company and University cards |
 | server/persisted | N/A (copy) |
@@ -46,23 +46,23 @@
 | first-observed | 2026-08-02T00:40:00Z |
 | latest verification | 2026-08-02T01:30:00Z |
 | JID09_RUN_ID | `jid09-20260801-7d956c` |
-| journey | J1â€“J6 / Staff / owner / catalog |
+| journey | J1--J6 / Staff / owner / catalog |
 | actor | company_admin, university_admin, staff*, applicants |
 | route | `/company/*`, `/university/*`, `/staff/verification*`, `/staff/directory/*`, catalog detail |
 | locale / direction / viewport | ar+en / RTL+LTR / desktop+375 |
 | scenario | authenticated reads of profiles/verifications/corrections |
-| owning specification | 09 (blocks Specs 02â€“08 operable surfaces) |
+| owning specification | 09 (blocks Specs 02--08 operable surfaces) |
 | expected | Authorized actors can load own verification/profile/Staff surfaces |
 | observed | Authenticated PostgREST/RLS errors: `relation "public.claim_requests" does not exist`; UI error boundaries / entity-type redirects |
 | server/persisted | RUN_ID rows exist via seed DB; app-layer reads fail |
 | reproducibility | always |
 | console | Server Components render error; React #419 |
-| evidence | Staff queue v2 captures; owner entity-type redirects; catalog â€œCould not load catalogâ€ |
-| privacy/security impact | high â€” authorized operations unavailable; not a public data leak |
+| evidence | Staff queue v2 captures; owner entity-type redirects; catalog "Could not load catalog" |
+| privacy/security impact | high -- authorized operations unavailable; not a public data leak |
 | severity | critical |
 | final classification | CLASS_A |
 | status | OPEN |
-| linked symptoms | DEF-09C-002, DEF-09C-004â€¦007, DEF-09C-014 |
+| linked symptoms | DEF-09C-002, DEF-09C-004...007, DEF-09C-014 |
 
 ## DEF-09B-003
 
@@ -143,7 +143,7 @@
 | scenario | `dir-correction-target` |
 | owning specification | 09 / Spec 06 correction |
 | expected | Catalog detail + correction suggestion form |
-| observed | â€œCould not load catalogâ€ / error |
+| observed | "Could not load catalog" / error |
 | server/persisted | Directory + pending suggestion rows exist |
 | reproducibility | always in 09-C |
 | evidence | `J4-corr-entry__ar__desktop__suggest-entry.png` |
@@ -162,14 +162,14 @@
 | actor | individual |
 | route | `/ar/staff/verification` |
 | locale / direction / viewport | ar / RTL / desktop |
-| scenario | Individual â†’ Staff |
-| owning specification | 09 Â§14 |
+| scenario | Individual -> Staff |
+| owning specification | 09 section 14 |
 | expected | deny redirect / 404 / unauthorized |
 | observed | URL retained on Staff route; empty body; no clear deny |
 | server/persisted | N/A |
 | reproducibility | reproduced on reprobe |
 | evidence | `NEG-N8__ar__desktop__deny.png` |
-| privacy/security impact | high â€” authorization boundary unclear |
+| privacy/security impact | high -- authorization boundary unclear |
 | severity | critical |
 | final classification | CLASS_A |
 | status | OPEN |
@@ -270,7 +270,7 @@
 | route | self-review verification workspace |
 | expected | clear self-review hard denial |
 | observed | functional denial not verified; Staff page-load/MFA environment blocked walk |
-| privacy/security impact | medium â€” inconclusive security cell |
+| privacy/security impact | medium -- inconclusive security cell |
 | severity | high |
 | final classification | CLASS_B |
 | status | OPEN |
@@ -287,7 +287,7 @@
 | route | `/ar/sys/claims` |
 | expected | route must not exist (404) |
 | observed | Redirect to `/sys/login?next=/ar/sys/claims` |
-| privacy/security impact | medium â€” historical Claim path still addressable under sys auth gate |
+| privacy/security impact | medium -- historical Claim path still addressable under sys auth gate |
 | severity | high |
 | final classification | CLASS_B |
 | status | OPEN |
@@ -317,9 +317,9 @@
 | ID | Surface | Note |
 |---|---|---|
 | DEF-09C-002 | Staff correction queue | page-load error |
-| DEF-09C-004â€¦007 | Owner publish/edit/dashboard | entity-type redirect |
+| DEF-09C-004...007 | Owner publish/edit/dashboard | entity-type redirect |
 | DEF-09C-014 | Staff keyboard a11y walk | blocked by queue load failure |
 
 ## Explicit empty-register statement
 
-Not applicable â€” defects were recorded across Sessions 09-B and 09-C.
+Not applicable -- defects were recorded across Sessions 09-B and 09-C.

@@ -1,4 +1,4 @@
-# JID Spec 09 â€” QA Fixture Manifest
+# JID Spec 09 — QA Fixture Manifest
 
 **Session:** 09-A
 **JID09_RUN_ID:** `jid09-20260801-7d956c`
@@ -48,7 +48,7 @@ Owned by Specification 09. Session **09-E** may remove or retire only fixtures t
 | correctionSuggester | `qa-corrector-jid09-20260801-7d956c@jid09.test` | `ddcf46b7-0bcc-4702-ad62-49a55c171d1e` | Directory correction suggester |
 | assignApplicantA | `qa-asgn-a-jid09-20260801-7d956c@jid09.test` | `fccec4fc-c0c6-478b-8baf-abb122f6c086` | Applicant for Staff-A assigned request |
 | assignApplicantB | `qa-asgn-b-jid09-20260801-7d956c@jid09.test` | `8a1c2ec1-da9a-43cd-b07c-182e76c06350` | Applicant for Staff-B assigned request |
-| anon | _(no account)_ | â€” | Anonymous visitor |
+| anon | _(no account)_ | — | Anonymous visitor |
 
 ## Synthetic states (object IDs)
 
@@ -97,16 +97,23 @@ Owned by Specification 09. Session **09-E** may remove or retire only fixtures t
 | business_profiles present | draft / published / suspended for RUN_ID owners |
 | university_profiles present | draft / published / suspended / snap-attempt for RUN_ID owners |
 | Staff MFA | enrolled for `staffA`, `staffB`, `superAdmin`, `staffSelfReviewApplicant` (secrets remain gitignored; not recorded here) |
-| app-layer read health | FAIL â€” authenticated reads hit missing relation `public.claim_requests` (see Defect Register DEF-09B-002) |
+| app-layer read health | FAIL — authenticated reads hit missing relation `public.claim_requests` (see Defect Register DEF-09B-002) |
 | destructive cleanup | none (reserved for 09-E) |
 | preserved for 09-C | Directory correction pending; approval/rejection notification fixtures; Business published/suspended public cells; University profile rows; Staff assignment/self-review/terminal verifications |
+
+## Known gaps for later sessions
+
+1. Staff / Super Admin MFA — enrolled during 09-B (secrets local only).
+2. University snapshot-present still depends on catalog linkage + dashboard refresh; owner dashboard surfaces blocked in 09-B by DEF-09B-002.
+3. Anonymous actor needs no account; exercise via logged-out browser only.
+4. Non-prod RLS references missing `public.claim_requests` — blocks trustworthy owner/applicant/Staff data reads until repaired outside 09-B.
 
 ## Session 09-C continuity updates (non-secret)
 
 | Field | Value |
 |---|---|
 | continuity check (UTC) | 2026-08-02 |
-| correction-pending | still `pending` (Staff apply not completed â€” Staff surface blocked) |
+| correction-pending | still `pending` (Staff apply not completed - Staff surface blocked) |
 | directory correction target | present; `city` still null |
 | notif-approved / notif-rejected | present; destinations Spec 03-compatible |
 | Business public published | operable anonymously |
@@ -114,10 +121,3 @@ Owned by Specification 09. Session **09-E** may remove or retire only fixtures t
 | app-layer read health | still FAIL (`public.claim_requests` missing) |
 | destructive cleanup | none (reserved for 09-E) |
 | preserved for 09-D / 09-E | all RUN_ID actors/objects retained; CLASS_A defects open for micro-fix |
-
-## Known gaps for later sessions
-
-1. Staff / Super Admin MFA â€” enrolled during 09-B (secrets local only).
-2. University snapshot-present still depends on catalog linkage + dashboard refresh; owner dashboard surfaces blocked in 09-B by DEF-09B-002.
-3. Anonymous actor needs no account; exercise via logged-out browser only.
-4. Non-prod RLS references missing `public.claim_requests` â€” blocks trustworthy owner/applicant/Staff data reads until repaired outside 09-B.
