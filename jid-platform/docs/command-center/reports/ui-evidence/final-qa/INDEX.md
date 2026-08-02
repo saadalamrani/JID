@@ -1,4 +1,4 @@
-# JID Spec 09 — Final QA Evidence Index
+# JID Spec 09 â€” Final QA Evidence Index
 
 **JID09_RUN_ID:** `jid09-20260801-7d956c`
 **Sessions:** 09-B + 09-C
@@ -10,7 +10,7 @@
 ## Capture count
 
 - Total PNG captures: 105
-- Includes Journey 1–6, NEG matrix, a11y
+- Includes Journey 1â€“6, NEG matrix, a11y
 
 ## Privacy review
 
@@ -135,4 +135,3 @@
 - J09D-B004-uni-pub__ar__desktop__public.png
 - J09D-C001-catalog__ar__desktop__load.png
 - J09D-C008-indiv-staff__ar__desktop__deny.png
-
