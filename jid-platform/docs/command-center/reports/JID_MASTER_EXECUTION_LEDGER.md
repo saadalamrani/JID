@@ -18,7 +18,7 @@
 | JID09_RUN_ID | `jid09-20260801-7d956c` |
 | fixture continuity | PASS for presence — correction pending retained; notif rows present; biz/uni profiles present; app-layer reads still blocked by missing `public.claim_requests` |
 | deployed non-production URL | `https://jid-dev.vercel.app` |
-| deployed / served SHA | tip `611b6d167e7f660868a1b840ae86839a044d1c73` (Vercel statuses success) |
+| deployed / served SHA | tip `d7de682adb023867ee69ad5f708e93672eb40a6c` (Vercel jid-dev + jid-platform commit statuses success) |
 | approved Supabase project ref | `hmjuijmaefajdjrjdsxu` |
 | environment binding | `.env.seed.nonprod` (gitignored) bound to approved ref |
 | Journey 4 result | FAIL — catalog correction entry error (DEF-09C-001); Staff suggestions queue blocked (DEF-09B-002); apply+audit not completed; fixtures unchanged |
@@ -48,12 +48,15 @@
 | Session B promoted SHA | 5c9ae2caae16cccb8e7996ffc0abaa3f0c4a1cd2 |
 | Session C source branch | cursor/jid-09c-journeys-4-6-negative |
 | Session C CI branch | codex/jid-09c-ci-validation |
-| Session C implementation SHA | 60c30d7abc25270c9d9066f11c6cc64d918a3c79 |
-| Session C validation CI | _(filled after CI)_ |
-| Session C promoted SHA | _(filled after fast-forward)_ |
-| Session C target CI | _(filled after promote)_ |
-| Session C Vercel | _(filled after promote)_ |
+| Session C evidence / implementation SHA | 33780ead4d57495f419aa1f033efc8ce2864c876 |
+| Session C promoted tip (CI + encoding repair) | d7de682adb023867ee69ad5f708e93672eb40a6c |
+| Session C validation CI | PASS — GitHub Actions CI/Quality Gate run 30727497637 completed successfully for codex/jid-09c-ci-validation at d7de682adb023867ee69ad5f708e93672eb40a6c |
+| Session C promoted SHA | d7de682adb023867ee69ad5f708e93672eb40a6c |
+| Session C target CI | PASS — GitHub Actions CI/Quality Gate run 30727617790 completed successfully for agent/nonprod-signup-fix at d7de682adb023867ee69ad5f708e93672eb40a6c |
+| Session C Vercel | PASS — READY for d7de682adb023867ee69ad5f708e93672eb40a6c: jid-dev https://vercel.com/jidplatform/jid-dev/8NjNv6aAgF1d9LtZ9tJuAd461VEi; jid-platform https://vercel.com/jidplatform/jid-platform/DkeJogwMPL7bWE2z6QkKrAwvxc7e |
+| Session C completion token | SPEC_09_SESSION_C_COMPLETE d7de682adb023867ee69ad5f708e93672eb40a6c |
 | Session C mirror branch | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| Session C ledger-closeout note | A later documentation-only ledger-fill commit may advance the tip; it does not change the Session 09-C promoted SHA `d7de682adb023867ee69ad5f708e93672eb40a6c`. Future gates must verify that SHA is equal to or ancestral to the current canonical tip. |
 | database / migration / schema / RLS / RPC / auth / route / package / production changes | none in 09-C |
 | next session | 09-D |
 
