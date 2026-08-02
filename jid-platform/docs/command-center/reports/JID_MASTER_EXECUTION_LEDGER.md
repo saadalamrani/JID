@@ -27,11 +27,12 @@
 | Session C completion token | SPEC_09_SESSION_C_COMPLETE d7de682adb023867ee69ad5f708e93672eb40a6c |
 | Session D source branch | cursor/jid-09d-defect-microfixes |
 | Session D CI branch | codex/jid-09d-ci-validation |
-| Session D implementation SHA | _(filled after commit)_ |
-| Session D validation CI | _(filled after CI)_ |
-| Session D promoted SHA | _(filled after fast-forward)_ |
-| Session D target CI | _(filled after promote)_ |
-| Session D Vercel | _(filled after promote)_ |
+| Session D implementation SHA | 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
+| Session D validation CI | PASS — GitHub Actions CI/Quality Gate run 30734152499 for codex/jid-09d-ci-validation at 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
+| Session D promoted SHA | 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
+| Session D target CI | PASS — GitHub Actions CI/Quality Gate run 30734274685 for agent/nonprod-signup-fix at 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
+| Session D Vercel | PASS — READY for 396b86b09a6af8e46dc1d297eb544dcb1f1d857b: jid-dev https://vercel.com/jidplatform/jid-dev/7geGLPoKNaWipamqkyLbKFhP3DRd; jid-platform https://vercel.com/jidplatform/jid-platform/7QoDpz6x4uYtRGooLKhJsj6EWLXk |
+| Session D completion token | SPEC_09_SESSION_D_COMPLETE 396b86b09a6af8e46dc1d297eb544dcb1f1d857b |
 | Session D mirror branch | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
 | no production access | confirmed |
 | next session | 09-E |
