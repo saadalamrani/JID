@@ -31,13 +31,16 @@ function walk(dir: string, out: string[] = []): string[] {
 }
 
 const allSourceFiles = walk(SRC_ROOT)
+const sourceText = new Map(
+  allSourceFiles.map((file) => [file, readFileSync(file, 'utf-8')] as const),
+)
 
 function read(relativePath: string): string {
   return readFileSync(join(SRC_ROOT, relativePath), 'utf-8')
 }
 
 function fileContains(pattern: RegExp): string[] {
-  return allSourceFiles.filter((file) => pattern.test(readFileSync(file, 'utf-8')))
+  return allSourceFiles.filter((file) => pattern.test(sourceText.get(file) ?? ''))
 }
 
 describe('1. No active sys navigation points to /sys/claims', () => {
@@ -75,12 +78,16 @@ describe('2. No active System dashboard CTA points to a nonexistent Claim route'
 
   it('the old claims-queue-widget.tsx file no longer exists', () => {
     expect(
-      existsSync(join(SRC_ROOT, 'app/[locale]/(sys)/sys/dashboard/_components/claims-queue-widget.tsx')),
+      existsSync(
+        join(SRC_ROOT, 'app/[locale]/(sys)/sys/dashboard/_components/claims-queue-widget.tsx'),
+      ),
     ).toBe(false)
   })
 
   it('nothing in src links to /sys/claims as an actual href (comments referencing it as removed are fine)', () => {
-    const offenders = fileContains(/href=["']\/sys\/claims["']|Link\s+href=\{["']\/sys\/claims["']\}/)
+    const offenders = fileContains(
+      /href=["']\/sys\/claims["']|Link\s+href=\{["']\/sys\/claims["']\}/,
+    )
     expect(offenders).toEqual([])
   })
 })
@@ -176,7 +183,9 @@ describe('5. No deleted component retains an active import anywhere in src', () 
   ]
 
   it.each(deletedPathFragments)('no file imports from a path containing "%s"', (fragment) => {
-    const offenders = allSourceFiles.filter((file) => readFileSync(file, 'utf-8').includes(fragment))
+    const offenders = allSourceFiles.filter((file) =>
+      (sourceText.get(file) ?? '').includes(fragment),
+    )
     expect(offenders).toEqual([])
   })
 
@@ -207,7 +216,7 @@ describe('5. No deleted component retains an active import anywhere in src', () 
 
   it.each(deletedIdentifiers)('no file references the removed identifier "%s"', (identifier) => {
     const pattern = new RegExp(`\\b${identifier}\\b`)
-    const offenders = allSourceFiles.filter((file) => pattern.test(readFileSync(file, 'utf-8')))
+    const offenders = allSourceFiles.filter((file) => pattern.test(sourceText.get(file) ?? ''))
     expect(offenders).toEqual([])
   })
 })
@@ -220,12 +229,8 @@ describe('6. No schema, RLS, or public onboarding files were changed', () => {
   })
 
   it('EntitySignupWizard and ClaimSubmissionForm still exist and are wired together', () => {
-    expect(
-      existsSync(join(SRC_ROOT, 'components/entity/entity-signup-wizard.tsx')),
-    ).toBe(true)
-    expect(
-      existsSync(join(SRC_ROOT, 'components/entity/claim-submission-form.tsx')),
-    ).toBe(true)
+    expect(existsSync(join(SRC_ROOT, 'components/entity/entity-signup-wizard.tsx'))).toBe(true)
+    expect(existsSync(join(SRC_ROOT, 'components/entity/claim-submission-form.tsx'))).toBe(true)
     const wizard = read('components/entity/entity-signup-wizard.tsx')
     expect(wizard).toContain('ClaimSubmissionForm')
   })

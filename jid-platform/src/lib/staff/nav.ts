@@ -3,6 +3,7 @@ import {
   BookOpen,
   Building2,
   ClipboardList,
+  DatabaseZap,
   CreditCard,
   Flag,
   GraduationCap,
@@ -60,6 +61,7 @@ export const STAFF_NAV_SECTIONS: StaffNavSection[] = [
   {
     sectionKey: 'directory',
     items: [
+      { key: 'catalogOperations', href: '/staff/catalog', icon: DatabaseZap },
       { key: 'directory', href: '/staff/directory', icon: BookOpen },
       {
         key: 'correctionSuggestions',
