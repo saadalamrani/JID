@@ -148,5 +148,8 @@ Do **not** delete unrelated rows. To remove only shareable fixtures, delete `@ji
 | Arabic `/login` + English `/en/login` HTTP 200 | PASS |
 | Mobile UA smoke on login routes | PASS |
 | Catalog foundations | Untouched |
+| Implementation SHA | `0c668153053f5e9d0eb0c3f476f0fca04177fc3c` |
+| Promoted SHA | `4f7eba7d07f017665c730542fbfbf824b0189977` |
+| CI on promoted SHA | PASS ([run 30777408268](https://github.com/saadalamrani/JID/actions/runs/30777408268)) |
 
 **Recommendation:** `SAFE_TO_SHARE` for Pack A friend accounts. Staff/Super Admin remain internal and require manual MFA enrollment.
