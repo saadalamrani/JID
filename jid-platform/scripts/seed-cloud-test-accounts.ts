@@ -1,33 +1,49 @@
 /**
- * Cloud-safe test-account seed for a NON-PRODUCTION remote Supabase database.
+ * Cloud-safe test-account seed for the approved NON-PRODUCTION Supabase project.
  *
- * Reuses: supabase/seed/local-test-accounts.sql (idempotent, architecture-correct).
- * Auth path: direct SQL into auth.users (same as local) via Postgres connection string.
+ * Reuses:
+ *   - supabase/seed/local-test-accounts.sql
+ *   - supabase/seed/shareable-test-premium-entitlements.sql (JID_SHAREABLE_TEST_SEED_V2)
  *
- * NEVER seeds production. There is no override for friend-facing seeding.
+ * NEVER seeds production. Hard-pins project ref + shareable site URL.
  *
  * Usage:
  *   pnpm seed:cloud-test --print-matrix
  *   pnpm seed:cloud-test --print-whatsapp
+ *   pnpm seed:cloud-test --print-premium-matrix
+ *   pnpm seed:cloud-test --print-internal
  *   pnpm seed:cloud-test                 # dry-run safety check
  *   pnpm seed:cloud-test --execute --i-confirm-non-production
  *
  * Env file: .env.seed.nonprod (see .env.seed.nonprod.example)
  */
 
-import { existsSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { createClient } from '@supabase/supabase-js'
 import { loadEnvFile } from './lib/p110-env'
 import {
+  ALLOWED_NONPROD_PROJECT_REF,
   ALLOWED_SEED_ENVS,
+  EXPECTED_SHAREABLE_SITE_URL,
+  SEED_PASSWORD,
+  SEED_PREMIUM_SQL_RELATIVE,
   SEED_SQL_RELATIVE,
+  SHAREABLE_SEED_MARKER,
   SHAREABLE_TEST_ACCOUNTS,
+  assertAllowedProjectRefs,
+  assertExpectedShareableSiteUrl,
+  assertExecuteConfirmation,
+  assertPrivilegedDbCredential,
   assertSeedEnvAllowed,
   formatArabicAccessTable,
+  formatFounderInternalMessage,
+  formatPremiumAccessMatrixMarkdown,
   formatWhatsAppMessage,
   isLocalDbUrl,
   looksLikeProductionTarget,
+  normalizeSiteUrl,
 } from './lib/seed-safety'
 
 function loadSeedEnv(): Record<string, string> {
@@ -46,14 +62,15 @@ function parseArgs(argv: string[]) {
     allowLocal: argv.includes('--allow-local'),
     printMatrix: argv.includes('--print-matrix'),
     printWhatsapp: argv.includes('--print-whatsapp'),
+    printPremiumMatrix: argv.includes('--print-premium-matrix'),
+    printInternal: argv.includes('--print-internal'),
+    verifyLogins: argv.includes('--verify-logins'),
   }
 }
 
 function resolveSiteUrl(env: Record<string, string>): string {
-  return (
-    env.SHAREABLE_TEST_SITE_URL?.replace(/\/$/, '') ||
-    env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') ||
-    'https://YOUR-NONPROD-VERCEL-URL.vercel.app'
+  return normalizeSiteUrl(
+    env.SHAREABLE_TEST_SITE_URL || env.NEXT_PUBLIC_SITE_URL || EXPECTED_SHAREABLE_SITE_URL,
   )
 }
 
@@ -68,22 +85,49 @@ function resolveDbUrl(env: Record<string, string>): string | undefined {
 }
 
 function runSqlFile(dbUrl: string, sqlPath: string): void {
-  const supabase = spawnSync(
-    'npx',
-    ['supabase', 'db', 'execute', '--db-url', dbUrl, '--file', sqlPath],
+  // Prefer dockerized psql — reliable on Windows where local CLI lacks `db execute`.
+  const docker = spawnSync(
+    'docker',
+    [
+      'run',
+      '--rm',
+      '-i',
+      '-v',
+      `${sqlPath}:/seed.sql:ro`,
+      'postgres:15-alpine',
+      'psql',
+      dbUrl,
+      '-v',
+      'ON_ERROR_STOP=1',
+      '-f',
+      '/seed.sql',
+    ],
     { encoding: 'utf-8', shell: true },
   )
 
-  if (supabase.status === 0) {
-    console.log(supabase.stdout)
-    if (supabase.stderr) console.error(supabase.stderr)
+  if (docker.status === 0) {
+    console.log(docker.stdout)
+    if (docker.stderr) console.error(docker.stderr)
     return
   }
 
   console.warn(
-    'supabase db execute failed; trying psql…\n',
-    supabase.stderr || supabase.stdout || `exit ${supabase.status}`,
+    'dockerized psql failed; trying supabase@2.111.0 db query…\n',
+    docker.stderr || docker.stdout || `exit ${docker.status}`,
   )
+
+  const sql = readFileSync(sqlPath, 'utf8')
+  const supabaseQuery = spawnSync(
+    'npx',
+    ['--yes', 'supabase@2.111.0', 'db', 'query', '--db-url', dbUrl, sql],
+    { encoding: 'utf-8', shell: true },
+  )
+
+  if (supabaseQuery.status === 0) {
+    console.log(supabaseQuery.stdout)
+    if (supabaseQuery.stderr) console.error(supabaseQuery.stderr)
+    return
+  }
 
   const psql = spawnSync('psql', [dbUrl, '-v', 'ON_ERROR_STOP=1', '-f', sqlPath], {
     encoding: 'utf-8',
@@ -92,80 +136,133 @@ function runSqlFile(dbUrl: string, sqlPath: string): void {
 
   if (psql.status !== 0) {
     throw new Error(
-      `Failed to apply seed SQL.\nsupabase: ${supabase.stderr || supabase.stdout}\npsql: ${psql.stderr || psql.stdout}`,
+      `Failed to apply seed SQL.\n` +
+        `docker psql: ${docker.stderr || docker.stdout}\n` +
+        `supabase db query: ${supabaseQuery.stderr || supabaseQuery.stdout}\n` +
+        `psql: ${psql.stderr || psql.stdout}`,
     )
   }
 
   console.log(psql.stdout)
 }
 
-function main() {
+function refuse(message: string): never {
+  console.error(`\nREFUSED: ${message}\n`)
+  process.exit(1)
+}
+
+async function verifyPasswordLogins(env: Record<string, string>): Promise<void> {
+  const url = env.NEXT_PUBLIC_SUPABASE_URL
+  const anon = env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!url || !anon) {
+    console.warn('Skipping login verification: missing NEXT_PUBLIC_SUPABASE_URL or ANON_KEY')
+    return
+  }
+
+  const client = createClient(url, anon, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  })
+
+  console.log('\n=== Live password login verification (Supabase Auth) ===\n')
+  for (const row of SHAREABLE_TEST_ACCOUNTS) {
+    const { data, error } = await client.auth.signInWithPassword({
+      email: row.email,
+      password: SEED_PASSWORD,
+    })
+    if (error || !data.user) {
+      console.error(`FAIL ${row.email}: ${error?.message ?? 'no user'}`)
+      continue
+    }
+    const confirmed = Boolean(data.user.email_confirmed_at ?? data.user.confirmed_at)
+    console.log(
+      `OK   ${row.email} role_hint=${row.role} confirmed=${confirmed} aal=${data.session?.aal ?? 'n/a'}`,
+    )
+    await client.auth.signOut()
+  }
+}
+
+async function main() {
   const args = parseArgs(process.argv.slice(2))
   const env = loadSeedEnv()
-  const siteUrl = resolveSiteUrl(env)
+  const siteUrlRaw = resolveSiteUrl(env)
 
   if (args.printMatrix) {
-    console.log(formatArabicAccessTable(siteUrl))
+    console.log(formatArabicAccessTable(siteUrlRaw))
     process.exit(0)
   }
 
   if (args.printWhatsapp) {
-    console.log(formatWhatsAppMessage(siteUrl))
+    console.log(formatWhatsAppMessage(siteUrlRaw))
+    process.exit(0)
+  }
+
+  if (args.printPremiumMatrix) {
+    console.log(formatPremiumAccessMatrixMarkdown())
+    process.exit(0)
+  }
+
+  if (args.printInternal) {
+    console.log(formatFounderInternalMessage(siteUrlRaw))
     process.exit(0)
   }
 
   console.log('\n=== JID cloud-safe test account seed ===\n')
+  console.log(`Marker: ${SHAREABLE_SEED_MARKER}`)
+  console.log(`Allowed project ref: ${ALLOWED_NONPROD_PROJECT_REF}`)
+  console.log(`Expected site URL: ${EXPECTED_SHAREABLE_SITE_URL}`)
   console.log('Accounts planned:')
   for (const row of SHAREABLE_TEST_ACCOUNTS) {
     console.log(
-      `  - ${row.email} (${row.role}) share=${row.shareWithFriends ? 'friends' : 'internal'}`,
+      `  - ${row.email} (${row.role}) share=${row.shareWithFriends ? 'friends' : 'internal'} premium=${row.premiumAr}`,
     )
   }
-  console.log(`\nSQL fixture: ${SEED_SQL_RELATIVE}`)
-  console.log(`Password: JidSeed123!`)
-  console.log(`Site URL for matrix: ${siteUrl}`)
+  console.log(`\nSQL fixtures:\n  - ${SEED_SQL_RELATIVE}\n  - ${SEED_PREMIUM_SQL_RELATIVE}`)
+  console.log(`Password: ${SEED_PASSWORD}`)
+  console.log(`Site URL for matrix: ${siteUrlRaw}`)
 
-  const dbUrl = resolveDbUrl(env)
-  if (!dbUrl) {
-    console.error(
-      '\nREFUSED: missing SEED_DATABASE_URL (Postgres connection string for the NON-PROD project).\n' +
-        'Copy .env.seed.nonprod.example → .env.seed.nonprod and fill values.\n' +
-        'Do NOT point this at production.\n',
-    )
-    console.log('\n--- Arabic access table (template; accounts not created yet) ---\n')
-    console.log(formatArabicAccessTable(siteUrl))
-    process.exit(1)
+  let dbUrl: string
+  try {
+    dbUrl = assertPrivilegedDbCredential(resolveDbUrl(env))
+  } catch (error) {
+    refuse((error as Error).message)
   }
 
   const prodReason = looksLikeProductionTarget({
     dbUrl,
     appUrl: env.NEXT_PUBLIC_APP_URL,
     siteUrl: env.NEXT_PUBLIC_SITE_URL ?? env.SHAREABLE_TEST_SITE_URL,
+    supabaseUrl: env.NEXT_PUBLIC_SUPABASE_URL,
     appEnv: env.NEXT_PUBLIC_APP_ENV,
     seedEnv: env.SEED_ENV,
   })
   if (prodReason) {
-    console.error(`\nREFUSED: production target blocked (${prodReason}).`)
-    console.error('This script never seeds production. Use a separate non-prod Supabase project.\n')
-    process.exit(1)
+    refuse(`production target blocked (${prodReason}). This script never seeds production.`)
   }
 
   let seedEnv: string
   try {
     seedEnv = assertSeedEnvAllowed(env.SEED_ENV)
   } catch (error) {
-    console.error(`\nREFUSED: ${(error as Error).message}`)
-    console.error(`Set SEED_ENV in .env.seed.nonprod to one of: ${ALLOWED_SEED_ENVS.join(', ')}\n`)
-    process.exit(1)
+    console.error(`Set SEED_ENV in .env.seed.nonprod to one of: ${ALLOWED_SEED_ENVS.join(', ')}`)
+    refuse((error as Error).message)
   }
 
   if (isLocalDbUrl(dbUrl) && !args.allowLocal) {
-    console.error(
-      '\nREFUSED: SEED_DATABASE_URL looks local.\n' +
-        'For local fixtures use: pnpm seed:local\n' +
-        'To force this script against local Postgres, pass --allow-local\n',
+    refuse(
+      'SEED_DATABASE_URL looks local. For local fixtures use: pnpm seed:local. To force this script against local Postgres, pass --allow-local',
     )
-    process.exit(1)
+  }
+
+  if (!args.allowLocal) {
+    try {
+      assertAllowedProjectRefs({
+        supabaseUrl: env.NEXT_PUBLIC_SUPABASE_URL,
+        dbUrl,
+      })
+      assertExpectedShareableSiteUrl(env.SHAREABLE_TEST_SITE_URL || env.NEXT_PUBLIC_SITE_URL)
+    } catch (error) {
+      refuse((error as Error).message)
+    }
   }
 
   console.log(`SEED_ENV: ${seedEnv}`)
@@ -176,36 +273,56 @@ function main() {
     console.log('To apply fixtures to the NON-PROD database:')
     console.log('  pnpm seed:cloud-test --execute --i-confirm-non-production\n')
     console.log('--- Arabic access table (template) ---\n')
-    console.log(formatArabicAccessTable(siteUrl))
+    console.log(formatArabicAccessTable(siteUrlRaw))
     process.exit(0)
   }
 
-  if (!args.confirmNonProd) {
-    console.error(
-      '\nREFUSED: --execute requires --i-confirm-non-production\n' +
-        'Confirm you are targeting a disposable non-production Supabase project.\n',
-    )
-    process.exit(1)
+  try {
+    assertExecuteConfirmation({
+      execute: args.execute,
+      confirmNonProd: args.confirmNonProd,
+    })
+  } catch (error) {
+    refuse((error as Error).message)
   }
 
-  const sqlPath = join(process.cwd(), SEED_SQL_RELATIVE)
-  if (!existsSync(sqlPath)) {
-    console.error(`Missing seed SQL at ${sqlPath}`)
-    process.exit(1)
+  const accountSqlPath = join(process.cwd(), SEED_SQL_RELATIVE)
+  const premiumSqlPath = join(process.cwd(), SEED_PREMIUM_SQL_RELATIVE)
+  if (!existsSync(accountSqlPath)) {
+    refuse(`Missing seed SQL at ${accountSqlPath}`)
+  }
+  if (!existsSync(premiumSqlPath)) {
+    refuse(`Missing premium seed SQL at ${premiumSqlPath}`)
   }
 
-  console.log('\nApplying seed SQL to NON-PROD database…')
-  runSqlFile(dbUrl, sqlPath)
+  console.log('\nApplying account seed SQL to NON-PROD database…')
+  runSqlFile(dbUrl, accountSqlPath)
+
+  console.log('\nApplying premium entitlement seed SQL (JID_SHAREABLE_TEST_SEED_V2)…')
+  runSqlFile(dbUrl, premiumSqlPath)
 
   console.log('\n✓ Seed applied (or re-applied idempotently).')
+
+  // Always verify password login after a successful remote execute.
+  // --verify-logins is reserved for future dry re-checks without reseed.
+  void args.verifyLogins
+  await verifyPasswordLogins(env)
+
   console.log('\n--- Arabic access table ---\n')
-  console.log(formatArabicAccessTable(siteUrl))
-  console.log('\n--- WhatsApp message ---\n')
-  console.log(formatWhatsAppMessage(siteUrl))
+  console.log(formatArabicAccessTable(siteUrlRaw))
+  console.log('\n--- Premium access matrix ---\n')
+  console.log(formatPremiumAccessMatrixMarkdown())
+  console.log('\n--- WhatsApp friend message ---\n')
+  console.log(formatWhatsAppMessage(siteUrlRaw))
+  console.log('\n--- Founder internal (do not share) ---\n')
+  console.log(formatFounderInternalMessage(siteUrlRaw))
   console.log(
-    '\nRemember: point the shareable Vercel preview/app at this same NON-PROD Supabase project',
+    '\nRemember: shareable Vercel app must bind to the same NON-PROD Supabase project',
   )
-  console.log('(NEXT_PUBLIC_SUPABASE_URL + ANON_KEY + SITE_URL). Never share production.\n')
+  console.log(`(${ALLOWED_NONPROD_PROJECT_REF}). Never share production.\n`)
 }
 
-main()
+main().catch((error) => {
+  console.error(error)
+  process.exit(1)
+})

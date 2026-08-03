@@ -1,138 +1,68 @@
 # Shareable cloud test access (non-production)
 
-**Status:** workflow prepared in-repo — remote accounts are **not** created until you run the seed against a dedicated non-prod Supabase project.
+**Canonical target:** Vercel `jid-dev` → `https://jid-dev.vercel.app`
+**Supabase:** `jid-nonprod` → project ref `hmjuijmaefajdjrjdsxu`
+**Seed marker:** `JID_SHAREABLE_TEST_SEED_V2`
+**Command-center report:** [`docs/command-center/reports/JID_SHAREABLE_NONPROD_TEST_ACCESS.md`](./command-center/reports/JID_SHAREABLE_NONPROD_TEST_ACCESS.md)
 
-## Step 0 summary (safety)
+## Safety (hard gates)
 
-| Question | Finding |
-|----------|---------|
-| Local `.env.local` | Points at **local** Supabase (`http://127.0.0.1:54321`) |
-| Linked Vercel project in this workspace | **Not linked** (no `.vercel/project.json`) |
-| Existing friend-facing cloud seed | **None** before this doc — only `pnpm seed:local` / SQL |
-| Seed production? | **Forbidden** — `seed:cloud-test` hard-refuses production / `jid.sa` |
-| Safe to share current Vercel “production” deploy? | **Not yet** — middleware/env issues + unknown whether it uses prod DB |
+`pnpm seed:cloud-test --execute --i-confirm-non-production` refuses unless:
 
-If the live Vercel app uses the production Supabase project, **do not** seed `@jidseed.test` users there. Create a separate non-prod project (or Supabase branch) first.
+| Gate | Required value |
+|------|----------------|
+| `SEED_ENV` | `nonprod` (or other allowed non-prod class) |
+| Project ref | exactly `hmjuijmaefajdjrjdsxu` |
+| Site URL | exactly `https://jid-dev.vercel.app` |
+| Confirmation | `--i-confirm-non-production` |
+| Privileged credential | `SEED_DATABASE_URL` (server-side Postgres URI) |
 
----
+Never seeds production (`znfhladafpajyjwcfzvv`, `jid.sa`, `SEED_ENV=production`).
 
-## Architecture (current)
-
-| Actor | `profiles.role` | Login route | Notes |
-|-------|-----------------|-------------|--------|
-| Individual | `individual` | `/login` | Mentors stay `individual` + `mentor_profiles` |
-| Business | `entity` → `company_admin` after verification | `/login` | Directory ≠ owned `business_profiles` |
-| University | `entity` → `university_admin` after verification | `/login` | University portal routes are thinner than business |
-| Staff (internal) | `staff` | `/staff/login` | Requires **MFA (AAL2)** |
-| Super Admin (internal) | `super_admin` | `/sys/login` | Requires **MFA (AAL2)** |
-
-Public platform actors are only Individual / Business / University. Staff and Super Admin are internal.
-
----
-
-## What already exists locally
-
-| Artifact | Purpose |
-|----------|---------|
-| `supabase/seed/local-test-accounts.sql` | Idempotent fixtures (same emails/password) |
-| `pnpm seed:local` | `supabase db reset` — **local only** |
-| `docs/LOCAL_TEST_ACCOUNTS.md` | Local matrix |
-
-Cloud seed **reuses** `local-test-accounts.sql` against a non-prod Postgres URL (same UUIDs, roles, Directory ≠ Profile split, verification states, mentor fixtures).
-
----
-
-## How to create a shareable non-prod environment
-
-### 1. Create a non-production Supabase project
-
-- New project (recommended name: `jid-nonprod` / `jid-staging`)
-- Or a Supabase branch — not the production project
-
-### 2. Apply migrations
+## Seed
 
 ```bash
 cd jid-platform
-npx supabase db push --db-url "$SEED_DATABASE_URL"
-```
-
-(or link the non-prod project and push via CLI)
-
-### 3. Configure seed env
-
-```bash
 cp .env.seed.nonprod.example .env.seed.nonprod
-# edit SEED_ENV, SEED_DATABASE_URL, SHAREABLE_TEST_SITE_URL, Supabase URL/anon
-```
+# fill SEED_DATABASE_URL + NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-### 4. Seed accounts (dry-run then execute)
-
-```bash
 pnpm seed:cloud-test
 pnpm seed:cloud-test --execute --i-confirm-non-production
-```
 
-Print helpers:
-
-```bash
 pnpm seed:cloud-test --print-matrix
 pnpm seed:cloud-test --print-whatsapp
+pnpm seed:cloud-test --print-premium-matrix
+pnpm seed:cloud-test --print-internal
 ```
 
-### 5. Point a Vercel **Preview** (or separate non-prod project) at that Supabase
+SQL applied (idempotent):
 
-Required on that deployment:
+1. `supabase/seed/local-test-accounts.sql` — auth users, profiles, Directory ≠ Profile, Verification, mentor fixtures
+2. `supabase/seed/shareable-test-premium-entitlements.sql` — complimentary `jid_plus` / `employer_premium` with `payment_provider=nonprod_seed`
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `NEXT_PUBLIC_SITE_URL` (= the preview URL)
-- Optional: `NEXT_PUBLIC_APP_URL`
+Shared password: `JidSeed123!`
 
-Do **not** put `SUPABASE_SERVICE_ROLE_KEY` in client-visible env.
+## Premium truth (Model 1)
 
-Fix middleware Edge/`server-only` and env issues before inviting friends (see deploy readiness notes).
+| Actor | Plan key | Feature keys |
+|-------|----------|--------------|
+| Individual (+ mentor) | `jid_plus` | `cv_pro_formats`, `search_for_me`, `lammah_feed` |
+| Business | `employer_premium` | `smart_communication`, `ssis`, `priority_visibility` |
+| University | — | **Not implemented** in Model 1 |
+| Staff / Super Admin | — | Internal auth only — no consumer subscription |
 
-### 6. Share only friend-safe accounts
+Pending Business may hold an `employer_premium` seed row for boundary testing; verified-only authority remains blocked until Verification is approved.
 
-Share Individual / Business / University / Mentor rows.  
-**Do not** share Staff / Super Admin until you personally enroll MFA on those accounts.
+## Packs
 
-Shared password for all seed accounts: `JidSeed123!`
+- **Pack A (friends):** Individual complete/new, mentor, Business verified/pending, University verified/pending
+- **Pack B (founder/internal):** Staff + Super Admin — **داخلي فقط — لا يُشارك بشكل عام** — MFA enrollment required (no shared TOTP secret in Git)
 
----
+## Architecture reminders
 
-## Account matrix
-
-| البوابة | رابط الدخول | البريد | كلمة المرور | حالة الحساب |
-|---|---|---|---|---|
-| بوابة الأفراد — ملف مكتمل | `{SITE}/login` | `individual-complete@jidseed.test` | `JidSeed123!` | فرد · ملف مكتمل |
-| بوابة الأفراد — مستخدم جديد | `{SITE}/login` | `individual-new@jidseed.test` | `JidSeed123!` | فرد · غير مكتمل |
-| ملف المرشد | `{SITE}/login` | `mentor-approved@jidseed.test` | `JidSeed123!` | مرشد معتمد |
-| بوابة الأعمال — موثقة | `{SITE}/login` | `business-verified@jidseed.test` | `JidSeed123!` | company_admin |
-| بوابة الأعمال — بانتظار التحقق | `{SITE}/login` | `business-pending@jidseed.test` | `JidSeed123!` | entity · pending |
-| بوابة الجامعات — موثقة | `{SITE}/login` | `university-verified@jidseed.test` | `JidSeed123!` | university_admin |
-| بوابة الجامعات — بانتظار التحقق | `{SITE}/login` | `university-pending@jidseed.test` | `JidSeed123!` | entity · pending |
-| بوابة الموظفين | `{SITE}/staff/login` | `staff@jidseed.test` | `JidSeed123!` | staff · MFA |
-| لوحة الإدارة | `{SITE}/sys/login` | `admin@jidseed.test` | `JidSeed123!` | super_admin · MFA |
-
-Replace `{SITE}` with `SHAREABLE_TEST_SITE_URL`.
-
----
-
-## Safety rules
-
-- This seed **hard-refuses** production (`jid.sa`, `SEED_ENV=production`, `NEXT_PUBLIC_APP_ENV=production`, prod-like URL markers).
-- Requires `SEED_ENV` ∈ `nonprod|staging|preview|test|development|local`.
-- Requires `--i-confirm-non-production` with `--execute`.
-- Local DB URLs require `--allow-local` (prefer `pnpm seed:local` instead).
-- Does not weaken RLS; does not expose service role to the browser.
-- No Claim Existing Profile; Directory companies ≠ owned profiles.
-
----
-
-## Why you should not WhatsApp friends yet
-
-1. No non-prod remote seed has been executed from this workspace.
-2. Current Vercel deploy was reported as middleware 500 / env incomplete.
-3. Production DB must not receive `@jidseed.test` fixtures.
-4. Staff/Admin need MFA before any internal sharing.
+- Public actors: Individual / Business / University only
+- Mentor = Individual + mentor capability
+- Directory ≠ owned Profile
+- Verification approval ≠ automatic Profile ownership
+- No Claim Existing Profile
+- No real billing charges; seed entitlements are marked `nonprod_seed` / complimentary
