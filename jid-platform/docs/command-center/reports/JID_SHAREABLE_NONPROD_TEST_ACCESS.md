@@ -1,8 +1,8 @@
 # JID_SHAREABLE_NONPROD_TEST_ACCESS
 
-**Task:** Shareable non-production premium test access  
-**Branch:** `cursor/jid-shareable-nonprod-premium-access`  
-**Seed marker:** `JID_SHAREABLE_TEST_SEED_V2`  
+**Task:** Shareable non-production premium test access
+**Branch:** `cursor/jid-shareable-nonprod-premium-access`
+**Seed marker:** `JID_SHAREABLE_TEST_SEED_V2`
 **Canonical starting SHA:** `6c48ffc3501e1a4c3420dc6c69122a19d7af5855` (`origin/agent/nonprod-signup-fix` at task start)
 
 ## 1–4. Environments
