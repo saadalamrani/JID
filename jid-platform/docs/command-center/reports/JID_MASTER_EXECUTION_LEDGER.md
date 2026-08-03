@@ -239,6 +239,22 @@
 
 ---
 
+## JID Catalog Phase 1 / Session B - Foundations (complete)
+
+- Date: 2026-08-03
+- Source branch: `codex/jid-catalog-b-foundations-recovery`
+- Validation branch: `codex/jid-catalog-b-recovery-ci-validation`
+- Canonical promotion target: `agent/nonprod-signup-fix`
+- Scope: seven adjacent Catalog tables, secure worker intake, authenticated staff/super-admin publication, forced RLS, disabled-by-default ingestion, generated types, and disposable/non-production evidence.
+- Preserved boundaries: no directory-record ownership model, Profile-domain, Verification-domain, production, `main`, historical-mirror, or frozen-production-candidate mutation.
+- Advisor decision: founder accepts only `authenticated_security_definer_function_executable public.publish_directory_candidate(uuid)` as an intentional RPC-boundary warning.
+- Compensating controls: restricted execute grants; JWT subject plus canonical staff/super-admin authorization; scoped `NOLOGIN`/`NOBYPASSRLS` owner; least-privilege object grants; fixed search path; row locks and state/provenance gates; forced RLS; immutable audit evidence; idempotency/concurrency proofs; no Profile/Verification writes; feature flag off by default.
+- Advisor delta: exactly one new warning, the accepted warning above; no other warning accepted.
+- Evidence: `JID_CATALOG_PHASE1_FOUNDATIONS_DISPOSABLE_DB_TRANSCRIPT.md` and `JID_CATALOG_PHASE1_FOUNDATIONS_REPORT.md`.
+- Completion SHA and CI evidence: recorded in the final Session B completion response after the validation and fast-forward gates.
+
+---
+
 ## Specification 07 — Publication and Public Visibility
 
 | Field | Value |

@@ -1546,6 +1546,108 @@ export type Database = {
         }
         Relationships: []
       }
+      directory_candidate_facts: {
+        Row: {
+          authority_level: string
+          candidate_id: string
+          confidence: string
+          confidence_reason: string
+          created_at: string
+          effective_at: string | null
+          evidence_id: string
+          fact_key: string
+          id: string
+          normalized_value: Json | null
+          observed_at: string
+          original_value: Json | null
+          reviewer_edit_state: string
+          reviewer_id: string | null
+          source_field: string
+          source_id: string
+          state: string
+          transformation: string
+          updated_at: string
+        }
+        Insert: {
+          authority_level: string
+          candidate_id: string
+          confidence: string
+          confidence_reason: string
+          created_at?: string
+          effective_at?: string | null
+          evidence_id: string
+          fact_key: string
+          id?: string
+          normalized_value?: Json | null
+          observed_at: string
+          original_value?: Json | null
+          reviewer_edit_state?: string
+          reviewer_id?: string | null
+          source_field: string
+          source_id: string
+          state?: string
+          transformation?: string
+          updated_at?: string
+        }
+        Update: {
+          authority_level?: string
+          candidate_id?: string
+          confidence?: string
+          confidence_reason?: string
+          created_at?: string
+          effective_at?: string | null
+          evidence_id?: string
+          fact_key?: string
+          id?: string
+          normalized_value?: Json | null
+          observed_at?: string
+          original_value?: Json | null
+          reviewer_edit_state?: string
+          reviewer_id?: string | null
+          source_field?: string
+          source_id?: string
+          state?: string
+          transformation?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directory_candidate_facts_candidate_id_fkey"
+            columns: ["candidate_id"]
+            isOneToOne: false
+            referencedRelation: "directory_import_candidates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_candidate_facts_evidence_id_fkey"
+            columns: ["evidence_id"]
+            isOneToOne: false
+            referencedRelation: "directory_raw_evidence"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_candidate_facts_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_candidate_facts_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "directory_candidate_facts_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "directory_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       directory_correction_suggestions: {
         Row: {
           created_at: string
@@ -1595,6 +1697,486 @@ export type Database = {
             columns: ["directory_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      directory_dead_letters: {
+        Row: {
+          attributed_worker_identity: string
+          created_at: string
+          error_class: string
+          id: string
+          idempotency_key: string | null
+          last_retry_at: string | null
+          retry_count: number
+          retry_state: string
+          run_id: string | null
+          sanitized_details: Json
+          source_id: string | null
+          source_record_key: string | null
+          updated_at: string
+        }
+        Insert: {
+          attributed_worker_identity: string
+          created_at?: string
+          error_class: string
+          id?: string
+          idempotency_key?: string | null
+          last_retry_at?: string | null
+          retry_count?: number
+          retry_state?: string
+          run_id?: string | null
+          sanitized_details?: Json
+          source_id?: string | null
+          source_record_key?: string | null
+          updated_at?: string
+        }
+        Update: {
+          attributed_worker_identity?: string
+          created_at?: string
+          error_class?: string
+          id?: string
+          idempotency_key?: string | null
+          last_retry_at?: string | null
+          retry_count?: number
+          retry_state?: string
+          run_id?: string | null
+          sanitized_details?: Json
+          source_id?: string | null
+          source_record_key?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directory_dead_letters_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "directory_sync_runs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_dead_letters_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "directory_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      directory_import_candidates: {
+        Row: {
+          checksum_sha256: string
+          conflict_state: string
+          created_at: string
+          deterministic_match_target: string | null
+          evidence_id: string
+          id: string
+          idempotency_key: string
+          normalized_identity: string
+          organization_type: string
+          published_at: string | null
+          published_directory_id: string | null
+          run_id: string
+          source_id: string
+          source_record_key: string
+          state: string
+          terminal_reason: string | null
+          updated_at: string
+        }
+        Insert: {
+          checksum_sha256: string
+          conflict_state?: string
+          created_at?: string
+          deterministic_match_target?: string | null
+          evidence_id: string
+          id?: string
+          idempotency_key: string
+          normalized_identity: string
+          organization_type: string
+          published_at?: string | null
+          published_directory_id?: string | null
+          run_id: string
+          source_id: string
+          source_record_key: string
+          state?: string
+          terminal_reason?: string | null
+          updated_at?: string
+        }
+        Update: {
+          checksum_sha256?: string
+          conflict_state?: string
+          created_at?: string
+          deterministic_match_target?: string | null
+          evidence_id?: string
+          id?: string
+          idempotency_key?: string
+          normalized_identity?: string
+          organization_type?: string
+          published_at?: string | null
+          published_directory_id?: string | null
+          run_id?: string
+          source_id?: string
+          source_record_key?: string
+          state?: string
+          terminal_reason?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directory_import_candidates_deterministic_match_target_fkey"
+            columns: ["deterministic_match_target"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_import_candidates_evidence_id_fkey"
+            columns: ["evidence_id"]
+            isOneToOne: true
+            referencedRelation: "directory_raw_evidence"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_import_candidates_published_directory_id_fkey"
+            columns: ["published_directory_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_import_candidates_run_source_fkey"
+            columns: ["source_id", "run_id"]
+            isOneToOne: false
+            referencedRelation: "directory_sync_runs"
+            referencedColumns: ["source_id", "id"]
+          },
+          {
+            foreignKeyName: "directory_import_candidates_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "directory_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      directory_raw_evidence: {
+        Row: {
+          audit_investigation: boolean
+          checksum_sha256: string
+          content_size_bytes: number
+          content_type: string
+          created_at: string
+          deletion_eligible_at: string | null
+          id: string
+          legal_hold: boolean
+          legal_hold_reason: string | null
+          licence_reference: string
+          parser_version: string
+          payload_deleted_at: string | null
+          payload_deletion_reason: string | null
+          personal_data_dominated: boolean
+          private_locator: string | null
+          retention_state: string
+          retrieved_at: string
+          run_id: string
+          source_id: string
+          source_record_key: string
+          updated_at: string
+        }
+        Insert: {
+          audit_investigation?: boolean
+          checksum_sha256: string
+          content_size_bytes: number
+          content_type: string
+          created_at?: string
+          deletion_eligible_at?: string | null
+          id?: string
+          legal_hold?: boolean
+          legal_hold_reason?: string | null
+          licence_reference: string
+          parser_version: string
+          payload_deleted_at?: string | null
+          payload_deletion_reason?: string | null
+          personal_data_dominated?: boolean
+          private_locator?: string | null
+          retention_state?: string
+          retrieved_at: string
+          run_id: string
+          source_id: string
+          source_record_key: string
+          updated_at?: string
+        }
+        Update: {
+          audit_investigation?: boolean
+          checksum_sha256?: string
+          content_size_bytes?: number
+          content_type?: string
+          created_at?: string
+          deletion_eligible_at?: string | null
+          id?: string
+          legal_hold?: boolean
+          legal_hold_reason?: string | null
+          licence_reference?: string
+          parser_version?: string
+          payload_deleted_at?: string | null
+          payload_deletion_reason?: string | null
+          personal_data_dominated?: boolean
+          private_locator?: string | null
+          retention_state?: string
+          retrieved_at?: string
+          run_id?: string
+          source_id?: string
+          source_record_key?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directory_raw_evidence_run_source_fkey"
+            columns: ["source_id", "run_id"]
+            isOneToOne: false
+            referencedRelation: "directory_sync_runs"
+            referencedColumns: ["source_id", "id"]
+          },
+          {
+            foreignKeyName: "directory_raw_evidence_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "directory_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      directory_review_queue: {
+        Row: {
+          assigned_at: string | null
+          assigned_to: string | null
+          candidate_id: string
+          created_at: string
+          decided_at: string | null
+          decision: string | null
+          id: string
+          publication_company_id: string | null
+          published_at: string | null
+          review_notes: string | null
+          reviewer_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          assigned_to?: string | null
+          candidate_id: string
+          created_at?: string
+          decided_at?: string | null
+          decision?: string | null
+          id?: string
+          publication_company_id?: string | null
+          published_at?: string | null
+          review_notes?: string | null
+          reviewer_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_at?: string | null
+          assigned_to?: string | null
+          candidate_id?: string
+          created_at?: string
+          decided_at?: string | null
+          decision?: string | null
+          id?: string
+          publication_company_id?: string | null
+          published_at?: string | null
+          review_notes?: string | null
+          reviewer_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directory_review_queue_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_review_queue_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "directory_review_queue_candidate_id_fkey"
+            columns: ["candidate_id"]
+            isOneToOne: true
+            referencedRelation: "directory_import_candidates"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_review_queue_publication_company_id_fkey"
+            columns: ["publication_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_review_queue_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_review_queue_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      directory_sources: {
+        Row: {
+          activated_at: string | null
+          created_at: string
+          display_name: string
+          health_state: string
+          id: string
+          licence_reference: string
+          lifecycle_state: string
+          parser_name: string
+          parser_version: string
+          permitted_fields: string[]
+          program_scope: string
+          qualification_state: string
+          reference_url: string | null
+          responsible_staff_id: string | null
+          retention_override_days: number | null
+          source_key: string
+          suspended_at: string | null
+          suspension_reason: string | null
+          updated_at: string
+        }
+        Insert: {
+          activated_at?: string | null
+          created_at?: string
+          display_name: string
+          health_state?: string
+          id?: string
+          licence_reference: string
+          lifecycle_state?: string
+          parser_name: string
+          parser_version: string
+          permitted_fields?: string[]
+          program_scope?: string
+          qualification_state?: string
+          reference_url?: string | null
+          responsible_staff_id?: string | null
+          retention_override_days?: number | null
+          source_key: string
+          suspended_at?: string | null
+          suspension_reason?: string | null
+          updated_at?: string
+        }
+        Update: {
+          activated_at?: string | null
+          created_at?: string
+          display_name?: string
+          health_state?: string
+          id?: string
+          licence_reference?: string
+          lifecycle_state?: string
+          parser_name?: string
+          parser_version?: string
+          permitted_fields?: string[]
+          program_scope?: string
+          qualification_state?: string
+          reference_url?: string | null
+          responsible_staff_id?: string | null
+          retention_override_days?: number | null
+          source_key?: string
+          suspended_at?: string | null
+          suspension_reason?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directory_sources_responsible_staff_id_fkey"
+            columns: ["responsible_staff_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_sources_responsible_staff_id_fkey"
+            columns: ["responsible_staff_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      directory_sync_runs: {
+        Row: {
+          accepted_count: number
+          completed_at: string | null
+          created_at: string
+          dead_letter_count: number
+          failure_class: string | null
+          failure_detail: string | null
+          id: string
+          mode: string
+          parser_version: string
+          rejected_count: number
+          source_id: string
+          started_at: string
+          status: string
+          updated_at: string
+          worker_identity: string
+        }
+        Insert: {
+          accepted_count?: number
+          completed_at?: string | null
+          created_at?: string
+          dead_letter_count?: number
+          failure_class?: string | null
+          failure_detail?: string | null
+          id?: string
+          mode: string
+          parser_version: string
+          rejected_count?: number
+          source_id: string
+          started_at?: string
+          status?: string
+          updated_at?: string
+          worker_identity: string
+        }
+        Update: {
+          accepted_count?: number
+          completed_at?: string | null
+          created_at?: string
+          dead_letter_count?: number
+          failure_class?: string | null
+          failure_detail?: string | null
+          id?: string
+          mode?: string
+          parser_version?: string
+          rejected_count?: number
+          source_id?: string
+          started_at?: string
+          status?: string
+          updated_at?: string
+          worker_identity?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "directory_sync_runs_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "directory_sources"
             referencedColumns: ["id"]
           },
         ]
@@ -2196,6 +2778,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "jobs_region_id_fkey"
+            columns: ["region_id"]
+            isOneToOne: false
+            referencedRelation: "regions"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "jobs_sector_id_fkey"
@@ -4918,6 +5507,27 @@ export type Database = {
       }
     }
     Functions: {
+      _catalog_authority_rank: {
+        Args: { p_authority: string }
+        Returns: number
+      }
+      _catalog_publication_denied: {
+        Args: { p_actor_id: string; p_queue_id: string; p_code: string }
+        Returns: Json
+      }
+      _catalog_reject_intake: {
+        Args: {
+          p_source_id: string
+          p_run_id: string
+          p_source_record_key: string
+          p_idempotency_key: string
+          p_error_class: string
+          p_details: Json
+          p_worker_identity: string
+          p_retryable?: boolean
+        }
+        Returns: Json
+      }
       _user_role_rank: {
         Args: { p_role: Database["public"]["Enums"]["user_role_enum"] }
         Returns: number
@@ -5399,6 +6009,19 @@ export type Database = {
         Args: { p_job_id: string; p_metric: string }
         Returns: undefined
       }
+      ingest_directory_candidate: {
+        Args: {
+          p_source_key: string
+          p_run_id: string
+          p_source_record_key: string
+          p_idempotency_key: string
+          p_checksum_sha256: string
+          p_evidence_metadata: Json
+          p_candidate: Json
+          p_facts: Json
+        }
+        Returns: Json
+      }
       ingest_lammah_opportunity: {
         Args: { p: Json }
         Returns: string
@@ -5534,6 +6157,10 @@ export type Database = {
       }
       publish_business_profile: {
         Args: { p_profile_id: string }
+        Returns: Json
+      }
+      publish_directory_candidate: {
+        Args: { p_review_queue_id: string }
         Returns: Json
       }
       publish_university_profile: {
@@ -5953,8 +6580,6 @@ export type Database = {
         | "claim.approved"
         | "claim.needs_more_info"
         | "claim.rejected"
-        | "directory.correction_approved"
-        | "directory.correction_rejected"
         | "company.link_broken"
         | "job.application_expired"
         | "job.application_received"
@@ -5977,6 +6602,8 @@ export type Database = {
         | "search.mandate_match"
         | "ssis.invitation"
         | "ssis.evaluation_ready"
+        | "directory.correction_approved"
+        | "directory.correction_rejected"
       notification_priority_enum: "low" | "normal" | "high" | "critical"
       opportunity_tier_enum: "normal" | "plus"
       ownership_enum: "government" | "semi_government" | "private"
@@ -6263,8 +6890,6 @@ export const Constants = {
         "claim.approved",
         "claim.needs_more_info",
         "claim.rejected",
-        "directory.correction_approved",
-        "directory.correction_rejected",
         "company.link_broken",
         "job.application_expired",
         "job.application_received",
@@ -6287,6 +6912,8 @@ export const Constants = {
         "search.mandate_match",
         "ssis.invitation",
         "ssis.evaluation_ready",
+        "directory.correction_approved",
+        "directory.correction_rejected",
       ],
       notification_priority_enum: ["low", "normal", "high", "critical"],
       opportunity_tier_enum: ["normal", "plus"],

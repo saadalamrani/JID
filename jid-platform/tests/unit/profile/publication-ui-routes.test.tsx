@@ -226,10 +226,11 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
   it('does not add publication RPC migrations after Session 07-C (post-Spec09 allowlist)', () => {
     const migrations = readdirSync(MIGRATIONS).filter((name) => name.endsWith('.sql')).sort()
     const later = migrations.filter((name) => name > '20260730190003_profile_publication_rpcs.sql')
-    // Spec 09-D residue repair + post-Spec09 university dashboard owner-scope view remap.
+    // Spec 09-D residue repair, university dashboard view remap, and adjacent Catalog foundations.
     const allowed = [
       '20260802090000_repair_claim_requests_residue_helpers.sql',
       '20260802120000_university_dashboard_view_owner_scope.sql',
+      '20260802205903_catalog_phase1_foundations.sql',
     ]
     expect(later).toEqual(allowed)
     for (const name of allowed) {
@@ -244,6 +245,8 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
     const dash = readFileSync(join(MIGRATIONS, dashName), 'utf-8')
     expect(dash).toMatch(/university_profiles/)
     expect(dash).toMatch(/owner_user_id/)
+    const catalog = readFileSync(join(MIGRATIONS, allowed[2]!), 'utf-8')
+    expect(catalog).toMatch(/publish_directory_candidate/)
   })
 
   it('leaves publication RPC migration content unchanged at known markers', () => {
