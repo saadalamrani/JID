@@ -12,6 +12,10 @@ function sourceFiles(directory: string): string[] {
   })
 }
 
+const applicationSource = sourceFiles(join(root, 'src'))
+  .map((path) => readFileSync(path, 'utf8'))
+  .join('\n')
+
 describe('JID-102A legacy catalog Claim retirement', () => {
   it('removes the route, privileged helper, and directly connected public entry point', () => {
     expect(existsSync(join(root, 'src/app/api/catalog/claim/route.ts'))).toBe(false)
@@ -20,10 +24,6 @@ describe('JID-102A legacy catalog Claim retirement', () => {
   })
 
   it('leaves no application caller for the retired API or privileged helper', () => {
-    const applicationSource = sourceFiles(join(root, 'src'))
-      .map((path) => readFileSync(path, 'utf8'))
-      .join('\n')
-
     expect(applicationSource).not.toContain('/api/catalog/claim')
     expect(applicationSource).not.toContain('submitCatalogClaim')
     expect(applicationSource).not.toContain('checkClaimableProfile')

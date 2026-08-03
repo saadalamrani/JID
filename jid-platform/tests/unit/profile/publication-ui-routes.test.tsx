@@ -206,8 +206,8 @@ describe('Spec 07-D — AR/EN publication UI parity', () => {
     const arUni = (ar.organizationProfile as Record<string, unknown>).universityPublic
     expect(collectLeafPaths(enUni).sort()).toEqual(collectLeafPaths(arUni).sort())
 
-    const enCta = ((en.catalogPage as Record<string, unknown>).cta as Record<string, string>)
-    const arCta = ((ar.catalogPage as Record<string, unknown>).cta as Record<string, string>)
+    const enCta = (en.catalogPage as Record<string, unknown>).cta as Record<string, string>
+    const arCta = (ar.catalogPage as Record<string, unknown>).cta as Record<string, string>
     expect(Object.keys(enCta).sort()).toEqual(Object.keys(arCta).sort())
     expect(enCta.jidProfileAria).toBeTruthy()
     expect(arCta.jidProfileAria).toBeTruthy()
@@ -224,13 +224,18 @@ describe('Spec 07-D — AR/EN publication UI parity', () => {
 
 describe('Spec 07-D — backend contract regression (no migration / RPC edits)', () => {
   it('does not add publication RPC migrations after Session 07-C (post-Spec09 allowlist)', () => {
-    const migrations = readdirSync(MIGRATIONS).filter((name) => name.endsWith('.sql')).sort()
+    const migrations = readdirSync(MIGRATIONS)
+      .filter((name) => name.endsWith('.sql'))
+      .sort()
     const later = migrations.filter((name) => name > '20260730190003_profile_publication_rpcs.sql')
-    // Spec 09-D residue repair, university dashboard view remap, and adjacent Catalog foundations.
+    // Spec 09-D residue repair, university dashboard view remap, and the two
+    // adjacent Catalog migrations. The shipping migration must not replace
+    // any established publication RPC.
     const allowed = [
       '20260802090000_repair_claim_requests_residue_helpers.sql',
       '20260802120000_university_dashboard_view_owner_scope.sql',
       '20260802205903_catalog_phase1_foundations.sql',
+      '20260803120000_catalog_gleif_review_states.sql',
     ]
     expect(later).toEqual(allowed)
     for (const name of allowed) {
@@ -247,6 +252,10 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
     expect(dash).toMatch(/owner_user_id/)
     const catalog = readFileSync(join(MIGRATIONS, allowed[2]!), 'utf-8')
     expect(catalog).toMatch(/publish_directory_candidate/)
+    const catalogShipping = readFileSync(join(MIGRATIONS, allowed[3]!), 'utf-8')
+    expect(catalogShipping).not.toMatch(
+      /CREATE(?: OR REPLACE)? FUNCTION public\.publish_directory_candidate/,
+    )
   })
 
   it('leaves publication RPC migration content unchanged at known markers', () => {
