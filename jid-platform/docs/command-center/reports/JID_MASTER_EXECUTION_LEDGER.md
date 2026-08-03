@@ -1,5 +1,40 @@
 # JID Master Execution Ledger
 
+## JID Catalog Phase 1 — Final Shipping Wave
+
+| Field | Value |
+|---|---|
+| status | SHIPPED when the validation candidate is fast-forwarded to canonical; final SHA is emitted in the completion token |
+| date | 2026-08-03 |
+| canonical integration base | `aec5e1c` — includes the latest authorized shareable non-production access commits |
+| source branch | `codex/jid-catalog-final-shipping` |
+| integrated validation branch | `codex/jid-catalog-final-shipping-ci-validation` |
+| canonical target | `agent/nonprod-signup-fix` |
+| integrated implementation SHA | `c023b2e` |
+| deterministic fixture SHA | `7ab386c` |
+| final candidate / promoted SHA | completion response — do not self-embed |
+| delivered scope | GLEIF Saudi connector; least-privilege worker; evidence/candidate/match/review/run states; Staff review workspace; domain assistance; human-only publication; operational flags, cron, retention, legal hold, and dead-letter controls |
+| architecture | PASS — Directory remains `companies`; no owned Profile, Verification, ownership, `claimed_by`, automatic-publication, social, Ministry, Lammah, or ابحث لي path |
+| accepted Advisor warning | only `authenticated_security_definer_function_executable public.publish_directory_candidate(uuid)`; compensating controls documented in the final report |
+| final Advisor delta | 221 project-wide findings; exactly one Catalog-relevant finding, the accepted warning above |
+| disposable matrix | PASS — `CATALOG_FINAL_DISPOSABLE_PASS`; fresh chain, positive/negative RLS and worker boundaries, review/publication/replay/retention/dead-letter/cleanup |
+| deterministic preflight | PASS — `JID_CATALOG_UPDATE_FIXTURE_TRANSACTION_PASS`; `JID_CATALOG_UPDATE_FIXTURE_PREFLIGHT_PASS`; rollback and zero residue |
+| deterministic nonprod proof | PASS — `JID_CATALOG_NONPROD_UPDATE_FIXTURE_PASS`; flags OFF; same company target; no duplicate; rollback; zero row/permission residue |
+| pilot run | `PILOT-CATALOG-20260803-C` / `d879b3d9-6ad1-48ec-b09c-ea4032bb0165`; succeeded; 10 retrieved/accepted; 0 skipped/rejected/dead letters; 1 page; 0 retries |
+| pilot review | 5 reviewed: 2 published, 1 approved-pending-domain, 1 rejected, 1 returned; remaining 5 pending |
+| published companies | `21b7bf4d-e3f0-4c18-afdb-4ebb5755bbf7` (Gulf Arab Crete); `a0e6ddf2-7755-4294-b890-8fe15bf4a16f` (BARQ); both unowned/unverified with Staff-cited domain provenance |
+| zero side effects | PASS — profiles 17; business profiles 1; university profiles 1; verification requests 4; claimed companies 0 |
+| flags after pilot | `catalog.phase1_ingestion=false`; `catalog.gleif_connector_enabled=false` |
+| worker / scheduler | `catalog_worker_gleif` least privilege; direct DB endpoint; Edge Function v1 active; unauthenticated 401; weekly cron active; secrets not client-exposed |
+| local validation | PASS — focused 13; lint; type-check; full test 411 passed / 101 skipped; build 284 static pages |
+| validation CI | completion response |
+| target CI | completion response |
+| Vercel non-production | completion response |
+| report | `docs/command-center/reports/JID_CATALOG_PHASE1_FINAL_SHIPPING_REPORT.md` |
+| historical mirror | `agent/nonprod-signup-form` unchanged at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| production / main / frozen candidate | untouched |
+| completion token | `JID_CATALOG_PHASE1_SHIPPED <promoted SHA>` |
+
 ## Post-Spec 09 Release Remediation
 
 | Field | Value |
