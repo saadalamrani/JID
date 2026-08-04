@@ -10,7 +10,7 @@
 | checkpoint SHA | `ff9ac38` — preserved interrupted Phase 1 implementation |
 | source branch | `codex/jid-lammah-phase1-final-shipping` |
 | integrated validation branch | `codex/jid-lammah-phase1-final-shipping-ci-validation` |
-| canonical target | `agent/nonprod-signup-forum` |
+| canonical target | `agent/nonprod-signup-fix` |
 | delivered scope | EU Careers connector; adjacent evidence/candidate/review/run/dead-letter governance; Staff review surfaces; entitlement-gated public inventory; URL quarantine; native-precedence; kill switches that preserve published inventory |
 | architecture | PASS — no applications, communications, Profiles, Verification, ownership, or `claimed_by` side effects |
 | disposable matrix | PASS — `LAMMAH_PHASE1_DISPOSABLE_PASS` / `LAMMAH_PHASE1_DISPOSABLE_CLEAN` |

@@ -8,7 +8,7 @@ Source branch: `codex/jid-lammah-phase1-final-shipping`
 
 Integrated validation branch: `codex/jid-lammah-phase1-final-shipping-ci-validation`
 
-Canonical target: `agent/nonprod-signup-forum`
+Canonical target: `agent/nonprod-signup-fix`
 
 Checkpoint preserved: `ff9ac38`
 
@@ -20,7 +20,7 @@ Final promoted SHA: emitted by `JID_LAMMAH_PHASE1_SHIPPED <promoted SHA>` after 
 
 An earlier closeout incorrectly fast-forwarded the historical mirror `agent/nonprod-signup-form` to the Lammah tip. That was a branch-targeting mistake only.
 
-- Correct canonical target remains `agent/nonprod-signup-forum`.
+- Correct canonical target remains `agent/nonprod-signup-fix`.
 - Historical mirror `agent/nonprod-signup-form` is restored and fixed at `b29846b644ab2d94ec1d88b3a0954f2f30276452`.
 - Production, `main`, frozen production candidate, database, and implementation are unchanged.
 - This section records branch-governance correction only.
@@ -97,4 +97,4 @@ Proven on non-production schema:
 
 ## Production / protected refs
 
-Untouched: production, `main`, frozen production candidate, database, and implementation. Canonical promotion is clean fast-forward onto `agent/nonprod-signup-forum` only after green CI. Historical mirror `agent/nonprod-signup-form` remains fixed at `b29846b644ab2d94ec1d88b3a0954f2f30276452`.
+Untouched: production, `main`, frozen production candidate, database, and implementation. Canonical promotion is clean fast-forward onto `agent/nonprod-signup-fix` only after green CI. Historical mirror `agent/nonprod-signup-form` remains fixed at `b29846b644ab2d94ec1d88b3a0954f2f30276452`.
