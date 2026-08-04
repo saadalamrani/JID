@@ -3,9 +3,8 @@ import { describe, expect, it, vi } from 'vitest'
 import { LammahCard } from '@/app/[locale]/(public)/opportunities/_components/lammah-card'
 import type { LammahOpportunityCard } from '@/types/lammah'
 
-vi.mock('@/hooks/use-catalog-metadata', () => ({
-  useCatalogRegions: () => ({ data: [] }),
-  useCatalogSectors: () => ({ data: [] }),
+vi.mock('@/app/[locale]/(public)/opportunities/lammah-actions', () => ({
+  reportLammahProblem: vi.fn(async () => ({ ok: true })),
 }))
 
 const item: LammahOpportunityCard = {
@@ -19,6 +18,8 @@ const item: LammahOpportunityCard = {
   excerpt: null,
   sector: 'education',
   region: 'riyadh',
+  locationCountry: 'Saudi Arabia',
+  locationCity: 'Riyadh',
   ownershipType: null,
   experienceLevel: null,
   opportunityType: 'scholarship',
@@ -26,6 +27,7 @@ const item: LammahOpportunityCard = {
   sourcePublishedAt: '2026-07-25T00:00:00.000Z',
   scrapedAt: '2026-07-25T00:00:00.000Z',
   expiresAt: '2099-07-25T00:00:00.000Z',
+  lastConfirmedAt: '2026-07-25T00:00:00.000Z',
   status: 'active',
   extractionConfidence: 1,
   companyLogoUrl: null,
@@ -35,10 +37,11 @@ describe('Lammah external action isolation', () => {
   it('hands off to the official external source without a native application action', () => {
     render(<LammahCard item={item} />)
 
-    const link = screen.getByRole('link')
+    const link = screen.getByRole('link', { name: 'officialApply' })
     expect(link).toHaveAttribute('href', item.externalUrl)
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
-    expect(screen.queryByRole('button')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'reportProblem' })).toBeInTheDocument()
+    expect(screen.queryByText(/applicant|match|remaining|today/i)).not.toBeInTheDocument()
   })
 })

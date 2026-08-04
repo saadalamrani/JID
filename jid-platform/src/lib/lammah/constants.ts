@@ -1,13 +1,7 @@
-/**
- * Lammah (لمّاح) constants — Prompt 3 spec-locked copy.
- */
+export const LAMMAH_REVALIDATION_MAX_DAYS = 14
+export const LAMMAH_EVIDENCE_RETENTION_DAYS = 180
+export const LAMMAH_SOURCE_FAILURE_SUSPEND_THRESHOLD = 3
 
-/** Required on every Lammah surface — Rule E made visible. */
+/** Legacy surfaces use this until their copy is migrated to next-intl. */
 export const LAMMAH_EXTERNAL_SOURCE_NOTE_AR =
-  'فرصة مرصودة من مصدر خارجي — لا تصلك ردود آلية عنها'
-
-export const LAMMAH_CONFIDENCE_REVIEW_THRESHOLD = 0.7
-
-export const LAMMAH_TTL_DAYS = 14
-
-export const LAMMAH_SOURCE_FAILURE_PAUSE_THRESHOLD = 5
+  'فرصة خارجية — ينتقل التقديم إلى الموقع الرسمي، ولا ينشئ جِد طلب توظيف.'

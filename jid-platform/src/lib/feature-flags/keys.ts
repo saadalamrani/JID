@@ -22,6 +22,8 @@ export const FLAG_KEYS = {
 
   RADAR_REALTIME_UPDATES: 'radar.realtime_updates',
 
+  LAMMAH_PHASE1_INGESTION: 'lammah.phase1_ingestion',
+
   MENTORSHIP_DISCOVERY: 'mentorship.discovery',
 } as const
 

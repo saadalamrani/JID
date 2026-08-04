@@ -1,77 +1,81 @@
 'use client'
 
+import { Info, Radar } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { PlusGate } from '@/components/monetization/plus-gate'
+import { PlusTeaser } from '@/components/monetization/plus-teaser'
 import { EmptyState } from '@/components/shared/empty-state'
-import { useLammahFeedQuery } from '@/lib/hooks/use-lammah-feed-query'
-import { Radar } from 'lucide-react'
-import { JobCardSkeleton } from './job-card-skeleton'
+import type { LammahPageState } from '@/types/lammah'
+import { resolveExperienceLevelsFromChips } from '@/types/job'
+import type { LammahOpportunityType } from '@/types/lammah'
 import { useJobFilters } from './job-filter-context'
 import { LammahOpportunityTypeChips } from './lammah-opportunity-type-chips'
 import { VirtualizedLammahGrid } from './virtualized-lammah-grid'
-import type { LammahOpportunityType } from '@/types/lammah'
 
-const SKELETON_COUNT = 8
+type LammahFeedProps = {
+  initialState: LammahPageState
+}
 
-function LammahSkeletonGrid() {
+function LammahUnavailableState() {
+  const t = useTranslations('opportunities.lammah')
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
-        <JobCardSkeleton key={index} />
-      ))}
-    </div>
+    <EmptyState
+      icon={Radar}
+      title={t('unavailableTitle')}
+      description={t('unavailableDescription')}
+      className="py-12"
+    />
   )
 }
 
-function LammahFeedUnlocked() {
+function LammahFeedUnlocked({ initialState }: LammahFeedProps) {
   const t = useTranslations('opportunities.lammah')
   const scrollRef = useRef<HTMLElement | null>(null)
   const { filters } = useJobFilters()
   const [opportunityTypes, setOpportunityTypes] = useState<LammahOpportunityType[]>([])
-
-  const lammahFilters = useMemo(
-    () => ({
-      experienceChips: filters.experienceChips,
-      ownership: filters.ownership,
-      opportunityTypes,
-      regions: filters.regions,
-      sectors: filters.sectors,
-    }),
+  useEffect(() => {
+    scrollRef.current = document.documentElement
+  }, [])
+  const experienceLevels = useMemo(
+    () => resolveExperienceLevelsFromChips(filters.experienceChips) ?? [],
+    [filters.experienceChips],
+  )
+  const items = useMemo(
+    () =>
+      initialState.data.items.filter((item) => {
+        if (opportunityTypes.length > 0 && !opportunityTypes.includes(item.opportunityType)) return false
+        if (filters.sectors.length > 0 && (!item.sector || !filters.sectors.includes(item.sector))) return false
+        if (filters.regions.length > 0 && (!item.region || !filters.regions.includes(item.region))) return false
+        if (
+          experienceLevels.length > 0 &&
+          (!item.experienceLevel || !experienceLevels.includes(item.experienceLevel))
+        ) return false
+        if (
+          filters.ownership.length > 0 &&
+          (!item.ownershipType || !filters.ownership.includes(item.ownershipType))
+        ) return false
+        return true
+      }),
     [
-      filters.experienceChips,
+      experienceLevels,
       filters.ownership,
       filters.regions,
       filters.sectors,
+      initialState.data.items,
       opportunityTypes,
     ],
   )
 
-  const { data, isLoading, isFetching, error } = useLammahFeedQuery(lammahFilters)
-
-  useEffect(() => {
-    scrollRef.current = document.documentElement
-  }, [])
-
-  if (error) {
-    return (
-      <p className="font-arabic text-sm text-destructive">
-        {t('loadError')}: {error.message}
-      </p>
-    )
-  }
-
-  if (isLoading || (isFetching && !data)) {
-    return <LammahSkeletonGrid />
-  }
-
-  const items = data?.items ?? []
-  const count = data?.count ?? 0
-
   return (
     <div className="space-y-3">
       <LammahOpportunityTypeChips selected={opportunityTypes} onChange={setOpportunityTypes} />
-      <p className="font-arabic text-sm text-muted-foreground">{t('resultsCount', { count })}</p>
+      <div className="flex flex-wrap items-center justify-between gap-2 text-sm text-muted-foreground">
+        <p className="font-arabic">{t('resultsCount', { count: items.length })}</p>
+        <p className="inline-flex items-center gap-1 font-arabic">
+          <Info className="h-3.5 w-3.5" aria-hidden />
+          {t('orderingInfo')}
+        </p>
+      </div>
 
       {items.length === 0 ? (
         <EmptyState
@@ -87,23 +91,8 @@ function LammahFeedUnlocked() {
   )
 }
 
-function LammahUnavailableState() {
-  const t = useTranslations('opportunities.lammah')
-
-  return (
-    <EmptyState
-      icon={Radar}
-      title={t('unavailableTitle')}
-      description={t('unavailableDescription')}
-      className="py-12"
-    />
-  )
-}
-
-export function LammahFeed() {
-  return (
-    <PlusGate feature="lammah_feed" fallback={<LammahUnavailableState />}>
-      <LammahFeedUnlocked />
-    </PlusGate>
-  )
+export function LammahFeed({ initialState }: LammahFeedProps) {
+  if (!initialState.available) return <LammahUnavailableState />
+  if (!initialState.entitled) return <PlusTeaser feature="lammah_feed" />
+  return <LammahFeedUnlocked initialState={initialState} />
 }

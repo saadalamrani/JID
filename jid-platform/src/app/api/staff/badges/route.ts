@@ -80,6 +80,8 @@ export async function GET(request: Request) {
       mentor_apps: 0,
       openFlags: 0,
       open_flags: 0,
+      lammahReview: 0,
+      lammah_review: 0,
       lammahHidden: 0,
       lammah_hidden: 0,
       notifications: 0,

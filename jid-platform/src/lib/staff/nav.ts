@@ -20,7 +20,7 @@ export type StaffNavBadgeKey =
   | 'claims'
   | 'mentorApplications'
   | 'openFlags'
-  | 'lammahHidden'
+  | 'lammahReview'
   | 'correctionSuggestions'
 
 export type StaffNavItem = {
@@ -82,7 +82,7 @@ export const STAFF_NAV_SECTIONS: StaffNavSection[] = [
         key: 'lammah',
         href: '/staff/lammah',
         icon: Radar,
-        badgeKey: 'lammahHidden',
+        badgeKey: 'lammahReview',
       },
       { key: 'announcements', href: '/staff/announcements', icon: Megaphone },
       { key: 'billing', href: '/staff/billing', icon: CreditCard },

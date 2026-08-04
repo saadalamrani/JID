@@ -2,7 +2,9 @@
 
 import { Briefcase } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import type { JobsListResult } from '@/types/job'
+import type { LammahPageState } from '@/types/lammah'
 import { EmptyState } from '@/components/shared/empty-state'
 import { ActiveFiltersBar } from './active-filters-bar'
 import { EntityTypeChips } from './entity-type-chips'
@@ -24,6 +26,8 @@ const SKELETON_COUNT = 8
 
 type JobBoardPageClientProps = {
   initialData: JobsListResult
+  initialLammahState: LammahPageState
+  initialTab: OpportunitiesTab
   setupHint?: string
 }
 
@@ -71,8 +75,28 @@ function NativeResultsSection() {
   return <VirtualizedJobGrid jobs={jobs} scrollElementRef={scrollRef} />
 }
 
-function JobBoardContent({ setupHint }: { setupHint?: string }) {
-  const [activeTab, setActiveTab] = useState<OpportunitiesTab>('native')
+function JobBoardContent({
+  initialLammahState,
+  initialTab,
+  setupHint,
+}: {
+  initialLammahState: LammahPageState
+  initialTab: OpportunitiesTab
+  setupHint?: string
+}) {
+  const [activeTab, setActiveTab] = useState<OpportunitiesTab>(initialTab)
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  function selectTab(tab: OpportunitiesTab) {
+    setActiveTab(tab)
+    const next = new URLSearchParams(searchParams.toString())
+    if (tab === 'native') next.delete('tab')
+    else next.set('tab', tab)
+    const query = next.toString()
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
+  }
 
   return (
     <>
@@ -86,7 +110,7 @@ function JobBoardContent({ setupHint }: { setupHint?: string }) {
       ) : null}
       <JobBoardHero />
       <AbhathliWidget />
-      <OpportunitiesTabs activeTab={activeTab} onTabChange={setActiveTab} className="mb-4" />
+      <OpportunitiesTabs activeTab={activeTab} onTabChange={selectTab} className="mb-4" />
       <StickyFilterBar>
         <ExperienceLevelChips />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -104,17 +128,26 @@ function JobBoardContent({ setupHint }: { setupHint?: string }) {
             <NativeResultsSection />
           </>
         ) : (
-          <LammahFeed />
+          <LammahFeed initialState={initialLammahState} />
         )}
       </section>
     </>
   )
 }
 
-export function JobBoardPageClient({ initialData, setupHint }: JobBoardPageClientProps) {
+export function JobBoardPageClient({
+  initialData,
+  initialLammahState,
+  initialTab,
+  setupHint,
+}: JobBoardPageClientProps) {
   return (
     <JobFilterProvider initialData={initialData}>
-      <JobBoardContent setupHint={setupHint} />
+      <JobBoardContent
+        initialLammahState={initialLammahState}
+        initialTab={initialTab}
+        setupHint={setupHint}
+      />
     </JobFilterProvider>
   )
 }

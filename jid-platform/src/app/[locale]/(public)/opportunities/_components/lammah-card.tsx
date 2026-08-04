@@ -1,16 +1,14 @@
 'use client'
 
-import { Briefcase, ExternalLink, MapPin } from 'lucide-react'
-import { useLocale } from 'next-intl'
+import { Briefcase, CalendarDays, ExternalLink, MapPin, RefreshCw } from 'lucide-react'
+import { useLocale, useTranslations } from 'next-intl'
 import { CompanyLogo } from '@/app/[locale]/(public)/catalog/_components/company-logo'
 import { OwnershipBadge } from '@/app/[locale]/(public)/catalog/_components/ownership-badge'
 import { TierBadge } from '@/components/monetization/tier-badge'
-import { LAMMAH_EXTERNAL_SOURCE_NOTE_AR } from '@/lib/lammah/constants'
-import { lammahDaysUntilExpiry } from '@/lib/lammah/mappers'
 import { cn } from '@/lib/utils'
-import { useCatalogRegions, useCatalogSectors } from '@/hooks/use-catalog-metadata'
 import { EXPERIENCE_LEVEL_LABELS } from '@/types/job'
 import type { LammahOpportunityCard } from '@/types/lammah'
+import { LammahReportButton } from './lammah-report-button'
 import { Pill } from './pill'
 
 type LammahCardProps = {
@@ -18,88 +16,98 @@ type LammahCardProps = {
   className?: string
 }
 
+function formatDate(value: string, locale: 'ar' | 'en'): string {
+  return new Intl.DateTimeFormat(locale === 'ar' ? 'ar-SA-u-nu-latn' : 'en-SA-u-nu-latn', {
+    dateStyle: 'medium',
+    timeZone: 'Asia/Riyadh',
+  }).format(new Date(value))
+}
+
 export function LammahCard({ item, className }: LammahCardProps) {
   const locale = useLocale() as 'ar' | 'en'
-  const { data: sectors = [] } = useCatalogSectors()
-  const { data: regions = [] } = useCatalogRegions()
-
-  const title =
-    locale === 'ar'
-      ? item.titleAr || item.titleEn || '—'
-      : item.titleEn || item.titleAr || '—'
-  const sector = sectors.find((s) => s.slug === item.sector)
-  const region = regions.find((r) => r.slug === item.region)
-  const sectorLabel =
-    locale === 'ar' ? sector?.name_ar ?? sector?.name_en : sector?.name_en ?? sector?.name_ar
-  const regionLabel =
-    locale === 'ar' ? region?.name_ar ?? region?.name_en : region?.name_en ?? region?.name_ar
-  const daysLeft = lammahDaysUntilExpiry(item.expiresAt)
+  const t = useTranslations('opportunities.lammah')
+  const title = locale === 'ar' ? item.titleAr || item.titleEn : item.titleEn || item.titleAr
+  const locationLabel = [item.locationCity,item.region,item.locationCountry]
+    .filter((value,index,values):value is string=>Boolean(value)&&values.indexOf(value)===index)
+    .join(locale==='ar' ? '، ' : ', ')
 
   return (
     <article
       role="listitem"
       className={cn(
-        'relative flex min-h-[300px] flex-col rounded-xl border border-accent/25 bg-card p-4 shadow-sm',
+        'flex min-h-[330px] flex-col rounded-xl border border-accent/25 bg-card p-4 shadow-sm',
         className,
       )}
     >
-      <a
-        href={item.externalUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={cn(
-          'absolute inset-0 z-10 rounded-xl',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-        )}
-        aria-label={`فتح ${title} على المصدر الخارجي`}
-      />
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <span className="rounded-full border border-accent/35 bg-accent/15 px-2.5 py-1 font-arabic text-xs font-semibold text-primary">
+          {t('externalOpportunity')}
+        </span>
+        <TierBadge tier="plus" />
+      </div>
 
-      <header className="relative z-20 flex items-start gap-3 pointer-events-none">
+      <header className="flex items-start gap-3">
         <CompanyLogo name={item.companyNameRaw} logoUrl={item.companyLogoUrl} />
         <div className="min-w-0 flex-1">
-          <p className="truncate font-arabic text-sm font-medium text-muted-foreground">
+          <p className="font-arabic text-sm font-medium text-muted-foreground">
             {item.companyNameRaw}
           </p>
           <h2 className="mt-0.5 line-clamp-2 font-arabic text-base font-semibold text-foreground">
             {title}
           </h2>
         </div>
-        <div className="flex shrink-0 flex-col items-end gap-1">
-          <TierBadge tier="plus" />
-          {item.ownershipType ? <OwnershipBadge type={item.ownershipType} /> : null}
-        </div>
+        {item.ownershipType ? <OwnershipBadge type={item.ownershipType} /> : null}
       </header>
 
-      <div className="relative z-20 mt-3 flex flex-wrap items-center gap-1.5 pointer-events-none">
+      <div className="mt-3 flex flex-wrap items-center gap-1.5">
+        <Pill>{t(`opportunityTypes.${item.opportunityType}`)}</Pill>
         {item.experienceLevel ? (
           <Pill icon={Briefcase}>{EXPERIENCE_LEVEL_LABELS[item.experienceLevel]}</Pill>
         ) : null}
-        {regionLabel ? <Pill icon={MapPin}>{regionLabel}</Pill> : null}
-        {sectorLabel ? <Pill>{sectorLabel}</Pill> : null}
+        {locationLabel ? <Pill icon={MapPin}>{locationLabel}</Pill> : null}
+        {item.sector ? <Pill>{item.sector}</Pill> : null}
       </div>
 
       {item.excerpt ? (
-        <p className="relative z-20 mt-3 line-clamp-2 font-arabic text-sm text-muted-foreground pointer-events-none">
+        <p className="mt-3 line-clamp-2 font-arabic text-sm text-muted-foreground">
           {item.excerpt}
         </p>
       ) : null}
 
-      <div className="relative z-20 mt-auto space-y-2 pt-4 pointer-events-none">
-        <p
-          className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-2 font-arabic text-xs leading-relaxed text-muted-foreground"
-          aria-label="تنبيه المصدر الخارجي"
-        >
-          {LAMMAH_EXTERNAL_SOURCE_NOTE_AR}
+      <dl className="mt-3 space-y-1.5 font-arabic text-xs text-muted-foreground">
+        {item.expiresAt ? (
+          <div className="flex items-center gap-1.5">
+            <CalendarDays className="h-3.5 w-3.5" aria-hidden />
+            <dt>{t('deadlineLabel')}</dt>
+            <dd>{formatDate(item.expiresAt, locale)}</dd>
+          </div>
+        ) : null}
+        <div className="flex items-center gap-1.5">
+          <RefreshCw className="h-3.5 w-3.5" aria-hidden />
+          <dt>{t('lastConfirmedLabel')}</dt>
+          <dd>{formatDate(item.lastConfirmedAt, locale)}</dd>
+        </div>
+      </dl>
+
+      <div className="mt-auto space-y-3 pt-4">
+        <p className="rounded-md border border-border/60 bg-muted/40 px-2.5 py-2 font-arabic text-xs leading-relaxed text-muted-foreground">
+          {t('externalApplicationNotice')}
         </p>
-        <div className="flex items-center justify-between gap-2 text-xs text-muted-foreground">
-          <span className="font-arabic">
-            {daysLeft <= 1 ? 'تنتهي اليوم' : `متبقٍ ${daysLeft} يوم`}
-          </span>
-          <span className="inline-flex items-center gap-1 font-arabic">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <a
+            href={item.externalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 font-arabic text-xs font-semibold text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
             <ExternalLink className="h-3.5 w-3.5" aria-hidden />
-            {item.sourceName}
+            {t('officialApply')}
+          </a>
+          <span className="font-arabic text-xs text-muted-foreground">
+            {t('sourceLabel')}: {item.sourceName}
           </span>
         </div>
+        <LammahReportButton opportunityId={item.id} />
       </div>
     </article>
   )

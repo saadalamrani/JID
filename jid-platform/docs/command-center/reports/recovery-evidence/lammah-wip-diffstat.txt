@@ -1,0 +1,26 @@
+﻿ jid-platform/messages/ar.json                      | 187 ++++--
+ jid-platform/messages/en.json                      | 187 ++++--
+ .../_components/job-board-page-client.tsx          |  45 +-
+ .../opportunities/_components/lammah-card.tsx      | 112 ++--
+ .../opportunities/_components/lammah-feed.tsx      | 117 ++--
+ .../app/[locale]/(public)/opportunities/page.tsx   |  27 +-
+ .../staff/lammah/_components/lammah-review-row.tsx |  93 ---
+ .../app/[locale]/(staff)/staff/lammah/actions.ts   | 163 +++---
+ .../src/app/[locale]/(staff)/staff/lammah/page.tsx |  43 +-
+ .../sources/_components/lammah-sources-manager.tsx | 122 ----
+ .../[locale]/(staff)/staff/lammah/sources/page.tsx |  23 +-
+ jid-platform/src/app/api/staff/badges/route.ts     |   2 +
+ jid-platform/src/lib/feature-flags/keys.ts         |   2 +
+ .../src/lib/hooks/use-lammah-feed-query.ts         |  38 --
+ jid-platform/src/lib/lammah/client.ts              |  72 ---
+ jid-platform/src/lib/lammah/constants.ts           |  16 +-
+ jid-platform/src/lib/lammah/mappers.ts             |  65 ++-
+ jid-platform/src/lib/staff/badges.ts               |  23 +-
+ jid-platform/src/lib/staff/lammah-queries.ts       | 309 ++++++++--
+ jid-platform/src/lib/staff/nav.ts                  |   4 +-
+ jid-platform/src/types/lammah.ts                   |  44 +-
+ .../supabase/functions/lammah-crawler/index.ts     | 648 +++++++++++----------
+ .../tests/unit/components/lammah-feed.test.tsx     |  29 +-
+ .../tests/unit/lammah/lammah-card.test.tsx         |  13 +-
+ .../tests/unit/lammah/lammah-client.test.ts        |  74 ---
+ 25 files changed, 1255 insertions(+), 1203 deletions(-)

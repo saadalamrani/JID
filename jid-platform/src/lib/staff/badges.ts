@@ -9,6 +9,7 @@ export const STAFF_BADGE_TYPES = [
   'pending',
   'open_flags',
   'mentor_apps',
+  'lammah_review',
   'lammah_hidden',
 ] as const
 
@@ -26,7 +27,11 @@ export type StaffBadgeCounts = {
   mentor_apps: number
   openFlags: number
   open_flags: number
+  lammahReview: number
+  lammah_review: number
+  /** @deprecated legacy alias; now reports open governed review items. */
   lammahHidden: number
+  /** @deprecated legacy alias; now reports open governed review items. */
   lammah_hidden: number
   correctionSuggestions: number
   notifications: number
@@ -83,11 +88,13 @@ export async function getStaffBadgeCount(
       if (error) throw new Error(error.message)
       return count ?? 0
     }
+    case 'lammah_review':
     case 'lammah_hidden': {
-      const { count, error } = await supabase
-        .from('lammah_opportunities')
+      const untyped = supabase as unknown as SupabaseClient<Record<string, unknown>>
+      const { count, error } = await untyped
+        .from('lammah_review_queue')
         .select('id', { count: 'exact', head: true })
-        .eq('status', 'hidden')
+        .eq('queue_state', 'open')
       if (error) throw new Error(error.message)
       return count ?? 0
     }
@@ -109,13 +116,13 @@ export async function getStaffBadgeCounts(
   supabase: Client,
   actorId: string,
 ): Promise<StaffBadgeCounts> {
-  const [pending, assigned, openFlags, mentorApps, lammahHidden, correctionSuggestions] =
+  const [pending, assigned, openFlags, mentorApps, lammahReview, correctionSuggestions] =
     await Promise.all([
     getStaffBadgeCount(supabase, 'pending', actorId),
     getStaffBadgeCount(supabase, 'assigned', actorId),
     getStaffBadgeCount(supabase, 'open_flags', actorId),
     getStaffBadgeCount(supabase, 'mentor_apps', actorId),
-    getStaffBadgeCount(supabase, 'lammah_hidden', actorId),
+    getStaffBadgeCount(supabase, 'lammah_review', actorId),
     getCorrectionSuggestionsCount(supabase),
   ])
 
@@ -128,8 +135,10 @@ export async function getStaffBadgeCounts(
     mentor_apps: mentorApps,
     openFlags,
     open_flags: openFlags,
-    lammahHidden,
-    lammah_hidden: lammahHidden,
+    lammahReview,
+    lammah_review: lammahReview,
+    lammahHidden: lammahReview,
+    lammah_hidden: lammahReview,
     correctionSuggestions,
     notifications: 0,
   }

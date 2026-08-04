@@ -13,8 +13,6 @@ export const LAMMAH_OPPORTUNITY_TYPES = [
 ] as const
 export type LammahOpportunityType = (typeof LAMMAH_OPPORTUNITY_TYPES)[number]
 
-export type LammahSourceType = 'career_page' | 'rss' | 'api' | 'official_program'
-
 export type LammahOpportunityCard = {
   id: string
   sourceId: string
@@ -24,15 +22,18 @@ export type LammahOpportunityCard = {
   titleAr: string | null
   titleEn: string | null
   excerpt: string | null
-  sector: string
-  region: string
+  sector: string | null
+  region: string | null
+  locationCountry: string | null
+  locationCity: string | null
   ownershipType: OwnershipType | null
   experienceLevel: ExperienceLevel | null
   opportunityType: LammahOpportunityType
   externalUrl: string
-  sourcePublishedAt: string
+  sourcePublishedAt: string | null
   scrapedAt: string
-  expiresAt: string
+  expiresAt: string | null
+  lastConfirmedAt: string
   status: LammahStatus
   extractionConfidence: number
   companyLogoUrl: string | null
@@ -41,34 +42,11 @@ export type LammahOpportunityCard = {
 export type LammahFeedResult = {
   items: LammahOpportunityCard[]
   count: number
-  weeklyCount: number
 }
 
-export type LammahSource = {
-  id: string
-  name: string
-  companyId: string | null
-  baseUrl: string
-  sourceType: LammahSourceType
-  trustTier: 1 | 2
-  isActive: boolean
-  robotsOk: boolean
-  crawlFrequencyHours: number
-  lastCrawledAt: string | null
-  consecutiveFailures: number
-  createdAt: string
+export type LammahPageState = {
+  entitled: boolean
+  available: boolean
+  data: LammahFeedResult
 }
 
-export type LammahModerationRow = {
-  id: string
-  titleAr: string | null
-  titleEn: string | null
-  companyNameRaw: string
-  sector: string
-  region: string
-  externalUrl: string
-  status: LammahStatus
-  extractionConfidence: number
-  scrapedAt: string
-  sourceName: string
-}

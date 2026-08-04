@@ -1,0 +1,42 @@
+﻿ M jid-platform/messages/ar.json
+ M jid-platform/messages/en.json
+ M jid-platform/src/app/[locale]/(public)/opportunities/_components/job-board-page-client.tsx
+ M jid-platform/src/app/[locale]/(public)/opportunities/_components/lammah-card.tsx
+ M jid-platform/src/app/[locale]/(public)/opportunities/_components/lammah-feed.tsx
+ M jid-platform/src/app/[locale]/(public)/opportunities/page.tsx
+ D jid-platform/src/app/[locale]/(staff)/staff/lammah/_components/lammah-review-row.tsx
+ M jid-platform/src/app/[locale]/(staff)/staff/lammah/actions.ts
+ M jid-platform/src/app/[locale]/(staff)/staff/lammah/page.tsx
+ D jid-platform/src/app/[locale]/(staff)/staff/lammah/sources/_components/lammah-sources-manager.tsx
+ M jid-platform/src/app/[locale]/(staff)/staff/lammah/sources/page.tsx
+ M jid-platform/src/app/api/staff/badges/route.ts
+ M jid-platform/src/lib/feature-flags/keys.ts
+ D jid-platform/src/lib/hooks/use-lammah-feed-query.ts
+ D jid-platform/src/lib/lammah/client.ts
+ M jid-platform/src/lib/lammah/constants.ts
+ M jid-platform/src/lib/lammah/mappers.ts
+ M jid-platform/src/lib/staff/badges.ts
+ M jid-platform/src/lib/staff/lammah-queries.ts
+ M jid-platform/src/lib/staff/nav.ts
+ M jid-platform/src/types/lammah.ts
+ M jid-platform/supabase/functions/lammah-crawler/index.ts
+ M jid-platform/tests/unit/components/lammah-feed.test.tsx
+ M jid-platform/tests/unit/lammah/lammah-card.test.tsx
+ D jid-platform/tests/unit/lammah/lammah-client.test.ts
+?? jid-platform/docs/command-center/reports/recovery-evidence/
+?? jid-platform/scripts/lammah/
+?? jid-platform/src/app/[locale]/(public)/opportunities/_components/lammah-report-button.tsx
+?? jid-platform/src/app/[locale]/(public)/opportunities/lammah-actions.ts
+?? jid-platform/src/app/[locale]/(staff)/staff/lammah/_components/lammah-nav.tsx
+?? jid-platform/src/app/[locale]/(staff)/staff/lammah/_components/lammah-operations.tsx
+?? jid-platform/src/app/[locale]/(staff)/staff/lammah/dead-letters/
+?? jid-platform/src/app/[locale]/(staff)/staff/lammah/mapping/
+?? jid-platform/src/app/[locale]/(staff)/staff/lammah/review/
+?? jid-platform/src/app/[locale]/(staff)/staff/lammah/runs/
+?? jid-platform/src/lib/lammah/server.ts
+?? jid-platform/supabase/functions/_shared/lammah-eu-careers.ts
+?? jid-platform/supabase/migrations/20260803095847_lammah_phase1_foundations.sql
+?? jid-platform/supabase/migrations/20260803095949_lammah_phase1_workflows.sql
+?? jid-platform/tests/rls/lammah-phase1-final-shipping.disposable.sql
+?? jid-platform/tests/unit/lammah/eu-careers-connector.test.ts
+?? jid-platform/tests/unit/lammah/lammah-server.test.ts

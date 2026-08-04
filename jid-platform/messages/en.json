@@ -2492,37 +2492,137 @@
       }
     },
     "lammah": {
-      "title": "Lammah review",
-      "subtitle": "Low-confidence scraped opportunities — review before publish",
-      "queueCount": "{count} opportunities awaiting review",
-      "empty": "No hidden opportunities in the review queue",
-      "manageSources": "Manage sources",
-      "review": {
-        "meta": "Confidence {confidence} · {source} · {sector} / {region}",
-        "openSource": "Open source",
-        "approve": "Approve & publish",
-        "keepHidden": "Keep hidden",
-        "delete": "Delete"
+      "title": "Lammah operations",
+      "subtitle": "Governed intake, review, publication, and lifecycle controls for external opportunities",
+      "nav": {
+        "ariaLabel": "Lammah operations",
+        "overview": "Overview",
+        "review": "Review queue",
+        "mapping": "Organization mapping",
+        "deadLetters": "Dead letters",
+        "runs": "Runs"
       },
-      "sources": {
-        "title": "Lammah sources",
-        "subtitle": "Manage external crawl sources",
-        "back": "← Back to Lammah queue",
-        "addTitle": "Add source",
-        "name": "Source name",
-        "baseUrl": "Base URL",
-        "type": "Source type",
-        "careerPage": "Career page",
-        "officialProgram": "Official program",
-        "trustTier": "Trust tier",
-        "tier1": "Tier 1 — trusted",
-        "tier2": "Tier 2 — pilot",
-        "addCta": "Add source",
-        "listTitle": "Configured sources",
-        "empty": "No sources yet",
-        "sourceMeta": "{type} · tier {tier} · consecutive failures: {failures}",
-        "activate": "Activate",
-        "deactivate": "Deactivate"
+      "realCounts": "Current Lammah record counts",
+      "counts": {
+        "review": "Open review items",
+        "deadLetters": "Open dead letters",
+        "active": "Active published opportunities",
+        "runs": "Recorded runs"
+      },
+      "qualificationTitle": "Qualified source record",
+      "qualification": {
+        "licence": "Licence basis",
+        "terms": "Terms review",
+        "robots": "Robots review",
+        "applyPattern": "Official apply pattern",
+        "identity": "Record identity strategy",
+        "format": "Technical format",
+        "retention": "Evidence retention",
+        "rate": "Rate policy"
+      },
+      "controlsTitle": "Super Admin controls",
+      "controls": {
+        "ingestion": "Phase 1 ingestion",
+        "connector": "EU Careers connector",
+        "autoGlobal": "Global automatic publication",
+        "sourceEnabled": "Qualified source enabled",
+        "sourceAuto": "Source automatic publication"
+      },
+      "reason": "Required audit reason",
+      "saveControls": "Save controls",
+      "runRetention": "Run evidence retention",
+      "publishedTitle": "Published opportunity lifecycle",
+      "publishedEmpty": "No Lammah opportunities have been published.",
+      "actions": {
+        "hide": "Hide",
+        "unhide": "Restore",
+        "expire": "Expire"
+      },
+      "review": {
+        "title": "Candidate review queue",
+        "subtitle": "Review source evidence, exact facts, matching outcomes, and publication gates.",
+        "all": "All",
+        "searchPlaceholder": "Search title, organization, or source record ID",
+        "searchLabel": "Search Lammah review queue",
+        "filters": {
+          "state": "State",
+          "type": "Type",
+          "outcome": "Match outcome",
+          "flag": "Review flag",
+          "run": "Run"
+        },
+        "count": "{count} candidates",
+        "empty": "No candidates match these filters.",
+        "noFlags": "No review flags",
+        "unassigned": "Unassigned",
+        "claim": "Claim",
+        "open": "Open review"
+      },
+      "detail": {
+        "title": "Candidate review",
+        "subtitle": "Sanitized evidence and immutable decision history for this candidate",
+        "notes": "Required decision notes",
+        "correctType": "Correct opportunity type",
+        "companyId": "Resolved company ID",
+        "facts": "Exact extracted facts",
+        "actions": {
+          "claim": "Claim",
+          "release": "Release",
+          "approve": "Approve",
+          "publish": "Publish approved candidate",
+          "return": "Return for correction",
+          "quarantine": "Quarantine",
+          "releaseQuarantine": "Release quarantine",
+          "reject": "Reject",
+          "correctType": "Apply type correction",
+          "mapOrganization": "Confirm organization mapping",
+          "resolveDuplicate": "Resolve as independent",
+          "acceptFact": "Accept fact",
+          "rejectFact": "Reject fact",
+          "legalHold": "Place legal hold",
+          "releaseLegalHold": "Release legal hold"
+        },
+        "panels": {
+          "evidence": "Sanitized raw evidence",
+          "nativeMatches": "Native precedence checks",
+          "duplicates": "External duplicate checks",
+          "lifecycle": "Lifecycle events",
+          "audit": "Audit log"
+        }
+      },
+      "mapping": {
+        "title": "Organization mapping queue",
+        "subtitle": "Resolve an organization only to an existing company record with documented evidence.",
+        "empty": "No organization mappings await review.",
+        "unknownLocality": "No locality supplied",
+        "openCandidate": "Open candidate",
+        "companyId": "Existing company ID",
+        "notes": "Mapping evidence and reason",
+        "map": "Confirm mapping"
+      },
+      "deadLetters": {
+        "title": "Dead-letter operations",
+        "subtitle": "Sanitized failures; redrive and closure are Super Admin actions with an audit reason.",
+        "empty": "No dead letters recorded.",
+        "attempts": "{count} attempts",
+        "reason": "Required reason",
+        "redrive": "Request redrive",
+        "close": "Close"
+      },
+      "runs": {
+        "title": "Connector runs",
+        "subtitle": "Real worker identities, counters, retries, and partial-failure state",
+        "empty": "No connector runs recorded.",
+        "pages": "{count} pages",
+        "counts": {
+          "retrieved": "Retrieved",
+          "accepted": "Accepted",
+          "replayed": "Replayed",
+          "review": "Review",
+          "published": "Published",
+          "rejected": "Rejected",
+          "deadLetter": "Dead letters"
+        }
       }
     },
     "validation": {
@@ -4900,12 +5000,23 @@
       "lammah": "Lammah ✦"
     },
     "lammah": {
-      "resultsCount": "{count} scraped opportunities",
+      "resultsCount": "{count} external opportunities",
       "loadError": "Could not load Lammah",
       "emptyTitle": "No matching Lammah opportunities",
-      "emptyDescription": "Try adjusting filters or check back after the next crawl cycle.",
-      "unavailableTitle": "Lammah is not available yet",
-      "unavailableDescription": "External opportunities will appear here only when they come from a verified source.",
+      "emptyDescription": "Try adjusting the filters or check back after the next verified source refresh.",
+      "unavailableTitle": "Lammah is temporarily unavailable",
+      "unavailableDescription": "The verified external-opportunity source is currently disabled. Existing JID jobs are unaffected.",
+      "orderingInfo": "Ordered by source date when available, then first retrieval, evidenced deadline, and ID.",
+      "externalOpportunity": "External opportunity",
+      "externalApplicationNotice": "Application continues on the official external website. JID does not create or submit an application for you.",
+      "officialApply": "Official external application",
+      "sourceLabel": "Opportunity source",
+      "deadlineLabel": "Deadline:",
+      "lastConfirmedLabel": "Last confirmed:",
+      "reportProblem": "Report a problem",
+      "reportSending": "Sending report…",
+      "reportReceived": "Report received for Staff review.",
+      "reportError": "The report could not be sent. Please try again.",
       "teaserAria": "Lammah preview",
       "teaserHeadline": "Lammah — Plus-exclusive external opportunities",
       "teaserWeekly": "Added this week: {count} opportunities",
@@ -5002,11 +5113,11 @@
           ]
         },
         "lammah_feed": {
-          "description": "Fresh external opportunities curated exclusively for Plus members.",
+          "description": "JID-governed external opportunities from qualified official sources for Plus members.",
           "bullets": [
-            "14-day freshness guarantee",
-            "Mapped to JID taxonomies",
-            "Save to Radar without false expectations"
+            "Official application destinations are validated",
+            "Source and last-confirmed dates are shown honestly",
+            "No application is created or submitted inside JID"
           ]
         }
       }

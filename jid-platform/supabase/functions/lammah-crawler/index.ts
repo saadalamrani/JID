@@ -1,338 +1,386 @@
-import { corsHeaders, jsonResponse } from '../_shared/cors.ts'
-import { createServiceClient } from '../_shared/supabase.ts'
+import postgres from 'npm:postgres@3.4.7'
+import {
+  EU_CAREERS_MAX_RECORDS,
+  EU_CAREERS_MAX_REDIRECTS,
+  EU_CAREERS_MAX_RESPONSE_BYTES,
+  EU_CAREERS_MIN_DELAY_MS,
+  EU_CAREERS_PARSER_VERSION,
+  EU_CAREERS_REQUEST_TIMEOUT_MS,
+  EU_CAREERS_RETRY_LIMIT,
+  containsHostileInstruction,
+  hostAllowed,
+  isPublicIpAddress,
+  parseEuCareersDetail,
+  parseEuCareersList,
+  sha256Hex,
+} from '../_shared/lammah-eu-careers.ts'
 
-const FETCH_TIMEOUT_MS = 20_000
-const MAX_ITEMS_PER_SOURCE = 25
-const FAILURE_PAUSE_THRESHOLD = 5
+type JsonObject = Record<string, unknown>
+type SqlClient = ReturnType<typeof postgres>
 
-type LammahSourceRow = {
-  id: string
-  name: string
-  company_id: string | null
-  base_url: string
-  source_type: 'career_page' | 'rss' | 'api' | 'official_program'
-  trust_tier: 1 | 2
-  is_active: boolean
-  robots_ok: boolean
-  crawl_frequency_hours: number
-  last_crawled_at: string | null
-  last_content_hash: string | null
-  consecutive_failures: number
+const encoder = new TextEncoder()
+const userAgent = 'JID-Lammah-EUCareers/1.0 (+https://jid.sa)'
+
+function json(body: JsonObject, status = 200): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'content-type': 'application/json; charset=utf-8' },
+  })
 }
 
-type ParsedOpportunity = {
-  title_ar: string | null
-  title_en: string | null
-  excerpt: string | null
-  sector: string
-  region: string
-  ownership_type: string | null
-  experience_level: string | null
-  external_url: string
-  external_ref_hash: string
-  source_published_at: string
-  extraction_confidence: number
-  company_id: string | null
-  company_name_raw: string
+function bytesEqual(left: Uint8Array, right: Uint8Array): boolean {
+  if (left.length !== right.length) return false
+  let difference = 0
+  for (let index = 0; index < left.length; index += 1) difference |= left[index] ^ right[index]
+  return difference === 0
 }
 
-async function sha256Hex(input: string): Promise<string> {
-  const data = new TextEncoder().encode(input)
-  const digest = await crypto.subtle.digest('SHA-256', data)
-  return Array.from(new Uint8Array(digest))
-    .map((b) => b.toString(16).padStart(2, '0'))
-    .join('')
+function authorized(request: Request): boolean {
+  const expected = Deno.env.get('LAMMAH_EU_CAREERS_INVOCATION_SECRET')
+  const received = request.headers.get('x-lammah-invocation-secret')
+  return Boolean(
+    expected && received && bytesEqual(encoder.encode(expected), encoder.encode(received)),
+  )
 }
 
-async function fetchWithTimeout(url: string): Promise<Response> {
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS)
-  try {
-    return await fetch(url, {
-      signal: controller.signal,
-      redirect: 'follow',
-      headers: {
-        'User-Agent': 'JID-Lammah-Crawler/1.0 (+https://jid.sa)',
-        Accept: 'text/html,application/rss+xml,application/xml,text/xml,*/*',
-      },
-    })
-  } finally {
-    clearTimeout(timer)
-  }
+function wait(milliseconds: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
 
-function stripTags(html: string): string {
-  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
-}
-
-function decodeXmlEntities(value: string): string {
-  return value
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-    .trim()
-}
-
-function parseRssItems(xml: string, baseUrl: string): Array<{ title: string; link: string; pubDate: string | null; description: string | null }> {
-  const items: Array<{ title: string; link: string; pubDate: string | null; description: string | null }> = []
-  const itemBlocks = xml.match(/<item[\s\S]*?<\/item>/gi) ?? []
-
-  for (const block of itemBlocks.slice(0, MAX_ITEMS_PER_SOURCE)) {
-    const title = decodeXmlEntities(block.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '')
-    const linkRaw = decodeXmlEntities(block.match(/<link[^>]*>([\s\S]*?)<\/link>/i)?.[1] ?? '')
-    const linkAttr = block.match(/<link[^>]+href=["']([^"']+)["']/i)?.[1] ?? ''
-    const link = linkRaw || linkAttr
-    const pubDate = decodeXmlEntities(block.match(/<pubDate[^>]*>([\s\S]*?)<\/pubDate>/i)?.[1] ?? '') || null
-    const description = decodeXmlEntities(block.match(/<description[^>]*>([\s\S]*?)<\/description>/i)?.[1] ?? '') || null
-    if (!title || !link) continue
+async function fetchBounded(
+  url: string,
+  init: RequestInit,
+): Promise<{ response: Response; retries: number }> {
+  let lastError: Error | null = null
+  for (let attempt = 0; attempt <= EU_CAREERS_RETRY_LIMIT; attempt += 1) {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), EU_CAREERS_REQUEST_TIMEOUT_MS)
     try {
-      items.push({
-        title,
-        link: new URL(link, baseUrl).toString(),
-        pubDate,
-        description: description ? stripTags(description).slice(0, 280) : null,
+      const response = await fetch(url, {
+        ...init,
+        signal: controller.signal,
+        headers: {
+          accept: 'text/html,application/xhtml+xml',
+          'user-agent': userAgent,
+          ...(init.headers ?? {}),
+        },
       })
-    } catch {
-      // skip invalid URLs
-    }
-  }
-
-  return items
-}
-
-function extractCareerLinks(html: string, baseUrl: string): Array<{ title: string; link: string }> {
-  const results: Array<{ title: string; link: string }> = []
-  const anchorRegex = /<a\s+[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi
-  let match: RegExpExecArray | null
-
-  while ((match = anchorRegex.exec(html)) !== null && results.length < MAX_ITEMS_PER_SOURCE) {
-    const href = match[1]
-    const title = stripTags(match[2])
-    if (!href || title.length < 4) continue
-    const lower = `${href} ${title}`.toLowerCase()
-    if (!/(job|career|vacanc|وظيف|فرص|توظيف|careers)/i.test(lower)) continue
-    try {
-      results.push({ title, link: new URL(href, baseUrl).toString() })
-    } catch {
-      // skip
-    }
-  }
-
-  return results
-}
-
-function inferSector(title: string, excerpt: string | null): string {
-  const text = `${title} ${excerpt ?? ''}`.toLowerCase()
-  if (/software|developer|engineer|تقني|مبرمج|هندس/.test(text)) return 'technology-information'
-  if (/health|medical|طب|صح/.test(text)) return 'healthcare'
-  if (/finance|bank|مالي|مصرف/.test(text)) return 'finance-banking'
-  if (/education|تعليم|أكاديم/.test(text)) return 'education'
-  return 'professional-services'
-}
-
-function inferRegion(title: string, excerpt: string | null): string {
-  const text = `${title} ${excerpt ?? ''}`
-  if (/الرياض|riyadh/i.test(text)) return 'riyadh'
-  if (/جدة|jeddah|مكة|makkah/i.test(text)) return 'makkah'
-  if (/الدمام|dammam|الشرقية|eastern/i.test(text)) return 'eastern-province'
-  if (/المدينة|madinah/i.test(text)) return 'madinah'
-  return 'riyadh'
-}
-
-function computeConfidence(input: {
-  title: string
-  sector: string
-  region: string
-  hasPubDate: boolean
-  trustTier: 1 | 2
-  sourceType: LammahSourceRow['source_type']
-}): number {
-  let score = 0.45
-  if (input.title.trim().length >= 8) score += 0.2
-  if (input.sector) score += 0.1
-  if (input.region) score += 0.1
-  if (input.hasPubDate) score += 0.05
-  if (input.trustTier === 1) score += 0.05
-  if (input.sourceType === 'rss' || input.sourceType === 'api') score += 0.05
-  return Math.min(1, Number(score.toFixed(2)))
-}
-
-function parsePublishedAt(raw: string | null): string {
-  if (!raw) return new Date().toISOString()
-  const parsed = new Date(raw)
-  if (Number.isNaN(parsed.getTime())) return new Date().toISOString()
-  return parsed.toISOString()
-}
-
-async function buildOpportunity(
-  source: LammahSourceRow,
-  item: { title: string; link: string; pubDate?: string | null; description?: string | null },
-): Promise<ParsedOpportunity> {
-  const sector = inferSector(item.title, item.description ?? null)
-  const region = inferRegion(item.title, item.description ?? null)
-  const confidence = computeConfidence({
-    title: item.title,
-    sector,
-    region,
-    hasPubDate: Boolean(item.pubDate),
-    trustTier: source.trust_tier,
-    sourceType: source.source_type,
-  })
-
-  const refHash = await sha256Hex(`${source.id}:${item.link}`)
-
-  return {
-    title_ar: /[\u0600-\u06FF]/.test(item.title) ? item.title : null,
-    title_en: /[\u0600-\u06FF]/.test(item.title) ? null : item.title,
-    excerpt: item.description ?? null,
-    sector,
-    region,
-    ownership_type: null,
-    experience_level: null,
-    external_url: item.link,
-    external_ref_hash: refHash,
-    source_published_at: parsePublishedAt(item.pubDate ?? null),
-    extraction_confidence: confidence,
-    company_id: source.company_id,
-    company_name_raw: source.name,
-  }
-}
-
-function sourceIsDue(source: LammahSourceRow, nowMs: number): boolean {
-  if (!source.last_crawled_at) return true
-  const last = new Date(source.last_crawled_at).getTime()
-  if (Number.isNaN(last)) return true
-  return nowMs - last >= source.crawl_frequency_hours * 60 * 60 * 1000
-}
-
-Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
-  if (req.method !== 'POST') return jsonResponse({ error: 'Method not allowed' }, 405)
-
-  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
-  const authHeader = req.headers.get('Authorization') ?? ''
-  if (!serviceKey || authHeader !== `Bearer ${serviceKey}`) {
-    return jsonResponse({ error: 'Unauthorized' }, 401)
-  }
-
-  const supabase = createServiceClient()
-  const nowIso = new Date().toISOString()
-  const nowMs = Date.now()
-
-  const { data: sources, error: sourcesError } = await supabase
-    .from('lammah_sources')
-    .select(
-      'id, name, company_id, base_url, source_type, trust_tier, is_active, robots_ok, crawl_frequency_hours, last_crawled_at, last_content_hash, consecutive_failures',
-    )
-    .eq('is_active', true)
-    .lt('consecutive_failures', FAILURE_PAUSE_THRESHOLD)
-
-  if (sourcesError) return jsonResponse({ error: sourcesError.message }, 500)
-
-  let crawled = 0
-  let ingested = 0
-  let skipped = 0
-  let failures = 0
-
-  for (const source of (sources ?? []) as LammahSourceRow[]) {
-    if (!sourceIsDue(source, nowMs)) continue
-
-    try {
-      const response = await fetchWithTimeout(source.base_url)
-      if (!response.ok) throw new Error(`HTTP ${response.status}`)
-
-      const body = await response.text()
-      const contentHash = await sha256Hex(body.slice(0, 50_000))
-
-      if (source.source_type === 'career_page' && source.last_content_hash === contentHash) {
-        await supabase
-          .from('lammah_sources')
-          .update({
-            last_crawled_at: nowIso,
-            consecutive_failures: 0,
-          })
-          .eq('id', source.id)
-        crawled += 1
-        continue
+      if (response.status === 429 || response.status >= 500) {
+        throw new Error(`eu_careers_http_${response.status}`)
       }
-
-      const rawItems =
-        source.source_type === 'rss' || source.source_type === 'api' || source.source_type === 'official_program'
-          ? parseRssItems(body, source.base_url).map((item) => ({
-              title: item.title,
-              link: item.link,
-              pubDate: item.pubDate,
-              description: item.description,
-            }))
-          : extractCareerLinks(body, source.base_url).map((item) => ({
-              title: item.title,
-              link: item.link,
-              pubDate: null,
-              description: null,
-            }))
-
-      for (const item of rawItems) {
-        const payload = await buildOpportunity(source, item)
-        const { data: newId, error: ingestError } = await supabase.rpc('ingest_lammah_opportunity', {
-          p: {
-            ...payload,
-            source_id: source.id,
-          },
-        })
-
-        if (ingestError) {
-          if (ingestError.message.includes('duplicate') || ingestError.message.includes('unique')) {
-            skipped += 1
-            continue
-          }
-          if (
-            ingestError.message.includes('stale_posting_rejected') ||
-            ingestError.message.includes('invalid_sector') ||
-            ingestError.message.includes('invalid_region')
-          ) {
-            skipped += 1
-            continue
-          }
-          throw ingestError
-        }
-
-        if (newId) ingested += 1
-        else skipped += 1
-      }
-
-      await supabase
-        .from('lammah_sources')
-        .update({
-          last_crawled_at: nowIso,
-          last_content_hash: contentHash,
-          consecutive_failures: 0,
-        })
-        .eq('id', source.id)
-
-      crawled += 1
+      return { response, retries: attempt }
     } catch (error) {
-      failures += 1
-      const message = error instanceof Error ? error.message : 'crawl_failed'
-      await supabase
-        .from('lammah_sources')
-        .update({
-          last_crawled_at: nowIso,
-          consecutive_failures: source.consecutive_failures + 1,
-        })
-        .eq('id', source.id)
-      console.error('[lammah-crawler]', source.id, message)
+      lastError = error instanceof Error ? error : new Error('eu_careers_network_error')
+      if (attempt < EU_CAREERS_RETRY_LIMIT) await wait(500 * 2 ** attempt)
+    } finally {
+      clearTimeout(timer)
     }
   }
+  throw lastError ?? new Error('eu_careers_request_failed')
+}
 
-  return jsonResponse({
-    ok: true,
-    crawled,
-    ingested,
-    skipped,
-    failures,
-    checked_sources: (sources ?? []).length,
-  })
+type UrlValidation = {
+  finalUrl: string
+  redirectChain: Array<{ url: string; status: number; location: string | null }>
+  evidence: {
+    checked_at: string
+    status_code: number
+    redirect_count: number
+    final_destination: string
+    method: 'HEAD' | 'GET'
+    error_code?: string
+  }
+  retries: number
+}
+
+function safeErrorCode(error: unknown): string {
+  if (!(error instanceof Error)) return 'connector_record_failure'
+  return /^(?:eu_careers|apply_url)_[a-z0-9_:-]{1,120}$/.test(error.message)
+    ? error.message
+    : 'connector_record_failure'
+}
+
+async function assertPublicDestination(urlValue: string): Promise<void> {
+  const url = new URL(urlValue)
+  const hostname = url.hostname.toLowerCase().replace(/^\[|\]$/g, '')
+  if (
+    hostname === 'localhost' || hostname.endsWith('.localhost') ||
+    hostname.endsWith('.local') || hostname.endsWith('.internal')
+  ) throw new Error('apply_url_private_destination')
+
+  if (/^[\d.]+$/.test(hostname) || hostname.includes(':')) {
+    if (!isPublicIpAddress(hostname)) throw new Error('apply_url_private_destination')
+    return
+  }
+
+  const resolutions = await Promise.allSettled([
+    Deno.resolveDns(hostname, 'A'),
+    Deno.resolveDns(hostname, 'AAAA'),
+  ])
+  const addresses = resolutions.flatMap((result) => result.status === 'fulfilled' ? result.value : [])
+  if (addresses.length === 0) throw new Error('apply_url_dns_unresolved')
+  if (addresses.some((address) => !isPublicIpAddress(address))) {
+    throw new Error('apply_url_private_destination')
+  }
+}
+
+async function readBoundedHtml(response: Response): Promise<string> {
+  const contentType = response.headers.get('content-type')?.split(';')[0]?.trim().toLowerCase()
+  if (contentType && contentType !== 'text/html' && contentType !== 'application/xhtml+xml') {
+    throw new Error('eu_careers_content_type_invalid')
+  }
+  const declaredLength = Number(response.headers.get('content-length'))
+  if (Number.isFinite(declaredLength) && declaredLength > EU_CAREERS_MAX_RESPONSE_BYTES) {
+    throw new Error('eu_careers_response_too_large')
+  }
+  if (!response.body) return ''
+
+  const reader = response.body.getReader()
+  const chunks: Uint8Array[] = []
+  let total = 0
+  while (true) {
+    const {done,value} = await reader.read()
+    if (done) break
+    total += value.byteLength
+    if (total > EU_CAREERS_MAX_RESPONSE_BYTES) {
+      await reader.cancel()
+      throw new Error('eu_careers_response_too_large')
+    }
+    chunks.push(value)
+  }
+  const combined = new Uint8Array(total)
+  let offset = 0
+  for (const chunk of chunks) {
+    combined.set(chunk,offset)
+    offset += chunk.byteLength
+  }
+  return new TextDecoder('utf-8',{fatal:false}).decode(combined)
+}
+
+async function validateApplyUrl(initialUrl: string, allowedHosts: string[]): Promise<UrlValidation> {
+  if (!hostAllowed(initialUrl, allowedHosts)) throw new Error('apply_url_host_not_allowed')
+  let current = initialUrl
+  let retries = 0
+  const redirectChain: UrlValidation['redirectChain'] = []
+
+  for (let hop = 0; hop <= EU_CAREERS_MAX_REDIRECTS; hop += 1) {
+    await assertPublicDestination(current)
+    let method: 'HEAD' | 'GET' = 'HEAD'
+    let fetched = await fetchBounded(current, { method, redirect: 'manual' })
+    retries += fetched.retries
+    if (fetched.response.status === 405 || fetched.response.status === 501) {
+      method = 'GET'
+      fetched = await fetchBounded(current, { method, redirect: 'manual' })
+      retries += fetched.retries
+    }
+    const location = fetched.response.headers.get('location')
+    redirectChain.push({ url: current, status: fetched.response.status, location })
+    if (fetched.response.status >= 300 && fetched.response.status < 400 && location) {
+      if (hop === EU_CAREERS_MAX_REDIRECTS) throw new Error('apply_url_redirect_limit_exceeded')
+      const next = new URL(location, current).toString()
+      if (!hostAllowed(next, allowedHosts)) throw new Error('apply_url_redirect_host_not_allowed')
+      current = next
+      continue
+    }
+    if (fetched.response.status < 200 || fetched.response.status >= 400) {
+      throw new Error(`apply_url_http_${fetched.response.status}`)
+    }
+    if (!hostAllowed(current, allowedHosts)) throw new Error('apply_url_final_host_not_allowed')
+    return {
+      finalUrl: current,
+      redirectChain,
+      evidence: {
+        checked_at: new Date().toISOString(),
+        status_code: fetched.response.status,
+        redirect_count: redirectChain.length - 1,
+        final_destination: current,
+        method,
+      },
+      retries,
+    }
+  }
+  throw new Error('apply_url_validation_failed')
+}
+
+async function scalar(sql: SqlClient, query: ReturnType<SqlClient>): Promise<JsonObject> {
+  const rows = await query
+  const first = rows[0] as Record<string, unknown> | undefined
+  return (first?.result ?? {}) as JsonObject
+}
+
+Deno.serve(async (request) => {
+  if (request.method !== 'POST') return json({ error: 'method_not_allowed' }, 405)
+  if (!authorized(request)) return json({ error: 'unauthorized' }, 401)
+
+  const databaseUrl = Deno.env.get('LAMMAH_EU_CAREERS_DATABASE_URL')
+  if (!databaseUrl) return json({ error: 'database_url_missing' }, 500)
+
+  const input = (await request.json().catch(() => ({}))) as JsonObject
+  const requestedLimit = typeof input.limit === 'number' ? Math.floor(input.limit) : EU_CAREERS_MAX_RECORDS
+  const recordLimit = Math.min(Math.max(requestedLimit, 1), EU_CAREERS_MAX_RECORDS)
+  const externalRunId = typeof input.runId === 'string'
+    ? input.runId.slice(0, 160)
+    : `EUCAREERS-${new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 14)}`
+  const runMode = input.mode === 'revalidation' ? 'revalidation' : 'incremental'
+  const sql = postgres(databaseUrl, { max: 1, prepare: false, idle_timeout: 5 })
+
+  let runId: string | null = null
+  let retrieved = 0
+  let accepted = 0
+  let skipped = 0
+  let retries = 0
+  const checkedSourceRecordIds: string[] = []
+  const seenSourceRecordIds: string[] = []
+
+  try {
+    const started = await scalar(
+      sql,
+      sql`select public.lammah_begin_run(
+        ${externalRunId}, ${runMode}, 'lammah_worker_eu_careers'
+      ) as result`,
+    )
+    if (started.ok !== true) {
+      return json({ runId: externalRunId, ...started }, started.code === 'already_running_or_replayed' ? 409 : 202)
+    }
+    runId = String(started.run_id)
+    const sourceUrl = String(started.source_url)
+    const allowedHosts = Array.isArray(started.allowed_apply_hosts)
+      ? started.allowed_apply_hosts.filter((host): host is string => typeof host === 'string')
+      : []
+    const policy = (started.rate_limit_policy ?? {}) as JsonObject
+    const policyLimit = Number(policy.max_records ?? EU_CAREERS_MAX_RECORDS)
+    const maxRecords = Math.min(recordLimit, Number.isFinite(policyLimit) ? policyLimit : recordLimit)
+    const minDelay = Math.max(Number(policy.min_delay_ms ?? EU_CAREERS_MIN_DELAY_MS), EU_CAREERS_MIN_DELAY_MS)
+
+    await assertPublicDestination(sourceUrl)
+    const listFetch = await fetchBounded(sourceUrl, { method: 'GET', redirect: 'error' })
+    retries += listFetch.retries
+    if (!listFetch.response.ok) throw new Error(`eu_careers_list_http_${listFetch.response.status}`)
+    const listHtml = await readBoundedHtml(listFetch.response)
+    const listItems = parseEuCareersList(listHtml, sourceUrl, maxRecords)
+
+    for (const [index, listItem] of listItems.entries()) {
+      if (index > 0) await wait(minDelay)
+      retrieved += 1
+      let sourceRecordId: string | null = null
+      try {
+        const retrievedAt = new Date().toISOString()
+        await assertPublicDestination(listItem.detailUrl)
+        const detailFetch = await fetchBounded(listItem.detailUrl, { method: 'GET', redirect: 'error' })
+        retries += detailFetch.retries
+        if (!detailFetch.response.ok) throw new Error(`eu_careers_detail_http_${detailFetch.response.status}`)
+        const detailHtml = await readBoundedHtml(detailFetch.response)
+        const record = parseEuCareersDetail(detailHtml, listItem.detailUrl)
+        sourceRecordId = record.sourceRecordId
+        checkedSourceRecordIds.push(record.sourceRecordId)
+        seenSourceRecordIds.push(record.sourceRecordId)
+        let validation: UrlValidation
+        try {
+          validation = await validateApplyUrl(record.applyUrl, allowedHosts)
+          retries += validation.retries
+        } catch (error) {
+          validation = {
+            finalUrl: record.applyUrl,
+            redirectChain: [],
+            evidence: {
+              checked_at: new Date().toISOString(),
+              status_code: 0,
+              redirect_count: 0,
+              final_destination: record.applyUrl,
+              method: 'HEAD',
+              error_code: safeErrorCode(error),
+            },
+            retries: 0,
+          }
+        }
+        const checksum = await sha256Hex(detailHtml)
+        const personalDataDominated = (detailHtml.match(/mailto:/gi)?.length ?? 0) > 3
+        const hostileContent = containsHostileInstruction(detailHtml)
+
+        const result = await scalar(
+          sql,
+          sql`select public.ingest_lammah_candidate(
+            ${runId}::uuid,
+            ${sql.json({
+              source_record_id: record.sourceRecordId,
+              checksum_sha256: checksum,
+              request_identity: `${externalRunId}:${record.sourceRecordId}`,
+              source_page_url: record.sourcePageUrl,
+              apply_url: record.applyUrl,
+              final_apply_url: validation.finalUrl,
+              redirect_chain: validation.redirectChain,
+              url_validation_evidence: validation.evidence,
+              retrieved_at: retrievedAt,
+              source_deadline_at: record.sourceDeadlineAt,
+              opportunity_type: 'job',
+              title_original: record.titleOriginal,
+              title_en: record.titleEn,
+              organization_raw_name: record.organizationRawName,
+              location_country: record.locationCountry,
+              location_city: record.locationCity,
+              payload_body: detailHtml,
+              sanitized_projection: record.sanitizedProjection,
+              content_type: detailFetch.response.headers.get('content-type')?.split(';')[0] ?? 'text/html',
+              personal_data_dominated: personalDataDominated,
+              hostile_content: hostileContent,
+            })}
+          ) as result`,
+        )
+        if (result.ok !== true) {
+          skipped += 1
+          console.warn('[lammah-crawler] record rejected', result.code)
+          continue
+        }
+        accepted += 1
+      } catch (error) {
+        skipped += 1
+        const errorCode = safeErrorCode(error)
+        await sql`select public.record_lammah_dead_letter(
+          ${runId}::uuid, ${sourceRecordId}, 'connector_record_failure',
+          ${sql.json({error_code:errorCode,detail_url:listItem.detailUrl})}
+        )`.catch(() => undefined)
+        console.warn(
+          '[lammah-crawler] record rejected',
+          errorCode,
+        )
+      }
+    }
+
+    const checkpoint = {
+      checked_source_record_ids: checkedSourceRecordIds,
+      seen_source_record_ids: seenSourceRecordIds,
+      content_hash: await sha256Hex(listHtml),
+      parser_version: EU_CAREERS_PARSER_VERSION,
+    }
+    const finished = await scalar(
+      sql,
+      sql`select public.lammah_finish_run(
+        ${runId}::uuid, ${skipped > 0 ? 'succeeded_partial' : 'succeeded'},
+        ${retrieved}, 1, ${retries}, ${sql.json(checkpoint)}, null, null
+      ) as result`,
+    )
+    return json({
+      ok: finished.ok === true,
+      runId,
+      externalRunId,
+      retrieved,
+      accepted,
+      skipped,
+      pages: 1,
+      retries,
+    })
+  } catch (error) {
+    if (runId) {
+      await sql`select public.lammah_finish_run(
+        ${runId}::uuid, 'failed_partial', ${retrieved}, 1, ${retries}, ${sql.json({
+          checked_source_record_ids: checkedSourceRecordIds,
+          seen_source_record_ids: seenSourceRecordIds,
+        })}, 'connector_failure',
+        ${error instanceof Error ? error.message.slice(0, 500) : 'unknown'}
+      )`.catch(() => undefined)
+    }
+    return json({ error: error instanceof Error ? error.message : 'connector_failure', runId }, 500)
+  } finally {
+    await sql.end({ timeout: 2 })
+  }
 })
