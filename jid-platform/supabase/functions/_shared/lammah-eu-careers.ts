@@ -80,7 +80,7 @@ function extractClassBlock(html: string, className: string): string | null {
   const marker = escapeRegExp(className)
   const match = html.match(
     new RegExp(
-      `<(?:div|section|article|h[1-6])[^>]*class=["'][^"']*${marker}[^"']*["'][^>]*>([\\s\\S]*?)(?=<(?:div|section|article|h[1-6])[^>]*class=["'][^"']*field--name-|<\\/article>|$)`,
+      `<(?:div|section|article|h[1-6])[^>]*class=["'][^"']*${marker}[^"']*["'][^>]*>([\\s\\S]*?)(?=<(?:div|section|article|h[1-6])[^>]*class=["'][^"']*(?:field--name-|\\blocations\\b|\\bjob-title\\b)|<\\/article>|$)`,
       'i',
     ),
   )
@@ -122,10 +122,15 @@ export function parseEuCareersList(
 ): EuCareersListItem[] {
   const results: EuCareersListItem[] = []
   const seen = new Set<string>()
-  const anchors = html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi)
+  const anchors = Array.from(
+    html.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi),
+  )
   for (const anchor of anchors) {
-    const detailUrl = normalizeEuCareersDetailUrl(anchor[1], baseUrl)
-    const title = htmlToText(anchor[2])
+    const href = anchor[1]
+    const label = anchor[2]
+    if (href === undefined || label === undefined) continue
+    const detailUrl = normalizeEuCareersDetailUrl(href, baseUrl)
+    const title = htmlToText(label)
     if (!detailUrl || title.length < 2 || seen.has(detailUrl)) continue
     seen.add(detailUrl)
     results.push({ detailUrl, title })
@@ -184,7 +189,15 @@ export function parseBrusselsDeadline(value: string | null): string | null {
   if (!value) return null
   const match = value.match(/\b(\d{2})\/(\d{2})\/(\d{4})\s*-?\s*(\d{2}):(\d{2})\b/)
   if (!match) return null
-  const [, day, month, year, hour, minute] = match.map(Number)
+  const day = Number(match[1])
+  const month = Number(match[2])
+  const year = Number(match[3])
+  const hour = Number(match[4])
+  const minute = Number(match[5])
+  if (
+    !Number.isFinite(day) || !Number.isFinite(month) || !Number.isFinite(year) ||
+    !Number.isFinite(hour) || !Number.isFinite(minute)
+  ) return null
   if (
     year < 2020 || month < 1 || month > 12 || day < 1 || day > 31 ||
     hour < 0 || hour > 23 || minute < 0 || minute > 59
@@ -201,7 +214,7 @@ export function parseBrusselsDeadline(value: string | null): string | null {
 function parseLocation(value: string | null): { country: string | null; city: string | null } {
   if (!value) return { country: null, city: null }
   const match = value.match(/^(.+?)\s*\(([^()]+)\)\s*$/)
-  if (!match) return { country: null, city: value }
+  if (!match?.[1] || !match[2]) return { country: null, city: value }
   return { city: match[1].trim() || null, country: match[2].trim() || null }
 }
 
@@ -293,7 +306,9 @@ function parseIpv4(value: string): number[] | null {
 export function isPublicIpAddress(value: string): boolean {
   const ipv4 = parseIpv4(value)
   if (ipv4) {
-    const [first, second] = ipv4
+    const first = ipv4[0]
+    const second = ipv4[1]
+    if (first === undefined || second === undefined) return false
     return !(
       first === 0 || first === 10 || first === 127 ||
       (first === 100 && second >= 64 && second <= 127) ||

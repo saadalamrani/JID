@@ -329,7 +329,7 @@ SECURITY DEFINER
 SET search_path = pg_catalog, public
 AS $function$
 DECLARE
-  v_actor uuid := auth.uid();
+  v_actor uuid := NULLIF(current_setting('request.jwt.claim.sub', true), '')::uuid;
   v_candidate_id uuid;
 BEGIN
   IF v_actor IS NULL OR NOT public.has_entitlement('lammah_feed') THEN
@@ -1853,6 +1853,9 @@ REVOKE ALL ON FUNCTION public.ingest_lammah_opportunity(jsonb) FROM PUBLIC,anon,
 REVOKE ALL ON FUNCTION public.expire_stale_lammah_opportunities() FROM PUBLIC,anon,authenticated,service_role;
 REVOKE ALL ON FUNCTION public.purge_expired_lammah() FROM PUBLIC,anon,authenticated,service_role;
 REVOKE ALL ON FUNCTION public.execute_lammah_retention() FROM PUBLIC,anon,authenticated,service_role;
+GRANT EXECUTE ON FUNCTION public.expire_stale_lammah_opportunities() TO postgres;
+GRANT EXECUTE ON FUNCTION public.purge_expired_lammah() TO postgres;
+GRANT EXECUTE ON FUNCTION public.execute_lammah_retention() TO postgres;
 
 REVOKE ALL ON FUNCTION public.lammah_begin_run(text,text,text) FROM PUBLIC,anon,authenticated,service_role;
 REVOKE ALL ON FUNCTION public.ingest_lammah_candidate(uuid,jsonb) FROM PUBLIC,anon,authenticated,service_role;

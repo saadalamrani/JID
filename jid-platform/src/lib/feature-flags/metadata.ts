@@ -106,6 +106,12 @@ export const FLAG_METADATA: Record<FlagKey, FlagMetadata> = {
     fallbackMessageAr: 'التحديثات الفورية للرادار غير متاحة حالياً.',
     fallbackMessageEn: 'Radar realtime updates are currently unavailable.',
   },
+  [FLAG_KEYS.LAMMAH_PHASE1_INGESTION]: {
+    labelAr: 'استيعاب لمّاح المرحلة الأولى',
+    labelEn: 'Lammah Phase 1 Ingestion',
+    fallbackMessageAr: 'استيعاب لمّاح غير متاح حالياً.',
+    fallbackMessageEn: 'Lammah ingestion is currently unavailable.',
+  },
   [FLAG_KEYS.MENTORSHIP_DISCOVERY]: {
     labelAr: 'اكتشاف المرشدين',
     labelEn: 'Mentorship Discovery',

@@ -18,11 +18,11 @@ export function LammahReviewQueue({queue}:{queue:LammahStaffQueueItem[]}) {
   const [run,setRun]=useState('all')
   const [pending,startTransition]=useTransition()
   const options=useMemo(()=>({
-    states:[...new Set(queue.map((item)=>item.candidate.state))],
-    types:[...new Set(queue.map((item)=>item.candidate.opportunity_type))],
-    outcomes:[...new Set(queue.map((item)=>item.candidate.match_outcome))],
-    flags:[...new Set(queue.flatMap((item)=>item.candidate.review_flags))],
-    runs:[...new Set(queue.map((item)=>item.candidate.run_id))],
+    states:Array.from(new Set(queue.map((item)=>item.candidate.state))),
+    types:Array.from(new Set(queue.map((item)=>item.candidate.opportunity_type))),
+    outcomes:Array.from(new Set(queue.map((item)=>item.candidate.match_outcome))),
+    flags:Array.from(new Set(queue.flatMap((item)=>item.candidate.review_flags))),
+    runs:Array.from(new Set(queue.map((item)=>item.candidate.run_id))),
   }),[queue])
   const filtered=useMemo(()=>queue.filter((item)=>{
     const candidate=item.candidate

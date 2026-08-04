@@ -1,8 +1,6 @@
 \set ON_ERROR_STOP on
 
 -- Lammah Phase 1 disposable proof. All roles and rows are rolled back.
-BEGIN;
-
 CREATE OR REPLACE FUNCTION pg_temp.assert_true(p_value boolean, p_message text)
 RETURNS void LANGUAGE plpgsql AS $$
 BEGIN
@@ -19,6 +17,18 @@ BEGIN
   RAISE EXCEPTION 'EXPECTED_ERROR_NOT_RAISED: %',p_message;
 END;
 $$;
+
+BEGIN;
+
+-- Disposable stacks started with newer Supabase CLI may omit the historical
+-- authenticated SELECT grants that non-production already has. Restore the
+-- minimum surface the Lammah matrix and staff RLS subqueries require.
+GRANT SELECT ON TABLE public.profiles, public.companies, public.jobs,
+  public.feature_flags, public.regions, public.applications,
+  public.communication_batches, public.communication_log,
+  public.lammah_radar_items, public.verification_requests,
+  public.lammah_sources, public.lammah_opportunities
+TO authenticated;
 
 SELECT pg_temp.assert_true(
   (SELECT count(*)=12
@@ -85,6 +95,18 @@ SELECT pg_temp.assert_true(
 );
 
 SET session_replication_role=replica;
+INSERT INTO auth.users (
+  instance_id,id,aud,role,email,encrypted_password,email_confirmed_at,
+  raw_app_meta_data,raw_user_meta_data,created_at,updated_at,
+  confirmation_token,recovery_token,email_change_token_new,email_change
+) VALUES
+  ('00000000-0000-0000-0000-000000000000','1a660001-0000-4000-8000-000000000001','authenticated','authenticated','lammah-reviewer@pilot-synth.jid.local',crypt('x',gen_salt('bf')),now(),'{"provider":"email","providers":["email"]}','{}',now(),now(),'','','',''),
+  ('00000000-0000-0000-0000-000000000000','1a660002-0000-4000-8000-000000000002','authenticated','authenticated','lammah-super@pilot-synth.jid.local',crypt('x',gen_salt('bf')),now(),'{"provider":"email","providers":["email"]}','{}',now(),now(),'','','',''),
+  ('00000000-0000-0000-0000-000000000000','1a660003-0000-4000-8000-000000000003','authenticated','authenticated','lammah-admin@pilot-synth.jid.local',crypt('x',gen_salt('bf')),now(),'{"provider":"email","providers":["email"]}','{}',now(),now(),'','','',''),
+  ('00000000-0000-0000-0000-000000000000','1a660004-0000-4000-8000-000000000004','authenticated','authenticated','lammah-unentitled@pilot-synth.jid.local',crypt('x',gen_salt('bf')),now(),'{"provider":"email","providers":["email"]}','{}',now(),now(),'','','',''),
+  ('00000000-0000-0000-0000-000000000000','1a660005-0000-4000-8000-000000000005','authenticated','authenticated','lammah-biz-owner@pilot-synth.jid.local',crypt('x',gen_salt('bf')),now(),'{"provider":"email","providers":["email"]}','{}',now(),now(),'','','',''),
+  ('00000000-0000-0000-0000-000000000000','1a660006-0000-4000-8000-000000000006','authenticated','authenticated','lammah-entitled@pilot-synth.jid.local',crypt('x',gen_salt('bf')),now(),'{"provider":"email","providers":["email"]}','{}',now(),now(),'','','','');
+
 INSERT INTO public.profiles(id,full_name,role) VALUES
   ('1a660001-0000-4000-8000-000000000001','Lammah reviewer','staff'),
   ('1a660002-0000-4000-8000-000000000002','Lammah super admin','super_admin'),

@@ -1,7 +1,7 @@
 import { renderNotificationEmailTemplate } from '../notification-email-worker/templates/render.ts'
 import type { DigestEmailItem } from '../notification-email-worker/templates/render.ts'
-import { sendResendEmailWithMeta } from '../resend-client.ts'
-import { createServiceClient } from '../supabase.ts'
+import { sendResendEmailWithMeta } from './resend-client.ts'
+import { createServiceClient } from './supabase.ts'
 
 export type NotificationRow = {
   id: string

@@ -26,15 +26,15 @@ async function rpc(name: string, args: Record<string, unknown>): Promise<LammahS
   return {ok:true,data:result}
 }
 
-export function claimLammahCandidate(candidateId:string) {
+export async function claimLammahCandidate(candidateId:string) {
   return rpc('claim_lammah_candidate',{p_candidate_id:candidateId})
 }
 
-export function releaseLammahCandidate(candidateId:string,reason:string) {
+export async function releaseLammahCandidate(candidateId:string,reason:string) {
   return rpc('release_lammah_candidate',{p_candidate_id:candidateId,p_reason:reason})
 }
 
-export function reviewLammahCandidate(input:{
+export async function reviewLammahCandidate(input:{
   candidateId:string
   action:string
   notes:string
@@ -47,7 +47,7 @@ export function reviewLammahCandidate(input:{
   })
 }
 
-export function reviewLammahFact(input:{
+export async function reviewLammahFact(input:{
   factId:string
   action:'accept'|'reject'|'edit'
   normalizedValue?:unknown
@@ -61,17 +61,17 @@ export function reviewLammahFact(input:{
   })
 }
 
-export function publishLammahCandidate(candidateId:string,notes:string) {
+export async function publishLammahCandidate(candidateId:string,notes:string) {
   return rpc('publish_lammah_candidate',{p_candidate_id:candidateId,p_notes:notes})
 }
 
-export function transitionLammahOpportunity(opportunityId:string,action:string,reason:string) {
+export async function transitionLammahOpportunity(opportunityId:string,action:string,reason:string) {
   return rpc('transition_lammah_opportunity',{
     p_opportunity_id:opportunityId,p_action:action,p_reason:reason,
   })
 }
 
-export function configureLammahPhase1(input:{
+export async function configureLammahPhase1(input:{
   ingestionEnabled:boolean
   connectorEnabled:boolean
   autoPublicationEnabled:boolean
@@ -89,20 +89,20 @@ export function configureLammahPhase1(input:{
   })
 }
 
-export function redriveLammahDeadLetter(deadLetterId:string,reason:string) {
+export async function redriveLammahDeadLetter(deadLetterId:string,reason:string) {
   return rpc('redrive_lammah_dead_letter',{p_dead_letter_id:deadLetterId,p_reason:reason})
 }
 
-export function closeLammahDeadLetter(deadLetterId:string,reason:string) {
+export async function closeLammahDeadLetter(deadLetterId:string,reason:string) {
   return rpc('close_lammah_dead_letter',{p_dead_letter_id:deadLetterId,p_reason:reason})
 }
 
-export function setLammahEvidenceLegalHold(evidenceId:string,enabled:boolean,reason:string) {
+export async function setLammahEvidenceLegalHold(evidenceId:string,enabled:boolean,reason:string) {
   return rpc('set_lammah_evidence_legal_hold',{
     p_evidence_id:evidenceId,p_enabled:enabled,p_reason:reason,
   })
 }
 
-export function runLammahRetention(reason:string) {
+export async function runLammahRetention(reason:string) {
   return rpc('run_lammah_retention_now',{p_reason:reason})
 }

@@ -49,4 +49,3 @@ export type LammahPageState = {
   available: boolean
   data: LammahFeedResult
 }
-

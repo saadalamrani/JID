@@ -758,6 +758,8 @@ CREATE POLICY lammah_jobs_function_read
   ON public.jobs FOR SELECT TO lammah_function_owner USING (true);
 CREATE POLICY lammah_profiles_function_read
   ON public.profiles FOR SELECT TO lammah_function_owner USING (true);
+CREATE POLICY lammah_regions_function_read
+  ON public.regions FOR SELECT TO lammah_function_owner USING (true);
 CREATE POLICY lammah_flags_function_read
   ON public.feature_flags FOR SELECT TO lammah_function_owner
   USING (key LIKE 'lammah.%');
@@ -772,13 +774,37 @@ GRANT EXECUTE ON FUNCTION public.find_native_job_conflict(
 ) TO lammah_function_owner;
 GRANT EXECUTE ON FUNCTION public.lock_lammah_native_conflict(uuid, text, text)
   TO lammah_function_owner;
+GRANT EXECUTE ON FUNCTION public.lammah_native_opportunity_matches(
+  public.lammah_opportunity_type_enum,
+  uuid,
+  text,
+  text,
+  text,
+  text,
+  public.experience_level_enum,
+  uuid,
+  text,
+  text,
+  text,
+  text,
+  public.experience_level_enum
+) TO lammah_function_owner;
+GRANT EXECUTE ON FUNCTION public.opportunity_titles_match_exactly(text, text, text, text)
+  TO lammah_function_owner;
+GRANT EXECUTE ON FUNCTION public.opportunity_title_similarity(text, text, text, text)
+  TO lammah_function_owner;
 GRANT EXECUTE ON FUNCTION public.current_user_role() TO lammah_function_owner;
 GRANT EXECUTE ON FUNCTION public.has_entitlement(text) TO lammah_function_owner;
 GRANT EXECUTE ON FUNCTION extensions.digest(text, text) TO lammah_function_owner;
+GRANT SELECT ON TABLE public.regions TO lammah_function_owner;
 
 -- Client roles never mutate shipped sources or published opportunities.
 REVOKE INSERT, UPDATE, DELETE, TRUNCATE ON TABLE public.lammah_sources,
   public.lammah_opportunities FROM PUBLIC, anon, authenticated, service_role, lammah_worker;
+REVOKE SELECT ON TABLE public.lammah_sources, public.lammah_opportunities
+  FROM PUBLIC, anon, service_role, lammah_worker;
+GRANT SELECT ON TABLE public.lammah_sources, public.lammah_opportunities
+  TO authenticated;
 
 DROP POLICY IF EXISTS lammah_sources_staff_all ON public.lammah_sources;
 CREATE POLICY lammah_sources_staff_read

@@ -13,11 +13,11 @@ import {
 
 const root = process.cwd()
 const foundations = readFileSync(
-  join(root, 'supabase/migrations/20260803095847_lammah_phase1_foundations.sql'),
+  join(root, 'supabase/migrations/20260803120100_lammah_phase1_foundations.sql'),
   'utf8',
 )
 const workflows = readFileSync(
-  join(root, 'supabase/migrations/20260803095949_lammah_phase1_workflows.sql'),
+  join(root, 'supabase/migrations/20260803120200_lammah_phase1_workflows.sql'),
   'utf8',
 )
 const connector = readFileSync(

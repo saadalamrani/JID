@@ -1,5 +1,28 @@
 # JID Master Execution Ledger
 
+## JID Lammah Phase 1 — Final Shipping Wave
+
+| Field | Value |
+|---|---|
+| status | SHIPPED when the validation candidate is fast-forwarded to canonical; final SHA is emitted in the completion token |
+| date | 2026-08-04 |
+| canonical integration base | `e461ad8` — Catalog Phase 1 shipping evidence tip before Lammah checkpoint |
+| checkpoint SHA | `ff9ac38` — preserved interrupted Phase 1 implementation |
+| source branch | `codex/jid-lammah-phase1-final-shipping` |
+| integrated validation branch | `codex/jid-lammah-phase1-final-shipping-ci-validation` |
+| canonical target | `agent/nonprod-signup-form` |
+| delivered scope | EU Careers connector; adjacent evidence/candidate/review/run/dead-letter governance; Staff review surfaces; entitlement-gated public inventory; URL quarantine; native-precedence; kill switches that preserve published inventory |
+| architecture | PASS — no applications, communications, Profiles, Verification, ownership, or `claimed_by` side effects |
+| disposable matrix | PASS — `LAMMAH_PHASE1_DISPOSABLE_PASS` / `LAMMAH_PHASE1_DISPOSABLE_CLEAN` |
+| nonprod migrations | PASS — `20260803120100`, `20260803120200` on `hmjuijmaefajdjrjdsxu` |
+| nonprod pilot matrix | PASS — manual publication, earned auto-publication, kill-switch inventory retention, unentitled zero rows, anon privilege denial, zero side effects, fixtures cleaned, flags OFF |
+| local validation | PASS — focused Lammah tests; lint; type-check; full suite 445 passed / 101 skipped; build |
+| validation CI | completion response |
+| target CI | completion response |
+| report | `docs/command-center/reports/JID_LAMMAH_PHASE1_FINAL_SHIPPING_REPORT.md` |
+| production / main / frozen candidate | untouched |
+| completion token | `JID_LAMMAH_PHASE1_SHIPPED <promoted SHA>` |
+
 ## JID Catalog Phase 1 — Final Shipping Wave
 
 | Field | Value |

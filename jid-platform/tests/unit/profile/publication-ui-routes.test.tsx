@@ -236,6 +236,8 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
       '20260802120000_university_dashboard_view_owner_scope.sql',
       '20260802205903_catalog_phase1_foundations.sql',
       '20260803120000_catalog_gleif_review_states.sql',
+      '20260803120100_lammah_phase1_foundations.sql',
+      '20260803120200_lammah_phase1_workflows.sql',
     ]
     expect(later).toEqual(allowed)
     for (const name of allowed) {
@@ -255,6 +257,12 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
     const catalogShipping = readFileSync(join(MIGRATIONS, allowed[3]!), 'utf-8')
     expect(catalogShipping).not.toMatch(
       /CREATE(?: OR REPLACE)? FUNCTION public\.publish_directory_candidate/,
+    )
+    const lammahFoundations = readFileSync(join(MIGRATIONS, allowed[4]!), 'utf-8')
+    expect(lammahFoundations).toMatch(/lammah_opportunities_entitled_read/)
+    const lammahWorkflows = readFileSync(join(MIGRATIONS, allowed[5]!), 'utf-8')
+    expect(lammahWorkflows).not.toMatch(
+      /CREATE(?: OR REPLACE)? FUNCTION public\.publish_business_profile/,
     )
   })
 

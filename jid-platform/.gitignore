@@ -61,3 +61,6 @@ supabase/.temp
 
 # disposable UI-evidence credentials
 /scripts/.tmp/
+
+# local disposable Supabase clones
+.jid-local/
