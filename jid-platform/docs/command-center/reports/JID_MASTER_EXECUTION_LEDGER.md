@@ -10,7 +10,7 @@
 | checkpoint SHA | `ff9ac38` — preserved interrupted Phase 1 implementation |
 | source branch | `codex/jid-lammah-phase1-final-shipping` |
 | integrated validation branch | `codex/jid-lammah-phase1-final-shipping-ci-validation` |
-| canonical target | `agent/nonprod-signup-form` |
+| canonical target | `agent/nonprod-signup-forum` |
 | delivered scope | EU Careers connector; adjacent evidence/candidate/review/run/dead-letter governance; Staff review surfaces; entitlement-gated public inventory; URL quarantine; native-precedence; kill switches that preserve published inventory |
 | architecture | PASS — no applications, communications, Profiles, Verification, ownership, or `claimed_by` side effects |
 | disposable matrix | PASS — `LAMMAH_PHASE1_DISPOSABLE_PASS` / `LAMMAH_PHASE1_DISPOSABLE_CLEAN` |
@@ -20,6 +20,8 @@
 | validation CI | completion response |
 | target CI | completion response |
 | report | `docs/command-center/reports/JID_LAMMAH_PHASE1_FINAL_SHIPPING_REPORT.md` |
+| historical mirror | `agent/nonprod-signup-form` restored and fixed at `b29846b644ab2d94ec1d88b3a0954f2f30276452` |
+| branch-governance note | earlier mistaken FF onto the historical mirror was corrected; production, `main`, frozen candidate, database, and implementation unchanged; docs-only correction |
 | production / main / frozen candidate | untouched |
 | completion token | `JID_LAMMAH_PHASE1_SHIPPED <promoted SHA>` |
 
