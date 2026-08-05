@@ -7,14 +7,14 @@
 
 ## 1–4. Environments
 
-| Item | Value |
-|------|-------|
-| Vercel project | `jid-dev` |
-| Shareable URL | `https://jid-dev.vercel.app` |
-| Supabase project | `jid-nonprod` |
-| Supabase project ref | `hmjuijmaefajdjrjdsxu` |
-| Production ref (never used) | `znfhladafpajyjwcfzvv` |
-| Confirmation | **Non-production only** — seed hard-refuses production |
+| Item                        | Value                                                  |
+| --------------------------- | ------------------------------------------------------ |
+| Vercel project              | `jid-dev`                                              |
+| Shareable URL               | `https://jid-dev.vercel.app`                           |
+| Supabase project            | `jid-nonprod`                                          |
+| Supabase project ref        | `hmjuijmaefajdjrjdsxu`                                 |
+| Production ref (never used) | `znfhladafpajyjwcfzvv`                                 |
+| Confirmation                | **Non-production only** — seed hard-refuses production |
 
 ## 5. Seed command
 
@@ -39,7 +39,7 @@ pnpm tsx scripts/verify-shareable-seed-logins.ts
 From `.env.seed.nonprod` (never commit secrets):
 
 - `SEED_ENV`
-- `SEED_DATABASE_URL` *(privileged server credential)*
+- `SEED_DATABASE_URL` _(privileged server credential)_
 - `SHAREABLE_TEST_SITE_URL`
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
@@ -48,27 +48,27 @@ From `.env.seed.nonprod` (never commit secrets):
 
 ## 7–11. Account inventory / mapping / MFA
 
-| Email | Actor/role | Directory | Verification | Owned Profile | Premium | MFA |
-|-------|------------|-----------|--------------|---------------|---------|-----|
-| `individual-complete@jidseed.test` | Individual | — | — | Complete individual profile | `jid_plus` | N/A |
-| `individual-new@jidseed.test` | Individual | — | — | Incomplete / empty | `jid_plus` | N/A |
-| `mentor-approved@jidseed.test` | Individual + mentor approved | — | — | Individual + mentor surface | `jid_plus` | N/A |
-| `business-verified@jidseed.test` | `company_admin` | Seed Verified Business Co | Approved | Deliberate `business_profiles` | `employer_premium` | N/A |
-| `business-pending@jidseed.test` | `entity` | Seed Pending Business Co | Pending | None | seed plan row; verified authority blocked | N/A |
-| `university-verified@jidseed.test` | `university_admin` | Seed Verified University | Approved | Deliberate `university_profiles` | **No university plan in Model 1** | N/A |
-| `university-pending@jidseed.test` | `entity` | Seed Pending University | Pending | None | none | N/A |
-| `staff@jidseed.test` | Staff (internal) | — | — | — | none (internal only) | **Manual TOTP enrollment required** |
-| `admin@jidseed.test` | Super Admin (internal) | — | — | — | none (internal only) | **Manual TOTP enrollment required** |
+| Email                              | Actor/role                   | Directory                 | Verification | Owned Profile                    | Premium                                   | MFA                                 |
+| ---------------------------------- | ---------------------------- | ------------------------- | ------------ | -------------------------------- | ----------------------------------------- | ----------------------------------- |
+| `individual-complete@jidseed.test` | Individual                   | —                         | —            | Complete individual profile      | `jid_plus`                                | N/A                                 |
+| `individual-new@jidseed.test`      | Individual                   | —                         | —            | Incomplete / empty               | `jid_plus`                                | N/A                                 |
+| `mentor-approved@jidseed.test`     | Individual + mentor approved | —                         | —            | Individual + mentor surface      | `jid_plus`                                | N/A                                 |
+| `business-verified@jidseed.test`   | `company_admin`              | Seed Verified Business Co | Approved     | Deliberate `business_profiles`   | `employer_premium`                        | N/A                                 |
+| `business-pending@jidseed.test`    | `entity`                     | Seed Pending Business Co  | Pending      | None                             | seed plan row; verified authority blocked | N/A                                 |
+| `university-verified@jidseed.test` | `university_admin`           | Seed Verified University  | Approved     | Deliberate `university_profiles` | **No university plan in Model 1**         | N/A                                 |
+| `university-pending@jidseed.test`  | `entity`                     | Seed Pending University   | Pending      | None                             | none                                      | N/A                                 |
+| `staff@jidseed.test`               | Staff (internal)             | —                         | —            | —                                | none (internal only)                      | **Manual TOTP enrollment required** |
+| `admin@jidseed.test`               | Super Admin (internal)       | —                         | —            | —                                | none (internal only)                      | **Manual TOTP enrollment required** |
 
 Password (non-prod fixtures only): `JidSeed123!`
 
 ## 12. Login routes
 
-| Portal | Route | English |
-|--------|-------|---------|
-| Public actors | `/login` | `/en/login` |
-| Staff | `/staff/login` | `/en/staff/login` |
-| Super Admin | `/sys/login` | `/en/sys/login` |
+| Portal        | Route          | English           |
+| ------------- | -------------- | ----------------- |
+| Public actors | `/login`       | `/en/login`       |
+| Staff         | `/staff/login` | `/en/staff/login` |
+| Super Admin   | `/sys/login`   | `/en/sys/login`   |
 
 Landing (post-login): Individual → `/me`; Business verified → `/company/dashboard`; University verified → `/university/dashboard`; pending entity → verification pending routes; Staff → `/staff` (AAL2); Super Admin → `/sys/dashboard` (AAL2).
 
@@ -80,7 +80,7 @@ Password login (Supabase Auth): **PASS for all 9 accounts** (emails confirmed).
 
 Entitlement RPC verification:
 
-- Individuals + mentor: `cv_pro_formats`, `deferred_product_feature`, `lammah_feed`
+- Individuals + mentor: `cv_pro_formats`, `lammah_feed`
 - Business verified: `company_has_entitlement` true for `smart_communication`, `ssis`, `priority_visibility`
 - Business pending: subscription row present for boundary testing; verified dashboard/authority still blocked by Verification state
 - University / Staff / Admin: no consumer entitlements
@@ -130,26 +130,26 @@ Do **not** delete unrelated rows. To remove only shareable fixtures, delete `@ji
 
 ## 22. Validation results
 
-| Check | Result |
-|-------|--------|
-| `git diff --check` | PASS |
-| `corepack pnpm install --frozen-lockfile` | PASS |
-| `corepack pnpm lint` | PASS |
-| `corepack pnpm type-check` | PASS |
-| Focused seed tests (25) | PASS |
-| `corepack pnpm test` (423 passed / 101 skipped) | PASS |
-| `corepack pnpm build` | PASS |
-| Secret scan | PASS (only intentional production-ref refusal constants / “do not put service role” docs; no credentials committed) |
-| Changed-file scope | PASS (seed scripts, seed SQL, docs, focused tests, example env only) |
-| Remote seed against `hmjuijmaefajdjrjdsxu` | PASS |
-| Live Auth password login (9/9) | PASS |
-| Live Plus / employer entitlement RPCs | PASS |
-| `jid-dev` bound to nonprod Supabase in shipped JS | PASS (`hmjuijmaefajdjrjdsxu`; production ref absent) |
-| Arabic `/login` + English `/en/login` HTTP 200 | PASS |
-| Mobile UA smoke on login routes | PASS |
-| Catalog foundations | Untouched |
-| Implementation SHA | `0c668153053f5e9d0eb0c3f476f0fca04177fc3c` |
-| Promoted SHA | `4f7eba7d07f017665c730542fbfbf824b0189977` |
-| CI on promoted SHA | PASS ([run 30777408268](https://github.com/saadalamrani/JID/actions/runs/30777408268)) |
+| Check                                             | Result                                                                                                              |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `git diff --check`                                | PASS                                                                                                                |
+| `corepack pnpm install --frozen-lockfile`         | PASS                                                                                                                |
+| `corepack pnpm lint`                              | PASS                                                                                                                |
+| `corepack pnpm type-check`                        | PASS                                                                                                                |
+| Focused seed tests (25)                           | PASS                                                                                                                |
+| `corepack pnpm test` (423 passed / 101 skipped)   | PASS                                                                                                                |
+| `corepack pnpm build`                             | PASS                                                                                                                |
+| Secret scan                                       | PASS (only intentional production-ref refusal constants / “do not put service role” docs; no credentials committed) |
+| Changed-file scope                                | PASS (seed scripts, seed SQL, docs, focused tests, example env only)                                                |
+| Remote seed against `hmjuijmaefajdjrjdsxu`        | PASS                                                                                                                |
+| Live Auth password login (9/9)                    | PASS                                                                                                                |
+| Live Plus / employer entitlement RPCs             | PASS                                                                                                                |
+| `jid-dev` bound to nonprod Supabase in shipped JS | PASS (`hmjuijmaefajdjrjdsxu`; production ref absent)                                                                |
+| Arabic `/login` + English `/en/login` HTTP 200    | PASS                                                                                                                |
+| Mobile UA smoke on login routes                   | PASS                                                                                                                |
+| Catalog foundations                               | Untouched                                                                                                           |
+| Implementation SHA                                | `0c668153053f5e9d0eb0c3f476f0fca04177fc3c`                                                                          |
+| Promoted SHA                                      | `4f7eba7d07f017665c730542fbfbf824b0189977`                                                                          |
+| CI on promoted SHA                                | PASS ([run 30777408268](https://github.com/saadalamrani/JID/actions/runs/30777408268))                              |
 
 **Recommendation:** `SAFE_TO_SHARE` for Pack A friend accounts. Staff/Super Admin remain internal and require manual MFA enrollment.

@@ -228,6 +228,6 @@ Live authenticated Staff screenshots were not produced because this recovery exp
 - No private data is fetched to the client and hidden there.
 - No fabricated metrics or facts are shown.
 - No social/feed mechanic is added.
-- No Ministry, Lammah, or منتج_مؤجل connector exists in this wave.
+- No Ministry, Lammah, or ابحث لي connector exists in this wave.
 - No production SQL or deployment occurred.
 - `main`, `agent/nonprod-signup-form`, and the frozen production candidate were not changed.

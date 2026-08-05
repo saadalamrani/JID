@@ -1,4 +1,4 @@
-export type Json =
+﻿export type Json =
   | string
   | number
   | boolean
@@ -7,30 +7,10 @@ export type Json =
   | Json[]
 
 export type Database = {
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          query?: string
-          operationName?: string
-          extensions?: Json
-          variables?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
@@ -58,7 +38,7 @@ export type Database = {
           device_label: string | null
           expires_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           last_active_at: string
           revoked_at: string | null
           session_token_hash: string
@@ -70,7 +50,7 @@ export type Database = {
           device_label?: string | null
           expires_at: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           last_active_at?: string
           revoked_at?: string | null
           session_token_hash: string
@@ -82,7 +62,7 @@ export type Database = {
           device_label?: string | null
           expires_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           last_active_at?: string
           revoked_at?: string | null
           session_token_hash?: string
@@ -257,7 +237,7 @@ export type Database = {
           entity_id: string | null
           entity_type: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           metadata: Json
           new_data: Json | null
           old_data: Json | null
@@ -270,7 +250,7 @@ export type Database = {
           entity_id?: string | null
           entity_type: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           metadata?: Json
           new_data?: Json | null
           old_data?: Json | null
@@ -283,7 +263,7 @@ export type Database = {
           entity_id?: string | null
           entity_type?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           metadata?: Json
           new_data?: Json | null
           old_data?: Json | null
@@ -745,7 +725,7 @@ export type Database = {
           ownership_type: Database["public"]["Enums"]["ownership_enum"] | null
           region_id: string | null
           response_rate_pct: number | null
-          search_vector: unknown | null
+          search_vector: unknown
           sector_id: string | null
           slug: string | null
           subscription_tier: string
@@ -792,7 +772,7 @@ export type Database = {
           ownership_type?: Database["public"]["Enums"]["ownership_enum"] | null
           region_id?: string | null
           response_rate_pct?: number | null
-          search_vector?: unknown | null
+          search_vector?: unknown
           sector_id?: string | null
           slug?: string | null
           subscription_tier?: string
@@ -839,7 +819,7 @@ export type Database = {
           ownership_type?: Database["public"]["Enums"]["ownership_enum"] | null
           region_id?: string | null
           response_rate_pct?: number | null
-          search_vector?: unknown | null
+          search_vector?: unknown
           sector_id?: string | null
           slug?: string | null
           subscription_tier?: string
@@ -2402,7 +2382,7 @@ export type Database = {
           email: string
           expires_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           is_verified: boolean
           otp_hash: string
           user_id: string
@@ -2413,7 +2393,7 @@ export type Database = {
           email: string
           expires_at: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           is_verified?: boolean
           otp_hash: string
           user_id: string
@@ -2424,7 +2404,7 @@ export type Database = {
           email?: string
           expires_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           is_verified?: boolean
           otp_hash?: string
           user_id?: string
@@ -5090,7 +5070,7 @@ export type Database = {
           created_at: string
           expires_at: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           is_verified: boolean
           otp_hash: string
           phone: string
@@ -5102,7 +5082,7 @@ export type Database = {
           created_at?: string
           expires_at: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           is_verified?: boolean
           otp_hash: string
           phone: string
@@ -5114,7 +5094,7 @@ export type Database = {
           created_at?: string
           expires_at?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           is_verified?: boolean
           otp_hash?: string
           phone?: string
@@ -5355,7 +5335,7 @@ export type Database = {
           headline: string | null
           id: string
           last_login_at: string | null
-          last_login_ip: unknown | null
+          last_login_ip: unknown
           linkedin_url: string | null
           locale: string
           locked_until: string | null
@@ -5398,7 +5378,7 @@ export type Database = {
           headline?: string | null
           id: string
           last_login_at?: string | null
-          last_login_ip?: unknown | null
+          last_login_ip?: unknown
           linkedin_url?: string | null
           locale?: string
           locked_until?: string | null
@@ -5441,7 +5421,7 @@ export type Database = {
           headline?: string | null
           id?: string
           last_login_at?: string | null
-          last_login_ip?: unknown | null
+          last_login_ip?: unknown
           linkedin_url?: string | null
           locale?: string
           locked_until?: string | null
@@ -6706,19 +6686,19 @@ export type Database = {
         Returns: number
       }
       _catalog_publication_denied: {
-        Args: { p_code: string; p_queue_id: string; p_actor_id: string }
+        Args: { p_actor_id: string; p_code: string; p_queue_id: string }
         Returns: Json
       }
       _catalog_reject_intake: {
         Args: {
-          p_worker_identity: string
-          p_source_id: string
-          p_run_id: string
-          p_source_record_key: string
-          p_idempotency_key: string
-          p_error_class: string
           p_details: Json
+          p_error_class: string
+          p_idempotency_key: string
           p_retryable?: boolean
+          p_run_id: string
+          p_source_id: string
+          p_source_record_key: string
+          p_worker_identity: string
         }
         Returns: Json
       }
@@ -6733,8 +6713,8 @@ export type Database = {
       }
       _seed_local_auth_user: {
         Args: {
-          p_full_name: string
           p_email: string
+          p_full_name: string
           p_id: string
           p_password?: string
         }
@@ -6747,14 +6727,14 @@ export type Database = {
       _write_audit_log: {
         Args: {
           p_action: string
-          p_entity_type: string
-          p_entity_id: string
-          p_old_data?: Json
-          p_new_data?: Json
-          p_user_agent?: string
-          p_ip_address?: unknown
           p_actor_id: string
+          p_entity_id: string
+          p_entity_type: string
+          p_ip_address?: unknown
           p_metadata?: Json
+          p_new_data?: Json
+          p_old_data?: Json
+          p_user_agent?: string
         }
         Returns: undefined
       }
@@ -6777,6 +6757,12 @@ export type Database = {
           status: Database["public"]["Enums"]["ssis_status_enum"]
           time_limit_minutes: number
           updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "ssis_screenings"
+          isOneToOne: true
+          isSetofReturn: false
         }
       }
       approve_correction_suggestion: {
@@ -6803,20 +6789,26 @@ export type Database = {
           time_limit_minutes: number
           updated_at: string
         }
+        SetofOptions: {
+          from: "*"
+          to: "ssis_screenings"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       approve_verification_request: {
         Args: {
+          p_review_notes: string
           p_verification_id: string
           p_verified_domains?: string[]
-          p_review_notes: string
         }
         Returns: undefined
       }
       approve_verification_request_override: {
         Args: {
           p_review_notes: string
-          p_verified_domains?: string[]
           p_verification_id: string
+          p_verified_domains?: string[]
         }
         Returns: undefined
       }
@@ -6824,40 +6816,34 @@ export type Database = {
         Args: { p_job_id: string }
         Returns: Json
       }
-      assign_claim_to_self: {
-        Args: { p_claim_id: string }
-        Returns: undefined
-      }
+      assign_claim_to_self: { Args: { p_claim_id: string }; Returns: undefined }
       award_entity_badge: {
         Args: {
-          p_metadata?: Json
-          p_entity_type: string
           p_entity_id: string
+          p_entity_type: string
+          p_metadata?: Json
           p_slug: string
         }
         Returns: undefined
       }
       award_user_badge: {
-        Args: { p_user_id: string; p_slug: string; p_metadata?: Json }
+        Args: { p_metadata?: Json; p_slug: string; p_user_id: string }
         Returns: undefined
       }
       backfill_lammah_native_conflicts: {
         Args: { p_apply?: boolean }
         Returns: number
       }
-      build_daily_digests: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      build_daily_digests: { Args: never; Returns: number }
       cancel_communication_batch: {
         Args: { p_batch_id: string }
         Returns: boolean
       }
       catalog_begin_gleif_run: {
         Args: {
-          p_worker_identity?: string
           p_external_run_id: string
           p_mode?: string
+          p_worker_identity?: string
         }
         Returns: Json
       }
@@ -6867,30 +6853,30 @@ export type Database = {
       }
       catalog_capture_gleif_metadata: {
         Args: {
+          p_candidate_id: string
           p_entity_status: string
-          p_review_flags: string[]
-          p_match_reasons: Json
+          p_lei: string
           p_match_outcome: string
+          p_match_reasons: Json
           p_registration_authority: string
           p_registration_identifier: string
-          p_lei: string
-          p_candidate_id: string
-          p_source_payload: Json
           p_registration_status: string
+          p_review_flags: string[]
+          p_source_payload: Json
         }
         Returns: Json
       }
       catalog_finish_gleif_run: {
         Args: {
-          p_page_count: number
-          p_run_id: string
-          p_status: string
-          p_retrieved_count: number
-          p_skipped_count: number
-          p_retry_count: number
           p_checkpoint?: Json
           p_failure_class?: string
           p_failure_detail?: string
+          p_page_count: number
+          p_retrieved_count: number
+          p_retry_count: number
+          p_run_id: string
+          p_skipped_count: number
+          p_status: string
         }
         Returns: Json
       }
@@ -6924,17 +6910,23 @@ export type Database = {
           status: Database["public"]["Enums"]["comm_batch_status_enum"]
           template_snapshot: Json
         }[]
+        SetofOptions: {
+          from: "*"
+          to: "communication_batches"
+          isOneToOne: false
+          isSetofReturn: true
+        }
       }
       claim_lammah_candidate: {
         Args: { p_candidate_id: string }
         Returns: Json
       }
       classify_lammah_opportunity_type: {
-        Args: { p_excerpt: string; p_title_en: string; p_title_ar: string }
+        Args: { p_excerpt: string; p_title_ar: string; p_title_en: string }
         Returns: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
       }
       close_lammah_dead_letter: {
-        Args: { p_reason: string; p_dead_letter_id: string }
+        Args: { p_dead_letter_id: string; p_reason: string }
         Returns: Json
       }
       close_ssis_screening: {
@@ -6957,6 +6949,12 @@ export type Database = {
           time_limit_minutes: number
           updated_at: string
         }
+        SetofOptions: {
+          from: "*"
+          to: "ssis_screenings"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       comm_excluded_application_ids: {
         Args: {
@@ -6966,7 +6964,7 @@ export type Database = {
         Returns: string[]
       }
       company_has_entitlement: {
-        Args: { p_feature: string; p_company_id: string }
+        Args: { p_company_id: string; p_feature: string }
         Returns: boolean
       }
       complete_ssis_invitation: {
@@ -6982,6 +6980,12 @@ export type Database = {
           started_at: string | null
           status: Database["public"]["Enums"]["ssis_invitation_status_enum"]
         }
+        SetofOptions: {
+          from: "*"
+          to: "ssis_invitations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       complete_staff_invite_acceptance: {
         Args: { p_token: string }
@@ -6990,33 +6994,30 @@ export type Database = {
       compute_cascade_suggestion: {
         Args: { p_job_id: string }
         Returns: {
-          suggestion_kind: Database["public"]["Enums"]["comm_kind_enum"]
-          target_status: Database["public"]["Enums"]["application_status_enum"]
           recipient_count: number
           recipient_ids: string[]
+          suggestion_kind: Database["public"]["Enums"]["comm_kind_enum"]
+          target_status: Database["public"]["Enums"]["application_status_enum"]
         }[]
       }
-      compute_mentor_scores: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      compute_mentor_scores: { Args: never; Returns: number }
       configure_catalog_gleif: {
         Args: {
-          p_max_pages?: number
           p_connector_enabled: boolean
           p_ingestion_enabled: boolean
+          p_max_pages?: number
           p_page_size?: number
         }
         Returns: Json
       }
       configure_lammah_phase1: {
         Args: {
-          p_reason: string
-          p_ingestion_enabled: boolean
-          p_connector_enabled: boolean
           p_auto_publication_enabled: boolean
-          p_source_enabled: boolean
+          p_connector_enabled: boolean
+          p_ingestion_enabled: boolean
+          p_reason: string
           p_source_auto_publication_enabled: boolean
+          p_source_enabled: boolean
         }
         Returns: Json
       }
@@ -7033,21 +7034,27 @@ export type Database = {
           started_at: string | null
           status: Database["public"]["Enums"]["ssis_invitation_status_enum"]
         }
+        SetofOptions: {
+          from: "*"
+          to: "ssis_invitations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       create_business_profile: {
         Args: {
-          p_verification_id: string
           p_display_name_ar: string
           p_display_name_en?: string
+          p_verification_id: string
         }
         Returns: string
       }
       create_communication_batch: {
         Args: {
+          p_job_id: string
+          p_kind: Database["public"]["Enums"]["comm_kind_enum"]
           p_recipient_ids: string[]
           p_template_snapshot?: Json
-          p_kind: Database["public"]["Enums"]["comm_kind_enum"]
-          p_job_id: string
         }
         Returns: string
       }
@@ -7060,81 +7067,57 @@ export type Database = {
         Returns: string
       }
       current_user_role: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: Database["public"]["Enums"]["user_role_enum"]
       }
       dispatch_notification: {
         Args: {
-          p_title_ar: string
-          p_recipient_id: string
-          p_category: Database["public"]["Enums"]["notification_category_enum"]
-          p_title_en: string
-          p_body_ar: string
-          p_body_en: string
-          p_priority?: Database["public"]["Enums"]["notification_priority_enum"]
-          p_action_url?: string
           p_action_label_ar?: string
           p_action_label_en?: string
-          p_related_resource_type?: string
-          p_related_resource_id?: string
+          p_action_url?: string
+          p_body_ar: string
+          p_body_en: string
+          p_category: Database["public"]["Enums"]["notification_category_enum"]
           p_idempotency_key?: string
           p_metadata?: Json
+          p_priority?: Database["public"]["Enums"]["notification_priority_enum"]
+          p_recipient_id: string
+          p_related_resource_id?: string
+          p_related_resource_type?: string
+          p_title_ar: string
+          p_title_en: string
         }
         Returns: string
       }
       email_quota_status: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
-          monthly_remaining: number
           circuit_open: boolean
-          remaining: number
           daily_limit: number
-          sent_today: number
           monthly_limit: number
+          monthly_remaining: number
+          remaining: number
           sent_this_month: number
+          sent_today: number
         }[]
       }
-      enqueue_mentor_pending_request_radar: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      enqueue_mentor_pending_request_radar: { Args: never; Returns: number }
       ensure_communication_templates: {
         Args: { p_company_id: string }
         Returns: undefined
       }
-      execute_catalog_retention: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
-      }
-      execute_lammah_retention: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
-      }
-      expire_lapsed_subscriptions: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      expire_passed_jobs: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      expire_stale_applications: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      expire_stale_lammah_opportunities: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
-      }
-      expire_stale_mentorship_requests: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      execute_catalog_retention: { Args: never; Returns: Json }
+      execute_lammah_retention: { Args: never; Returns: Json }
+      expire_lapsed_subscriptions: { Args: never; Returns: undefined }
+      expire_passed_jobs: { Args: never; Returns: number }
+      expire_stale_applications: { Args: never; Returns: number }
+      expire_stale_lammah_opportunities: { Args: never; Returns: Json }
+      expire_stale_mentorship_requests: { Args: never; Returns: number }
       finalize_communication_batch: {
         Args: {
           p_batch_id: string
-          p_sent_count: number
           p_failed_count: number
+          p_sent_count: number
           p_status: Database["public"]["Enums"]["comm_batch_status_enum"]
         }
         Returns: undefined
@@ -7142,20 +7125,20 @@ export type Database = {
       find_native_job_conflict: {
         Args: {
           p_company_id: string
-          p_external_url: string
-          p_title_en: string
-          p_title_ar: string
-          p_opportunity_type: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
           p_experience_level: Database["public"]["Enums"]["experience_level_enum"]
+          p_external_url: string
+          p_opportunity_type: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
           p_region: string
+          p_title_ar: string
+          p_title_en: string
         }
         Returns: string
       }
       get_company_boost_usage: {
         Args: { p_company_id: string }
         Returns: {
-          quota: number
           active_count: number
+          quota: number
         }[]
       }
       get_default_digest_pref: {
@@ -7171,7 +7154,7 @@ export type Database = {
         Returns: Json
       }
       get_my_approved_verifications: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           applicant_user_id: string
           assigned_staff_id: string | null
@@ -7200,9 +7183,15 @@ export type Database = {
           verification_type: Database["public"]["Enums"]["claim_type_enum"]
           verified_domains: string[]
         }[]
+        SetofOptions: {
+          from: "*"
+          to: "verification_requests"
+          isOneToOne: false
+          isSetofReturn: true
+        }
       }
       get_my_entitlements: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           feature_key: string
           quota: number
@@ -7214,24 +7203,24 @@ export type Database = {
           p_user_id: string
         }
         Returns: {
-          in_app_enabled: boolean
           email_enabled: boolean
+          in_app_enabled: boolean
           include_in_digest: boolean
-          preference_source: string
           is_mandatory: boolean
+          preference_source: string
         }[]
       }
       get_profile_view_stats: {
         Args: { p_profile_id: string }
         Returns: {
           distinct_companies_30d: number
+          total_views: number
           unique_companies: number
           views_last_30_days: number
-          total_views: number
         }[]
       }
       get_staff_personal_metrics: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           actions_today: number | null
           avg_review_hours_7d: number | null
@@ -7245,72 +7234,46 @@ export type Database = {
           staff_user_id: string | null
           total_actions: number | null
         }[]
+        SetofOptions: {
+          from: "*"
+          to: "v_staff_personal_metrics"
+          isOneToOne: false
+          isSetofReturn: true
+        }
       }
-      gtrgm_compress: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      gtrgm_decompress: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      gtrgm_in: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      gtrgm_options: {
-        Args: { "": unknown }
-        Returns: undefined
-      }
-      gtrgm_out: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      has_entitlement: {
-        Args: { p_feature: string }
-        Returns: boolean
-      }
-      hash_staff_invite_token: {
-        Args: { p_token: string }
-        Returns: string
-      }
+      has_entitlement: { Args: { p_feature: string }; Returns: boolean }
+      hash_staff_invite_token: { Args: { p_token: string }; Returns: string }
       increment_job_boost_stat: {
-        Args: { p_metric: string; p_job_id: string }
+        Args: { p_job_id: string; p_metric: string }
         Returns: undefined
       }
       ingest_directory_candidate: {
         Args: {
-          p_checksum_sha256: string
-          p_source_key: string
-          p_facts: Json
           p_candidate: Json
+          p_checksum_sha256: string
           p_evidence_metadata: Json
-          p_run_id: string
-          p_source_record_key: string
+          p_facts: Json
           p_idempotency_key: string
+          p_run_id: string
+          p_source_key: string
+          p_source_record_key: string
         }
         Returns: Json
       }
       ingest_lammah_candidate: {
-        Args: { p_run_id: string; p_record: Json }
+        Args: { p_record: Json; p_run_id: string }
         Returns: Json
       }
-      ingest_lammah_opportunity: {
-        Args: { p: Json }
-        Returns: string
-      }
+      ingest_lammah_opportunity: { Args: { p: Json }; Returns: string }
       invite_ssis_applicants: {
         Args: { p_application_ids: string[]; p_screening_id: string }
         Returns: number
       }
-      is_admin_or_above: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      is_admin_or_above: { Args: never; Returns: boolean }
       is_allowed_applicant_application_status_transition: {
         Args: {
-          p_to: Database["public"]["Enums"]["application_status_enum"]
           p_from: Database["public"]["Enums"]["application_status_enum"]
+          p_to: Database["public"]["Enums"]["application_status_enum"]
         }
         Returns: boolean
       }
@@ -7318,31 +7281,16 @@ export type Database = {
         Args: { cat: Database["public"]["Enums"]["notification_category_enum"] }
         Returns: boolean
       }
-      is_feature_enabled: {
-        Args: { p_flag_key: string }
-        Returns: boolean
-      }
-      is_mentorship_staff: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      is_privileged_staff: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      is_staff_or_super_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
-      job_auto_reply_enabled: {
-        Args: { p_job_id: string }
-        Returns: boolean
-      }
+      is_feature_enabled: { Args: { p_flag_key: string }; Returns: boolean }
+      is_mentorship_staff: { Args: never; Returns: boolean }
+      is_privileged_staff: { Args: never; Returns: boolean }
+      is_staff_or_super_admin: { Args: never; Returns: boolean }
+      job_auto_reply_enabled: { Args: { p_job_id: string }; Returns: boolean }
       lammah_begin_run: {
         Args: {
-          p_worker_identity?: string
-          p_mode?: string
           p_external_run_id: string
+          p_mode?: string
+          p_worker_identity?: string
         }
         Returns: Json
       }
@@ -7353,13 +7301,13 @@ export type Database = {
       lammah_finish_run: {
         Args: {
           p_checkpoint?: Json
-          p_retry_count: number
-          p_page_count: number
-          p_retrieved_count: number
-          p_status: string
-          p_run_id: string
           p_failure_class?: string
           p_failure_detail?: string
+          p_page_count: number
+          p_retrieved_count: number
+          p_retry_count: number
+          p_run_id: string
+          p_status: string
         }
         Returns: Json
       }
@@ -7369,84 +7317,66 @@ export type Database = {
       }
       lammah_native_opportunity_matches: {
         Args: {
-          p_job_title_ar: string
-          p_lammah_type: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
-          p_lammah_company_id: string
+          p_job_company_id: string
           p_job_experience: Database["public"]["Enums"]["experience_level_enum"]
           p_job_region: string
-          p_job_url: string
+          p_job_title_ar: string
           p_job_title_en: string
-          p_lammah_url: string
-          p_job_company_id: string
+          p_job_url: string
+          p_lammah_company_id: string
           p_lammah_experience: Database["public"]["Enums"]["experience_level_enum"]
-          p_lammah_title_ar: string
           p_lammah_region: string
+          p_lammah_title_ar: string
           p_lammah_title_en: string
+          p_lammah_type: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
+          p_lammah_url: string
         }
         Returns: boolean
       }
-      lammah_staff_actor: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      lammah_staff_actor: { Args: never; Returns: string }
       lammah_try_auto_publish: {
         Args: { p_candidate_id: string }
         Returns: Json
       }
-      lammah_url_host: {
-        Args: { p_url: string }
-        Returns: string
-      }
-      lammah_weekly_active_count: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      lammah_url_host: { Args: { p_url: string }; Returns: string }
+      lammah_weekly_active_count: { Args: never; Returns: number }
       lock_lammah_native_conflict: {
         Args: {
-          p_external_ref_hash?: string
           p_company_id: string
+          p_external_ref_hash?: string
           p_external_url: string
         }
         Returns: undefined
       }
-      normalize_opportunity_title: {
-        Args: { p_text: string }
-        Returns: string
-      }
-      normalize_opportunity_url: {
-        Args: { p_url: string }
-        Returns: string
-      }
+      normalize_opportunity_title: { Args: { p_text: string }; Returns: string }
+      normalize_opportunity_url: { Args: { p_url: string }; Returns: string }
       notify_claim_decision: {
-        Args: { p_decision: string; p_claim_id: string; p_reason?: string }
+        Args: { p_claim_id: string; p_decision: string; p_reason?: string }
         Returns: string
       }
       notify_radar_status_change: {
-        Args: { p_old_status: string; p_new_status: string; p_card_id: string }
+        Args: { p_card_id: string; p_new_status: string; p_old_status: string }
         Returns: string
       }
       opportunity_title_similarity: {
         Args: {
-          p_right_en: string
-          p_right_ar: string
-          p_left_en: string
           p_left_ar: string
+          p_left_en: string
+          p_right_ar: string
+          p_right_en: string
         }
         Returns: number
       }
       opportunity_titles_match_exactly: {
         Args: {
-          p_right_ar: string
           p_left_ar: string
           p_left_en: string
+          p_right_ar: string
           p_right_en: string
         }
         Returns: boolean
       }
-      process_due_radar_items: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      process_due_radar_items: { Args: never; Returns: number }
       publish_business_profile: {
         Args: { p_profile_id: string }
         Returns: Json
@@ -7463,22 +7393,10 @@ export type Database = {
         Args: { p_profile_id: string }
         Returns: Json
       }
-      purge_expired_lammah: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      purge_expired_ssis_responses: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      radar_status_label_ar: {
-        Args: { p_status: string }
-        Returns: string
-      }
-      radar_status_label_en: {
-        Args: { p_status: string }
-        Returns: string
-      }
+      purge_expired_lammah: { Args: never; Returns: undefined }
+      purge_expired_ssis_responses: { Args: never; Returns: number }
+      radar_status_label_ar: { Args: { p_status: string }; Returns: string }
+      radar_status_label_en: { Args: { p_status: string }; Returns: string }
       recalculate_profile_completion: {
         Args: { p_profile_id: string }
         Returns: number
@@ -7487,23 +7405,23 @@ export type Database = {
         Args: {
           p_device_label?: string
           p_expires_at?: string
-          p_session_token_hash: string
           p_ip_address?: unknown
+          p_session_token_hash: string
           p_user_agent?: string
         }
         Returns: string
       }
       record_lammah_dead_letter: {
         Args: {
-          p_run_id: string
           p_error_class: string
+          p_run_id: string
           p_sanitized_details: Json
           p_source_record_id: string
         }
         Returns: Json
       }
       record_ssis_outcome: {
-        Args: { p_invitation_id: string; p_action: string }
+        Args: { p_action: string; p_invitation_id: string }
         Returns: undefined
       }
       redrive_catalog_dead_letter: {
@@ -7514,64 +7432,43 @@ export type Database = {
         Args: { p_dead_letter_id: string; p_reason: string }
         Returns: Json
       }
-      refresh_company_badges: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      refresh_mentor_of_month: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      refresh_pulse_metrics: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      refresh_sector_demand: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      refresh_skills_demand: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      refresh_sys_metrics: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      refresh_university_dashboard_snapshot: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
-      reinstate_profile: {
-        Args:
-          | { p_target_user_id: string }
-          | {
-              p_target_status?: string
-              p_reason?: string
-              p_profile_type: string
+      refresh_company_badges: { Args: never; Returns: undefined }
+      refresh_mentor_of_month: { Args: never; Returns: number }
+      refresh_pulse_metrics: { Args: never; Returns: undefined }
+      refresh_sector_demand: { Args: never; Returns: undefined }
+      refresh_skills_demand: { Args: never; Returns: undefined }
+      refresh_sys_metrics: { Args: never; Returns: undefined }
+      refresh_university_dashboard_snapshot: { Args: never; Returns: undefined }
+      reinstate_profile:
+        | {
+            Args: {
               p_profile_id: string
+              p_profile_type: string
+              p_reason?: string
+              p_target_status?: string
             }
-        Returns: undefined
-      }
+            Returns: undefined
+          }
+        | { Args: { p_target_user_id: string }; Returns: undefined }
       reject_correction_suggestion: {
-        Args: { p_suggestion_id: string; p_review_notes: string }
+        Args: { p_review_notes: string; p_suggestion_id: string }
         Returns: undefined
       }
       reject_verification_request: {
         Args: {
           p_rejection_reason?: string
+          p_required_documents?: string[]
           p_review_notes: string
           p_verification_id: string
-          p_required_documents?: string[]
         }
         Returns: undefined
       }
       reject_verification_request_override: {
         Args: {
-          p_review_notes: string
-          p_verification_id: string
           p_rejection_reason?: string
           p_required_documents?: string[]
+          p_review_notes: string
+          p_verification_id: string
         }
         Returns: undefined
       }
@@ -7580,47 +7477,47 @@ export type Database = {
         Returns: Json
       }
       remove_entity_badge: {
-        Args: { p_entity_type: string; p_entity_id: string; p_slug: string }
+        Args: { p_entity_id: string; p_entity_type: string; p_slug: string }
         Returns: undefined
       }
       report_lammah_problem: {
-        Args: { p_reason: string; p_opportunity_id: string }
+        Args: { p_opportunity_id: string; p_reason: string }
         Returns: Json
       }
       review_claim: {
         Args: {
           p_claim_id: string
-          p_required_documents?: string[]
-          p_reason: string
           p_decision: string
+          p_reason: string
+          p_required_documents?: string[]
         }
         Returns: undefined
       }
       review_claim_request: {
         Args: {
+          p_claim_id: string
           p_decision: string
           p_rejection_reason?: string
           p_review_notes: string
-          p_claim_id: string
         }
         Returns: undefined
       }
       review_directory_candidate: {
         Args: {
-          p_notes: string
+          p_action: string
           p_domain?: string
           p_evidence_url?: string
-          p_review_queue_id: string
           p_name_ar?: string
-          p_action: string
+          p_notes: string
+          p_review_queue_id: string
         }
         Returns: Json
       }
       review_lammah_candidate: {
         Args: {
-          p_corrected_type?: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
-          p_candidate_id: string
           p_action: string
+          p_candidate_id: string
+          p_corrected_type?: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
           p_notes: string
           p_resolved_company_id?: string
         }
@@ -7628,11 +7525,11 @@ export type Database = {
       }
       review_lammah_fact: {
         Args: {
-          p_notes_en?: string
-          p_fact_id: string
-          p_notes_ar?: string
-          p_normalized_value?: Json
           p_action: string
+          p_fact_id: string
+          p_normalized_value?: Json
+          p_notes_ar?: string
+          p_notes_en?: string
         }
         Returns: Json
       }
@@ -7640,17 +7537,10 @@ export type Database = {
         Args: { p_session_id: string }
         Returns: undefined
       }
-      run_lammah_retention_now: {
-        Args: { p_reason: string }
-        Returns: Json
-      }
+      run_lammah_retention_now: { Args: { p_reason: string }; Returns: Json }
       set_lammah_evidence_legal_hold: {
         Args: { p_enabled: boolean; p_evidence_id: string; p_reason: string }
         Returns: Json
-      }
-      set_limit: {
-        Args: { "": number }
-        Returns: number
       }
       set_user_role: {
         Args: {
@@ -7659,14 +7549,8 @@ export type Database = {
         }
         Returns: undefined
       }
-      show_limit: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
-      show_trgm: {
-        Args: { "": string }
-        Returns: string[]
-      }
+      show_limit: { Args: never; Returns: number }
+      show_trgm: { Args: { "": string }; Returns: string[] }
       staff_suspend_user: {
         Args: { p_reason: string; p_user_id: string }
         Returns: undefined
@@ -7684,12 +7568,18 @@ export type Database = {
           started_at: string | null
           status: Database["public"]["Enums"]["ssis_invitation_status_enum"]
         }
+        SetofOptions: {
+          from: "*"
+          to: "ssis_invitations"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       submit_ssis_response: {
         Args: {
+          p_answer_text: string
           p_block_id: string
           p_invitation_id: string
-          p_answer_text: string
         }
         Returns: {
           answer_text: string
@@ -7700,9 +7590,15 @@ export type Database = {
           submitted_at: string
           updated_at: string
         }
+        SetofOptions: {
+          from: "*"
+          to: "ssis_responses"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       suspend_profile: {
-        Args: { p_profile_type: string; p_reason: string; p_profile_id: string }
+        Args: { p_profile_id: string; p_profile_type: string; p_reason: string }
         Returns: undefined
       }
       suspend_user: {
@@ -7713,10 +7609,7 @@ export type Database = {
         }
         Returns: undefined
       }
-      sweep_expired_boosts: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      sweep_expired_boosts: { Args: never; Returns: number }
       sync_meeting_radar_on_confirm: {
         Args: { p_meeting_id: string }
         Returns: undefined
@@ -7725,20 +7618,14 @@ export type Database = {
         Args: { p_mentor_id: string }
         Returns: undefined
       }
-      sync_thresholds_after_refresh: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      sync_thresholds_after_refresh: { Args: never; Returns: undefined }
       toggle_job_boost: {
-        Args: { p_job_id: string; p_enable: boolean }
+        Args: { p_enable: boolean; p_job_id: string }
         Returns: undefined
       }
-      transition_closing_soon: {
-        Args: Record<PropertyKey, never>
-        Returns: number
-      }
+      transition_closing_soon: { Args: never; Returns: number }
       transition_lammah_opportunity: {
-        Args: { p_opportunity_id: string; p_reason: string; p_action: string }
+        Args: { p_action: string; p_opportunity_id: string; p_reason: string }
         Returns: Json
       }
       unpublish_business_profile: {
@@ -7749,31 +7636,22 @@ export type Database = {
         Args: { p_profile_id: string }
         Returns: Json
       }
-      update_feedback_flags: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      update_feedback_flags: { Args: never; Returns: undefined }
       user_can_manage_company_communication: {
         Args: { p_company_id: string }
         Returns: boolean
       }
-      user_can_manage_ssis: {
-        Args: { p_company_id: string }
-        Returns: boolean
-      }
+      user_can_manage_ssis: { Args: { p_company_id: string }; Returns: boolean }
       user_owns_job_for_communication: {
         Args: { p_job_id: string }
         Returns: boolean
       }
-      user_owns_ssis_job: {
-        Args: { p_job_id: string }
-        Returns: boolean
-      }
+      user_owns_ssis_job: { Args: { p_job_id: string }; Returns: boolean }
       validate_staff_invite_token: {
         Args: { p_token: string }
         Returns: {
-          invitation_id: string
           email: string
+          invitation_id: string
           invite_role: Database["public"]["Enums"]["user_role_enum"]
         }[]
       }
@@ -7781,18 +7659,9 @@ export type Database = {
         Args: { p_otp: string; p_phone: string; p_user_id: string }
         Returns: boolean
       }
-      viewer_approved_company_id: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      viewer_approved_university_id: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      viewer_has_approved_company_claim: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      viewer_approved_company_id: { Args: never; Returns: string }
+      viewer_approved_university_id: { Args: never; Returns: string }
+      viewer_has_approved_company_claim: { Args: never; Returns: boolean }
     }
     Enums: {
       additional_category_enum:
@@ -7980,21 +7849,25 @@ export type Database = {
   }
 }
 
-type DefaultSchema = Database[Extract<keyof Database, "public">]
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
@@ -8012,14 +7885,16 @@ export type Tables<
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
@@ -8035,14 +7910,16 @@ export type TablesInsert<
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
@@ -8058,14 +7935,16 @@ export type TablesUpdate<
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
     ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
@@ -8073,22 +7952,21 @@ export type Enums<
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       additional_category_enum: [
@@ -8289,4 +8167,3 @@ export const Constants = {
     },
   },
 } as const
-

@@ -9,12 +9,12 @@
 
 `pnpm seed:cloud-test --execute --i-confirm-non-production` refuses unless:
 
-| Gate | Required value |
-|------|----------------|
-| `SEED_ENV` | `nonprod` (or other allowed non-prod class) |
-| Project ref | exactly `hmjuijmaefajdjrjdsxu` |
-| Site URL | exactly `https://jid-dev.vercel.app` |
-| Confirmation | `--i-confirm-non-production` |
+| Gate                  | Required value                                 |
+| --------------------- | ---------------------------------------------- |
+| `SEED_ENV`            | `nonprod` (or other allowed non-prod class)    |
+| Project ref           | exactly `hmjuijmaefajdjrjdsxu`                 |
+| Site URL              | exactly `https://jid-dev.vercel.app`           |
+| Confirmation          | `--i-confirm-non-production`                   |
 | Privileged credential | `SEED_DATABASE_URL` (server-side Postgres URI) |
 
 Never seeds production (`znfhladafpajyjwcfzvv`, `jid.sa`, `SEED_ENV=production`).
@@ -44,12 +44,12 @@ Shared password: `JidSeed123!`
 
 ## Premium truth (Model 1)
 
-| Actor | Plan key | Feature keys |
-|-------|----------|--------------|
-| Individual (+ mentor) | `jid_plus` | `cv_pro_formats`, `deferred_product_feature`, `lammah_feed` |
-| Business | `employer_premium` | `smart_communication`, `ssis`, `priority_visibility` |
-| University | — | **Not implemented** in Model 1 |
-| Staff / Super Admin | — | Internal auth only — no consumer subscription |
+| Actor                 | Plan key           | Feature keys                                         |
+| --------------------- | ------------------ | ---------------------------------------------------- |
+| Individual (+ mentor) | `jid_plus`         | `cv_pro_formats`, `lammah_feed`                      |
+| Business              | `employer_premium` | `smart_communication`, `ssis`, `priority_visibility` |
+| University            | —                  | **Not implemented** in Model 1                       |
+| Staff / Super Admin   | —                  | Internal auth only — no consumer subscription        |
 
 Pending Business may hold an `employer_premium` seed row for boundary testing; verified-only authority remains blocked until Verification is approved.
 

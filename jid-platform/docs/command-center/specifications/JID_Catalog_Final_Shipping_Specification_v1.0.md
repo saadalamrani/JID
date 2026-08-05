@@ -21,7 +21,7 @@
 
 **Binding architecture (restated, enforced throughout):** `companies` is the only published Directory store; Directory is not owned and is not a Profile; Verification is separate; Catalog cannot create/approve Verification, cannot create/publish Business or University Profiles, cannot assign ownership, cannot write `claimed_by`; no `directory_records` table; no automatic Directory publication; no fourth public actor; worker identities are internal technical identities only; public Catalog shows only approved Directory records and already-supported published Profile projections; no fabricated metrics, confidence percentages, descriptions, Arabic names, domains, sectors, or URLs.
 
-**Phase-1 source scope:** GLEIF only (`QUALIFIED_WITH_LIMITATIONS`). Ministry of Education is `BLOCKED_SOURCE_QUALIFICATION` — no Ministry connector, no Ministry fixtures, no second external source, no speculative Saudi government integration, no Lammah, no منتج_مؤجل.
+**Phase-1 source scope:** GLEIF only (`QUALIFIED_WITH_LIMITATIONS`). Ministry of Education is `BLOCKED_SOURCE_QUALIFICATION` — no Ministry connector, no Ministry fixtures, no second external source, no speculative Saudi government integration, no Lammah, no ابحثلي.
 
 ---
 
@@ -29,7 +29,7 @@
 
 **What the automated Catalog does (Phase 1):** on a schedule, it retrieves Saudi-jurisdiction legal-entity records from GLEIF's public LEI API; captures immutable raw evidence; normalizes source-supported facts with field-level provenance; creates import candidates through the existing worker intake boundary; deterministically screens them against existing `companies` rows and other candidates; queues every candidate for mandatory human review in a new Staff Review Workspace inside the existing Staff shell; supports staff validation of official domains from real evidence; and, on explicit staff approval, publishes through the existing `publish_directory_candidate(uuid)` RPC into `companies` — writing only the approved field set (§10). It monitors its own runs, retries bounded failures, dead-letters the rest, and can be suspended or killed instantly.
 
-**What it does not do:** it does not publish anything automatically; does not invent any fact (no fabricated Arabic names, domains, sectors, descriptions, URLs, or metrics); does not create, own, verify, or modify Profiles; does not touch Verification; does not assign ownership or write `claimed_by`; does not import non-Saudi scope, Ministry data, universities-by-source, Lammah, or منتج_مؤجل; does not represent GLEIF as a complete census of Saudi organizations; does not expose evidence or pipeline internals to anyone but authorized Staff.
+**What it does not do:** it does not publish anything automatically; does not invent any fact (no fabricated Arabic names, domains, sectors, descriptions, URLs, or metrics); does not create, own, verify, or modify Profiles; does not touch Verification; does not assign ownership or write `claimed_by`; does not import non-Saudi scope, Ministry data, universities-by-source, Lammah, or ابحثلي; does not represent GLEIF as a complete census of Saudi organizations; does not expose evidence or pipeline internals to anyone but authorized Staff.
 
 **Who benefits:** Individuals get a larger, real, provenance-backed Directory to discover; future Business representatives find their organization already referenced (Verification remains their separate journey); Staff stop hand-typing AI-generated lists; the founder gets a Catalog that grows on a schedule with zero fabrication risk and a full audit trail.
 
@@ -433,7 +433,7 @@ Likely locations, stated as **patterns to confirm at wave start against the real
 - **No separate discovery task. No separate audit task. No separate closeout task.**
 - **One bounded mechanical repair pass** (per JID_01 self-repair: max 2 automatic attempts per proven root cause; then stop).
 - **Never touch:** production, `main`, the historical mirror `agent/nonprod-signup-form`, the frozen production candidate.
-- **Never include:** Ministry connector/fixtures, any second external source, Lammah, منتج_مؤجل.
+- **Never include:** Ministry connector/fixtures, any second external source, Lammah, ابحثلي.
 - **Never allow:** automatic publication; Profile writes; Verification writes; ownership/`claimed_by` mutation; `service_role` connector identity; client-exposed secrets; fabricated facts of any kind; new Claim terminology; weakening of any existing RLS, guard, or CI gate.
 - **Always:** four validation gates; disposable-DB validation for security-sensitive changes; clean fast-forward promotion to `agent/nonprod-signup-fix` only after green CI; ledger update within the wave; the §19 report.
 - **Allowed final outcomes (exactly one):**
