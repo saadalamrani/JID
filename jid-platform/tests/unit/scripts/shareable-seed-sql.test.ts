@@ -44,7 +44,7 @@ describe('shareable seed SQL contracts', () => {
 
   it('assigns Plus and employer_premium with honest nonprod seed marker', () => {
     expect(premiumSql).toContain(SHAREABLE_SEED_MARKER)
-    expect(premiumSql).toContain("payment_provider")
+    expect(premiumSql).toContain('payment_provider')
     expect(premiumSql).toContain('nonprod_seed')
     expect(premiumSql).toContain('jid_plus')
     expect(premiumSql).toContain('employer_premium')
@@ -61,15 +61,21 @@ describe('shareable seed SQL contracts', () => {
     expect(premiumSql).not.toMatch(/university_premium|university_plus/i)
   })
 
+  it('repairs mentor capability readiness on upsert (phone + active profile_state)', () => {
+    expect(accountSql).toMatch(/mentor-approved@jidseed\.test/)
+    expect(accountSql).toMatch(/b1000003-0000-4000-8000-000000000003[\s\S]*?phone_verified_at/i)
+    expect(accountSql).toMatch(
+      /b1000003-0000-4000-8000-000000000003[\s\S]*?profile_state = EXCLUDED\.profile_state/i,
+    )
+    expect(accountSql).toMatch(/INSERT INTO public\.mentor_profiles/i)
+    expect(accountSql).toMatch(/'approved'/)
+  })
+
   it('does not assign consumer subscriptions to staff/super_admin', () => {
     expect(premiumSql).not.toContain('b1000009-0000-4000-8000-000000000009')
     // admin id may appear as activated_by only — never as a user_id subscriber value
-    expect(premiumSql).not.toMatch(
-      /'user',\s*'b100000a-0000-4000-8000-00000000000a'/i,
-    )
-    expect(premiumSql).not.toMatch(
-      /\('user',\s*'b100000a-0000-4000-8000-00000000000a'/i,
-    )
+    expect(premiumSql).not.toMatch(/'user',\s*'b100000a-0000-4000-8000-00000000000a'/i)
+    expect(premiumSql).not.toMatch(/\('user',\s*'b100000a-0000-4000-8000-00000000000a'/i)
   })
 
   it('scopes cancel/update to seed test subjects only', () => {

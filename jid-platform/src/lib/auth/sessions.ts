@@ -22,7 +22,9 @@ export async function fetchActiveSessions(supabase: Client): Promise<ActiveSessi
 
   const { data, error } = await supabase
     .from('active_sessions')
-    .select('id, device_label, ip_address, user_agent, last_active_at, created_at, expires_at, revoked_at')
+    .select(
+      'id, device_label, ip_address, user_agent, last_active_at, created_at, expires_at, revoked_at',
+    )
     .eq('user_id', user.id)
     .is('revoked_at', null)
     .order('last_active_at', { ascending: false })
@@ -55,10 +57,15 @@ export async function recordActiveSessionFromBrowser(supabase: Client) {
     ? new Date(session.expires_at * 1000).toISOString()
     : undefined
 
-  await supabase.rpc('record_active_session', {
+  const { error } = await supabase.rpc('record_active_session', {
     p_session_token_hash: tokenHash,
     p_user_agent: typeof navigator !== 'undefined' ? navigator.userAgent : undefined,
     p_device_label: 'Web browser',
     p_expires_at: expiresAt,
   })
+
+  // Best-effort telemetry — never surface ledger failures to the login UX.
+  if (error) {
+    return
+  }
 }

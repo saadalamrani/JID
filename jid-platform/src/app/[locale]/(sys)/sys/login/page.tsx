@@ -10,9 +10,9 @@ import { PasswordInput } from '@/components/auth/password-input'
 import { SysAuthShell } from '@/components/sys/sys-auth-shell'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { useRouter } from '@/lib/i18n/navigation'
 import { track } from '@/lib/analytics/track'
 import { getMfaAssuranceLevel, needsMfaEnrollment } from '@/lib/auth/mfa'
+import { useHardLocaleNavigate } from '@/lib/auth/hard-locale-navigate'
 import { fetchProfileForUser, isProfileSuspended } from '@/lib/auth/session'
 import { recordActiveSessionFromBrowser } from '@/lib/auth/sessions'
 import { SYS_HOME_PATH, SYS_MIN_LOGIN_DELAY_MS, SYS_MFA_PATH } from '@/lib/sys/constants'
@@ -39,7 +39,7 @@ export default function SysLoginPage() {
 function SysLoginPageContent() {
   const t = useTranslations('sys.login')
   const tValidation = useTranslations('sys.validation')
-  const router = useRouter()
+  const hardNavigate = useHardLocaleNavigate()
   const searchParams = useSearchParams()
   const nextParam = searchParams.get('next')
   const reason = searchParams.get('reason')
@@ -108,12 +108,12 @@ function SysLoginPageContent() {
         if (safeNext) params.set('next', safeNext)
         if (setup) params.set('setup', '1')
         const query = params.toString()
-        router.push(query ? `${SYS_MFA_PATH}?${query}` : SYS_MFA_PATH)
+        hardNavigate(query ? `${SYS_MFA_PATH}?${query}` : SYS_MFA_PATH)
         return
       }
 
-      await recordActiveSessionFromBrowser(supabase)
-      router.push(safeNext ?? SYS_HOME_PATH)
+      void recordActiveSessionFromBrowser(supabase).catch(() => undefined)
+      hardNavigate(safeNext ?? SYS_HOME_PATH)
     } catch {
       await new Promise((resolve) =>
         setTimeout(resolve, Math.max(0, SYS_MIN_LOGIN_DELAY_MS - (Date.now() - startedAt))),
@@ -134,20 +134,25 @@ function SysLoginPageContent() {
     <SysAuthShell
       title={t('title')}
       subtitle={t('subtitle')}
-      footer={reason === 'expired' ? <p className="text-sem-warning">{t('sessionExpired')}</p> : null}
+      footer={
+        reason === 'expired' ? <p className="text-sem-warning">{t('sessionExpired')}</p> : null
+      }
     >
-      <form className="space-y-4" onSubmit={(event) => void handleSubmit(onSubmit)(event)} noValidate>
+      <form
+        className="space-y-4"
+        onSubmit={(event) => void handleSubmit(onSubmit)(event)}
+        noValidate
+      >
         {formError ? (
-          <p className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive" role="alert">
+          <p
+            className="border-destructive/30 bg-destructive/10 rounded-md border px-3 py-2 text-sm text-destructive"
+            role="alert"
+          >
             {formError}
           </p>
         ) : null}
 
-        <FormField
-          id="email"
-          label={t('email')}
-          error={translateError(errors.email?.message)}
-        >
+        <FormField id="email" label={t('email')} error={translateError(errors.email?.message)}>
           <Input
             id="email"
             type="email"
@@ -170,7 +175,11 @@ function SysLoginPageContent() {
           />
         </FormField>
 
-        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
+        <Button
+          type="submit"
+          className="hover:bg-primary/90 w-full bg-primary"
+          disabled={submitting}
+        >
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

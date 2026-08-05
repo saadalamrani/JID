@@ -10,8 +10,9 @@ import { FormField } from '@/components/auth/form-field'
 import { PasswordInput } from '@/components/auth/password-input'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Link, useRouter } from '@/lib/i18n/navigation'
+import { Link } from '@/lib/i18n/navigation'
 import { getMfaAssuranceLevel, needsMfaEnrollment } from '@/lib/auth/mfa'
+import { useHardLocaleNavigate } from '@/lib/auth/hard-locale-navigate'
 import { resolvePostLoginDestination, requiresMfaAtLogin } from '@/lib/auth/portal-routes'
 import { isRoleAllowed } from '@/lib/auth/rbac'
 import { track } from '@/lib/analytics/track'
@@ -39,7 +40,7 @@ export default function LoginPage() {
 function LoginPageContent() {
   const t = useTranslations('auth.login')
   const tValidation = useTranslations('auth.validation')
-  const router = useRouter()
+  const hardNavigate = useHardLocaleNavigate()
   const searchParams = useSearchParams()
   const nextParam = searchParams.get('next')
   const [submitting, setSubmitting] = useState(false)
@@ -97,7 +98,7 @@ function LoginPageContent() {
         const aal = await getMfaAssuranceLevel(supabase)
         if (aal.currentLevel !== 'aal2') {
           const setup = await needsMfaEnrollment(supabase)
-          router.push(
+          hardNavigate(
             resolvePostLoginDestination(profile.role, {
               next: nextParam,
               needsMfa: true,
@@ -108,12 +109,24 @@ function LoginPageContent() {
         }
       }
 
-      await recordActiveSessionFromBrowser(supabase)
       if (isRoleAllowed(profile.role, ['staff', 'admin'])) {
         track('staff.login_succeeded', { user_id: data.user.id })
       }
 
-      let destination = resolvePostLoginDestination(profile.role, { next: nextParam })
+      let mentorApproved = false
+      if (profile.role === 'individual' && !nextParam) {
+        const { data: mentorProfile } = await supabase
+          .from('mentor_profiles')
+          .select('status')
+          .eq('user_id', data.user.id)
+          .maybeSingle()
+        mentorApproved = mentorProfile?.status === 'approved'
+      }
+
+      let destination = resolvePostLoginDestination(profile.role, {
+        next: nextParam,
+        mentorApproved,
+      })
       if (profile.role === 'entity' && !nextParam) {
         const { data: verification } = await supabase
           .from('verification_requests')
@@ -129,7 +142,9 @@ function LoginPageContent() {
             : '/company/verification-pending'
       }
 
-      router.push(destination)
+      // Hard navigate across layout groups; do not block on session ledger.
+      void recordActiveSessionFromBrowser(supabase).catch(() => undefined)
+      hardNavigate(destination)
     } catch {
       await new Promise((resolve) =>
         setTimeout(resolve, Math.max(0, MIN_LOGIN_DELAY_MS - (Date.now() - startedAt))),

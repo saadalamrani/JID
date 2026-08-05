@@ -15,7 +15,12 @@ import {
   isAal2,
   verifyTotp,
 } from '@/lib/auth/mfa'
-import { getPortalHomeForRole, resolvePostLoginDestination, sanitizePostLoginPath } from '@/lib/auth/portal-routes'
+import {
+  getPortalHomeForRole,
+  resolvePostLoginDestination,
+  sanitizePostLoginPath,
+} from '@/lib/auth/portal-routes'
+import { useHardLocaleNavigate } from '@/lib/auth/hard-locale-navigate'
 import { fetchProfileForUser } from '@/lib/auth/session'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from '@/lib/i18n/navigation'
@@ -27,7 +32,7 @@ export default function LoginMfaPage() {
     <Suspense
       fallback={
         <AuthShell title={t('title')} subtitle={t('subtitle')}>
-          <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
+          <p className="text-foreground/70 text-center text-sm">{t('loading')}</p>
         </AuthShell>
       }
     >
@@ -39,6 +44,7 @@ export default function LoginMfaPage() {
 function LoginMfaPageContent() {
   const t = useTranslations('auth.mfa')
   const router = useRouter()
+  const hardNavigate = useHardLocaleNavigate()
   const searchParams = useSearchParams()
   const setupMode = searchParams.get('setup') === '1'
   const nextParam = searchParams.get('next')
@@ -51,11 +57,10 @@ function LoginMfaPageContent() {
 
   const redirectAfterMfa = useCallback(
     (role: Parameters<typeof getPortalHomeForRole>[0]) => {
-      const destination =
-        sanitizePostLoginPath(nextParam) ?? getPortalHomeForRole(role)
-      router.push(destination)
+      const destination = sanitizePostLoginPath(nextParam) ?? getPortalHomeForRole(role)
+      hardNavigate(destination)
     },
-    [nextParam, router],
+    [hardNavigate, nextParam],
   )
 
   useEffect(() => {
@@ -91,7 +96,9 @@ function LoginMfaPageContent() {
 
       const factor = await getVerifiedTotpFactor(supabase)
       if (!factor) {
-        router.replace(resolvePostLoginDestination(profile.role, { needsMfa: true, needsMfaSetup: true }))
+        router.replace(
+          resolvePostLoginDestination(profile.role, { needsMfa: true, needsMfaSetup: true }),
+        )
         return
       }
 
@@ -154,7 +161,7 @@ function LoginMfaPageContent() {
   if (loading) {
     return (
       <AuthShell title={t('title')} subtitle={t('subtitle')}>
-        <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
+        <p className="text-foreground/70 text-center text-sm">{t('loading')}</p>
       </AuthShell>
     )
   }
@@ -170,11 +177,11 @@ function LoginMfaPageContent() {
   return (
     <AuthShell title={t('title')} subtitle={t('subtitle')}>
       <div className="space-y-6">
-        <p className="text-center text-sm text-foreground/70">{t('prompt')}</p>
+        <p className="text-foreground/70 text-center text-sm">{t('prompt')}</p>
         <OtpInput value={code} onChange={setCode} disabled={verifying} autoFocus />
         <Button
           type="button"
-          className="w-full bg-primary hover:bg-primary/90"
+          className="hover:bg-primary/90 w-full bg-primary"
           disabled={verifying || code.length !== 6}
           onClick={handleVerify}
         >

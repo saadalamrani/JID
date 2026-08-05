@@ -179,7 +179,7 @@ BEGIN
     show_profile_to_companies, show_profile_in_university_stats,
     show_application_history, allow_company_direct_contact,
     onboarding_started_at, onboarding_completed_at,
-    profile_completion_pct
+    profile_completion_pct, phone, phone_verified_at
   )
   VALUES
   (
@@ -203,7 +203,9 @@ BEGIN
     true,
     now() - interval '14 days',
     now() - interval '7 days',
-    100
+    100,
+    '+966500000101',
+    now() - interval '7 days'
   ),
   (
     'b1000002-0000-4000-8000-000000000002',
@@ -226,7 +228,9 @@ BEGIN
     false,
     now() - interval '1 day',
     NULL,  -- onboarding not completed
-    5
+    5,
+    NULL,
+    NULL
   ),
   (
     'b1000004-0000-4000-8000-000000000004',
@@ -249,7 +253,9 @@ BEGIN
     false,
     now() - interval '30 days',
     now() - interval '20 days',
-    40
+    40,
+    '+966500000104',
+    now() - interval '20 days'
   )
   ON CONFLICT (id) DO UPDATE SET
     full_name = EXCLUDED.full_name,
@@ -271,6 +277,8 @@ BEGIN
     onboarding_started_at = EXCLUDED.onboarding_started_at,
     onboarding_completed_at = EXCLUDED.onboarding_completed_at,
     profile_completion_pct = EXCLUDED.profile_completion_pct,
+    phone = EXCLUDED.phone,
+    phone_verified_at = EXCLUDED.phone_verified_at,
     updated_at = now();
 END;
 $$;
@@ -397,7 +405,10 @@ SELECT public._seed_local_auth_user(
 
 INSERT INTO public.profiles (
   id, full_name, role, locale, visibility, profile_state,
-  headline, avatar_url, onboarding_completed_at, profile_completion_pct
+  headline, about_me, avatar_url, linkedin_url,
+  university_id, college_id, target_sectors,
+  onboarding_completed_at, profile_completion_pct,
+  phone, phone_verified_at
 )
 VALUES (
   'b1000003-0000-4000-8000-000000000003',
@@ -407,18 +418,47 @@ VALUES (
   'public',
   'active',
   'Product mentor for early-career engineers',
+  'Former PM mentoring graduates on portfolio reviews, interviews, and the first 90 days on the job.',
   'https://api.dicebear.com/7.x/avataaars/svg?seed=mentor-approved-jidseed',
+  'https://www.linkedin.com/in/noura-alqahtani-jidseed',
+  (SELECT id FROM public.universities_catalog WHERE short_code = 'KSU' LIMIT 1),
+  (
+    SELECT c.id
+    FROM public.colleges_catalog c
+    JOIN public.universities_catalog u ON u.id = c.university_id
+    WHERE u.short_code = 'KSU'
+    LIMIT 1
+  ),
+  ARRAY['Technology', 'FinTech'],
   now() - interval '60 days',
-  80
+  100,
+  '+966500000103',
+  now() - interval '60 days'
 )
 ON CONFLICT (id) DO UPDATE SET
   full_name = EXCLUDED.full_name,
   role = 'individual',
   visibility = EXCLUDED.visibility,
+  profile_state = EXCLUDED.profile_state,
   headline = EXCLUDED.headline,
+  about_me = EXCLUDED.about_me,
   avatar_url = EXCLUDED.avatar_url,
+  linkedin_url = EXCLUDED.linkedin_url,
+  university_id = EXCLUDED.university_id,
+  college_id = EXCLUDED.college_id,
+  target_sectors = EXCLUDED.target_sectors,
   onboarding_completed_at = EXCLUDED.onboarding_completed_at,
+  profile_completion_pct = EXCLUDED.profile_completion_pct,
+  phone = EXCLUDED.phone,
+  phone_verified_at = EXCLUDED.phone_verified_at,
   updated_at = now();
+
+-- Skills for mentor completion score (trigger requires >= 100 for profile_state=active)
+INSERT INTO public.profile_skills (profile_id, skill_id)
+VALUES
+  ('b1000003-0000-4000-8000-000000000003', 'b4000001-0000-4000-8000-000000000001'),
+  ('b1000003-0000-4000-8000-000000000003', 'b4000003-0000-4000-8000-000000000003')
+ON CONFLICT DO NOTHING;
 
 INSERT INTO public.mentor_profiles (
   user_id, status, slug, headline, bio_short, bio_long,

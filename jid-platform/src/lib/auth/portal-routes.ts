@@ -3,7 +3,8 @@ import { PRIVILEGED_STAFF_ROLES } from './rbac'
 
 /**
  * Default portal home routes after login (Section 11 Step 7).
- * Individual → /me (profile area). Entity → company dashboard.
+ * Individual → /me (capability-aware entry → /profile or mentor hub).
+ * Entity → company dashboard.
  */
 export function getPortalHomeForRole(role: UserRole): string {
   switch (role) {
@@ -38,7 +39,12 @@ export function sanitizePostLoginPath(path: string | null | undefined): string |
 
 export function resolvePostLoginDestination(
   role: UserRole,
-  options?: { next?: string | null; needsMfa?: boolean; needsMfaSetup?: boolean },
+  options?: {
+    next?: string | null
+    needsMfa?: boolean
+    needsMfaSetup?: boolean
+    mentorApproved?: boolean
+  },
 ): string {
   if (options?.needsMfa) {
     const params = new URLSearchParams()
@@ -50,5 +56,12 @@ export function resolvePostLoginDestination(
   }
 
   const safeNext = sanitizePostLoginPath(options?.next)
-  return safeNext ?? getPortalHomeForRole(role)
+  if (safeNext) return safeNext
+
+  // Skip /me bounce for approved mentors — capability on the same Individual identity.
+  if (role === 'individual' && options?.mentorApproved) {
+    return '/mentor/dashboard'
+  }
+
+  return getPortalHomeForRole(role)
 }
