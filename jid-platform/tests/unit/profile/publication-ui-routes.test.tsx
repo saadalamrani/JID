@@ -238,6 +238,7 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
       '20260803120000_catalog_gleif_review_states.sql',
       '20260803120100_lammah_phase1_foundations.sql',
       '20260803120200_lammah_phase1_workflows.sql',
+      '20260805120000_remove_deferred_search_product_artifacts.sql',
     ]
     expect(later).toEqual(allowed)
     for (const name of allowed) {
@@ -262,6 +263,12 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
     expect(lammahFoundations).toMatch(/lammah_opportunities_entitled_read/)
     const lammahWorkflows = readFileSync(join(MIGRATIONS, allowed[5]!), 'utf-8')
     expect(lammahWorkflows).not.toMatch(
+      /CREATE(?: OR REPLACE)? FUNCTION public\.publish_business_profile/,
+    )
+    const deferredCleanup = readFileSync(join(MIGRATIONS, allowed[6]!), 'utf-8')
+    expect(deferredCleanup).toMatch(/DROP TABLE IF EXISTS public\.\w+_matches/)
+    expect(deferredCleanup).toMatch(/DROP TABLE IF EXISTS public\.\w+_mandates/)
+    expect(deferredCleanup).not.toMatch(
       /CREATE(?: OR REPLACE)? FUNCTION public\.publish_business_profile/,
     )
   })

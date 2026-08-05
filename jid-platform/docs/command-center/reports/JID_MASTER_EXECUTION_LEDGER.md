@@ -39,7 +39,7 @@
 | deterministic fixture SHA | `7ab386c` |
 | final candidate / promoted SHA | completion response — do not self-embed |
 | delivered scope | GLEIF Saudi connector; least-privilege worker; evidence/candidate/match/review/run states; Staff review workspace; domain assistance; human-only publication; operational flags, cron, retention, legal hold, and dead-letter controls |
-| architecture | PASS — Directory remains `companies`; no owned Profile, Verification, ownership, `claimed_by`, automatic-publication, social, Ministry, Lammah, or ابحث لي path |
+| architecture | PASS — Directory remains `companies`; no owned Profile, Verification, ownership, `claimed_by`, automatic-publication, social, Ministry, Lammah, or منتج_مؤجل path |
 | accepted Advisor warning | only `authenticated_security_definer_function_executable public.publish_directory_candidate(uuid)`; compensating controls documented in the final report |
 | final Advisor delta | 221 project-wide findings; exactly one Catalog-relevant finding, the accepted warning above |
 | disposable matrix | PASS — `CATALOG_FINAL_DISPOSABLE_PASS`; fresh chain, positive/negative RLS and worker boundaries, review/publication/replay/retention/dead-letter/cleanup |
@@ -130,7 +130,7 @@
 | closed defects | 12 CLASS_A |
 | unresolved observations | university alias CDN sticky 404 residual; `/sys/claims` residual; incomplete apply/publish audit proofs; self-review inconclusive; deferred capabilities register below |
 | deferred capabilities | real evidence viewer; request-more-information; persisted checklist; Profile analytics; snapshot pipeline; broader theming; locale sweep; university_dashboard_view claimed_by residue |
-| standalone tracks not absorbed | Catalog automated ingestion; Lammah ingestion; ابحث لي |
+| standalone tracks not absorbed | Catalog automated ingestion; Lammah ingestion; منتج_مؤجل |
 | per-spec SHAs | 02 `ed5bc404…`; 03 `548b40a…`; 04 `68c656d7…`; 05 `958ebf07…`; 06 `760b86ad…`; 07 `4214040…`/`b77fca0…`; 08 `e65134c…`; 09-D `396b86b…` |
 | rollback points | 8bf6bac… (pre-08-E); e65134c… (08 SHIPPED); 396b86b… (09-D); 1438f43… (09-E entry) |
 | Session E source branch | cursor/jid-09e-release-closeout |
@@ -343,7 +343,7 @@
 | Session E regressions | no regressions found |
 | Session E fixture cleanup | PASS — run-scoped Profiles/Directory/auth users removed (`cleanup-result.md`); disposable stop --no-backup; config.toml restored; no secrets committed |
 | Session E preserved contracts | publication RPC signatures/grants; public published-only RLS; owner status-write prevention; staff suspend/reinstate; Profile-creation + Spec 02 decision RPCs; Directory reference-only; Verification≠publish; no completeness metric; no public draft/suspended; `agent/nonprod-signup-form` untouched |
-| Session E deferred | Spec 08 visual waves; request-more-info; evidence upload; staff checklist; unsupported metrics; university_dashboard_view claimed_by residue; viewer_approved_*/claim_requests residue; Catalog/Lammah/ابحثلي |
+| Session E deferred | Spec 08 visual waves; request-more-info; evidence upload; staff checklist; unsupported metrics; university_dashboard_view claimed_by residue; viewer_approved_*/claim_requests residue; Catalog/Lammah/منتج_مؤجل |
 | Session E local validation | PASS — git diff --check; install --frozen-lockfile; lint; type-check; test; build (recorded in completion response) |
 | Session E validation CI | PENDING (completion response) |
 | Session E target CI | PENDING (completion response) |
@@ -470,7 +470,7 @@
 | Session E notifications smoke | PASS — claim.approved/rejected bell+dropdown AR/EN/mobile; create-profile / verification-rejected destinations; fallback blank action_url |
 | Session E contract proof | `docs/command-center/reports/ui-evidence/spec-06/CONTRACT_PROOF.md` — all 11 contracts UNCHANGED |
 | Session E fixture cleanup | PASS run-scoped objects; disposable destroyed stop --no-backup; config.toml restored; no secrets committed |
-| Session E preserved/deferred | Directory reference-only; corrections→Directory fields only; Verification≠Profile create; in-app+email both remain; request-more-info/prefs/digest deferred; redesign→Spec 08; Catalog/Lammah/ابحثلي separate |
+| Session E preserved/deferred | Directory reference-only; corrections→Directory fields only; Verification≠Profile create; in-app+email both remain; request-more-info/prefs/digest deferred; redesign→Spec 08; Catalog/Lammah/منتج_مؤجل separate |
 | Session E validation CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30595421094 |
 | Session E target CI | PASS — Quality Gate https://github.com/saadalamrani/JID/actions/runs/30595593660 |
 | Session E Vercel | PASS — Vercel - jid-dev + jid-platform success; Preview Comments success |

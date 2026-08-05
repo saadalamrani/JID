@@ -46,7 +46,7 @@ Shared password: `JidSeed123!`
 
 | Actor | Plan key | Feature keys |
 |-------|----------|--------------|
-| Individual (+ mentor) | `jid_plus` | `cv_pro_formats`, `search_for_me`, `lammah_feed` |
+| Individual (+ mentor) | `jid_plus` | `cv_pro_formats`, `deferred_product_feature`, `lammah_feed` |
 | Business | `employer_premium` | `smart_communication`, `ssis`, `priority_visibility` |
 | University | — | **Not implemented** in Model 1 |
 | Staff / Super Admin | — | Internal auth only — no consumer subscription |

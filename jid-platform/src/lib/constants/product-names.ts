@@ -21,9 +21,6 @@ export const graduateBadge = { ar: 'شارة الخريج', en: 'Graduate Badge'
 /** PENDING_FOUNDER_SIGNOFF — Annex B item; safe to render, unsafe to rebrand. */
 export const lammah = { ar: 'لمّاح', en: 'Lammah' } as const
 
-/** PENDING_FOUNDER_SIGNOFF — Annex B item; safe to render, unsafe to rebrand. */
-export const abhathli = { ar: 'ابحثلي', en: 'Search-For-Me' } as const
-
 export const PRODUCT_NAMES = {
   careerCanvas,
   impactDrops,
@@ -31,7 +28,6 @@ export const PRODUCT_NAMES = {
   careerTimeline,
   graduateBadge,
   lammah,
-  abhathli,
 } as const
 
 export type ProductNameKey = keyof typeof PRODUCT_NAMES

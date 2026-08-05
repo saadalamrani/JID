@@ -8,7 +8,7 @@ Decision: `CATALOG_PHASE1_READY_FOR_IMPLEMENTATION`
 
 Catalog Phase 1 foundations may begin. The historical architecture remains correct, the approved non-production database now matches the current canonical migration chain, and every historical implementation blocker has an exact bounded resolution. There are no remaining blockers to the foundations task.
 
-This decision authorizes only **Catalog Phase 1 Foundations**: adjacent tables, RLS, grants, privileged RPC boundaries, audit integration, one default-off ingestion feature flag, tests, and disposable-Supabase validation. It does not authorize a GLEIF connector, source retrieval, external imports, automatic publication, production work, Lammah, or ابحثلي.
+This decision authorizes only **Catalog Phase 1 Foundations**: adjacent tables, RLS, grants, privileged RPC boundaries, audit integration, one default-off ingestion feature flag, tests, and disposable-Supabase validation. It does not authorize a GLEIF connector, source retrieval, external imports, automatic publication, production work, Lammah, or منتج_مؤجل.
 
 ## 2. Gate, authority, and historical report status
 
@@ -306,7 +306,7 @@ Implement only:
 - the default-off `catalog.phase1_ingestion` feature flag;
 - focused repository tests and disposable-Supabase validation.
 
-Explicitly exclude the GLEIF connector, source retrieval, external imports, automatic publication, production, Lammah, and ابحثلي. Do not create any further discovery, audit, or review task before this foundations task.
+Explicitly exclude the GLEIF connector, source retrieval, external imports, automatic publication, production, Lammah, and منتج_مؤجل. Do not create any further discovery, audit, or review task before this foundations task.
 
 ## 19. Validation and change boundary
 

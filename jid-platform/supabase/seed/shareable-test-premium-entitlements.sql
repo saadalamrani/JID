@@ -34,7 +34,6 @@ FROM public.plans p
 CROSS JOIN (
   VALUES
     ('cv_pro_formats', NULL::integer),
-    ('search_for_me', NULL::integer),
     ('lammah_feed', NULL::integer)
 ) AS e(feature_key, quota)
 WHERE p.key = 'jid_plus'

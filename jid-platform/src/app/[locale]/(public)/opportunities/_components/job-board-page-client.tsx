@@ -13,7 +13,6 @@ import { JobBoardHero } from './job-board-hero'
 import { JobCardSkeleton } from './job-card-skeleton'
 import { JobFilterProvider, useJobFilters } from './job-filter-context'
 import { LammahFeed } from './lammah-feed'
-import { AbhathliWidget } from './abhathli-widget'
 import { OpportunitiesTabs, type OpportunitiesTab } from './opportunities-tabs'
 import { RegionMultiSelect } from './region-multi-select'
 import { ResultsCountBar } from './results-count-bar'
@@ -51,9 +50,7 @@ function NativeResultsSection() {
 
   if (error) {
     return (
-      <p className="font-arabic text-sm text-destructive">
-        تعذّر تحميل النتائج: {error.message}
-      </p>
+      <p className="font-arabic text-sm text-destructive">تعذّر تحميل النتائج: {error.message}</p>
     )
   }
 
@@ -103,13 +100,12 @@ function JobBoardContent({
       {setupHint ? (
         <div
           role="alert"
-          className="mb-6 rounded-lg border border-sem-warning/30 bg-sem-warning/10 px-4 py-3 text-sm text-sem-warning"
+          className="border-sem-warning/30 bg-sem-warning/10 mb-6 rounded-lg border px-4 py-3 text-sm text-sem-warning"
         >
           {setupHint}
         </div>
       ) : null}
       <JobBoardHero />
-      <AbhathliWidget />
       <OpportunitiesTabs activeTab={activeTab} onTabChange={selectTab} className="mb-4" />
       <StickyFilterBar>
         <ExperienceLevelChips />

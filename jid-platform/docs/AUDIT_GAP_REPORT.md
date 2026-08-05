@@ -105,7 +105,7 @@
 | 093 | `093_cv_builder_prefs.sql` | cv_builder_prefs (format/language/section order) |
 | 094 | `094_smart_communication.sql` | Smart communication batches (claimed_by gates) |
 | 095 | `095_lammah.sql` | Lammah scraped feed + purge/crawler crons |
-| 096 | `096_search_mandates.sql` | Search-for-me mandates + matching engine |
+| 096 | `096_deferred_product_mandates.sql` | Search-for-me mandates + matching engine |
 | 097 | `097_priority_visibility.sql` | Employer boost (claimed_by + entitlement gate) |
 | 098 | `098_ssis.sql` | Smart Screening Interviews (claimed_by RLS; ssis consent — not alumni) |
 | 099 | `099_seed_model1_plans.sql` | Model 1 plan registry + entitlement seeds |
@@ -139,7 +139,7 @@
 | `process-communication-batches` | `*/5 * * * *` | Edge Function `process-communication-batches` |
 | `purge-lammah` | `15 * * * *` | `public.purge_expired_lammah()` |
 | `lammah-crawler` | `0 */6 * * *` | Edge Function `lammah-crawler` |
-| `sweep-mandate-matching` | `15 * * * *` | `public.sweep_mandate_matching()` |
+| `deferred_product-sweep-matching` | `15 * * * *` | `public.deferred_product_sweep_matching()` |
 | `sweep-boosts` | `45 0 * * *` | `public.sweep_expired_boosts()` |
 | `purge-ssis-responses` | `0 4 * * *` | `public.purge_expired_ssis_responses()` |
 
@@ -199,7 +199,7 @@
 | `get_my_entitlements` / `expire_lapsed_subscriptions` | 092 | User entitlements + subscription expiry |
 | `create_communication_batch` / `finalize_communication_batch` / … | 094 | Smart communication batch RPCs |
 | `ingest_lammah_opportunity` / `purge_expired_lammah` | 095 | Lammah ingest/purge |
-| `create_search_mandate` / `sweep_mandate_matching` / … | 096 | Search-for-me mandate engine |
+| `deferred_product_create_mandate` / `deferred_product_sweep_matching` / … | 096 | Search-for-me mandate engine |
 | `toggle_job_boost` / `sweep_expired_boosts` | 097 | Priority visibility boost |
 | `invite_ssis_applicants` / `consent_ssis_invitation` / … | 098 | SSIS screening lifecycle |
 | `_user_role_rank` | 102 | Cloud feature-flag role rank helper |
@@ -684,12 +684,12 @@ CREATE TABLE IF NOT EXISTS public.cv_builder_prefs (
 | `has_entitlement(p_feature)` | **EXISTS** — 092, granted to authenticated |
 | `company_has_entitlement(p_company_id, p_feature)` | **EXISTS** — 092; used in 094/097 |
 | `jobs.tier` | **EXISTS** — `090_opportunity_tier.sql` enum `normal`/`plus` |
-| `PlusGate` | **EXISTS** — `src/components/monetization/plus-gate.tsx`; wired to `lammah_feed`, `search_for_me`, `cv_pro_formats` |
+| `PlusGate` | **EXISTS** — `src/components/monetization/plus-gate.tsx`; wired to `lammah_feed`, `deferred_product_feature`, `cv_pro_formats` |
 | `tier-badge.tsx` | **EXISTS** — opportunity tier badge (not subscription tier) |
 | `plus-plan-compare.tsx`, `plus-teaser.tsx`, `upgrade-dialog.tsx`, `manage-subscription.tsx` | **EXISTS** |
 | Moyasar payment | **EXISTS** — `src/lib/billing/moyasar.ts`, `provider.ts`, `subscription-service.ts`; requires `MOYASAR_SECRET_KEY` (not in `env.ts` schema) |
 | API routes | `src/app/api/billing/checkout`, `webhook`, `subscription` (per prior implementation) |
-| Feature flags (monetization) | Keys in `plan_entitlements` CHECK: `cv_pro_formats`, `search_for_me`, `lammah_feed`, `smart_communication`, `ssis`, `priority_visibility` |
+| Feature flags (monetization) | Keys in `plan_entitlements` CHECK: `cv_pro_formats`, `deferred_product_feature`, `lammah_feed`, `smart_communication`, `ssis`, `priority_visibility` |
 | `expire-subscriptions` cron | **EXISTS** — 092 |
 
 **Gap:** `MOYASAR_SECRET_KEY` / `MOYASAR_WEBHOOK_SECRET` not validated in `src/lib/env.ts`.
@@ -904,7 +904,7 @@ info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/d
 | Untracked cloud migrations 100–102 in working tree | MED | P-001 | Not committed; cloud-only reconciliation |
 | Prior session modified catalog.ts, jobs.ts, types.ts | MED | P-001 | Working tree not clean (see checklist) |
 | `tier-badge.tsx` hardcoded `عادي`/`بلس` labels | MED | P-703 | Deferred P-001 — component change outside allowed git diff; import `OPPORTUNITY_TIERS` |
-| `plus-plan-compare.tsx` / `abhathli-teaser.tsx` / `plus-teaser.tsx` hardcoded `بلس` (subscription context) | MED | P-703 | Deferred P-001 — use `t('terminology.tiers.plus')` or product-name constants |
+| `plus-plan-compare.tsx` / `deferred_product-teaser.tsx` / `plus-teaser.tsx` hardcoded `بلس` (subscription context) | MED | P-703 | Deferred P-001 — use `t('terminology.tiers.plus')` or product-name constants |
 | `monetization.tier` i18n duplicates `terminology.tiers` | LOW | P-703 | Consolidate to terminology namespace in Phase 7 |
 | 200+ components with hardcoded directory/profile Arabic (P-000 §7) | MED | P-703 | Deferred P-001 — requires `t('terminology.*')` wiring per component |
 | Constitutional terminology constants locked (P-001) | LOW | P-001 | **RESOLVED** — terminology.ts, tiers.ts, product-names.ts, communication.ts, i18n namespace |

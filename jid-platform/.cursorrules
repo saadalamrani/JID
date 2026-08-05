@@ -81,7 +81,7 @@ scripts/         # Dev/CI scripts (check-env.ts, seed scripts)
 - All constitutional vocabulary must come from `src/lib/constants/terminology.ts` or the `terminology` i18n namespace (`messages/ar.json`, `messages/en.json`).
 - Opportunity tier badge labels (`عادي` / `بلس`) must import from `src/lib/constants/tiers.ts` or `t('terminology.tiers.*')` — never hardcode.
 - The auto-reply liability disclaimer must import `AUTO_REPLY_DISCLAIMER_AR` from `src/lib/constants/communication.ts` — verbatim, founder sign-off required to change one character.
-- Product display names (Career Canvas, Lammah, ابحثلي, etc.) must import from `src/lib/constants/product-names.ts` or i18n — never hardcode.
+- Product display names (Career Canvas, Lammah, etc.) must import from `src/lib/constants/product-names.ts` or i18n — never hardcode.
 - **Hardcoding any of the above strings in components, emails, PDFs, or edge functions is a review-blocking violation.**
 
 ## Testing Law (P-003 harness — constitutional)

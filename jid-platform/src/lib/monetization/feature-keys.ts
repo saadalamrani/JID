@@ -5,7 +5,6 @@
 
 export const MODEL1_FEATURE_KEYS = [
   'cv_pro_formats',
-  'search_for_me',
   'lammah_feed',
   'smart_communication',
   'ssis',
@@ -17,7 +16,6 @@ export type Model1FeatureKey = (typeof MODEL1_FEATURE_KEYS)[number]
 /** B2C JID Plus — gated via `has_entitlement` / `get_my_entitlements`. */
 export const JID_PLUS_FEATURE_KEYS = [
   'cv_pro_formats',
-  'search_for_me',
   'lammah_feed',
 ] as const satisfies readonly Model1FeatureKey[]
 

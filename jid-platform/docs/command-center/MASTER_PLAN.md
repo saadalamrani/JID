@@ -543,7 +543,7 @@ MISSING
 - Smart Communication.
 - الردود التلقائية.
 - لمّاح.
-- ابحثلي.
+- منتج_مؤجل.
 - SSIS.
 - CV Builder.
 - Mentors.
@@ -668,7 +668,7 @@ MISSING
 - Notifications.
 - Smart Communication.
 - لمّاح.
-- ابحثلي.
+- منتج_مؤجل.
 - SSIS.
 - Recommendations.
 - Entitlements.

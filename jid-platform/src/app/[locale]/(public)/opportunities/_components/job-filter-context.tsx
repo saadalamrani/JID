@@ -21,10 +21,7 @@ import type {
   JobsListResult,
   UrgencyFilter,
 } from '@/types/job'
-import {
-  DEFAULT_JOB_FILTER_STATE,
-  jobFilterStateToFilters,
-} from '@/types/job'
+import { DEFAULT_JOB_FILTER_STATE, jobFilterStateToFilters } from '@/types/job'
 
 type JobFilterContextValue = {
   filters: JobFilterState
@@ -124,57 +121,6 @@ export function JobFilterProvider({ children, initialData }: JobFilterProviderPr
       controls,
       hasActiveFilters,
     ],
-  )
-
-  return <JobFilterContext.Provider value={value}>{children}</JobFilterContext.Provider>
-}
-
-type MandateFilterProviderProps = {
-  children: ReactNode
-  initialFilters?: JobFilterState
-  onFiltersChange?: (filters: JobFilterState) => void
-}
-
-/** ابحثلي mandate sheet — reuses job-board filter components without jobs query. */
-export function MandateFilterProvider({
-  children,
-  initialFilters,
-  onFiltersChange,
-}: MandateFilterProviderProps) {
-  const [filters, setFilters] = useState<JobFilterState>(
-    initialFilters ?? DEFAULT_JOB_FILTER_STATE,
-  )
-
-  useEffect(() => {
-    onFiltersChange?.(filters)
-  }, [filters, onFiltersChange])
-
-  const { data: regions = [] } = useCatalogRegions()
-  const { data: sectors = [] } = useCatalogSectors()
-  const controls = useFilterControls(filters, setFilters)
-  const queryFilters = useMemo(() => jobFilterStateToFilters(filters), [filters])
-
-  const hasActiveFilters =
-    filters.experienceChips.length > 0 ||
-    filters.ownership.length > 0 ||
-    filters.regions.length > 0 ||
-    filters.sectors.length > 0
-
-  const value = useMemo<JobFilterContextValue>(
-    () => ({
-      filters,
-      queryFilters,
-      resultCount: 0,
-      isLoading: false,
-      isFetching: false,
-      error: null,
-      jobs: [],
-      regions,
-      sectors,
-      ...controls,
-      hasActiveFilters,
-    }),
-    [filters, queryFilters, regions, sectors, controls, hasActiveFilters],
   )
 
   return <JobFilterContext.Provider value={value}>{children}</JobFilterContext.Provider>

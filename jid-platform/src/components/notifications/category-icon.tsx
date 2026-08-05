@@ -24,12 +24,11 @@ import {
   UserCheck,
   UserX,
   Users,
-  Search,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { NotificationCategory, NotificationPriority } from '@/lib/notifications/types'
 
-const CATEGORY_ICONS: Record<NotificationCategory, LucideIcon> = {
+const CATEGORY_ICONS: Partial<Record<NotificationCategory, LucideIcon>> = {
   'auth.email_verified': ShieldCheck,
   'auth.mfa_disabled': ShieldOff,
   'auth.mfa_enabled': Shield,
@@ -51,7 +50,6 @@ const CATEGORY_ICONS: Record<NotificationCategory, LucideIcon> = {
   'job.application_status_changed': Briefcase,
   'job.expiring_soon': CalendarClock,
   'job.posted': Briefcase,
-  'search.mandate_match': Search,
   'legal.privacy_updated': Scale,
   'legal.terms_updated': Scale,
   'mentor.application_approved': GraduationCap,
@@ -69,10 +67,7 @@ const CATEGORY_ICONS: Record<NotificationCategory, LucideIcon> = {
   'digest.daily_summary': Mail,
 }
 
-const PRIORITY_STYLES: Record<
-  NotificationPriority,
-  { container: string; icon: string }
-> = {
+const PRIORITY_STYLES: Record<NotificationPriority, { container: string; icon: string }> = {
   low: {
     container: 'bg-muted',
     icon: 'text-muted-foreground',
@@ -98,10 +93,8 @@ type CategoryIconProps = {
 }
 
 export function CategoryIcon({ category, priority, className }: CategoryIconProps) {
-  const Icon =
-    CATEGORY_ICONS[category as NotificationCategory] ?? Bell
-  const styles =
-    PRIORITY_STYLES[priority as NotificationPriority] ?? PRIORITY_STYLES.normal
+  const Icon = CATEGORY_ICONS[category as NotificationCategory] ?? Bell
+  const styles = PRIORITY_STYLES[priority as NotificationPriority] ?? PRIORITY_STYLES.normal
 
   return (
     <span

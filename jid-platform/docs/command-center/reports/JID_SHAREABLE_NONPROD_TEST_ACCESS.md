@@ -80,7 +80,7 @@ Password login (Supabase Auth): **PASS for all 9 accounts** (emails confirmed).
 
 Entitlement RPC verification:
 
-- Individuals + mentor: `cv_pro_formats`, `search_for_me`, `lammah_feed`
+- Individuals + mentor: `cv_pro_formats`, `deferred_product_feature`, `lammah_feed`
 - Business verified: `company_has_entitlement` true for `smart_communication`, `ssis`, `priority_visibility`
 - Business pending: subscription row present for boundary testing; verified dashboard/authority still blocked by Verification state
 - University / Staff / Admin: no consumer entitlements

@@ -91,7 +91,7 @@ async function main() {
 
   const entitlements: { plan_id: string; feature_key: string; quota: number | null }[] = []
 
-  for (const fk of ['cv_pro_formats', 'search_for_me', 'lammah_feed']) {
+  for (const fk of ['cv_pro_formats', 'lammah_feed']) {
     entitlements.push({ plan_id: planByKey.jid_plus, feature_key: fk, quota: null })
   }
   for (const [fk, quota] of [

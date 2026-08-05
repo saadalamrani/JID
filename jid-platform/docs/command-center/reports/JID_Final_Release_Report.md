@@ -197,7 +197,7 @@ This program did **not** absorb:
 
 - Catalog automated ingestion
 - Lammah external-opportunity ingestion
-- ابحث لي
+- منتج_مؤجل
 
 ## 23. CI / Vercel
 

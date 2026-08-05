@@ -146,7 +146,7 @@ export const SHAREABLE_PREMIUM_MATRIX = [
   {
     email: 'individual-complete@jidseed.test',
     planKey: 'jid_plus',
-    available: ['cv_pro_formats', 'search_for_me', 'lammah_feed'] as const,
+    available: ['cv_pro_formats', 'lammah_feed'] as const,
     unavailable: [
       {
         key: 'smart_communication',
@@ -165,7 +165,7 @@ export const SHAREABLE_PREMIUM_MATRIX = [
   {
     email: 'individual-new@jidseed.test',
     planKey: 'jid_plus',
-    available: ['cv_pro_formats', 'search_for_me', 'lammah_feed'] as const,
+    available: ['cv_pro_formats', 'lammah_feed'] as const,
     unavailable: [
       {
         key: 'smart_communication',
@@ -176,7 +176,7 @@ export const SHAREABLE_PREMIUM_MATRIX = [
   {
     email: 'mentor-approved@jidseed.test',
     planKey: 'jid_plus',
-    available: ['cv_pro_formats', 'search_for_me', 'lammah_feed'] as const,
+    available: ['cv_pro_formats', 'lammah_feed'] as const,
     unavailable: [
       {
         key: 'mentor_premium',
@@ -258,7 +258,8 @@ export const SHAREABLE_PREMIUM_MATRIX = [
     unavailable: [
       {
         key: 'jid_plus',
-        reason: 'unavailable because product intentionally restricts super_admin from consumer plans',
+        reason:
+          'unavailable because product intentionally restricts super_admin from consumer plans',
       },
     ],
   },
@@ -340,10 +341,7 @@ export function assertSeedEnvAllowed(seedEnv: string | undefined): AllowedSeedEn
   return value
 }
 
-export function assertAllowedProjectRefs(params: {
-  supabaseUrl?: string
-  dbUrl?: string
-}): void {
+export function assertAllowedProjectRefs(params: { supabaseUrl?: string; dbUrl?: string }): void {
   const fromUrl = extractProjectRefFromSupabaseUrl(params.supabaseUrl)
   const fromDb = extractProjectRefFromDbUrl(params.dbUrl)
 
@@ -452,7 +450,9 @@ export function formatWhatsAppMessage(siteUrl: string): string {
   }
 
   lines.push('عند العثور على خلل، أرسل:')
-  lines.push('البوابة / الحساب / الرابط / الجهاز والمتصفح / الخطوات / المتوقع / الذي حدث / صورة إن أمكن')
+  lines.push(
+    'البوابة / الحساب / الرابط / الجهاز والمتصفح / الخطوات / المتوقع / الذي حدث / صورة إن أمكن',
+  )
   lines.push('')
   lines.push('تحذير:')
   lines.push('- هذه بيئة اختبار — لا تدخل بيانات شخصية حقيقية.')

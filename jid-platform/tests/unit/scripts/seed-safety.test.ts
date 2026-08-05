@@ -48,7 +48,8 @@ describe('seed-safety guards', () => {
     expect(() =>
       assertAllowedProjectRefs({
         supabaseUrl: 'https://aaaaaaaaaaaaaaaaaaaa.supabase.co',
-        dbUrl: 'postgresql://postgres.aaaaaaaaaaaaaaaaaaaa:x@aws-0-x.pooler.supabase.com:6543/postgres',
+        dbUrl:
+          'postgresql://postgres.aaaaaaaaaaaaaaaaaaaa:x@aws-0-x.pooler.supabase.com:6543/postgres',
       }),
     ).toThrow(/exactly hmjuijmaefajdjrjdsxu/)
   })
@@ -75,9 +76,9 @@ describe('seed-safety guards', () => {
   })
 
   it('refuses missing execute confirmation', () => {
-    expect(() =>
-      assertExecuteConfirmation({ execute: true, confirmNonProd: false }),
-    ).toThrow(/--i-confirm-non-production/)
+    expect(() => assertExecuteConfirmation({ execute: true, confirmNonProd: false })).toThrow(
+      /--i-confirm-non-production/,
+    )
   })
 
   it('refuses missing privileged DB credential', () => {
@@ -132,9 +133,7 @@ describe('shareable account architecture', () => {
     for (const email of plusEmails) {
       const row = SHAREABLE_PREMIUM_MATRIX.find((r) => r.email === email)
       expect(row?.planKey).toBe('jid_plus')
-      expect(row?.available).toEqual(
-        expect.arrayContaining(['cv_pro_formats', 'search_for_me', 'lammah_feed']),
-      )
+      expect(row?.available).toEqual(expect.arrayContaining(['cv_pro_formats', 'lammah_feed']))
     }
 
     const business = SHAREABLE_PREMIUM_MATRIX.find(

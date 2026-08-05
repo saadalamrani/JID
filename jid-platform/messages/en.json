@@ -1119,7 +1119,7 @@
     },
     "boost": {
       "teaserTitle": "Priority visibility",
-      "teaserBody": "Elevate job placement on the opportunities board with an honest «مميّزة» label — without affecting Search For Me ranking.",
+      "teaserBody": "Elevate job placement on the opportunities board with an honest «مميّزة» label — without affecting automated matching ranking.",
       "salesCta": "Contact sales",
       "toggleTitle": "Boost this job",
       "toggleAria": "Toggle boost",
@@ -5028,61 +5028,6 @@
         "fellowship": "Fellowship",
         "scholarship": "Scholarship"
       }
-    },
-    "abhathli": {
-      "title": "Search For Me",
-      "teaserAria": "Search For Me preview",
-      "teaserLine": "Brief your search once — get matching opportunities automatically.",
-      "upgradeCta": "Upgrade to Plus",
-      "inviteTitle": "Let Search For Me work for you",
-      "inviteBody": "Create a persistent search mandate — up to 3 active at a time.",
-      "pausedTitle": "Your mandates are paused",
-      "pausedBody": "Reactivate a mandate or create a new one to resume matching.",
-      "createMandate": "Create mandate",
-      "addMandate": "New mandate",
-      "collapsedLabel": "Search For Me · {count} new matches",
-      "mandatesHint": "Up to 3 active mandates",
-      "sheet": {
-        "title": "New Search For Me mandate",
-        "nameLabel": "Mandate name",
-        "namePlaceholder": "e.g. Operations analyst — Riyadh",
-        "filtersHint": "Pick criteria (empty = any)",
-        "keywordsLabel": "Keywords",
-        "keywordsPlaceholder": "Comma-separated: PMO, analysis, SQL",
-        "includeLammah": "Include Lammah external opportunities",
-        "reviewName": "Name",
-        "reviewSectors": "Sectors",
-        "reviewRegions": "Regions",
-        "reviewKeywords": "Keywords",
-        "reviewLammah": "Lammah",
-        "any": "Any",
-        "none": "None",
-        "yes": "Yes",
-        "no": "No",
-        "back": "Back",
-        "next": "Next",
-        "create": "Create mandate",
-        "quotaReached": "Maximum of 3 active mandates reached.",
-        "steps": {
-          "name": "Step 1 — Mandate name",
-          "filters": "Step 2 — Criteria",
-          "keywords": "Step 3 — Keywords & sources",
-          "review": "Step 4 — Review"
-        },
-        "errors": {
-          "plus_required": "JID Plus subscription required.",
-          "mandate_quota_exceeded": "Maximum of 3 active mandates."
-        }
-      },
-      "mandate": {
-        "lastRun": "Last match: {time}",
-        "neverRun": "No match run yet",
-        "toggleAria": "Toggle mandate {name}"
-      },
-      "match": {
-        "openExternal": "Open source",
-        "viewDetails": "View details"
-      }
     }
   },
   "monetization": {
@@ -5102,14 +5047,6 @@
             "Harvard and global ATS export engines",
             "AI bullet refinement in your control",
             "Per-opportunity tailoring support"
-          ]
-        },
-        "search_for_me": {
-          "description": "Let ابحثلي monitor opportunities for you — native jobs and Lammah.",
-          "bullets": [
-            "Up to 3 active search mandates",
-            "Match rationale on every card",
-            "Instant alerts in your notification bell"
           ]
         },
         "lammah_feed": {
@@ -5139,15 +5076,11 @@
       "checkoutUnavailable": "Checkout is not available yet. Billing integration is coming next.",
       "includedBullets": [
         "Build My CV — Harvard + global ATS formats",
-        "ابحثلي — automated opportunity matching",
         "لمّاح — Plus-exclusive scraped feed"
       ],
       "features": {
         "cv_pro_formats": {
           "headline": "Export a disciplined Harvard or ATS CV — the Plus standard for serious candidates."
-        },
-        "search_for_me": {
-          "headline": "Brief ابحثلي once — receive matched opportunities while you focus on applying."
         },
         "lammah_feed": {
           "headline": "See verified external opportunities before they disappear from the market."
@@ -5183,14 +5116,13 @@
     },
     "pricing": {
       "metaTitle": "JID Plus — Subscription plans",
-      "metaDescription": "Unlock professional CV formats, ابحثلي, and Lammah with JID Plus.",
+      "metaDescription": "Unlock professional CV formats and Lammah with JID Plus.",
       "eyebrow": "JID Plus",
       "title": "Unlock premium features",
       "subtitle": "Monthly or yearly billing only — no passes or lifetime plans.",
       "featuresTitle": "What is included in Plus?",
       "featureItems": [
         "Build My CV — Harvard and global ATS formats",
-        "ابحثلي — automated opportunity matching",
         "Lammah — Plus-exclusive external feed"
       ],
       "billingNote": "Cancel anytime at the end of your current billing period.",
@@ -5402,8 +5334,7 @@
       "evidenceVault": "Evidence Vault",
       "careerTimeline": "Career Timeline",
       "graduateBadge": "Graduate Badge",
-      "lammah": "Lammah",
-      "abhathli": "Search-For-Me"
+      "lammah": "Lammah"
     }
   }
 }

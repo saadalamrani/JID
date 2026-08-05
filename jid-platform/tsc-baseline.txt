@@ -18,7 +18,7 @@ src/app/[locale]/(public)/mentors/page.tsx(25,5): error TS2322: Type 'MentorsLis
   Types of property 'mentors' are incompatible.
     Type 'MentorCardData[]' is not assignable to type 'never[]'.
       Type 'MentorCardData' is not assignable to type 'never'.
-src/app/[locale]/(public)/opportunities/abhathli-actions.ts(106,5): error TS2322: Type 'string | null' is not assignable to type 'string | undefined'.
+src/app/[locale]/(public)/opportunities/deferred_product-actions.ts(106,5): error TS2322: Type 'string | null' is not assignable to type 'string | undefined'.
   Type 'null' is not assignable to type 'string | undefined'.
 src/app/[locale]/(public)/opportunities/page.tsx(20,5): error TS2322: Type 'JobsListResult' is not assignable to type '{ jobs: never[]; count: number; page: number; limit: number; }'.
   Types of property 'jobs' are incompatible.
