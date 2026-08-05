@@ -1,7 +1,9 @@
 # Final UI Identity Sweep — Evidence Index
 
-**Branch:** `cursor/jid-final-ui-identity-sweep`  
-**Baseline live alias at preflight:** `jid-dev.vercel.app` @ `d787fa82ba78c3098b98d59dca8edcf1ce678bbb`  
+**Branch:** `cursor/jid-final-ui-identity-sweep`
+
+**Baseline live alias at preflight:** `jid-dev.vercel.app` @ `d787fa82ba78c3098b98d59dca8edcf1ce678bbb`
+
 **After captures:** local production build (`next start` :3456)
 
 ## Before (live nonprod)
