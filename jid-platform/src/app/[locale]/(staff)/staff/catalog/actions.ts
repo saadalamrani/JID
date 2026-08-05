@@ -29,6 +29,21 @@ export async function reviewCatalogCandidate(
   if (!parsed.success)
     return { ok: false, code: parsed.error.errors[0]?.message ?? 'invalid_input' }
   const client = (await createClient()) as unknown as UntypedClient
+
+  // PostgREST often exposes JWT via request.jwt.claims only; wrappers resolve auth.uid().
+  if (parsed.data.action === 'approve_pending_domain') {
+    await client.rpc('catalog_claim_review_item', { p_review_queue_id: parsed.data.queueId })
+    const { data, error } = await client.rpc('catalog_review_pending_domain', {
+      p_review_queue_id: parsed.data.queueId,
+      p_notes: parsed.data.notes,
+    })
+    if (error) return { ok: false, code: error.message }
+    const result = (data ?? {}) as ActionResult
+    revalidatePath('/staff/catalog')
+    revalidatePath('/staff/catalog/review')
+    return { ok: result.ok === true, code: result.code ?? 'unknown' }
+  }
+
   const { data, error } = await client.rpc('review_directory_candidate', {
     p_review_queue_id: parsed.data.queueId,
     p_action: parsed.data.action,

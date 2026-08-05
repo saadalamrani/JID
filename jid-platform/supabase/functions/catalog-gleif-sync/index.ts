@@ -88,6 +88,10 @@ Deno.serve(async (req) => {
           .toISOString()
           .replace(/[-:.TZ]/g, '')
           .slice(0, 14)}`
+  const requestedStartPage =
+    typeof input.startPage === 'number' && Number.isFinite(input.startPage)
+      ? Math.max(1, Math.floor(input.startPage))
+      : null
   const sql = postgres(databaseUrl, { max: 1, prepare: false, idle_timeout: 5 })
 
   let runId: string | null = null
@@ -111,7 +115,30 @@ Deno.serve(async (req) => {
     const baseUrl = String(start.api_base_url)
     const pageSize = Number(start.page_size)
     const maxPages = Math.min(Number(start.max_pages), 2)
-    let pageUrl: URL | null = buildGleifPageUrl(baseUrl, 1, pageSize)
+
+    // Resume from explicit startPage, else last successful checkpoint page+1, else page 1.
+    let resumePage = 1
+    if (requestedStartPage) {
+      resumePage = requestedStartPage
+    } else {
+      const prior = await sql`
+        select checkpoint
+        from public.directory_sync_runs
+        where source_id = (
+          select id from public.directory_sources where source_key = ${GLEIF_SOURCE_KEY}
+        )
+          and status in ('succeeded', 'succeeded_partial')
+          and id <> ${runId}::uuid
+        order by completed_at desc nulls last
+        limit 1
+      `
+      const priorCheckpoint = (prior[0] as { checkpoint?: JsonObject } | undefined)?.checkpoint
+      const priorPage = Number(priorCheckpoint?.page ?? 0)
+      if (Number.isFinite(priorPage) && priorPage >= 1) resumePage = priorPage + 1
+    }
+
+    let pageUrl: URL | null = buildGleifPageUrl(baseUrl, resumePage, pageSize)
+    checkpoint = { resume_page: resumePage }
 
     while (pageUrl && pages < maxPages) {
       const page = await fetchPage(pageUrl)
@@ -186,7 +213,8 @@ Deno.serve(async (req) => {
           )
         }
       }
-      checkpoint = { page: pages, next: page.next }
+      const absolutePage = resumePage + pages - 1
+      checkpoint = { page: absolutePage, next: page.next, resume_page: resumePage }
       pageUrl = page.next ? new URL(page.next) : null
       if (pageUrl && pages < maxPages)
         await new Promise((resolve) => setTimeout(resolve, CATALOG_GLEIF_PAGE_DELAY_MS))
@@ -210,6 +238,8 @@ Deno.serve(async (req) => {
       skipped,
       pages,
       retries,
+      resumePage,
+      lastPage: Number(checkpoint.page ?? resumePage),
     })
   } catch (error) {
     if (runId) {

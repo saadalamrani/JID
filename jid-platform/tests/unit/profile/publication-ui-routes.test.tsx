@@ -239,6 +239,7 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
       '20260803120100_lammah_phase1_foundations.sql',
       '20260803120200_lammah_phase1_workflows.sql',
       '20260805120000_remove_deferred_search_product_artifacts.sql',
+      '20260805190100_catalog_review_auth_wrappers.sql',
     ]
     expect(later).toEqual(allowed)
     for (const name of allowed) {
@@ -246,6 +247,9 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
       expect(sql).not.toMatch(/CREATE OR REPLACE FUNCTION public\.publish_business_profile/)
       expect(sql).not.toMatch(/CREATE OR REPLACE FUNCTION public\.publish_university_profile/)
     }
+    const wrappers = readFileSync(join(MIGRATIONS, allowed[7]!), 'utf-8')
+    expect(wrappers).toMatch(/catalog_review_pending_domain/)
+    expect(wrappers).toMatch(/auth\.uid\(\)/)
     const residueName = allowed[0]!
     const dashName = allowed[1]!
     const residue = readFileSync(join(MIGRATIONS, residueName), 'utf-8')

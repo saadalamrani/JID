@@ -272,17 +272,22 @@
     }
   },
   "catalogPage": {
+    "hero": {
+      "title": "Organization directory",
+      "subtitle": "Platform-managed public reference records — separate from owned Business Profiles. Unknown fields stay empty.",
+      "count": "{count} published directory records"
+    },
     "search": {
-      "placeholder": "Search by name, sector, or description...",
+      "placeholder": "Search by name…",
       "inputLabel": "Search the organization directory",
       "loading": "Loading results...",
       "resultCount": "{count} results",
       "keyboardInstructions": "Results update as you type. Press Escape to clear the search.",
       "emptyTitle": "No organizations match your filters",
-      "emptyDescription": "Try broadening your search",
+      "emptyDescription": "Try clearing filters. Sector and region filters only match records that have those fields from a qualified source.",
       "resetFilters": "Reset filters",
       "error": "Could not load results: {message}",
-      "unavailable": "No organizations are currently listed.",
+      "unavailable": "No published directory records are listed yet. Reference records appear after staff review and publication.",
       "filtersLabel": "Organization directory filters",
       "resultsLabel": "Organization directory results",
       "listLabel": "Organizations",
@@ -310,6 +315,7 @@
     },
     "detail": {
       "metaFallback": "Directory record",
+      "publicReferenceBanner": "This page is a public directory reference managed by JID. It is not an owned Profile, does not imply Verification, and does not grant account ownership.",
       "aboutHeading": "Reference summary",
       "aboutEmpty": "No reference summary for this record yet.",
       "directoryRecordNote": "About this registry entry:",

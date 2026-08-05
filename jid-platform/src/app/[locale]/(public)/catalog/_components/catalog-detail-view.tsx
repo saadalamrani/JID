@@ -37,18 +37,22 @@ export function CatalogDetailView({
 
   const hasPublishedProfileLink = Boolean(publishedProfileHref)
   const primaryTagline = hasPublishedProfileLink ? company.profile_tagline_ar : null
-  const primaryAbout = hasPublishedProfileLink
-    ? company.profile_about_ar
-    : company.description_ar
+  const primaryAbout = hasPublishedProfileLink ? company.profile_about_ar : company.description_ar
 
   return (
     <article className="mx-auto max-w-3xl space-y-6">
+      <p
+        role="note"
+        className="border-border/60 bg-muted/40 rounded-lg border px-4 py-3 text-sm text-muted-foreground"
+      >
+        {t('publicReferenceBanner')}
+      </p>
       <header className="flex flex-wrap items-start gap-4 rounded-xl border border-border bg-card p-5 shadow-sm">
         <CompanyLogo name={displayName} logoUrl={company.logo_url} className="h-14 w-14" />
         <div className="min-w-0 flex-1">
           <h1 className="font-arabic text-2xl font-semibold text-foreground">{displayName}</h1>
           {subtitle ? (
-            <p dir="ltr" className="mt-1 font-latin text-sm text-foreground/60">
+            <p dir="ltr" className="text-foreground/60 mt-1 font-latin text-sm">
               {subtitle}
             </p>
           ) : null}
@@ -76,10 +80,12 @@ export function CatalogDetailView({
       <section className="space-y-3 rounded-xl border border-border bg-card p-5 shadow-sm">
         <h2 className="text-sm font-medium text-muted-foreground">{t('aboutHeading')}</h2>
         {primaryTagline ? (
-          <p className="text-sm font-medium text-foreground/80">{primaryTagline}</p>
+          <p className="text-foreground/80 text-sm font-medium">{primaryTagline}</p>
         ) : null}
         {primaryAbout ? (
-          <p className="whitespace-pre-wrap text-sm leading-relaxed text-foreground/80">{primaryAbout}</p>
+          <p className="text-foreground/80 whitespace-pre-wrap text-sm leading-relaxed">
+            {primaryAbout}
+          </p>
         ) : (
           <p className="text-sm text-muted-foreground">{t('aboutEmpty')}</p>
         )}
@@ -102,12 +108,12 @@ export function CatalogDetailView({
         />
       </div>
 
-      <footer className="text-xs text-foreground/50">
+      <footer className="text-foreground/50 text-xs">
         {t('lastAudit', { time: formatRelativeTime(company.last_audit_at) })}
       </footer>
 
       {isDirectoryOwner ? (
-        <aside className="rounded-lg border border-dashed border-border/80 bg-background/60 p-4">
+        <aside className="border-border/80 bg-background/60 rounded-lg border border-dashed p-4">
           <p className="text-xs text-muted-foreground">{t('correctionIntro')}</p>
           <CorrectionSuggestionForm company={company} sectors={sectors} regions={regions} />
         </aside>
