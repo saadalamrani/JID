@@ -3,10 +3,11 @@ import { defaultLocale, locales } from '@/lib/i18n/config'
 export const siteConfig = {
   name: 'جِد',
   nameEn: 'JID',
-  description: 'منصة التوظيف والإرشاد المهني — ربط المواهب بالفرص',
-  descriptionEn: 'Employment & mentorship platform — connecting talent with opportunities',
+  description: 'منصة البنية التحتية المهنية في المملكة العربية السعودية',
+  descriptionEn: "Saudi Arabia's Career Infrastructure Platform",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
-  appUrl: process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
+  appUrl:
+    process.env.NEXT_PUBLIC_APP_URL ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
   defaultLocale,
   locales,
   links: {

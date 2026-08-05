@@ -6,6 +6,7 @@
 export const colors = {
   olive: {
     DEFAULT: '#2F3A2E',
+    secondary: '#414D40',
     light: '#A8B39A',
     50: '#F4F5F3',
     100: '#E8EBE6',
@@ -132,7 +133,7 @@ export const spacing = {
 export const typography = {
   fontFamily: {
     arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
-    latin: ['"Archivo"', 'sans-serif'],
+    latin: ['"Manrope"', 'sans-serif'],
     mono: ['"IBM Plex Mono"', 'monospace'],
   },
   fontSize: {

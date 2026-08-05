@@ -18,16 +18,16 @@
   },
   "app": {
     "name": "JID",
-    "tagline": "Employment & Mentorship Platform",
-    "description": "Connecting talent with opportunities — jobs, mentorship, and career growth"
+    "tagline": "Saudi Arabia's Career Infrastructure Platform",
+    "description": "Connecting individuals, employers, and universities with real opportunities and clearer career paths"
   },
   "home": {
     "title": "Welcome to JID",
-    "subtitle": "Your platform for employment and career mentorship",
+    "subtitle": "Saudi Arabia's Career Infrastructure Platform",
     "cta": "Get started",
     "featuredMentors": {
       "title": "Mentors of the month",
-      "subtitle": "Top-rated mentors ready to guide your career.",
+      "subtitle": "Approved mentors ready to guide your career.",
       "browseAll": "Browse all mentors"
     }
   },
@@ -40,7 +40,7 @@
       "radar": "Radar",
       "mentorship": "Mentorship",
       "catalog": "Catalog",
-      "opportunities": "Jobs",
+      "opportunities": "Opportunities",
       "mentors": "Mentors",
       "pulse": "Platform Pulse",
       "login": "Log in",
@@ -53,7 +53,7 @@
       "groups": {
         "platform": {
           "title": "Platform",
-          "opportunities": "Jobs",
+          "opportunities": "Opportunities",
           "mentors": "Mentors",
           "catalog": "Company catalog",
           "pulse": "Platform Pulse"
@@ -62,7 +62,7 @@
           "title": "Legal",
           "privacy": "Privacy policy",
           "terms": "Terms of service",
-          "pdpl": "PDPL compliance"
+          "pdpl": "Personal data protection"
         },
         "support": {
           "title": "Support",
@@ -99,7 +99,7 @@
       "searching": "Searching…",
       "noResults": "No results found",
       "actions": {
-        "opportunities": "Jobs",
+        "opportunities": "Opportunities",
         "mentors": "Mentors",
         "catalog": "Company catalog",
         "pulse": "Platform Pulse",
@@ -141,15 +141,15 @@
   },
   "landing": {
     "meta": {
-      "title": "JID — Employment & mentorship platform",
-      "description": "Connecting talent with opportunities — transparent jobs, mentorship, and trusted profiles."
+      "title": "JID — Saudi Arabia's Career Infrastructure Platform",
+      "description": "JID is Saudi Arabia's Career Infrastructure Platform — opportunities, guidance, and trusted catalogues for individuals, employers, and universities."
     },
     "hero": {
-      "eyebrow": "Employment & mentorship platform",
+      "eyebrow": "Saudi Arabia's Career Infrastructure Platform",
       "title": "A job market that deserves transparency — for every applicant and every employer",
-      "subtitle": "JID brings job search, mentorship, and company profiles together — Arabic-first with clear communication standards.",
+      "subtitle": "For individuals, employers, and universities — Arabic-first career infrastructure with clear communication standards.",
       "body": "No empty promises. No unsourced statistics. Just real tools to see where your application stands and who can guide your career.",
-      "primaryCta": "Browse jobs",
+      "primaryCta": "Browse opportunities",
       "primaryCtaGuest": "Explore opportunities",
       "primaryCtaCompleteProfile": "Complete your profile",
       "primaryCtaRadar": "Open your Radar",
@@ -206,33 +206,33 @@
       }
     },
     "modules": {
-      "title": "Platform modules",
-      "subtitle": "Eight connected paths — from discovering roles to tracking applications and mentorship.",
+      "title": "Built for three actors",
+      "subtitle": "Individuals, employers, and universities share one career infrastructure — with opportunities and a public catalogue.",
       "explore": "Explore →",
       "items": {
         "jobs": {
-          "title": "Job board",
-          "description": "Browse published roles with clear deadlines and structured applications."
+          "title": "Opportunities",
+          "description": "Discover native JID roles and Lammah listings without fabricated match scores."
         },
         "catalog": {
-          "title": "Company catalog",
-          "description": "Discover employers and their public profiles before you apply."
+          "title": "Business catalogue",
+          "description": "Platform-managed reference records for employers — separate from owned Profiles."
         },
         "mentors": {
           "title": "Mentorship",
-          "description": "Meet approved mentors and request a guidance session."
+          "description": "Meet approved individual mentors and request a guidance session."
         },
         "pulse": {
           "title": "Platform Pulse",
           "description": "Public metrics and announcements reflecting platform activity."
         },
         "universities": {
-          "title": "Universities",
-          "description": "Explore academic partnerships and graduate pathways."
+          "title": "University catalogue",
+          "description": "Institutional reference entries and verified university Profiles when published."
         },
         "profiles": {
-          "title": "Unified profile",
-          "description": "Build one profile that represents you to companies and mentors."
+          "title": "Individuals",
+          "description": "Build a living professional identity, privacy controls, and career tools on your own terms."
         },
         "radar": {
           "title": "Opportunity Radar",
@@ -247,7 +247,7 @@
     "pdpl": {
       "title": "Your privacy under Saudi PDPL principles",
       "body": "JID is designed around data minimisation, access control, and data-subject rights.",
-      "badge": "PDPL aligned",
+      "badge": "Designed around personal data protection principles",
       "cta": "Read our PDPL notice"
     },
     "vision2030": {
@@ -258,16 +258,16 @@
     },
     "cta": {
       "title": "Start where you are",
-      "subtitle": "Job seeker? Create an account. Representing an employer? Find your entity and submit a claim.",
+      "subtitle": "Individual? Create an account. Representing an employer or university? Find your entity, request verification, then create your profile.",
       "individual": {
-        "title": "For job seekers",
-        "body": "Unified profile, application radar, and mentorship — one account.",
+        "title": "For individuals",
+        "body": "Unified profile, application radar, and mentorship capability — one individual account.",
         "button": "Create individual account"
       },
       "entity": {
         "title": "For employers & universities",
-        "body": "You cannot become an admin by signing up directly — search the catalog and claim your profile.",
-        "button": "Find your entity and claim it"
+        "body": "You cannot become an admin by signing up directly — search the catalogue, request verification, then create your owned profile.",
+        "button": "Find your entity and request verification"
       }
     }
   },
@@ -373,14 +373,14 @@
   "about": {
     "meta": {
       "title": "About JID",
-      "description": "Learn about JID's mission and values — an Arabic-first employment and mentorship platform."
+      "description": "Learn about JID's mission and values — Saudi Arabia's Arabic-first Career Infrastructure Platform."
     },
     "eyebrow": "About the platform",
     "title": "About {name}",
-    "intro": "JID is a Saudi platform connecting job seekers, graduates, mentors, and employers — making applications, responses, and guidance clearer for everyone.",
+    "intro": "JID is Saudi Arabia's Career Infrastructure Platform — connecting individuals, employers, and universities so opportunities, responses, and guidance are clearer for everyone.",
     "mission": {
       "title": "Our mission",
-      "body": "We build practical tools that reduce hiring opacity: a unified profile, job board, application radar, and mentorship — without unsourced marketing claims."
+      "body": "We build practical tools that reduce hiring opacity: a unified profile, opportunities, application radar, and mentorship — without unsourced marketing claims."
     },
     "values": {
       "title": "Our values",
@@ -400,13 +400,13 @@
         },
         "trust": {
           "title": "Trust",
-          "description": "Verified profiles through claim review — without unverified statistic wars."
+          "description": "Profiles created after verification review — without unverified statistic wars."
         }
       }
     },
     "links": {
       "title": "Explore the platform",
-      "opportunities": "Job board",
+      "opportunities": "Opportunities",
       "mentors": "Mentors",
       "pdpl": "PDPL notice",
       "contact": "Contact us"
@@ -479,11 +479,11 @@
       "description": "How JID collects, uses, stores, and protects your personal data."
     },
     "title": "Privacy Policy",
-    "summary": "This policy describes what personal data JID processes when you use our employment and mentorship platform, why we process it, who we share it with, and the rights available to you under Saudi law.",
+    "summary": "This policy describes what personal data JID processes when you use our Career Infrastructure Platform, why we process it, who we share it with, and the rights available to you under Saudi law.",
     "versionLabel": "Version {version}",
     "effectiveDateLabel": "Effective date: {date}",
     "intro": {
-      "p1": "JID (جِد) operates an Arabic-first platform connecting job seekers, graduates, mentors, universities, and employers in the Kingdom of Saudi Arabia. Protecting your privacy is central to that mission.",
+      "p1": "JID (جِد) operates an Arabic-first Career Infrastructure Platform for individuals, employers, and universities in the Kingdom of Saudi Arabia. Protecting your privacy is central to that mission.",
       "p2": "This Privacy Policy applies to visitors, registered users, entity administrators, mentors, and anyone who contacts us through the platform. By creating an account or continuing to use JID, you acknowledge that you have read this policy."
     },
     "collect": {
@@ -507,8 +507,8 @@
           "body": "Mentor application details, expertise areas, meeting schedules, feedback, and messages exchanged through mentorship features."
         },
         "entity": {
-          "label": "Entity & claim data",
-          "body": "Company or university profile information, claim requests, verification documents submitted for review, and staff audit actions related to your organisation."
+          "label": "Entity & verification data",
+          "body": "Company or university profile information, verification requests, verification documents submitted for review, and staff audit actions related to your organisation."
         },
         "technical": {
           "label": "Technical & usage data",
@@ -524,9 +524,9 @@
       "title": "How we use your data",
       "intro": "We process personal data for the following purposes:",
       "items": {
-        "service": "Providing core platform features: accounts, profiles, job board, application radar, mentorship, and entity catalogues.",
+        "service": "Providing core platform features: accounts, profiles, opportunities, application radar, mentorship, and entity catalogues.",
         "matching": "Connecting candidates with opportunities and mentors, including visibility rules you control in settings.",
-        "notifications": "Sending transactional emails and in-app notifications about applications, claims, meetings, and security events.",
+        "notifications": "Sending transactional emails and in-app notifications about applications, verification decisions, meetings, and security events.",
         "security": "Detecting abuse, enforcing role-based access, preventing fraud, and maintaining audit trails for staff actions.",
         "analytics": "Measuring product usage in aggregate to improve performance and accessibility, subject to your cookie choices where applicable.",
         "legal": "Complying with applicable law, responding to lawful requests, and establishing or defending legal claims."
@@ -542,7 +542,7 @@
       },
       "resend": {
         "title": "Resend (transactional email)",
-        "body": "We use Resend to deliver transactional emails such as verification codes, claim decisions, staff invitations, and notification digests. Resend receives recipient email addresses, message subject lines, and delivery metadata. We do not use Resend to send unsolicited marketing without your consent."
+        "body": "We use Resend to deliver transactional emails such as verification codes, verification decisions, staff invitations, and notification digests. Resend receives recipient email addresses, message subject lines, and delivery metadata. We do not use Resend to send unsolicited marketing without your consent."
       },
       "other": {
         "title": "Other recipients",
@@ -611,7 +611,7 @@
   "termsPage": {
     "meta": {
       "title": "Terms of Service — JID",
-      "description": "Rules and conditions for using the JID employment and mentorship platform."
+      "description": "Rules and conditions for using the JID Career Infrastructure Platform."
     },
     "title": "Terms of Service",
     "summary": "These Terms govern your access to and use of JID. Please read them carefully before creating an account or using any platform feature.",
@@ -630,10 +630,10 @@
       "title": "User responsibilities",
       "intro": "You are responsible for your account and for all activity that occurs under it. You agree to:",
       "items": {
-        "accuracy": "Provide accurate, current, and complete information in your profile, applications, and entity claims.",
+        "accuracy": "Provide accurate, current, and complete information in your profile, applications, and entity verification requests.",
         "credentials": "Keep your login credentials confidential and notify us promptly of any unauthorised use.",
         "lawful": "Use the platform only for lawful purposes and in compliance with applicable Saudi regulations and professional standards.",
-        "entity": "Ensure that any company or university claim is submitted only by an authorised representative with documentary evidence when requested.",
+        "entity": "Ensure that any company or university verification request is submitted only by an authorised representative with documentary evidence when requested.",
         "updates": "Review notifications and update application statuses honestly so other users can rely on the platform's transparency features."
       }
     },
@@ -670,7 +670,7 @@
     },
     "liability": {
       "title": "Limitation of liability",
-      "p1": "JID is a technology platform that facilitates connections between users. We do not employ candidates, guarantee interviews or offers, or verify every statement made by users unless explicitly stated for a verified badge or approved claim.",
+      "p1": "JID is a technology platform that facilitates connections between users. We do not employ candidates, guarantee interviews or offers, or verify every statement made by users unless explicitly stated for a verified badge or approved verification.",
       "p2": "To the fullest extent permitted by applicable law in the Kingdom of Saudi Arabia:",
       "items": {
         "asIs": "The platform is provided \"as is\" and \"as available\" without warranties of uninterrupted or error-free operation.",
@@ -711,7 +711,7 @@
       },
       "response": {
         "title": "Response time",
-        "body": "We aim to acknowledge messages within 2 business days. Complex privacy or claim issues may take longer."
+        "body": "We aim to acknowledge messages within 2 business days. Complex privacy or verification issues may take longer."
       },
       "privacy": {
         "title": "Data protection",
@@ -799,7 +799,7 @@
         "caption": "Organizations that created a verified profile"
       },
       "total_jobs": {
-        "label": "Total jobs"
+        "label": "Total opportunities"
       },
       "total_mentors": {
         "label": "Total mentors"
@@ -823,7 +823,7 @@
       "contactCta": "Contact support",
       "exploreTitle": "Explore JID",
       "links": {
-        "opportunities": "Job board",
+        "opportunities": "Opportunities",
         "catalog": "Company catalog",
         "mentors": "Mentors",
         "contact": "Contact us"
@@ -1023,14 +1023,14 @@
       "noProfile": "You have not created your business profile yet. Finish profile creation to access the dashboard.",
       "createProfileCta": "Create your business profile",
       "metrics": {
-        "jobsPosted": "Jobs posted",
+        "jobsPosted": "Opportunities posted",
         "applicationsReceived": "Applications received",
         "value": "{count}",
         "loading": "Loading dashboard metrics…",
         "error": "This metric could not be loaded right now."
       },
       "links": {
-        "jobs": "Jobs",
+        "jobs": "Opportunities",
         "applicants": "Applicants",
         "settings": "Profile settings"
       },
@@ -1196,7 +1196,7 @@
     },
     "publication": {
       "draftTitle": "Draft Profile",
-      "draftBody": "Publishing makes this owned Profile publicly visible. The Directory record stays separate and is not claimed or owned through publication.",
+      "draftBody": "Publishing makes this owned Profile publicly visible. The Directory record stays separate and is not owned through publication.",
       "publishedTitle": "Published Profile",
       "publishedBody": "This Profile is publicly visible. You can unpublish it at any time to return it to draft.",
       "suspendedTitle": "Profile suspended",
@@ -1377,7 +1377,7 @@
     "nav": {
       "shellTitle": "University panel",
       "dashboard": "Statistics dashboard",
-      "directory": "University directory"
+      "directory": "University catalogue"
     },
     "dashboard": {
       "title": "University statistics",
@@ -1659,14 +1659,14 @@
       "searchShortcut": "⌘K"
     },
     "commandPalette": {
-      "placeholder": "Search users, entities, or claims…",
+      "placeholder": "Search users, entities, or verification requests…",
       "quickActions": "Quick Actions",
       "searching": "Searching…",
       "noResults": "No results found",
       "groups": {
         "users": "Users",
         "entities": "Entities",
-        "claims": "Claims"
+        "claims": "Verification"
       },
       "actions": {
         "dashboard": "Go to dashboard",
@@ -1695,12 +1695,12 @@
             "hint": "Audit events you performed today"
           },
           "claims_approved_today": {
-            "label": "Claims approved today",
-            "hint": "Ownership claims you approved today"
+            "label": "Verifications approved today",
+            "hint": "Verification requests you approved today"
           },
           "claims_rejected_today": {
-            "label": "Claims rejected today",
-            "hint": "Ownership claims you rejected today"
+            "label": "Verifications rejected today",
+            "hint": "Verification requests you rejected today"
           },
           "avg_review_hours_7d": {
             "label": "Avg review time (7d)",
@@ -1709,18 +1709,18 @@
         }
       },
       "assignedClaims": {
-        "title": "Your assigned claims",
+        "title": "Your assigned verification requests",
         "subtitle": "Top 10 by nearest SLA deadline",
         "viewAll": "View queue",
-        "empty": "No claims assigned to you",
+        "empty": "No verification requests assigned to you",
         "due": "SLA due",
         "overdue": "Overdue"
       },
       "unassignedQueue": {
         "title": "Unassigned queue",
-        "subtitle": "Oldest unassigned claims awaiting pickup",
+        "subtitle": "Oldest unassigned verification requests awaiting pickup",
         "viewAll": "View queue",
-        "empty": "No unassigned claims right now"
+        "empty": "No unassigned verification requests right now"
       },
       "recentActions": {
         "title": "Recent actions",
@@ -1734,13 +1734,13 @@
         "hint": "Flags awaiting staff review"
       },
       "claimsCard": {
-        "title": "Claims queue",
-        "description": "Review company and university ownership claims",
+        "title": "Verification queue",
+        "description": "Review company and university verification requests",
         "cta": "Open queue"
       },
       "mentorApplicationsCard": {
         "title": "Mentor applications",
-        "description": "Review individual mentor applications (separate from entity claims)",
+        "description": "Review individual mentor applications (separate from entity verification)",
         "cta": "Open mentor queue"
       }
     },
@@ -1995,8 +1995,8 @@
       }
     },
     "claims": {
-      "title": "Claims queue",
-      "subtitle": "Pending ownership claims and mentor applications sorted by SLA",
+      "title": "Verification queue",
+      "subtitle": "Pending verification requests and mentor applications sorted by SLA",
       "count": "Showing {count} items (max 100)",
       "nav": {
         "myQueue": "My queue",
@@ -2046,51 +2046,51 @@
         "newClaim": "New verification request: {company}"
       },
       "myQueue": {
-        "title": "My assigned claims",
-        "subtitle": "Claims assigned to you, sorted by SLA",
-        "backToQueue": "← All claims"
+        "title": "My assigned verification requests",
+        "subtitle": "Verification requests assigned to you, sorted by SLA",
+        "backToQueue": "← All verification requests"
       },
       "history": {
         "title": "My review history",
-        "subtitle": "Claims you have approved or rejected",
-        "backToQueue": "← All claims"
+        "subtitle": "Verification requests you have approved or rejected",
+        "backToQueue": "← All verification requests"
       }
     },
     "claimsQueue": {
-      "title": "Claim review queue",
-      "subtitle": "Claims awaiting staff review",
+      "title": "Verification review queue",
+      "subtitle": "Verification requests awaiting staff review",
       "stats": {
         "pending": "Pending",
         "overdue": "Overdue",
         "completedToday": "Completed today"
       },
-      "listTitle": "Pending claims",
+      "listTitle": "Pending verification requests",
       "backToDashboard": "Back to dashboard",
       "error": "Could not load queue",
       "list": {
         "loading": "Loading...",
-        "empty": "No pending claims right now",
+        "empty": "No pending verification requests right now",
         "pending": "Pending",
         "overdue": "Overdue"
       }
     },
     "claimReview": {
-      "title": "Review claim — {company}",
+      "title": "Review verification — {company}",
       "loading": "Loading...",
-      "notFound": "Claim not found",
+      "notFound": "Verification request not found",
       "backToQueue": "Back to queue",
       "checklistTitle": "Manual review checklist",
       "reviewNotes": "Review notes",
       "reviewNotesPlaceholder": "Enter internal notes (required for approve and reject)",
       "rejectionReason": "Rejection reason",
-      "rejectionReasonPlaceholder": "Reason sent to the claimant when rejecting",
+      "rejectionReasonPlaceholder": "Reason sent to the applicant when rejecting",
       "rejectionReasonHint": "Required when rejecting",
       "approve": "Approve",
       "reject": "Reject",
       "cancel": "Cancel",
       "submitting": "Saving...",
-      "approved": "Claim approved",
-      "rejected": "Claim rejected",
+      "approved": "Verification approved",
+      "rejected": "Verification rejected",
       "notesRequired": "Review notes are required",
       "rejectionReasonRequired": "Rejection reason is required",
       "checklistIncomplete": "Complete all checklist items before approving",
@@ -2102,16 +2102,16 @@
         "linkedin": "LinkedIn confirmation"
       },
       "workspace": {
-        "title": "Review claim — {company}",
-        "backToQueue": "← Back to claims queue",
+        "title": "Review verification — {company}",
+        "backToQueue": "← Back to verification queue",
         "meta": "Status: {status} · Submitted {submitted}",
         "assigned": "Assigned to you",
-        "alreadyReviewed": "This claim was already reviewed ({status}).",
+        "alreadyReviewed": "This verification request was already reviewed ({status}).",
         "claimDetails": {
-          "title": "Claim details",
-          "type": "Claim type",
+          "title": "Verification details",
+          "type": "Verification type",
           "businessEmail": "Business email",
-          "claimantName": "Claimant name",
+          "claimantName": "Applicant name",
           "claimantTitle": "Job title"
         },
         "applicant": {
@@ -2142,27 +2142,27 @@
               "hint": "Approved domains: {domains}"
             },
             "entity_exists": {
-              "label": "Entity exists and is claimable",
+              "label": "Entity exists and can receive verification",
               "hint": "Confirm the company/university record is correct"
             },
             "linkedin_verified": {
               "label": "LinkedIn profile verified",
-              "hint": "Profile supports the claimed role at this entity"
+              "hint": "Profile supports the stated role at this entity"
             },
             "job_reasonable": {
               "label": "Job title is reasonable",
               "hint": "Title aligns with entity type and seniority"
             },
             "no_duplicates": {
-              "label": "No duplicate pending claims",
-              "hint": "No conflicting open claims for this user or entity"
+              "label": "No duplicate pending verification requests",
+              "hint": "No conflicting open verification requests for this user or entity"
             }
           }
         },
         "relatedHistory": {
           "title": "Related history",
-          "subtitle": "Previous claims from the same user or entity",
-          "empty": "No related claims",
+          "subtitle": "Previous verification requests from the same user or entity",
+          "empty": "No related verification requests",
           "relation": {
             "same_user": "Same user",
             "same_entity": "Same entity"
@@ -2184,13 +2184,13 @@
             "domain_ownership_proof": "Domain ownership proof",
             "authorization_letter": "Authorization letter"
           },
-          "selfReviewBlocked": "You cannot review a claim you submitted.",
+          "selfReviewBlocked": "You cannot review a verification request you submitted.",
           "checklistRequired": "Complete all checklist items before approving.",
           "submit": "Submit decision",
           "submitting": "Submitting…",
           "success": {
-            "approved": "Claim approved",
-            "rejected": "Claim rejected",
+            "approved": "Verification approved",
+            "rejected": "Verification rejected",
             "needs_more_info": "Request for more information sent"
           }
         }
@@ -2331,7 +2331,7 @@
     },
     "entities": {
       "title": "Entity moderation",
-      "subtitle": "Approved companies and universities — metadata corrections only (not claim workflow)",
+      "subtitle": "Approved companies and universities — metadata corrections only (not verification workflow)",
       "filters": {
         "search": "Search",
         "searchPlaceholder": "Entity name…",
@@ -2384,7 +2384,7 @@
           "ownership": "Ownership",
           "sector": "Sector",
           "region": "Region",
-          "claimant": "Claimant",
+          "claimant": "Applicant",
           "website": "Website",
           "city": "City",
           "domains": "Domains",
@@ -2401,7 +2401,7 @@
           "viewFallback": "v_company_response_stats not deployed — showing companies table columns.",
           "responseRate": "Response rate",
           "avgResponseDays": "Avg response (days)",
-          "jobs12mo": "Jobs posted (12mo)"
+          "jobs12mo": "Opportunities posted (12mo)"
         },
         "slaHistory": {
           "title": "SLA history",
@@ -2417,7 +2417,7 @@
         "title": "Edit metadata — {name}",
         "subtitle": "Staff may correct catalog fields only. entity_state cannot be changed here.",
         "back": "← Back to entity",
-        "hint": "Changes are audited with before/after diff. Claim workflow controls approval state.",
+        "hint": "Changes are audited with before/after diff. Verification workflow controls approval state.",
         "sector": "Sector",
         "region": "Region",
         "logoUrl": "Logo URL",
@@ -2555,7 +2555,7 @@
         "empty": "No candidates match these filters.",
         "noFlags": "No review flags",
         "unassigned": "Unassigned",
-        "claim": "Claim",
+        "claim": "Take",
         "open": "Open review"
       },
       "detail": {
@@ -2566,7 +2566,7 @@
         "companyId": "Resolved company ID",
         "facts": "Exact extracted facts",
         "actions": {
-          "claim": "Claim",
+          "claim": "Take",
           "release": "Release",
           "approve": "Approve",
           "publish": "Publish approved candidate",
@@ -2630,7 +2630,7 @@
       "metadataReasonMin": "Reason must be at least 3 characters",
       "descriptionMax": "Description must be at most 5000 characters",
       "logoUrlInvalid": "Enter a valid http(s) URL or leave empty",
-      "claimIdInvalid": "Invalid claim ID",
+      "claimIdInvalid": "Invalid verification request ID",
       "decisionInvalid": "Invalid decision",
       "reasonMin": "Reason must be at least 10 characters",
       "requiredDocumentsMin": "Select at least one required document",
@@ -2673,7 +2673,7 @@
     },
     "mentorApplications": {
       "title": "Mentor application queue",
-      "subtitle": "Pending mentor profiles awaiting staff approval (separate from entity claims)",
+      "subtitle": "Pending mentor profiles awaiting staff approval (separate from entity verification)",
       "pendingCount": "{count} pending applications",
       "stats": {
         "pending": "Pending review"
@@ -2729,7 +2729,7 @@
           "progress": "{completed} of {total} complete",
           "items": {
             "linkedin_role": {
-              "label": "LinkedIn verifies claimed role",
+              "label": "LinkedIn verifies stated role",
               "hint": "Profile matches headline and experience"
             },
             "expertise_plausible": {
@@ -2872,7 +2872,7 @@
         "featured": "Featured",
         "schedule": "{start} → {end}",
         "categories": {
-          "jobs": "Jobs",
+          "jobs": "Opportunities",
           "mentorship": "Mentorship",
           "events": "Events",
           "platform": "Platform",
@@ -2893,7 +2893,7 @@
         },
         "categoryHint": "Choose the announcement category",
         "categories": {
-          "jobs": "Jobs",
+          "jobs": "Opportunities",
           "mentorship": "Mentorship",
           "events": "Events",
           "platform": "Platform",
@@ -2987,7 +2987,7 @@
         "dashboard": "Dashboard",
         "users": "Users",
         "entities": "Entities",
-        "claims": "Claims queue",
+        "claims": "Verification queue",
         "mentorApplications": "Mentor applications",
         "staff": "Staff",
         "audit": "Audit log",
@@ -3369,7 +3369,7 @@
         "applying": "Applying…",
         "states": {
           "all": "All states",
-          "unclaimed": "Unclaimed",
+          "unclaimed": "No owned profile",
           "pending": "Pending",
           "pending_review": "Pending review",
           "approved": "Approved",
@@ -3392,7 +3392,7 @@
           "university": "University"
         },
         "states": {
-          "unclaimed": "Unclaimed",
+          "unclaimed": "No owned profile",
           "pending": "Pending",
           "pending_review": "Pending review",
           "approved": "Approved",
@@ -3409,8 +3409,8 @@
         "yes": "Yes",
         "no": "No",
         "infoTitle": "Entity information",
-        "claimsTitle": "Claim history",
-        "claimsSubtitle": "All claim_requests for this entity",
+        "claimsTitle": "Verification history",
+        "claimsSubtitle": "All verification requests for this entity",
         "fields": {
           "id": "Entity ID",
           "name": "Name",
@@ -3418,7 +3418,7 @@
           "type": "Type",
           "state": "State",
           "verified": "Verified",
-          "claimant": "Claimant",
+          "claimant": "Applicant",
           "website": "Website",
           "city": "City",
           "domains": "Domains",
@@ -3430,16 +3430,16 @@
           "university": "University"
         },
         "claims": {
-          "claimant": "Claimant",
+          "claimant": "Applicant",
           "status": "Status",
           "type": "Type",
           "submitted": "Submitted",
           "reviewed": "Reviewed",
-          "empty": "No claims for this entity"
+          "empty": "No verification requests for this entity"
         },
         "actions": {
           "overrideTitle": "Super Admin overrides",
-          "overrideSubtitle": "Bypass normal staff claim review — all actions are audited",
+          "overrideSubtitle": "Bypass normal staff verification review — all actions are audited",
           "forceApprove": "Force approve",
           "forceReject": "Force reject",
           "metadataTitle": "Edit metadata",
@@ -3454,7 +3454,7 @@
             "approveTitle": "Force approve entity",
             "approveDescription": "Sets entity_state to approved, bypassing staff review workflow.",
             "rejectTitle": "Force reject entity",
-            "rejectDescription": "Resets entity to unclaimed and rejects pending claims.",
+            "rejectDescription": "Resets entity to no-owned-profile state and rejects pending verification requests.",
             "metadataTitle": "Update entity metadata",
             "metadataDescription": "Direct metadata edit by Super Admin."
           }
@@ -3533,11 +3533,11 @@
             "hint": "Non-revoked sessions right now"
           },
           "pending_claims": {
-            "label": "Pending claims",
+            "label": "pending verification requests",
             "hint": "Awaiting staff review"
           },
           "overdue_claims": {
-            "label": "Overdue claims",
+            "label": "Overdue verification requests",
             "hint": "Past 72h SLA window"
           },
           "audit_events_24h": {
@@ -3552,16 +3552,16 @@
       },
       "alerts": {
         "regionLabel": "Platform alerts",
-        "overdueClaims": "{count, plural, one {# claim is overdue} other {# claims are overdue}}",
+        "overdueClaims": "{count, plural, one {# verification request is overdue} other {# verification requests are overdue}}",
         "maintenance": "Maintenance mode is active — public traffic may be limited",
         "maintenanceWithMessage": "Maintenance mode active — {message}",
         "highErrorRate": "{count} error events in the last hour (threshold: {threshold})"
       },
       "claimsWidget": {
-        "title": "Claims queue",
-        "subtitle": "Next five claims by SLA deadline",
+        "title": "Verification queue",
+        "subtitle": "Next five verification requests by SLA deadline",
         "viewAll": "View all",
-        "empty": "No pending claims",
+        "empty": "No pending verification requests",
         "due": "Due",
         "overdue": "Overdue"
       },
@@ -3808,8 +3808,8 @@
         "honorRollBadgeAr": "شرف القائمة",
         "honorRollBadgeEn": "Honor roll",
         "unclaimedTitle": "Is this your company?",
-        "unclaimedMessage": "Claim this profile to manage jobs, respond to candidates, and build your employer brand on JID.",
-        "unclaimedCta": "Claim this company",
+        "unclaimedMessage": "Request verification, then create your owned profile to manage opportunities, respond to candidates, and represent your organisation on JID.",
+        "unclaimedCta": "Request verification",
         "aboutTitle": "About the company",
         "aboutEmpty": "No company description yet.",
         "foundedYearLabel": "Founded",
@@ -3820,13 +3820,13 @@
         "avgResponseDaysValue": "{days} days",
         "responseRateLabel": "Response rate",
         "responseRateValue": "{pct}%",
-        "jobsPosted12moLabel": "Jobs posted (12 mo.)",
+        "jobsPosted12moLabel": "Opportunities posted (12 mo.)",
         "jobsPosted12moValue": "{count}",
         "metricUnavailable": "—",
-        "activeJobsTitle": "Open roles",
-        "activeJobsPreview": "{count} active jobs (preview)",
-        "activeJobsPostedHint": "{count} roles posted in the last 12 months",
-        "activeJobsTodo": "Full job listings will appear here when the Job Board module is connected.",
+        "activeJobsTitle": "Open opportunities",
+        "activeJobsPreview": "{count} active opportunities (preview)",
+        "activeJobsPostedHint": "{count} opportunities posted in the last 12 months",
+        "activeJobsTodo": "Full opportunity listings will appear here when opportunities are connected for this profile.",
         "partnerMentorsTitle": "Partner mentors",
         "partnerMentorsEmpty": "No partner mentors listed yet.",
         "partnerMentorsTodo": "Partner mentor roster will appear here when the Mentorship module is connected.",
@@ -4050,7 +4050,7 @@
         "previewLink": "Preview how others see your profile",
         "graduateBadge": {
           "title": "Graduate badge",
-          "directoryToggle": "Show in university directory",
+          "directoryToggle": "Show in university catalogue",
           "earnHint": "Complete an active mentorship session to earn this badge.",
           "saved": "Badge settings updated",
           "saveFailed": "Could not save settings",
@@ -4181,10 +4181,10 @@
       "groups": {
         "auth": "Security & authentication",
         "account": "Account",
-        "claim": "Company claims",
+        "claim": "Company verification",
         "directory": "Directory corrections",
         "company": "Company",
-        "job": "Jobs",
+        "job": "Opportunities",
         "legal": "Legal",
         "mentor": "Mentor applications",
         "mentorship": "Mentorship sessions",
@@ -4207,9 +4207,9 @@
           "suspended": "Account suspended"
         },
         "claim": {
-          "approved": "Claim approved",
+          "approved": "Verification approved",
           "needs_more_info": "More info needed",
-          "rejected": "Claim rejected"
+          "rejected": "Verification rejected"
         },
         "directory": {
           "correction_approved": "Directory correction approved",
@@ -4243,7 +4243,7 @@
           "request_received": "Mentorship request received"
         },
         "staff": {
-          "claim_assigned": "Claim assigned"
+          "claim_assigned": "Verification assigned"
         },
         "digest": {
           "daily_summary": "Daily summary"
@@ -4937,9 +4937,9 @@
           "suspended": "Account suspended"
         },
         "claim": {
-          "approved": "Claim approved",
+          "approved": "Verification approved",
           "needs_more_info": "More info needed",
-          "rejected": "Claim rejected"
+          "rejected": "Verification rejected"
         },
         "directory": {
           "correction_approved": "Directory correction approved",
@@ -4973,7 +4973,7 @@
           "request_received": "Mentorship request received"
         },
         "staff": {
-          "claim_assigned": "Claim assigned"
+          "claim_assigned": "Verification assigned"
         },
         "digest": {
           "daily_summary": "Daily summary"
@@ -5254,7 +5254,7 @@
       },
       "complete": {
         "title": "You're all set!",
-        "description": "Your profile basics are saved. Explore jobs, mentorship, and more on JID.",
+        "description": "Your profile basics are saved. Explore opportunities, mentorship, and more on JID.",
         "cta": "Go to dashboard",
         "completing": "Finishing…",
         "completeFailed": "Could not complete onboarding. Please try again."
@@ -5320,7 +5320,7 @@
   "terminology": {
     "directory": "Directory",
     "companyDirectory": "Company Directory",
-    "universityDirectory": "University Directory",
+    "universityDirectory": "University Catalogue",
     "profile": "Profile",
     "businessProfile": "Business Profile",
     "universityProfile": "University Profile",

@@ -15,29 +15,22 @@ export async function HomePulseHero() {
   const primaryLabel = t(hero.primaryCta.labelKey)
 
   return (
-    <section
-      className="border-b border-border bg-jid-beige-warm"
-      aria-labelledby="home-hero-title"
-    >
+    <section className="border-b border-border bg-jid-beige-warm" aria-labelledby="home-hero-title">
       <div className="container-jid py-12 md:py-16 lg:py-20">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
           <div className="order-1 flex max-w-2xl flex-col gap-6 text-start">
-            <p className="inline-flex w-fit items-center rounded-full border border-jid-olive/15 bg-background/60 px-3 py-1 text-xs font-medium text-jid-olive">
-              {t('eyebrow')}
-            </p>
+            <p className="text-xs font-medium text-jid-olive">{t('eyebrow')}</p>
             <div className="space-y-4">
               <h1
                 id="home-hero-title"
-                className="font-arabic text-balance text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-[2.5rem] lg:leading-[1.15]"
+                className="text-balance font-arabic text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-[2.5rem] lg:leading-[1.15]"
               >
                 {t('title')}
               </h1>
-              <p className="max-w-xl text-base leading-relaxed text-foreground/80 md:text-lg">
+              <p className="text-foreground/80 max-w-xl text-base leading-relaxed md:text-lg">
                 {t('subtitle')}
               </p>
-              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
-                {t('body')}
-              </p>
+              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">{t('body')}</p>
             </div>
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <Link
@@ -49,7 +42,7 @@ export async function HomePulseHero() {
               {!hero.isAuthenticated ? (
                 <Link
                   href="/signup"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-border bg-background/80 px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
+                  className="bg-background/80 inline-flex min-h-[44px] items-center justify-center rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
                 >
                   {t('secondaryCta')}
                 </Link>

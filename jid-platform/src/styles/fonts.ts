@@ -1,4 +1,4 @@
-import { Archivo, IBM_Plex_Sans_Arabic, JetBrains_Mono } from 'next/font/google'
+import { IBM_Plex_Sans_Arabic, JetBrains_Mono, Manrope } from 'next/font/google'
 
 export const fontArabic = IBM_Plex_Sans_Arabic({
   subsets: ['arabic'],
@@ -9,7 +9,8 @@ export const fontArabic = IBM_Plex_Sans_Arabic({
   adjustFontFallback: true,
 })
 
-export const fontLatin = Archivo({
+/** Official Brand Identity Latin face (replaces prior Archivo UI lock for product shells). */
+export const fontLatin = Manrope({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-latin',

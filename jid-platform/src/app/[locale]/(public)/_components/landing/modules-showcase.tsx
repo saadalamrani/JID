@@ -1,13 +1,4 @@
-import {
-  Activity,
-  Briefcase,
-  Building2,
-  FileText,
-  GraduationCap,
-  Handshake,
-  LayoutGrid,
-  UserCircle,
-} from 'lucide-react'
+import { Briefcase, Building2, GraduationCap, UserCircle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Link } from '@/lib/i18n/navigation'
@@ -16,22 +7,17 @@ type LandingModule = {
   key: string
   href: string
   Icon: LucideIcon
-  accent: 'olive' | 'gold'
 }
 
-/** Section 5.4 — eight shipped product modules with verified routes. */
+/** Three public actors + opportunities surface — no fourth actor, no decorative module grid. */
 const LANDING_MODULES: readonly LandingModule[] = [
-  { key: 'jobs', href: '/opportunities', Icon: Briefcase, accent: 'olive' },
-  { key: 'catalog', href: '/catalog', Icon: Building2, accent: 'gold' },
-  { key: 'mentors', href: '/mentors', Icon: Handshake, accent: 'olive' },
-  { key: 'pulse', href: '/pulse', Icon: Activity, accent: 'gold' },
-  { key: 'universities', href: '/universities', Icon: GraduationCap, accent: 'olive' },
-  { key: 'profiles', href: '/signup', Icon: UserCircle, accent: 'gold' },
-  { key: 'radar', href: '/signup', Icon: LayoutGrid, accent: 'olive' },
-  { key: 'cv', href: '/signup', Icon: FileText, accent: 'gold' },
+  { key: 'profiles', href: '/signup', Icon: UserCircle },
+  { key: 'jobs', href: '/opportunities', Icon: Briefcase },
+  { key: 'catalog', href: '/catalog', Icon: Building2 },
+  { key: 'universities', href: '/universities', Icon: GraduationCap },
 ] as const
 
-/** Section 5.4 — module grid (server-rendered). */
+/** Actor-led module strip (server-rendered). */
 export async function ModulesShowcase() {
   const t = await getTranslations('landing.modules')
 
@@ -42,36 +28,26 @@ export async function ModulesShowcase() {
           <h2 className="font-arabic text-2xl font-semibold text-foreground md:text-3xl">
             {t('title')}
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-foreground/65">{t('subtitle')}</p>
+          <p className="text-foreground/65 mt-3 text-sm leading-relaxed">{t('subtitle')}</p>
         </header>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {LANDING_MODULES.map((module) => {
             const Icon = module.Icon
-            const accentClass =
-              module.accent === 'olive'
-                ? 'bg-primary/10 text-primary'
-                : 'bg-accent/10 text-accent'
-
             return (
               <Link
                 key={module.key}
                 href={module.href}
-                className="group flex h-full flex-col rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md"
+                className="group flex h-full flex-col border-b border-border pb-5 transition-colors hover:border-jid-olive/40"
               >
-                <span
-                  className={`inline-flex h-10 w-10 items-center justify-center rounded-lg ${accentClass}`}
-                  aria-hidden
-                >
-                  <Icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-4 font-arabic text-base font-semibold text-foreground group-hover:text-primary">
+                <Icon className="h-5 w-5 text-jid-olive" aria-hidden />
+                <h3 className="mt-4 font-arabic text-base font-semibold text-foreground group-hover:text-jid-olive">
                   {t(`items.${module.key}.title`)}
                 </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-foreground/65">
+                <p className="text-foreground/65 mt-2 flex-1 text-sm leading-relaxed">
                   {t(`items.${module.key}.description`)}
                 </p>
-                <span className="mt-4 text-xs font-medium text-primary">{t('explore')}</span>
+                <span className="mt-4 text-xs font-medium text-jid-olive">{t('explore')}</span>
               </Link>
             )
           })}
