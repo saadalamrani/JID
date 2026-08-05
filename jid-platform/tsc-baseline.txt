@@ -1,4 +1,2 @@
-
 > jid-platform@0.1.0 type-check C:\Users\saada\Downloads\Desktop\JID-1\jid-platform
 > tsc --noEmit
-
