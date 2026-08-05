@@ -18,6 +18,7 @@ import { isRoleAllowed } from '@/lib/auth/rbac'
 import { track } from '@/lib/analytics/track'
 import { fetchProfileForUser, isProfileSuspended } from '@/lib/auth/session'
 import { recordActiveSessionFromBrowser } from '@/lib/auth/sessions'
+import { writeProfileModeCookie } from '@/lib/mentor-mode/cookies'
 import { createClient } from '@/lib/supabase/client'
 import { loginSchema, MIN_LOGIN_DELAY_MS, type LoginFormValues } from '@/lib/validations/auth'
 
@@ -140,6 +141,11 @@ function LoginPageContent() {
           verification?.verification_type === 'university'
             ? '/university/pending-review'
             : '/company/verification-pending'
+      }
+
+      // Mentor hub RSC requires jid_active_mode=mentor (capability + mode cookie).
+      if (destination === '/mentor/dashboard' || destination.startsWith('/mentor/')) {
+        writeProfileModeCookie('mentor')
       }
 
       // Hard navigate across layout groups; do not block on session ledger.
