@@ -32,7 +32,7 @@ export default function AcceptInvitePage() {
     <Suspense
       fallback={
         <AuthShell title={t('title')} subtitle={t('loading')}>
-          <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
+          <p className="text-foreground/70 text-center text-sm">{t('loading')}</p>
         </AuthShell>
       }
     >
@@ -141,7 +141,7 @@ function AcceptInviteContent() {
   if (step === 'loading') {
     return (
       <AuthShell title={t('title')} subtitle={t('loading')}>
-        <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
+        <p className="text-foreground/70 text-center text-sm">{t('loading')}</p>
       </AuthShell>
     )
   }
@@ -169,7 +169,13 @@ function AcceptInviteContent() {
 
   return (
     <AuthShell title={t('title')} subtitle={t('subtitle', { email: invite?.email ?? '' })}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <form
+        method="post"
+        action="#"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4"
+        noValidate
+      >
         <FormField
           id="full_name"
           label={t('fullName')}
@@ -188,7 +194,11 @@ function AcceptInviteContent() {
           <PasswordRequirementsPanel password={passwordValue} className="mt-2" />
         </FormField>
 
-        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
+        <Button
+          type="submit"
+          className="hover:bg-primary/90 w-full bg-primary"
+          disabled={submitting}
+        >
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

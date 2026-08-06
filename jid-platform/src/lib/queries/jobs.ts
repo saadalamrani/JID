@@ -16,16 +16,9 @@ import type {
   JobSectorRef,
   PublicJobStatus,
 } from '@/types/job'
-import {
-  DEFAULT_JOB_FILTERS,
-  dbStatusToPublicStatus,
-  isJobUuid,
-} from '@/types/job'
+import { DEFAULT_JOB_FILTERS, dbStatusToPublicStatus, isJobUuid } from '@/types/job'
 import { computeDeadlineDaysLeft } from '@/lib/jobs/deadline'
-import {
-  validateDomainMatchForDomains,
-  type DomainMatchResult,
-} from '@/lib/jobs/domain-validator'
+import { validateDomainMatchForDomains, type DomainMatchResult } from '@/lib/jobs/domain-validator'
 import { interleaveBoostedJobs } from '@/lib/priority-visibility/interleave'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
@@ -163,7 +156,6 @@ function normalizeEmbed<T>(value: T | T[] | null | undefined): T | null {
   return value
 }
 
-
 function mapSectorRef(row: SectorRow): JobSectorRef | null {
   if (!row?.slug) return null
   return { slug: row.slug, name_en: row.name_en, name_ar: row.name_ar }
@@ -218,8 +210,7 @@ function mapJobCard(row: JobListRow): JobCardData | null {
     deadlineDaysLeft: computeDeadlineDaysLeft(row.application_deadline),
     published_at: row.published_at,
     applicant_count: row.applicant_count,
-    applyUrl:
-      row.external_apply_url?.trim() || company.career_portal_url?.trim() || null,
+    applyUrl: row.external_apply_url?.trim() || company.career_portal_url?.trim() || null,
     company: mapCompanyRef(company),
     sector: mapSectorRef(normalizeEmbed(row.sector)),
     region: mapRegionRef(normalizeEmbed(row.region)),
@@ -253,10 +244,7 @@ function isJobPubliclyAvailable(row: JobDetailRow): boolean {
   return new Date(row.application_deadline).getTime() >= Date.now()
 }
 
-async function fetchJobDetailRow(
-  client: UntypedClient,
-  ref: string,
-): Promise<JobDetailRow | null> {
+async function fetchJobDetailRow(client: UntypedClient, ref: string): Promise<JobDetailRow | null> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let query: any = client.from('jobs').select(JOB_DETAIL_SELECT)
 
@@ -320,7 +308,9 @@ export async function fetchRelatedCompanyJobs(
 }
 
 /** Portable public job-board listing statuses (linked cloud lacks `closing_soon`). */
-function resolvePortablePublicJobDbStatuses(statuses: PublicJobStatus[] | undefined): JobDbStatus[] {
+function resolvePortablePublicJobDbStatuses(
+  statuses: PublicJobStatus[] | undefined,
+): JobDbStatus[] {
   void statuses
   return ['published']
 }
@@ -470,6 +460,7 @@ export async function validateDomainMatch(
 
 /**
  * Owner-visible jobs (RLS applies transitional + profile paths). For company dashboards.
+ * Public-status mapping only — draft/closed rows are excluded.
  */
 export async function fetchOwnerJobs(limit = 50): Promise<JobCardData[]> {
   const supabase = await createClient()
@@ -486,6 +477,55 @@ export async function fetchOwnerJobs(limit = 50): Promise<JobCardData[]> {
   return ((data ?? []) as unknown as JobListRow[])
     .map(mapJobCard)
     .filter((job): job is JobCardData => job !== null)
+}
+
+/** Owner management list — includes draft/closed/expired statuses (not public-mapped). */
+export type OwnerManagedJob = {
+  id: string
+  title_ar: string
+  title_en: string | null
+  status: JobDbStatus
+  applicant_count: number
+  application_deadline: string
+  published_at: string | null
+  updated_at: string
+}
+
+export async function fetchOwnerManagedJobs(limit = 50): Promise<OwnerManagedJob[]> {
+  const supabase = await createClient()
+  const client = asUntyped(supabase)
+
+  const { data, error } = await client
+    .from('jobs')
+    .select(
+      'id, title_ar, title_en, status, applicant_count, application_deadline, published_at, updated_at',
+    )
+    .order('updated_at', { ascending: false })
+    .limit(limit)
+
+  if (error) throwQueryError(error)
+
+  return (
+    (data ?? []) as Array<{
+      id: string
+      title_ar: string
+      title_en: string | null
+      status: JobDbStatus
+      applicant_count: number
+      application_deadline: string
+      published_at: string | null
+      updated_at: string
+    }>
+  ).map((row) => ({
+    id: row.id,
+    title_ar: row.title_ar,
+    title_en: row.title_en,
+    status: row.status,
+    applicant_count: row.applicant_count ?? 0,
+    application_deadline: row.application_deadline,
+    published_at: row.published_at,
+    updated_at: row.updated_at,
+  }))
 }
 
 /** Live openings for a published business profile (public list statuses only). */

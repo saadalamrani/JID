@@ -177,6 +177,13 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     organizationProfileType: 'business',
   },
   {
+    id: 'company-jobs-list',
+    pattern: new RegExp(`^${L}/jobs/?$`),
+    allowedRoles: ['entity', 'company_admin'],
+    conditions: ['organization_profile'],
+    organizationProfileType: 'business',
+  },
+  {
     id: 'company-portal',
     pattern: new RegExp(`^${L}/company(?:/|$)`),
     allowedRoles: ['entity', 'company_admin'],

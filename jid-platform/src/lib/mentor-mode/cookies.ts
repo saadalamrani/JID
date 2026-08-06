@@ -15,9 +15,15 @@ export function writeProfileModeCookie(mode: ProfileMode): void {
   document.cookie = `${PROFILE_MODE_COOKIE}=${encodeURIComponent(mode)}; path=/; max-age=${ONE_YEAR_SECONDS}; SameSite=Lax`
 }
 
+/** Client — clear mentor/mentee mode on logout so the next session starts clean. */
+export function clearProfileModeCookie(): void {
+  if (typeof document === 'undefined') return
+  document.cookie = `${PROFILE_MODE_COOKIE}=; path=/; max-age=0; SameSite=Lax`
+}
+
 /** Server — read profile mode in RSC / layout. */
-export function getProfileModeFromCookies(
-  cookieStore: { get: (name: string) => { value: string } | undefined },
-): ProfileMode {
+export function getProfileModeFromCookies(cookieStore: {
+  get: (name: string) => { value: string } | undefined
+}): ProfileMode {
   return parseProfileMode(cookieStore.get(PROFILE_MODE_COOKIE)?.value)
 }

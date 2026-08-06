@@ -139,6 +139,8 @@ function SysLoginPageContent() {
       }
     >
       <form
+        method="post"
+        action="#"
         className="space-y-4"
         onSubmit={(event) => void handleSubmit(onSubmit)(event)}
         noValidate

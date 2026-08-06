@@ -1020,6 +1020,7 @@
       "panelTitle": "Employer portal",
       "dashboard": "Home",
       "profile": "Business profile",
+      "jobs": "Opportunities",
       "postJob": "Post a job",
       "billing": "Billing",
       "settings": "Settings"
@@ -1044,6 +1045,22 @@
         "published": "Published",
         "draft": "Draft",
         "suspended": "Suspended"
+      }
+    },
+    "jobsList": {
+      "title": "Your opportunities",
+      "subtitle": "Manage openings you posted for your organization.",
+      "postCta": "Post a job",
+      "empty": "You have not posted any opportunities yet.",
+      "applicants": "{count} applicants",
+      "viewApplicants": "View applicants",
+      "status": {
+        "draft": "Draft",
+        "published": "Published",
+        "closing_soon": "Closing soon",
+        "closed": "Closed",
+        "expired": "Expired",
+        "pending_review": "Pending review"
       }
     },
     "profileSuspended": {
@@ -5000,6 +5017,11 @@
     "description": "The platform is temporarily unavailable while we perform maintenance. Please check back shortly."
   },
   "opportunities": {
+    "board": {
+      "title": "Job opportunities",
+      "activeCount": "{count} active opportunities",
+      "resultsCount": "{count} results"
+    },
     "tabs": {
       "ariaLabel": "Opportunity tabs",
       "native": "JID jobs",

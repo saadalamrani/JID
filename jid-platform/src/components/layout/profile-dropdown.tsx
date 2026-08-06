@@ -1,14 +1,6 @@
 'use client'
 
-import {
-  Bell,
-  FileText,
-  LayoutDashboard,
-  LogOut,
-  Radar,
-  Settings,
-  User,
-} from 'lucide-react'
+import { Bell, FileText, LayoutDashboard, LogOut, Radar, Settings, User } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
@@ -26,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { createClient } from '@/lib/supabase/client'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
+import { clearProfileModeCookie } from '@/lib/mentor-mode/cookies'
 import { cn } from '@/lib/utils'
 
 type ProfileDropdownProps = {
@@ -55,7 +48,9 @@ function ThemeMenuItems() {
     <>
       <DropdownMenuItem onClick={() => setTheme('light')}>
         {t('themeLight')}
-        {theme === 'light' ? <span className="ms-auto text-xs text-muted-foreground">✓</span> : null}
+        {theme === 'light' ? (
+          <span className="ms-auto text-xs text-muted-foreground">✓</span>
+        ) : null}
       </DropdownMenuItem>
       <DropdownMenuItem onClick={() => setTheme('dark')}>
         {t('themeDark')}
@@ -82,6 +77,7 @@ export function ProfileDropdown({
 
   async function handleLogout() {
     const supabase = createClient()
+    clearProfileModeCookie()
     await supabase.auth.signOut()
     router.push('/')
     router.refresh()
@@ -110,7 +106,7 @@ export function ProfileDropdown({
             'flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2',
             onDark
               ? 'border-jid-olive-700/80 bg-jid-olive-800/60 text-jid-beige hover:bg-jid-olive-800 focus-visible:ring-jid-gold/50'
-              : 'border-border bg-card text-primary hover:bg-muted focus-visible:ring-primary/40',
+              : 'focus-visible:ring-primary/40 border-border bg-card text-primary hover:bg-muted',
             className,
           )}
           aria-label={t('menuAria')}
@@ -213,7 +209,11 @@ type GuestAuthActionsProps = {
   compact?: boolean
 }
 
-export function GuestAuthActions({ className, tone = 'default', compact = false }: GuestAuthActionsProps) {
+export function GuestAuthActions({
+  className,
+  tone = 'default',
+  compact = false,
+}: GuestAuthActionsProps) {
   const t = useTranslations('publicShell.nav')
   const onDark = tone === 'on-dark'
 
@@ -233,10 +233,7 @@ export function GuestAuthActions({ className, tone = 'default', compact = false 
       ) : null}
       <Button
         asChild
-        className={cn(
-          'bg-jid-gold text-jid-ink hover:bg-jid-gold-400',
-          onDark && 'font-semibold',
-        )}
+        className={cn('bg-jid-gold text-jid-ink hover:bg-jid-gold-400', onDark && 'font-semibold')}
       >
         <Link href="/signup">{t('signup')}</Link>
       </Button>

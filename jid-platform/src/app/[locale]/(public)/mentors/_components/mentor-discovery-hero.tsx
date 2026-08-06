@@ -1,14 +1,16 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+import { formatNumber } from '@/lib/utils/format'
 import { useMentorFilters } from './mentor-filter-context'
 
 export function MentorDiscoveryHero() {
   const t = useTranslations('mentorship.discovery.hero')
+  const locale = useLocale()
   const { stats, isFetching } = useMentorFilters()
 
-  const mentorsFormatted = stats.activeMentorCount.toLocaleString('ar-SA')
-  const sessionsFormatted = stats.totalSessionsCount.toLocaleString('ar-SA')
+  const mentorsFormatted = formatNumber(stats.activeMentorCount, locale)
+  const sessionsFormatted = formatNumber(stats.totalSessionsCount, locale)
 
   return (
     <header className="space-y-3 pb-6">
@@ -19,7 +21,7 @@ export function MentorDiscoveryHero() {
           <dt className="text-muted-foreground">{t('activeMentors')}</dt>
           <dd className="mt-1 text-xl font-semibold text-primary">
             {isFetching ? (
-              <span className="inline-block h-6 w-12 animate-pulse rounded bg-border/30" />
+              <span className="bg-border/30 inline-block h-6 w-12 animate-pulse rounded" />
             ) : (
               mentorsFormatted
             )}
@@ -29,7 +31,7 @@ export function MentorDiscoveryHero() {
           <dt className="text-muted-foreground">{t('totalSessions')}</dt>
           <dd className="mt-1 text-xl font-semibold text-primary">
             {isFetching ? (
-              <span className="inline-block h-6 w-12 animate-pulse rounded bg-border/30" />
+              <span className="bg-border/30 inline-block h-6 w-12 animate-pulse rounded" />
             ) : (
               sessionsFormatted
             )}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import { MentorPostApprovalSetup } from '@/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-post-approval-setup'
 import { MentorHubDashboard } from '@/app/[locale]/(mentor)/mentor/dashboard/_components/mentor-hub-dashboard'
 import type { MentorHubKpis, MentorHubSettings } from '@/lib/mentor-hub/queries'
@@ -23,7 +23,9 @@ export function MentorHubWithSetup({
 
   return (
     <>
-      <MentorHubDashboard {...dashboardProps} />
+      <Suspense fallback={null}>
+        <MentorHubDashboard {...dashboardProps} />
+      </Suspense>
       <MentorPostApprovalSetup
         settings={dashboardProps.settings}
         open={setupOpen}

@@ -19,6 +19,7 @@ export async function StandardCompanyLayout({ children }: StandardCompanyLayoutP
   const NAV_ITEMS = [
     { href: '/company/dashboard', label: t('dashboard'), icon: LayoutDashboard },
     { href: '/company/profile/edit', label: t('profile'), icon: Building2 },
+    { href: '/jobs', label: t('jobs'), icon: BriefcaseBusiness },
     { href: '/jobs/new', label: t('postJob'), icon: BriefcaseBusiness },
     { href: '/billing', label: t('billing'), icon: CreditCard },
     { href: '/company/profile/edit', label: t('settings'), icon: Settings },

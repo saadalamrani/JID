@@ -94,13 +94,22 @@ export default function SignupPage() {
       footer={
         <p>
           {t('hasAccount')}{' '}
-          <Link href="/login" className="font-medium text-primary underline-offset-4 hover:underline">
+          <Link
+            href="/login"
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
             {t('loginLink')}
           </Link>
         </p>
       }
     >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <form
+        method="post"
+        action="#"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4"
+        noValidate
+      >
         <FormField
           id="full_name"
           label={t('fullName')}
@@ -166,7 +175,11 @@ export default function SignupPage() {
           />
         </FormField>
 
-        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
+        <Button
+          type="submit"
+          className="hover:bg-primary/90 w-full bg-primary"
+          disabled={submitting}
+        >
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

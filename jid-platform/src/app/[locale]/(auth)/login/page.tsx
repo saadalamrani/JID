@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { AuthShell } from '@/components/auth/auth-shell'
 import { FormField } from '@/components/auth/form-field'
@@ -52,6 +52,17 @@ function LoginPageContent() {
     defaultValues: { email: '', password: '' },
     mode: 'onBlur',
   })
+
+  // Defense in depth: never leave credentials in the address bar if a
+  // pre-hydration native submit produced a GET query string.
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    if (!url.searchParams.has('password') && !url.searchParams.has('email')) return
+    url.searchParams.delete('password')
+    url.searchParams.delete('email')
+    const query = url.searchParams.toString()
+    window.history.replaceState({}, '', `${url.pathname}${query ? `?${query}` : ''}${url.hash}`)
+  }, [])
 
   function translateError(message?: string) {
     if (!message?.startsWith('auth.validation.')) return message
@@ -184,7 +195,13 @@ function LoginPageContent() {
         </div>
       }
     >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <form
+        method="post"
+        action="#"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4"
+        noValidate
+      >
         {formError ? (
           <p
             className="bg-destructive/10 rounded-md px-3 py-2 text-sm text-destructive"

@@ -64,14 +64,20 @@ export default function ResetPasswordPage() {
   if (!ready) {
     return (
       <AuthShell title={t('title')} subtitle={t('loading')}>
-        <p className="text-center text-sm text-foreground/70">{t('loading')}</p>
+        <p className="text-foreground/70 text-center text-sm">{t('loading')}</p>
       </AuthShell>
     )
   }
 
   return (
     <AuthShell title={t('title')} subtitle={t('subtitle')}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <form
+        method="post"
+        action="#"
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4"
+        noValidate
+      >
         <FormField
           id="password"
           label={t('password')}
@@ -85,9 +91,17 @@ export default function ResetPasswordPage() {
           label={t('confirmPassword')}
           error={form.formState.errors.confirmPassword ? t('errors.mismatch') : undefined}
         >
-          <PasswordInput id="confirmPassword" disabled={submitting} {...form.register('confirmPassword')} />
+          <PasswordInput
+            id="confirmPassword"
+            disabled={submitting}
+            {...form.register('confirmPassword')}
+          />
         </FormField>
-        <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={submitting}>
+        <Button
+          type="submit"
+          className="hover:bg-primary/90 w-full bg-primary"
+          disabled={submitting}
+        >
           {submitting ? t('submitting') : t('submit')}
         </Button>
       </form>

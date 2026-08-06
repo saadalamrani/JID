@@ -1020,6 +1020,7 @@
       "panelTitle": "لوحة المنشأة",
       "dashboard": "الرئيسية",
       "profile": "ملف المنشأة",
+      "jobs": "الفرص",
       "postJob": "نشر وظيفة",
       "billing": "الفوترة",
       "settings": "الإعدادات"
@@ -1044,6 +1045,22 @@
         "published": "منشور",
         "draft": "مسودة",
         "suspended": "موقوف"
+      }
+    },
+    "jobsList": {
+      "title": "فرصك",
+      "subtitle": "إدارة الفرص التي نشرتها لمنشأتك.",
+      "postCta": "نشر وظيفة",
+      "empty": "لم تنشر أي فرص بعد.",
+      "applicants": "{count} متقدّم",
+      "viewApplicants": "عرض المتقدمين",
+      "status": {
+        "draft": "مسودة",
+        "published": "منشور",
+        "closing_soon": "يغلق قريباً",
+        "closed": "مغلق",
+        "expired": "منتهٍ",
+        "pending_review": "قيد المراجعة"
       }
     },
     "profileSuspended": {
@@ -4990,6 +5007,11 @@
     "description": "المنصة غير متاحة مؤقتاً أثناء أعمال الصيانة. يرجى المحاولة لاحقاً."
   },
   "opportunities": {
+    "board": {
+      "title": "الفرص الوظيفية",
+      "activeCount": "{count} فرصة نشطة",
+      "resultsCount": "{count} نتيجة"
+    },
     "tabs": {
       "ariaLabel": "تبويبات الفرص",
       "native": "فرص جِد",
