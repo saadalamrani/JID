@@ -1,7 +1,7 @@
 # Friends & Family Release Hardening — Defect Ledger
 
-Canonical base: `f59c441a45d48c4669bfc75f63ceeaa6c273e154`  
-Branch: `cursor/jid-friends-family-release-hardening`  
+Canonical base: `f59c441a45d48c4669bfc75f63ceeaa6c273e154`
+Branch: `cursor/jid-friends-family-release-hardening`
 Nonprod: `hmjuijmaefajdjrjdsxu` / `https://jid-dev.vercel.app`
 
 | ID | Route | Account | Severity | Reproduction | Root cause | Fix | Verification | Status |
@@ -16,5 +16,5 @@ Nonprod: `hmjuijmaefajdjrjdsxu` / `https://jid-dev.vercel.app`
 | FF-C01 | staff/sys date strings | staff/admin | C | Some internal `toLocaleString('ar-SA')` date renders | Legacy date formatting | Documented; not critical F&F share surface | Deferred | OPEN (C) |
 | FF-C02 | `/pricing` `/jobs` `/lammah` public aliases | public | C | Direct URLs 404 | Canonical paths are `/plus`, `/opportunities` (+tab) | Not linked from primary nav; documented | Deferred | OPEN (C) |
 
-All Class A: none found.  
+All Class A: none found.
 All Class B entries above: CLOSED.
