@@ -14,9 +14,13 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
 
 type Client = SupabaseClient<Database>
+type UntypedClient = SupabaseClient<Record<string, unknown>>
 
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+function asUntyped(client: Client): UntypedClient {
+  return client as unknown as UntypedClient
+}
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 /**
  * Section 4.3 / Section 10 — public-safe columns only.
@@ -26,6 +30,8 @@ const UUID_RE =
 export const MENTOR_PUBLIC_SELECT = `
   user_id,
   slug,
+  full_name,
+  avatar_url,
   headline,
   bio_short,
   expertise_areas,
@@ -38,13 +44,14 @@ export const MENTOR_PUBLIC_SELECT = `
   sessions_count,
   is_accepting_requests,
   is_mentor_of_month,
-  active_workshop,
-  profiles!mentor_profiles_user_id_fkey(full_name, avatar_url)
+  active_workshop
 ` as const
 
 export const MENTOR_DETAIL_SELECT = `
   user_id,
   slug,
+  full_name,
+  avatar_url,
   headline,
   bio_short,
   bio_long,
@@ -60,13 +67,14 @@ export const MENTOR_DETAIL_SELECT = `
   is_accepting_requests,
   is_mentor_of_month,
   active_workshop,
-  career_history,
-  profiles!mentor_profiles_user_id_fkey(full_name, avatar_url)
+  career_history
 ` as const
 
 type MentorListRow = {
   user_id: string
   slug: string | null
+  full_name: string | null
+  avatar_url: string | null
   headline: string | null
   bio_short: string | null
   bio_long?: string | null
@@ -83,7 +91,6 @@ type MentorListRow = {
   is_mentor_of_month: boolean
   active_workshop: unknown
   career_history?: unknown
-  profiles: { full_name: string | null; avatar_url: string | null } | null
 }
 
 function parseCareerHistory(raw: unknown): MentorPublicDetail['career_history'] {
@@ -97,8 +104,8 @@ function mapMentorCard(row: MentorListRow): MentorCardData {
   return {
     user_id: row.user_id,
     slug: row.slug,
-    full_name: row.profiles?.full_name ?? null,
-    avatar_url: row.profiles?.avatar_url ?? null,
+    full_name: row.full_name,
+    avatar_url: row.avatar_url,
     headline: row.headline,
     bio_short: row.bio_short,
     expertise_areas: row.expertise_areas ?? [],
@@ -124,15 +131,12 @@ function mapMentorDetail(row: MentorListRow): MentorPublicDetail {
   }
 }
 
-export async function fetchMentorDiscoveryStats(
-  client?: Client,
-): Promise<MentorDiscoveryStats> {
-  const supabase = client ?? (await createClient())
+export async function fetchMentorDiscoveryStats(client?: Client): Promise<MentorDiscoveryStats> {
+  const supabase = asUntyped(client ?? (await createClient()))
 
   const { count, error: countError } = await supabase
-    .from('mentor_profiles')
+    .from('mentor_public_projection')
     .select('user_id', { count: 'exact', head: true })
-    .eq('status', 'approved')
     .eq('is_accepting_requests', true)
 
   if (countError) {
@@ -140,9 +144,8 @@ export async function fetchMentorDiscoveryStats(
   }
 
   const { data: sessionRows, error: sessionsError } = await supabase
-    .from('mentor_profiles')
+    .from('mentor_public_projection')
     .select('sessions_count')
-    .eq('status', 'approved')
     .eq('is_accepting_requests', true)
 
   if (sessionsError) {
@@ -161,16 +164,15 @@ export async function fetchMentorDiscoveryStats(
 }
 
 export async function fetchMentors(filters: MentorFilters): Promise<MentorsListResult> {
-  const supabase = await createClient()
+  const supabase = asUntyped(await createClient())
   const stats = await fetchMentorDiscoveryStats(supabase)
 
   const from = (filters.page - 1) * filters.limit
   const to = from + filters.limit - 1
 
   let query = supabase
-    .from('mentor_profiles')
+    .from('mentor_public_projection')
     .select(MENTOR_PUBLIC_SELECT, { count: 'exact' })
-    .eq('status', 'approved')
     .order('rating_avg', { ascending: false, nullsFirst: false })
     .order('sessions_count', { ascending: false })
     .range(from, to)
@@ -214,23 +216,22 @@ export async function fetchMentors(filters: MentorFilters): Promise<MentorsListR
   }
 }
 
-/** Section 4.15 — top mentors by mentor_score for homepage (score not exposed publicly). */
+/** Section 4.15 — featured mentors ranked only by fields in the public projection. */
 export async function fetchFeaturedMentorsByScore(limit = 3): Promise<MentorCardData[]> {
-  const supabase = await createClient()
+  const supabase = asUntyped(await createClient())
 
   const { data, error } = await supabase
-    .from('mentor_profiles')
+    .from('mentor_public_projection')
     .select(MENTOR_PUBLIC_SELECT)
-    .eq('status', 'approved')
-    .order('mentor_score', { ascending: false, nullsFirst: false })
+    .order('is_mentor_of_month', { ascending: false })
     .order('rating_avg', { ascending: false, nullsFirst: false })
+    .order('sessions_count', { ascending: false })
     .limit(limit)
 
   if (error) {
     const { data: fallback, error: fallbackError } = await supabase
-      .from('mentor_profiles')
+      .from('mentor_public_projection')
       .select(MENTOR_PUBLIC_SELECT)
-      .eq('status', 'approved')
       .order('is_mentor_of_month', { ascending: false })
       .order('rating_avg', { ascending: false, nullsFirst: false })
       .limit(limit)
@@ -243,11 +244,10 @@ export async function fetchFeaturedMentorsByScore(limit = 3): Promise<MentorCard
 }
 
 export async function fetchMentorBySlug(slug: string): Promise<MentorPublicDetail | null> {
-  const supabase = await createClient()
+  const supabase = asUntyped(await createClient())
   const { data, error } = await supabase
-    .from('mentor_profiles')
+    .from('mentor_public_projection')
     .select(MENTOR_DETAIL_SELECT)
-    .eq('status', 'approved')
     .eq('slug', slug)
     .maybeSingle()
 
@@ -256,12 +256,13 @@ export async function fetchMentorBySlug(slug: string): Promise<MentorPublicDetai
   return mapMentorDetail(data as MentorListRow)
 }
 
-export async function fetchMentorPublicByUserId(userId: string): Promise<MentorPublicDetail | null> {
-  const supabase = await createClient()
+export async function fetchMentorPublicByUserId(
+  userId: string,
+): Promise<MentorPublicDetail | null> {
+  const supabase = asUntyped(await createClient())
   const { data, error } = await supabase
-    .from('mentor_profiles')
+    .from('mentor_public_projection')
     .select(MENTOR_DETAIL_SELECT)
-    .eq('status', 'approved')
     .eq('user_id', userId)
     .maybeSingle()
 

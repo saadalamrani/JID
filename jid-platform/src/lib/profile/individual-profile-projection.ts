@@ -30,18 +30,17 @@ import type {
 import { fetchUserBadges } from '@/lib/profile/badge-helpers'
 import {
   fetchProfilePageContext,
+  fetchPublicProfilePageContext,
   getCurrentViewer,
   type ProfilePageContext,
+  type PublicProfilePageContext,
 } from '@/lib/profile/queries'
 import { fetchUserApplications } from '@/lib/queries/radar'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
-import {
-  canViewerSeeProfile,
-  isPrivilegedStaffRole,
-} from '@/lib/profile/visibility-rules'
+import { canViewerSeeProfile, isPrivilegedStaffRole } from '@/lib/profile/visibility-rules'
 import type { ProfileRecord, ProfileViewer } from '@/lib/profile/types'
 
 type UntypedClient = SupabaseClient<Record<string, unknown>>
@@ -177,15 +176,26 @@ function buildIdentity(
   }
 }
 
-function buildCanvasSummary(profile: ProfileRecord): IndividualProfileProjection['canvas'] {
-  const aspiration =
-    profile.target_program_types?.[0] ?? profile.target_sectors?.[0] ?? null
+function buildCanvasSummaryValues(
+  headline: string | null,
+  targetProgramTypes: string[],
+  targetSectors: string[],
+): IndividualProfileProjection['canvas'] {
+  const aspiration = targetProgramTypes[0] ?? targetSectors[0] ?? null
   return {
     available: false,
-    direction: profile.headline,
+    direction: headline,
     aspiration,
-    highlights: profile.target_sectors.slice(0, 3),
+    highlights: targetSectors.slice(0, 3),
   }
+}
+
+function buildCanvasSummary(profile: ProfileRecord): IndividualProfileProjection['canvas'] {
+  return buildCanvasSummaryValues(
+    profile.headline,
+    profile.target_program_types,
+    profile.target_sectors,
+  )
 }
 
 function toSectionVisibility(permitted: PermittedProfileFields): SectionVisibility {
@@ -246,7 +256,7 @@ async function loadMentorshipRows(userId: string, includeNames: boolean) {
     id: row.id,
     scheduled_at: row.scheduled_at,
     status: row.status,
-    mentor_name: includeNames ? nameById.get(row.mentor_id) ?? null : null,
+    mentor_name: includeNames ? (nameById.get(row.mentor_id) ?? null) : null,
   }))
 }
 
@@ -366,21 +376,14 @@ async function buildOwnerProjection(
     smart_links: extended.smart_links,
   })
 
-  const goals = [
-    ...extended.target_program_types,
-    ...extended.target_sectors.slice(0, 2),
-  ].filter(Boolean)
+  const goals = [...extended.target_program_types, ...extended.target_sectors.slice(0, 2)].filter(
+    Boolean,
+  )
 
   return {
     viewState: 'owner',
     profileId: extended.id,
-    identity: buildIdentity(
-      context,
-      extended,
-      fieldLabel,
-      permitted.showGraduateBadge,
-      cv,
-    ),
+    identity: buildIdentity(context, extended, fieldLabel, permitted.showGraduateBadge, cv),
     portfolioUrl,
     portfolio: buildPortfolioPreview(portfolioUrl, projects, extended.about_me),
     overview: extended.about_me,
@@ -471,6 +474,84 @@ async function buildPublicProjection(
   return stripOwnerOnlyProjectionFields(projection) as IndividualProfileProjection
 }
 
+async function buildAudienceSafePublicProjection(
+  context: PublicProfilePageContext,
+  viewer: ProfileViewer,
+): Promise<IndividualProfileProjection> {
+  const permitted = resolvePermittedFields(
+    {
+      id: context.profileId,
+      visibility: 'public',
+      show_profile_to_companies: false,
+      show_profile_in_university_stats: context.showGraduateBadge,
+      about_me: context.aboutMe,
+      suspended_at: null,
+      deleted_at: null,
+      profile_state: 'active',
+      allow_company_direct_contact: context.allowContact,
+    },
+    viewer,
+  )
+  const [cv, badges] = await Promise.all([
+    fetchPrimaryCvForUser(context.profileId),
+    createClient().then((client) => fetchUserBadges(client, context.profileId)),
+  ])
+  const filteredBadges = permitted.showGraduateBadge
+    ? badges
+    : badges.filter((badge) => badge.slug !== 'mentorship_graduate')
+  const projects = mapProjectsWithSkills(cv?.additional ?? [], cv?.skills ?? [])
+  const certifications = (cv?.additional ?? []).filter((row) => row.category === 'certification')
+  const { timeline, kinds } = await buildTimeline(context.profileId, cv, filteredBadges, permitted)
+  const skills = buildSkillDisplays(
+    context.skills,
+    cv?.skills ?? [],
+    cv?.experience ?? [],
+    projects,
+  )
+  const primaryEducation = resolvePrimaryEducation(cv)
+  const portfolioUrl = cv?.portfolio_url?.trim() || context.portfolioUrl
+
+  const projection: IndividualProfileProjection = {
+    viewState: 'public',
+    profileId: context.profileId,
+    identity: {
+      fullName: context.fullName,
+      headline: context.headline,
+      avatarUrl: context.avatarUrl,
+      city: context.city,
+      fieldLabel: context.majorName ?? primaryEducation.field ?? context.headline,
+      universityName: primaryEducation.institution ?? context.universityName,
+      collegeName: context.collegeName,
+      graduationYear: primaryEducation.graduationYear ?? context.graduationYear,
+      employmentStatus: context.studentStatus,
+      showGraduateBadge: permitted.showGraduateBadge,
+    },
+    portfolioUrl,
+    portfolio: buildPortfolioPreview(portfolioUrl, projects, context.aboutMe),
+    overview: context.aboutMe,
+    sections: toSectionVisibility(permitted),
+    skills,
+    education: cv?.education ?? [],
+    experience: cv?.experience ?? [],
+    certifications,
+    projects,
+    timeline,
+    timelineKinds: kinds,
+    canvas: buildCanvasSummaryValues(
+      context.headline,
+      context.targetProgramTypes,
+      context.targetSectors,
+    ),
+    badges: filteredBadges,
+    mentorship: null,
+    evidenceVaultAvailable: false,
+    allowContact: permitted.showContact,
+    showSaveAction: permitted.showSaveAction,
+  }
+
+  return stripOwnerOnlyProjectionFields(projection) as IndividualProfileProjection
+}
+
 function buildRestrictedProjection(context: ProfilePageContext): IndividualProfileProjection {
   const { profile } = context
   return {
@@ -521,6 +602,18 @@ export async function resolveIndividualProfilePage(
   options: ResolveIndividualProfileOptions = {},
 ): Promise<IndividualProfileResolution> {
   const viewer = await getCurrentViewer()
+  const isOwner = viewer.userId === profileId
+  const isStaff = viewer.isAdmin || isPrivilegedStaffRole(viewer.role)
+
+  if (!isOwner && !isStaff) {
+    const publicContext = await fetchPublicProfilePageContext(profileId)
+    if (!publicContext) return { status: 'not_found' }
+    return {
+      status: 'ok',
+      projection: await buildAudienceSafePublicProjection(publicContext, viewer),
+    }
+  }
+
   const context = await fetchProfilePageContext(profileId)
   if (!context) return { status: 'not_found' }
 
@@ -529,8 +622,7 @@ export async function resolveIndividualProfilePage(
     return { status: 'deleted' }
   }
 
-  const isSuspended =
-    Boolean(profile.suspended_at) || profile.profile_state === 'suspended'
+  const isSuspended = Boolean(profile.suspended_at) || profile.profile_state === 'suspended'
   if (isSuspended) {
     if (viewer.isAdmin || isPrivilegedStaffRole(viewer.role)) {
       return { status: 'suspended_admin', context, profile }
@@ -541,7 +633,6 @@ export async function resolveIndividualProfilePage(
   const extended = await fetchExtendedProfile(profileId)
   if (!extended) return { status: 'not_found' }
 
-  const isOwner = viewer.userId === profile.id
   const fieldLabel = await resolveMajorName(extended.major_id)
 
   if (isOwner && options.forcePublicPreview) {
