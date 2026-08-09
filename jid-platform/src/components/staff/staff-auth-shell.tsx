@@ -26,7 +26,7 @@ export function StaffAuthShell({ title, subtitle, children, footer }: StaffAuthS
           <p className="text-xs font-medium uppercase text-muted-foreground">
             Operations portal
           </p>
-          <h1 className="mt-2 font-arabic text-xl font-semibold text-foreground">{title}</h1>
+          <h1 className="mt-2 text-xl font-semibold text-foreground">{title}</h1>
           {subtitle ? <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p> : null}
         </div>
 

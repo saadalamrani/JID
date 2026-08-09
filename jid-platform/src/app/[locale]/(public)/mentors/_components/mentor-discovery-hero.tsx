@@ -14,9 +14,9 @@ export function MentorDiscoveryHero() {
 
   return (
     <header className="space-y-3 pb-6">
-      <h1 className="font-arabic text-3xl font-semibold text-foreground">{t('title')}</h1>
-      <p className="font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
-      <dl className="flex flex-wrap gap-4 font-arabic text-sm">
+      <h1 className="text-3xl font-semibold text-foreground">{t('title')}</h1>
+      <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
+      <dl className="flex flex-wrap gap-4 text-sm">
         <div className="rounded-lg border border-border bg-card px-4 py-3 shadow-sm">
           <dt className="text-muted-foreground">{t('activeMentors')}</dt>
           <dd className="mt-1 text-xl font-semibold text-primary">

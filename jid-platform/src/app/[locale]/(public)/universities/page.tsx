@@ -33,7 +33,7 @@ export default async function UniversitiesDiscoverPage({ params }: UniversitiesD
     <main dir={dir} className="container-jid py-10" lang={locale}>
       <FeatureGate flag={FLAG_KEYS.UNIVERSITIES_DISCOVER}>
         <header className="space-y-2">
-          <h1 className="font-arabic text-2xl font-semibold text-foreground">{t('title')}</h1>
+          <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
           <p className="text-sm text-foreground/65">{t('subtitle')}</p>
         </header>
 

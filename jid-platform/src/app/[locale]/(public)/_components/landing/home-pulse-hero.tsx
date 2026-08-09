@@ -23,7 +23,7 @@ export async function HomePulseHero() {
             <div className="space-y-4">
               <h1
                 id="home-hero-title"
-                className="text-balance font-arabic text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-[2.5rem] lg:leading-[1.15]"
+                className="text-balance text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-[2.5rem] lg:leading-[1.15]"
               >
                 {t('title')}
               </h1>

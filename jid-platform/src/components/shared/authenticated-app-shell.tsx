@@ -5,7 +5,14 @@ import { usePathname } from '@/lib/i18n/navigation'
 import { SmartHeader } from '@/components/layout/smart-header'
 import { EncryptionKeyBootstrap } from '@/components/shared/encryption-key-bootstrap'
 import { ProfileModeTransition } from '@/components/shared/profile-mode-transition'
+import { shouldHideAuthenticatedTopBar } from '@/lib/navigation/authenticated-shell-routes'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
+
+export {
+  PUBLIC_SHELL_PREFIXES,
+  isPublicProfilePath,
+  shouldHideAuthenticatedTopBar,
+} from '@/lib/navigation/authenticated-shell-routes'
 
 type AuthenticatedAppShellProps = {
   children: ReactNode
@@ -17,48 +24,6 @@ type AuthenticatedAppShellProps = {
   avatarUrl: string | null
   roleLabel: string
   dashboardHref: string
-}
-
-const PORTAL_PREFIXES = ['/staff', '/sys', '/login', '/signup', '/forgot-password', '/reset-password']
-
-/** Routes wrapped by `(public)/layout.tsx` — use PublicNav instead of this bar. */
-const PUBLIC_SHELL_PREFIXES = [
-  '/opportunities',
-  '/catalog',
-  '/mentors',
-  '/pulse',
-  '/universities',
-  '/maintenance',
-  '/privacy',
-  '/terms',
-  '/pdpl',
-  '/contact',
-  '/about',
-]
-
-/** Section 10 onboarding shell — dedicated layout, no portal top bar. */
-const ONBOARDING_SHELL_PREFIXES = ['/welcome', '/individual', '/company/entity']
-
-function shouldHideTopBar(pathname: string): boolean {
-  const normalized = pathname.replace(/^\/(ar|en)/, '') || '/'
-  if (normalized === '/' || normalized === '') return true
-  if (
-    PORTAL_PREFIXES.some(
-      (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
-    )
-  ) {
-    return true
-  }
-  if (
-    ONBOARDING_SHELL_PREFIXES.some(
-      (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
-    )
-  ) {
-    return true
-  }
-  return PUBLIC_SHELL_PREFIXES.some(
-    (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
-  )
 }
 
 /** Part 6 — individual-facing layouts use the unified smart header. */
@@ -74,7 +39,7 @@ export function AuthenticatedAppShell({
   dashboardHref,
 }: AuthenticatedAppShellProps) {
   const pathname = usePathname()
-  const showBar = isAuthenticated && !shouldHideTopBar(pathname)
+  const showBar = isAuthenticated && !shouldHideAuthenticatedTopBar(pathname)
 
   return (
     <>

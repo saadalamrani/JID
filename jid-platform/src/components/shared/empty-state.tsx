@@ -54,7 +54,7 @@ export function EmptyState({
       />
       <h2
         className={cn(
-          'font-arabic font-semibold text-foreground',
+          'font-semibold text-foreground',
           isPage ? 'mt-6 text-xl' : isColumn ? 'mt-0 text-sm' : 'mt-4 text-lg',
         )}
       >
@@ -63,7 +63,7 @@ export function EmptyState({
       {description ? (
         <p
           className={cn(
-            'font-arabic text-muted-foreground',
+            'text-muted-foreground',
             isPage ? 'mt-2 max-w-md text-sm' : isColumn ? 'mt-1 text-sm' : 'mx-auto mt-2 max-w-sm text-sm',
           )}
         >

@@ -49,7 +49,7 @@ export function SmartHeaderMobileMenu({ items, isActive }: SmartHeaderMobileMenu
           )}
         >
           <DialogHeader className="border-b border-border px-4 py-4 text-start">
-            <DialogTitle className="font-arabic text-base text-foreground">
+            <DialogTitle className="text-base text-foreground">
               {t('menuTitle')}
             </DialogTitle>
           </DialogHeader>

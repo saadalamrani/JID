@@ -25,7 +25,7 @@ export async function ModulesShowcase() {
     <section className="border-b border-border bg-background py-16">
       <div className="container-jid">
         <header className="mx-auto max-w-2xl text-center">
-          <h2 className="font-arabic text-2xl font-semibold text-foreground md:text-3xl">
+          <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
             {t('title')}
           </h2>
           <p className="text-foreground/65 mt-3 text-sm leading-relaxed">{t('subtitle')}</p>
@@ -41,7 +41,7 @@ export async function ModulesShowcase() {
                 className="group flex h-full flex-col border-b border-border pb-5 transition-colors hover:border-jid-olive/40"
               >
                 <Icon className="h-5 w-5 text-jid-olive" aria-hidden />
-                <h3 className="mt-4 font-arabic text-base font-semibold text-foreground group-hover:text-jid-olive">
+                <h3 className="mt-4 text-base font-semibold text-foreground group-hover:text-jid-olive">
                   {t(`items.${module.key}.title`)}
                 </h3>
                 <p className="text-foreground/65 mt-2 flex-1 text-sm leading-relaxed">

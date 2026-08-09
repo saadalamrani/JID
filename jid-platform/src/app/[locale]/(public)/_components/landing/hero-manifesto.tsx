@@ -10,7 +10,7 @@ export async function HeroManifesto() {
       <div className="container-jid py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-medium text-jid-olive">{t('eyebrow')}</p>
-          <h1 className="mt-4 text-balance font-arabic text-4xl font-bold leading-tight text-foreground md:text-5xl">
+          <h1 className="mt-4 text-balance text-4xl font-bold leading-tight text-foreground md:text-5xl">
             {t('title')}
           </h1>
           <p className="text-foreground/75 mx-auto mt-6 max-w-2xl text-lg leading-relaxed">

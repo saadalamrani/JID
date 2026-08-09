@@ -9,7 +9,6 @@ export const INDIVIDUAL_QUICK_ACTIONS: IndividualQuickAction[] = [
   { key: 'opportunities', href: '/opportunities', keywords: ['jobs', 'careers'] },
   { key: 'mentors', href: '/mentors', keywords: ['mentorship'] },
   { key: 'catalog', href: '/catalog', keywords: ['companies'] },
-  { key: 'pulse', href: '/pulse', keywords: ['news', 'announcements'] },
   { key: 'profile', href: '/profile', keywords: ['me', 'account'] },
   { key: 'radar', href: '/radar', keywords: ['meetings', 'sessions'] },
   { key: 'cv', href: '/profile/cv', keywords: ['resume', 'builder'] },

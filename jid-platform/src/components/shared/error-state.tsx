@@ -40,13 +40,13 @@ export function ErrorState({
       ) : null}
       <h1
         className={cn(
-          'font-arabic text-lg font-semibold text-destructive',
+          'text-lg font-semibold text-destructive',
           showIcon && 'mt-3',
         )}
       >
         {title}
       </h1>
-      {message ? <p className="mt-2 font-arabic text-sm text-destructive/90">{message}</p> : null}
+      {message ? <p className="mt-2 text-sm text-destructive/90">{message}</p> : null}
       {(onRetry || secondaryAction) && (
         <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
           {onRetry ? (

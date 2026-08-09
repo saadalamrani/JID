@@ -10,7 +10,7 @@ export async function ProblemStatement() {
     <section className="border-b border-border bg-card py-16">
       <div className="container-jid">
         <header className="mx-auto max-w-2xl text-center">
-          <h2 className="font-arabic text-2xl font-semibold text-foreground md:text-3xl">
+          <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
             {t('title')}
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-foreground/65">{t('subtitle')}</p>

@@ -15,7 +15,7 @@ export async function PdplTrustBar() {
               <ShieldCheck className="h-6 w-6 text-accent" aria-hidden />
             </span>
             <div>
-              <h2 className="font-arabic text-lg font-semibold">{t('title')}</h2>
+              <h2 className="text-lg font-semibold">{t('title')}</h2>
               <p className="text-primary-foreground/85 mt-1 max-w-2xl text-sm leading-relaxed">
                 {t('body')}
               </p>

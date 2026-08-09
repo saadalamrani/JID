@@ -111,10 +111,10 @@ export function SmartHeader({
         <div className="container-jid grid h-16 grid-cols-[auto_1fr_auto] items-center gap-3 md:grid-cols-[1fr_auto_1fr] md:gap-4">
           <div className="flex min-w-0 items-center gap-2">
             <SmartHeaderMobileMenu items={SMART_HEADER_NAV_ITEMS} isActive={checkActive} />
-            <div className="flex h-8 min-w-0 max-w-[5.5rem] shrink-0 items-center overflow-hidden">
+            <div className="flex h-8 min-w-0 shrink-0 items-center">
               <Link
                 href="/"
-                className="flex h-8 items-center overflow-hidden"
+                className="flex h-8 items-center"
                 aria-label={tNav('homeAria', { name: 'JID' })}
               >
                 <Logo size="md" appearance="on-dark" />
