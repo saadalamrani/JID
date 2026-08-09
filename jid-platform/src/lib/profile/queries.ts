@@ -165,10 +165,7 @@ export async function getCurrentViewer(): Promise<ProfileViewer> {
 
   const claimRow = companyClaim as { directory_id?: string } | null
   const companyId = claimRow?.directory_id ?? null
-  const isVerified =
-    role !== null &&
-    (role as string) === 'company_admin' &&
-    companyId !== null
+  const isVerified = role !== null && (role as string) === 'company_admin' && companyId !== null
 
   const mentorStatus = (mentorRow as { status?: string } | null)?.status
 
@@ -211,7 +208,133 @@ export type ProfilePageContext = {
   city: string | null
 }
 
-export async function fetchProfilePageContext(profileId: string): Promise<ProfilePageContext | null> {
+export type PublicProfilePageContext = {
+  profileId: string
+  fullName: string | null
+  headline: string | null
+  aboutMe: string | null
+  avatarUrl: string | null
+  targetSectors: string[]
+  targetProgramTypes: string[]
+  targetRegions: string[]
+  portfolioUrl: string | null
+  graduationYear: number | null
+  studentStatus: string | null
+  showGraduateBadge: boolean
+  allowContact: boolean
+  skills: ProfileSkillRow[]
+  universityName: string | null
+  collegeName: string | null
+  majorName: string | null
+  city: string | null
+}
+
+/**
+ * Database-enforced L6 source for a non-owner viewer. The projection/view omits
+ * every operational profiles column and returns no row when the audience gate
+ * denies access.
+ */
+export async function fetchPublicProfilePageContext(
+  profileId: string,
+): Promise<PublicProfilePageContext | null> {
+  const client = asUntyped(await createClient())
+  const { data, error } = await client
+    .from('individual_profile_public_projection')
+    .select(
+      `
+      id,
+      full_name,
+      headline,
+      about_me,
+      avatar_url,
+      target_sectors,
+      target_program_types,
+      target_regions,
+      portfolio_url,
+      university_id,
+      college_id,
+      major_id,
+      graduation_year,
+      student_status,
+      show_graduate_badge,
+      allow_contact
+    `,
+    )
+    .eq('id', profileId)
+    .maybeSingle()
+
+  if (error || !data) return null
+
+  const row = data as Record<string, unknown>
+  const [skillResult, universityResult, collegeResult, majorResult] = await Promise.all([
+    client
+      .from('individual_profile_public_skills')
+      .select('skill_id, name, name_ar')
+      .eq('profile_id', profileId),
+    row.university_id
+      ? client
+          .from('universities_catalog')
+          .select('name_ar, name_en')
+          .eq('id', String(row.university_id))
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    row.college_id
+      ? client
+          .from('colleges_catalog')
+          .select('name_ar, name_en')
+          .eq('id', String(row.college_id))
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    row.major_id
+      ? client
+          .from('majors_catalog')
+          .select('name, name_ar')
+          .eq('id', String(row.major_id))
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+  ])
+
+  const skills = (skillResult.data ?? []).map((skill) => {
+    const record = skill as Record<string, unknown>
+    return {
+      id: String(record.skill_id),
+      name: String(record.name),
+      name_ar: (record.name_ar as string | null) ?? null,
+    }
+  })
+  const university = universityResult.data as {
+    name_ar?: string | null
+    name_en?: string | null
+  } | null
+  const college = collegeResult.data as { name_ar?: string | null; name_en?: string | null } | null
+  const major = majorResult.data as { name?: string | null; name_ar?: string | null } | null
+  const targetRegions = (row.target_regions as string[]) ?? []
+
+  return {
+    profileId: String(row.id),
+    fullName: (row.full_name as string | null) ?? null,
+    headline: (row.headline as string | null) ?? null,
+    aboutMe: (row.about_me as string | null) ?? null,
+    avatarUrl: (row.avatar_url as string | null) ?? null,
+    targetSectors: (row.target_sectors as string[]) ?? [],
+    targetProgramTypes: (row.target_program_types as string[]) ?? [],
+    targetRegions,
+    portfolioUrl: (row.portfolio_url as string | null) ?? null,
+    graduationYear: row.graduation_year != null ? Number(row.graduation_year) : null,
+    studentStatus: (row.student_status as string | null) ?? null,
+    showGraduateBadge: Boolean(row.show_graduate_badge),
+    allowContact: Boolean(row.allow_contact),
+    skills,
+    universityName: university?.name_ar ?? university?.name_en ?? null,
+    collegeName: college?.name_ar ?? college?.name_en ?? null,
+    majorName: major?.name_ar ?? major?.name ?? null,
+    city: targetRegions[0] ?? null,
+  }
+}
+
+export async function fetchProfilePageContext(
+  profileId: string,
+): Promise<ProfilePageContext | null> {
   const profile = await fetchProfileRawById(profileId)
   if (!profile) return null
 
@@ -369,7 +492,9 @@ function mapCompanyRow(row: Record<string, unknown>): CompanyProfileRecord {
   }
 }
 
-export async function fetchCompanyPageContext(companyId: string): Promise<CompanyPageContext | null> {
+export async function fetchCompanyPageContext(
+  companyId: string,
+): Promise<CompanyPageContext | null> {
   const company = await fetchCompany(companyId)
   if (!company) return null
 
@@ -479,12 +604,10 @@ export async function fetchMentorReviews(
   mentorId: string,
   limit = 3,
 ): Promise<MentorReviewRecord[]> {
-  const client = await getOrchestrationClient()
+  const client = asUntyped(await createClient())
   const { data, error } = await client
-    .from('mentor_reviews')
-    .select(
-      'id, rating, review_text, visibility, created_at, reviewer_id, profiles:reviewer_id (full_name)',
-    )
+    .from('mentor_review_public_projection')
+    .select('id, rating, review_text, visibility, created_at, reviewer_name')
     .eq('mentor_id', mentorId)
     .in('visibility', ['public_named', 'public_anonymous'])
     .order('created_at', { ascending: false })
@@ -494,10 +617,9 @@ export async function fetchMentorReviews(
 
   return (data ?? []).map((row) => {
     const record = row as Record<string, unknown>
-    const nested = record.profiles as { full_name?: string | null } | null
     const visibility = String(record.visibility) as MentorReviewRecord['visibility']
     const reviewerName =
-      visibility === 'public_named' ? (nested?.full_name ?? null) : null
+      visibility === 'public_named' ? ((record.reviewer_name as string | null) ?? null) : null
 
     return {
       id: String(record.id),
@@ -534,7 +656,10 @@ export async function fetchSkillsCatalog(): Promise<SkillCatalogRow[]> {
 
 export async function fetchProfileSkillIds(profileId: string): Promise<string[]> {
   const client = await getOrchestrationClient()
-  const { data } = await client.from('profile_skills').select('skill_id').eq('profile_id', profileId)
+  const { data } = await client
+    .from('profile_skills')
+    .select('skill_id')
+    .eq('profile_id', profileId)
   return (data ?? []).map((row) => String((row as { skill_id: string }).skill_id))
 }
 

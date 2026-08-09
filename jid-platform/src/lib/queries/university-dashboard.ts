@@ -8,12 +8,12 @@ import type { Database } from '@/lib/supabase/types'
 export type UniversityDashboardSnapshot = {
   university_id: string
   total_students: number
-  college_distribution: Record<string, number>
+  college_distribution: Record<string, number> | null
   profile_completion_pct: number
   cv_creation_pct: number
   job_applications: number
   mentorship_sessions: number
-  status_breakdown: Record<string, number>
+  status_breakdown: Record<string, number> | null
   refreshed_at: string
 }
 
