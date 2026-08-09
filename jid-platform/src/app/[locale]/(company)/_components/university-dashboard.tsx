@@ -27,7 +27,9 @@ function formatPct(value: number) {
   return `${Number.isFinite(value) ? value.toFixed(1) : '0.0'}%`
 }
 
-function parseMap(input: Record<string, number> | string | null | undefined): Record<string, number> {
+function parseMap(
+  input: Record<string, number> | string | null | undefined,
+): Record<string, number> {
   if (!input) return {}
   if (typeof input === 'string') {
     try {
@@ -39,7 +41,9 @@ function parseMap(input: Record<string, number> | string | null | undefined): Re
   return input
 }
 
-function pickSnapshot(rows: UniversityDashboardSnapshot[] | undefined): UniversityDashboardSnapshot | null {
+function pickSnapshot(
+  rows: UniversityDashboardSnapshot[] | undefined,
+): UniversityDashboardSnapshot | null {
   if (!rows?.length) return null
   return rows[0] ?? null
 }
@@ -182,7 +186,7 @@ export function UniversityDashboard() {
   if (query.isLoading) {
     return (
       <section className="rounded-2xl border border-border bg-background p-6" role="status">
-        <p className="text-sm text-foreground/60">{t('loading')}</p>
+        <p className="text-foreground/60 text-sm">{t('loading')}</p>
       </section>
     )
   }
@@ -215,19 +219,23 @@ export function UniversityDashboard() {
       <header className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-background p-5">
         <div>
           <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
-          <p className="mt-1 text-sm text-foreground/65">
+          <p className="text-foreground/65 mt-1 text-sm">
             {t('refreshedAt')}: {refreshedLabel}
           </p>
         </div>
         <Button
           type="button"
-          className="min-h-11 gap-2 bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring"
+          className="hover:bg-primary/90 min-h-11 gap-2 bg-primary text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring"
           onClick={() => void handleExport()}
           disabled={exporting}
           aria-label={t('exportAria')}
           data-testid="university-dashboard-export"
         >
-          {exporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+          {exporting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Download className="h-4 w-4" />
+          )}
           {exporting ? t('exporting') : t('exportPdf')}
         </Button>
       </header>
@@ -254,17 +262,17 @@ export function UniversityDashboard() {
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <article className="rounded-2xl border border-border bg-background p-5">
           <h2 className="mb-3 text-lg font-semibold text-foreground">{t('statusBreakdown')}</h2>
-          <StatusBreakdownBars data={snapshot.status_breakdown} />
+          <StatusBreakdownBars data={parseMap(snapshot.status_breakdown)} />
         </article>
         <article className="rounded-2xl border border-border bg-background p-5">
           <h2 className="mb-3 text-lg font-semibold text-foreground">{t('collegeDistribution')}</h2>
-          <CollegeDistributionBars data={snapshot.college_distribution} />
+          <CollegeDistributionBars data={parseMap(snapshot.college_distribution)} />
         </article>
       </section>
 
-      <section className="rounded-2xl border border-accent/40 bg-background/50 p-5">
+      <section className="border-accent/40 bg-background/50 rounded-2xl border p-5">
         <h2 className="text-lg font-semibold text-foreground">{t('mentorshipTitle')}</h2>
-        <p className="mt-1 text-sm text-foreground/70">
+        <p className="text-foreground/70 mt-1 text-sm">
           {t('mentorshipBody', { count: snapshot.mentorship_sessions })}
         </p>
       </section>

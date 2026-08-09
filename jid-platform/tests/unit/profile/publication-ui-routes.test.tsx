@@ -228,9 +228,8 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
       .filter((name) => name.endsWith('.sql'))
       .sort()
     const later = migrations.filter((name) => name > '20260730190003_profile_publication_rpcs.sql')
-    // Spec 09-D residue repair, university dashboard view remap, and the two
-    // adjacent Catalog migrations. The shipping migration must not replace
-    // any established publication RPC.
+    // Later nonpublication contracts may ship, but none may replace an
+    // established publication RPC.
     const allowed = [
       '20260802090000_repair_claim_requests_residue_helpers.sql',
       '20260802120000_university_dashboard_view_owner_scope.sql',
@@ -240,6 +239,7 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
       '20260803120200_lammah_phase1_workflows.sql',
       '20260805120000_remove_deferred_search_product_artifacts.sql',
       '20260805190100_catalog_review_auth_wrappers.sql',
+      '20260809065512_security_privacy_gate_a.sql',
     ]
     expect(later).toEqual(allowed)
     for (const name of allowed) {
