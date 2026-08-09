@@ -16,6 +16,10 @@ import { track } from '@/lib/analytics/track'
 import type { EntitySignupType, EntityWizardStep } from '@/lib/entity/constants'
 import { getLatestClaimForUser } from '@/lib/entity/claims'
 import {
+  mapWizardStepToJourneyChapter,
+  type EntityWizardPhase,
+} from '@/lib/entity/journey-chapters'
+import {
   clearWizardState,
   loadWizardState,
   saveWizardState,
@@ -28,8 +32,6 @@ import type { EntityAccountFormValues } from '@/lib/validations/entity'
 type EntitySignupWizardProps = {
   entityType: EntitySignupType
 }
-
-type EntityPhase = 'selection' | 'claim'
 
 const HYDRATION_TIMEOUT_MS = 5_000
 
@@ -60,17 +62,18 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
   const t = useTranslations('entity.wizard')
   const router = useRouter()
   const [step, setStep] = useState<EntityWizardStep>('account')
-  const [entityPhase, setEntityPhase] = useState<EntityPhase>('selection')
+  const [entityPhase, setEntityPhase] = useState<EntityWizardPhase>('selection')
   const [submitting, setSubmitting] = useState(false)
   const [state, setState] = useState<EntityWizardState>({ step: 'account' })
   const [hydrated, setHydrated] = useState(false)
 
-  const stepLabels: Record<EntityWizardStep, string> = {
-    account: t('steps.account'),
-    entity: t('steps.entity'),
-    verify_email: t('steps.verifyEmail'),
-    pending: t('steps.pending'),
+  const chapterLabels = {
+    identify: t('chapters.identify'),
+    verify: t('chapters.verify'),
+    prepare: t('chapters.prepare'),
   }
+
+  const currentChapter = mapWizardStepToJourneyChapter(step, entityPhase)
 
   const persist = useCallback(
     (next: EntityWizardState) => {
@@ -220,8 +223,8 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
       <WizardShell
         title={t(`title.${entityType}`)}
         subtitle={t('loading')}
-        currentStep="account"
-        stepLabels={stepLabels}
+        currentChapter="identify"
+        chapterLabels={chapterLabels}
       >
         <p className="text-foreground/60 text-center text-sm">{t('loading')}</p>
       </WizardShell>
@@ -232,8 +235,8 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
     <WizardShell
       title={t(`title.${entityType}`)}
       subtitle={t(`subtitle.${entityType}`)}
-      currentStep={step}
-      stepLabels={stepLabels}
+      currentChapter={currentChapter}
+      chapterLabels={chapterLabels}
     >
       {step === 'account' ? (
         <StepAccount submitting={submitting} onSubmit={handleAccountSubmit} />

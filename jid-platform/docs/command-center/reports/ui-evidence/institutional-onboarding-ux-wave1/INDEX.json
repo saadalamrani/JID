@@ -1,0 +1,285 @@
+{
+  "generatedAt": "2026-08-09T10:16:10.473Z",
+  "captures": [
+    {
+      "filename": "actor-selection-ar-desktop.png",
+      "html": "actor-selection-ar-desktop.html",
+      "route": "/signup/entity-type",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "actor_selection",
+      "pass": true
+    },
+    {
+      "filename": "business-org-selection-ar-desktop.png",
+      "html": "business-org-selection-ar-desktop.html",
+      "route": "/signup/company",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "org_selection_business",
+      "pass": true
+    },
+    {
+      "filename": "university-org-selection-ar-desktop.png",
+      "html": "university-org-selection-ar-desktop.html",
+      "route": "/signup/university",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "org_selection_university",
+      "pass": true
+    },
+    {
+      "filename": "verification-form-ar-desktop.png",
+      "html": "verification-form-ar-desktop.html",
+      "route": "/signup/company",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "verification_form",
+      "pass": true
+    },
+    {
+      "filename": "pending-ar-desktop.png",
+      "html": "pending-ar-desktop.html",
+      "route": "/company/verification-pending",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "pending",
+      "pass": true
+    },
+    {
+      "filename": "rejected-reapply-ar-desktop.png",
+      "html": "rejected-reapply-ar-desktop.html",
+      "route": "/company/verification-rejected",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "rejected",
+      "pass": true
+    },
+    {
+      "filename": "reapply-ar-desktop.png",
+      "html": "reapply-ar-desktop.html",
+      "route": "/company/verification/reapply",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "reapply",
+      "pass": true
+    },
+    {
+      "filename": "approved-no-profile-ar-desktop.png",
+      "html": "approved-no-profile-ar-desktop.html",
+      "route": "/company/create-profile",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "approved_no_profile",
+      "pass": true
+    },
+    {
+      "filename": "create-profile-business-ar-desktop.png",
+      "html": "create-profile-business-ar-desktop.html",
+      "route": "/company/create-profile",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "create_profile_business",
+      "pass": true
+    },
+    {
+      "filename": "create-profile-university-ar-desktop.png",
+      "html": "create-profile-university-ar-desktop.html",
+      "route": "/university/create-profile",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "desktop",
+      "state": "create_profile_university",
+      "pass": true
+    },
+    {
+      "filename": "actor-selection-en-desktop.png",
+      "html": "actor-selection-en-desktop.html",
+      "route": "/signup/entity-type",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "actor_selection",
+      "pass": true
+    },
+    {
+      "filename": "business-org-selection-en-desktop.png",
+      "html": "business-org-selection-en-desktop.html",
+      "route": "/signup/company",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "org_selection_business",
+      "pass": true
+    },
+    {
+      "filename": "university-org-selection-en-desktop.png",
+      "html": "university-org-selection-en-desktop.html",
+      "route": "/signup/university",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "org_selection_university",
+      "pass": true
+    },
+    {
+      "filename": "verification-form-en-desktop.png",
+      "html": "verification-form-en-desktop.html",
+      "route": "/signup/company",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "verification_form",
+      "pass": true
+    },
+    {
+      "filename": "pending-en-desktop.png",
+      "html": "pending-en-desktop.html",
+      "route": "/company/verification-pending",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "pending",
+      "pass": true
+    },
+    {
+      "filename": "rejected-reapply-en-desktop.png",
+      "html": "rejected-reapply-en-desktop.html",
+      "route": "/company/verification-rejected",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "rejected",
+      "pass": true
+    },
+    {
+      "filename": "reapply-en-desktop.png",
+      "html": "reapply-en-desktop.html",
+      "route": "/company/verification/reapply",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "reapply",
+      "pass": true
+    },
+    {
+      "filename": "approved-no-profile-en-desktop.png",
+      "html": "approved-no-profile-en-desktop.html",
+      "route": "/company/create-profile",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "approved_no_profile",
+      "pass": true
+    },
+    {
+      "filename": "create-profile-business-en-desktop.png",
+      "html": "create-profile-business-en-desktop.html",
+      "route": "/company/create-profile",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "create_profile_business",
+      "pass": true
+    },
+    {
+      "filename": "create-profile-university-en-desktop.png",
+      "html": "create-profile-university-en-desktop.html",
+      "route": "/university/create-profile",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "desktop",
+      "state": "create_profile_university",
+      "pass": true
+    },
+    {
+      "filename": "actor-selection-ar-mobile.png",
+      "html": "actor-selection-ar-mobile.html",
+      "route": "/signup/entity-type",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "mobile",
+      "state": "actor_selection",
+      "pass": true
+    },
+    {
+      "filename": "verification-form-ar-mobile.png",
+      "html": "verification-form-ar-mobile.html",
+      "route": "/signup/company",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "mobile",
+      "state": "verification_form",
+      "pass": true
+    },
+    {
+      "filename": "pending-ar-mobile.png",
+      "html": "pending-ar-mobile.html",
+      "route": "/company/verification-pending",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "mobile",
+      "state": "pending",
+      "pass": true
+    },
+    {
+      "filename": "approved-no-profile-ar-mobile.png",
+      "html": "approved-no-profile-ar-mobile.html",
+      "route": "/company/create-profile",
+      "locale": "ar",
+      "direction": "rtl",
+      "viewport": "mobile",
+      "state": "approved_no_profile",
+      "pass": true
+    },
+    {
+      "filename": "actor-selection-en-mobile.png",
+      "html": "actor-selection-en-mobile.html",
+      "route": "/signup/entity-type",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "mobile",
+      "state": "actor_selection",
+      "pass": true
+    },
+    {
+      "filename": "verification-form-en-mobile.png",
+      "html": "verification-form-en-mobile.html",
+      "route": "/signup/company",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "mobile",
+      "state": "verification_form",
+      "pass": true
+    },
+    {
+      "filename": "pending-en-mobile.png",
+      "html": "pending-en-mobile.html",
+      "route": "/company/verification-pending",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "mobile",
+      "state": "pending",
+      "pass": true
+    },
+    {
+      "filename": "approved-no-profile-en-mobile.png",
+      "html": "approved-no-profile-en-mobile.html",
+      "route": "/company/create-profile",
+      "locale": "en",
+      "direction": "ltr",
+      "viewport": "mobile",
+      "state": "approved_no_profile",
+      "pass": true
+    }
+  ]
+}

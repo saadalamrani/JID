@@ -75,9 +75,15 @@ export function ClaimSubmissionForm({
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="space-y-4"
+      noValidate
+      data-testid="verification-submission-form"
+    >
       <div className="rounded-md bg-background p-3 text-sm text-foreground/80">
         <p className="font-medium text-foreground">{companyName}</p>
+        <p className="mt-2 text-foreground">{t('intro')}</p>
         <p className="mt-1">{t('domainHint')}</p>
       </div>
 

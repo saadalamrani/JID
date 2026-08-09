@@ -26,6 +26,7 @@ export function PendingReviewView({ claim }: PendingReviewViewProps) {
   const overdue = elapsed > SLA_HOURS
   const progress = slaProgressPercent(claim.created_at, SLA_HOURS)
   const remainingHours = Math.max(0, SLA_HOURS - elapsed)
+  const isNeedsMoreInfo = claim.status === 'needs_more_info'
 
   return (
     <OrgOutcomePanel tone={overdue ? 'rejected' : 'pending'} testId="pending-review-panel">
@@ -35,15 +36,15 @@ export function PendingReviewView({ claim }: PendingReviewViewProps) {
         </div>
         <div>
           <h1 className="text-xl font-semibold text-foreground">
-            {claim.status === 'needs_more_info' ? t('needsMoreInfoTitle') : t('title')}
+            {isNeedsMoreInfo ? t('needsMoreInfoTitle') : t('title')}
           </h1>
           <p className="text-sm text-muted-foreground">
-            {claim.status === 'needs_more_info' ? t('needsMoreInfoSubtitle') : t('subtitle')}
+            {isNeedsMoreInfo ? t('needsMoreInfoSubtitle') : t('subtitle')}
           </p>
         </div>
       </div>
 
-      {claim.status === 'needs_more_info' ? (
+      {isNeedsMoreInfo ? (
         <p
           data-testid="awaiting-more-information"
           className="mb-6 rounded-md border border-border bg-jid-beige/60 p-3 text-sm text-foreground"
@@ -51,6 +52,25 @@ export function PendingReviewView({ claim }: PendingReviewViewProps) {
           {t('needsMoreInfoBody')}
         </p>
       ) : null}
+
+      <div className="mb-6 space-y-4 text-sm">
+        <section>
+          <h2 className="font-medium text-foreground">{t('whatHappened')}</h2>
+          <p className="mt-1 text-muted-foreground">{t('whatHappenedBody')}</p>
+        </section>
+        <section>
+          <h2 className="font-medium text-foreground">{t('whatWeReview')}</h2>
+          <p className="mt-1 text-muted-foreground">{t('whatWeReviewBody')}</p>
+        </section>
+        <section>
+          <h2 className="font-medium text-foreground">{t('whatYouCanDo')}</h2>
+          <p className="mt-1 text-muted-foreground">{t('whatYouCanDoBody')}</p>
+        </section>
+        <section>
+          <h2 className="font-medium text-foreground">{t('whatNext')}</h2>
+          <p className="mt-1 text-muted-foreground">{t('whatNextBody')}</p>
+        </section>
+      </div>
 
       <div className="mb-6 space-y-2 rounded-md border border-border bg-jid-beige/40 p-4 text-sm">
         <p>

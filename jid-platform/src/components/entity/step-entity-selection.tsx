@@ -164,18 +164,25 @@ export function StepEntitySelection({
       >
         <TabsList>
           <TabsTrigger value="existing">
-            {entityType === 'university' ? 'اختر الجامعة' : t('tabs.existing')}
+            {entityType === 'university' ? t('tabs.university') : t('tabs.existing')}
           </TabsTrigger>
           {canCreateNew ? <TabsTrigger value="new">{t('tabs.new')}</TabsTrigger> : null}
         </TabsList>
 
         <TabsContent value="existing" className="space-y-4">
-          <FormField id="company_search" label={t('searchLabel')}>
+          <FormField
+            id="company_search"
+            label={entityType === 'university' ? t('universitySearchLabel') : t('searchLabel')}
+          >
             <Combobox
               options={options}
               value={selectedId}
               onValueChange={setSelectedId}
-              placeholder={t('searchPlaceholder')}
+              placeholder={
+                entityType === 'university'
+                  ? t('universitySearchPlaceholder')
+                  : t('searchPlaceholder')
+              }
               searchPlaceholder={t('searchInputPlaceholder')}
               emptyText={loading ? t('loading') : t('searchEmpty')}
               onSearchChange={setSearch}
@@ -210,6 +217,7 @@ export function StepEntitySelection({
 
         <TabsContent value="new">
           <form onSubmit={newForm.handleSubmit(handleNewSubmit)} className="space-y-4" noValidate>
+            <p className="text-sm text-muted-foreground">{t('newIntro')}</p>
             <FormField
               id="name"
               label={t('newName')}

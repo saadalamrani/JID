@@ -1068,8 +1068,8 @@
       "contactSupport": "Contact support"
     },
     "profileCreation": {
-      "title": "Create your business profile",
-      "subtitle": "You are authoring a public profile for your organization — it may differ from the official directory listing.",
+      "title": "Prepare your organization Profile",
+      "subtitle": "This is where you set up your organization's presence on JID. It starts as a draft — you publish when ready.",
       "steps": {
         "identity": "Identity",
         "story": "Story & brand",
@@ -1077,13 +1077,13 @@
       },
       "back": "Back",
       "next": "Next",
-      "create": "Create draft profile",
+      "create": "Create draft Profile",
       "creating": "Creating...",
-      "created": "Your business profile draft is ready",
+      "created": "Your organization Profile draft is ready",
       "createFailed": "Could not create profile",
       "validationFailed": "Please fix the required fields",
       "identity": {
-        "directoryHint": "Official directory name: {name}. You may choose a different public profile name.",
+        "directoryHint": "Official reference name: {name}. You may use a different public display name.",
         "displayNameAr": "Display name (Arabic)",
         "displayNameEn": "Display name (English — optional)",
         "taglineAr": "Short tagline (optional)"
@@ -1447,21 +1447,21 @@
       "contactSupport": "Contact support"
     },
     "profileCreation": {
-      "title": "Create your university profile",
-      "subtitle": "You are authoring a public profile for your institution — it may differ from the official directory listing.",
+      "title": "Prepare your university Profile",
+      "subtitle": "This is where you set up your university's presence on JID. It starts as a draft — you publish when ready.",
       "steps": {
         "identity": "Identity",
         "preview": "Preview & create"
       },
       "back": "Back",
       "next": "Next",
-      "create": "Create draft profile",
+      "create": "Create draft Profile",
       "creating": "Creating...",
-      "created": "Your university profile draft is ready",
+      "created": "Your university Profile draft is ready",
       "createFailed": "Could not create profile",
       "validationFailed": "Please fix the required fields",
       "identity": {
-        "directoryHint": "Official directory name: {name}. You may choose a different public profile name.",
+        "directoryHint": "Official reference name: {name}. You may use a different public display name.",
         "displayNameAr": "Display name (Arabic)",
         "displayNameEn": "Display name (English — optional)",
         "aboutAr": "About (Arabic — optional)",
@@ -1476,53 +1476,53 @@
       }
     },
     "approvedWithoutProfile": {
-      "title": "Verification approved",
-      "message": "Approval licensed you to create your Profile. Nothing was created automatically — create your owned university Profile to continue.",
-      "cta": "Create university profile"
+      "title": "You're verified to represent this university",
+      "message": "You can now prepare its JID Profile. Verification confirms representation — the Profile is created when you choose to prepare it.",
+      "cta": "Prepare university Profile"
     }
   },
   "entity": {
     "approvedWithoutProfile": {
       "business": {
-        "title": "Verification approved",
-        "message": "Approval licensed you to create your Profile. Nothing was created automatically — create your owned Profile to continue.",
-        "cta": "Create business profile"
+        "title": "You're verified to represent this organization",
+        "message": "You can now prepare its JID Profile. Verification confirms representation — the Profile is created when you choose to prepare it.",
+        "cta": "Prepare organization Profile"
       },
       "university": {
-        "title": "Verification approved",
-        "message": "Approval licensed you to create your Profile. Nothing was created automatically — create your owned university Profile to continue.",
-        "cta": "Create university profile"
+        "title": "You're verified to represent this university",
+        "message": "You can now prepare its JID Profile. Verification confirms representation — the Profile is created when you choose to prepare it.",
+        "cta": "Prepare university Profile"
       }
     },
     "entityType": {
-      "title": "Entity account type",
-      "subtitle": "Choose the type of organization you represent",
+      "title": "Who do you represent?",
+      "subtitle": "Choose Business or University to begin setup",
       "hasAccount": "Already have an account?",
       "loginLink": "Sign in",
       "company": {
-        "title": "Company",
-        "description": "Register your company and submit a verification request"
+        "title": "Business",
+        "description": "I represent a company or organization"
       },
       "university": {
         "title": "University",
-        "description": "Register your university and submit a verification request"
+        "description": "I represent a university or higher-education institution"
       }
     },
     "wizard": {
       "title": {
-        "company": "Company signup",
-        "university": "University signup"
+        "company": "Business setup",
+        "university": "University setup"
       },
       "subtitle": {
-        "company": "Create an account and submit a company verification request",
-        "university": "Create an account and submit a university verification request"
+        "company": "Identify your organization, confirm your role, then prepare its Profile",
+        "university": "Identify your university, confirm your role, then prepare its Profile"
       },
       "loading": "Loading...",
       "steps": {
         "account": "Account",
-        "entity": "Entity",
-        "verifyEmail": "Verify email",
-        "pending": "Pending review"
+        "entity": "Organization",
+        "verifyEmail": "Confirm email",
+        "pending": "Under review"
       },
       "account": {
         "fullName": "Full name",
@@ -1537,10 +1537,11 @@
       },
       "entity": {
         "tabs": {
-          "existing": "Existing entity",
-          "new": "New entity"
+          "existing": "Find organization",
+          "new": "Can't find your organization?",
+          "university": "Select university"
         },
-        "searchLabel": "Search for company",
+        "searchLabel": "Find the organization you represent",
         "searchPlaceholder": "Select from the list",
         "searchInputPlaceholder": "Search by name...",
         "searchEmpty": "No results",
@@ -1553,65 +1554,82 @@
         "newNameAr": "Name (Arabic)",
         "newDomains": "Approved email domains",
         "newDomainsHint": "Separate domains with commas, e.g. example.com, mail.example.sa",
-        "changeCompany": "Change selected entity"
+        "changeCompany": "Change selected organization",
+        "universitySearchLabel": "Find the university you represent",
+        "universitySearchPlaceholder": "Select your university",
+        "newIntro": "Add its basic reference information. This does not create a Profile or grant ownership."
       },
       "verification": {
-        "domainHint": "Your business email must use one of the entity's approved domains",
-        "businessEmail": "Business email",
+        "intro": "Help us confirm that you are authorized to represent this organization.",
+        "domainHint": "Use a work email on one of the organization's approved domains",
+        "businessEmail": "Work email",
         "claimantName": "Your name",
-        "claimantTitle": "Job title",
-        "submit": "Submit verification request",
+        "claimantTitle": "Your role / job title",
+        "submit": "Confirm representation",
         "submitting": "Submitting...",
-        "submitted": "Verification request submitted",
-        "submitFailed": "Could not submit request"
+        "submitted": "Verification submitted",
+        "submitFailed": "Could not submit verification"
       },
       "verifyEmail": {
-        "instructions": "We sent a confirmation link to your email. Open it to complete signup.",
+        "instructions": "We sent a confirmation link to your email. Open it to continue setup.",
         "inbucketHint": "Locally: check Inbucket at http://127.0.0.1:54324",
-        "checkNow": "I've verified my email",
+        "checkNow": "I've confirmed my email",
         "checking": "Checking...",
         "continueToPending": "Continue to review status",
-        "spamHint": "Check your spam folder if you don't see the email"
+        "spamHint": "Check your spam folder if you do not see the email"
+      },
+      "chapters": {
+        "identify": "Identify your organization",
+        "verify": "Verify your representation",
+        "prepare": "Prepare your Profile"
       }
     },
     "pendingReview": {
-      "title": "Your request is under review",
-      "subtitle": "The JID team is reviewing your verification request",
+      "title": "We're reviewing your representation",
+      "subtitle": "Your details were submitted. Our team is confirming your authority to represent this organization.",
       "needsMoreInfoTitle": "Awaiting more information",
-      "needsMoreInfoSubtitle": "Your verification request needs additional information before review can continue",
-      "needsMoreInfoBody": "Awaiting more information — staff will follow up. There is no self-service response flow on this page.",
-      "company": "Entity",
+      "needsMoreInfoSubtitle": "Review paused until additional information is available",
+      "needsMoreInfoBody": "Staff will follow up. There is no self-service response on this page yet.",
+      "whatHappened": "What happened?",
+      "whatHappenedBody": "You submitted verification of your authority to represent this organization.",
+      "whatWeReview": "What are we reviewing?",
+      "whatWeReviewBody": "Your work email, name, and role against the organization you selected.",
+      "whatYouCanDo": "What can you do now?",
+      "whatYouCanDoBody": "Nothing else is required from you right now. We will notify you when the review is complete.",
+      "whatNext": "What happens next?",
+      "whatNextBody": "If approved, you can prepare your organization's Profile. Nothing is published automatically.",
+      "company": "Organization",
       "submittedBy": "Submitted by",
-      "businessEmail": "Business email",
-      "slaLabel": "Review SLA ({hours}h)",
+      "businessEmail": "Work email",
+      "slaLabel": "Standard review window ({hours}h)",
       "remainingMessage": "Approximate time remaining: {hours} hours",
       "overdueMessage": "Review is taking longer than usual",
-      "overdueAlert": "Your request is taking longer than our standard SLA. Our team will review it as soon as possible.",
-      "staffNote": "No need to resubmit — we'll notify you when the review is complete."
+      "overdueAlert": "Your request is taking longer than our standard window. Our team will review it as soon as possible.",
+      "staffNote": "No need to resubmit — we will notify you when the review is complete."
     },
     "rejected": {
-      "title": "Verification request rejected",
-      "reason": "Rejection reason",
+      "title": "Verification was not approved",
+      "reason": "Reason",
       "noReason": "No reason recorded",
-      "requiredDocuments": "Required documents",
-      "blockedUntil": "You can reapply after {date}",
-      "canReapplyNow": "You can reapply now",
-      "blockedMessage": "Reapplication is blocked until the waiting period ends.",
-      "reapplyCta": "Resubmit verification request"
+      "requiredDocuments": "What to correct",
+      "blockedUntil": "You can resubmit after {date}",
+      "canReapplyNow": "You can resubmit now",
+      "blockedMessage": "Resubmission is unavailable until the waiting period ends.",
+      "reapplyCta": "Resubmit verification"
     },
     "reapply": {
-      "title": "Resubmit verification request",
+      "title": "Resubmit verification",
       "loading": "Loading...",
-      "blocked": "The reapplication window has not opened yet.",
+      "blocked": "The resubmission window has not opened yet.",
       "back": "Back",
-      "error": "Could not load request details"
+      "error": "Could not load verification details"
     },
     "validation": {
       "fullNameMin": "Name must be at least 2 characters",
       "emailInvalid": "Invalid email address",
       "passwordWeak": "Password does not meet requirements",
       "acceptTerms": "You must accept the terms",
-      "companyNameMin": "Entity name must be at least 2 characters",
+      "companyNameMin": "Organization name must be at least 2 characters",
       "companyNameArMin": "Arabic name must be at least 2 characters",
       "domainsRequired": "Enter at least one domain",
       "domainsInvalid": "Invalid domain format",

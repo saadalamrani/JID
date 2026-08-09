@@ -175,7 +175,7 @@ describe('Spec 03 §8 state-resolution precedence', () => {
 })
 
 describe('Approved-without-profile notice copy', () => {
-  it('exposes no-auto-creation message and CTA keys for both actors', () => {
+  it('confirms representation and deliberate Profile preparation for both actors', () => {
     const en = load('en') as {
       entity: {
         approvedWithoutProfile: {
@@ -191,11 +191,12 @@ describe('Approved-without-profile notice copy', () => {
       const message = node.message ?? ''
       const cta = node.cta ?? ''
       const title = node.title ?? ''
-      expect(message.toLowerCase()).toMatch(
-        /nothing was created automatically|licensed you to create/,
-      )
-      expect(cta.toLowerCase()).toMatch(/create/)
-      expect(title.toLowerCase()).toMatch(/verification approved/)
+      expect(message.toLowerCase()).toMatch(/verification confirms representation/)
+      expect(message.toLowerCase()).toMatch(/prepare/)
+      expect(message.toLowerCase()).not.toMatch(/licensed/)
+      expect(message.toLowerCase()).not.toMatch(/owned profile/)
+      expect(cta.toLowerCase()).toMatch(/prepare/)
+      expect(title.toLowerCase()).toMatch(/verified to represent/)
     }
   })
 })
