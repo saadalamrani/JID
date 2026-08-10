@@ -34,7 +34,7 @@ Generated from JID-000. Work packages are journey-sized, dependency-aware, and l
 | Package | Scope | Depends on | Priority |
 |---|---|---|---|
 | JID-301 Communications & Notifications | Auto-reply disclaimer lock, smart batches, conversations/scheduling, preferences, quota/bounce/digest behavior | JID-201 | P1 |
-| JID-302 Smart Features | SSIS, Search-for-me, Lammah crawler, explainability, provider failures, entitlements; hide anything without real output | JID-201, JID-202 | P1 |
+| JID-302 Smart Features | SSIS, Lammah crawler, explainability, provider failures, entitlements; hide anything without real output | JID-201, JID-202 | P1 |
 | JID-303 University Consent Journey | Verification/profile, declared graduate relationship, consented outcomes, institutional reports, export permissions | JID-103 | P1 |
 | JID-304 Mentorship UI Regression | Complete UI journey against migrations 124–126 without reopening closed backend absent regression | JID-101 | P2 |
 

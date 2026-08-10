@@ -197,7 +197,8 @@ This program did **not** absorb:
 
 - Catalog automated ingestion
 - Lammah external-opportunity ingestion
-- ابحث لي
+
+Abhathli / ابحث لي is **DEFERRED INDEFINITELY — not an active JID roadmap commitment**.
 
 ## 23. CI / Vercel
 
