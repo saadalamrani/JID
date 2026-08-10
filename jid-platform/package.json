@@ -25,6 +25,7 @@
     "test:coverage": "vitest run --coverage",
     "test:rls": "vitest run tests/rls",
     "test:e2e": "playwright test",
+    "test:release-smoke": "playwright test -c playwright.release-smoke.config.ts",
     "playwright:ui": "playwright test --ui"
   },
   "dependencies": {
