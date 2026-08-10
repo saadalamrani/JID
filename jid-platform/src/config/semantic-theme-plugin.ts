@@ -20,6 +20,8 @@ function semanticCssVariables(mode: SemanticMode): Record<string, string> {
     '--color-text-secondary': resolveSemanticColor(semanticColors.textSecondary, mode),
     '--color-gold': resolveSemanticColor(semanticColors.gold, mode),
     '--color-olive': resolveSemanticColor(semanticColors.olive, mode),
+    '--color-olive-secondary': resolveSemanticColor(semanticColors.oliveSecondary, mode),
+    '--color-success': resolveSemanticColor(semanticColors.success, mode),
     '--color-danger': resolveSemanticColor(semanticColors.danger, mode),
     '--color-warning': resolveSemanticColor(semanticColors.warning, mode),
   }

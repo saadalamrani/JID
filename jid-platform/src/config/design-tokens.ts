@@ -88,6 +88,9 @@ export const semanticColors = {
   textSecondary: { light: colors.ink.soft, dark: 'rgba(247,245,239,0.65)' },
   gold: colors.gold.DEFAULT,
   olive: colors.olive.DEFAULT,
+  oliveSecondary: colors.olive.secondary,
+  /** Olive-adjacent success — not generic SaaS emerald. */
+  success: { light: '#2F6B4F', dark: '#7BC49A' },
   danger: { light: '#DC2626', dark: '#F87171' },
   warning: { light: '#D97706', dark: '#FBBF24' },
 } as const

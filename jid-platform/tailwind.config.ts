@@ -47,6 +47,14 @@ const config: Config = {
           DEFAULT: 'var(--color-gold)',
           foreground: 'var(--color-text-primary)',
         },
+        success: {
+          DEFAULT: 'var(--color-success)',
+          foreground: 'var(--color-background)',
+        },
+        warning: {
+          DEFAULT: 'var(--color-warning)',
+          foreground: 'var(--color-text-primary)',
+        },
         destructive: {
           DEFAULT: 'var(--color-danger)',
           foreground: 'var(--color-background)',
@@ -80,6 +88,8 @@ const config: Config = {
           'text-secondary': 'var(--color-text-secondary)',
           gold: 'var(--color-gold)',
           olive: 'var(--color-olive)',
+          'olive-secondary': 'var(--color-olive-secondary)',
+          success: 'var(--color-success)',
           danger: 'var(--color-danger)',
           warning: 'var(--color-warning)',
         },

@@ -6,10 +6,12 @@
   :root {
     /* JID brand reference tokens */
     --jid-olive: 100 12% 21%;
+    --jid-olive-secondary: 105 9% 28%; /* #414D40 */
     --jid-gold: 43 76% 56%;
     --jid-beige: 45 33% 95%;
     --jid-ink: 100 9% 11%;
     --jid-line: 100 8% 55%;
+    --jid-success: 148 39% 30%; /* #2F6B4F */
 
     /* shadcn semantic tokens — neutral base + JID brand */
     --background: 45 33% 95%;

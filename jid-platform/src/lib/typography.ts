@@ -1,10 +1,10 @@
 /**
  * Typography scale — Tailwind utility class bundles for consistent text hierarchy.
  *
- * Font tokens (Sprint 0, do not replace):
+ * Font tokens (locked Brand Identity — do not replace):
  * - `font-arabic` — IBM Plex Sans Arabic (body + Arabic UI)
- * - `font-display` / `font-latin` — Archivo (Latin display + headings)
- * - `font-mono` — IBM Plex Mono (code, numerals)
+ * - `font-display` / `font-latin` — Manrope (Latin display + headings)
+ * - `font-mono` — JetBrains Mono / IBM Plex Mono stack (code, numerals)
  *
  * CRITICAL: All Arabic-rendering levels use `tracking-normal` (letter-spacing: 0).
  * Negative tracking is Latin/display-only and must never apply to Arabic text.

@@ -9,7 +9,7 @@ export const fontArabic = IBM_Plex_Sans_Arabic({
   adjustFontFallback: true,
 })
 
-/** Official Brand Identity Latin face (replaces prior Archivo UI lock for product shells). */
+/** Locked Brand Identity Latin face (replaces prior Archivo UI lock for product shells). */
 export const fontLatin = Manrope({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
