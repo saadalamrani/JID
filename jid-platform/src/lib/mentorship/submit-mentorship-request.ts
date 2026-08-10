@@ -7,9 +7,16 @@ import {
   INTENT_STATEMENT_MIN_LENGTH,
   type CreateMentorshipRequestInput,
 } from '@/lib/validations/mentorship-request'
+import {
+  evaluateMentorRequestAvailability,
+  type MentorAvailabilityProjection,
+} from '@/lib/mentorship/mentor-request-availability'
 import type { MenteeSnapshot } from '@/types/mentorship-request'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
+
+export type { MentorAvailabilityProjection }
+export { evaluateMentorRequestAvailability }
 
 type Client = SupabaseClient<Database>
 type UntypedClient = SupabaseClient<Record<string, unknown>>
@@ -46,25 +53,24 @@ export async function submitMentorshipRequest(
     throw new Error(`يجب أن يكون هدف الطلب ${INTENT_STATEMENT_MIN_LENGTH} حرفاً على الأقل`)
   }
 
-  if (parsed.mentor_id === menteeId) {
-    throw new Error('لا يمكنك إرسال طلب إرشاد لنفسك')
-  }
-
   const supabase = await createClient()
   const client = asUntyped(supabase)
 
-  const { data: mentor, error: mentorError } = await supabase
-    .from('mentor_profiles')
-    .select('user_id, status, is_accepting_requests')
+  const { data: mentorRow, error: mentorError } = await client
+    .from('mentor_public_projection')
+    .select('user_id, is_accepting_requests')
     .eq('user_id', parsed.mentor_id)
     .maybeSingle()
 
   if (mentorError) throw new Error(mentorError.message)
-  if (!mentor || mentor.status !== 'approved') {
-    throw new Error('هذا المرشد غير متاح حالياً')
-  }
-  if (!mentor.is_accepting_requests) {
-    throw new Error('هذا المرشد لا يقبل طلبات جديدة حالياً')
+
+  const availability = evaluateMentorRequestAvailability(
+    menteeId,
+    parsed.mentor_id,
+    (mentorRow as MentorAvailabilityProjection | null) ?? null,
+  )
+  if (!availability.ok) {
+    throw new Error(availability.message)
   }
 
   const { data: profile, error: profileError } = await client

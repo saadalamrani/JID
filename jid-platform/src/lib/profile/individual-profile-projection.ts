@@ -237,18 +237,16 @@ async function loadMentorshipRows(userId: string, includeNames: boolean) {
   const nameById = new Map<string, string | null>()
   if (includeNames) {
     const mentorIds = Array.from(new Set(rows.map((r) => r.mentor_id)))
+    // Gate A: public-safe names only. Works under admin orchestration and under
+    // authenticated fallback after CONTRACT (no mentor_profiles public base read).
     const { data: mentors } = await client
-      .from('mentor_profiles')
-      .select('user_id, profile:profiles(full_name)')
+      .from('mentor_public_projection')
+      .select('user_id, full_name')
       .in('user_id', mentorIds)
 
     for (const m of mentors ?? []) {
-      const row = m as {
-        user_id: string
-        profile?: { full_name: string | null } | { full_name: string | null }[]
-      }
-      const profile = Array.isArray(row.profile) ? row.profile[0] : row.profile
-      nameById.set(row.user_id, profile?.full_name ?? null)
+      const row = m as { user_id: string; full_name: string | null }
+      nameById.set(row.user_id, row.full_name ?? null)
     }
   }
 

@@ -1,9 +1,16 @@
 # JID Security & Privacy Gate A — Expand/Contract Deployment Runbook
 
-Date: 2026-08-09 (Asia/Riyadh)  
-Branch: `codex/jid-security-privacy-gate-a-expand-contract`  
-Expected canonical base: `e876060706abd6c8fbb12d6a5f05df679d49632e`  
+Date: 2026-08-10 (Asia/Riyadh)
+Branch: `codex/jid-security-privacy-gate-a-expand-contract`
+Expected canonical base: `e876060706abd6c8fbb12d6a5f05df679d49632e`
 Scope: non-production only. Do not touch `main`, production, or hosted Supabase in this task.
+
+Claude findings closure: mentorship-request availability, server/client Radar timeline mentor identity, owner mentorship name hydration, and sitemap mentor slugs all read `mentor_public_projection` before CONTRACT.
+
+Rollback policy archive (exact pre-CONTRACT definitions):
+`docs/command-center/reports/ui-evidence/gate-a-expand-contract/CONTRACT_ROLLBACK_POLICY_ARCHIVE.md`
+
+University owner analytics remain fail-closed until dedicated University Identity Reconciliation. No name/slug/short-code bridge.
 
 ## Exact safe order
 
@@ -74,6 +81,9 @@ App dependencies created by EXPAND:
 
 - public profile reads → `individual_profile_public_projection` / `individual_profile_public_skills`
 - mentor public reads → `mentor_public_projection` / `mentor_review_public_projection`
+- mentorship request availability → `mentor_public_projection`
+- Radar timeline mentor identity (server + client) → `mentor_public_projection`
+- sitemap mentor slugs → `mentor_public_projection`
 - university owner dashboard → fail-closed `university_dashboard_view`
 
 ### Rollback after application deploy
@@ -88,10 +98,12 @@ Minimum non-production smoke after app deploy, before CONTRACT:
 
 1. Public Individual profile page renders from projection (denied → not-found).
 2. Public Mentor profile/list renders from mentor projection.
-3. Mentor review public fields render without reviewer identifiers leakage beyond projection columns.
-4. University owner dashboard remains empty/unavailable honestly (fail-closed).
-5. Owner/staff Individual and Mentor authenticated flows still work via base-table owner/staff RLS.
-6. Mentee can insert a review only for a completed meeting bound to the same mentor.
+3. Mentorship request: approved+accepting succeeds; not-accepting denied; non-approved unavailable; self-request denied.
+4. Radar upcoming meetings retain mentor slug/headline/name/avatar from projection.
+5. Mentor review public fields render without reviewer identifiers leakage beyond projection columns.
+6. University owner dashboard remains empty/unavailable honestly (fail-closed / `EmptyUniversityState`).
+7. Owner/staff Individual and Mentor authenticated flows still work via base-table owner/staff RLS.
+8. Business and University onboarding journeys still load.
 
 ### Rollback after smoke failure
 
@@ -118,6 +130,10 @@ CONTRACT removes compatibility shims the old app needed:
 ### Rollback after CONTRACT
 
 Forward-only compensating migration only, and only if a production-impacting defect is proven.
+
+Exact archived policy/grant SQL for emergency non-prod compensating migrations:
+
+`docs/command-center/reports/ui-evidence/gate-a-expand-contract/CONTRACT_ROLLBACK_POLICY_ARCHIVE.md`
 
 Compensating guidance:
 

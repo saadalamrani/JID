@@ -5,6 +5,7 @@ import { isFeatureEnabled } from '@/lib/feature-flags/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 import { DEFAULT_JOB_FILTERS, publicStatusToDbStatus } from '@/types/job'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 export type SitemapPathEntry = {
   path: string
@@ -80,23 +81,21 @@ export async function fetchSitemapJobs(): Promise<SitemapPathEntry[]> {
   }))
 }
 
-/** Approved mentors with a public slug. */
+/** Approved mentors with a public slug (Gate A safe projection). */
 export async function fetchSitemapMentors(): Promise<SitemapPathEntry[]> {
-  const client = await getSitemapClient()
+  const client = (await getSitemapClient()) as unknown as SupabaseClient<Record<string, unknown>>
   const { data, error } = await client
-    .from('mentor_profiles')
-    .select('slug, updated_at')
-    .eq('status', 'approved')
+    .from('mentor_public_projection')
+    .select('slug')
     .not('slug', 'is', null)
-    .order('updated_at', { ascending: false })
+    .order('slug', { ascending: true })
     .limit(SITEMAP_ROW_LIMIT)
 
   if (error || !data) return []
 
-  return data
+  return (data as Array<{ slug: string | null }>)
     .filter((row) => typeof row.slug === 'string' && row.slug.length > 0)
     .map((row) => ({
       path: `/mentors/${row.slug}`,
-      lastModified: row.updated_at ? new Date(row.updated_at) : undefined,
     }))
 }

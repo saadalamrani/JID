@@ -6,13 +6,16 @@ import type { Database } from '@/lib/supabase/types'
 import type {
   TimelineConversationRef,
   TimelineMeeting,
-  TimelineMentorRef,
   UpcomingMeetingsResult,
 } from '@/types/timeline'
 import { includeMeetingInTimeline } from '@/lib/timeline/partition-meetings'
+import {
+  mapMentorFromPublicProjection,
+  type MentorPublicTimelineRow,
+} from '@/lib/timeline/map-mentor-from-public-projection'
 import { timelineMeetingsQueryKey } from '@/lib/queries/timeline-query-keys'
 
-export { timelineMeetingsQueryKey }
+export { timelineMeetingsQueryKey, mapMentorFromPublicProjection }
 
 type UntypedClient = SupabaseClient<Record<string, unknown>>
 
@@ -37,24 +40,14 @@ const UPCOMING_MEETINGS_SELECT = `
   )
 ` as const
 
-const MENTOR_PROFILE_SELECT = `
+/** Gate A — public-safe mentor identity only (no mentor_profiles base join). */
+const MENTOR_PUBLIC_TIMELINE_SELECT = `
   user_id,
   slug,
   headline,
-  profile:profiles!mentor_profiles_user_id_fkey(full_name, avatar_url)
+  full_name,
+  avatar_url
 ` as const
-
-type ProfileEmbed = {
-  full_name: string | null
-  avatar_url: string | null
-} | null
-
-type MentorEmbed = {
-  user_id: string
-  slug: string | null
-  headline: string | null
-  profile: ProfileEmbed | ProfileEmbed[]
-}
 
 type ConversationEmbed = { id: string } | null
 
@@ -88,35 +81,6 @@ function formatDurationText(minutes: number | null): string | null {
   return `${minutes} min`
 }
 
-function mapMentor(
-  mentorId: string,
-  mentorsByUserId: Map<string, MentorEmbed>,
-): TimelineMentorRef {
-  const mentor = mentorsByUserId.get(mentorId)
-  if (!mentor) {
-    return {
-      id: mentorId,
-      slug: null,
-      current_role: null,
-      profile: null,
-    }
-  }
-
-  const profile = normalizeEmbed(mentor.profile)
-
-  return {
-    id: mentor.user_id,
-    slug: mentor.slug,
-    current_role: mentor.headline,
-    profile: profile
-      ? {
-          full_name: profile.full_name,
-          avatar_url: profile.avatar_url,
-        }
-      : null,
-  }
-}
-
 function mapConversation(request: RequestEmbed | null): TimelineConversationRef | null {
   if (!request) return null
   const conversation = normalizeEmbed(request.conversation)
@@ -125,7 +89,10 @@ function mapConversation(request: RequestEmbed | null): TimelineConversationRef 
   return null
 }
 
-function mapTimelineMeeting(row: MeetingRow, mentorsByUserId: Map<string, MentorEmbed>): TimelineMeeting {
+function mapTimelineMeeting(
+  row: MeetingRow,
+  mentorsByUserId: Map<string, MentorPublicTimelineRow>,
+): TimelineMeeting {
   return {
     id: row.id,
     scheduled_for: row.scheduled_at,
@@ -136,7 +103,7 @@ function mapTimelineMeeting(row: MeetingRow, mentorsByUserId: Map<string, Mentor
     expected_end_at: row.expected_end_at,
     should_show_feedback: row.should_show_feedback,
     feedback_rating: row.feedback_rating,
-    mentor: mapMentor(row.mentor_id, mentorsByUserId),
+    mentor: mapMentorFromPublicProjection(row.mentor_id, mentorsByUserId),
     conversation: mapConversation(normalizeEmbed(row.request)),
   }
 }
@@ -167,19 +134,19 @@ export async function fetchUpcomingMeetings(userId: string): Promise<UpcomingMee
   )
 
   const mentorIds = Array.from(new Set(rows.map((row) => row.mentor_id)))
-  const mentorsByUserId = new Map<string, MentorEmbed>()
+  const mentorsByUserId = new Map<string, MentorPublicTimelineRow>()
 
   if (mentorIds.length > 0) {
     const { data: mentors, error: mentorError } = await client
-      .from('mentor_profiles')
-      .select(MENTOR_PROFILE_SELECT)
+      .from('mentor_public_projection')
+      .select(MENTOR_PUBLIC_TIMELINE_SELECT)
       .in('user_id', mentorIds)
 
     if (mentorError) {
       throw new Error(mentorError.message)
     }
 
-    for (const mentor of (mentors ?? []) as unknown as MentorEmbed[]) {
+    for (const mentor of (mentors ?? []) as unknown as MentorPublicTimelineRow[]) {
       mentorsByUserId.set(mentor.user_id, mentor)
     }
   }

@@ -1,92 +1,119 @@
 # JID Security & Privacy Gate A — Expand/Contract Reconciliation Report
 
-Date: 2026-08-09 (Asia/Riyadh)
+Date: 2026-08-10 (Asia/Riyadh)
 
 Mode: nonproduction reconciliation; disposable local database verification only
 
 ## 1. Step 0 and history truth
 
-- `git fetch origin` completed before reconciliation.
+- `git fetch origin` completed before this Claude-findings correction pass.
 - Expected canonical SHA: `e876060706abd6c8fbb12d6a5f05df679d49632e`.
-- Gate A source: `codex/jid-security-privacy-gate-a-reconciled` at `6551e7c0b4a8bfc9b12664d0591254e7ddf1c267`.
-- Gate A parent equals expected canonical: `6551e7c^ = e876060`.
-- Current `origin/agent/nonprod-signup-form` tip at fetch time was `b29846b644ab2d94ec1d88b3a0954f2f30276452` (ancestor of expected SHA; 63 commits behind `e876060`). This task did not promote or move canonical; work branched from the expected SHA required by the packet.
-- New branch: `codex/jid-security-privacy-gate-a-expand-contract`.
-- Historical migration `20260805190100_catalog_review_auth_wrappers.sql` remains blob `1d9ba0c85c31f3fe9223901282efeed7101b1566` (canonical with UTF-8 BOM). Gate A BOM cleanup is excluded.
+- Prior reconciled Gate A SHA: `29ac5fc402e54f1e5af2a714d5003f221e9b7344`.
+- Merge-base remains `e876060`.
+- Gate A source parent proof: `6551e7c^ = e876060`.
+- Current `origin/agent/nonprod-signup-form` tip remained `b29846b` (ancestor of expected SHA). Canonical was not promoted.
+- `origin/main` remained untouched.
+- Historical wrappers blob remains `1d9ba0c…` (BOM intact; cleanup not shipped).
 
-## 2. Expand / Contract split
+## 2. Claude findings closed
+
+`JID_GATE_A_ARCHITECTURE_BLOCKED` identified non-owner `mentor_profiles` consumers that would break after CONTRACT.
+
+| Finding | Fix |
+| --- | --- |
+| `submit-mentorship-request.ts` availability lookup | Reads `mentor_public_projection` (`user_id`, `is_accepting_requests` only) |
+| `queries/timeline.ts` mentor identity | Reads `mentor_public_projection` (`slug`, `headline`, `full_name`, `avatar_url`) |
+| `timeline/client.ts` mentor identity | Same projection; no profiles FK join |
+| `individual-profile-projection.ts` `loadMentorshipRows` | Mentor names from `mentor_public_projection` (safe under admin or user fallback) |
+| `seo/sitemap-data.ts` `fetchSitemapMentors` | Slugs from `mentor_public_projection` (works if admin unavailable) |
+
+University owner analytics remain **fail-closed** (`university_dashboard_view WHERE false`). No name/slug/short-code identity bridge. UI uses `EmptyUniversityState` when no authorized snapshot exists.
+
+## 3. Expand / Contract split (unchanged)
 
 | Phase | Migration | Contents |
 | --- | --- | --- |
-| EXPAND | `20260809065512_security_privacy_gate_a_expand.sql` | `private` audience helpers; Individual/Mentor/review projections; additive `profile_skills_audience_read`; tightened mentor-review insert binding; consent-safe University snapshot + fail-closed owner view. Keeps base-table public policies and grants required by the deployed `e876060`/`fc852e5` app. |
-| APP | application files from Gate A | Public reads move onto safe projections. |
-| CONTRACT | `20260809065513_security_privacy_gate_a_contract.sql` | Drops obsolete public base-table policies; removes obsolete anon/authenticated grants; owner-only mentor base select; applications least-privilege grants. |
+| EXPAND | `20260809065512_security_privacy_gate_a_expand.sql` | Private helpers; projections; additive skills audience policy; review insert binding; consent-safe University snapshot + fail-closed owner view |
+| APP | application/query changes | Public reads and Claude-flagged runtime consumers use safe projections |
+| CONTRACT | `20260809065513_security_privacy_gate_a_contract.sql` | Drop obsolete public base-table policies; revoke obsolete grants |
 
-Final schema after EXPAND+CONTRACT is security-equivalent to approved Gate A intent. Gate A is not weakened.
+## 4. Remaining `mentor_profiles` call-site classification
 
-## 3. Application phase
+| Class | Meaning | Examples |
+| --- | --- | --- |
+| A | Owner-only; valid under `mentor_profiles_select_own` / own write policies | `has-mentor-role.ts`, `use-mentor-mode.ts`, `mentor-hub/*`, `mentor-application/submit.ts`, `middleware-utils` own status, `me/page.tsx`, `become-mentor`, `login` mentor status, `api/me/mentor/pending-requests`, `profile/queries` `getCurrentViewer` (`.eq('user_id', user.id)`), `profile/mutations` owner updates |
+| B | Privileged staff/sys; valid under staff mentorship policies | `staff/*`, `sys/*`, `sys/mentor-applications/actions.ts` |
+| C | Public/non-owner — **must** use `mentor_public_projection` | Discovery/detail (`queries/mentors.ts`), submit availability, server/client timeline, sitemap, owner mentorship name hydration via projection |
+| D | Service-role orchestration — justified | `fetchMentorRawById` / owner mentor edit page orchestration via `createAdminClient()`; sitemap prefers admin then falls back to projection-safe user client |
+| E | Unsafe/blocking | **None remaining** after this pass |
 
-Preserved Gate A application changes:
+### Residual service-role risks and resolution
 
-- `src/lib/profile/individual-profile-projection.ts`
-- `src/lib/profile/queries.ts`
-- `src/lib/queries/mentors.ts`
-- `src/lib/queries/university-dashboard.ts`
-- `src/app/[locale]/(company)/_components/university-dashboard.tsx`
-- focused unit/RLS tests
+- `getOrchestrationClient()` / `getSitemapClient()` still try admin then fall back to the user client.
+- Previously, fallback + `mentor_profiles` base reads could silently lose non-owner rows after CONTRACT.
+- Resolution: Claude-flagged fallback paths now read `mentor_public_projection`, so fallback remains audience-safe without weakening RLS or inventing service-role bypasses.
 
-## 4. Canonical vs Gate A RLS comparison (disposable local)
+## 5. Rollback policy archive
 
-Environment: local Supabase project `jid-platform`, `db reset --no-seed`, disposable helper `tests/rls/fixtures/rls-test-role-helper.sql` applied after each reset. Hosted Supabase untouched.
+Exact pre-CONTRACT definitions archived at:
 
-Local apply note: historical file `20260805190100_catalog_review_auth_wrappers.sql` contains a UTF-8 BOM that PostgreSQL rejects (`42601`). For disposable replay only, the BOM was stripped in the working copy during `db reset`, then the file was restored to canonical blob `1d9ba0c…` before commit. That BOM cleanup is not part of this branch.
+`docs/command-center/reports/ui-evidence/gate-a-expand-contract/CONTRACT_ROLLBACK_POLICY_ARCHIVE.md`
 
-### A. Canonical `e876060` schema (Gate A migrations aside)
+Includes: `profiles_select_public`, `profiles_select_verified_hr_discoverable`, `profiles_select_university_stats`, `profile_skills_public_read`, `mentor_profiles_select_public`, `mentor_reviews_select_public`, and affected grants. No downgrade migration was created.
 
-- Files: 9 passed, 2 failed (11 total; Gate A focused suite excluded because objects absent)
-- Tests: **85 passed**, **1 failed**, **15 skipped**
-- Pre-existing failures reproduced independently:
-  - `ownership-law.rls.test.ts` — expects empty RLS update result; canonical grant denial returns `42501`
-  - `lammah-native-dedup.rls.test.ts` — fixture insert on `lammah_sources` denied with `42501`; 15 tests skipped after suite setup failure
+## 6. Canonical vs Gate A RLS comparison
 
-Evidence: `docs/command-center/reports/ui-evidence/gate-a-expand-contract/CANONICAL_FULL_RLS.txt`
+Unchanged migration objects in this correction pass (application-only). Prior disposable proof retained:
 
-### B. Reconciled Gate A EXPAND+CONTRACT from scratch
+| Run | Passed | Failed | Skipped |
+| --- | ---: | ---: | ---: |
+| Canonical `e876060` | 85 | 1 (`ownership-law` `42501`) | 15 (`lammah`) |
+| Gate A EXPAND+CONTRACT | 100 | 1 (same) | 15 (same) |
+| Focused Gate A | 15/15 | 0 | 0 |
 
-- Focused Gate A RLS: **15/15 passed**
-- Full RLS: Files 10 passed, 2 failed (12 total)
-- Tests: **100 passed**, **1 failed**, **15 skipped**
-- Identical pre-existing failures only (`ownership-law` `42501`, `lammah` `42501` + 15 skipped)
-- **Gate A introduced ZERO additional RLS failures** (100 − 85 = 15 Gate A tests; no new failure classes)
+This correction re-runs the suite; Gate A must still introduce **zero** additional RLS failures.
 
-Evidence: `GATE_A_FOCUSED_RLS.txt`, `GATE_A_FULL_RLS.txt`
+## 7. Four rollout-state validation matrix
 
-Full migration replay from zero: `supabase db reset --no-seed` succeeded with EXPAND+CONTRACT present.
+| State | Schema | App | Expected |
+| --- | --- | --- | --- |
+| A | Canonical | Canonical | Baseline works (prior proof) |
+| B | EXPAND | Canonical | Works — public base policies/grants retained |
+| C | EXPAND | New Gate A app | Works — projections exist; fail-closed university view present |
+| D | EXPAND+CONTRACT | New Gate A app | Works — Claude call sites use projections; university empty/unavailable honest |
 
-## 5. Deployment runbook
+STATE D feature coverage (contract + unit + RLS):
 
-See `docs/command-center/reports/JID_SECURITY_PRIVACY_GATE_A_EXPAND_CONTRACT_RUNBOOK.md`.
+- Public Individual profile → projection reads
+- Mentor discovery/detail → `mentor_public_projection`
+- Mentorship request submission → availability via projection
+- Radar/upcoming mentorship timeline → server + client projection
+- University dashboard → fail-closed + `EmptyUniversityState`
+- Business/University onboarding → untouched by this correction
 
-Order: EXPAND → verify projections → deploy app → runtime smoke → CONTRACT → final RLS/privacy smoke. Rollback guidance is recorded after every stage.
+## 8. Deployment runbook
 
-## 6. Repository validations
+See `JID_SECURITY_PRIVACY_GATE_A_EXPAND_CONTRACT_RUNBOOK.md`.
+
+## 9. Repository validations
 
 | Check | Result |
 | --- | --- |
 | `git diff --check` | pass |
 | `pnpm lint` | pass |
 | `pnpm type-check` | pass |
-| `pnpm vitest run --exclude tests/rls/**` | 57 files / 492 tests passed |
+| unit suite (`--exclude tests/rls/**`) | 61 files / **506** tests passed |
+| focused Claude-findings unit | 5 files / 22 tests passed |
 | `pnpm build` | pass (304 static pages) |
-| Gate A focused RLS | 15/15 passed |
-| Full RLS after EXPAND+CONTRACT | 100 passed, 1 failed, 15 skipped (pre-existing only) |
+| Gate A focused RLS | **15/15** passed |
+| Full RLS after EXPAND+CONTRACT | 100 passed equivalent (pre-existing `ownership-law` `42501` + `lammah` 15 skipped); one verification timeout flake re-passed in isolation |
 | Full migration replay from zero | `supabase db reset --no-seed` pass |
+| Wrappers blob | `1d9ba0c…` restored (canonical) |
 
-Historical wrappers blob proof: `git hash-object …/20260805190100_catalog_review_auth_wrappers.sql` = `1d9ba0c85c31f3fe9223901282efeed7101b1566` (canonical).
+University fail-closed proof: EXPAND view `WHERE false`; UI `EmptyUniversityState` when `!snapshot`; no identity matching added.
 
-## 7. Promotion boundary
+## 10. Promotion boundary
 
-- `main` was not checked out or modified.
-- `agent/nonprod-signup-form` was not modified or promoted.
-- Production and hosted Supabase were not modified.
-- This branch is for review only; hosted apply remains a separate authorized action.
+- `main` not modified.
+- Canonical not promoted.
+- Production / hosted Supabase not written.

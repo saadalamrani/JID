@@ -3,12 +3,21 @@
 import { createClient } from '@/lib/supabase/client'
 import { includeMeetingInTimeline } from '@/lib/timeline/partition-meetings'
 import type { UpcomingMeetingsResult } from '@/types/timeline'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/lib/supabase/types'
+
+type UntypedClient = SupabaseClient<Record<string, unknown>>
+
+function asUntyped(client: SupabaseClient<Database>): UntypedClient {
+  return client as unknown as UntypedClient
+}
 
 /** Client fetch for Radar timeline — RLS limits to meeting participant. */
 export async function fetchUpcomingMeetingsClient(
   userId: string,
 ): Promise<UpcomingMeetingsResult> {
   const supabase = createClient()
+  const untyped = asUntyped(supabase)
 
   const { data, error } = await supabase
     .from('mentorship_meetings')
@@ -75,27 +84,32 @@ export async function fetchUpcomingMeetingsClient(
       user_id: string
       slug: string | null
       headline: string | null
-      profile: { full_name: string | null; avatar_url: string | null } | null
+      full_name: string | null
+      avatar_url: string | null
     }
   >()
 
   if (mentorIds.length > 0) {
-    const { data: mentors, error: mentorError } = await supabase
-      .from('mentor_profiles')
-      .select(
-        'user_id, slug, headline, profile:profiles!mentor_profiles_user_id_fkey(full_name, avatar_url)',
-      )
+    const { data: mentors, error: mentorError } = await untyped
+      .from('mentor_public_projection')
+      .select('user_id, slug, headline, full_name, avatar_url')
       .in('user_id', mentorIds)
 
     if (mentorError) throw new Error(mentorError.message)
 
-    for (const mentor of mentors ?? []) {
-      const profile = Array.isArray(mentor.profile) ? mentor.profile[0] : mentor.profile
+    for (const mentor of (mentors ?? []) as Array<{
+      user_id: string
+      slug: string | null
+      headline: string | null
+      full_name: string | null
+      avatar_url: string | null
+    }>) {
       mentorsByUserId.set(mentor.user_id, {
         user_id: mentor.user_id,
         slug: mentor.slug,
         headline: mentor.headline,
-        profile: profile ?? null,
+        full_name: mentor.full_name,
+        avatar_url: mentor.avatar_url,
       })
     }
   }
@@ -127,7 +141,13 @@ export async function fetchUpcomingMeetingsClient(
         id: row.mentor_id,
         slug: mentor?.slug ?? null,
         current_role: mentor?.headline ?? null,
-        profile: mentor?.profile ?? null,
+        profile:
+          mentor && (mentor.full_name != null || mentor.avatar_url != null)
+            ? {
+                full_name: mentor.full_name,
+                avatar_url: mentor.avatar_url,
+              }
+            : null,
       },
       conversation: conversation?.id
         ? { id: conversation.id }
