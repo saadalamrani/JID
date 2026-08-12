@@ -1,6 +1,6 @@
 'use client'
 
-import { Bell, FileText, LayoutDashboard, LogOut, Radar, Settings, User } from 'lucide-react'
+import { Bell, BriefcaseBusiness, FileText, LayoutDashboard, LogOut, Radar, Settings, User } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
@@ -16,6 +16,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import type { UserRole } from '@/lib/auth/rbac'
+import {
+  getShellAccountActions,
+  resolveShellActor,
+  shellShowsIndividualSettings,
+} from '@/lib/navigation/actor-shell'
 import { createClient } from '@/lib/supabase/client'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
 import { clearProfileModeCookie } from '@/lib/mentor-mode/cookies'
@@ -31,6 +37,8 @@ type ProfileDropdownProps = {
   className?: string
   /** Header bar tone — `on-dark` for brand-constant olive navbar. */
   tone?: 'default' | 'on-dark'
+  /** Existing profiles.role — drives actor account destinations. */
+  role?: UserRole | null
 }
 
 function initialsFromName(name: string): string {
@@ -60,6 +68,15 @@ function ThemeMenuItems() {
   )
 }
 
+const ACTION_ICONS = {
+  profile: User,
+  radar: Radar,
+  cv: FileText,
+  dashboard: LayoutDashboard,
+  mentorDashboard: LayoutDashboard,
+  jobs: BriefcaseBusiness,
+} as const
+
 /** Part 6 — profile menu: avatar, role, quick actions, settings, notifications, theme, language, logout. */
 export function ProfileDropdown({
   fullName,
@@ -70,10 +87,14 @@ export function ProfileDropdown({
   initialMode,
   className,
   tone = 'default',
+  role = null,
 }: ProfileDropdownProps) {
   const t = useTranslations('profileDropdown')
   const router = useRouter()
   const locale = useLocale()
+  const actor = resolveShellActor(role)
+  const showMentorSwitcher = hasMentorRole && actor === 'individual'
+  const showIndividualSettings = shellShowsIndividualSettings(actor)
 
   async function handleLogout() {
     const supabase = createClient()
@@ -87,15 +108,11 @@ export function ProfileDropdown({
   const initials = initialsFromName(displayName)
   const onDark = tone === 'on-dark'
 
-  const quickActions = [
-    { key: 'profile', href: '/profile', icon: User },
-    { key: 'radar', href: '/radar', icon: Radar },
-    { key: 'cv', href: '/profile/cv', icon: FileText },
-    { key: 'dashboard', href: dashboardHref, icon: LayoutDashboard },
-    ...(hasMentorRole
-      ? [{ key: 'mentorDashboard' as const, href: '/mentor/dashboard', icon: LayoutDashboard }]
-      : []),
-  ]
+  const quickActions = getShellAccountActions({
+    actor,
+    dashboardHref,
+    hasMentorRole: showMentorSwitcher,
+  })
 
   return (
     <DropdownMenu>
@@ -149,7 +166,7 @@ export function ProfileDropdown({
           </div>
         </DropdownMenuLabel>
 
-        {hasMentorRole ? (
+        {showMentorSwitcher ? (
           <>
             <DropdownMenuSeparator />
             <div className="px-2 py-1.5">
@@ -160,18 +177,23 @@ export function ProfileDropdown({
 
         <DropdownMenuSeparator />
         <p className="px-2 py-1 text-xs font-medium text-muted-foreground">{t('quickActions')}</p>
-        {quickActions.map(({ key, href, icon: Icon }) => (
-          <DropdownMenuItem key={key} onClick={() => router.push(href)}>
-            <Icon className="h-4 w-4" aria-hidden />
-            {t(`actions.${key}` as 'actions.profile')}
-          </DropdownMenuItem>
-        ))}
+        {quickActions.map(({ key, href }) => {
+          const Icon = ACTION_ICONS[key]
+          return (
+            <DropdownMenuItem key={key} onClick={() => router.push(href)}>
+              <Icon className="h-4 w-4" aria-hidden />
+              {t(`actions.${key}` as 'actions.profile')}
+            </DropdownMenuItem>
+          )
+        })}
 
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => router.push('/profile/edit')}>
-          <Settings className="h-4 w-4" aria-hidden />
-          {t('settings')}
-        </DropdownMenuItem>
+        {showIndividualSettings ? (
+          <DropdownMenuItem onClick={() => router.push('/profile/edit')}>
+            <Settings className="h-4 w-4" aria-hidden />
+            {t('settings')}
+          </DropdownMenuItem>
+        ) : null}
         <DropdownMenuItem onClick={() => router.push('/notifications')}>
           <Bell className="h-4 w-4" aria-hidden />
           {t('notifications')}

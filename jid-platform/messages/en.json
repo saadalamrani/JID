@@ -40,6 +40,11 @@
       "radar": "Radar",
       "mentorship": "Mentorship",
       "catalog": "Catalog",
+      "businessDashboard": "Dashboard",
+      "businessProfile": "Business profile",
+      "businessJobs": "Opportunities",
+      "universityDashboard": "Dashboard",
+      "universityProfile": "University profile",
       "opportunities": "Opportunities",
       "mentors": "Mentors",
       "pulse": "Platform Pulse",
@@ -128,7 +133,8 @@
       "radar": "Radar",
       "cv": "CV Builder",
       "dashboard": "Dashboard",
-      "mentorDashboard": "Mentor dashboard"
+      "mentorDashboard": "Mentor dashboard",
+      "jobs": "Opportunities"
     },
     "roles": {
       "individual": "Individual",

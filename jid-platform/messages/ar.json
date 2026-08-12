@@ -40,6 +40,11 @@
       "radar": "الرادار",
       "mentorship": "الإرشاد المهني",
       "catalog": "الكتالوج",
+      "businessDashboard": "لوحة التحكم",
+      "businessProfile": "ملف المنشأة",
+      "businessJobs": "الفرص",
+      "universityDashboard": "لوحة التحكم",
+      "universityProfile": "ملف الجامعة",
       "opportunities": "الفرص",
       "mentors": "المرشدون",
       "pulse": "نبض المنصة",
@@ -128,7 +133,8 @@
       "radar": "الرادار",
       "cv": "منشئ السيرة الذاتية",
       "dashboard": "لوحة التحكم",
-      "mentorDashboard": "لوحة المرشد"
+      "mentorDashboard": "لوحة المرشد",
+      "jobs": "الفرص"
     },
     "roles": {
       "individual": "فرد",

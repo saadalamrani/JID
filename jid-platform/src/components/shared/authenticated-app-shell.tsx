@@ -5,6 +5,7 @@ import { usePathname } from '@/lib/i18n/navigation'
 import { SmartHeader } from '@/components/layout/smart-header'
 import { EncryptionKeyBootstrap } from '@/components/shared/encryption-key-bootstrap'
 import { ProfileModeTransition } from '@/components/shared/profile-mode-transition'
+import type { UserRole } from '@/lib/auth/rbac'
 import { shouldHideAuthenticatedTopBar } from '@/lib/navigation/authenticated-shell-routes'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
 
@@ -24,9 +25,14 @@ type AuthenticatedAppShellProps = {
   avatarUrl: string | null
   roleLabel: string
   dashboardHref: string
+  role: UserRole | null
 }
 
-/** Part 6 — individual-facing layouts use the unified smart header. */
+/**
+ * Authenticated chrome for Individual / Business / University.
+ * Actor-aware SmartHeader keeps notifications + account while stripping
+ * Individual-only Radar / Mentorship / CV from organization actors.
+ */
 export function AuthenticatedAppShell({
   children,
   isAuthenticated,
@@ -37,6 +43,7 @@ export function AuthenticatedAppShell({
   avatarUrl,
   roleLabel,
   dashboardHref,
+  role,
 }: AuthenticatedAppShellProps) {
   const pathname = usePathname()
   const showBar = isAuthenticated && !shouldHideAuthenticatedTopBar(pathname)
@@ -54,6 +61,7 @@ export function AuthenticatedAppShell({
           dashboardHref={dashboardHref}
           hasMentorRole={hasMentorRole}
           initialMode={initialMode}
+          role={role}
         />
       ) : null}
       <ProfileModeTransition>{children}</ProfileModeTransition>

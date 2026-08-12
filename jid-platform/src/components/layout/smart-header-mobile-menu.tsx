@@ -12,10 +12,10 @@ import {
 import { Link, usePathname } from '@/lib/i18n/navigation'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
 import { cn } from '@/lib/utils'
-import type { SmartNavItem } from '@/components/layout/smart-header-nav'
+import type { ShellNavItem } from '@/lib/navigation/actor-shell'
 
 type SmartHeaderMobileMenuProps = {
-  items: readonly SmartNavItem[]
+  items: readonly ShellNavItem[]
   isActive: (href: string) => boolean
 }
 

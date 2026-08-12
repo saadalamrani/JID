@@ -34,6 +34,7 @@ export async function AuthenticatedShellServer({ children }: AuthenticatedShellS
       avatarUrl={session.avatarUrl}
       roleLabel={roleLabel}
       dashboardHref={session.dashboardHref}
+      role={session.role}
     >
       {children}
     </AuthenticatedAppShell>

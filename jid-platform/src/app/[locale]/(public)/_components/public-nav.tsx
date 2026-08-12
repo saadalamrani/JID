@@ -29,6 +29,7 @@ export async function PublicNav() {
       dashboardHref={session.dashboardHref}
       hasMentorRole={session.hasMentorRole}
       initialMode={initialMode}
+      role={session.role}
     />
   )
 }

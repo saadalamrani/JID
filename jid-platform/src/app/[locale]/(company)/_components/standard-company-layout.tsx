@@ -4,7 +4,6 @@ import {
   BriefcaseBusiness,
   CreditCard,
   LayoutDashboard,
-  Settings,
 } from 'lucide-react'
 import { Link } from '@/lib/i18n/navigation'
 import { getTranslations } from 'next-intl/server'
@@ -16,13 +15,13 @@ type StandardCompanyLayoutProps = {
 export async function StandardCompanyLayout({ children }: StandardCompanyLayoutProps) {
   const t = await getTranslations('company.nav')
 
+  // No distinct Settings page — omit duplicate Profile/Settings href to /company/profile/edit.
   const NAV_ITEMS = [
     { href: '/company/dashboard', label: t('dashboard'), icon: LayoutDashboard },
     { href: '/company/profile/edit', label: t('profile'), icon: Building2 },
     { href: '/jobs', label: t('jobs'), icon: BriefcaseBusiness },
     { href: '/jobs/new', label: t('postJob'), icon: BriefcaseBusiness },
     { href: '/billing', label: t('billing'), icon: CreditCard },
-    { href: '/company/profile/edit', label: t('settings'), icon: Settings },
   ] as const
 
   return (

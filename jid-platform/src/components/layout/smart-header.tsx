@@ -7,11 +7,16 @@ import { Logo } from '@/components/brand/logo'
 import { CommandPaletteTrigger } from '@/components/layout/command-palette-trigger'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
 import { GuestAuthActions, ProfileDropdown } from '@/components/layout/profile-dropdown'
-import { SMART_HEADER_NAV_ITEMS } from '@/components/layout/smart-header-nav'
 import { SmartHeaderMobileMenu } from '@/components/layout/smart-header-mobile-menu'
 import { useCommandPaletteHotkey } from '@/components/shared/command-palette'
 import { ThemeToggleLazy } from '@/components/ui/theme-toggle-lazy'
 import { Link, usePathname } from '@/lib/i18n/navigation'
+import type { UserRole } from '@/lib/auth/rbac'
+import {
+  getSmartHeaderNavItems,
+  resolveShellActor,
+  shellShowsIndividualCommandPalette,
+} from '@/lib/navigation/actor-shell'
 import type { ProfileMode } from '@/lib/mentor-mode/constants'
 import { cn } from '@/lib/utils'
 
@@ -45,6 +50,8 @@ export type SmartHeaderProps = {
   dashboardHref: string
   hasMentorRole: boolean
   initialMode?: ProfileMode
+  /** Existing profiles.role — drives actor chrome. Null = guest. */
+  role?: UserRole | null
 }
 
 function useHeaderScrolled(threshold = SCROLL_BLUR_THRESHOLD_PX) {
@@ -84,6 +91,7 @@ export function SmartHeader({
   dashboardHref,
   hasMentorRole,
   initialMode,
+  role = null,
 }: SmartHeaderProps) {
   const tNav = useTranslations('publicShell.nav')
   const pathname = usePathname()
@@ -91,11 +99,16 @@ export function SmartHeader({
   const scrolled = useHeaderScrolled()
   const [paletteOpen, setPaletteOpen] = useState(false)
 
-  const togglePalette = useCallback(() => {
-    setPaletteOpen((current) => !current)
-  }, [])
+  const actor = resolveShellActor(isAuthenticated ? role : null)
+  const navItems = getSmartHeaderNavItems(actor)
+  const showIndividualPalette = shellShowsIndividualCommandPalette(actor)
 
-  useCommandPaletteHotkey(togglePalette)
+  const togglePalette = useCallback(() => {
+    if (!showIndividualPalette) return
+    setPaletteOpen((current) => !current)
+  }, [showIndividualPalette])
+
+  useCommandPaletteHotkey(showIndividualPalette ? togglePalette : () => undefined)
 
   const checkActive = (href: string) => isNavActive(normalizedPath, href)
 
@@ -110,7 +123,7 @@ export function SmartHeader({
       >
         <div className="container-jid grid h-16 grid-cols-[auto_1fr_auto] items-center gap-3 md:grid-cols-[1fr_auto_1fr] md:gap-4">
           <div className="flex min-w-0 items-center gap-2">
-            <SmartHeaderMobileMenu items={SMART_HEADER_NAV_ITEMS} isActive={checkActive} />
+            <SmartHeaderMobileMenu items={navItems} isActive={checkActive} />
             <div className="flex h-8 min-w-0 shrink-0 items-center">
               <Link
                 href="/"
@@ -126,7 +139,7 @@ export function SmartHeader({
             className="hidden items-center justify-center gap-0.5 md:flex"
             aria-label={tNav('primaryAria')}
           >
-            {SMART_HEADER_NAV_ITEMS.map((item) => {
+            {navItems.map((item) => {
               const active = checkActive(item.href)
               return (
                 <Link
@@ -147,7 +160,9 @@ export function SmartHeader({
           </nav>
 
           <div className="flex items-center justify-end gap-1.5 sm:gap-2">
-            <CommandPaletteTrigger onClick={() => setPaletteOpen(true)} className={ON_DARK_ICON} />
+            {showIndividualPalette ? (
+              <CommandPaletteTrigger onClick={() => setPaletteOpen(true)} className={ON_DARK_ICON} />
+            ) : null}
             {isAuthenticated ? (
               <NotificationsBell userId={userId} className={ON_DARK_ICON} />
             ) : null}
@@ -163,6 +178,7 @@ export function SmartHeader({
                 dashboardHref={dashboardHref}
                 hasMentorRole={hasMentorRole}
                 initialMode={initialMode}
+                role={role}
                 tone="on-dark"
               />
             ) : (
@@ -175,7 +191,7 @@ export function SmartHeader({
         </div>
       </header>
 
-      {paletteOpen ? (
+      {paletteOpen && showIndividualPalette ? (
         <IndividualCommandPalette
           open={paletteOpen}
           onOpenChange={setPaletteOpen}

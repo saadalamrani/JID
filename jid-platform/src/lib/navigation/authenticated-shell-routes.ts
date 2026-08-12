@@ -3,6 +3,9 @@
  * Must stay complete: any public-prefix omission yields duplicate platform headers
  * for authenticated users (PublicNav + AuthenticatedAppShell).
  *
+ * `/company/*` and `/university/*` intentionally keep AuthenticatedAppShell chrome
+ * so organization actors retain notifications + account + actor-aware primary nav.
+ *
  * Note: owner workspace `/profile`, `/profile/edit`, `/profile/cv` are NOT public —
  * only `/profile/:publicId` is under `(public)/layout.tsx` (see `isPublicProfilePath`).
  */
