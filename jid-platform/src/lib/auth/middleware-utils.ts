@@ -121,7 +121,7 @@ export async function loadMiddlewareSession(
 
   // Interview nonprod only: treat sessions as AAL2 so Staff portal guards that
   // require 2FA do not block the shareable prototype demo.
-  if (!isAal2 && process.env.NEXT_PUBLIC_APP_ENV === 'nonprod') {
+  if (!isAal2 && isAuthorizedNonprodInterviewTarget()) {
     isAal2 = true
   }
 

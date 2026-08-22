@@ -42,11 +42,10 @@ export function getPortalHomeForRole(role: UserRole): string {
 
 /**
  * Interview nonprod prototype: Staff MFA is waived so the founder can open the
- * Staff verification queue without a TOTP device. Production / other envs keep
- * privileged-staff MFA at login.
+ * Staff verification queue without a TOTP device. Production keeps MFA.
  */
 export function requiresMfaAtLogin(role: UserRole): boolean {
-  if (process.env.NEXT_PUBLIC_APP_ENV === 'nonprod') return false
+  if (isAuthorizedNonprodInterviewTarget()) return false
   return (PRIVILEGED_STAFF_ROLES as readonly string[]).includes(role)
 }
 
