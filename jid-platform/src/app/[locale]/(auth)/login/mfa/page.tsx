@@ -17,6 +17,7 @@ import {
 } from '@/lib/auth/mfa'
 import {
   getPortalHomeForRole,
+  isPostLoginNextAllowedForRole,
   resolvePostLoginDestination,
   sanitizePostLoginPath,
 } from '@/lib/auth/portal-routes'
@@ -57,7 +58,11 @@ function LoginMfaPageContent() {
 
   const redirectAfterMfa = useCallback(
     (role: Parameters<typeof getPortalHomeForRole>[0]) => {
-      const destination = sanitizePostLoginPath(nextParam) ?? getPortalHomeForRole(role)
+      const safeNext = sanitizePostLoginPath(nextParam)
+      const destination =
+        safeNext && isPostLoginNextAllowedForRole(role, safeNext)
+          ? safeNext
+          : getPortalHomeForRole(role)
       hardNavigate(destination)
     },
     [hardNavigate, nextParam],

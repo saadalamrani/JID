@@ -1,7 +1,10 @@
 import { expect, test } from '@playwright/test'
 
 test.describe('homepage smoke', () => {
-  test('renders brand tagline and correct document direction', async ({ page, baseURL }) => {
+  test('renders brand, primary CTAs, and correct document direction', async ({
+    page,
+    baseURL,
+  }) => {
     await page.goto('/')
 
     await page.waitForFunction(() => {
@@ -14,10 +17,15 @@ test.describe('homepage smoke', () => {
 
     if (isArabic) {
       expect(dir).toBe('rtl')
-      await expect(page.getByText(/جِد تجمع البحث عن العمل/)).toBeVisible()
     } else {
       expect(dir).toBe('ltr')
-      await expect(page.getByText(/JID brings job search/i)).toBeVisible()
     }
+
+    // Brand signal + durable demo entry points (copy can evolve under Claude content ownership).
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+    await expect(page.locator('body')).toContainText(/جِد|JID/)
+    await expect(
+      page.locator('a[href*="/opportunities"], a[href*="/signup"]').first(),
+    ).toBeVisible()
   })
 })

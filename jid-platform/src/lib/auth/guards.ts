@@ -198,7 +198,29 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     organizationProfileType: 'university',
   },
 
-  // ── Individual profile owner (before /me portal) ────────────────────────────
+  // ── Public individual profile by UUID (before owner /profile/* gate) ────────
+  {
+    id: 'public-individual-profile',
+    pattern: new RegExp(`^${L}/profile/[0-9a-f-]{36}(?:/|$)`),
+    allowedRoles: null,
+  },
+
+  // ── Individual capability surfaces (before /me portal) ──────────────────────
+  {
+    id: 'individual-radar',
+    pattern: new RegExp(`^${L}/radar(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+  {
+    id: 'individual-notifications-inbox',
+    pattern: new RegExp(`^${L}/notifications(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+  {
+    id: 'individual-screenings',
+    pattern: new RegExp(`^${L}/screenings(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
   {
     id: 'individual-settings-become-mentor',
     pattern: new RegExp(`^${L}/settings/become-mentor(?:/|$)`),
@@ -216,8 +238,33 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   },
   {
     id: 'individual-profile',
-    pattern: new RegExp(`^${L}/profile(?:/|$)`),
+    // Covers /profile, /profile/edit, /profile/cv — UUID public profiles matched above.
+    pattern: new RegExp(`^${L}/profile(?:/.*)?$`),
     allowedRoles: ['individual'],
+  },
+
+  // ── Company billing (route is /billing, not under /company/*) ───────────────
+  {
+    id: 'company-billing',
+    pattern: new RegExp(`^${L}/billing(?:/|$)`),
+    allowedRoles: ['entity', 'company_admin'],
+    conditions: ['organization_profile'],
+    organizationProfileType: 'business',
+  },
+
+  // ── Cross-actor authenticated messaging ─────────────────────────────────────
+  {
+    id: 'authenticated-conversations',
+    pattern: new RegExp(`^${L}/conversations(?:/|$)`),
+    allowedRoles: [
+      'individual',
+      'entity',
+      'company_admin',
+      'university_admin',
+      'staff',
+      'admin',
+      'super_admin',
+    ],
   },
 
   // ── Company profile owner ───────────────────────────────────────────────────
@@ -248,7 +295,8 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   // ── Individual settings (phone verify before profile_complete gate) ───────────
   {
     id: 'individual-settings',
-    pattern: new RegExp(`^${L}/settings(?:/|$)`),
+    // Covers /settings and nested routes (sessions, verify-phone, notifications prefs).
+    pattern: new RegExp(`^${L}/settings(?:/.*)?$`),
     allowedRoles: ['individual'],
   },
 
@@ -372,11 +420,6 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
   {
     id: 'public-mentors',
     pattern: new RegExp(`^${L}/mentors(?:/|$)`),
-    allowedRoles: null,
-  },
-  {
-    id: 'public-individual-profile',
-    pattern: new RegExp(`^${L}/profile/[0-9a-f-]{36}(?:/|$)`),
     allowedRoles: null,
   },
   {

@@ -42,7 +42,7 @@ function JobSkeletonGrid() {
 
 function NativeResultsSection() {
   const scrollRef = useRef<HTMLElement | null>(null)
-  const { jobs, isLoading, isFetching, error } = useJobFilters()
+  const { jobs, isLoading, isFetching, error, hasActiveFilters, clearAll } = useJobFilters()
 
   useEffect(() => {
     scrollRef.current = document.documentElement
@@ -59,11 +59,30 @@ function NativeResultsSection() {
   }
 
   if (jobs.length === 0) {
+    if (hasActiveFilters) {
+      return (
+        <EmptyState
+          icon={Briefcase}
+          title="لا توجد فرص مطابقة للفلاتر."
+          description="جرّب تعديل الفلاتر أو توسيع نطاق البحث."
+          className="py-12"
+        >
+          <button
+            type="button"
+            onClick={clearAll}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-muted"
+          >
+            مسح الفلاتر
+          </button>
+        </EmptyState>
+      )
+    }
+
     return (
       <EmptyState
         icon={Briefcase}
-        title="لا توجد فرص مطابقة للفلاتر."
-        description="جرّب تعديل الفلاتر أو توسيع نطاق البحث."
+        title="لا توجد فرص منشورة حالياً."
+        description="تحقق لاحقاً أو تصفح دليل الجهات بينما تُضاف فرص جديدة."
         className="py-12"
       />
     )
