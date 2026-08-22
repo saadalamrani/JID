@@ -77,12 +77,21 @@ export function IndividualPrivacyForm({ profile }: IndividualPrivacyFormProps) {
         </label>
       </fieldset>
 
+      {/*
+        Professional Discovery is not exposed as an editable capability in this
+        prototype (JID Design & UX Execution spec §4/§10A): `show_profile_to_companies`
+        grants any verified company row-level read access platform-wide (RLS policy
+        `profiles_select_verified_hr_discoverable`), not scoped to a specific employer
+        relationship. The control shows the real stored value but is locked — an
+        owner's existing choice is shown honestly and never silently changed, and no
+        new grant can be switched on from this build.
+      */}
       <ToggleRow
         checked={form.watch('show_profile_to_companies')}
-        disabled={visibility === 'private'}
-        onChange={(checked) => form.setValue('show_profile_to_companies', checked, { shouldDirty: true })}
+        disabled
+        onChange={() => {}}
         title={t('showToCompanies')}
-        hint={t('showToCompaniesHint')}
+        hint={t('showToCompaniesUnavailableHint')}
       />
 
       <ToggleRow

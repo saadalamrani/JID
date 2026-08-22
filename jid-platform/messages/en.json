@@ -1445,6 +1445,14 @@
         "title": "Not enough data yet",
         "description": "Update your university profile and complete student data to show statistics-dashboard indicators.",
         "cta": "Go to university profile"
+      },
+      "consentGate": {
+        "title": "Student indicators are not available yet",
+        "description": "Your university's identity is verified, but this dashboard's indicators are currently computed from every student who selected your university, without checking each student's consent to be counted in university statistics.",
+        "methodologyTitle": "Before indicators are enabled",
+        "methodologyBody": "Indicators will only display once they are bound to each student's individual consent boundary — the same control already used to show individual profiles — so no student who opted out of university statistics is counted.",
+        "nextAction": "This isn't missing data — the computation exists, but the per-indicator consent boundary isn't enabled yet. For now, follow your public university profile.",
+        "cta": "View university profile"
       }
     },
     "profileSuspended": {
@@ -4174,9 +4182,10 @@
       "visibilityDiscoverable": "Discoverable",
       "visibilityDiscoverableHint": "Verified companies and approved mentors can view your profile when additional toggles below are enabled.",
       "showToCompanies": "Show to verified companies",
-      "showToCompaniesHint": "الشركات الموثّقة فقط ترى ملفك عند تفعيل هذا الخيار.",
+      "showToCompaniesHint": "Only verified companies see your profile when this option is enabled.",
+      "showToCompaniesUnavailableHint": "Not editable in this preview build — your current choice is kept as-is and no new companies gain access from here.",
       "showInUniversityStats": "Include in university statistics",
-      "showInUniversityStatsHint": "جامعتك ترى إحصائيات مجمّعة فقط — دون بيانات تعريف شخصية.",
+      "showInUniversityStatsHint": "Your university sees aggregate statistics only — never your personal details.",
       "save": "Save privacy settings",
       "backToProfile": "Back to profile",
       "saved": "Privacy settings saved",
