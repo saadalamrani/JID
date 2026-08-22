@@ -2,6 +2,19 @@ import type { UserRole } from './rbac'
 import { isRoleAllowed, PRIVILEGED_STAFF_ROLES } from './rbac'
 import { findMatchingGuard } from './guards'
 
+/** Authorized JID nonprod project ref — never production. */
+const JID_NONPROD_SUPABASE_REF = 'hmjuijmaefajdjrjdsxu'
+
+/**
+ * True only when the baked public Supabase URL targets jid-nonprod.
+ * Used for interview-prototype Staff MFA waiver (APP_ENV may not be inlined).
+ */
+export function isAuthorizedNonprodInterviewTarget(
+  supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL,
+): boolean {
+  return typeof supabaseUrl === 'string' && supabaseUrl.includes(JID_NONPROD_SUPABASE_REF)
+}
+
 /**
  * Default portal home routes after login (Section 11 Step 7).
  * Individual → /me (capability-aware entry → /profile or mentor hub).

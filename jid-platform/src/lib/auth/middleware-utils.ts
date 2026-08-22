@@ -7,6 +7,7 @@ import type { NextRequest } from 'next/server'
 import type { ConditionContext, MentorStatus } from './conditions'
 import type { UserRole } from './rbac'
 import { isUserRole } from './rbac'
+import { isAuthorizedNonprodInterviewTarget } from './portal-routes'
 import type { Database } from '@/lib/supabase/types'
 
 export type MiddlewareProfile = {
