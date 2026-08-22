@@ -1,5 +1,6 @@
 import type { UserRole } from './rbac'
-import { PRIVILEGED_STAFF_ROLES } from './rbac'
+import { isRoleAllowed, PRIVILEGED_STAFF_ROLES } from './rbac'
+import { findMatchingGuard } from './guards'
 
 /**
  * Default portal home routes after login (Section 11 Step 7).
@@ -56,7 +57,9 @@ export function resolvePostLoginDestination(
   }
 
   const safeNext = sanitizePostLoginPath(options?.next)
-  if (safeNext) return safeNext
+  if (safeNext && isPostLoginNextAllowedForRole(role, safeNext)) {
+    return safeNext
+  }
 
   // Skip /me bounce for approved mentors — capability on the same Individual identity.
   if (role === 'individual' && options?.mentorApproved) {
@@ -64,4 +67,15 @@ export function resolvePostLoginDestination(
   }
 
   return getPortalHomeForRole(role)
+}
+
+/**
+ * Drop `next` targets the role cannot enter — prevents login → forbidden route → login loops
+ * (e.g. Business actor with next=/radar after Organization Shell separation).
+ */
+export function isPostLoginNextAllowedForRole(role: UserRole, path: string): boolean {
+  const pathname = path.split('?')[0] ?? path
+  const guard = findMatchingGuard(pathname)
+  if (!guard || guard.allowedRoles === null) return true
+  return isRoleAllowed(role, guard.allowedRoles)
 }
