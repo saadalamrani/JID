@@ -537,12 +537,13 @@ describeRls('JID Security & Privacy Gate A', () => {
       .from('individual_profile_public_projection')
       .select('id, full_name')
       .eq('id', discoverableUser.id)
-      .single()
+      .maybeSingle()
 
+    // Professional Discovery fail-closed: consent alone does not grant Business reads.
     expect(base.error).toBeNull()
     expect(base.data).toBeNull()
     expect(projection.error).toBeNull()
-    expect(projection.data?.id).toBe(discoverableUser.id)
+    expect(projection.data).toBeNull()
   })
 
   it('does not give a university individual-row access to either university cohort', async () => {

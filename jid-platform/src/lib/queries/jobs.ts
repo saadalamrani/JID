@@ -19,7 +19,6 @@ import type {
 import { DEFAULT_JOB_FILTERS, dbStatusToPublicStatus, isJobUuid } from '@/types/job'
 import { computeDeadlineDaysLeft } from '@/lib/jobs/deadline'
 import { validateDomainMatchForDomains, type DomainMatchResult } from '@/lib/jobs/domain-validator'
-import { interleaveBoostedJobs } from '@/lib/priority-visibility/interleave'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
 
@@ -334,7 +333,7 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
   const page = filters.page ?? DEFAULT_JOB_FILTERS.page!
   const limit = filters.limit ?? DEFAULT_JOB_FILTERS.limit!
   const from = (page - 1) * limit
-  const overfetchTo = from + limit * 5 - 1
+  const to = from + limit - 1
   const dbStatuses = resolvePortablePublicJobDbStatuses(filters.status)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -369,19 +368,19 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
   }
 
   const sort = filters.sort ?? DEFAULT_JOB_FILTERS.sort
+  // Interview prototype: paid visibility must not affect public ordering.
+  // Neutral chronological / deadline sorts only — never is_boosted.
   if (sort === 'published_at_desc') {
     query = query
-      .order('is_boosted', { ascending: false })
       .order('published_at', { ascending: false, nullsFirst: false })
       .order('application_deadline', { ascending: true })
   } else {
     query = query
-      .order('is_boosted', { ascending: false })
       .order('application_deadline', { ascending: true })
       .order('published_at', { ascending: false, nullsFirst: false })
   }
 
-  query = query.range(from, overfetchTo)
+  query = query.range(from, to)
 
   const { data, error, count } = await query
 
@@ -389,11 +388,9 @@ export async function fetchJobs(filters: JobFilters = {}): Promise<JobsListResul
     throwQueryError(error)
   }
 
-  const mapped = ((data ?? []) as unknown as JobListRow[])
+  const jobs = ((data ?? []) as unknown as JobListRow[])
     .map(mapJobCard)
     .filter((job): job is JobCardData => job !== null)
-
-  const jobs = interleaveBoostedJobs(mapped).slice(0, limit)
 
   return {
     jobs,

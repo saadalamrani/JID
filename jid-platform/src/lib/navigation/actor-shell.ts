@@ -74,9 +74,11 @@ export function getSmartHeaderNavItems(actor: ShellActor): readonly ShellNavItem
       return BUSINESS_SHELL_NAV_ITEMS
     case 'university':
       return UNIVERSITY_SHELL_NAV_ITEMS
+    case 'staff':
+      // Staff is internal — never present Individual discovery chrome on public pages.
+      return [{ href: '/', labelKey: 'home' }] as const
     case 'individual':
     case 'guest':
-    case 'staff':
       return INDIVIDUAL_SHELL_NAV_ITEMS
     default:
       return INDIVIDUAL_SHELL_NAV_ITEMS
@@ -109,7 +111,11 @@ export function getShellAccountActions(options: {
     ]
   }
 
-  // Individual, guest (unused when unauthenticated), staff on public shells
+  if (actor === 'staff') {
+    return [{ key: 'dashboard', href: dashboardHref }]
+  }
+
+  // Individual, guest (unused when unauthenticated)
   return [
     { key: 'profile', href: '/profile' },
     { key: 'radar', href: '/radar' },
@@ -121,14 +127,14 @@ export function getShellAccountActions(options: {
   ]
 }
 
-/** Individual profile settings (`/profile/edit`) — not for org actors. */
+/** Individual profile settings (`/profile/edit`) — not for org actors or Staff. */
 export function shellShowsIndividualSettings(actor: ShellActor): boolean {
-  return actor === 'individual' || actor === 'staff'
+  return actor === 'individual'
 }
 
 /** Individual command palette (Radar/CV/Mentors quick jumps) — Individual + guest only. */
 export function shellShowsIndividualCommandPalette(actor: ShellActor): boolean {
-  return actor === 'individual' || actor === 'guest' || actor === 'staff'
+  return actor === 'individual' || actor === 'guest'
 }
 
 export function shellNavHrefs(actor: ShellActor): readonly string[] {

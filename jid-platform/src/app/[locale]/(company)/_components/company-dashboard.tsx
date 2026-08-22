@@ -6,7 +6,7 @@ import type {
   CompanyDashboardMetrics,
   DashboardMetricResult,
 } from '@/lib/queries/company-dashboard-metrics'
-import { BriefcaseBusiness, Settings, Users } from 'lucide-react'
+import { BriefcaseBusiness, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 type CompanyDashboardProps = {
@@ -93,7 +93,6 @@ export async function CompanyDashboard({ profile, metrics = null }: CompanyDashb
   const quickLinks = [
     { href: '/jobs', label: t('links.jobs'), icon: BriefcaseBusiness },
     { href: '/company/profile/edit', label: t('links.settings'), icon: Settings },
-    { href: '/jobs', label: t('links.applicants'), icon: Users },
   ] as const
 
   const statusLabel = t(`status.${profile.status}`, { defaultValue: profile.status })
