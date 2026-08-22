@@ -151,14 +151,14 @@
     },
     "hero": {
       "eyebrow": "Saudi Arabia's Career Infrastructure Platform",
-      "title": "A job market that deserves transparency — for every applicant and every employer",
-      "subtitle": "For individuals, employers, and universities — Arabic-first career infrastructure with clear communication standards.",
-      "body": "No empty promises. No unsourced statistics. Just real tools to see where your application stands and who can guide your career.",
+      "title": "JID connects individuals, employers, and universities",
+      "subtitle": "Saudi career infrastructure built around the distinct role each one plays.",
+      "body": "Individuals build a career, employers manage their presence, and universities follow their graduates' data — each in its own place.",
       "primaryCta": "Browse opportunities",
       "primaryCtaGuest": "Explore opportunities",
       "primaryCtaCompleteProfile": "Complete your profile",
       "primaryCtaRadar": "Open your Radar",
-      "secondaryCta": "Create your account",
+      "secondaryCta": "Create an account",
       "cards": {
         "groupAria": "Platform pulse cards",
         "relativeTime": "{time} ago",

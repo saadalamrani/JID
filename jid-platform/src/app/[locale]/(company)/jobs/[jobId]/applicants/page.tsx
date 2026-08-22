@@ -3,11 +3,6 @@ import { companyHasSmartCommunication } from '@/lib/communication/server'
 import { TriageAccessError } from '@/lib/applications/triage-access'
 import { assertJobTriageAccess } from '@/lib/applications/triage-access'
 import { fetchJobApplicantsForTriage } from '@/lib/applications/triage-queries'
-import {
-  fetchCompanyBoostUsage,
-  fetchJobBoostPerformance,
-  fetchJobBoostState,
-} from '@/lib/priority-visibility/queries'
 import { ApplicantTriagePageClient } from './_components/applicant-triage-page-client'
 
 type PageProps = {
@@ -21,14 +16,12 @@ export default async function JobApplicantsPage({ params }: PageProps) {
     const { job } = await assertJobTriageAccess(jobId)
     if (!job.company_id) notFound()
 
-    const [initialData, smartCommunicationEnabled, boostState, boostUsage, boostPerformance] =
-      await Promise.all([
-        fetchJobApplicantsForTriage(jobId, 'all'),
-        companyHasSmartCommunication(job.company_id),
-        fetchJobBoostState(jobId),
-        fetchCompanyBoostUsage(job.company_id),
-        fetchJobBoostPerformance(jobId),
-      ])
+    // Paid visibility (boost) data intentionally not fetched here — see rendering
+    // note in ApplicantTriagePageClient (JID Design & UX Execution spec §10B).
+    const [initialData, smartCommunicationEnabled] = await Promise.all([
+      fetchJobApplicantsForTriage(jobId, 'all'),
+      companyHasSmartCommunication(job.company_id),
+    ])
 
     return (
       <ApplicantTriagePageClient
@@ -36,9 +29,6 @@ export default async function JobApplicantsPage({ params }: PageProps) {
         companyId={job.company_id}
         initialData={initialData}
         smartCommunicationEnabled={smartCommunicationEnabled}
-        boostState={boostState}
-        boostUsage={boostUsage}
-        boostPerformance={boostPerformance}
       />
     )
   } catch (error) {

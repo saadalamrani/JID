@@ -26,23 +26,12 @@ import { JobTriageHeaderBar } from './job-triage-header'
 import { StatusFilterTabs } from './status-filter-tabs'
 import { TemplateStudio } from './template-studio'
 import { UndoBanner } from './undo-banner'
-import { BoostToggle } from '@/app/[locale]/(company)/jobs/_components/boost-toggle'
-import { BoostTeaser } from '@/app/[locale]/(company)/jobs/_components/boost-teaser'
-import { BoostPerformance } from '@/app/[locale]/(company)/jobs/_components/boost-performance'
-import type {
-  CompanyBoostUsage,
-  JobBoostPerformance,
-  JobBoostState,
-} from '@/lib/priority-visibility/queries'
 
 type ApplicantTriagePageClientProps = {
   jobId: string
   companyId: string
   initialData: JobApplicantsResult
   smartCommunicationEnabled: boolean
-  boostState: JobBoostState | null
-  boostUsage: CompanyBoostUsage
-  boostPerformance: JobBoostPerformance
 }
 
 function isTypingTarget(target: EventTarget | null): boolean {
@@ -65,9 +54,6 @@ export function ApplicantTriagePageClient({
   companyId,
   initialData,
   smartCommunicationEnabled,
-  boostState,
-  boostUsage,
-  boostPerformance,
 }: ApplicantTriagePageClientProps) {
   const [filter, setFilter] = useState<TriageFilterTab>('all')
   const [job, setJob] = useState(initialData.job)
@@ -289,14 +275,12 @@ export function ApplicantTriagePageClient({
         </a>
       </div>
 
-      {boostUsage.hasEntitlement && boostState ? (
-        <>
-          <BoostToggle jobId={jobId} boost={boostState} usage={boostUsage} />
-          <BoostPerformance performance={boostPerformance} />
-        </>
-      ) : (
-        <BoostTeaser />
-      )}
+      {/*
+        Paid visibility (boost) is deliberately not surfaced in this prototype —
+        JID Design & UX Execution spec §10B: monetization/ranking-advantage UI is a
+        future Monetization/Governance decision, not an interview-prototype capability.
+        Underlying entitlement + ranking logic (priority-visibility/*) is untouched.
+      */}
 
       {smartCommunicationEnabled ? (
         <UndoBanner batches={scheduledBatches} onCanceled={() => void refreshScheduledBatches()} />

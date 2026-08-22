@@ -33,20 +33,31 @@ export async function HomePulseHero() {
               <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">{t('body')}</p>
             </div>
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <Link
-                href={hero.primaryCta.href}
-                className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-jid-olive px-6 py-3 text-sm font-semibold text-jid-beige transition-colors hover:bg-jid-olive-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
-              >
-                {primaryLabel}
-              </Link>
               {!hero.isAuthenticated ? (
+                <>
+                  {/* Guest hero — approved content direction: Create an account is the
+                      primary action; exploring opportunities is secondary. */}
+                  <Link
+                    href="/signup"
+                    className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-jid-olive px-6 py-3 text-sm font-semibold text-jid-beige transition-colors hover:bg-jid-olive-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
+                  >
+                    {t('secondaryCta')}
+                  </Link>
+                  <Link
+                    href={hero.primaryCta.href}
+                    className="bg-background/80 inline-flex min-h-[44px] items-center justify-center rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
+                  >
+                    {primaryLabel}
+                  </Link>
+                </>
+              ) : (
                 <Link
-                  href="/signup"
-                  className="bg-background/80 inline-flex min-h-[44px] items-center justify-center rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
+                  href={hero.primaryCta.href}
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-jid-olive px-6 py-3 text-sm font-semibold text-jid-beige transition-colors hover:bg-jid-olive-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
                 >
-                  {t('secondaryCta')}
+                  {primaryLabel}
                 </Link>
-              ) : null}
+              )}
             </div>
           </div>
 
