@@ -1,4 +1,4 @@
-﻿-- Postgres-owned wrappers so nonprod staff JWTs work under PostgREST claim shape.
+-- Postgres-owned wrappers so nonprod staff JWTs work under PostgREST claim shape.
 -- Original catalog_function_owner RPCs remain for ownership; wrappers use auth.uid().
 
 CREATE OR REPLACE FUNCTION public.catalog_claim_review_item(p_review_queue_id uuid)
