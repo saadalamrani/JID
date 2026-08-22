@@ -1,10 +1,15 @@
 import { getTranslations } from 'next-intl/server'
-import { HomeHeroVisual } from '@/app/[locale]/(public)/_components/landing/home-hero-visual'
+import { HomeHeroFloatingCards } from '@/app/[locale]/(public)/_components/landing/home-hero-floating-cards'
 import { resolveHomeHeroCards } from '@/lib/navigation/home-hero-cards'
 import { resolveHomeHeroContext } from '@/lib/navigation/home-hero-context'
 import { Link } from '@/lib/i18n/navigation'
 
-/** Homepage hero — Platform Pulse positioning, state-aware primary CTA (Tasks 2–5). */
+/**
+ * Homepage hero — single-column, JID-owned composition (Master Design Standard §8.1/§12.1).
+ * Deliberately not a split SaaS hero with a floating device-frame card: the proposition
+ * stands alone on the calm off-white canvas, and any real, query-backed activity renders
+ * as a single grounded row beneath it — never a "product panel" prop.
+ */
 export async function HomePulseHero() {
   const [t, hero, cards] = await Promise.all([
     getTranslations('landing.hero'),
@@ -16,55 +21,55 @@ export async function HomePulseHero() {
 
   return (
     <section className="border-b border-border bg-jid-beige-warm" aria-labelledby="home-hero-title">
-      <div className="container-jid py-12 md:py-16 lg:py-20">
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-12">
-          <div className="order-1 flex max-w-2xl flex-col gap-6 text-start">
-            <p className="text-xs font-medium text-jid-olive">{t('eyebrow')}</p>
-            <div className="space-y-4">
-              <h1
-                id="home-hero-title"
-                className="text-balance text-3xl font-bold leading-tight text-foreground md:text-4xl lg:text-[2.5rem] lg:leading-[1.15]"
-              >
-                {t('title')}
-              </h1>
-              <p className="text-foreground/80 max-w-xl text-base leading-relaxed md:text-lg">
-                {t('subtitle')}
-              </p>
-              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">{t('body')}</p>
-            </div>
-            <div className="flex flex-wrap items-center gap-3 pt-1">
-              {!hero.isAuthenticated ? (
-                <>
-                  {/* Guest hero — approved content direction: Create an account is the
-                      primary action; exploring opportunities is secondary. */}
-                  <Link
-                    href="/signup"
-                    className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-jid-olive px-6 py-3 text-sm font-semibold text-jid-beige transition-colors hover:bg-jid-olive-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
-                  >
-                    {t('secondaryCta')}
-                  </Link>
-                  <Link
-                    href={hero.primaryCta.href}
-                    className="bg-background/80 inline-flex min-h-[44px] items-center justify-center rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
-                  >
-                    {primaryLabel}
-                  </Link>
-                </>
-              ) : (
+      <div className="container-jid py-14 md:py-20 lg:py-24">
+        <div className="flex max-w-2xl flex-col gap-6 text-start">
+          <p className="text-xs font-medium text-jid-olive">{t('eyebrow')}</p>
+          <div className="space-y-4">
+            <h1
+              id="home-hero-title"
+              className="text-balance text-4xl font-bold leading-tight text-foreground md:text-5xl md:leading-[1.1]"
+            >
+              {t('title')}
+            </h1>
+            <p className="text-foreground/80 max-w-xl text-base leading-relaxed md:text-lg">
+              {t('subtitle')}
+            </p>
+            <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">{t('body')}</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            {!hero.isAuthenticated ? (
+              <>
+                {/* Guest hero — approved content direction: Create an account is the
+                    primary action; exploring opportunities is secondary. */}
+                <Link
+                  href="/signup"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-jid-olive px-6 py-3 text-sm font-semibold text-jid-beige transition-colors hover:bg-jid-olive-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
+                >
+                  {t('secondaryCta')}
+                </Link>
                 <Link
                   href={hero.primaryCta.href}
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-jid-olive px-6 py-3 text-sm font-semibold text-jid-beige transition-colors hover:bg-jid-olive-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
+                  className="bg-background/80 inline-flex min-h-[44px] items-center justify-center rounded-lg border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
                 >
                   {primaryLabel}
                 </Link>
-              )}
-            </div>
-          </div>
-
-          <div className="order-2 min-w-0">
-            <HomeHeroVisual cards={cards} />
+              </>
+            ) : (
+              <Link
+                href={hero.primaryCta.href}
+                className="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-jid-olive px-6 py-3 text-sm font-semibold text-jid-beige transition-colors hover:bg-jid-olive-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jid-olive focus-visible:ring-offset-2"
+              >
+                {primaryLabel}
+              </Link>
+            )}
           </div>
         </div>
+
+        {cards.length > 0 ? (
+          <div className="mt-10 max-w-3xl border-t border-jid-olive/10 pt-6">
+            <HomeHeroFloatingCards cards={cards} />
+          </div>
+        ) : null}
       </div>
     </section>
   )

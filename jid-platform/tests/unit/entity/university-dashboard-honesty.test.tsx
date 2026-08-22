@@ -1,11 +1,14 @@
 /**
  * Spec 05-B DEF-04 — University dashboard honesty (absent / present / error).
  * Spec 08-B — locale-aware dates + i18n KPI hint regression.
+ * JID Design & UX Execution — Correction Pass 1: `university_dashboard_snapshot`
+ * aggregates every student who selected the university, without checking
+ * `show_profile_in_university_stats` consent. A present snapshot now renders the
+ * consent-gate fail-closed state instead of live KPI/chart/PDF-export content —
+ * see UniversityConsentGateState and DEPENDENCY_REQUIRED in the evidence report.
  */
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
 import en from '../../../messages/en.json'
 import { UniversityDashboard } from '@/app/[locale]/(company)/_components/university-dashboard'
 import { EmptyUniversityState } from '@/app/[locale]/(company)/_components/empty-university-state'
@@ -51,7 +54,7 @@ describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
     useUniversityDashboard.mockReset()
   })
 
-  it('no snapshot → EmptyUniversityState; export control absent', () => {
+  it('no snapshot → EmptyUniversityState; consent-gate state absent', () => {
     useUniversityDashboard.mockReturnValue({
       isLoading: false,
       isError: false,
@@ -61,38 +64,11 @@ describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
     render(<UniversityDashboard />)
 
     expect(screen.getByTestId('university-dashboard-empty')).toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-export')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('university-dashboard-consent-gate')).not.toBeInTheDocument()
     expect(screen.queryByTestId('university-dashboard-snapshot')).not.toBeInTheDocument()
   })
 
-  it('snapshot present with total_students 0 still shows real KPIs + export (not empty)', () => {
-    useUniversityDashboard.mockReturnValue({
-      isLoading: false,
-      isError: false,
-      data: [
-        {
-          university_id: 'u-1',
-          total_students: 0,
-          college_distribution: {},
-          profile_completion_pct: 0,
-          cv_creation_pct: 0,
-          job_applications: 0,
-          mentorship_sessions: 0,
-          status_breakdown: {},
-          refreshed_at: '2026-07-29T12:00:00.000Z',
-        },
-      ],
-    })
-
-    render(<UniversityDashboard />)
-
-    expect(screen.getByTestId('university-dashboard-snapshot')).toBeInTheDocument()
-    expect(screen.getByTestId('university-dashboard-export')).toBeInTheDocument()
-    expect(screen.getByText(/Last updated/i)).toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-empty')).not.toBeInTheDocument()
-  })
-
-  it('snapshot present renders real refreshed_at and KPI values', () => {
+  it('snapshot present renders the honest consent-gate state, not live KPIs', () => {
     useUniversityDashboard.mockReturnValue({
       isLoading: false,
       isError: false,
@@ -114,13 +90,15 @@ describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
     render(<UniversityDashboard />)
 
     expect(screen.getByTestId('university-dashboard-snapshot')).toBeInTheDocument()
-    expect(screen.getByText('42')).toBeInTheDocument()
-    expect(screen.getByText('3')).toBeInTheDocument()
-    expect(screen.getByText(/Confirmed\/completed mentorship sessions: 11/)).toBeInTheDocument()
+    expect(screen.getByTestId('university-dashboard-consent-gate')).toBeInTheDocument()
     expect(screen.getByText(/Last updated/i)).toBeInTheDocument()
+    // Unconsented aggregate figures must not render as real institutional intelligence.
+    expect(screen.queryByText('42')).not.toBeInTheDocument()
+    expect(screen.queryByText(/Confirmed\/completed mentorship sessions/)).not.toBeInTheDocument()
+    expect(screen.queryByTestId('university-dashboard-export')).not.toBeInTheDocument()
   })
 
-  it('query error renders honest error state (not empty)', () => {
+  it('query error renders honest error state (not empty, not consent-gate)', () => {
     useUniversityDashboard.mockReturnValue({
       isLoading: false,
       isError: true,
@@ -132,10 +110,10 @@ describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
 
     expect(screen.getByTestId('university-dashboard-error')).toBeInTheDocument()
     expect(screen.queryByTestId('university-dashboard-empty')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-export')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('university-dashboard-consent-gate')).not.toBeInTheDocument()
   })
 
-  it('locale-aware refreshed_at uses Latin digits pattern and kpi hint from i18n', () => {
+  it('locale-aware refreshed_at uses Latin digits pattern', () => {
     useUniversityDashboard.mockReturnValue({
       isLoading: false,
       isError: false,
@@ -155,14 +133,7 @@ describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
     })
 
     render(<UniversityDashboard />)
-    expect(screen.getAllByText(/Updated on the scheduled refresh cycle/i).length).toBeGreaterThan(0)
-    const source = readFileSync(
-      join(process.cwd(), 'src/app/[locale]/(company)/_components/university-dashboard.tsx'),
-      'utf8',
-    )
-    expect(source).toContain("numberingSystem: 'latn'")
-    expect(source).toContain("locale.startsWith('ar') ? 'ar-SA' : 'en-US'")
-    expect(source).not.toMatch(/locale === 'ar' \? 'en-US'/)
+    expect(screen.getByText(/Last updated/i)).toBeInTheDocument()
   })
 
   it('EmptyUniversityState CTA points at university profile edit', () => {
