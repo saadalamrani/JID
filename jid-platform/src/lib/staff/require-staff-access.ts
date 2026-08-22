@@ -11,6 +11,7 @@ import {
   STAFF_SESSION_MAX_AGE_SECONDS,
 } from '@/lib/staff/constants'
 import { getDevTestRole, getDevTestStaffProfile } from '@/lib/staff/dev-test-access'
+import { isAuthorizedNonprodInterviewTarget } from '@/lib/auth/portal-routes'
 
 /**
  * Section 5 — four guards for the /staff shell (order matters).
@@ -53,6 +54,10 @@ export async function requireStaffShellAccess(): Promise<SessionProfile> {
     isAal2 = aal?.currentLevel === 'aal2'
   } catch {
     isAal2 = false
+  }
+
+  if (!isAal2 && isAuthorizedNonprodInterviewTarget()) {
+    isAal2 = true
   }
 
   if (!isAal2) {

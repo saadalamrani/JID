@@ -8,11 +8,11 @@ const JID_NONPROD_SUPABASE_REF = 'hmjuijmaefajdjrjdsxu'
 /**
  * True only when the baked public Supabase URL targets jid-nonprod.
  * Used for interview-prototype Staff MFA waiver (APP_ENV may not be inlined).
+ * Keep the env access as a direct `process.env.NEXT_PUBLIC_*` read so Next.js
+ * inlines it for Edge middleware and the client bundle.
  */
-export function isAuthorizedNonprodInterviewTarget(
-  supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL,
-): boolean {
-  return typeof supabaseUrl === 'string' && supabaseUrl.includes(JID_NONPROD_SUPABASE_REF)
+export function isAuthorizedNonprodInterviewTarget(): boolean {
+  return (process.env.NEXT_PUBLIC_SUPABASE_URL ?? '').includes(JID_NONPROD_SUPABASE_REF)
 }
 
 /**
