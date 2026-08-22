@@ -1,7 +1,7 @@
 # Gate A CONTRACT — archived pre-CONTRACT policy/grant definitions
 
-Source: canonical `e876060` migration history.  
-Purpose: make non-production rollback executable.  
+Source: canonical `e876060` migration history.
+Purpose: make non-production rollback executable.
 This is **not** a downgrade migration and must not be applied as product history.
 
 ## profiles_select_public
