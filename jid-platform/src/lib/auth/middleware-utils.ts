@@ -118,6 +118,12 @@ export async function loadMiddlewareSession(
     isAal2 = false
   }
 
+  // Interview nonprod only: treat sessions as AAL2 so Staff portal guards that
+  // require 2FA do not block the shareable prototype demo.
+  if (!isAal2 && process.env.NEXT_PUBLIC_APP_ENV === 'nonprod') {
+    isAal2 = true
+  }
+
   const sessionIssuedAt =
     request.headers.get('x-jid-test-session-issued-at') !== null
       ? Number.parseInt(request.headers.get('x-jid-test-session-issued-at') ?? '', 10)

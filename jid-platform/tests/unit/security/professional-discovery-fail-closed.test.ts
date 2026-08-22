@@ -20,6 +20,20 @@ describe('Professional Discovery fail-closed migration contract', () => {
       /show_profile_to_companies\s*=\s*true[\s\S]*viewer_has_active_verified_business_profile/,
     )
   })
+
+  it('ships recursion-safe application-bound profiles SELECT after fail-closed', () => {
+    const migration = readFileSync(
+      join(
+        process.cwd(),
+        'supabase/migrations/20260822140000_fix_profiles_rls_recursion.sql',
+      ),
+      'utf8',
+    )
+
+    expect(migration).toContain('SET row_security = off')
+    expect(migration).toContain('private.business_can_select_applicant_profile')
+    expect(migration).toContain('profiles_select_application_bound_business')
+  })
 })
 
 describe('Staff public chrome does not leak Individual discovery', () => {

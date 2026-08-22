@@ -37,4 +37,19 @@ test.describe('interview final authenticated runtime @ jid-dev', () => {
     await loginWithSeedAccount(page, 'individual-complete@jidseed.test', '/login', baseURL)
     expect(page.url()).toMatch(/\/(me|profile|radar|dashboard|mentor)/)
   })
+
+  test('@P1 staff login reaches staff portal without MFA wall (nonprod)', async ({
+    page,
+    baseURL,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 })
+    await loginWithSeedAccount(page, 'staff@jidseed.test', '/login', baseURL)
+    expect(page.url()).not.toMatch(/\/login\/mfa/)
+    expect(page.url()).toMatch(/\/staff(?:\/|$)/)
+    await gotoStable(page, '/staff', baseURL)
+    await assertPageAlive(page, 'staff:/staff')
+    const body = await page.locator('body').innerText()
+    expect(body).not.toMatch(/\bالرادار\b/)
+    expect(body).not.toMatch(/منشئ السيرة/)
+  })
 })
