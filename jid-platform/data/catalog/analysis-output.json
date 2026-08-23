@@ -1,0 +1,294 @@
+﻿{
+  "summary": {
+    "totalSourceRows": 1000,
+    "normalized": 1000,
+    "reconcileExisting": 0,
+    "repeatedDomainGroups": 7,
+    "repeatedDomainRows": 14,
+    "highConfidenceReviewCandidates": 0,
+    "lowConfidenceReviewCandidates": 0,
+    "quarantined": 0,
+    "regionMappingReviewRequired": 1,
+    "sectorMappingReviewRequired": 999,
+    "duplicateRisks": 0,
+    "invalidDomains": 0,
+    "databaseWrites": 0,
+    "profileWrites": 0,
+    "verificationWrites": 0,
+    "ownershipMutations": 0
+  },
+  "sourceRegionCount": 11,
+  "sourceSectorCount": 36,
+  "unmappedRegions": [
+    "┘à┘å╪╖┘é╪⌐ ╪º┘ä╪¡╪»┘ê╪» ╪º┘ä╪┤┘à╪º┘ä┘è╪⌐"
+  ],
+  "absentCanonicalRegions": [
+    {
+      "slug": "hail",
+      "nameEn": "Hail",
+      "nameAr": "╪¡╪º╪ª┘ä"
+    },
+    {
+      "slug": "northern-borders",
+      "nameEn": "Northern Borders",
+      "nameAr": "╪º┘ä╪¡╪»┘ê╪» ╪º┘ä╪┤┘à╪º┘ä┘è╪⌐"
+    },
+    {
+      "slug": "al-bahah",
+      "nameEn": "Al Bahah",
+      "nameAr": "╪º┘ä╪¿╪º╪¡╪⌐"
+    }
+  ],
+  "repeatedDomainGroups": [
+    {
+      "domain": "alfanar.com",
+      "sourceRecordIds": [
+        "row-116",
+        "row-257"
+      ]
+    },
+    {
+      "domain": "neom.com",
+      "sourceRecordIds": [
+        "row-136",
+        "row-733"
+      ]
+    },
+    {
+      "domain": "atmc.com.sa",
+      "sourceRecordIds": [
+        "row-276",
+        "row-439"
+      ]
+    },
+    {
+      "domain": "alj.com",
+      "sourceRecordIds": [
+        "row-338",
+        "row-466"
+      ]
+    },
+    {
+      "domain": "aljomaih.com",
+      "sourceRecordIds": [
+        "row-377",
+        "row-741"
+      ]
+    },
+    {
+      "domain": "alessa.com.sa",
+      "sourceRecordIds": [
+        "row-529",
+        "row-597"
+      ]
+    },
+    {
+      "domain": "rawabi.com",
+      "sourceRecordIds": [
+        "row-887",
+        "row-888"
+      ]
+    }
+  ],
+  "sectorInventory": {
+    "╪º┘ä╪«╪»┘à╪º╪¬ ╪º┘ä┘à╪º┘ä┘è╪⌐": {
+      "count": 80,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪│┘è╪º╪¡╪⌐ ┘ê╪º┘ä╪╢┘è╪º┘ü╪⌐ ┘ê╪º┘ä╪½┘é╪º┘ü╪⌐": {
+      "count": 19,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪▒╪╣╪º┘è╪⌐ ╪º┘ä╪╡╪¡┘è╪⌐ ┘ê╪╣┘ä┘ê┘à ╪º┘ä╪¡┘è╪º╪⌐": {
+      "count": 52,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬┘é┘å┘è╪⌐ ┘ê╪º┘ä╪º┘é╪¬╪╡╪º╪» ╪º┘ä╪▒┘é┘à┘è": {
+      "count": 77,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪«╪»┘à╪º╪¬ ╪º┘ä┘ä┘ê╪¼╪│╪¬┘è╪⌐ ┘ê╪º┘ä┘å┘é┘ä": {
+      "count": 41,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪«╪»┘à╪º╪¬ ╪º┘ä┘à┘ç┘å┘è╪⌐ ┘ê╪º┘ä╪º╪│╪¬╪┤╪º╪▒┘è╪⌐": {
+      "count": 62,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬╪╣╪»┘è┘å ┘ê╪º┘ä┘à╪╣╪º╪»┘å ┘ê╪º┘ä┘à┘ê╪º╪»": {
+      "count": 60,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬╪▒┘ü┘è┘ç ┘ê╪º┘ä╪▒┘è╪º╪╢╪⌐ ┘ê╪º┘ä╪Ñ╪╣┘ä╪º┘à": {
+      "count": 70,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪╣┘é╪º╪▒ ┘ê╪º┘ä╪¬╪╖┘ê┘è╪▒ ╪º┘ä╪¡╪╢╪▒┘è": {
+      "count": 50,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä┘é╪╖╪º╪╣ ╪º┘ä╪¡┘â┘ê┘à┘è ┘ê╪º┘ä╪╣╪º┘à": {
+      "count": 5,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪»┘ü╪º╪╣ ┘ê╪º┘ä╪╖┘è╪▒╪º┘å ┘ê╪º┘ä┘ü╪╢╪º╪í": {
+      "count": 42,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪╖╪º┘é╪⌐ ┘ê╪º┘ä┘à╪▒╪º┘ü┘é ┘ê╪º┘ä┘à┘è╪º┘ç": {
+      "count": 50,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä┘å┘ü╪╖ ┘ê╪º┘ä╪║╪º╪▓ ┘ê╪º┘ä╪¿╪¬╪▒┘ê┘â┘è┘à╪º┘ê┘è╪º╪¬": {
+      "count": 43,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬╪┤┘è┘è╪» ┘ê╪º┘ä┘ç┘å╪»╪│╪⌐ ┘ê╪º┘ä╪¿┘å┘è╪⌐ ╪º┘ä╪¬╪¡╪¬┘è╪⌐": {
+      "count": 39,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬╪╣┘ä┘è┘à ┘ê╪¬┘å┘à┘è╪⌐ ╪▒╪ú╪│ ╪º┘ä┘à╪º┘ä ╪º┘ä╪¿╪┤╪▒┘è": {
+      "count": 38,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪╡┘å╪º╪╣╪⌐ ┘ê╪º┘ä╪¬╪╡┘å┘è╪╣": {
+      "count": 33,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬╪¼╪▓╪ª╪⌐ ┘ê╪º┘ä╪¬╪¼╪º╪▒╪⌐ ╪º┘ä╪Ñ┘ä┘â╪¬╪▒┘ê┘å┘è╪⌐ ┘ê╪º┘ä╪«╪»┘à╪º╪¬ ╪º┘ä╪º╪│╪¬┘ç┘ä╪º┘â┘è╪⌐": {
+      "count": 47,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪║╪░╪º╪í ┘ê╪º┘ä╪▓╪▒╪º╪╣╪⌐ ┘ê╪º┘ä╪º╪│╪¬╪▓╪▒╪º╪╣ ╪º┘ä┘à╪º╪ª┘è": {
+      "count": 39,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪│┘è╪º╪▒╪º╪¬ ┘ê╪º┘ä╪¬┘å┘é┘ä": {
+      "count": 22,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬╪ú┘à┘è┘å ┘ê╪Ñ╪»╪º╪▒╪⌐ ╪º┘ä┘à╪«╪º╪╖╪▒": {
+      "count": 36,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä┘à╪¼┘à┘ê╪╣╪º╪¬ ╪º┘ä╪º╪│╪¬╪½┘à╪º╪▒┘è╪⌐ ┘ê╪º┘ä┘é╪º╪¿╪╢╪⌐ ╪º┘ä┘à╪¬┘å┘ê╪╣╪⌐": {
+      "count": 15,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪Ñ╪»╪º╪▒╪⌐ ╪º┘ä┘à╪▒╪º┘ü┘é ┘ê╪º┘ä╪¬╪┤╪║┘è┘ä": {
+      "count": 17,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¿┘è╪ª╪⌐ ┘ê╪º┘ä╪º╪│╪¬╪»╪º┘à╪⌐": {
+      "count": 13,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä┘ü╪╣╪º┘ä┘è╪º╪¬ ┘ê╪│┘è╪º╪¡╪⌐ ╪º┘ä╪ú╪╣┘à╪º┘ä": {
+      "count": 14,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬┘é┘å┘è╪⌐ ┘ê╪º┘ä╪º╪¬╪╡╪º┘ä╪º╪¬": {
+      "count": 7,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬┘é┘å┘è╪⌐ ╪º┘ä┘à╪º┘ä┘è╪⌐ ┘ê╪º┘ä╪«╪»┘à╪º╪¬ ╪º┘ä┘à╪º┘ä┘è╪⌐": {
+      "count": 6,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬╪╡┘å┘è╪╣ ┘ê╪º┘ä╪╡┘å╪º╪╣╪⌐": {
+      "count": 7,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪»┘ü╪º╪╣ ┘ê╪º┘ä╪╖┘è╪▒╪º┘å": {
+      "count": 1,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪╖╪º┘é╪⌐ ┘ê╪º┘ä┘à┘è╪º┘ç ┘ê╪º┘ä╪º╪│╪¬╪»╪º┘à╪⌐": {
+      "count": 1,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä┘à┘é╪º┘ê┘ä╪º╪¬ ┘ê╪º┘ä╪¿┘å┘è╪⌐ ╪º┘ä╪¬╪¡╪¬┘è╪⌐": {
+      "count": 2,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪│┘è╪º╪¡╪⌐ ┘ê╪º┘ä╪╢┘è╪º┘ü╪⌐ ┘ê╪º┘ä╪¬╪▒┘ü┘è┘ç": {
+      "count": 1,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪Ñ╪╣┘ä╪º┘à ┘ê╪º┘ä╪╡┘å╪º╪╣╪º╪¬ ╪º┘ä╪Ñ╪¿╪»╪º╪╣┘è╪⌐": {
+      "count": 2,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪ú╪║╪░┘è╪⌐ ┘ê╪º┘ä╪▓╪▒╪º╪╣╪⌐": {
+      "count": 4,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪╡╪¡╪⌐ ┘ê╪╣┘ä┘ê┘à ╪º┘ä╪¡┘è╪º╪⌐": {
+      "count": 2,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪¬╪╣┘ä┘è┘à ┘ê╪¬┘å┘à┘è╪⌐ ╪º┘ä┘é╪»╪▒╪º╪¬": {
+      "count": 2,
+      "mapping": "REVIEW_REQUIRED"
+    },
+    "╪º┘ä╪▒┘è╪º╪╢╪⌐ ┘ê╪¼┘ê╪»╪⌐ ╪º┘ä╪¡┘è╪º╪⌐": {
+      "count": 1,
+      "mapping": "REVIEW_REQUIRED"
+    }
+  },
+  "aramco": [
+    {
+      "sourceId": "founder-1000-org",
+      "sourceRecordId": "row-224",
+      "nameEn": "Saudi Aramco",
+      "nameAr": "╪ú╪▒╪º┘à┘â┘ê ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐",
+      "domain": "aramco.com",
+      "sourceRegion": "╪º┘ä┘à┘å╪╖┘é╪⌐ ╪º┘ä╪┤╪▒┘é┘è╪⌐",
+      "city": null,
+      "sourceSector": "╪º┘ä┘å┘ü╪╖ ┘ê╪º┘ä╪║╪º╪▓ ┘ê╪º┘ä╪¿╪¬╪▒┘ê┘â┘è┘à╪º┘ê┘è╪º╪¬",
+      "sourceSubsector": null,
+      "ownershipClass": "semi_government",
+      "confidenceClass": "high",
+      "websiteUrl": "https://www.aramco.com",
+      "careerPortalUrl": null,
+      "entityType": "business",
+      "manifestAction": "semi:╪ú╪▒╪º┘à┘â┘ê"
+    }
+  ],
+  "sabic": [
+    {
+      "sourceId": "founder-1000-org",
+      "sourceRecordId": "row-225",
+      "nameEn": "SABIC",
+      "nameAr": "╪º┘ä╪┤╪▒┘â╪⌐ ╪º┘ä╪│╪╣┘ê╪»┘è╪⌐ ┘ä┘ä╪╡┘å╪º╪╣╪º╪¬ ╪º┘ä╪ú╪│╪º╪│┘è╪⌐ - ╪│╪º╪¿┘â",
+      "domain": "sabic.com",
+      "sourceRegion": "┘à┘å╪╖┘é╪⌐ ╪º┘ä╪▒┘è╪º╪╢",
+      "city": null,
+      "sourceSector": "╪º┘ä┘å┘ü╪╖ ┘ê╪º┘ä╪║╪º╪▓ ┘ê╪º┘ä╪¿╪¬╪▒┘ê┘â┘è┘à╪º┘ê┘è╪º╪¬",
+      "sourceSubsector": null,
+      "ownershipClass": "semi_government",
+      "confidenceClass": "high",
+      "websiteUrl": "https://www.sabic.com",
+      "careerPortalUrl": null,
+      "entityType": "business",
+      "manifestAction": "semi:╪│╪º╪¿┘â"
+    },
+    {
+      "sourceId": "founder-1000-org",
+      "sourceRecordId": "row-768",
+      "nameEn": "SABIC Agri-Nutrients",
+      "nameAr": "╪┤╪▒┘â╪⌐ ╪│╪º╪¿┘â ┘ä┘ä┘à╪║╪░┘è╪º╪¬ ╪º┘ä╪▓╪▒╪º╪╣┘è╪⌐",
+      "domain": "sabic-agrinutrients.com",
+      "sourceRegion": "┘à┘å╪╖┘é╪⌐ ╪º┘ä╪▒┘è╪º╪╢",
+      "city": null,
+      "sourceSector": "╪º┘ä┘å┘ü╪╖ ┘ê╪º┘ä╪║╪º╪▓ ┘ê╪º┘ä╪¿╪¬╪▒┘ê┘â┘è┘à╪º┘ê┘è╪º╪¬",
+      "sourceSubsector": null,
+      "ownershipClass": "semi_government",
+      "confidenceClass": "high",
+      "websiteUrl": "https://www.sabic-agrinutrients.com/en",
+      "careerPortalUrl": null,
+      "entityType": "business",
+      "manifestAction": "semi:╪│╪º╪¿┘â"
+    }
+  ]
+}

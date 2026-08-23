@@ -1,0 +1,13 @@
+source_record_id,name_en,name_ar,domain,region,source_sector,subsector,ownership,confidence,action
+aramco-1,Saudi Aramco,أرامكو السعودية,aramco.com,Riyadh,Energy & Oil,Exploration,government,high,reconcile_existing
+sabic-1,SABIC,سابك,sabic.com,Eastern Province,Chemicals,Petrochemicals,semi_government,high,reconcile_existing
+dup-a,Al Fanar Company A,شركة الفنار أ,alfanar.com,Riyadh,Energy & Oil,,private,high,repeated_domain_review
+dup-b,Al Fanar Company B,شركة الفنار ب,alfanar.com,Riyadh,Energy & Oil,,private,high,repeated_domain_review
+gov-1,Saudi Telecom Company,شركة الاتصالات السعودية,stc.com.sa,Riyadh,Telecommunications,,semi_government,high,high_confidence_review
+priv-1,Local Retail LLC,شركة تجزئة محلية,example-retail.sa,Makkah,Retail & E-Commerce,,private,low,low_confidence_review
+bad-domain,Missing Domain Co,شركة بدون نطاق,,Riyadh,Retail & E-Commerce,,private,low,quarantined
+unknown-region,Unknown Region Co,شركة منطقة غير معروفة,unknown-region.sa,Unknown Region X,Technology & Information,,private,low,region_review
+unknown-sector,Unknown Sector Co,شركة قطاع غير معروف,unknown-sector.sa,Riyadh,Obscure Niche Sector XYZ,,private,low,sector_review
+holding-1,Diversified Holdings,مجموعة متنوعة,holding-example.sa,Riyadh,Conglomerate,,private,review_required,founder_decision
+neom-a,NEOM Subsidiary A,نيوم أ,neom.com,Tabuk,Construction & Real Estate,,government,high,repeated_domain_review
+neom-b,NEOM Subsidiary B,نيوم ب,neom.com,Tabuk,Construction & Real Estate,,government,high,repeated_domain_review
