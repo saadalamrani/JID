@@ -31,5 +31,5 @@
 ## Safety
 
 - Production: untouched
-- Remote nonprod bulk import: not performed
+- Remote nonprod bulk import: **controlled founder manifest ingest completed 2026-08-23** (`founder.manifest-2026-08-05`, 1000 candidates, zero publication)
 - Profiles / Verification / ownership: zero side effects

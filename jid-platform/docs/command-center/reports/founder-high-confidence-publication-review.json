@@ -1,0 +1,1380 @@
+[
+  {
+    "candidateId": "c8b7c2c9-c8ff-421d-95de-2b472d952922",
+    "organizationNameEn": "Cruise Saudi",
+    "organizationNameAr": "كروز السعودية",
+    "officialDomain": "cruisesaudi.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "db15e03d-4a0f-4075-a04d-66d317c5158f",
+    "organizationNameEn": "Red Sea Global Hospitality",
+    "organizationNameAr": "البحر الأحمر الدولية للضيافة",
+    "officialDomain": "redseaglobalhospitality.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "c0e8d436-7217-4ac1-85ac-63c4b3b49486",
+    "organizationNameEn": "Elm",
+    "organizationNameAr": "شركة عِلم",
+    "officialDomain": "elm.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "5b8621a3-8cf8-4fff-ba3f-8c0fd141a597",
+    "organizationNameEn": "Thiqah",
+    "organizationNameAr": "شركة ثقة",
+    "officialDomain": "thiqah.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "737c9067-c56a-456d-b6bb-93626c49f07a",
+    "organizationNameEn": "Unifonic",
+    "organizationNameAr": "شركة يونيفونيك",
+    "officialDomain": "unifonic.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "a59959a2-786a-4b77-9898-e788b615ea80",
+    "organizationNameEn": "Bahri",
+    "organizationNameAr": "الشركة الوطنية للسعودية للنقل البحري",
+    "officialDomain": "bahri.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "89e21792-efac-4c86-95cb-464e07537ca9",
+    "organizationNameEn": "SAR",
+    "organizationNameAr": "الخطوط الحديدية السعودية",
+    "officialDomain": "sar.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "05bc37bb-2fcc-4fba-aa5d-b6ec53e3aacd",
+    "organizationNameEn": "Saudia Cargo",
+    "organizationNameAr": "السعودية للشحن",
+    "officialDomain": "saudiacargo.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "bd0e2a78-f33b-4bf1-9a21-a36739dd85ea",
+    "organizationNameEn": "flynas",
+    "organizationNameAr": "طيران ناس",
+    "officialDomain": "flynas.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "8ced1ebe-60b4-48a0-a06c-f2ca4aec7519",
+    "organizationNameEn": "SGP",
+    "organizationNameAr": "الشركة السعودية العالمية للموانئ",
+    "officialDomain": "sgp.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "7f7ed152-b2a4-4d07-b8b4-6e06276f581d",
+    "organizationNameEn": "JHAH",
+    "organizationNameAr": "مركز جونز هوبكنز أرامكو الطبي",
+    "officialDomain": "jhah.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "75589a1d-6060-4a0c-9af1-022d0722c916",
+    "organizationNameEn": "KFSH&RC",
+    "organizationNameAr": "مستشفى الملك فيصل التخصصي ومركز الأبحاث",
+    "officialDomain": "kfshrc.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "49bc5f2e-5ac1-49b1-929f-547706bd1027",
+    "organizationNameEn": "SAMI",
+    "organizationNameAr": "الشركة السعودية للصناعات العسكرية",
+    "officialDomain": "sami.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "026d20d3-bf0a-49e8-9658-bd59415bde04",
+    "organizationNameEn": "GAMI",
+    "organizationNameAr": "الهيئة العامة للصناعات العسكرية",
+    "officialDomain": "gami.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "cb221cfc-1956-4cd3-a47a-e3964c4fa641",
+    "organizationNameEn": "MIC",
+    "organizationNameAr": "المؤسسة العامة للصناعات العسكرية",
+    "officialDomain": "mic.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "cd27b732-329a-43df-bd92-9bc06bad8ba9",
+    "organizationNameEn": "SAMI AEC",
+    "organizationNameAr": "شركة الإلكترونيات المتقدمة",
+    "officialDomain": "samiaec.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "c272e998-7480-43f0-90b9-bae4d72ca27c",
+    "organizationNameEn": "SAMI-Navantia",
+    "organizationNameAr": "سامي نافانتيا للصناعات البحرية",
+    "officialDomain": "saminavantia.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "d8d4bb99-fd53-4dd2-a8f7-478d86fd3633",
+    "organizationNameEn": "Savvy Games Group",
+    "organizationNameAr": "مجموعة سافي للألعاب الإلكترونية",
+    "officialDomain": "savvygames.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "db4125d3-cecb-478c-8e2c-476b120e9cec",
+    "organizationNameEn": "Qiddiya",
+    "organizationNameAr": "شركة القدية للاستثمار",
+    "officialDomain": "qiddiya.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "b3cc5565-0e88-4c79-8ea8-7450ef6f14a8",
+    "organizationNameEn": "GEA",
+    "organizationNameAr": "الهيئة العامة للترفيه",
+    "officialDomain": "gea.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "23e73b75-2c2d-4301-ab38-d3d96e7b96e8",
+    "organizationNameEn": "Ministry of Sport",
+    "organizationNameAr": "وزارة الرياضة",
+    "officialDomain": "mos.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "9d8d513e-6672-42a7-b7b6-1e4a53471289",
+    "organizationNameEn": "Mahd Sports Academy",
+    "organizationNameAr": "أكاديمية مهد الرياضية",
+    "officialDomain": "mahdacademy.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "088811e1-e940-4301-8abf-419cb1c6e3c7",
+    "organizationNameEn": "SEC",
+    "organizationNameAr": "الشركة السعودية للكهرباء",
+    "officialDomain": "se.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "c9ab4c5e-e461-4026-ac40-a435155915d4",
+    "organizationNameEn": "NWC",
+    "organizationNameAr": "شركة المياه الوطنية",
+    "officialDomain": "nwc.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "9e6a3845-3f9d-4952-9a20-24301bdf184f",
+    "organizationNameEn": "ENOWA",
+    "organizationNameAr": "إينوا - شركة نيوم للطاقة والمياه",
+    "officialDomain": "enowa.neom.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "8ecab4a0-b016-4e20-a404-bd02685ab1f0",
+    "organizationNameEn": "SWPC",
+    "organizationNameAr": "الشركة السعودية لشراكات المياه",
+    "officialDomain": "swpc.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "65d88506-6bbd-4c6d-bf75-cb056cac6534",
+    "organizationNameEn": "Ma'aden",
+    "organizationNameAr": "شركة التعدين العربية السعودية - معادن",
+    "officialDomain": "maaden.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "9faf8768-c39a-497b-a13b-bec72512c270",
+    "organizationNameEn": "UNICOIL",
+    "organizationNameAr": "الشركة العالمية لطلاء المعادن - يونيكويل",
+    "officialDomain": "unicoil.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "832e6dfa-9e2e-4037-979e-3d965f5e7560",
+    "organizationNameEn": "Red Sea Global",
+    "organizationNameAr": "البحر الأحمر الدولية",
+    "officialDomain": "redseaglobal.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "650bd318-48c9-444b-9d09-3a93cfe81566",
+    "organizationNameEn": "Diriyah Company",
+    "organizationNameAr": "شركة الدرعية",
+    "officialDomain": "diriyahcompany.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "9e99763a-4e6a-4a72-ad87-c50fb159ad81",
+    "organizationNameEn": "ROSHN Group",
+    "organizationNameAr": "مجموعة روشن",
+    "officialDomain": "roshn.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "600fb0c3-0cd9-4836-90a0-c04b6d8cd19e",
+    "organizationNameEn": "Misk City",
+    "organizationNameAr": "مدينة محمد بن سلمان غير الربحية",
+    "officialDomain": "miskcity.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "574a8e68-41ec-4ecb-a950-c81402462753",
+    "organizationNameEn": "Dar Al Arkan",
+    "organizationNameAr": "دار الأركان للتطوير العقاري",
+    "officialDomain": "daralarkan.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0dd0c95a-fa78-448b-9b59-842a209ba28e",
+    "organizationNameEn": "Jabal Omar",
+    "organizationNameAr": "شركة جبل عمر للتطوير",
+    "officialDomain": "jabalomar.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "cd8e3d9d-1cfc-4539-8d70-ae381c56f7b2",
+    "organizationNameEn": "Retal",
+    "organizationNameAr": "ريتال للتطوير العمراني",
+    "officialDomain": "retal.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "ec2f2a4d-5800-42e8-a338-eac324c73c40",
+    "organizationNameEn": "Kinan",
+    "organizationNameAr": "شركة كينان الدولية للتطوير العقاري",
+    "officialDomain": "kinan.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "a1a09023-460e-44e7-a81e-035d8edf5beb",
+    "organizationNameEn": "GACA",
+    "organizationNameAr": "الهيئة العامة للطيران المدني",
+    "officialDomain": "gaca.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "c7c29d07-965e-43e1-af57-32e87d70f1eb",
+    "organizationNameEn": "Saudia Group",
+    "organizationNameAr": "مجموعة السعودية",
+    "officialDomain": "saudia.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "31612f7c-b4dc-494a-9b34-b4607f9599fe",
+    "organizationNameEn": "flyadeal",
+    "organizationNameAr": "طيران أديل",
+    "officialDomain": "flyadeal.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "e3a7f1b3-48f0-49a1-b589-d749ac370007",
+    "organizationNameEn": "Saudia Technic",
+    "organizationNameAr": "السعودية لهندسة الطيران",
+    "officialDomain": "saudiatechnic.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "7eafe05f-b19a-4137-9d60-0adce2b5363f",
+    "organizationNameEn": "SIDF",
+    "organizationNameAr": "صندوق التنمية الصناعية السعودي",
+    "officialDomain": "sidf.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "ccc89b48-cdab-406e-bd2d-cfc189e6cdfc",
+    "organizationNameEn": "Misk Foundation",
+    "organizationNameAr": "مؤسسة محمد بن سلمان - مسك",
+    "officialDomain": "misk.org.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "2f4636cd-2fae-4c94-a208-da9984c41cb7",
+    "organizationNameEn": "Tuwaiq Academy",
+    "organizationNameAr": "أكاديمية طويق",
+    "officialDomain": "tuwaiq.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "a11914db-c9b3-48ba-9487-67878e906d94",
+    "organizationNameEn": "Saudi Digital Academy - SDA",
+    "organizationNameAr": "الأكاديمية السعودية الرقمية",
+    "officialDomain": "sda.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "dcdb076d-9433-410f-a188-610bb965c4b0",
+    "organizationNameEn": "NELC",
+    "organizationNameAr": "المركز الوطني للتعليم الإلكتروني",
+    "officialDomain": "nelc.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "f552ed87-797c-4c31-bdaa-b1976f0699d4",
+    "organizationNameEn": "HRDF",
+    "organizationNameAr": "صندوق تنمية الموارد البشرية - هدف",
+    "officialDomain": "hrdf.org.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0874db5e-2d6e-49bf-9f04-0631111444b1",
+    "organizationNameEn": "Institute of Public Administration - IPA",
+    "organizationNameAr": "معهد الإدارة العامة",
+    "officialDomain": "ipa.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "b872830c-6e96-4d50-9ab5-d9a9c3c11f17",
+    "organizationNameEn": "Misk Schools",
+    "organizationNameAr": "مدارس مسك",
+    "officialDomain": "miskschools.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0260250c-5e8f-4d82-9a50-bfc35b831965",
+    "organizationNameEn": "SATORP",
+    "organizationNameAr": "أرامكو توتال للتكرير والبتروكيماويات - ساتورب",
+    "officialDomain": "satorp.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "7391a5d7-4ef5-4d37-a27d-9caf7132ec74",
+    "organizationNameEn": "YASREF",
+    "organizationNameAr": "شركة ينبع أرامكو سينوبك للتكرير - ياسرف",
+    "officialDomain": "yasref.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "1f9c4eea-ac75-4b03-a674-97cfdfa60f1c",
+    "organizationNameEn": "SAMREF",
+    "organizationNameAr": "شركة مصفاة أرامكو السعودية موبيل - سامرف",
+    "officialDomain": "samref.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "13868322-967f-4eb4-b2bc-83b2b2640f3a",
+    "organizationNameEn": "Luberef",
+    "organizationNameAr": "أرامكو السعودية لزيوت الأساس - لوبريف",
+    "officialDomain": "luberef.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0380618d-bfb0-4d8c-838a-f1dee42cdbbf",
+    "organizationNameEn": "Public Investment Fund - PIF",
+    "organizationNameAr": "صندوق الاستثمارات العامة",
+    "officialDomain": "pif.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "f59b6b63-b9c2-4d9e-958d-61abc6021adc",
+    "organizationNameEn": "Sanabil Investments",
+    "organizationNameAr": "شركة سنابل للاستثمار",
+    "officialDomain": "sanabil.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "9b10c984-85d4-47f6-a561-1a109a06d7c5",
+    "organizationNameEn": "Abdul Samad Al Qurashi",
+    "organizationNameAr": "شركة عبد الصمد القرشي",
+    "officialDomain": "store.asqgrp.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "82eab2da-992a-4530-870e-48e3b1345957",
+    "organizationNameEn": "SRMG",
+    "organizationNameAr": "المجموعة السعودية للأبحاث والإعلام",
+    "officialDomain": "srmg.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "54330902-3379-4bd6-897f-23fcdcadf0d4",
+    "organizationNameEn": "NHC",
+    "organizationNameAr": "الشركة الوطنية للإسكان",
+    "officialDomain": "nhc.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "c61fc1b7-b80b-4b4b-af5b-3768a0d8b460",
+    "organizationNameEn": "SPGA",
+    "organizationNameAr": "الهيئة العامة لعقارات الدولة",
+    "officialDomain": "spga.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "be6cceb0-d2fd-47c7-b00c-3fad3e81a508",
+    "organizationNameEn": "AlOula",
+    "organizationNameAr": "الشركة الأولى للتطوير العقاري",
+    "officialDomain": "aloula.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "a503321b-5191-423a-a7e8-3d45db165461",
+    "organizationNameEn": "NCVC",
+    "organizationNameAr": "المركز الوطني لتنمية الغطاء النباتي",
+    "officialDomain": "ncvc.gov.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "efae9b47-fece-429c-a96b-dc1eaf1f82d7",
+    "organizationNameEn": "KAUST",
+    "organizationNameAr": "جامعة الملك عبدالله للعلوم والتقنية",
+    "officialDomain": "kaust.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "5e0a446e-b78d-488b-a20b-50e1d7b2a7d4",
+    "organizationNameEn": "KFUPM",
+    "organizationNameAr": "جامعة الملك فهد للبترول والمعادن",
+    "officialDomain": "kfupm.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "cc2e2154-3730-42ae-9ae9-ffa3120432d4",
+    "organizationNameEn": "SEU",
+    "organizationNameAr": "الجامعة السعودية الإلكترونية",
+    "officialDomain": "seu.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "e45a3a56-9e0e-422b-8c52-2cf841f7d50b",
+    "organizationNameEn": "Saudi Travel Group",
+    "organizationNameAr": "المجموعة السعودية للسفر والسياحة",
+    "officialDomain": "sauditravelgroup.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "f8f7b9c4-c0f3-421e-8ce4-29b2ecb6f91d",
+    "organizationNameEn": "Maadaniyah",
+    "organizationNameAr": "شركة معدنية - الوطنية لتصنيع وسبك المعادن",
+    "officialDomain": "maadaniyah.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "38eccfc3-1e41-4882-9338-9fcd297935a5",
+    "organizationNameEn": "Ajdan Real Estate Development",
+    "organizationNameAr": "شركة أجدان للتطوير العقاري",
+    "officialDomain": "ajdan.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "4a8a734d-d06f-496e-995e-4546daa05108",
+    "organizationNameEn": "Osus Real Estate",
+    "organizationNameAr": "شركة أسس للتطوير العقاري",
+    "officialDomain": "osus.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "c345b5db-e005-44a4-b4f3-db2c9b65a697",
+    "organizationNameEn": "SACA",
+    "organizationNameAr": "الأكاديمية السعودية للطيران المدني",
+    "officialDomain": "saca.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "2e00f8d9-0db0-47ba-9ce9-d41a5e329a83",
+    "organizationNameEn": "Al Alali",
+    "organizationNameAr": "شركة العلالي",
+    "officialDomain": "alalali.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0d32f30e-32fd-4644-b336-dd632982fd23",
+    "organizationNameEn": "Saudi Logistics Academy",
+    "organizationNameAr": "الأكاديمية السعودية اللوجستية",
+    "officialDomain": "sla.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "482cd551-6320-4b81-a064-95822ba18048",
+    "organizationNameEn": "Saudi Water Academy",
+    "organizationNameAr": "الأكاديمية السعودية للمياه",
+    "officialDomain": "swa.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0a0c62dd-aa79-4aa9-bae5-abbb7382857f",
+    "organizationNameEn": "Steer Studios",
+    "organizationNameAr": "ستير ستوديوز لتطوير الألعاب",
+    "officialDomain": "steerstudios.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "dde55210-efdd-49fa-a493-04a5b447f226",
+    "organizationNameEn": "AlUla Development Company",
+    "organizationNameAr": "شركة تطوير العلا",
+    "officialDomain": "udc.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "d74c4080-db60-43fc-b784-ac08f01fe768",
+    "organizationNameEn": "Saudia Private Aviation - SPA",
+    "organizationNameAr": "طيران السعودية الخاص",
+    "officialDomain": "spa.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "b18ca1d7-9143-47b5-9c64-0e595a279477",
+    "organizationNameEn": "ATTM",
+    "organizationNameAr": "الشركة السعودية لصناعات التيتانيوم الإسفنجي",
+    "officialDomain": "attm.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "8383839a-aae0-4ea9-9041-1b563370bd4b",
+    "organizationNameEn": "Prince Sultan University",
+    "organizationNameAr": "جامعة الأمير سلطان",
+    "officialDomain": "psu.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "f621fab1-ac8b-4761-a47d-e7bacb0b244d",
+    "organizationNameEn": "Alfaisal University",
+    "organizationNameAr": "جامعة الفيصل",
+    "officialDomain": "alfaisal.edu",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "64e3fb00-8426-4dbd-99d7-adcfae07a312",
+    "organizationNameEn": "Al Yamamah University",
+    "organizationNameAr": "جامعة اليمامة",
+    "officialDomain": "yu.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "06eb3d6f-a0f8-4466-8637-398f0fab56e8",
+    "organizationNameEn": "Dar Al Uloom University",
+    "organizationNameAr": "جامعة دار العلوم",
+    "officialDomain": "dau.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "9481d950-389c-46d6-8a34-daee49108ac1",
+    "organizationNameEn": "Arab Open University - KSA",
+    "organizationNameAr": "الجامعة العربية المفتوحة - السعودية",
+    "officialDomain": "arabou.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "bc188bac-9f51-40c4-b3e0-c449d3eaeca2",
+    "organizationNameEn": "Effat University",
+    "organizationNameAr": "جامعة عفت",
+    "officialDomain": "effatuniversity.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0240fad1-5fc5-469e-abdb-7d1536409420",
+    "organizationNameEn": "Dar Al-Hekma University",
+    "organizationNameAr": "جامعة دار الحكمة",
+    "officialDomain": "dah.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "b972d4d9-1473-4c70-96fa-c63e591a689e",
+    "organizationNameEn": "University of Business and Technology",
+    "organizationNameAr": "جامعة الأعمال والتكنولوجيا",
+    "officialDomain": "ubt.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "abc3869b-5bb3-43bb-8dd9-e9b502ce09ec",
+    "organizationNameEn": "Riyadh Elm University",
+    "organizationNameAr": "جامعة رياض العلم",
+    "officialDomain": "riyadh.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "a75a2aec-85ff-4eb1-8111-e372af7b24d8",
+    "organizationNameEn": "Prince Mohammad Bin Fahd University",
+    "organizationNameAr": "جامعة الأمير محمد بن فهد",
+    "officialDomain": "pmu.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "fba9d2d0-6bf3-48c2-aad1-02a1a8291839",
+    "organizationNameEn": "University of Prince Mugrin",
+    "organizationNameAr": "جامعة الأمير مقرن بن عبدالعزيز",
+    "officialDomain": "upm.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "10cf660c-b85c-40df-82b2-d0ad0b77c82e",
+    "organizationNameEn": "Sulaiman Alrajhi University",
+    "organizationNameAr": "جامعة سليمان الراجحي",
+    "officialDomain": "sr.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "800259b5-6b4c-456a-8f00-5e30d674a2db",
+    "organizationNameEn": "Fahad Bin Sultan University",
+    "organizationNameAr": "جامعة فهد بن سلطان",
+    "officialDomain": "fbsu.edu.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "5fcc441f-92ec-4f3d-9c02-aadd4fbf0335",
+    "organizationNameEn": "Soudah Development",
+    "organizationNameAr": "شركة السودة للتطوير",
+    "officialDomain": "soudah.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "6594ab0a-bc4e-439a-91f4-5dc312e13612",
+    "organizationNameEn": "Baheej Tourism Development Company",
+    "organizationNameAr": "شركة بهيج لتطوير الوجهات السياحية",
+    "officialDomain": "baheej.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "7fef33e0-acce-4e90-a020-c469ed564cb5",
+    "organizationNameEn": "Shaden Resort AlUla",
+    "organizationNameAr": "منتجع شادن العلا",
+    "officialDomain": "alula.shadenhospitality.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "218973c2-be0a-4ec9-9f86-e61cd67c4b54",
+    "organizationNameEn": "Our Habitas AlUla",
+    "organizationNameAr": "هابيتاس العلا",
+    "officialDomain": "ourhabitas.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "01c054f6-5e6e-4569-858c-04b40f2c9f14",
+    "organizationNameEn": "Banyan Tree AlUla",
+    "organizationNameAr": "بانيان تري العلا",
+    "officialDomain": "banyantree.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "cefef0c5-c94b-4070-bf86-e2f4be31986c",
+    "organizationNameEn": "NEOM Green Hydrogen Company",
+    "organizationNameAr": "شركة نيوم للهيدروجين الأخضر",
+    "officialDomain": "nghc.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "4e8a4cde-45bc-4d39-b407-0c8f236bd635",
+    "organizationNameEn": "Manara Minerals",
+    "organizationNameAr": "منارة للمعادن",
+    "officialDomain": "manaraminerals.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "54cc85e0-eb90-44d4-9124-6993ac70c8ef",
+    "organizationNameEn": "Aluminium Products Company - ALUPCO",
+    "organizationNameAr": "شركة منتجات الألمنيوم",
+    "officialDomain": "alupco.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "2c77e046-6ff1-4c39-900c-3a8d62629395",
+    "organizationNameEn": "Al Taiseer Aluminium - TALCO",
+    "organizationNameAr": "شركة ألمنيوم التيسير",
+    "officialDomain": "altaiseer.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0e1bc0f5-8f27-4819-8262-c4b9c8ebc937",
+    "organizationNameEn": "Saudi Aluminium Company",
+    "organizationNameAr": "شركة الألمنيوم السعودية",
+    "officialDomain": "saudialuminium.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "7c21d73a-de41-4c60-a916-b37f4613d2ff",
+    "organizationNameEn": "SABIC Agri-Nutrients",
+    "organizationNameAr": "شركة سابك للمغذيات الزراعية",
+    "officialDomain": "sabic-agrinutrients.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "d5083bf4-a0d3-4a7c-b52c-50f9187414af",
+    "organizationNameEn": "SAMACO Automotive",
+    "organizationNameAr": "ساماكو للسيارات",
+    "officialDomain": "samaco.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "5388af97-da2b-41b2-8d37-9505567de9a3",
+    "organizationNameEn": "Asiaf Development Company",
+    "organizationNameAr": "آسياف للتطوير",
+    "officialDomain": "asiaf.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "0e8dce0a-6021-4bb0-8b25-2cd60e6551ee",
+    "organizationNameEn": "Saudi Aramco Nabors Drilling - SANAD",
+    "organizationNameAr": "سناد - شركة أرامكو السعودية نابورس للحفر",
+    "officialDomain": "sanad.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "9b14e2e7-1d66-4dd7-9ade-85457b419263",
+    "organizationNameEn": "Thakher Development",
+    "organizationNameAr": "شركة ذاخر للتطوير",
+    "officialDomain": "thakher.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "06ec5432-ebde-4e91-9c77-b2ff18b77c54",
+    "organizationNameEn": "RAFAL Real Estate",
+    "organizationNameAr": "شركة رافال للتطوير العقاري",
+    "officialDomain": "rafal.com.sa",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "55592b6d-0bdc-49b0-bf6d-2db61fc317c2",
+    "organizationNameEn": "Zamil Offshore",
+    "organizationNameAr": "شركة الزامل للخدمات البحرية",
+    "officialDomain": "zamiloffshore.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  },
+  {
+    "candidateId": "96442fc3-04a8-4a91-8ebf-6121b43e36ac",
+    "organizationNameEn": "Dar Wa Emaar",
+    "organizationNameAr": "شركة دار وإعمار للتطوير والاستثمار العقاري",
+    "officialDomain": "darwaemaar.com",
+    "confidenceClassification": "high_confidence_review_candidate",
+    "duplicateRiskStatus": "none",
+    "publicationBlockers": [
+      "staff_review_required",
+      "no_auto_publish_authorization"
+    ],
+    "proposedAction": "REVIEW_FOR_PUBLICATION"
+  }
+]
