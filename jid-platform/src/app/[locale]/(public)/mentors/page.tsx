@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import { fetchMentors } from '@/lib/queries/mentors'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { dbOfflineHint, isDbOfflineError } from '@/lib/supabase/offline-error'
@@ -6,6 +8,14 @@ import { MentorsPageClient } from './_components/mentors-page-client'
 
 type MentorsPageProps = {
   params: { locale: string }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('mentorship.meta')
+  return {
+    title: t('title'),
+    description: t('description'),
+  }
 }
 
 export default async function MentorsPage({ params }: MentorsPageProps) {

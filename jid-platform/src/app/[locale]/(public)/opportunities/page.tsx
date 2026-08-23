@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import { fetchJobs } from '@/lib/queries/jobs'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { dbOfflineHint, isDbOfflineError } from '@/lib/supabase/offline-error'
@@ -9,6 +11,13 @@ import { JobBoardPageClient } from './_components/job-board-page-client'
 type OpportunitiesPageProps = {
   params: { locale: string }
   searchParams?: { tab?: string }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('opportunities.meta')
+  return {
+    title: t('title'),
+  }
 }
 
 export default async function OpportunitiesPage({ params, searchParams }: OpportunitiesPageProps) {

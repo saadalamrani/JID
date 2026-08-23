@@ -353,6 +353,10 @@
         "sector_id": "Sector",
         "region_id": "Region"
       }
+    },
+    "meta": {
+      "title": "Organization directory",
+      "description": "Platform-managed public reference records — separate from owned Business Profiles. Unknown fields stay empty."
     }
   },
   "businessProfile": {
@@ -4598,6 +4602,10 @@
       "downloadSuccess": "Share card downloaded.",
       "downloadError": "Could not generate share card.",
       "sessions": "{count} sessions"
+    },
+    "meta": {
+      "title": "Find a mentor",
+      "description": "Connect with experienced professionals who accept mentorship requests on JID."
     }
   },
   "conversations": {
@@ -5102,6 +5110,9 @@
     "activeFilters": {
       "removeFilter": "Remove {filter}",
       "clearAll": "Clear all"
+    },
+    "meta": {
+      "title": "Job opportunities"
     }
   },
   "monetization": {

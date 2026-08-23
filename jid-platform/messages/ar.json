@@ -353,6 +353,10 @@
         "sector_id": "القطاع",
         "region_id": "المنطقة"
       }
+    },
+    "meta": {
+      "title": "دليل الجهات",
+      "description": "سجلات مرجعية عامة تديرها المنصة — منفصلة عن ملفات الأعمال المملوكة. الحقول غير المعروفة تبقى فارغة."
     }
   },
   "businessProfile": {
@@ -4588,6 +4592,10 @@
       "downloadSuccess": "تم تحميل البطاقة.",
       "downloadError": "تعذّر إنشاء البطاقة.",
       "sessions": "{count} جلسة"
+    },
+    "meta": {
+      "title": "ابحث عن مرشد",
+      "description": "تواصل مع محترفين ذوي خبرة يقبلون طلبات الإرشاد على جِد."
     }
   },
   "conversations": {
@@ -5092,6 +5100,9 @@
     "activeFilters": {
       "removeFilter": "إزالة {filter}",
       "clearAll": "مسح الكل"
+    },
+    "meta": {
+      "title": "الفرص الوظيفية"
     }
   },
   "monetization": {
