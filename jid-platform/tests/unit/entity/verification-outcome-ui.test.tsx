@@ -196,7 +196,7 @@ describe('Approved-without-profile notice copy', () => {
       expect(message.toLowerCase()).not.toMatch(/licensed/)
       expect(message.toLowerCase()).not.toMatch(/owned profile/)
       expect(cta.toLowerCase()).toMatch(/prepare/)
-      expect(title.toLowerCase()).toMatch(/verified to represent/)
+      expect(title.toLowerCase()).toMatch(/representation has been verified/)
     }
   })
 })

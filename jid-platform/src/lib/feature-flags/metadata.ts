@@ -23,15 +23,15 @@ export const FLAG_METADATA: Record<FlagKey, FlagMetadata> = {
     fallbackMessageEn: 'Mentorship is currently unavailable.',
   },
   [FLAG_KEYS.CV_BUILDER]: {
-    labelAr: 'باني السيرة',
+    labelAr: 'باني السيرة الذاتية',
     labelEn: 'CV Builder',
-    fallbackMessageAr: 'باني السيرة غير متاح حالياً.',
+    fallbackMessageAr: 'باني السيرة الذاتية غير متاح حالياً.',
     fallbackMessageEn: 'CV Builder is currently unavailable.',
   },
   [FLAG_KEYS.UNIVERSITIES]: {
-    labelAr: 'دليل الجامعات',
+    labelAr: 'الجامعات',
     labelEn: 'Universities',
-    fallbackMessageAr: 'دليل الجامعات غير متاح حالياً.',
+    fallbackMessageAr: 'الجامعات غير متاحة حالياً.',
     fallbackMessageEn: 'Universities is currently unavailable.',
   },
   [FLAG_KEYS.RADAR]: {
@@ -41,10 +41,10 @@ export const FLAG_METADATA: Record<FlagKey, FlagMetadata> = {
     fallbackMessageEn: 'Opportunity Radar is currently unavailable.',
   },
   [FLAG_KEYS.JOBS]: {
-    labelAr: 'لوحة الوظائف',
-    labelEn: 'Job Board',
-    fallbackMessageAr: 'لوحة الوظائف غير متاحة حالياً.',
-    fallbackMessageEn: 'Job Board is currently unavailable.',
+    labelAr: 'الفرص',
+    labelEn: 'Opportunities',
+    fallbackMessageAr: 'الفرص غير متاحة حالياً.',
+    fallbackMessageEn: 'Opportunities are currently unavailable.',
   },
   [FLAG_KEYS.PROFILE]: {
     labelAr: 'الملف الشخصي',
@@ -77,10 +77,10 @@ export const FLAG_METADATA: Record<FlagKey, FlagMetadata> = {
     fallbackMessageEn: 'Market trends are currently unavailable.',
   },
   [FLAG_KEYS.UNIVERSITIES_DISCOVER]: {
-    labelAr: 'اكتشاف الجامعات',
-    labelEn: 'University Discovery',
-    fallbackMessageAr: 'اكتشاف الجامعات غير متاح حالياً.',
-    fallbackMessageEn: 'University discovery is currently unavailable.',
+    labelAr: 'الجامعات',
+    labelEn: 'Universities',
+    fallbackMessageAr: 'هذه الصفحة غير متاحة حالياً.',
+    fallbackMessageEn: 'This page is currently unavailable.',
   },
   [FLAG_KEYS.CV_BUILDER_SMART_HINTS]: {
     labelAr: 'التلميحات الذكية',
@@ -89,10 +89,10 @@ export const FLAG_METADATA: Record<FlagKey, FlagMetadata> = {
     fallbackMessageEn: 'Smart hints are currently unavailable.',
   },
   [FLAG_KEYS.JOBS_SMART_MATCHING]: {
-    labelAr: 'المطابقة الذكية',
-    labelEn: 'Smart Matching',
-    fallbackMessageAr: 'المطابقة الذكية للوظائف غير متاحة حالياً.',
-    fallbackMessageEn: 'Job smart matching is currently unavailable.',
+    labelAr: 'مطابقة الفرص',
+    labelEn: 'Opportunity matching',
+    fallbackMessageAr: 'مطابقة الفرص غير متاحة حالياً.',
+    fallbackMessageEn: 'Opportunity matching is currently unavailable.',
   },
   [FLAG_KEYS.JOBS_APPLICATION_ANALYTICS]: {
     labelAr: 'تحليلات التقديم',
