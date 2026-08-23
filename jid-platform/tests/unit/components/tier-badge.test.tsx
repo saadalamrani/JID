@@ -17,20 +17,26 @@ describe('TierBadge (reference component test)', () => {
     expect(container.firstChild).toBeTruthy()
   })
 
+  // TierBadge now goes through useTranslations('monetization.tier') instead of
+  // hardcoding Arabic text regardless of locale (that hardcoding was itself the
+  // bug: en.json's own monetization.tier keys held Arabic text mislabeled as
+  // English, confirmed live on the CV Builder format picker in an EN-locale
+  // page). Per the global next-intl mock (tests/setup.ts: `key => key`),
+  // asserting on the translation key is the correct reference-pattern here.
   it('renders normal tier label and aria-label', () => {
     render(<TierBadge tier="normal" />)
-    expect(screen.getByText('عادي')).toBeInTheDocument()
-    expect(screen.getByLabelText('عادي')).toBeInTheDocument()
+    expect(screen.getByText('normal')).toBeInTheDocument()
+    expect(screen.getByLabelText('normal')).toBeInTheDocument()
   })
 
   it('renders plus tier label and aria-label', () => {
     render(<TierBadge tier="plus" />)
-    expect(screen.getByText('بلس')).toBeInTheDocument()
-    expect(screen.getByLabelText('بلس')).toBeInTheDocument()
+    expect(screen.getByText('plus')).toBeInTheDocument()
+    expect(screen.getByLabelText('plus')).toBeInTheDocument()
   })
 
   it('applies custom className', () => {
     render(<TierBadge tier="plus" className="custom-class" />)
-    expect(screen.getByLabelText('بلس')).toHaveClass('custom-class')
+    expect(screen.getByLabelText('plus')).toHaveClass('custom-class')
   })
 })

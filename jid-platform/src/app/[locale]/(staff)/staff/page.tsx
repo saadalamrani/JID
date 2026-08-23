@@ -38,14 +38,19 @@ export default async function StaffHomePage() {
         <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </header>
 
-      <PersonalMetricsLazy metrics={metrics} />
-
-      <OpenFlagsWidget count={openFlagsCount} />
-
+      {/* Section 12/36 — attention/queue first, personal metrics demoted below:
+          a five-tile stat row (several reading 0 for accounts with no activity
+          yet) rendering above the actual work queue is exactly the "decorative
+          KPI wall" anti-pattern; the assigned/unassigned queues are what a
+          reviewer needs first. */}
       <div className="grid gap-6 lg:grid-cols-2">
         <AssignedClaims claims={assignedClaims} />
         <UnassignedQueue claims={unassignedClaims} />
       </div>
+
+      <OpenFlagsWidget count={openFlagsCount} />
+
+      <PersonalMetricsLazy metrics={metrics} />
 
       <RecentActionsFeed actions={recentActions} />
     </div>

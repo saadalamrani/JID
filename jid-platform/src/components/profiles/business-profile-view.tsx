@@ -8,6 +8,7 @@ import { OwnershipBadge } from '@/app/[locale]/(public)/catalog/_components/owne
 import { JobCard } from '@/app/[locale]/(public)/opportunities/_components/job-card'
 import { Link as LocaleLink } from '@/lib/i18n/navigation'
 import type { BusinessProfileViewProps } from '@/types/business-profile-public'
+import { EMPLOYEE_COUNT_RANGES } from '@/lib/validations/business-profile'
 import { cn } from '@/lib/utils'
 
 export function BusinessProfileView({
@@ -90,9 +91,18 @@ export function BusinessProfileView({
               <div>
                 <dt className="text-foreground/60">{t('teamSize')}</dt>
                 <dd className="font-medium">
-                  {t(`employeeRanges.${profile.employee_count_range}`, {
-                    defaultValue: profile.employee_count_range,
-                  })}
+                  {/* next-intl has no `defaultValue` option (unlike i18next) — that option
+                      was silently ignored, so any stored value that doesn't exactly match a
+                      known range key (confirmed live: an en-dash value "51–200" instead of
+                      the canonical hyphenated "51-200") rendered as the raw
+                      "businessProfile.public.employeeRanges.…" key path. (Translator `.has`
+                      isn't available on this next-intl version/mock — checking membership in
+                      the canonical enum first makes the fallback actually work.) */}
+                  {(EMPLOYEE_COUNT_RANGES as readonly string[]).includes(
+                    profile.employee_count_range,
+                  )
+                    ? t(`employeeRanges.${profile.employee_count_range}`)
+                    : profile.employee_count_range}
                 </dd>
               </div>
             ) : null}

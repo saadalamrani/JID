@@ -2088,6 +2088,13 @@
           "overdue": "تجاوز SLA",
           "minutesLeft": "متبقٍ {minutes} دقيقة",
           "hoursLeft": "متبقٍ {hours} ساعة"
+        },
+        "status": {
+          "pending": "قيد الانتظار",
+          "pending_review": "قيد المراجعة",
+          "under_review": "قيد المراجعة الفعلية",
+          "approved": "مقبول",
+          "rejected": "مرفوض"
         }
       },
       "realtime": {

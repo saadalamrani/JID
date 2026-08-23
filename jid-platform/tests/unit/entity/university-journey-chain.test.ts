@@ -314,8 +314,12 @@ describe('Spec 05-B per-defect regressions', () => {
     expect(readSrc('src/app/[locale]/(company)/_components/empty-university-state.tsx')).toMatch(
       /useTranslations\('university\.dashboard\.empty'\)/,
     )
+    // Wave 2 responsive-shell fix moved this to a server component consuming
+    // getTranslations (same next-intl namespace, resolved server-side and
+    // passed as props into the shared ActorSidebarShell client component) —
+    // still fully next-intl-driven, matching this test's intent.
     expect(readSrc('src/app/[locale]/(company)/_components/university-layout.tsx')).toMatch(
-      /useTranslations\('university\.nav'\)/,
+      /getTranslations\('university\.nav'\)/,
     )
     const en = JSON.parse(readSrc('messages/en.json')) as {
       university: { dashboard: { title: string }; nav: { dashboard: string } }

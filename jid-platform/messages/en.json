@@ -2098,6 +2098,13 @@
           "overdue": "SLA overdue",
           "minutesLeft": "{minutes}m left",
           "hoursLeft": "{hours}h left"
+        },
+        "status": {
+          "pending": "Pending",
+          "pending_review": "Pending review",
+          "under_review": "Under review",
+          "approved": "Approved",
+          "rejected": "Rejected"
         }
       },
       "realtime": {

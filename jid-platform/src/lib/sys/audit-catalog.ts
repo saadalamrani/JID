@@ -80,6 +80,17 @@ export const AUDIT_ACTION_CATALOG: AuditCatalogEntry[] = [
   { action: 'user.phone_verified', label: 'Phone verified', icon: Phone },
   { action: 'route.access', label: 'Route access', icon: Route },
   { action: 'catalog.broken_link_7days', label: 'Catalog broken link (7 days)', icon: ScrollText },
+  // Directory/catalog import-review pipeline — confirmed live on /staff/audit as raw,
+  // untranslated `action` strings (no catalog entry existed, so getAuditCatalogEntry's
+  // fallback rendered the same machine string as both the "human label" and the
+  // secondary technical identifier).
+  { action: 'catalog.review.assignment', label: 'Catalog candidate assigned for review', icon: ScrollText },
+  {
+    action: 'catalog.candidate.state_changed',
+    label: 'Catalog candidate state changed',
+    icon: ScrollText,
+  },
+  { action: 'catalog.review.decision', label: 'Catalog review decision recorded', icon: ScrollText },
 ]
 
 const catalogByAction = new Map(AUDIT_ACTION_CATALOG.map((entry) => [entry.action, entry]))

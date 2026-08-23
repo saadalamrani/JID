@@ -13,6 +13,21 @@ import {
 import type { StaffClaimsQueueItem } from '@/lib/staff/claims-queue'
 import { cn } from '@/lib/utils'
 
+/** Every status value the claims/mentor-application queues can produce. */
+const KNOWN_CLAIM_STATUSES = [
+  'pending',
+  'pending_review',
+  'under_review',
+  'approved',
+  'rejected',
+] as const
+
+function claimStatusLabel(status: string, t: (key: string) => string): string {
+  return (KNOWN_CLAIM_STATUSES as readonly string[]).includes(status)
+    ? t(`status.${status}`)
+    : status
+}
+
 type VerificationCardProps = {
   item: StaffClaimsQueueItem
   showAssignment?: boolean
@@ -77,7 +92,9 @@ export function VerificationCard({ item, showAssignment = true }: VerificationCa
             >
               {typeLabel}
             </span>
-            <span className="text-xs font-medium text-foreground">{item.status}</span>
+            <span className="text-xs font-medium text-foreground">
+              {claimStatusLabel(item.status, t)}
+            </span>
           </div>
           <div>
             <p className="font-medium text-foreground">{item.applicantName}</p>
