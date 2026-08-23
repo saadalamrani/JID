@@ -124,7 +124,7 @@ export function BusinessProfileView({
 
       {profile.gallery.length > 0 ? (
         <section className="space-y-3">
-          <h2 className="font-arabic text-lg font-semibold text-foreground">{t('gallery')}</h2>
+          <h2 className="text-lg font-semibold text-foreground">{t('gallery')}</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {profile.gallery.map((item) => (
               <figure
@@ -152,7 +152,7 @@ export function BusinessProfileView({
       ) : null}
 
       <section className="space-y-4">
-        <h2 className="font-arabic text-lg font-semibold text-foreground">{t('openingsTitle')}</h2>
+        <h2 className="text-lg font-semibold text-foreground">{t('openingsTitle')}</h2>
         {openings.length > 0 ? (
           <ul className="grid list-none gap-4 sm:grid-cols-2">
             {openings.map((job) => (

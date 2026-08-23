@@ -60,7 +60,12 @@ export function EmergencyHistory({ actions }: EmergencyHistoryProps) {
           <li key={action.id} className="p-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="font-medium text-foreground">{t(`types.${action.action_type}`, { default: action.action_type })}</p>
+                <p className="font-medium text-foreground">
+                  {/* next-intl has no `default` translator option — silently ignored. */}
+                  {['maintenance_mode', 'registrations_open'].includes(action.action_type)
+                    ? t(`types.${action.action_type}`)
+                    : action.action_type}
+                </p>
                 <p className="mt-1 text-sm text-muted-foreground">{action.reason}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
                   {action.activator_name ?? action.activated_by.slice(0, 8)} ·{' '}

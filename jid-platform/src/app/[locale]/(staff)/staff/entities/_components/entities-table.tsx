@@ -8,6 +8,25 @@ type EntitiesTableProps = {
   rows: StaffEntityListRow[]
 }
 
+// next-intl has no `default`/`defaultValue` translator option (unlike i18next) — passing
+// one as the second argument is silently ignored, which is how "Business" rows rendered
+// the raw key path "staff.entities.table.types.business" live (entity_type is 'business',
+// but only a 'company' key existed). Explicit membership checks make the fallback real.
+const KNOWN_ENTITY_TYPES = ['company', 'business', 'university'] as const
+const KNOWN_OWNERSHIP_TYPES = ['government', 'semi_government', 'private'] as const
+
+function entityTypeLabel(entityType: string, t: (key: string) => string): string {
+  return (KNOWN_ENTITY_TYPES as readonly string[]).includes(entityType)
+    ? t(`types.${entityType}`)
+    : entityType
+}
+
+function ownershipLabel(ownershipType: string, t: (key: string) => string): string {
+  return (KNOWN_OWNERSHIP_TYPES as readonly string[]).includes(ownershipType)
+    ? t(`ownership.${ownershipType}`)
+    : ownershipType
+}
+
 export function EntitiesTable({ rows }: EntitiesTableProps) {
   const t = useTranslations('staff.entities.table')
 
@@ -45,9 +64,9 @@ export function EntitiesTable({ rows }: EntitiesTableProps) {
                   <p className="text-xs text-muted-foreground">{row.name_ar}</p>
                 ) : null}
               </td>
-              <td className="px-4 py-3">{t(`types.${row.entity_type}`, { default: row.entity_type })}</td>
+              <td className="px-4 py-3">{entityTypeLabel(row.entity_type, t)}</td>
               <td className="px-4 py-3 text-muted-foreground">
-                {row.ownership_type ? t(`ownership.${row.ownership_type}`, { default: row.ownership_type }) : '—'}
+                {row.ownership_type ? ownershipLabel(row.ownership_type, t) : '—'}
               </td>
               <td className="px-4 py-3 text-muted-foreground">{row.region_name ?? '—'}</td>
               <td className="px-4 py-3 text-muted-foreground">

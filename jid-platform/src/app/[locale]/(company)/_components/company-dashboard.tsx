@@ -95,7 +95,12 @@ export async function CompanyDashboard({ profile, metrics = null }: CompanyDashb
     { href: '/company/profile/edit', label: t('links.settings'), icon: Settings },
   ] as const
 
-  const statusLabel = t(`status.${profile.status}`, { defaultValue: profile.status })
+  // next-intl has no `defaultValue` translator option — silently ignored. All three
+  // current status values have a matching key, but this keeps the fallback real if that
+  // ever drifts.
+  const statusLabel = ['draft', 'published', 'suspended'].includes(profile.status)
+    ? t(`status.${profile.status}`)
+    : profile.status
 
   return (
     <section className="space-y-6" data-testid="company-dashboard">

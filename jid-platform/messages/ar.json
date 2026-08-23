@@ -1305,7 +1305,12 @@
       "officialName": "الاسم الرسمي",
       "entityType": "نوع المنظمة",
       "website": "الموقع الرسمي",
-      "noWebsite": "لا يوجد موقع رسمي في مرجع الدليل."
+      "noWebsite": "لا يوجد موقع رسمي في مرجع الدليل.",
+      "entityTypes": {
+        "company": "جهة أعمال",
+        "business": "جهة أعمال",
+        "university": "جامعة"
+      }
     },
     "emptyState": {
       "noFabricatedData": "لا تُعرض بيانات مُختلَقة."
@@ -2413,7 +2418,8 @@
         },
         "types": {
           "company": "شركة",
-          "university": "جامعة"
+          "university": "جامعة",
+          "business": "شركة"
         },
         "ownership": {
           "government": "حكومي",
@@ -2449,7 +2455,8 @@
         },
         "types": {
           "company": "شركة",
-          "university": "جامعة"
+          "university": "جامعة",
+          "business": "شركة"
         },
         "stats": {
           "title": "إحصائيات الاستجابة",
@@ -3445,7 +3452,8 @@
         },
         "types": {
           "company": "شركة",
-          "university": "جامعة"
+          "university": "جامعة",
+          "business": "شركة"
         },
         "states": {
           "unclaimed": "بلا ملف تعريفي",
@@ -3483,7 +3491,8 @@
         },
         "types": {
           "company": "شركة",
-          "university": "جامعة"
+          "university": "جامعة",
+          "business": "شركة"
         },
         "claims": {
           "claimant": "مقدّم الطلب",

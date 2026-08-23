@@ -120,7 +120,21 @@ export function UsersTable({ rows, sort, dir, baseParams }: UsersTableProps) {
                 </Link>
               </td>
               <td className="px-4 py-3 text-muted-foreground">{row.email ?? '—'}</td>
-              <td className="px-4 py-3">{t(`roleLabels.${row.display_role}`, { default: row.display_role })}</td>
+              <td className="px-4 py-3">
+                {/* next-intl has no `default` translator option — silently ignored. */}
+                {[
+                  'individual',
+                  'mentor',
+                  'entity',
+                  'company_admin',
+                  'university_admin',
+                  'staff',
+                  'admin',
+                  'super_admin',
+                ].includes(row.display_role)
+                  ? t(`roleLabels.${row.display_role}`)
+                  : row.display_role}
+              </td>
               <td className="px-4 py-3">
                 <span
                   className={cn(

@@ -57,8 +57,8 @@ export function FormatPicker({ value, onChange, className }: FormatPickerProps) 
   return (
     <section className={cn('space-y-3', className)} aria-label={t('ariaLabel')}>
       <div>
-        <h2 className="font-arabic text-base font-semibold text-foreground">{t('title')}</h2>
-        <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
+        <h2 className="text-base font-semibold text-foreground">{t('title')}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('subtitle')}</p>
       </div>
 
       <div className="grid gap-3 sm:grid-cols-3">
@@ -83,16 +83,16 @@ export function FormatPicker({ value, onChange, className }: FormatPickerProps) 
               aria-pressed={isSelected}
             >
               <div className="mb-2 flex items-center justify-between gap-2">
-                <span className="font-arabic text-sm font-semibold text-foreground">
+                <span className="text-sm font-semibold text-foreground">
                   {locale === 'ar' ? def.labelAr : def.labelEn}
                 </span>
                 <TierBadge tier={isPlus ? 'plus' : 'normal'} />
               </div>
-              <p className="font-arabic text-xs leading-relaxed text-muted-foreground">
+              <p className="text-xs leading-relaxed text-muted-foreground">
                 {locale === 'ar' ? def.descriptionAr : def.descriptionEn}
               </p>
               {locked ? (
-                <p className="mt-2 font-arabic text-xs font-medium text-primary">{t('plusRequired')}</p>
+                <p className="mt-2 text-xs font-medium text-primary">{t('plusRequired')}</p>
               ) : null}
             </button>
           )

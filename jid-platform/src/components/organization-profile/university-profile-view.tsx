@@ -91,7 +91,10 @@ export function UniversityProfileView({ profile, directory, mode }: UniversityPr
               <div>
                 <dt className="text-foreground/60">{t('institutionType')}</dt>
                 <dd className="font-medium">
-                  {t(`types.${profile.university_type}`, { defaultValue: profile.university_type })}
+                  {/* next-intl has no `defaultValue` translator option — silently ignored. */}
+                  {['government', 'private'].includes(profile.university_type)
+                    ? t(`types.${profile.university_type}`)
+                    : profile.university_type}
                 </dd>
               </div>
             ) : null}

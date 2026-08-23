@@ -7,6 +7,25 @@ type EntitiesTableProps = {
   rows: SysEntityListRow[]
 }
 
+// next-intl has no `default`/`defaultValue` translator option (unlike i18next) — the same
+// bug confirmed live on the equivalent Staff entities table ("staff.entities.table.types.
+// business" rendered as raw text because only a stale 'company' key existed for the
+// 'business' entity_type value). Explicit membership checks make the fallback real.
+const KNOWN_ENTITY_TYPES = ['company', 'business', 'university'] as const
+const KNOWN_ENTITY_STATES = ['unclaimed', 'pending', 'pending_review', 'approved', 'suspended'] as const
+
+function entityTypeLabel(entityType: string, t: (key: string) => string): string {
+  return (KNOWN_ENTITY_TYPES as readonly string[]).includes(entityType)
+    ? t(`types.${entityType}`)
+    : entityType
+}
+
+function entityStateLabel(entityState: string, t: (key: string) => string): string {
+  return (KNOWN_ENTITY_STATES as readonly string[]).includes(entityState)
+    ? t(`states.${entityState}`)
+    : entityState
+}
+
 export function EntitiesTable({ rows }: EntitiesTableProps) {
   const t = useTranslations('sys.entities.table')
 
@@ -39,7 +58,7 @@ export function EntitiesTable({ rows }: EntitiesTableProps) {
                 </Link>
                 {row.name_ar ? <p className="text-xs text-muted-foreground">{row.name_ar}</p> : null}
               </td>
-              <td className="px-4 py-3">{t(`types.${row.entity_type}`, { default: row.entity_type })}</td>
+              <td className="px-4 py-3">{entityTypeLabel(row.entity_type, t)}</td>
               <td className="px-4 py-3">
                 <span
                   className={cn(
@@ -51,7 +70,7 @@ export function EntitiesTable({ rows }: EntitiesTableProps) {
                         : 'bg-background text-muted-foreground',
                   )}
                 >
-                  {t(`states.${row.entity_state}`, { default: row.entity_state })}
+                  {entityStateLabel(row.entity_state, t)}
                 </span>
               </td>
               <td className="px-4 py-3">{row.is_verified ? t('yes') : t('no')}</td>

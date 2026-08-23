@@ -27,7 +27,14 @@ export function DirectoryReferenceCard({ directory }: DirectoryReferenceCardProp
           </div>
           <div>
             <dt className="text-xs text-foreground/50">{t('entityType')}</dt>
-            <dd className="text-foreground/80">{directory.entity_type}</dd>
+            <dd className="text-foreground/80">
+              {/* Confirmed live: rendered raw ('business', 'university') with no
+                  translation attempt at all on both Business and University profile-edit
+                  screens. */}
+              {['company', 'business', 'university'].includes(directory.entity_type)
+                ? t(`entityTypes.${directory.entity_type}`)
+                : directory.entity_type}
+            </dd>
           </div>
           {directory.website_url ? (
             <div>

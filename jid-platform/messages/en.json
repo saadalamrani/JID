@@ -1305,7 +1305,12 @@
       "officialName": "Official name",
       "entityType": "Organization type",
       "website": "Official website",
-      "noWebsite": "No official website in the directory reference."
+      "noWebsite": "No official website in the directory reference.",
+      "entityTypes": {
+        "company": "Business",
+        "business": "Business",
+        "university": "University"
+      }
     },
     "emptyState": {
       "noFabricatedData": "No fabricated data is shown."
@@ -2423,7 +2428,8 @@
         },
         "types": {
           "company": "Company",
-          "university": "University"
+          "university": "University",
+          "business": "Business"
         },
         "ownership": {
           "government": "Government",
@@ -2459,7 +2465,8 @@
         },
         "types": {
           "company": "Company",
-          "university": "University"
+          "university": "University",
+          "business": "Business"
         },
         "stats": {
           "title": "Response stats",
@@ -3455,7 +3462,8 @@
         },
         "types": {
           "company": "Company",
-          "university": "University"
+          "university": "University",
+          "business": "Business"
         },
         "states": {
           "unclaimed": "No owned profile",
@@ -3493,7 +3501,8 @@
         },
         "types": {
           "company": "Company",
-          "university": "University"
+          "university": "University",
+          "business": "Business"
         },
         "claims": {
           "claimant": "Applicant",
@@ -4926,7 +4935,7 @@
         "ariaLabel": "CV format picker",
         "title": "Choose your format",
         "subtitle": "Basic template is free. Harvard and Global ATS are JID Plus.",
-        "plusRequired": "Upgrade to بلس to export this format"
+        "plusRequired": "Upgrade to Plus to export this format"
       },
       "exportBar": {
         "action": "Generate & download",

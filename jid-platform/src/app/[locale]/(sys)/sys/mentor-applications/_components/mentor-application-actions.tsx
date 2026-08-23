@@ -134,7 +134,12 @@ export function MentorApplicationActions({ application }: MentorApplicationActio
               : 'bg-background text-muted-foreground',
         )}
       >
-        {t(`statuses.${status}`, { default: status })}
+        {/* next-intl has no `default` translator option — silently ignored. */}
+        {['pending_review', 'under_review', 'approved', 'rejected', 'suspended', 'pending'].includes(
+          status,
+        )
+          ? t(`statuses.${status}`)
+          : status}
       </span>
 
       <ConfirmDialog

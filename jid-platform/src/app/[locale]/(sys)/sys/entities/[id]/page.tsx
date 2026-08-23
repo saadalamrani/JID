@@ -20,6 +20,14 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
 
   if (!entity) notFound()
 
+  // next-intl has no `default`/`defaultValue` translator option — passing one is silently
+  // ignored (confirmed live: raw key paths rendering as visible text on the equivalent
+  // list screen for 'business' rows before this fix added the missing key).
+  const KNOWN_ENTITY_TYPES = ['company', 'business', 'university']
+  const entityTypeLabel = KNOWN_ENTITY_TYPES.includes(entity.entity_type)
+    ? t(`types.${entity.entity_type}`)
+    : entity.entity_type
+
   const infoFields = [
     { label: t('fields.id'), value: entity.id },
     { label: t('fields.name'), value: entity.name },
@@ -44,7 +52,7 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
       <header>
         <h1 className="text-2xl font-semibold text-foreground">{entity.name}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {t(`types.${entity.entity_type}`, { default: entity.entity_type })} · {entity.entity_state}
+          {entityTypeLabel} · {entity.entity_state}
         </p>
       </header>
 

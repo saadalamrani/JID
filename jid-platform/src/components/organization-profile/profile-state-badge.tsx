@@ -10,7 +10,11 @@ type ProfileStateBadgeProps = {
 export function ProfileStateBadge({ status }: ProfileStateBadgeProps) {
   const t = useTranslations('organizationProfile.state')
 
-  const label = t(status, { defaultValue: status })
+  // next-intl has no `defaultValue` translator option — passing one is silently ignored,
+  // so an unrecognized status would otherwise render the raw "organizationProfile.state.…"
+  // key path instead of the raw status value.
+  const KNOWN_STATES = ['draft', 'published', 'suspended']
+  const label = KNOWN_STATES.includes(status) ? t(status) : status
 
   return (
     <span
