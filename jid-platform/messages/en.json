@@ -39,7 +39,7 @@
       "exploreOpportunities": "Explore opportunities",
       "radar": "Radar",
       "mentorship": "Mentorship",
-      "catalog": "Catalog",
+      "catalog": "Directory",
       "businessDashboard": "Dashboard",
       "businessProfile": "Business profile",
       "businessJobs": "Opportunities",
@@ -60,7 +60,7 @@
           "title": "Platform",
           "opportunities": "Opportunities",
           "mentors": "Mentors",
-          "catalog": "Company catalog",
+          "catalog": "Directory",
           "pulse": "Platform Pulse"
         },
         "legal": {
@@ -106,7 +106,7 @@
       "actions": {
         "opportunities": "Opportunities",
         "mentors": "Mentors",
-        "catalog": "Company catalog",
+        "catalog": "Directory",
         "profile": "My profile",
         "radar": "Radar",
         "cv": "CV Builder",
@@ -140,27 +140,27 @@
       "individual": "Individual",
       "mentor": "Mentor",
       "entity": "Organization",
-      "company_admin": "Company admin",
+      "company_admin": "Organization admin",
       "university_admin": "University admin"
     }
   },
   "landing": {
     "meta": {
       "title": "JID — Saudi Arabia's Career Infrastructure Platform",
-      "description": "JID is Saudi Arabia's Career Infrastructure Platform — opportunities, guidance, and trusted catalogues for individuals, employers, and universities."
+      "description": "JID is Saudi Arabia’s Career Infrastructure Platform — connecting individuals, employers, and universities."
     },
     "hero": {
-      "eyebrow": "Saudi Arabia's Career Infrastructure Platform",
-      "title": "JID connects individuals, employers, and universities",
+      "eyebrow": "Saudi career infrastructure",
+      "title": "JID connects individuals, employers, and universities.",
       "subtitle": "Saudi career infrastructure built around the distinct role each one plays.",
-      "body": "Individuals build a career, employers manage their presence, and universities follow their graduates' data — each in its own place.",
-      "primaryCta": "Browse opportunities",
+      "body": "Each actor has a distinct space: the individual for a career, the employer for presence, and the university for its institutional role within clear data bounds.",
+      "primaryCta": "Explore opportunities",
       "primaryCtaGuest": "Explore opportunities",
       "primaryCtaCompleteProfile": "Complete your profile",
       "primaryCtaRadar": "Open your Radar",
       "secondaryCta": "Create an account",
       "cards": {
-        "groupAria": "Platform pulse cards",
+        "groupAria": "JID activity cards",
         "relativeTime": "{time} ago",
         "mentorFallback": "Your mentor",
         "latestJob": {
@@ -197,7 +197,7 @@
       "subtitle": "Recurring experiences in Saudi hiring — addressed with practical transparency, not marketing stats.",
       "cards": {
         "applicants": {
-          "headline": "The vast majority of applicants",
+          "headline": "Applicants",
           "body": "never receive a clear update on their application outcome"
         },
         "waiting": {
@@ -205,14 +205,14 @@
           "body": "with no clear deadline for a response"
         },
         "graduates": {
-          "headline": "A wide segment of graduates",
+          "headline": "Graduates",
           "body": "do not know their application status for weeks"
         }
       }
     },
     "modules": {
       "title": "Built for three actors",
-      "subtitle": "Individuals, employers, and universities share one career infrastructure — with opportunities and a public catalogue.",
+      "subtitle": "Individuals, employers, and universities share one career infrastructure — with opportunities and the Directory.",
       "explore": "Explore →",
       "items": {
         "jobs": {
@@ -220,7 +220,7 @@
           "description": "Discover native JID roles and Lammah listings without fabricated match scores."
         },
         "catalog": {
-          "title": "Business catalogue",
+          "title": "Directory",
           "description": "Platform-managed reference records for employers — separate from owned Profiles."
         },
         "mentors": {
@@ -232,8 +232,8 @@
           "description": "Public metrics and announcements reflecting platform activity."
         },
         "universities": {
-          "title": "University catalogue",
-          "description": "Institutional reference entries and verified university Profiles when published."
+          "title": "University",
+          "description": "Institutional presence after verification and deliberate Profile creation — separate from the Directory record."
         },
         "profiles": {
           "title": "Individuals",
@@ -244,8 +244,8 @@
           "description": "Track your applications in one visual pipeline after sign-up."
         },
         "cv": {
-          "title": "CV builder",
-          "description": "Build your résumé and export a professional PDF."
+          "title": "CV Builder",
+          "description": "Build your CV and export a professional snapshot."
         }
       }
     },
@@ -271,20 +271,20 @@
       },
       "entity": {
         "title": "For employers & universities",
-        "body": "You cannot become an admin by signing up directly — search the catalogue, request verification, then create your owned profile.",
+        "body": "You cannot create an organization Profile as an admin shortcut — find the Directory record, request verification, then create your Profile.",
         "button": "Find your entity and request verification"
       }
     }
   },
   "catalogPage": {
     "hero": {
-      "title": "Organization directory",
+      "title": "Directory",
       "subtitle": "Platform-managed public reference records — separate from owned Business Profiles. Unknown fields stay empty.",
       "count": "{count} published directory records"
     },
     "search": {
       "placeholder": "Search by name…",
-      "inputLabel": "Search the organization directory",
+      "inputLabel": "Search the Directory",
       "loading": "Loading results...",
       "resultCount": "{count} results",
       "keyboardInstructions": "Results update as you type. Press Escape to clear the search.",
@@ -293,8 +293,8 @@
       "resetFilters": "Reset filters",
       "error": "Could not load results: {message}",
       "unavailable": "No published directory records are listed yet. Reference records appear after staff review and publication.",
-      "filtersLabel": "Organization directory filters",
-      "resultsLabel": "Organization directory results",
+      "filtersLabel": "Directory filters",
+      "resultsLabel": "Directory results",
       "listLabel": "Organizations",
       "searchFilter": "Search: {query}",
       "ownershipFilter": "Ownership: {value}",
@@ -325,8 +325,8 @@
       "aboutEmpty": "No reference summary for this record yet.",
       "directoryRecordNote": "About this registry entry:",
       "lastAudit": "Last link check: {time}",
-      "correctionIntro": "As the verified profile owner linked to this directory record, you may suggest a correction.",
-      "backToCatalog": "Back to company catalog"
+      "correctionIntro": "If you have an owned Profile linked to this record, you can suggest a Directory correction.",
+      "backToCatalog": "Back to the Directory"
     },
     "correction": {
       "open": "Suggest a correction to this registry record",
@@ -359,7 +359,7 @@
     "public": {
       "metaFallback": "Business profile",
       "unnamed": "Organization",
-      "verified": "Verified profile",
+      "verified": "Published",
       "coverAlt": "Profile cover image",
       "founded": "Founded",
       "teamSize": "Team size",
@@ -535,7 +535,7 @@
       "title": "How we use your data",
       "intro": "We process personal data for the following purposes:",
       "items": {
-        "service": "Providing core platform features: accounts, profiles, opportunities, application radar, mentorship, and entity catalogues.",
+        "service": "Providing core platform features: accounts, profiles, opportunities, application radar, mentorship, and the Directory.",
         "matching": "Connecting candidates with opportunities and mentors, including visibility rules you control in settings.",
         "notifications": "Sending transactional emails and in-app notifications about applications, verification decisions, meetings, and security events.",
         "security": "Detecting abuse, enforcing role-based access, preventing fraud, and maintaining audit trails for staff actions.",
@@ -775,15 +775,15 @@
     "disabled": {
       "eyebrow": "Not public yet",
       "title": "Platform Pulse is disabled",
-      "description": "The master public switch is off. Enable it from the Platform Pulse features panel when traction thresholds are met.",
+      "description": "Platform Pulse is not available right now.",
       "featuresLink": "Open features panel"
     },
     "placeholders": {
-      "announcements": "Announcements billboard — ships Day 6",
-      "metrics": "Metrics stats hub — ships Day 6",
+      "announcements": "Announcements",
+      "metrics": "Metrics",
       "trends": "Market trends",
-      "sectorTrends": "Sector demand — ships Day 7",
-      "skillsTrends": "Skills demand — ships Day 7"
+      "sectorTrends": "Sector demand",
+      "skillsTrends": "Skills demand"
     },
     "announcements": {
       "empty": {
@@ -806,8 +806,8 @@
         "caption": "Organizations listed in the directory"
       },
       "verified_profiles": {
-        "label": "Verified profiles",
-        "caption": "Organizations that created a verified profile"
+        "label": "Published profiles",
+        "caption": "Organizations that have published an owned Profile"
       },
       "total_jobs": {
         "label": "Total opportunities"
@@ -835,7 +835,7 @@
       "exploreTitle": "Explore JID",
       "links": {
         "opportunities": "Opportunities",
-        "catalog": "Company catalog",
+        "catalog": "Directory",
         "mentors": "Mentors",
         "contact": "Contact us"
       }
@@ -958,7 +958,7 @@
       "title": "Verify your email",
       "subtitle": "One last step before signing in",
       "instructions": "We sent a confirmation link to your email. Open it to complete registration.",
-      "inbucketHint": "Locally: check Inbucket at http://127.0.0.1:54324",
+      "inbucketHint": "If the message does not arrive, check your spam folder.",
       "backToLogin": "Back to sign in"
     },
     "verifyPhone": {
@@ -1122,7 +1122,7 @@
       "preview": {
         "intro": "This is how visitors will see your business profile — an honest stranger's-eye preview.",
         "unnamed": "Organization",
-        "verifiedBadge": "Verified",
+        "verifiedBadge": "Published",
         "founded": "Founded",
         "teamSize": "Team size",
         "noAbout": "No about text yet.",
@@ -1146,21 +1146,21 @@
       "validationFailed": "Please fix the required fields"
     },
     "boost": {
-      "teaserTitle": "Priority visibility",
-      "teaserBody": "Elevate job placement on the opportunities board with an honest «مميّزة» label — without affecting automated matching ranking.",
+      "teaserTitle": "Not available in this release",
+      "teaserBody": "Paid visibility options are not shown in the current prototype.",
       "salesCta": "Contact sales",
-      "toggleTitle": "Boost this job",
-      "toggleAria": "Toggle boost",
-      "quotaMeter": "{active}/{quota} boosted slots",
-      "windowRemaining": "{days} days remaining",
+      "toggleTitle": "Not available",
+      "toggleAria": "Not available",
+      "quotaMeter": "Not available",
+      "windowRemaining": "Not available",
       "errors": {
-        "subscription_required": "Priority visibility subscription required.",
-        "boost_quota_exceeded": "Concurrent boost quota reached."
+        "subscription_required": "Not available in this release.",
+        "boost_quota_exceeded": "Not available in this release."
       },
       "performance": {
-        "title": "Boost performance",
-        "lift": "Impressions ×{multiplier} since boost",
-        "liftPending": "Collecting baseline data for lift estimate",
+        "title": "Not available",
+        "lift": "Paid visibility metrics are not shown in this release.",
+        "liftPending": "Paid visibility metrics are not shown in this release.",
         "empty": "No stats yet",
         "date": "Date",
         "impressions": "Impressions",
@@ -1220,7 +1220,7 @@
       "university": "University"
     },
     "publicationBoundary": {
-      "message": "Your Profile is currently a draft. Publication controls will appear when the publication workflow is enabled."
+      "message": "This Profile is a draft and is not public. Publishing it does not change the Directory record."
     },
     "publication": {
       "draftTitle": "Draft Profile",
@@ -1382,7 +1382,7 @@
     "universityPreview": {
       "banner": "This is a visitor preview. Profile data cannot be edited from preview mode.",
       "unnamed": "Institution",
-      "verified": "Verified",
+      "verified": "Published",
       "institutionType": "Institution type",
       "established": "Established",
       "noAbout": "No about text yet.",
@@ -1403,11 +1403,11 @@
   },
   "university": {
     "nav": {
-      "shellTitle": "University panel",
-      "dashboard": "Statistics dashboard"
+      "shellTitle": "University workspace",
+      "dashboard": "University workspace"
     },
     "dashboard": {
-      "title": "University statistics",
+      "title": "University workspace",
       "loading": "Loading university indicators...",
       "error": "University dashboard data could not be loaded right now.",
       "refreshedAt": "Last updated",
@@ -1417,7 +1417,7 @@
       "pdfTitle": "University Dashboard Report",
       "statusBreakdown": "Distribution by academic status",
       "collegeDistribution": "Distribution by college",
-      "mentorshipTitle": "Mentorship impact",
+      "mentorshipTitle": "Mentorship",
       "mentorshipBody": "Confirmed/completed mentorship sessions: {count}",
       "kpiHint": "Updated on the scheduled refresh cycle.",
       "kpi": {
@@ -1442,16 +1442,16 @@
         "empty": "No college-distribution data is available yet."
       },
       "empty": {
-        "title": "Not enough data yet",
-        "description": "Update your university profile and complete student data to show statistics-dashboard indicators.",
+        "title": "Institutional data is not available yet",
+        "description": "We will not show indicators before their data and permissions are clear.",
         "cta": "Go to university profile"
       },
       "consentGate": {
-        "title": "Student indicators are not available yet",
-        "description": "Your university's identity is verified, but this dashboard's indicators are currently computed from every student who selected your university, without checking each student's consent to be counted in university statistics.",
-        "methodologyTitle": "Before indicators are enabled",
-        "methodologyBody": "Indicators will only display once they are bound to each student's individual consent boundary — the same control already used to show individual profiles — so no student who opted out of university statistics is counted.",
-        "nextAction": "This isn't missing data — the computation exists, but the per-indicator consent boundary isn't enabled yet. For now, follow your public university profile.",
+        "title": "Institutional data is not available yet",
+        "description": "We will not show indicators before their data and permissions are clear.",
+        "methodologyTitle": "Display limits",
+        "methodologyBody": "We will not show indicators before their data and permissions are clear.",
+        "nextAction": "You can continue with the public university Profile for now.",
         "cta": "View university profile"
       }
     },
@@ -1484,13 +1484,13 @@
       "preview": {
         "intro": "This is how visitors will see your university profile — an honest stranger's-eye preview.",
         "unnamed": "Institution",
-        "verifiedBadge": "Verified",
+        "verifiedBadge": "Published",
         "noAbout": "No about text yet.",
         "strangerNote": "Visitor preview — not the edit surface."
       }
     },
     "approvedWithoutProfile": {
-      "title": "You're verified to represent this university",
+      "title": "Representation has been verified",
       "message": "You can now prepare its JID Profile. Verification confirms representation — the Profile is created when you choose to prepare it.",
       "cta": "Prepare university Profile"
     }
@@ -1498,12 +1498,12 @@
   "entity": {
     "approvedWithoutProfile": {
       "business": {
-        "title": "You're verified to represent this organization",
+        "title": "Representation has been verified",
         "message": "You can now prepare its JID Profile. Verification confirms representation — the Profile is created when you choose to prepare it.",
         "cta": "Prepare organization Profile"
       },
       "university": {
-        "title": "You're verified to represent this university",
+        "title": "Representation has been verified",
         "message": "You can now prepare its JID Profile. Verification confirms representation — the Profile is created when you choose to prepare it.",
         "cta": "Prepare university Profile"
       }
@@ -1551,7 +1551,7 @@
       },
       "entity": {
         "tabs": {
-          "existing": "Find organization",
+          "existing": "Choose from the Directory",
           "new": "Can't find your organization?",
           "university": "Select university"
         },
@@ -1586,7 +1586,7 @@
       },
       "verifyEmail": {
         "instructions": "We sent a confirmation link to your email. Open it to continue setup.",
-        "inbucketHint": "Locally: check Inbucket at http://127.0.0.1:54324",
+        "inbucketHint": "If the message does not arrive, check your spam folder.",
         "checkNow": "I've confirmed my email",
         "checking": "Checking...",
         "continueToPending": "Continue to review status",
@@ -1771,7 +1771,7 @@
       },
       "unassignedQueue": {
         "title": "Unassigned queue",
-        "subtitle": "Oldest unassigned verification requests awaiting pickup",
+        "subtitle": "Oldest verification requests waiting to be assigned",
         "viewAll": "View queue",
         "empty": "No unassigned verification requests right now"
       },
@@ -2384,7 +2384,7 @@
     },
     "entities": {
       "title": "Entity moderation",
-      "subtitle": "Approved companies and universities — metadata corrections only (not verification workflow)",
+      "subtitle": "Companies and universities — Directory field corrections only, not the verification workflow.",
       "filters": {
         "search": "Search",
         "searchPlaceholder": "Entity name…",
@@ -2468,7 +2468,7 @@
       },
       "metadataForm": {
         "title": "Edit metadata — {name}",
-        "subtitle": "Staff may correct catalog fields only. entity_state cannot be changed here.",
+        "subtitle": "Staff may correct Directory fields only. The organization state cannot be changed here.",
         "back": "← Back to entity",
         "hint": "Changes are audited with before/after diff. Verification workflow controls approval state.",
         "sector": "Sector",
@@ -2541,7 +2541,7 @@
         "resolved": "Flag resolved",
         "dismissed": "Flag dismissed",
         "alreadyClosed": "This flag is already closed ({status}).",
-        "hideTodo": "TODO: Wire isContentFlagHidden() into Catalog/Mentorship public listings for full display gating."
+        "hideTodo": "Hiding reported content from public lists is handled through the review path."
       }
     },
     "lammah": {
@@ -2608,7 +2608,7 @@
         "empty": "No candidates match these filters.",
         "noFlags": "No review flags",
         "unassigned": "Unassigned",
-        "claim": "Take",
+        "claim": "Assign to me",
         "open": "Open review"
       },
       "detail": {
@@ -2619,7 +2619,7 @@
         "companyId": "Resolved company ID",
         "facts": "Exact extracted facts",
         "actions": {
-          "claim": "Take",
+          "claim": "Assign to me",
           "release": "Release",
           "approve": "Approve",
           "publish": "Publish approved candidate",
@@ -3470,7 +3470,7 @@
           "nameAr": "Arabic name",
           "type": "Type",
           "state": "State",
-          "verified": "Verified",
+          "verified": "Verification",
           "claimant": "Applicant",
           "website": "Website",
           "city": "City",
@@ -3505,7 +3505,7 @@
           },
           "confirm": {
             "approveTitle": "Force approve entity",
-            "approveDescription": "Sets entity_state to approved, bypassing staff review workflow.",
+            "approveDescription": "Approve the organization directly, bypassing staff review. The action is written to the audit log.",
             "rejectTitle": "Force reject entity",
             "rejectDescription": "Resets entity to no-owned-profile state and rejects pending verification requests.",
             "metadataTitle": "Update entity metadata",
@@ -3517,7 +3517,7 @@
     "mentorApplications": {
       "title": "Mentor applications",
       "subtitle": "Super Admin oversight — all applications regardless of staff review status",
-      "staffNote": "Staff queue at /staff/mentor-applications shows pending_review only.",
+      "staffNote": "The staff queue shows applications awaiting review only.",
       "filters": {
         "search": "Search",
         "searchPlaceholder": "Headline…",
@@ -3791,10 +3791,10 @@
       "badgesTitle": "Badges",
       "badgesEmpty": "No badges earned yet",
       "completionLabel": "Profile completion",
-      "statsCompaniesViewed": "Companies viewed you",
+      "statsCompaniesViewed": "Profile activity",
       "statsActiveApplications": "Active applications",
-      "statsTotalViews": "Total profile views",
-      "statsDistinctCompanies30d": "Companies (30 days)",
+      "statsTotalViews": "Profile activity",
+      "statsDistinctCompanies30d": "Profile activity",
       "statsCompletion": "Completion",
       "studentStatusStudent": "Student",
       "studentStatusGraduate": "Graduate",
@@ -3807,10 +3807,10 @@
       "privateGateTitle": "This profile is private",
       "privateGateMessage": "Sign in with an approved company or mentor account to view discoverable profiles, or ask the owner to make their profile public.",
       "privateGateLogin": "Sign in",
-      "emptyStateTitle": "Your profile is waiting",
-      "emptyStateMessage": "Complete the steps below to introduce yourself to companies and mentors on JID.",
+      "emptyStateTitle": "Start your professional profile",
+      "emptyStateMessage": "Add the information you want to keep on JID.",
       "wizardTitle": "Complete your profile",
-      "wizardSubtitle": "Each step unlocks more visibility to employers.",
+      "wizardSubtitle": "Complete the essential information on your profile.",
       "wizardTask": {
         "avatar": "Add a profile photo",
         "headline": "Write a headline",
@@ -3821,7 +3821,7 @@
         "links": "Add professional links"
       },
       "completionBannerTitle": "Almost there — finish your profile",
-      "completionBannerHint": "Complete the remaining steps to maximize your visibility.",
+      "completionBannerHint": "Complete the remaining steps on your list.",
       "completionBannerCta": "Continue editing",
       "aboutTitle": "About",
       "aboutEmpty": "No bio yet.",
@@ -3860,7 +3860,7 @@
         "badgesEmpty": "No badges earned yet",
         "honorRollBadgeAr": "شرف القائمة",
         "honorRollBadgeEn": "Honor roll",
-        "unclaimedTitle": "Is this your company?",
+        "unclaimedTitle": "Do you represent this organization?",
         "unclaimedMessage": "Request verification, then create your owned profile to manage opportunities, respond to candidates, and represent your organisation on JID.",
         "unclaimedCta": "Request verification",
         "aboutTitle": "About the company",
@@ -3987,14 +3987,14 @@
       },
       "portfolio": {
         "title": "Portfolio",
-        "emptyOwner": "Add a portfolio link or featured project from the CV builder.",
+        "emptyOwner": "Add a portfolio link or featured project from the CV Builder.",
         "openFull": "Open full portfolio",
         "openFullPublic": "Open full portfolio"
       },
       "cvBuilder": {
-        "title": "CV builder",
+        "title": "CV Builder",
         "hint": "Your CV is an independent snapshot — open the builder to edit or export.",
-        "openBuilder": "Open CV builder"
+        "openBuilder": "Open CV Builder"
       },
       "overview": {
         "title": "Overview",
@@ -4013,7 +4013,7 @@
       "timeline": {
         "title": "Career timeline",
         "empty": "No timeline events yet.",
-        "emptyOwner": "Add education and experience in the CV builder to populate your timeline.",
+        "emptyOwner": "Add education and experience in the CV Builder to populate your timeline.",
         "showMore": "Show more",
         "showLess": "Show less",
         "proof": "Proof",
@@ -4028,8 +4028,8 @@
       },
       "projects": {
         "title": "Featured projects",
-        "empty": "No projects yet — add them in the CV builder.",
-        "emptyOwner": "Add your first project in the CV builder",
+        "empty": "No projects yet — add them in the CV Builder.",
+        "emptyOwner": "Add your first project in the CV Builder",
         "viewAll": "View all",
         "role": "Role",
         "date": "Date",
@@ -4041,13 +4041,13 @@
         "title": "Experience",
         "edit": "Edit",
         "empty": "No experience added.",
-        "emptyOwner": "Add your first role in the CV builder",
+        "emptyOwner": "Add your first role in the CV Builder",
         "evidenceUnavailable": "Evidence Vault is not available yet."
       },
       "education": {
         "title": "Education",
         "edit": "Edit",
-        "emptyOwner": "Add your education in the CV builder"
+        "emptyOwner": "Add your education in the CV Builder"
       },
       "skills": {
         "title": "Skills",
@@ -4067,7 +4067,7 @@
         "title": "Certifications",
         "edit": "Edit",
         "empty": "No certifications added.",
-        "emptyOwner": "Add certifications in the CV builder",
+        "emptyOwner": "Add certifications in the CV Builder",
         "credentialLink": "Credential link",
         "evidenceUnavailable": "Evidence Vault is not available yet."
       },
@@ -4175,14 +4175,14 @@
     },
     "privacy": {
       "title": "Profile privacy",
-      "subtitle": "Control who can discover your profile on JID.",
+      "subtitle": "Control who can open your profile on JID.",
       "visibilityLabel": "Profile visibility",
       "visibilityPrivate": "Private",
-      "visibilityPrivateHint": "Only you and JID staff can open your profile. Companies and mentors cannot find you.",
-      "visibilityDiscoverable": "Discoverable",
-      "visibilityDiscoverableHint": "Verified companies and approved mentors can view your profile when additional toggles below are enabled.",
-      "showToCompanies": "Show to verified companies",
-      "showToCompaniesHint": "Only verified companies see your profile when this option is enabled.",
+      "visibilityPrivateHint": "Only you and JID staff can open your profile from here.",
+      "visibilityDiscoverable": "Open via link",
+      "visibilityDiscoverableHint": "This setting does not turn on employer discovery in the current prototype.",
+      "showToCompanies": "Show to companies",
+      "showToCompaniesHint": "Not active as employer discovery in the current prototype.",
       "showToCompaniesUnavailableHint": "Not editable in this preview build — your current choice is kept as-is and no new companies gain access from here.",
       "showInUniversityStats": "Include in university statistics",
       "showInUniversityStatsHint": "Your university sees aggregate statistics only — never your personal details.",
@@ -4220,7 +4220,7 @@
     },
     "notifications": {
       "title": "Notification preferences",
-      "subtitle": "Control how you receive updates for each event type.",
+      "subtitle": "Choose how you receive updates for each event type.",
       "securityBanner": "Security notice — security and account notifications cannot be disabled.",
       "mandatoryBadge": "Mandatory",
       "updateSaved": "Preference saved",
@@ -4719,13 +4719,13 @@
   },
   "cv": {
     "cta": {
-      "ariaLabel": "CV builder",
+      "ariaLabel": "CV Builder",
       "title": "Build your Harvard-style CV",
       "description": "Create a professional PDF résumé pre-filled from your profile — ready for job applications.",
-      "action": "Open CV builder"
+      "action": "Open CV Builder"
     },
     "builder": {
-      "title": "CV builder",
+      "title": "CV Builder",
       "createdBanner": "We created a draft from your profile. Review each section and export when ready.",
       "resumeBanner": "Continue editing your CV draft.",
       "sidebarTitle": "Sections",
@@ -5037,10 +5037,10 @@
   },
   "universities": {
     "discover": {
-      "title": "Discover universities",
-      "subtitle": "Explore higher-education institutions on JID.",
-      "body": "University discovery is being expanded. Browse the catalog for accredited institutions in the meantime.",
-      "catalogCta": "Browse university catalog"
+      "title": "Universities",
+      "subtitle": "University presence on JID is through the Directory and a published Profile.",
+      "body": "A separate university discovery page is not available. You can browse the Directory for reference records.",
+      "catalogCta": "Open the Directory"
     }
   },
   "maintenance": {
@@ -5132,17 +5132,17 @@
       "checkoutCta": "Continue to checkout",
       "checkoutLoading": "Preparing checkout…",
       "checkoutFailed": "Checkout could not be started.",
-      "checkoutUnavailable": "Checkout is not available yet. Billing integration is coming next.",
+      "checkoutUnavailable": "Checkout is not available right now.",
       "includedBullets": [
-        "Build My CV — Harvard + global ATS formats",
-        "لمّاح — Plus-exclusive scraped feed"
+        "CV Builder",
+        "Lammah — Plus external feed"
       ],
       "features": {
         "cv_pro_formats": {
-          "headline": "Export a disciplined Harvard or ATS CV — the Plus standard for serious candidates."
+          "headline": "Export CV formats available on your plan."
         },
         "lammah_feed": {
-          "headline": "See verified external opportunities before they disappear from the market."
+          "headline": "See verified external opportunities sourced into JID."
         }
       }
     },
@@ -5181,14 +5181,14 @@
       "subtitle": "Monthly or yearly billing only — no passes or lifetime plans.",
       "featuresTitle": "What is included in Plus?",
       "featureItems": [
-        "Build My CV — Harvard and global ATS formats",
-        "Lammah — Plus-exclusive external feed"
+        "CV Builder",
+        "Lammah — Plus external feed"
       ],
       "billingNote": "Cancel anytime at the end of your current billing period.",
       "checkoutCta": "Continue to checkout",
       "checkoutLoading": "Preparing checkout…",
       "checkoutFailed": "Checkout could not be started.",
-      "checkoutUnavailable": "Checkout is not available yet. Billing integration is coming next.",
+      "checkoutUnavailable": "Checkout is not available right now.",
       "checkoutSuccess": "Payment confirmed — welcome to JID Plus!"
     },
     "companyBilling": {
@@ -5202,11 +5202,11 @@
       "monthly": "Monthly",
       "yearly": "Yearly",
       "teaserTitle": "Activate an employer plan",
-      "teaserBody": "Smart Communication, SSIS screening, and Priority Visibility — via an institutional subscription.",
+      "teaserBody": "Institutional activation is handled by the JID team when available.",
       "teaserBullets": [
-        "Cascading automated applicant communication",
-        "SSIS smart screening",
-        "Boosted placement on the opportunities board"
+        "Applicant replies inside JID",
+        "Initial opportunity screening",
+        "Paid visibility is not included in this prototype"
       ],
       "salesTitle": "Contact sales",
       "salesBody": "Employer plans are sales-led in Model 1 — no self-serve checkout on the platform.",
@@ -5216,7 +5216,7 @@
       "title": "Activate company subscription",
       "subtitle": "Manual activation for Premium or Enterprise plans — mandatory audit logging.",
       "companyId": "Company ID",
-      "companyIdPlaceholder": "UUID from companies table",
+      "companyIdPlaceholder": "Organization identifier",
       "plan": "Plan",
       "plans": {
         "employer_premium": "Employer Premium",
@@ -5231,7 +5231,7 @@
       "activateCta": "Activate subscription",
       "activating": "Activating…",
       "activationSuccess": "Company subscription activated and audit-logged.",
-      "auditNote": "Every activation is recorded in audit_logs and billing_events. No direct UI writes to subscriptions."
+      "auditNote": "Every activation is written to the audit log. There is no direct write path to subscriptions from this screen."
     }
   },
   "onboarding": {
@@ -5268,7 +5268,7 @@
     "individual": {
       "step1": {
         "title": "Tell us about yourself",
-        "description": "Start with your name and mobile number so employers and mentors can reach you.",
+        "description": "Start with your name and mobile number.",
         "fullNameLabel": "Full name (Arabic)",
         "fullNameHint": "As it appears on your official documents.",
         "phoneLabel": "Mobile number",
@@ -5281,7 +5281,7 @@
         "title": "Your education",
         "description": "Select your university and graduation details. GPA is optional.",
         "institutionLabel": "University",
-        "institutionHint": "From the accredited universities catalog.",
+        "institutionHint": "From the Directory.",
         "institutionPlaceholder": "Select university",
         "institutionSearch": "Search universities",
         "institutionEmpty": "No universities found",
@@ -5322,8 +5322,8 @@
     "entity": {
       "setup": {
         "title": "Finish setting up your entity",
-        "description": "Your organization is already in the JID catalog. Add branding and a detailed description — we never create a duplicate entity.",
-        "prefilledLabel": "Approved entity",
+        "description": "Your organization is already in the JID Directory. Add visual identity and a fuller description — we do not create a duplicate record.",
+        "prefilledLabel": "Directory organization",
         "entityState": "Status",
         "logoLabel": "Logo URL",
         "coverLabel": "Cover image URL",
@@ -5378,8 +5378,8 @@
   },
   "terminology": {
     "directory": "Directory",
-    "companyDirectory": "Company Directory",
-    "universityDirectory": "University Catalogue",
+    "companyDirectory": "Directory",
+    "universityDirectory": "Directory",
     "profile": "Profile",
     "businessProfile": "Business Profile",
     "universityProfile": "University Profile",

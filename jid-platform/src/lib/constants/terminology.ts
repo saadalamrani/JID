@@ -5,8 +5,8 @@
 
 export const TERMS = {
   directory: { ar: 'الدليل', en: 'Directory' },
-  companyDirectory: { ar: 'دليل الجهات', en: 'Company Directory' },
-  universityDirectory: { ar: 'دليل الجامعات', en: 'University Directory' },
+  companyDirectory: { ar: 'الدليل', en: 'Directory' },
+  universityDirectory: { ar: 'الدليل', en: 'Directory' },
   profile: { ar: 'الملف التعريفي', en: 'Profile' },
   businessProfile: { ar: 'الملف التعريفي للمنشأة', en: 'Business Profile' },
   universityProfile: { ar: 'ملف الجامعة', en: 'University Profile' },
