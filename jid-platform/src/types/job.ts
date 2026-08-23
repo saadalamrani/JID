@@ -29,14 +29,8 @@ export const EXPERIENCE_LEVELS = [
 ] as const
 export type ExperienceLevel = (typeof EXPERIENCE_LEVELS)[number]
 
-export const EXPERIENCE_LEVEL_LABELS: Record<ExperienceLevel, string> = {
-  intern: 'تدريب',
-  entry: 'مبتدئ',
-  mid: 'متوسط',
-  senior: 'خبير',
-  lead: 'قائد فريق',
-  executive: 'تنفيذي',
-}
+// Display labels for experience levels are locale-aware: use
+// `useTranslations('filters')` with key `experienceLevel.${level}`.
 
 export type JobSectorRef = {
   slug: string
@@ -149,24 +143,23 @@ export const JOB_EXPERIENCE_CHIP_IDS = [
 ] as const
 export type JobExperienceChipId = (typeof JOB_EXPERIENCE_CHIP_IDS)[number]
 
+// Chip labels are locale-aware: use `useTranslations('filters')` with key
+// `experienceChips.${id}`.
 export const JOB_EXPERIENCE_CHIPS: ReadonlyArray<{
   id: JobExperienceChipId
-  label: string
   levels: readonly ExperienceLevel[]
 }> = [
-  { id: 'graduate', label: 'حديث تخرج', levels: ['entry'] },
-  { id: 'internship', label: 'تدريب تعاوني', levels: ['intern'] },
-  { id: 'mid', label: 'خبرة متوسطة', levels: ['mid'] },
-  { id: 'leadership', label: 'مناصب قيادية', levels: ['lead', 'executive'] },
+  { id: 'graduate', levels: ['entry'] },
+  { id: 'internship', levels: ['intern'] },
+  { id: 'mid', levels: ['mid'] },
+  { id: 'leadership', levels: ['lead', 'executive'] },
 ]
 
 export const URGENCY_FILTERS = ['newest', 'closing_soon'] as const
 export type UrgencyFilter = (typeof URGENCY_FILTERS)[number]
 
-export const URGENCY_FILTER_LABELS: Record<UrgencyFilter, string> = {
-  newest: 'الأحدث إضافة',
-  closing_soon: 'يغلق قريباً',
-}
+// Urgency labels are locale-aware: use `useTranslations('filters')` with key
+// `urgency.${value}`.
 
 export type JobFilterState = {
   experienceChips: JobExperienceChipId[]

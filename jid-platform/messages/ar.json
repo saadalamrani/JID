@@ -5077,6 +5077,21 @@
         "fellowship": "زمالة",
         "scholarship": "منحة"
       }
+    },
+    "common": {
+      "remote": "عن بُعد",
+      "viewDetails": "عرض تفاصيل {title}",
+      "applicantCount": "{count} متقدّم",
+      "applyOnCompanySite": "التقديم على موقع الجهة"
+    },
+    "detail": {
+      "descriptionHeading": "وصف الفرصة",
+      "skillsHeading": "المهارات المطلوبة",
+      "relatedJobsHeading": "فرص أخرى من نفس الجهة"
+    },
+    "activeFilters": {
+      "removeFilter": "إزالة {filter}",
+      "clearAll": "مسح الكل"
     }
   },
   "monetization": {
@@ -5385,5 +5400,42 @@
       "graduateBadge": "شارة الخريج",
       "lammah": "لمّاح"
     }
+  },
+  "filters": {
+    "ownershipGroupLabel": "نوع الملكية",
+    "ownership": {
+      "government": "حكومي",
+      "semi_government": "شبه حكومي",
+      "private": "قطاع خاص"
+    },
+    "experienceLevel": {
+      "intern": "تدريب",
+      "entry": "مبتدئ",
+      "mid": "متوسط",
+      "senior": "خبير",
+      "lead": "قائد فريق",
+      "executive": "تنفيذي"
+    },
+    "experienceChipsGroupLabel": "مستوى الخبرة",
+    "experienceChips": {
+      "graduate": "حديث تخرج",
+      "internship": "تدريب تعاوني",
+      "mid": "خبرة متوسطة",
+      "leadership": "مناصب قيادية"
+    },
+    "urgencyGroupLabel": "الأولوية",
+    "urgency": {
+      "newest": "الأحدث إضافة",
+      "closing_soon": "يغلق قريباً"
+    },
+    "sort": {
+      "alphabetical_en": "ترتيب أبجدي",
+      "manual_order": "ترتيب مخصص"
+    },
+    "a11y": {
+      "selected": "، مُفعّل",
+      "notSelected": "، غير مُفعّل"
+    },
+    "sortGroupLabel": "الترتيب"
   }
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { OWNERSHIP_LABELS, SORT_LABELS } from '@/types/catalog'
 import { useCatalogFilters } from './catalog-filter-context'
 
 function buildFilterSummary(
@@ -11,6 +10,7 @@ function buildFilterSummary(
   regions: ReturnType<typeof useCatalogFilters>['regions'],
   sectors: ReturnType<typeof useCatalogFilters>['sectors'],
   t: ReturnType<typeof useTranslations>,
+  tFilters: ReturnType<typeof useTranslations>,
 ): string {
   const parts: string[] = []
 
@@ -19,7 +19,7 @@ function buildFilterSummary(
   }
 
   for (const type of filters.ownership) {
-    parts.push(t('ownershipFilter', { value: OWNERSHIP_LABELS[type] }))
+    parts.push(t('ownershipFilter', { value: tFilters(`ownership.${type}`) }))
   }
 
   for (const slug of filters.regions) {
@@ -33,7 +33,7 @@ function buildFilterSummary(
   }
 
   if (filters.sort !== 'manual_order') {
-    parts.push(t('sortFilter', { value: SORT_LABELS[filters.sort] }))
+    parts.push(t('sortFilter', { value: tFilters(`sort.${filters.sort}`) }))
   }
 
   return parts.length > 0 ? parts.join(t('summarySeparator')) : t('noFilters')
@@ -41,12 +41,13 @@ function buildFilterSummary(
 
 export function CatalogAnnouncer() {
   const t = useTranslations('catalogPage.search')
+  const tFilters = useTranslations('filters')
   const { filters, debouncedQ, resultCount, isFetching, regions, sectors } = useCatalogFilters()
   const [announcement, setAnnouncement] = useState('')
 
   const filterSummary = useMemo(
-    () => buildFilterSummary(filters, debouncedQ, regions, sectors, t),
-    [filters, debouncedQ, regions, sectors, t],
+    () => buildFilterSummary(filters, debouncedQ, regions, sectors, t, tFilters),
+    [filters, debouncedQ, regions, sectors, t, tFilters],
   )
 
   useEffect(() => {

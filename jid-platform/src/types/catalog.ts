@@ -19,16 +19,8 @@ export const SORT_OPTIONS = [
 ] as const
 export type SortOption = (typeof SORT_OPTIONS)[number]
 
-export const OWNERSHIP_LABELS: Record<OwnershipType, string> = {
-  government: 'حكومي',
-  semi_government: 'شبه حكومي',
-  private: 'قطاع خاص',
-}
-
-export const SORT_LABELS: Record<'alphabetical_en' | 'manual_order', string> = {
-  alphabetical_en: 'ترتيب أبجدي',
-  manual_order: 'ترتيب مخصص',
-}
+// Display labels are locale-aware: use `useTranslations('filters')` with keys
+// `ownership.${type}` and `sort.${value}`.
 
 /** Section 4.6 — catalog list filters (AND-composed). */
 export type CatalogFilters = {

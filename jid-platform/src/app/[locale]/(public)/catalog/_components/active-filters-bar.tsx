@@ -3,7 +3,6 @@
 import { X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { OWNERSHIP_LABELS } from '@/types/catalog'
 import { cn } from '@/lib/utils'
 import { useCatalogFilters } from './catalog-filter-context'
 
@@ -15,6 +14,7 @@ type ActiveFilterPill = {
 
 export function ActiveFiltersBar() {
   const t = useTranslations('catalogPage.search')
+  const tFilters = useTranslations('filters')
   const {
     filters,
     debouncedQ,
@@ -43,7 +43,7 @@ export function ActiveFiltersBar() {
   for (const type of filters.ownership) {
     pills.push({
       key: `ownership:${type}`,
-      label: OWNERSHIP_LABELS[type],
+      label: tFilters(`ownership.${type}`),
       onRemove: () => removeOwnership(type),
     })
   }
@@ -73,7 +73,7 @@ export function ActiveFiltersBar() {
           key={pill.key}
           className={cn(
             'inline-flex items-center gap-1 rounded-full border border-border bg-card px-2.5 py-1',
-            'font-arabic text-xs text-foreground',
+            'text-xs text-foreground',
           )}
         >
           {pill.label}
@@ -92,7 +92,7 @@ export function ActiveFiltersBar() {
         variant="ghost"
         size="sm"
         onClick={clearAll}
-        className="h-7 font-arabic text-xs text-primary hover:bg-background hover:text-primary"
+        className="h-7 text-xs text-primary hover:bg-background hover:text-primary"
       >
         {t('clearAll')}
       </Button>

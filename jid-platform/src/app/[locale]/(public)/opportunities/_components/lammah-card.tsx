@@ -6,7 +6,6 @@ import { CompanyLogo } from '@/app/[locale]/(public)/catalog/_components/company
 import { OwnershipBadge } from '@/app/[locale]/(public)/catalog/_components/ownership-badge'
 import { TierBadge } from '@/components/monetization/tier-badge'
 import { cn } from '@/lib/utils'
-import { EXPERIENCE_LEVEL_LABELS } from '@/types/job'
 import type { LammahOpportunityCard } from '@/types/lammah'
 import { LammahReportButton } from './lammah-report-button'
 import { Pill } from './pill'
@@ -26,6 +25,7 @@ function formatDate(value: string, locale: 'ar' | 'en'): string {
 export function LammahCard({ item, className }: LammahCardProps) {
   const locale = useLocale() as 'ar' | 'en'
   const t = useTranslations('opportunities.lammah')
+  const tFilters = useTranslations('filters')
   const title = locale === 'ar' ? item.titleAr || item.titleEn : item.titleEn || item.titleAr
   const locationLabel = [item.locationCity,item.region,item.locationCountry]
     .filter((value,index,values):value is string=>Boolean(value)&&values.indexOf(value)===index)
@@ -62,7 +62,7 @@ export function LammahCard({ item, className }: LammahCardProps) {
       <div className="mt-3 flex flex-wrap items-center gap-1.5">
         <Pill>{t(`opportunityTypes.${item.opportunityType}`)}</Pill>
         {item.experienceLevel ? (
-          <Pill icon={Briefcase}>{EXPERIENCE_LEVEL_LABELS[item.experienceLevel]}</Pill>
+          <Pill icon={Briefcase}>{tFilters(`experienceLevel.${item.experienceLevel}`)}</Pill>
         ) : null}
         {locationLabel ? <Pill icon={MapPin}>{locationLabel}</Pill> : null}
         {item.sector ? <Pill>{item.sector}</Pill> : null}

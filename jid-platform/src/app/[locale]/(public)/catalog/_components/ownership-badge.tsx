@@ -1,3 +1,7 @@
+'use client'
+
+import { Briefcase, Building2, Landmark } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import type { OwnershipType } from '@/types/catalog'
 import { cn } from '@/lib/utils'
 
@@ -6,42 +10,38 @@ type OwnershipBadgeProps = {
   className?: string
 }
 
-const BADGE_CONFIG: Record<
-  OwnershipType,
-  { label: string; emoji: string; className: string }
-> = {
+const BADGE_CONFIG: Record<OwnershipType, { icon: typeof Landmark; className: string }> = {
   government: {
-    label: 'حكومي',
-    emoji: '🏛️',
+    icon: Landmark,
     className: 'border-primary bg-primary text-primary-foreground',
   },
   semi_government: {
-    label: 'شبه حكومي',
-    emoji: '👑',
-    className:
-      'border-accent/40 bg-accent font-semibold text-primary shadow-sm',
+    icon: Building2,
+    className: 'border-accent/40 bg-accent font-semibold text-primary shadow-sm',
   },
   private: {
-    label: 'قطاع خاص',
-    emoji: '🏢',
+    icon: Briefcase,
     className: 'border border-primary/25 bg-transparent text-primary',
   },
 }
 
 export function OwnershipBadge({ type, className }: OwnershipBadgeProps) {
+  const t = useTranslations('filters')
   const config = BADGE_CONFIG[type]
+  const label = t(`ownership.${type}`)
+  const Icon = config.icon
 
   return (
     <span
-      aria-label={`نوع الملكية: ${config.label}`}
+      aria-label={`${t('ownershipGroupLabel')}: ${label}`}
       className={cn(
-        'inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 font-arabic text-xs',
+        'inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs',
         config.className,
         className,
       )}
     >
-      <span aria-hidden>{config.emoji}</span>
-      {config.label}
+      <Icon className="h-3 w-3 shrink-0" aria-hidden />
+      {label}
     </span>
   )
 }

@@ -1,10 +1,11 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { useCatalogSectors } from '@/hooks/use-catalog-metadata'
 import type { ExperienceLevel } from '@/types/job'
-import { EXPERIENCE_LEVELS, EXPERIENCE_LEVEL_LABELS } from '@/types/job'
+import { EXPERIENCE_LEVELS } from '@/types/job'
 import type { JobPostingDraft } from '@/lib/validations/job-posting'
 import { cn } from '@/lib/utils'
 import { RegionCityPicker } from './region-city-picker'
@@ -18,6 +19,7 @@ type WizardStepBasicProps = {
 /** Section 6.2 — title, experience, sector, region/city. */
 export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProps) {
   const { data: sectors = [], isLoading } = useCatalogSectors()
+  const tFilters = useTranslations('filters')
 
   return (
     <div className="space-y-5">
@@ -68,7 +70,7 @@ export function WizardStepBasic({ draft, errors, onChange }: WizardStepBasicProp
         >
           {EXPERIENCE_LEVELS.map((level) => (
             <option key={level} value={level}>
-              {EXPERIENCE_LEVEL_LABELS[level]}
+              {tFilters(`experienceLevel.${level}`)}
             </option>
           ))}
         </select>

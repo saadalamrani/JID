@@ -5087,6 +5087,21 @@
         "fellowship": "Fellowship",
         "scholarship": "Scholarship"
       }
+    },
+    "common": {
+      "remote": "Remote",
+      "viewDetails": "View details: {title}",
+      "applicantCount": "{count} applicants",
+      "applyOnCompanySite": "Apply on company site"
+    },
+    "detail": {
+      "descriptionHeading": "Opportunity description",
+      "skillsHeading": "Required skills",
+      "relatedJobsHeading": "Other opportunities from this organization"
+    },
+    "activeFilters": {
+      "removeFilter": "Remove {filter}",
+      "clearAll": "Clear all"
     }
   },
   "monetization": {
@@ -5395,5 +5410,42 @@
       "graduateBadge": "Graduate Badge",
       "lammah": "Lammah"
     }
+  },
+  "filters": {
+    "ownershipGroupLabel": "Ownership type",
+    "ownership": {
+      "government": "Government",
+      "semi_government": "Semi-government",
+      "private": "Private sector"
+    },
+    "experienceLevel": {
+      "intern": "Intern",
+      "entry": "Entry level",
+      "mid": "Mid-level",
+      "senior": "Senior",
+      "lead": "Team lead",
+      "executive": "Executive"
+    },
+    "experienceChipsGroupLabel": "Experience level",
+    "experienceChips": {
+      "graduate": "New graduate",
+      "internship": "Cooperative training",
+      "mid": "Mid-level experience",
+      "leadership": "Leadership positions"
+    },
+    "urgencyGroupLabel": "Priority",
+    "urgency": {
+      "newest": "Most recently added",
+      "closing_soon": "Closing soon"
+    },
+    "sort": {
+      "alphabetical_en": "Alphabetical",
+      "manual_order": "Custom order"
+    },
+    "a11y": {
+      "selected": ", selected",
+      "notSelected": ", not selected"
+    },
+    "sortGroupLabel": "Sort"
   }
 }

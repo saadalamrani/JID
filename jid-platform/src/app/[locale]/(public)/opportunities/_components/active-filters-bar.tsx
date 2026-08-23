@@ -1,13 +1,9 @@
 'use client'
 
 import { X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { OWNERSHIP_LABELS } from '@/types/catalog'
-import {
-  JOB_EXPERIENCE_CHIPS,
-  URGENCY_FILTER_LABELS,
-  type UrgencyFilter,
-} from '@/types/job'
+import { JOB_EXPERIENCE_CHIPS } from '@/types/job'
 import { cn } from '@/lib/utils'
 import { useJobFilters } from './job-filter-context'
 
@@ -18,6 +14,8 @@ type ActiveFilterPill = {
 }
 
 export function ActiveFiltersBar() {
+  const t = useTranslations('opportunities.activeFilters')
+  const tFilters = useTranslations('filters')
   const {
     filters,
     regions,
@@ -39,7 +37,7 @@ export function ActiveFiltersBar() {
     const chip = JOB_EXPERIENCE_CHIPS.find((item) => item.id === chipId)
     pills.push({
       key: `experience:${chipId}`,
-      label: chip?.label ?? chipId,
+      label: chip ? tFilters(`experienceChips.${chip.id}`) : chipId,
       onRemove: () => removeExperienceChip(chipId),
     })
   }
@@ -47,7 +45,7 @@ export function ActiveFiltersBar() {
   for (const type of filters.ownership) {
     pills.push({
       key: `ownership:${type}`,
-      label: OWNERSHIP_LABELS[type],
+      label: tFilters(`ownership.${type}`),
       onRemove: () => removeOwnership(type),
     })
   }
@@ -73,7 +71,7 @@ export function ActiveFiltersBar() {
   for (const value of filters.urgency) {
     pills.push({
       key: `urgency:${value}`,
-      label: URGENCY_FILTER_LABELS[value as UrgencyFilter],
+      label: tFilters(`urgency.${value}`),
       onRemove: () => removeUrgency(value),
     })
   }
@@ -85,7 +83,7 @@ export function ActiveFiltersBar() {
           key={pill.key}
           className={cn(
             'inline-flex items-center gap-1 rounded-full border border-border bg-card px-2.5 py-1',
-            'font-arabic text-xs text-foreground',
+            'text-xs text-foreground',
           )}
         >
           {pill.label}
@@ -93,7 +91,7 @@ export function ActiveFiltersBar() {
             type="button"
             onClick={pill.onRemove}
             className="rounded-full p-0.5 text-foreground-400 hover:bg-background hover:text-foreground"
-            aria-label={`إزالة ${pill.label}`}
+            aria-label={t('removeFilter', { filter: pill.label })}
           >
             <X className="h-3 w-3" />
           </button>
@@ -104,9 +102,9 @@ export function ActiveFiltersBar() {
         variant="ghost"
         size="sm"
         onClick={clearAll}
-        className="h-7 font-arabic text-xs text-primary hover:bg-background hover:text-primary"
+        className="h-7 text-xs text-primary hover:bg-background hover:text-primary"
       >
-        مسح الكل
+        {t('clearAll')}
       </Button>
     </div>
   )
