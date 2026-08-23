@@ -4,15 +4,20 @@ import { useTranslations } from 'next-intl'
 import { Logo } from '@/components/brand/logo'
 import { Link, usePathname } from '@/lib/i18n/navigation'
 import { SYS_NAV_SECTIONS } from '@/lib/sys/nav'
+import { BottomSheet } from '@/components/ui/bottom-sheet'
 import { cn } from '@/lib/utils'
 
-/** Section 5.2 — persistent sidebar navigation. */
-export function SysSidebar() {
+type SysSidebarProps = {
+  mobileOpen: boolean
+  onMobileOpenChange: (open: boolean) => void
+}
+
+function SysSidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const t = useTranslations('sys.nav')
   const pathname = usePathname()
 
   return (
-    <aside className="flex w-60 shrink-0 flex-col border-e border-border bg-card">
+    <>
       <div className="border-b border-border px-5 py-4">
         <Link href="/sys/dashboard" className="inline-flex h-6 items-center overflow-hidden">
           <Logo size="sm" />
@@ -37,6 +42,7 @@ export function SysSidebar() {
                   <li key={item.key}>
                     <Link
                       href={item.href}
+                      onClick={onNavigate}
                       className={cn(
                         'flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors',
                         item.danger
@@ -61,6 +67,27 @@ export function SysSidebar() {
           </div>
         ))}
       </nav>
-    </aside>
+    </>
+  )
+}
+
+/**
+ * Section 5.2 — persistent sidebar navigation.
+ * Collapses into a start-anchored drawer below `lg` (same confirmed defect
+ * class as Staff — fixed 240px sidebar with no mobile/tablet transform).
+ */
+export function SysSidebar({ mobileOpen, onMobileOpenChange }: SysSidebarProps) {
+  return (
+    <>
+      <aside className="hidden w-60 shrink-0 flex-col border-e border-border bg-card lg:flex">
+        <SysSidebarContent />
+      </aside>
+
+      <BottomSheet open={mobileOpen} onOpenChange={onMobileOpenChange} side="start" className="lg:hidden">
+        <div className="-m-4 flex h-full flex-col overflow-y-auto pt-8">
+          <SysSidebarContent onNavigate={() => onMobileOpenChange(false)} />
+        </div>
+      </BottomSheet>
+    </>
   )
 }

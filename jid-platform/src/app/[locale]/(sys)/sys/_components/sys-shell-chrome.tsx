@@ -25,6 +25,7 @@ export function SysShellChrome({
   maintenanceMessage,
 }: SysShellChromeProps) {
   const [paletteOpen, setPaletteOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const togglePalette = useCallback(() => {
     setPaletteOpen((current) => !current)
@@ -34,7 +35,7 @@ export function SysShellChrome({
 
   return (
     <div className="flex min-h-screen bg-background/30">
-      <SysSidebar />
+      <SysSidebar mobileOpen={sidebarOpen} onMobileOpenChange={setSidebarOpen} />
       <div className="flex min-w-0 flex-1 flex-col">
         <SysTopbar
           profile={profile}
@@ -43,6 +44,7 @@ export function SysShellChrome({
           maintenanceMode={maintenanceMode}
           maintenanceMessage={maintenanceMessage}
           onOpenCommandPalette={() => setPaletteOpen(true)}
+          onOpenSidebar={() => setSidebarOpen(true)}
         />
         <main className="flex-1 overflow-auto p-6">{children}</main>
       </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Clock } from 'lucide-react'
+import { Clock, Menu } from 'lucide-react'
 import { NotificationsBell } from '@/components/notifications/notifications-bell'
 import { ThemeToggleLazy } from '@/components/ui/theme-toggle-lazy'
 import type { SessionProfile } from '@/lib/auth/session'
@@ -16,6 +16,7 @@ type StaffTopbarProps = {
   email?: string
   sessionIssuedAt: number | null
   onOpenCommandPalette: () => void
+  onOpenSidebar: () => void
 }
 
 function formatCountdown(totalSeconds: number): string {
@@ -76,6 +77,7 @@ export function StaffTopbar({
   email,
   sessionIssuedAt,
   onOpenCommandPalette,
+  onOpenSidebar,
 }: StaffTopbarProps) {
   const t = useTranslations('staff.topbar')
   const displayName = profile.full_name?.trim() || email || t('unnamed')
@@ -83,7 +85,17 @@ export function StaffTopbar({
   return (
     <header className="border-b border-border bg-card">
       <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3">
-        <SessionCountdown sessionIssuedAt={sessionIssuedAt} />
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onOpenSidebar}
+            aria-label={t('openNav')}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-background/40 text-foreground lg:hidden"
+          >
+            <Menu className="h-5 w-5" aria-hidden />
+          </button>
+          <SessionCountdown sessionIssuedAt={sessionIssuedAt} />
+        </div>
 
         <div className="flex items-center gap-3">
           <button

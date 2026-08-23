@@ -1713,7 +1713,8 @@
       "sessionRemaining": "الجلسة: متبقي {time}",
       "notificationsAria": "الإشعارات",
       "searchPlaceholder": "بحث أو انتقال سريع…",
-      "searchShortcut": "⌘K"
+      "searchShortcut": "⌘K",
+      "openNav": "فتح القائمة"
     },
     "commandPalette": {
       "placeholder": "ابحث عن مستخدمين أو كيانات أو طلبات تحقق…",
@@ -3052,7 +3053,8 @@
       "sessionWarning": "تنتهي الجلسة خلال {time}",
       "maintenanceActive": "مفتاح الإيقاف مفعّل — وضع الصيانة مُفعّل",
       "searchPlaceholder": "بحث أو انتقال سريع…",
-      "searchShortcut": "⌘K"
+      "searchShortcut": "⌘K",
+      "openNav": "فتح القائمة"
     },
     "commandPalette": {
       "placeholder": "ابحث عن مستخدمين أو كيانات أو إجراءات…",
@@ -4947,6 +4949,9 @@
         "title": "أؤكد أن الأرقام والنتائج دقيقة",
         "description": "اقتراحات الذكاء الاصطناعي التي تضيف مقاييس جديدة تتطلب تأكيدك الصريح قبل التطبيق."
       }
+    },
+    "meta": {
+      "title": "باني السيرة الذاتية"
     }
   },
   "notifications": {

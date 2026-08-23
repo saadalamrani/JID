@@ -14,10 +14,13 @@ import {
   STAFF_SESSION_WARNING_THRESHOLD_SECONDS,
 } from '@/lib/staff/constants'
 import { useStaffBadges } from '@/lib/staff/use-staff-badges'
+import { BottomSheet } from '@/components/ui/bottom-sheet'
 import { cn } from '@/lib/utils'
 
 type StaffSidebarProps = {
   sessionIssuedAt: number | null
+  mobileOpen: boolean
+  onMobileOpenChange: (open: boolean) => void
 }
 
 function formatCountdown(totalSeconds: number): string {
@@ -76,8 +79,13 @@ function NavBadge({ count }: { count: number }) {
   )
 }
 
-/** Section 5.1 — persistent sidebar with live badge counts. */
-export function StaffSidebar({ sessionIssuedAt }: StaffSidebarProps) {
+function StaffSidebarContent({
+  sessionIssuedAt,
+  onNavigate,
+}: {
+  sessionIssuedAt: number | null
+  onNavigate?: () => void
+}) {
   const t = useTranslations('staff.nav')
   const pathname = usePathname()
   const { data: badges } = useStaffBadges()
@@ -88,7 +96,7 @@ export function StaffSidebar({ sessionIssuedAt }: StaffSidebarProps) {
   }
 
   return (
-    <aside className="flex w-60 shrink-0 flex-col border-e border-border bg-card">
+    <>
       <div className="border-b border-border px-5 py-4">
         <Link href="/staff" className="inline-flex h-6 items-center overflow-hidden">
           <Logo size="sm" />
@@ -116,6 +124,7 @@ export function StaffSidebar({ sessionIssuedAt }: StaffSidebarProps) {
                   <li key={item.key}>
                     <Link
                       href={item.href}
+                      onClick={onNavigate}
                       className={cn(
                         'flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors',
                         isActive
@@ -134,6 +143,31 @@ export function StaffSidebar({ sessionIssuedAt }: StaffSidebarProps) {
           </div>
         ))}
       </nav>
-    </aside>
+    </>
+  )
+}
+
+/**
+ * Section 5.1 — persistent sidebar with live badge counts.
+ * Collapses into a start-anchored drawer below `lg` (confirmed defect: a
+ * fixed 240px sidebar rendered full-width above content at mobile/tablet
+ * widths instead of transforming).
+ */
+export function StaffSidebar({ sessionIssuedAt, mobileOpen, onMobileOpenChange }: StaffSidebarProps) {
+  return (
+    <>
+      <aside className="hidden w-60 shrink-0 flex-col border-e border-border bg-card lg:flex">
+        <StaffSidebarContent sessionIssuedAt={sessionIssuedAt} />
+      </aside>
+
+      <BottomSheet open={mobileOpen} onOpenChange={onMobileOpenChange} side="start" className="lg:hidden">
+        <div className="-m-4 flex h-full flex-col overflow-y-auto pt-8">
+          <StaffSidebarContent
+            sessionIssuedAt={sessionIssuedAt}
+            onNavigate={() => onMobileOpenChange(false)}
+          />
+        </div>
+      </BottomSheet>
+    </>
   )
 }

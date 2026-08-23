@@ -24,6 +24,7 @@ export function StaffShellChrome({
   sessionIssuedAt,
 }: StaffShellChromeProps) {
   const [paletteOpen, setPaletteOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const togglePalette = useCallback(() => {
     setPaletteOpen((current) => !current)
@@ -34,13 +35,18 @@ export function StaffShellChrome({
   return (
     <div className="flex min-h-screen bg-background/30">
       <StaffIdleGuard />
-      <StaffSidebar sessionIssuedAt={sessionIssuedAt} />
+      <StaffSidebar
+        sessionIssuedAt={sessionIssuedAt}
+        mobileOpen={sidebarOpen}
+        onMobileOpenChange={setSidebarOpen}
+      />
       <div className="flex min-w-0 flex-1 flex-col">
         <StaffTopbar
           profile={profile}
           email={email}
           sessionIssuedAt={sessionIssuedAt}
           onOpenCommandPalette={() => setPaletteOpen(true)}
+          onOpenSidebar={() => setSidebarOpen(true)}
         />
         <main className="flex-1 overflow-auto p-6">{children}</main>
       </div>

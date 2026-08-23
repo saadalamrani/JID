@@ -121,7 +121,8 @@ export function buildAwardTimelineEntries(
     id: `badge-${badge.slug}`,
     kind: 'profile_milestone' as const,
     title: badge.name_ar || badge.name_en,
-    subtitle: badge.slug,
+    // Never surface the raw internal badge slug as user-facing subtitle text.
+    subtitle: null,
     description: null,
     occurredAt: badge.awarded_at,
     sortKey: parseDate(badge.awarded_at),

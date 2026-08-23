@@ -1,9 +1,11 @@
+import type { Metadata } from 'next'
 import { LocaleHtmlAttributes } from '@/components/providers/locale-html-attributes'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { AuthenticatedShellServer } from '@/components/shared/authenticated-shell-server'
 import { Toaster } from '@/components/ui/sonner'
 import { FeatureFlagsRealtimeInvalidator } from '@/lib/feature-flags/realtime-invalidator'
+import { siteConfig } from '@/config/site'
 import { localeConfig, type Locale } from '@/lib/i18n/config'
 import { routing } from '@/lib/i18n/routing'
 import { NextIntlClientProvider } from 'next-intl'
@@ -19,6 +21,25 @@ type LocaleLayoutProps = {
 
 export function generateStaticParams() {
   return localeConfig.locales.map((locale) => ({ locale }))
+}
+
+/**
+ * Fallback metadata for every route under this locale. Routes with their own
+ * `generateMetadata`/`metadata` export (see the public marketing/discovery
+ * pages) override this; routes without one previously rendered a blank
+ * `<title>` (confirmed live on several authenticated + public routes) —
+ * this default closes that gap app-wide instead of per-page.
+ */
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  const locale = params.locale as Locale
+  const isArabic = locale === 'ar'
+  return {
+    // A plain string (not a {default, template} object): routes with their
+    // own generateMetadata/metadata export fully replace this; routes
+    // without one inherit it as-is instead of rendering a blank <title>.
+    title: isArabic ? siteConfig.name : siteConfig.nameEn,
+    description: isArabic ? siteConfig.description : siteConfig.descriptionEn,
+  }
 }
 
 export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {

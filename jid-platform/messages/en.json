@@ -1713,7 +1713,8 @@
       "sessionRemaining": "Session: {time} remaining",
       "notificationsAria": "Notifications",
       "searchPlaceholder": "Search or jump to…",
-      "searchShortcut": "⌘K"
+      "searchShortcut": "⌘K",
+      "openNav": "Open navigation"
     },
     "commandPalette": {
       "placeholder": "Search users, entities, or verification requests…",
@@ -3062,7 +3063,8 @@
       "sessionWarning": "Session expires in {time}",
       "maintenanceActive": "Kill switch active — maintenance mode enabled",
       "searchPlaceholder": "Search or jump to…",
-      "searchShortcut": "⌘K"
+      "searchShortcut": "⌘K",
+      "openNav": "Open navigation"
     },
     "commandPalette": {
       "placeholder": "Search users, entities, or actions…",
@@ -4957,6 +4959,9 @@
         "title": "I confirm these numbers and outcomes are accurate",
         "description": "AI suggestions with new metrics require your explicit confirmation before they can be applied."
       }
+    },
+    "meta": {
+      "title": "CV builder"
     }
   },
   "notifications": {
@@ -5117,8 +5122,8 @@
   },
   "monetization": {
     "tier": {
-      "normal": "عادي",
-      "plus": "بلس"
+      "normal": "Standard",
+      "plus": "Plus"
     },
     "teaser": {
       "ariaLabel": "JID Plus locked feature",

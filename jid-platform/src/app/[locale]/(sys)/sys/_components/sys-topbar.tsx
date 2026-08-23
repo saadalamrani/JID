@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Clock, ShieldAlert } from 'lucide-react'
+import { Clock, Menu, ShieldAlert } from 'lucide-react'
 import { NotificationsBell } from '@/components/notifications/notifications-bell'
 import { ThemeToggleLazy } from '@/components/ui/theme-toggle-lazy'
 import type { SessionProfile } from '@/lib/auth/session'
@@ -17,6 +17,7 @@ type SysTopbarProps = {
   maintenanceMode: boolean
   maintenanceMessage: string | null
   onOpenCommandPalette: () => void
+  onOpenSidebar: () => void
 }
 
 function formatCountdown(totalSeconds: number): string {
@@ -73,6 +74,7 @@ export function SysTopbar({
   maintenanceMode,
   maintenanceMessage,
   onOpenCommandPalette,
+  onOpenSidebar,
 }: SysTopbarProps) {
   const t = useTranslations('sys.topbar')
   const displayName = profile.full_name?.trim() || email || t('unnamed')
@@ -94,6 +96,14 @@ export function SysTopbar({
 
       <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-3">
         <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={onOpenSidebar}
+            aria-label={t('openNav')}
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-background/40 text-foreground lg:hidden"
+          >
+            <Menu className="h-5 w-5" aria-hidden />
+          </button>
           <SessionCountdownWarning sessionIssuedAt={sessionIssuedAt} />
         </div>
 
