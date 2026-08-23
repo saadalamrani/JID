@@ -35,6 +35,18 @@ describe('Interview closeout — demo-critical content patches', () => {
     expect(layout).toMatch(/fontVariables/)
   })
 
+  it('does not pass Lucide components from server org layouts into the client sidebar', () => {
+    const company = readSrc('src/app/[locale]/(company)/_components/standard-company-layout.tsx')
+    const university = readSrc('src/app/[locale]/(company)/_components/university-layout.tsx')
+    const shell = readSrc('src/components/shell/actor-sidebar-shell.tsx')
+    expect(company).not.toMatch(/from 'lucide-react'/)
+    expect(university).not.toMatch(/from 'lucide-react'/)
+    expect(company).toMatch(/icon: 'layout-dashboard'/)
+    expect(university).toMatch(/icon: 'bar-chart'/)
+    expect(shell).toMatch(/'use client'/)
+    expect(shell).toMatch(/ActorSidebarIconName/)
+  })
+
   it('keeps print CV terminology on باني السيرة الذاتية', () => {
     const print = readSrc(
       'src/app/[locale]/(individual)/profile/cv/print-cv-ar/print-cv-ar-view.tsx',

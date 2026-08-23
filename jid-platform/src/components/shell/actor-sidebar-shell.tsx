@@ -1,17 +1,39 @@
 'use client'
 
-import { useState, type ComponentType, type ReactNode } from 'react'
-import { Menu } from 'lucide-react'
+import { useState, type ReactNode } from 'react'
+import {
+  BarChart3,
+  BriefcaseBusiness,
+  Building2,
+  CreditCard,
+  LayoutDashboard,
+  Menu,
+} from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { Link } from '@/lib/i18n/navigation'
 import { BottomSheet } from '@/components/ui/bottom-sheet'
 import { cn } from '@/lib/utils'
 
+export type ActorSidebarIconName =
+  | 'layout-dashboard'
+  | 'building'
+  | 'briefcase'
+  | 'credit-card'
+  | 'bar-chart'
+
 export type ActorSidebarNavItem = {
   href: string
   label: string
-  icon: ComponentType<{ className?: string }>
+  icon: ActorSidebarIconName
 }
+
+const ICONS = {
+  'layout-dashboard': LayoutDashboard,
+  building: Building2,
+  briefcase: BriefcaseBusiness,
+  'credit-card': CreditCard,
+  'bar-chart': BarChart3,
+} as const
 
 type ActorSidebarShellProps = {
   panelTitle: string
@@ -31,7 +53,7 @@ function NavList({
   return (
     <nav className="space-y-1">
       {items.map((item) => {
-        const Icon = item.icon
+        const Icon = ICONS[item.icon]
         const active = activePathname === item.href || activePathname.startsWith(`${item.href}/`)
         return (
           <Link

@@ -1,4 +1,3 @@
-import { BarChart3 } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { ActorSidebarShell, type ActorSidebarNavItem } from '@/components/shell/actor-sidebar-shell'
 import type { ReactNode } from 'react'
@@ -17,7 +16,7 @@ export async function UniversityLayout({ children }: UniversityLayoutProps) {
   const t = await getTranslations('university.nav')
 
   const items: ActorSidebarNavItem[] = [
-    { href: '/university/dashboard', label: t('dashboard'), icon: BarChart3 },
+    { href: '/university/dashboard', label: t('dashboard'), icon: 'bar-chart' },
   ]
 
   return (
