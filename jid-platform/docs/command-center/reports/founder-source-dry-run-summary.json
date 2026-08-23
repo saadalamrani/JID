@@ -1,0 +1,37 @@
+{
+  "summary": {
+    "totalSourceRows": 1000,
+    "normalized": 1000,
+    "reconcileExisting": 2,
+    "repeatedDomainGroups": 7,
+    "repeatedDomainRows": 14,
+    "highConfidenceReviewCandidates": 106,
+    "lowConfidenceReviewCandidates": 863,
+    "quarantined": 0,
+    "regionMappingReviewRequired": 0,
+    "sectorMappingReviewRequired": 15,
+    "duplicateRisks": 0,
+    "invalidDomains": 0,
+    "databaseWrites": 0,
+    "profileWrites": 0,
+    "verificationWrites": 0,
+    "ownershipMutations": 0
+  },
+  "sourceRegionCount": 11,
+  "sourceSectorCount": 36,
+  "absentCanonicalRegions": [
+    {
+      "id": "f2000001-0000-4000-8000-000000000008",
+      "slug": "hail",
+      "nameEn": "Hail",
+      "nameAr": "حائل"
+    },
+    {
+      "id": "f2000001-0000-4000-8000-000000000012",
+      "slug": "al-bahah",
+      "nameEn": "Al Bahah",
+      "nameAr": "الباحة"
+    }
+  ],
+  "invalidUrls": 0
+}
