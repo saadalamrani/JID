@@ -24,16 +24,20 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
   // ignored (confirmed live: raw key paths rendering as visible text on the equivalent
   // list screen for 'business' rows before this fix added the missing key).
   const KNOWN_ENTITY_TYPES = ['company', 'business', 'university']
+  const KNOWN_ENTITY_STATES = ['unclaimed', 'pending', 'pending_review', 'approved', 'suspended']
   const entityTypeLabel = KNOWN_ENTITY_TYPES.includes(entity.entity_type)
     ? t(`types.${entity.entity_type}`)
     : entity.entity_type
+  const entityStateLabel = KNOWN_ENTITY_STATES.includes(entity.entity_state)
+    ? t(`states.${entity.entity_state}`)
+    : entity.entity_state
 
   const infoFields = [
     { label: t('fields.id'), value: entity.id },
     { label: t('fields.name'), value: entity.name },
     { label: t('fields.nameAr'), value: entity.name_ar },
-    { label: t('fields.type'), value: entity.entity_type },
-    { label: t('fields.state'), value: entity.entity_state },
+    { label: t('fields.type'), value: entityTypeLabel },
+    { label: t('fields.state'), value: entityStateLabel },
     { label: t('fields.verified'), value: entity.is_verified ? t('yes') : t('no') },
     { label: t('fields.claimant'), value: entity.claimant_name },
     { label: t('fields.website'), value: entity.website_url },
@@ -52,7 +56,7 @@ export default async function SysEntityDetailPage({ params }: SysEntityDetailPag
       <header>
         <h1 className="text-2xl font-semibold text-foreground">{entity.name}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {entityTypeLabel} · {entity.entity_state}
+          {entityTypeLabel} · {entityStateLabel}
         </p>
       </header>
 

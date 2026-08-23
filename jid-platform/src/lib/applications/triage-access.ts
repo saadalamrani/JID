@@ -1,28 +1,19 @@
 import 'server-only'
 
 import { createClient } from '@/lib/supabase/server'
-import { isPrivilegedStaffRole } from '@/lib/profile/visibility-rules'
 import { isUserRole, PRIVILEGED_STAFF_ROLES, type UserRole } from '@/lib/auth/rbac'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
+import {
+  decideJobTriageAccess,
+  type TriageJobRef,
+  type TriageViewer,
+} from './triage-access-decision'
+
+export type { TriageJobRef, TriageViewer } from './triage-access-decision'
+export { decideJobTriageAccess } from './triage-access-decision'
 
 type Client = SupabaseClient<Database>
-
-export type TriageViewer = {
-  userId: string
-  role: UserRole
-  isStaff: boolean
-  companyId: string | null
-}
-
-export type TriageJobRef = {
-  id: string
-  company_id: string | null
-  title_ar: string
-  title_en: string | null
-  application_deadline: string | null
-  applicant_count: number
-}
 
 export async function getTriageViewer(client?: Client): Promise<TriageViewer | null> {
   const supabase = client ?? (await createClient())
@@ -43,19 +34,43 @@ export async function getTriageViewer(client?: Client): Promise<TriageViewer | n
   if (!role) return null
 
   const isStaff = (PRIVILEGED_STAFF_ROLES as readonly string[]).includes(role)
-
-  let companyId: string | null = null
-  if (!isStaff) {
-    const { data: company } = await supabase
-      .from('companies')
-      .select('id')
-      .eq('claimed_by', user.id)
-      .eq('entity_state', 'approved')
-      .maybeSingle()
-    companyId = company?.id ?? null
+  if (isStaff) {
+    return { userId: user.id, role, isStaff, businessProfileId: null, companyId: null }
   }
 
-  return { userId: user.id, role, isStaff, companyId }
+  const { data: ownedProfile } = await supabase
+    .from('business_profiles')
+    .select('id, directory_id, status')
+    .eq('owner_user_id', user.id)
+    .neq('status', 'suspended')
+    .maybeSingle()
+
+  if (ownedProfile?.id) {
+    return {
+      userId: user.id,
+      role,
+      isStaff,
+      businessProfileId: ownedProfile.id,
+      companyId: ownedProfile.directory_id,
+    }
+  }
+
+  // Transitional only: Directory claimed_by for pre-Profile jobs (RLS 115/116).
+  // Never used as the primary gate for Profile-anchored opportunities.
+  const { data: company } = await supabase
+    .from('companies')
+    .select('id')
+    .eq('claimed_by', user.id)
+    .eq('entity_state', 'approved')
+    .maybeSingle()
+
+  return {
+    userId: user.id,
+    role,
+    isStaff,
+    businessProfileId: null,
+    companyId: company?.id ?? null,
+  }
 }
 
 export async function fetchTriageJob(
@@ -65,7 +80,9 @@ export async function fetchTriageJob(
   const supabase = client ?? (await createClient())
   const { data, error } = await supabase
     .from('jobs')
-    .select('id, company_id, title_ar, title_en, application_deadline, applicant_count')
+    .select(
+      'id, company_id, business_profile_id, title_ar, title_en, application_deadline, applicant_count',
+    )
     .eq('id', jobId)
     .maybeSingle()
 
@@ -74,8 +91,8 @@ export async function fetchTriageJob(
 }
 
 /**
- * Server-side gate for applicant triage (Sections 5.1–5.3).
- * Company: own jobs only + entity_state approved. Staff/super_admin: any job.
+ * Server-side gate for applicant triage.
+ * Business: own jobs via owned business Profile only. Staff/super_admin: any job.
  */
 export async function assertJobTriageAccess(jobId: string): Promise<{
   viewer: TriageViewer
@@ -83,21 +100,16 @@ export async function assertJobTriageAccess(jobId: string): Promise<{
 }> {
   const supabase = await createClient()
   const viewer = await getTriageViewer(supabase)
+  const job = viewer ? await fetchTriageJob(jobId, supabase) : null
+  const decision = decideJobTriageAccess({ viewer, job })
 
-  if (!viewer) {
+  if (decision === 'unauthorized') {
     throw new TriageAccessError('غير مصرح', 401)
   }
-
-  const job = await fetchTriageJob(jobId, supabase)
-  if (!job) {
+  if (decision === 'not_found' || !job || !viewer) {
     throw new TriageAccessError('الفرصة غير موجودة', 404)
   }
-
-  if (viewer.isStaff || isPrivilegedStaffRole(viewer.role)) {
-    return { viewer, job }
-  }
-
-  if (!viewer.companyId || viewer.companyId !== job.company_id) {
+  if (decision === 'forbidden') {
     throw new TriageAccessError('غير مصرح لك بعرض متقدمي هذه الفرصة', 403)
   }
 

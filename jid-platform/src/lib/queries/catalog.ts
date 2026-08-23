@@ -25,6 +25,15 @@ function asUntyped(client: SupabaseClient<Database>): UntypedClient {
   return client as unknown as UntypedClient
 }
 
+/** Internal seed Directory slugs must not appear in public interview browsing. */
+const PUBLIC_CATALOG_SEED_SLUG_PREFIX = 'seed-'
+
+function excludeSeedDirectoryRows<T extends { not: (column: string, op: string, value: string) => T }>(
+  query: T,
+): T {
+  return query.not('slug', 'ilike', `${PUBLIC_CATALOG_SEED_SLUG_PREFIX}%`)
+}
+
 /** Explicit public list projection (Section 5.3) + published profile LEFT JOIN. */
 const CATALOG_LIST_SELECT = `
   id,
@@ -234,11 +243,13 @@ export async function fetchCompanies(
   const from = (page - 1) * limit
   const to = from + limit - 1
 
-  let query = client
-    .from('companies')
-    .select(CATALOG_LIST_SELECT, { count: 'exact' })
-    .eq('is_active', true)
-    .eq('entity_type', 'business')
+  let query = excludeSeedDirectoryRows(
+    client
+      .from('companies')
+      .select(CATALOG_LIST_SELECT, { count: 'exact' })
+      .eq('is_active', true)
+      .eq('entity_type', 'business'),
+  )
 
   if (filters.q?.trim()) {
     query = query.textSearch('search_vector', filters.q.trim(), {

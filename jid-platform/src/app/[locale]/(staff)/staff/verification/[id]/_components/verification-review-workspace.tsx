@@ -22,6 +22,14 @@ import {
   type VerificationDecisionFormState,
 } from './verification-decision-form'
 
+const KNOWN_DIRECTORY_STATES = [
+  'unclaimed',
+  'pending',
+  'pending_review',
+  'approved',
+  'suspended',
+] as const
+
 const BUSINESS_CHECKLIST_KEYS = [
   'domain_match',
   'entity_exists',
@@ -223,7 +231,11 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
                 </div>
                 <div>
                   <dt className="text-muted-foreground">{t('directory.state')}</dt>
-                  <dd className="font-medium text-foreground">{directory.entity_state}</dd>
+                  <dd className="font-medium text-foreground">
+                    {(KNOWN_DIRECTORY_STATES as readonly string[]).includes(directory.entity_state)
+                      ? t(`directory.states.${directory.entity_state}`)
+                      : directory.entity_state}
+                  </dd>
                 </div>
                 <div>
                   <dt className="text-muted-foreground">{t('directory.domains')}</dt>

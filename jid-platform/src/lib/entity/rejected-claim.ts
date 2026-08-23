@@ -34,7 +34,7 @@ export async function getLatestRejectedVerification(
 
   const { data, error } = await query.maybeSingle()
 
-  if (error) throw new Error(error.message)
+  if (error) return null
   return (data as RejectedClaimView | null) ?? null
 }
 

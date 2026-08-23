@@ -1,7 +1,8 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import type { TriageFilterTab } from '@/types/application'
-import { TRIAGE_FILTER_TABS, TRIAGE_FILTER_TAB_LABELS } from '@/types/application'
+import { TRIAGE_FILTER_TABS } from '@/types/application'
 import { cn } from '@/lib/utils'
 
 type StatusFilterTabsProps = {
@@ -12,10 +13,13 @@ type StatusFilterTabsProps = {
 
 /** Section 5.2 — filter tabs by triage status. */
 export function StatusFilterTabs({ active, onChange, counts }: StatusFilterTabsProps) {
+  const t = useTranslations('company.applicants.tabs')
+  const tAria = useTranslations('company.applicants')
+
   return (
     <div
       role="tablist"
-      aria-label="تصفية المتقدمين حسب الحالة"
+      aria-label={tAria('tabsAria')}
       className="flex flex-wrap gap-2"
     >
       {TRIAGE_FILTER_TABS.map((tab) => {
@@ -33,10 +37,10 @@ export function StatusFilterTabs({ active, onChange, counts }: StatusFilterTabsP
               'rounded-full px-4 py-2 font-arabic text-sm transition-colors',
               isActive
                 ? 'bg-primary text-white'
-                : 'border border-border bg-white text-foreground hover:bg-background',
+                : 'border border-border bg-card text-foreground hover:bg-background',
             )}
           >
-            {TRIAGE_FILTER_TAB_LABELS[tab]}
+            {t(tab)}
             {count != null ? ` (${count})` : ''}
           </button>
         )

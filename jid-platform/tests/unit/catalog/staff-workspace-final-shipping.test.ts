@@ -36,9 +36,9 @@ describe('Catalog Staff workspace final shipping boundary', () => {
   it('keeps review and publication behind server actions and the existing RPC boundaries', () => {
     expect(actions.startsWith("'use server'")).toBe(true)
     expect(actions).toContain('requireCatalogStaffAccess()')
-    expect(actions).toContain("client.rpc('review_directory_candidate'")
+    expect(actions).toContain("client.rpc('staff_review_directory_candidate'")
     expect(actions).toContain("client.rpc('catalog_review_pending_domain'")
-    expect(actions).toContain("client.rpc('publish_directory_candidate'")
+    expect(actions).toContain("client.rpc('staff_publish_directory_candidate'")
     expect(actions).not.toContain('service_role')
     expect(actions).not.toContain('NEXT_PUBLIC_')
   })

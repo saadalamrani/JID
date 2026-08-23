@@ -8,8 +8,8 @@ import {
   UserX,
   XCircle,
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import type { ApplicationStatus } from '@/types/application'
-import { APPLICATION_STATUS_LABELS } from '@/types/application'
 import { cn } from '@/lib/utils'
 
 const STATUS_CONFIG: Record<
@@ -35,7 +35,8 @@ type StatusBadgeProps = {
 
 /** Section 10 — status always uses icon + text, never color-only. */
 export function StatusBadge({ status, className }: StatusBadgeProps) {
-  const label = APPLICATION_STATUS_LABELS[status]
+  const t = useTranslations('company.applicants.status')
+  const label = t(status)
   const config = STATUS_CONFIG[status]
   const Icon = config.icon
 

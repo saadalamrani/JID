@@ -3,12 +3,11 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Zap } from 'lucide-react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useCallback } from 'react'
 import { CompanyLogo } from '@/app/[locale]/(public)/catalog/_components/company-logo'
 import type { UserApplication } from '@/types/application'
 import type { RadarColumnId } from '@/lib/radar/column-config'
-import { ARCHIVED_SUB_STATUS_LABELS } from '@/lib/radar/status-labels'
 import { isArchivedSubStatus } from '@/lib/radar/column-config'
 import { useGlowState } from '@/lib/hooks/use-glow-state'
 import { useMarkApplicationSeen } from '@/lib/hooks/use-mark-application-seen'
@@ -38,6 +37,8 @@ export function ApplicationCardContent({
   showGlow: boolean
 }) {
   const locale = useLocale() as 'ar' | 'en'
+  const t = useTranslations('radar')
+  const tArchived = useTranslations('radar.archivedStatus')
   const job = application.job
   const company = application.company
   const title = job?.title_ar || job?.title_en || '—'
@@ -58,7 +59,7 @@ export function ApplicationCardContent({
           role="status"
         >
           <Zap className="h-3 w-3 shrink-0 text-accent" aria-hidden />
-          <span>تحديث من الشركة</span>
+          <span>{t('companyStatusUpdate')}</span>
         </div>
       ) : null}
 
@@ -77,7 +78,7 @@ export function ApplicationCardContent({
                   application.status === 'expired' && 'bg-border/30 text-muted-foreground',
                 )}
               >
-                {ARCHIVED_SUB_STATUS_LABELS[application.status as keyof typeof ARCHIVED_SUB_STATUS_LABELS]}
+                {tArchived(application.status as 'shortlisted' | 'rejected' | 'expired')}
               </span>
             ) : null}
           </div>
@@ -91,8 +92,8 @@ export function ApplicationCardContent({
           {daysUntilDeadline != null ? (
             <span>
               {daysUntilDeadline <= 0
-                ? 'انتهى الموعد'
-                : `${formatNumber(daysUntilDeadline, locale)} يوم للإغلاق`}
+                ? t('deadlineClosed')
+                : t('daysToClose', { count: formatNumber(daysUntilDeadline, locale) })}
             </span>
           ) : null}
         </div>

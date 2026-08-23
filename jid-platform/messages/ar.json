@@ -1216,6 +1216,30 @@
       "blockScore": "درجة السؤال: {score}",
       "advanceAction": "تقديم للمرحلة التالية",
       "declineAction": "رفض"
+    },
+    "applicants": {
+      "status": {
+        "draft": "مسودة",
+        "saved": "محفوظ",
+        "pending": "قيد التقديم",
+        "submitted": "مُرسل",
+        "under_review": "قيد المراجعة",
+        "shortlisted": "في القائمة المختصرة",
+        "rejected": "مرفوض",
+        "invited": "مدعو",
+        "withdrawn": "منسحب",
+        "expired": "منتهٍ"
+      },
+      "tabs": {
+        "all": "الكل",
+        "under_review": "قيد المراجعة",
+        "interview": "مقابلة",
+        "accepted": "مقبول",
+        "rejected": "مرفوض"
+      },
+      "tabsAria": "تصفية المتقدمين حسب الحالة",
+      "statusUpdated": "تم تحديث الحالة إلى: {label}",
+      "statusUpdatedMany": "تم تحديث {count} طلبات إلى: {label}"
     }
   },
   "organizationProfile": {
@@ -1866,7 +1890,14 @@
           "domains": "النطاقات",
           "verified": "موثّق",
           "linkedin": "لينكدإن",
-          "missing": "لا يوجد سجل دليل مرتبط"
+          "missing": "لا يوجد سجل دليل مرتبط",
+          "states": {
+            "unclaimed": "بلا ملف تعريفي",
+            "pending": "معلقة",
+            "pending_review": "بانتظار المراجعة",
+            "approved": "معتمدة",
+            "suspended": "موقوفة"
+          }
         },
         "relatedHistory": {
           "title": "السجل المرتبط",
@@ -2483,6 +2514,13 @@
             "application_expired": "خرق اتفاقية طلب التوظيف",
             "audit": "حدث تدقيق"
           }
+        },
+        "states": {
+          "unclaimed": "بلا ملف تعريفي",
+          "pending": "معلقة",
+          "pending_review": "بانتظار المراجعة",
+          "approved": "معتمدة",
+          "suspended": "موقوفة"
         }
       },
       "metadataForm": {
@@ -3533,6 +3571,13 @@
             "metadataTitle": "تحديث بيانات الجهة",
             "metadataDescription": "تعديل مباشر للبيانات بواسطة المشرف الأعلى."
           }
+        },
+        "states": {
+          "unclaimed": "بلا ملف تعريفي",
+          "pending": "معلقة",
+          "pending_review": "بانتظار المراجعة",
+          "approved": "معتمدة",
+          "suspended": "موقوفة"
         }
       }
     },
@@ -4689,7 +4734,7 @@
     "retry": "إعادة المحاولة",
     "backToProfile": "العودة للملف الشخصي",
     "emptyTitle": "لا شيء على رادارك",
-    "emptyBody": "ستظهر هنا الجلسات المؤكدة وطلبات التقييم.",
+    "emptyBody": "ستظهر هنا طلباتك والجلسات المؤكدة عندما تبدأ.",
     "companyStatusUpdate": "حدّثت الشركة حالة طلبك",
     "mobile": {
       "cardActions": "إجراءات البطاقة",
@@ -4741,13 +4786,28 @@
       "feedbackDismissed": "يمكنك التقييم لاحقاً من الرادار.",
       "dismissForLater": "لاحقاً",
       "ratingLabel": "{value} نجوم"
-    }
+    },
+    "archivedStatus": {
+      "shortlisted": "قُبل",
+      "rejected": "رفض",
+      "expired": "انتهت المدة"
+    },
+    "meetingStatus": {
+      "pending_confirmation": "بانتظار التأكيد",
+      "scheduled": "مجدول",
+      "confirmed": "مؤكد",
+      "completed": "مكتمل",
+      "cancelled": "ملغى",
+      "no_show": "لم يحضر"
+    },
+    "deadlineClosed": "انتهى الموعد",
+    "daysToClose": "{count} يوم للإغلاق"
   },
   "cv": {
     "cta": {
       "ariaLabel": "باني السيرة الذاتية",
-      "title": "أنشئ سيرتك الذاتية بأسلوب هارفارد",
-      "description": "أنشئ سيرة PDF احترافية معبأة مسبقاً من ملفك الشخصي — جاهزة للتقديم على الوظائف.",
+      "title": "أنشئ سيرتك الذاتية من بيانات ملفك",
+      "description": "صدّر سيرة PDF من بيانات ملفك المهني — راجعها قبل التقديم.",
       "action": "فتح باني السيرة"
     },
     "builder": {
@@ -4920,7 +4980,7 @@
       },
       "overflow": {
         "measuring": "جارٍ فحص طول الصفحات…",
-        "warning": "سيرتك حوالي {count} صفحات. السيرة بأسلوب هارفارد يجب أن تكون صفحة واحدة — فكّر في اختصار المحتوى."
+        "warning": "سيرتك حوالي {count} صفحات. قالب هارفارد مصمّم لصفحة واحدة — فكّر في اختصار المحتوى."
       },
       "completeness": {
         "empty": "{section} — لم يبدأ",
@@ -4934,7 +4994,7 @@
       "formats": {
         "ariaLabel": "اختيار صيغة السيرة",
         "title": "اختر الصيغة",
-        "subtitle": "القالب الأساسي مجاني. هارفارد وATS عالمي لباقة بلس.",
+        "subtitle": "القالب الأساسي مجاني. قالبا هارفارد وATS العالمي متاحان في جِد بلس.",
         "plusRequired": "رقِّ إلى بلس لتصدير هذه الصيغة"
       },
       "exportBar": {
@@ -5148,9 +5208,9 @@
       "previewLocked": "معاينة بلس مقفلة",
       "features": {
         "cv_pro_formats": {
-          "description": "صيغ هارفارد وATS احترافية مع تحسين ذكي للنقاط.",
+          "description": "قوالب هارفارد وATS، مع تحسين اختياري للنقاط بالذكاء الاصطناعي.",
           "bullets": [
-            "محركا تصدير هارفارد وATS العالمي",
+            "قالبا هارفارد وATS العالمي",
             "تحسين النقاط بالذكاء الاصطناعي بإشرافك",
             "تخصيص السيرة لكل فرصة"
           ]

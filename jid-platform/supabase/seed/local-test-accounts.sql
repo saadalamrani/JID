@@ -40,9 +40,9 @@ SELECT set_config('jid.allow_role_change', 'on', true);
 -- b1000009 = staff
 -- b100000a = admin (super_admin)
 -- Directory
--- b2000001 = Seed Verified Business Co (directory)
--- b2000002 = Seed Pending Business Co (directory)
--- b2000003 = Seed Verified University (directory as entity_type=university)
+-- b2000001 = JID Demo Organization (directory)
+-- b2000002 = JID Demo Organization pending (directory)
+-- b2000003 = JID Demo University (directory as entity_type=university)
 -- b2000004 = Seed Pending University (directory)
 -- Profiles / ops
 -- b3000001 = business_profiles (verified)
@@ -152,7 +152,7 @@ REVOKE ALL ON FUNCTION public._seed_local_auth_user(uuid, text, text, text) FROM
 SELECT public._seed_local_auth_user(
   'b1000001-0000-4000-8000-000000000001',
   'individual-complete@jidseed.test',
-  'Sara Al-Harbi'
+  'حساب جِد التجريبي'
 );
 SELECT public._seed_local_auth_user(
   'b1000002-0000-4000-8000-000000000002',
@@ -184,7 +184,7 @@ BEGIN
   VALUES
   (
     'b1000001-0000-4000-8000-000000000001',
-    'Sara Al-Harbi',
+    'حساب جِد التجريبي',
     'individual',
     'ar',
     'public',
@@ -307,11 +307,11 @@ INSERT INTO public.cvs (
 VALUES (
   'b300000f-0000-4000-8000-00000000000f',
   'b1000001-0000-4000-8000-000000000001',
-  'Sara Al-Harbi — Primary CV',
+  'حساب جِد التجريبي — السيرة',
   'draft',
   'ar',
   true,
-  'Sara Al-Harbi',
+  'حساب جِد التجريبي',
   'individual-complete@jidseed.test',
   '+966500000101',
   'Riyadh',
@@ -400,7 +400,7 @@ WHERE id = 'b1000002-0000-4000-8000-000000000002';
 SELECT public._seed_local_auth_user(
   'b1000003-0000-4000-8000-000000000003',
   'mentor-approved@jidseed.test',
-  'Noura Al-Qahtani'
+  'مرشد جِد التجريبي'
 );
 
 INSERT INTO public.profiles (
@@ -412,7 +412,7 @@ INSERT INTO public.profiles (
 )
 VALUES (
   'b1000003-0000-4000-8000-000000000003',
-  'Noura Al-Qahtani',
+  'مرشد جِد التجريبي',
   'individual',
   'ar',
   'public',
@@ -654,8 +654,8 @@ INSERT INTO public.companies (
 VALUES
   (
     'b2000001-0000-4000-8000-000000000001',
-    'Seed Verified Business Co',
-    'شركة البذور المعتمدة',
+    'JID Demo Organization',
+    'منشأة جِد التجريبية',
     ARRAY['seed-verified.jidseed.test'],
     'business',
     'approved',
@@ -667,8 +667,8 @@ VALUES
   ),
   (
     'b2000002-0000-4000-8000-000000000002',
-    'Seed Pending Business Co',
-    'شركة البذور قيد المراجعة',
+    'JID Demo Organization (pending)',
+    'منشأة جِد التجريبية (قيد المراجعة)',
     ARRAY['seed-pending.jidseed.test'],
     'business',
     'unclaimed',
@@ -680,6 +680,7 @@ VALUES
   )
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
+  name_ar = EXCLUDED.name_ar,
   domains = EXCLUDED.domains,
   entity_type = 'business',
   entity_state = EXCLUDED.entity_state,
@@ -734,7 +735,7 @@ VALUES
     'b3000003-0000-4000-8000-000000000003',
     'b1000005-0000-4000-8000-000000000005',
     'b2000001-0000-4000-8000-000000000001',
-    'Seed Verified Business Co',
+    'JID Demo Organization',
     'business-verified@seed-verified.jidseed.test',
     'Business Verified Owner',
     'approved',
@@ -748,7 +749,7 @@ VALUES
     'b3000004-0000-4000-8000-000000000004',
     'b1000006-0000-4000-8000-000000000006',
     'b2000002-0000-4000-8000-000000000002',
-    'Seed Pending Business Co',
+    'JID Demo Organization (pending)',
     'business-pending@seed-pending.jidseed.test',
     'Business Pending Owner',
     'pending_review',
@@ -775,8 +776,8 @@ VALUES (
   'b3000001-0000-4000-8000-000000000001',
   'b2000001-0000-4000-8000-000000000001',
   'b1000005-0000-4000-8000-000000000005',
-  'شركة البذور المعتمدة',
-  'Seed Verified Business Co',
+  'منشأة جِد التجريبية',
+  'JID Demo Organization',
   'نوظف المواهب التقنية',
   'ملف أعمال مملوك بعد التحقق — منفصل عن سجل الدليل.',
   'Owned business profile after verification — separate from directory.',
@@ -861,8 +862,8 @@ INSERT INTO public.companies (
 VALUES
   (
     'b2000003-0000-4000-8000-000000000003',
-    'Seed Verified University',
-    'جامعة البذور المعتمدة',
+    'JID Demo University',
+    'مساحة جامعة تجريبية',
     ARRAY['seed-uni.jidseed.test'],
     'university',
     'approved',
@@ -873,8 +874,8 @@ VALUES
   ),
   (
     'b2000004-0000-4000-8000-000000000004',
-    'Seed Pending University',
-    'جامعة البذور قيد المراجعة',
+    'JID Demo University (pending)',
+    'مساحة جامعة تجريبية (قيد المراجعة)',
     ARRAY['seed-uni-pending.jidseed.test'],
     'university',
     'unclaimed',
@@ -884,6 +885,8 @@ VALUES
     'Directory university row for pending verification UX.'
   )
 ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  name_ar = EXCLUDED.name_ar,
   entity_type = EXCLUDED.entity_type,
   entity_state = EXCLUDED.entity_state,
   domains = EXCLUDED.domains,
@@ -937,7 +940,7 @@ VALUES
     'b3000005-0000-4000-8000-000000000005',
     'b1000007-0000-4000-8000-000000000007',
     'b2000003-0000-4000-8000-000000000003',
-    'Seed Verified University',
+    'JID Demo University',
     'university-verified@seed-uni.jidseed.test',
     'University Verified Admin',
     'approved',
@@ -951,7 +954,7 @@ VALUES
     'b3000006-0000-4000-8000-000000000006',
     'b1000008-0000-4000-8000-000000000008',
     'b2000004-0000-4000-8000-000000000004',
-    'Seed Pending University',
+    'JID Demo University (pending)',
     'university-pending@seed-uni-pending.jidseed.test',
     'University Pending Admin',
     'pending_review',
@@ -976,8 +979,8 @@ VALUES (
   'b3000002-0000-4000-8000-000000000002',
   'b2000003-0000-4000-8000-000000000003',
   'b1000007-0000-4000-8000-000000000007',
-  'جامعة البذور المعتمدة',
-  'Seed Verified University',
+  'مساحة جامعة تجريبية',
+  'JID Demo University',
   'ملف جامعة مملوك بعد التحقق.',
   'Owned university profile after verification.',
   'government',
@@ -988,6 +991,8 @@ VALUES (
 )
 ON CONFLICT (id) DO UPDATE SET
   owner_user_id = EXCLUDED.owner_user_id,
+  display_name_ar = EXCLUDED.display_name_ar,
+  display_name_en = EXCLUDED.display_name_en,
   status = 'published',
   published_at = EXCLUDED.published_at,
   verified_domains = EXCLUDED.verified_domains,

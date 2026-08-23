@@ -8,7 +8,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html suppressHydrationWarning>
-      <body className={`min-h-screen bg-background font-arabic antialiased ${fontVariables}`}>
+      <body className={`min-h-screen bg-background antialiased ${fontVariables}`}>
         {children}
       </body>
     </html>

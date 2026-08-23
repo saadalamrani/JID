@@ -5,12 +5,19 @@ import { CalendarClock, Video } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { ProfileAvatar } from '@/components/profile/profile-avatar'
 import { MENTOR_MEDIUM_OPTIONS } from '@/lib/mentor-application/constants'
-import { meetingStatusLabel } from '@/lib/radar/status-labels'
 import type { TimelineMeeting } from '@/types/timeline'
 import { track } from '@/lib/analytics/track'
 import { cn } from '@/lib/utils'
 
 const CARD_SPRING = { type: 'spring' as const, stiffness: 420, damping: 32 }
+const KNOWN_MEETING_STATUSES = [
+  'pending_confirmation',
+  'scheduled',
+  'confirmed',
+  'completed',
+  'cancelled',
+  'no_show',
+] as const
 
 type MeetingCardProps = {
   meeting: TimelineMeeting
@@ -28,6 +35,7 @@ function mediumLabel(value: string | null, locale: string): string | null {
 export function MeetingCard({ meeting, className }: MeetingCardProps) {
   const t = useTranslations('radar.meeting')
   const tTimeline = useTranslations('radar.timeline')
+  const tMeetingStatus = useTranslations('radar.meetingStatus')
   const locale = useLocale()
 
   const mentorName = meeting.mentor?.profile?.full_name ?? tTimeline('unknownMentor')
@@ -40,7 +48,9 @@ export function MeetingCard({ meeting, className }: MeetingCardProps) {
         hour: '2-digit',
         minute: '2-digit',
       })
-    : meetingStatusLabel(meeting.status)
+    : (KNOWN_MEETING_STATUSES as readonly string[]).includes(meeting.status)
+      ? tMeetingStatus(meeting.status)
+      : meeting.status
 
   return (
     <motion.article

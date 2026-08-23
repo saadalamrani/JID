@@ -241,6 +241,11 @@ describe('Spec 07-D — backend contract regression (no migration / RPC edits)',
       '20260805190100_catalog_review_auth_wrappers.sql',
       '20260809065512_security_privacy_gate_a_expand.sql',
       '20260809065513_security_privacy_gate_a_contract.sql',
+      '20260822120000_professional_discovery_fail_closed.sql',
+      '20260822140000_fix_profiles_rls_recursion.sql',
+      '20260823120000_lammah_source_host_allowlist.sql',
+      '20260823180000_catalog_review_auth_uid_bridge.sql',
+      '20260823181000_lammah_staff_auth_uid_bridge.sql',
     ]
     expect(later).toEqual(allowed)
     for (const name of allowed) {

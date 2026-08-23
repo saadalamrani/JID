@@ -1,8 +1,10 @@
 import {
   canReapplyNow,
   formatRequiredDocuments,
-  getLatestRejectedVerification,
 } from '@/lib/entity/rejected-claim'
+import { getLatestVerificationForUser } from '@/lib/entity/claims'
+import { resolveVerificationOutcome } from '@/lib/entity/verification-outcome'
+import { fetchOwnerUniversityProfileRow } from '@/lib/profile/owner-university-profile'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { getLocale, getTranslations } from 'next-intl/server'
@@ -19,19 +21,49 @@ export default async function UniversityRejectedPage() {
 
   if (!user) redirect('/login')
 
-  const verification = await getLatestRejectedVerification(supabase, user.id, 'university')
-  if (!verification) redirect('/signup/entity-type')
+  let profileRow: { id: string; status: string } | null = null
+  let latestVerification: Awaited<ReturnType<typeof getLatestVerificationForUser>> = null
+  try {
+    profileRow = await fetchOwnerUniversityProfileRow(supabase, user.id)
+    latestVerification = await getLatestVerificationForUser(supabase, user.id, 'university')
+  } catch {
+    profileRow = null
+    latestVerification = null
+  }
 
-  const canReapply = canReapplyNow(verification.can_reapply_after)
-  const reasonText = verification.rejection_reason?.trim()
-    ? verification.rejection_reason
+  const outcome = resolveVerificationOutcome({
+    orgType: 'university',
+    authenticated: true,
+    profile: profileRow ? { status: profileRow.status } : null,
+    verification: latestVerification
+      ? {
+          status: latestVerification.status,
+          resulting_profile_id: latestVerification.resulting_profile_id,
+        }
+      : null,
+  })
+
+  if (outcome.kind !== 'rejected') {
+    redirect(outcome.path)
+  }
+
+  if (!latestVerification || latestVerification.status !== 'rejected') {
+    redirect('/signup/entity-type')
+  }
+
+  const canReapply = canReapplyNow(latestVerification.can_reapply_after)
+  const reasonText = latestVerification.rejection_reason?.trim()
+    ? latestVerification.rejection_reason
     : t('noReason')
 
-  const cooldownText = verification.can_reapply_after
+  const cooldownText = latestVerification.can_reapply_after
     ? canReapply
       ? t('canReapplyNow')
       : t('blockedUntil', {
-          date: formatDateTime(verification.can_reapply_after, locale === 'ar' ? 'ar-SA' : 'en-US'),
+          date: formatDateTime(
+            latestVerification.can_reapply_after,
+            locale === 'ar' ? 'ar-SA' : 'en-US',
+          ),
         })
     : null
 
@@ -39,11 +71,16 @@ export default async function UniversityRejectedPage() {
   return (
     <RejectedVerificationPanel
       title={t('title')}
-      orgName={verification.company_name}
+      orgName={latestVerification.company_name}
       reasonLabel={t('reason')}
       reasonText={reasonText}
       documentsLabel={t('requiredDocuments')}
-      documentsText={formatRequiredDocuments(verification.required_documents, locale)}
+      documentsText={formatRequiredDocuments(
+        Array.isArray(latestVerification.required_documents)
+          ? latestVerification.required_documents
+          : [],
+        locale,
+      )}
       cooldownText={cooldownText}
       canReapply={canReapply}
       reapplyHref="/university/reapply"

@@ -250,4 +250,15 @@ describe('University reapply page structure (source)', () => {
     expect(rejected).not.toMatch(/\/signup\/university/)
     expect(rejected).toMatch(/noReason/)
   })
+
+  it('uses Spec 03 outcome resolution instead of latest-rejected-only', () => {
+    const rejected = readFileSync(
+      join(root, 'src/app/[locale]/(university)/university/rejected/page.tsx'),
+      'utf8',
+    )
+    expect(rejected).toMatch(/resolveVerificationOutcome/)
+    expect(rejected).toMatch(/fetchOwnerUniversityProfileRow/)
+    expect(rejected).toMatch(/getLatestVerificationForUser/)
+    expect(rejected).not.toMatch(/claimed_by/)
+  })
 })

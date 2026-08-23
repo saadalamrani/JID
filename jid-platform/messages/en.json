@@ -1216,6 +1216,30 @@
       "blockScore": "Block score: {score}",
       "advanceAction": "Advance",
       "declineAction": "Decline"
+    },
+    "applicants": {
+      "status": {
+        "draft": "Draft",
+        "saved": "Saved",
+        "pending": "Pending",
+        "submitted": "Submitted",
+        "under_review": "Under review",
+        "shortlisted": "Shortlisted",
+        "rejected": "Rejected",
+        "invited": "Invited",
+        "withdrawn": "Withdrawn",
+        "expired": "Expired"
+      },
+      "tabs": {
+        "all": "All",
+        "under_review": "Under review",
+        "interview": "Interview",
+        "accepted": "Accepted",
+        "rejected": "Rejected"
+      },
+      "tabsAria": "Filter applicants by status",
+      "statusUpdated": "Status updated to: {label}",
+      "statusUpdatedMany": "Updated {count} applications to: {label}"
     }
   },
   "organizationProfile": {
@@ -1866,7 +1890,14 @@
           "domains": "Domains",
           "verified": "Verified",
           "linkedin": "LinkedIn",
-          "missing": "No linked directory record"
+          "missing": "No linked directory record",
+          "states": {
+            "unclaimed": "No owned profile",
+            "pending": "Pending",
+            "pending_review": "Pending review",
+            "approved": "Approved",
+            "suspended": "Suspended"
+          }
         },
         "relatedHistory": {
           "title": "Related history",
@@ -2483,6 +2514,13 @@
             "application_expired": "Application SLA breach",
             "audit": "Audit event"
           }
+        },
+        "states": {
+          "unclaimed": "No owned profile",
+          "pending": "Pending",
+          "pending_review": "Pending review",
+          "approved": "Approved",
+          "suspended": "Suspended"
         }
       },
       "metadataForm": {
@@ -3533,6 +3571,13 @@
             "metadataTitle": "Update entity metadata",
             "metadataDescription": "Direct metadata edit by Super Admin."
           }
+        },
+        "states": {
+          "unclaimed": "No owned profile",
+          "pending": "Pending",
+          "pending_review": "Pending review",
+          "approved": "Approved",
+          "suspended": "Suspended"
         }
       }
     },
@@ -4689,7 +4734,7 @@
     "retry": "Try again",
     "backToProfile": "Back to profile",
     "emptyTitle": "Nothing on your radar",
-    "emptyBody": "Confirmed meetings and feedback prompts will appear here.",
+    "emptyBody": "Your applications and confirmed sessions will appear here once you start.",
     "companyStatusUpdate": "The company updated your application status",
     "mobile": {
       "cardActions": "Card actions",
@@ -4741,13 +4786,28 @@
       "feedbackDismissed": "You can rate this session later from Radar.",
       "dismissForLater": "Later",
       "ratingLabel": "{value} stars"
-    }
+    },
+    "archivedStatus": {
+      "shortlisted": "Accepted",
+      "rejected": "Rejected",
+      "expired": "Expired"
+    },
+    "meetingStatus": {
+      "pending_confirmation": "Awaiting confirmation",
+      "scheduled": "Scheduled",
+      "confirmed": "Confirmed",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "no_show": "No-show"
+    },
+    "deadlineClosed": "Deadline passed",
+    "daysToClose": "{count} days until close"
   },
   "cv": {
     "cta": {
       "ariaLabel": "CV Builder",
-      "title": "Build your Harvard-style CV",
-      "description": "Create a professional PDF résumé pre-filled from your profile — ready for job applications.",
+      "title": "Build your CV from your profile",
+      "description": "Export a professional PDF from your profile data — review it before you apply.",
       "action": "Open CV Builder"
     },
     "builder": {
@@ -4920,7 +4980,7 @@
       },
       "overflow": {
         "measuring": "Checking page length…",
-        "warning": "Your CV is approximately {count} pages. Harvard-style resumes should fit on one page — consider shortening content."
+        "warning": "Your CV is approximately {count} pages. The Harvard template is designed for one page — consider shortening content."
       },
       "completeness": {
         "empty": "{section} — not started",
@@ -4934,7 +4994,7 @@
       "formats": {
         "ariaLabel": "CV format picker",
         "title": "Choose your format",
-        "subtitle": "Basic template is free. Harvard and Global ATS are JID Plus.",
+        "subtitle": "The basic template is free. Harvard and Global ATS templates are available on JID Plus.",
         "plusRequired": "Upgrade to Plus to export this format"
       },
       "exportBar": {
@@ -5148,9 +5208,9 @@
       "previewLocked": "Plus preview locked",
       "features": {
         "cv_pro_formats": {
-          "description": "Professional Harvard and ATS CV formats with AI refinement.",
+          "description": "Harvard and ATS CV templates, with optional AI bullet refinement.",
           "bullets": [
-            "Harvard and global ATS export engines",
+            "Harvard and Global ATS templates",
             "AI bullet refinement in your control",
             "Per-opportunity tailoring support"
           ]

@@ -27,7 +27,7 @@ async function rpc(name: string, args: Record<string, unknown>): Promise<LammahS
 }
 
 export async function claimLammahCandidate(candidateId:string) {
-  return rpc('claim_lammah_candidate',{p_candidate_id:candidateId})
+  return rpc('staff_claim_lammah_candidate',{p_candidate_id:candidateId})
 }
 
 export async function releaseLammahCandidate(candidateId:string,reason:string) {
@@ -41,7 +41,7 @@ export async function reviewLammahCandidate(input:{
   correctedType?:string|null
   resolvedCompanyId?:string|null
 }) {
-  return rpc('review_lammah_candidate',{
+  return rpc('staff_review_lammah_candidate',{
     p_candidate_id:input.candidateId,p_action:input.action,p_notes:input.notes,
     p_corrected_type:input.correctedType??null,p_resolved_company_id:input.resolvedCompanyId??null,
   })
@@ -62,7 +62,7 @@ export async function reviewLammahFact(input:{
 }
 
 export async function publishLammahCandidate(candidateId:string,notes:string) {
-  return rpc('publish_lammah_candidate',{p_candidate_id:candidateId,p_notes:notes})
+  return rpc('staff_publish_lammah_candidate',{p_candidate_id:candidateId,p_notes:notes})
 }
 
 export async function transitionLammahOpportunity(opportunityId:string,action:string,reason:string) {

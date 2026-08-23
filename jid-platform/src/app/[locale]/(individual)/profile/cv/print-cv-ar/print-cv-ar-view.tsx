@@ -46,7 +46,7 @@ export function PrintCvArView() {
   if (!ready) {
     return (
       <div className="print-cv-ar-shell" dir="rtl">
-        <p className="print-cv-ar-muted">جاري التحميل…</p>
+        <p className="print-cv-ar-muted">جارٍ التحميل…</p>
       </div>
     )
   }
@@ -54,7 +54,7 @@ export function PrintCvArView() {
   if (!data) {
     return (
       <div className="print-cv-ar-shell" dir="rtl">
-        <p className="print-cv-ar-muted">لا توجد بيانات للطباعة. ارجع إلى منشئ السيرة وحاول مرة أخرى.</p>
+        <p className="print-cv-ar-muted">لا توجد بيانات للطباعة. ارجع إلى باني السيرة الذاتية وحاول مرة أخرى.</p>
       </div>
     )
   }

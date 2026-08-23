@@ -49,50 +49,8 @@ export function IndividualPrivacyForm({ profile }: IndividualPrivacyFormProps) {
       <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
       <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
 
-      <fieldset className="space-y-4 rounded-xl border border-border bg-card p-5 shadow-sm">
-        <legend className="px-1 text-sm font-medium text-muted-foreground">{t('visibilityLabel')}</legend>
-        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-4">
-          <input
-            type="radio"
-            value="private"
-            className="mt-1"
-            {...form.register('visibility')}
-          />
-          <span>
-            <span className="block text-sm font-medium text-foreground">{t('visibilityPrivate')}</span>
-            <span className="mt-1 block text-xs text-muted-foreground">{t('visibilityPrivateHint')}</span>
-          </span>
-        </label>
-        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border p-4">
-          <input
-            type="radio"
-            value="discoverable"
-            className="mt-1"
-            {...form.register('visibility')}
-          />
-          <span>
-            <span className="block text-sm font-medium text-foreground">{t('visibilityDiscoverable')}</span>
-            <span className="mt-1 block text-xs text-muted-foreground">{t('visibilityDiscoverableHint')}</span>
-          </span>
-        </label>
-      </fieldset>
-
-      {/*
-        Professional Discovery is not exposed as an editable capability in this
-        prototype (JID Design & UX Execution spec §4/§10A): `show_profile_to_companies`
-        grants any verified company row-level read access platform-wide (RLS policy
-        `profiles_select_verified_hr_discoverable`), not scoped to a specific employer
-        relationship. The control shows the real stored value but is locked — an
-        owner's existing choice is shown honestly and never silently changed, and no
-        new grant can be switched on from this build.
-      */}
-      <ToggleRow
-        checked={form.watch('show_profile_to_companies')}
-        disabled
-        onChange={() => {}}
-        title={t('showToCompanies')}
-        hint={t('showToCompaniesUnavailableHint')}
-      />
+      <input type="hidden" {...form.register('visibility')} />
+      <input type="hidden" {...form.register('show_profile_to_companies')} />
 
       <ToggleRow
         checked={form.watch('show_profile_in_university_stats')}

@@ -15,6 +15,10 @@ SET allowed_source_hosts = ARRAY['europa.eu']
 WHERE source_key = 'eu_careers_cast'
   AND cardinality(allowed_source_hosts) = 0;
 
+GRANT lammah_function_owner TO postgres;
+GRANT CREATE ON SCHEMA public TO lammah_function_owner;
+SET ROLE lammah_function_owner;
+
 CREATE OR REPLACE FUNCTION public.lammah_resolved_source_hosts(p_source public.lammah_sources)
 RETURNS text[]
 LANGUAGE sql
@@ -469,7 +473,8 @@ $function$;
 COMMENT ON FUNCTION public.lammah_begin_source_run(text,text,text,text) IS
   'Additive per-source run starter. Does not approve sources, does not enable auto-publication, and does not create Directory or Profile rows. Existing lammah_begin_run remains EU Careers-only.';
 
-GRANT lammah_function_owner TO postgres;
+RESET ROLE;
+
 ALTER FUNCTION public.lammah_resolved_source_hosts(public.lammah_sources) OWNER TO lammah_function_owner;
 ALTER FUNCTION public.ingest_lammah_candidate(uuid, jsonb) OWNER TO lammah_function_owner;
 ALTER FUNCTION public.lammah_begin_source_run(text, text, text, text) OWNER TO lammah_function_owner;
@@ -477,6 +482,7 @@ GRANT EXECUTE ON FUNCTION public.lammah_resolved_source_hosts(public.lammah_sour
 GRANT EXECUTE ON FUNCTION public.ingest_lammah_candidate(uuid, jsonb) TO lammah_worker;
 REVOKE ALL ON FUNCTION public.lammah_begin_source_run(text, text, text, text) FROM PUBLIC, anon, authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.lammah_begin_source_run(text, text, text, text) TO lammah_worker;
+REVOKE CREATE ON SCHEMA public FROM lammah_function_owner;
 REVOKE lammah_function_owner FROM postgres;
 
 COMMIT;

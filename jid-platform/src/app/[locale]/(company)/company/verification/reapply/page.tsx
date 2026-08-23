@@ -23,30 +23,34 @@ export default function CompanyVerificationReapplyPage() {
 
   useEffect(() => {
     async function load() {
-      const supabase = createClient()
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (!user) {
-        router.replace('/login')
-        return
-      }
+      try {
+        const supabase = createClient()
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
+        if (!user) {
+          router.replace('/login')
+          return
+        }
 
-      const rejected = await getLatestRejectedVerification(supabase, user.id, 'business')
-      if (!rejected) {
-        router.replace('/company/verification-rejected')
-        return
-      }
+        const rejected = await getLatestRejectedVerification(supabase, user.id, 'business')
+        if (!rejected) {
+          router.replace('/company/verification-rejected')
+          return
+        }
 
-      if (!canReapplyNow(rejected.can_reapply_after)) {
-        setBlocked(true)
+        if (!canReapplyNow(rejected.can_reapply_after)) {
+          setBlocked(true)
+          setVerification(rejected)
+          setLoading(false)
+          return
+        }
+
         setVerification(rejected)
         setLoading(false)
-        return
+      } catch {
+        setLoading(false)
       }
-
-      setVerification(rejected)
-      setLoading(false)
     }
 
     void load()

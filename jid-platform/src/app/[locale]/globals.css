@@ -38,6 +38,15 @@
     font-family: var(--font-latin), var(--font-arabic), system-ui, sans-serif;
   }
 
+  /* Locale-breaking debt: `.font-arabic` must not force IBM Plex onto English UI. */
+  html[lang='en'] .font-arabic {
+    font-family: var(--font-latin), var(--font-arabic), system-ui, sans-serif;
+  }
+
+  html[lang='ar'] .font-arabic {
+    letter-spacing: 0;
+  }
+
   /* RTL: keep numerals, time, and mono LTR-isolated */
   [dir='rtl'] .tabular-nums,
   [dir='rtl'] time,

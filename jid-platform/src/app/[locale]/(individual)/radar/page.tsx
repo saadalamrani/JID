@@ -39,5 +39,6 @@ export default async function RadarPage() {
 }
 
 export async function generateMetadata() {
-  return { title: 'Radar' }
+  const t = await getTranslations('radar')
+  return { title: t('title') }
 }

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { toast } from 'sonner'
+import { useTranslations } from 'next-intl'
 import { track } from '@/lib/analytics/track'
 import {
   fetchCascadeSuggestions,
@@ -14,10 +15,7 @@ import type {
   TriageBulkAction,
   TriageFilterTab,
 } from '@/types/application'
-import {
-  APPLICATION_STATUS_LABELS,
-  triageActionToStatus,
-} from '@/types/application'
+import { triageActionToStatus } from '@/types/application'
 import type { CascadeSuggestion, CommunicationBatch } from '@/types/communication'
 import { ApplicantTriageTable } from './applicant-triage-table'
 import { BulkActionBar } from './bulk-action-bar'
@@ -55,6 +53,8 @@ export function ApplicantTriagePageClient({
   initialData,
   smartCommunicationEnabled,
 }: ApplicantTriagePageClientProps) {
+  const tStatus = useTranslations('company.applicants.status')
+  const tApplicants = useTranslations('company.applicants')
   const [filter, setFilter] = useState<TriageFilterTab>('all')
   const [job, setJob] = useState(initialData.job)
   const [applicants, setApplicants] = useState(initialData.applicants)
@@ -138,11 +138,13 @@ export function ApplicantTriagePageClient({
   }
 
   const announceStatus = useCallback((status: ApplicationStatus, count: number) => {
-    const label = APPLICATION_STATUS_LABELS[status]
+    const label = tStatus(status)
     setStatusAnnouncement(
-      count > 1 ? `تم تحديث ${count} طلبات إلى: ${label}` : `تم تحديث الحالة إلى: ${label}`,
+      count > 1
+        ? tApplicants('statusUpdatedMany', { count, label })
+        : tApplicants('statusUpdated', { label }),
     )
-  }, [])
+  }, [tApplicants, tStatus])
 
   const openCascadeIfNeeded = useCallback(async () => {
     if (!smartCommunicationEnabled) return

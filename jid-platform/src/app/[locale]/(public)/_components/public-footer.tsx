@@ -2,22 +2,27 @@ import { getTranslations } from 'next-intl/server'
 import { Logo } from '@/components/brand/logo'
 import { siteConfig } from '@/config/site'
 import { Link } from '@/lib/i18n/navigation'
+import { isFeatureEnabled } from '@/lib/feature-flags/server'
+import { FLAG_KEYS } from '@/lib/feature-flags/keys'
 
 /** Section 4.3 — three-column public footer (platform, legal, support). */
 export async function PublicFooter() {
   const t = await getTranslations('publicShell.footer')
   const tNav = await getTranslations('publicShell.nav')
   const year = new Date().getFullYear()
+  const pulsePublic = await isFeatureEnabled(FLAG_KEYS.PULSE_PUBLIC)
+
+  const platformLinks = [
+    { href: '/opportunities', label: t('groups.platform.opportunities') },
+    { href: '/mentors', label: t('groups.platform.mentors') },
+    { href: '/catalog', label: t('groups.platform.catalog') },
+    ...(pulsePublic ? [{ href: '/pulse', label: t('groups.platform.pulse') }] : []),
+  ]
 
   const groups = [
     {
       title: t('groups.platform.title'),
-      links: [
-        { href: '/opportunities', label: t('groups.platform.opportunities') },
-        { href: '/mentors', label: t('groups.platform.mentors') },
-        { href: '/catalog', label: t('groups.platform.catalog') },
-        { href: '/pulse', label: t('groups.platform.pulse') },
-      ],
+      links: platformLinks,
     },
     {
       title: t('groups.legal.title'),
@@ -34,7 +39,7 @@ export async function PublicFooter() {
         { href: '/about', label: t('groups.support.about') },
       ],
     },
-  ] as const
+  ]
 
   return (
     <footer className="border-t border-border bg-background">

@@ -29,16 +29,20 @@ export default async function StaffEntityDetailPage({ params }: EntityDetailPage
   // ignored (confirmed live: raw key paths rendering as visible text on the equivalent
   // list screen for 'business' rows before this fix added the missing key).
   const KNOWN_ENTITY_TYPES = ['company', 'business', 'university']
+  const KNOWN_ENTITY_STATES = ['unclaimed', 'pending', 'pending_review', 'approved', 'suspended']
   const entityTypeLabel = KNOWN_ENTITY_TYPES.includes(entity.entity_type)
     ? t(`types.${entity.entity_type}`)
     : entity.entity_type
+  const entityStateLabel = KNOWN_ENTITY_STATES.includes(entity.entity_state)
+    ? t(`states.${entity.entity_state}`)
+    : entity.entity_state
 
   const fields: Array<{ label: string; value: string | null }> = [
     { label: t('fields.id'), value: entity.id },
     { label: t('fields.name'), value: entity.name },
     { label: t('fields.nameAr'), value: entity.name_ar },
     { label: t('fields.type'), value: entityTypeLabel },
-    { label: t('fields.state'), value: entity.entity_state },
+    { label: t('fields.state'), value: entityStateLabel },
     { label: t('fields.ownership'), value: entity.ownership_type },
     { label: t('fields.sector'), value: entity.sector_name },
     { label: t('fields.region'), value: entity.region_name },

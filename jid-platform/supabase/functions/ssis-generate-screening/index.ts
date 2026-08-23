@@ -90,15 +90,23 @@ async function assertUserOwnsJob(
 ): Promise<{ companyId: string } | null> {
   const { data: job } = await supabase
     .from('jobs')
-    .select('company_id, companies(claimed_by)')
+    .select('company_id, business_profile_id')
     .eq('id', jobId)
     .maybeSingle()
 
   if (!job) return null
 
-  const company = job.companies as { claimed_by: string | null } | null
-  if (company?.claimed_by === userId) {
-    return { companyId: job.company_id as string }
+  if (job.business_profile_id) {
+    const { data: ownedProfile } = await supabase
+      .from('business_profiles')
+      .select('id')
+      .eq('id', job.business_profile_id)
+      .eq('owner_user_id', userId)
+      .neq('status', 'suspended')
+      .maybeSingle()
+    if (ownedProfile?.id) {
+      return { companyId: job.company_id as string }
+    }
   }
 
   const { data: profile } = await supabase

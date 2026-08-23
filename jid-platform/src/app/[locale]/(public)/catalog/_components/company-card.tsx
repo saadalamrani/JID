@@ -47,13 +47,13 @@ export function CompanyCard({ company, className }: CompanyCardProps) {
       <header className="relative z-20 flex items-start gap-3 pointer-events-none">
         <CompanyLogo name={displayName} logoUrl={company.logo_url} />
         <div className="min-w-0 flex-1">
-          <h2 className="truncate font-arabic text-base font-semibold text-foreground">
+          <h2 className="break-words font-arabic text-base font-semibold leading-snug text-foreground">
             {displayName}
           </h2>
           {subtitle ? (
             <p
               dir="ltr"
-              className="mt-0.5 truncate font-latin text-sm font-normal text-foreground-400"
+              className="mt-0.5 break-words font-latin text-sm font-normal text-foreground-400"
             >
               {subtitle}
             </p>

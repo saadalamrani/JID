@@ -44,7 +44,7 @@ export async function reviewCatalogCandidate(
     return { ok: result.ok === true, code: result.code ?? 'unknown' }
   }
 
-  const { data, error } = await client.rpc('review_directory_candidate', {
+  const { data, error } = await client.rpc('staff_review_directory_candidate', {
     p_review_queue_id: parsed.data.queueId,
     p_action: parsed.data.action,
     p_notes: parsed.data.notes,
@@ -63,7 +63,7 @@ export async function publishCatalogCandidate(queueId: string): Promise<ActionRe
   await requireCatalogStaffAccess()
   if (!z.string().uuid().safeParse(queueId).success) return { ok: false, code: 'invalid_queue_id' }
   const client = (await createClient()) as unknown as UntypedClient
-  const { data, error } = await client.rpc('publish_directory_candidate', {
+  const { data, error } = await client.rpc('staff_publish_directory_candidate', {
     p_review_queue_id: queueId,
   })
   if (error) return { ok: false, code: error.message }
