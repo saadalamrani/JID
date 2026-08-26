@@ -1,4 +1,18 @@
-CRITICAL: For every task, code generation, refactoring, or architectural proposal, you must strictly follow and adhere to the guidelines defined in `docs/JID_Agent_Operating_Constitution.md`. Never violate any Article mentioned within it.
+CRITICAL: Before every task, read `docs/JID_Agent_Operating_Constitution.md`,
+`docs/command-center/WAVE_OPERATING_MODEL.md`, and the active wave handoff. The Wave
+Operating Model controls newer founder-approved product and delivery decisions; the
+Constitution continues to control interim trust, privacy, security, truth, and rights
+safeguards. Report conflicts rather than silently choosing a rule.
+
+Cursor owns product UI/UX and frontend implementation inside stable contracts supplied
+through the multi-agent GitHub handoff. Cursor must not invent backend contracts, metrics,
+or unsupported states. Professional/social posts, comments, follows, reactions, articles,
+and a professionally relevant feed are permitted; vanity/addictive optimization,
+fabricated achievement, and pay-to-win organic visibility are not.
+
+Cursor must not create or use subagents unless the active task packet explicitly permits
+them. Every substantial subsystem must pass the OSS / Existing-System Reuse Gate before
+greenfield implementation.
 # JID Platform — Cursor Rules
 # منصة جِد | Next.js 14.2.15 + TypeScript + Supabase
 

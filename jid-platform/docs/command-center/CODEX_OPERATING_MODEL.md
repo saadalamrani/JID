@@ -1,80 +1,52 @@
 # JID — Codex Operating Model
 
-## Decision
+**Status:** Active role-specific companion to
+[`WAVE_OPERATING_MODEL.md`](WAVE_OPERATING_MODEL.md).
 
-Codex becomes the primary engineering executor for JID. Cursor is no longer the mandatory executor; it may remain installed as an editor or fallback. No project migration is required because the project already lives in Git and GitHub.
+The previous Codex-only execution model is superseded. Codex is JID's core engineering,
+data, security, integration, test, and technical closeout owner within a coordinated
+multi-agent system; it is not the sole product, research, architecture, or frontend owner.
 
-## Shared system
+## Entry sequence
 
-- ChatGPT / Nebras: command center, planning, product decisions, repository verification.
-- Codex: implementation, tests, refactors, reviews, and pull requests.
-- GitHub: single shared source of code and task evidence.
-- Supabase: database and authentication environments.
-- Vercel: preview and production deployments.
-- Claude: optional independent reviewer for high-risk database/security changes only.
+Before work, Codex reads:
 
-Claude is not directly merged into Codex as one agent. Both work against the same GitHub repository and task packets.
+1. repository `AGENTS.md`;
+2. `docs/JID_Agent_Operating_Constitution.md`;
+3. `docs/command-center/WAVE_OPERATING_MODEL.md`;
+4. the active wave/task packet;
+5. the latest Architecture/Reuse Packet and GitHub handoff, when applicable.
 
-## Environment map
+Codex confirms the baseline branch and SHA before editing.
 
-### Production
-- Vercel project: `jid-platform`
-- Branch: `main`
-- Supabase project ref: `znfhladafpajyjwcfzvv`
-- No write without explicit founder approval.
+## Codex ownership
 
-### Non-production
-- Vercel project: `jid-dev`
-- Working branch: `agent/nonprod-signup-fix`
-- Supabase project ref: `hmjuijmaefajdjrjdsxu`
+- canonical domain contracts and server-side implementation;
+- migrations and RLS only when explicitly authorized in a non-production packet;
+- auth, consent, audit, APIs/server actions, events, queues, and integration adapters;
+- backend, RLS, integration, and end-to-end contract tests;
+- repository integration and final technical wave closeout.
 
-## Codex entry point
+Codex consumes approved research and architecture evidence, independently verifies
+critical license/security claims before import, and hands stable frontend contracts and
+states to Cursor. It does not create a competing product architecture or invent UI data.
 
-Codex must open the repository root, then treat `jid-platform/` as the application root.
+Codex must not spawn subagents unless the active task packet explicitly authorizes it.
 
-Before each task it reads:
+## Delivery path
 
-1. `/AGENTS.md`
-2. `/jid-platform/docs/JID_Agent_Operating_Constitution.md`
-3. `/jid-platform/docs/command-center/MASTER_PLAN.md`
-4. The specific task packet.
+`Research/Reuse -> Architecture -> Canonical Contracts -> Product Experience -> Independent Review -> Integration Closeout`
 
-## Connection model
+Parallel work requires frozen interfaces and non-overlapping ownership. No two agents may
+create migrations or change the same canonical model concurrently.
 
-### GitHub
-Codex uses the existing `saadalamrani/JID` repository. Every task works on a dedicated branch or isolated worktree and returns a reviewable diff/PR.
+## Environment boundary
 
-### Supabase
-Use one of:
-- Supabase MCP configured inside Codex, or
-- authenticated Supabase CLI in the local Codex environment.
+- GitHub is the shared evidence layer.
+- Production Vercel, Supabase, data, SQL, and configuration require explicit founder
+  approval.
+- Non-production access must still be authorized by the active packet.
+- Secrets are never committed or copied into reports.
 
-Production and non-production credentials must remain separate. Service-role secrets must never be committed.
-
-### Vercel
-Use one of:
-- Vercel MCP/skill if available, or
-- authenticated Vercel CLI.
-
-Preview deployment is allowed only against non-production configuration. Production deployment requires explicit founder approval.
-
-### ChatGPT
-Codex is part of the OpenAI/ChatGPT product family and uses the ChatGPT account. ChatGPT remains the command center and can inspect GitHub, Supabase, and Vercel through connected apps.
-
-### Claude
-No direct Codex-to-Claude control is assumed. Claude receives only exceptional review packets. GitHub is the shared evidence layer.
-
-## Anti-loop workflow
-
-`Task Packet → Codex implementation → GitHub commit/PR → ChatGPT verification → environment verification → CLOSED`
-
-The founder only:
-- starts a Codex task when a desktop interaction is required,
-- approves production writes,
-- resolves genuinely new product decisions.
-
-No copying full reports between agents.
-
-## First task
-
-Run `JID-000` as a repository-wide audit only. It must not change application behavior or databases. Its output establishes the Feature Ledger and Task Board used for all later work.
+At close, Codex records exact branch/SHA, files, tests, unresolved risks, and the next
+entry point. It does not begin the next wave unless instructed.

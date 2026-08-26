@@ -1,6 +1,13 @@
 # جِد | JID — AGENT OPERATING CONSTITUTION
 ## The Non-Negotiable Foundation for Any AI Agent Working on This Platform
 
+> **Interim governance status — 2026-08-26:** The founder approved replacing this
+> product-heavy Constitution with a compact Trust & Rights Constitution direction, but
+> final text has not been adopted. Until that governance action occurs, this document's
+> privacy, security, truth, human-agency, accessibility, and data-right safeguards remain
+> binding. Product and delivery clauses that conflict with the dated founder decisions in
+> `docs/command-center/WAVE_OPERATING_MODEL.md` are superseded by that named record. This
+> notice is an interim conflict reconciliation, not a fabricated final Constitution.
 **Purpose:** This document is not a feature spec. It is the permanent governing layer
 that sits above every individual task prompt. Any AI agent — Cursor, another coding
 assistant, or a human engineer — must internalize this document BEFORE touching any part
@@ -17,15 +24,14 @@ side yourself.
 
 ## ARTICLE 0 — WHAT JID IS (orientation, not a pitch)
 
-جِد | JID is Saudi Arabia's digital infrastructure for the employment market — a
-triple-sided platform connecting **Individuals**, **Employers**, and **Universities**
-through one ecosystem, one data architecture, and one source of truth. It is not a job
-board, not a social network, not an ERP, not a CRM. Its defensible edge is execution
-speed, premium Arabic-first UX, and accumulated operational trust — never a claim of
-technical irreplicability. Every feature must trace back to one of the three actors and
-answer their one governing question: Individual — *"Who am I, and where am I going?"*
-Employer — *"Who are we, and why should graduates trust applying to us?"* University —
-*"How are our graduates performing after graduation?"*
+The founder-approved public definition is:
+
+> جِد منصة مهنية سعودية تربط الفرد بالفرصة، وجهة التوظيف بالكفاءة، والجامعة بمخرجاتها.
+
+The operating relationship is Individual → Opportunity, Employer → Talent/Capability,
+and University → Graduate outcomes and graduates in the labor market. Exactly three
+public actors remain: Individual, Business/Employer, and University. Mentor is an
+Individual capability; Government is a partner/customer/authority context.
 
 ---
 
@@ -94,9 +100,10 @@ they are never confused.
 
 ## ARTICLE 3 — THE INDIVIDUAL PROFILE CONSTITUTION (the seven layers)
 
-The Individual Profile is **not** a CV, not a LinkedIn clone, not a social feed, not a
-portfolio site, not a resume builder. It is a living professional identity resolved into
-seven layers, each with exactly one job:
+The Individual Profile is not a CV or a parallel social truth store. It is a living
+professional identity resolved into seven layers, each with exactly one job. The separate
+Professional / Social Layer may reference canonical professional objects only through
+explicit, permission-governed links:
 
 ```
 L1 Core Identity      → the verified person (name, contacts)
@@ -116,11 +123,12 @@ L7 Governance          → the privacy switchboard — evaluated on the READ PAT
 - **The spine doctrine:** one fact lives in exactly one place. If you find yourself
   copying a fact from L2 into a card, a CV, a timeline entry, or anywhere else — stop.
   Reference it, don't copy it.
-- **The anti-feed constitution (zero exceptions, ever):** no follower graph, no likes, no
-  comments, no reshares, no algorithmic distribution feed, no "recent activity" stream,
-  no engagement counters anywhere on this platform's individual-facing surfaces. If a
-  task ever implies building any of these, stop and flag it — it is unconstitutional
-  regardless of who requested it.
+- **Professional/social boundary:** posts, comments, follows, reactions, articles,
+  professional achievements, mentor content, institutional publishing, and a
+  professionally relevant feed are permitted by the 2026-08-26 founder decision. They
+  must not optimize for vanity, addictive engagement, fabricated achievement, or
+  pay-to-win organic visibility. Ordinary content never becomes Career Record evidence
+  automatically; addition requires explicit user choice.
 - **Honesty asymmetry:** system-derived timeline entries can be hidden by the owner but
   never fabricated. Authored entries are declaratory and should be evidence-backed where
   possible, never presented as more certain than they are.
@@ -264,8 +272,10 @@ directive explicitly and specifically reverses this article.
   required.
 - **Mandatory attestation queues / two-state trust models for alumni** — superseded;
   declaration alone establishes the relationship.
-- **Any social-network mechanic on the Individual Profile or Career Canvas** — see
-  Article 3's anti-feed constitution.
+- **Automatic conversion of social content into Career Record evidence, vanity/addictive
+  engagement optimization, fabricated achievement, or pay-to-win organic visibility.**
+  The previous blanket ban on feed, follows, comments, and reactions was superseded by
+  the founder decision dated 2026-08-26.
 - **k-anonymity as the default privacy posture for university-facing graduate data** —
   superseded by consent-governed visibility (the Graduate Directory shows real,
   visibility-opted-in people; suppression floors survive only on public-facing
@@ -281,11 +291,11 @@ directive explicitly and specifically reverses this article.
    the actual current state of whatever the task touches — exact file paths, exact
    column names, exact existing component shapes, exact existing route patterns. Never
    assume a name or shape from a task description is exactly correct; verify it.
-2. **Priority-of-truth ordering when sources conflict** (binding, in this exact order):
-   1) the current, real JID architecture 2) product/business logic correctness and data
-   integrity 3) user experience and usability 4) the existing design system
-   5) any reference image, mockup, or external example. A reference visual is never the
-   source of truth — it is a direction, filtered through everything above it.
+2. **Priority-of-truth ordering when sources conflict:** 1) law, privacy, security and
+   user rights 2) explicit latest founder decisions 3) current verified repository and
+   runtime truth 4) approved active-wave contracts 5) Strategy Office evidence and
+   recommendations 6) historical product instructions 7) external references. A
+   reference visual is never the source of truth.
 3. **Flag conflicts; do not silently resolve them.** If a task's request appears to
    violate this Constitution, or conflicts with something already built, stop and report
    the conflict with your reasoning — do not quietly pick a side and proceed as if there
@@ -335,7 +345,7 @@ A fast, literal checklist any agent can run before finishing any task:
 - [ ] No direct write path to a Directory (`companies`) row was reopened for organizations.
 - [ ] No Commitment Score, partner-badge styling, or company trust score reappeared.
 - [ ] No mandatory university-email verification step was introduced anywhere.
-- [ ] No follower/like/comment/feed mechanic was added to any profile surface.
+- [ ] Professional/social mechanics respect explicit consent, Career Record separation, real-data rules, and the no-vanity/no-addictive/no-pay-to-win boundary.
 - [ ] No fabricated number, unmeasured percentage, or invented trend line was displayed.
 - [ ] No private/operational data (applications, interviews, offers, internal completion
       %, alerts) leaked into a non-owner payload.

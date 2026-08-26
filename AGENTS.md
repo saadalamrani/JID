@@ -1,67 +1,66 @@
-# JID — Codex Operating Instructions
+# JID — Repository Operating Instructions
 
-These instructions govern every Codex task in this repository.
+These instructions govern every agent working in this repository.
 
-## Mandatory sources of truth
-
-Before planning, editing, reviewing, or running commands, read and obey:
+## Read before acting
 
 1. `jid-platform/docs/JID_Agent_Operating_Constitution.md`
-2. `jid-platform/docs/command-center/CODEX_OPERATING_MODEL.md`
-3. The current task packet under `jid-platform/docs/command-center/tasks/`
+2. `jid-platform/docs/command-center/WAVE_OPERATING_MODEL.md`
+3. The active wave/task packet and latest GitHub handoff
 
-If a task conflicts with the constitution, stop and report the conflict. The constitution wins.
+The dated Wave Operating Model controls product and delivery decisions that conflict with
+older product-specific Constitution or command-center language. Trust, privacy, security,
+truth, user rights, and production safeguards remain binding. Record genuine conflicts;
+do not silently resolve them.
 
 ## Repository and runtime
 
 - App root: `jid-platform/`
-- Framework: Next.js 14.2 App Router
-- Language: strict TypeScript; do not introduce `any`
-- Package manager: `pnpm` only
-- Database: Supabase with RLS as the security boundary
-- Arabic-first using `next-intl`; preserve full English parity
-- Timezone: `Asia/Riyadh`
-- Numbers: Latin digits in both languages
+- Next.js 14.2 App Router; strict TypeScript; never introduce `any`
+- `pnpm` only
+- Supabase with RLS as the security boundary
+- Arabic-first through `next-intl`, with complete English parity
+- Timezone `Asia/Riyadh`; Latin digits in both languages
 
-## Non-negotiable architecture
+## Active delivery model
 
-- Exactly three external actors: Individual, Business, University.
-- Directory records are not owned profiles.
-- Never restore Claim Existing Profile or commitment scoring.
-- No social feed, likes, comments, follower graph, or fabricated engagement metrics.
+- ChatGPT / Nebras: strategy, orchestration, synthesis, verification.
+- Claude Code: research, OSS intelligence, architecture, algorithms, methodology.
+- Codex: backend, contracts, data/RLS, APIs, workflows, integration, tests, closeout.
+- Cursor: UI/UX, frontend, Arabic-first responsive and accessible experience.
+- GitHub: shared source of truth.
+
+No agent owns JID independently. Codex must not spawn subagents unless the active task
+packet explicitly authorizes it.
+
+## Non-negotiable boundaries
+
+- Exactly three public actors: Individual, Business / Employer, University.
+- Mentor is an Individual capability; Government is a partner/customer/authority context.
+- Directory records are not owned Profiles.
+- Never restore Claim Existing Profile or Commitment Score.
+- Professional/social posts, comments, follows, reactions, articles, and a relevant feed
+  are permitted under the Wave Operating Model; never optimize them for vanity,
+  addiction, fake achievement, or pay-to-win organic visibility.
 - Do not fetch private data to the client and hide it there.
-- No metric, percentage, badge, or claim without a traceable real data source.
-- CV Builder renders canonical profile data; it is not a parallel source of truth.
+- No metric, percentage, badge, outcome, or claim without a traceable real source.
+- Career Record is canonical; CV and other expressions do not become parallel truth.
+- AI remains assistive, explainable, and human-authorized.
+- Every substantial subsystem must pass the OSS / Existing-System Reuse Gate before a
+  greenfield build decision.
 
-## Task execution contract
+## Execution contract
 
-1. Inspect before editing.
-2. Stay inside the task packet scope.
+1. Inspect the current baseline before editing.
+2. Stay inside the active packet and wave.
 3. Reuse existing components and utilities before creating new ones.
 4. Add or update tests for changed behavior.
-5. Run the required checks from the task packet.
-6. Commit and push only to the designated non-production branch.
-7. Never execute production SQL or deploy to production without explicit founder approval.
-8. End with exactly one state:
-   - `CODE_COMPLETE`
-   - `BLOCKED_WITH_EXACT_CAUSE`
+5. Run the packet's required checks and report command evidence honestly.
+6. Use a dedicated non-production branch/worktree and GitHub handoff.
+7. Never execute production SQL, production deployment, or production writes without
+   explicit founder approval.
+8. End in the exact terminal state required by the active packet.
 
-## Default checks
-
-Run from `jid-platform/` unless the task packet says otherwise:
-
-```bash
-pnpm type-check
-pnpm lint
-pnpm build
-```
-
-Also run focused tests for the changed domain. Do not claim PASS without command evidence.
-
-## Change discipline
-
-- Do not modify `main` directly.
-- Do not touch production data or secrets.
-- Do not add dependencies without a documented necessity.
-- Do not reopen closed work without direct regression evidence.
-- After two failed repair attempts, stop and create a root-cause blocker rather than looping.
+Default application checks are `pnpm type-check`, `pnpm lint`, and `pnpm build`, plus
+focused tests. Documentation-only packets may require narrower checks when explicitly
+stated.
