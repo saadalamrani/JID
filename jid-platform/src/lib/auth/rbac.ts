@@ -2,6 +2,18 @@
  * JID RBAC — role types and hierarchy (Section 5 / Section 11 Step 4)
  */
 
+import type { PublicActorType } from '@/types/contracts'
+
+export type LegacyRoleActorCompatibility =
+  | {
+      actor_type: 'INDIVIDUAL'
+      organization_authority_required: false
+    }
+  | {
+      actor_type: Extract<PublicActorType, 'BUSINESS' | 'UNIVERSITY'>
+      organization_authority_required: true
+    }
+
 export const USER_ROLES = [
   'individual',
   'entity',
@@ -39,4 +51,26 @@ export function hasMinimumRole(userRole: UserRole, minimumRole: UserRole): boole
 
 export function isRoleAllowed(userRole: UserRole, allowedRoles: readonly UserRole[]): boolean {
   return allowedRoles.includes(userRole)
+}
+
+/**
+ * Compatibility-only bridge from the mixed-generation account role enum.
+ * `entity` is intentionally unresolved: organization authority must be established separately.
+ */
+export function actorCompatibilityFromLegacyRole(
+  role: UserRole,
+): LegacyRoleActorCompatibility | null {
+  switch (role) {
+    case 'individual':
+      return { actor_type: 'INDIVIDUAL', organization_authority_required: false }
+    case 'company_admin':
+      return { actor_type: 'BUSINESS', organization_authority_required: true }
+    case 'university_admin':
+      return { actor_type: 'UNIVERSITY', organization_authority_required: true }
+    case 'entity':
+    case 'staff':
+    case 'admin':
+    case 'super_admin':
+      return null
+  }
 }
