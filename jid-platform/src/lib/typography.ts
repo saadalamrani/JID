@@ -4,7 +4,7 @@
  * Font tokens (locked Brand Identity — do not replace):
  * - `font-arabic` — IBM Plex Sans Arabic (body + Arabic UI)
  * - `font-display` / `font-latin` — Manrope (Latin display + headings)
- * - `font-mono` — JetBrains Mono / IBM Plex Mono stack (code, numerals)
+ * - `font-mono` — JetBrains Mono (the face loaded by src/styles/fonts.ts)
  *
  * CRITICAL: All Arabic-rendering levels use `tracking-normal` (letter-spacing: 0).
  * Negative tracking is Latin/display-only and must never apply to Arabic text.

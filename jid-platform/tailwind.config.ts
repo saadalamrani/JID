@@ -21,31 +21,31 @@ const config: Config = {
     extend: {
       colors: {
         background: 'var(--color-background)',
-        foreground: 'var(--color-text-primary)',
+        foreground: 'var(--color-foreground)',
         surface: 'var(--color-surface)',
         card: {
           DEFAULT: 'var(--color-card)',
-          foreground: 'var(--color-text-primary)',
+          foreground: 'var(--color-foreground)',
         },
         popover: {
           DEFAULT: 'var(--color-card)',
-          foreground: 'var(--color-text-primary)',
+          foreground: 'var(--color-foreground)',
         },
         primary: {
-          DEFAULT: 'var(--color-olive)',
+          DEFAULT: 'var(--color-primary)',
           foreground: 'var(--color-background)',
         },
         secondary: {
           DEFAULT: 'var(--color-surface)',
-          foreground: 'var(--color-text-primary)',
+          foreground: 'var(--color-foreground)',
         },
         muted: {
           DEFAULT: 'var(--color-surface)',
           foreground: 'var(--color-text-secondary)',
         },
         accent: {
-          DEFAULT: 'var(--color-gold)',
-          foreground: 'var(--color-text-primary)',
+          DEFAULT: 'var(--color-accent)',
+          foreground: 'var(--color-foreground)',
         },
         success: {
           DEFAULT: 'var(--color-success)',
@@ -61,9 +61,9 @@ const config: Config = {
         },
         border: 'var(--color-border)',
         input: 'var(--color-border)',
-        ring: 'var(--color-gold)',
+        ring: 'var(--color-focus)',
         text: {
-          primary: 'var(--color-text-primary)',
+          primary: 'var(--color-foreground)',
           secondary: 'var(--color-text-secondary)',
         },
         chart: {
@@ -86,12 +86,13 @@ const config: Config = {
           border: 'var(--color-border)',
           'text-primary': 'var(--color-text-primary)',
           'text-secondary': 'var(--color-text-secondary)',
-          gold: 'var(--color-gold)',
-          olive: 'var(--color-olive)',
+          gold: 'var(--color-accent)',
+          olive: 'var(--color-primary)',
           'olive-secondary': 'var(--color-olive-secondary)',
           success: 'var(--color-success)',
           danger: 'var(--color-danger)',
           warning: 'var(--color-warning)',
+          focus: 'var(--color-focus)',
         },
       },
       spacing,

@@ -19,6 +19,7 @@ export const fontLatin = Manrope({
   adjustFontFallback: true,
 })
 
+/** Canonical mono face — keep in sync with typography.fontFamily.mono in design-tokens.ts. */
 export const fontMono = JetBrains_Mono({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],

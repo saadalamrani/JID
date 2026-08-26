@@ -3,6 +3,7 @@
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 import type { ReactNode } from 'react'
+import { iconOnlyControlClass, reducedMotionClass } from '@/lib/ui/a11y'
 import { cn } from '@/lib/utils'
 
 type BottomSheetProps = {
@@ -20,6 +21,8 @@ type BottomSheetProps = {
    */
   side?: 'bottom' | 'start'
   widthClassName?: string
+  /** Accessible name for the icon-only close control. Pass i18n from the caller. */
+  closeLabel?: string
 }
 
 /** Section 11.1 / 11.2 — mobile bottom sheet (move actions + timeline) and side nav drawer. */
@@ -32,6 +35,7 @@ export function BottomSheet({
   className,
   side = 'bottom',
   widthClassName = 'w-[85vw] max-w-xs',
+  closeLabel = 'Close',
 }: BottomSheetProps) {
   const isSide = side === 'start'
 
@@ -40,9 +44,10 @@ export function BottomSheet({
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay
           className={cn(
-            'fixed inset-0 z-50 bg-foreground/50',
+            'bg-foreground/50 fixed inset-0 z-50',
             'data-[state=open]:animate-in data-[state=closed]:animate-out',
             'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+            reducedMotionClass,
           )}
         />
         <DialogPrimitive.Content
@@ -50,6 +55,7 @@ export function BottomSheet({
             'fixed z-50 flex flex-col bg-card text-foreground shadow-lg outline-none',
             'data-[state=open]:animate-in data-[state=closed]:animate-out',
             'data-[state=closed]:duration-fast data-[state=open]:duration-normal',
+            reducedMotionClass,
             isSide &&
               cn(
                 'inset-y-0 start-0 h-full',
@@ -71,7 +77,7 @@ export function BottomSheet({
           )}
         >
           {!isSide ? (
-            <div className="mx-auto mt-2 h-1 w-10 shrink-0 rounded-full bg-border/60" aria-hidden />
+            <div className="bg-border/60 mx-auto mt-2 h-1 w-10 shrink-0 rounded-full" aria-hidden />
           ) : null}
           {title ? (
             <DialogPrimitive.Title className="border-b border-border px-4 py-3 text-base font-semibold text-foreground">
@@ -82,10 +88,13 @@ export function BottomSheet({
             {children}
           </div>
           <DialogPrimitive.Close
-            className="absolute end-4 top-4 rounded-full p-1.5 text-muted-foreground transition-colors duration-fast hover:bg-muted hover:text-foreground"
-            aria-label="Close"
+            className={cn(
+              'absolute end-4 top-4 rounded-full text-muted-foreground hover:bg-muted hover:text-foreground',
+              iconOnlyControlClass,
+            )}
+            aria-label={closeLabel}
           >
-            <X className="h-5 w-5" />
+            <X className="h-5 w-5" aria-hidden />
           </DialogPrimitive.Close>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>

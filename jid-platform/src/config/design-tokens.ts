@@ -76,23 +76,51 @@ export const colors = {
 } as const
 
 /**
- * Semantic color tokens — theme-aware roles layered on the raw jid-* palette.
+ * Semantic color roles — theme-aware. Feature code consumes these before raw palette values.
  * Consumed by semantic-theme-plugin.ts → CSS custom properties (--color-*).
+ *
+ * Gold is accent/action only, never a decorative fill.
+ * Color is never the only state indicator.
  */
+export const SEMANTIC_COLOR_ROLES = [
+  'background',
+  'surface',
+  'card',
+  'foreground',
+  'textPrimary',
+  'textSecondary',
+  'border',
+  'primary',
+  'accent',
+  'success',
+  'warning',
+  'danger',
+  'focus',
+  'ring',
+] as const
+
+export type SemanticColorRole = (typeof SEMANTIC_COLOR_ROLES)[number]
+
 export const semanticColors = {
   background: { light: colors.beige.DEFAULT, dark: '#1E2620' },
   surface: { light: colors.beige.warm, dark: colors.olive.DEFAULT },
   card: { light: '#FFFFFF', dark: colors.olive.DEFAULT },
-  border: { light: colors.line.DEFAULT, dark: 'rgba(247,245,239,0.12)' },
+  foreground: { light: '#111111', dark: colors.beige.DEFAULT },
   textPrimary: { light: '#111111', dark: colors.beige.DEFAULT },
   textSecondary: { light: colors.ink.soft, dark: 'rgba(247,245,239,0.65)' },
+  border: { light: colors.line.DEFAULT, dark: 'rgba(247,245,239,0.12)' },
+  primary: colors.olive.DEFAULT,
+  accent: colors.gold.DEFAULT,
+  /** Olive-adjacent success — not generic SaaS emerald. */
+  success: { light: '#2F6B4F', dark: '#7BC49A' },
+  warning: { light: '#D97706', dark: '#FBBF24' },
+  danger: { light: '#DC2626', dark: '#F87171' },
+  focus: colors.gold.DEFAULT,
+  ring: colors.gold.DEFAULT,
+  /** Brand aliases for foundation/theme wiring — prefer primary/accent in feature code. */
   gold: colors.gold.DEFAULT,
   olive: colors.olive.DEFAULT,
   oliveSecondary: colors.olive.secondary,
-  /** Olive-adjacent success — not generic SaaS emerald. */
-  success: { light: '#2F6B4F', dark: '#7BC49A' },
-  danger: { light: '#DC2626', dark: '#F87171' },
-  warning: { light: '#D97706', dark: '#FBBF24' },
 } as const
 
 export const spacing = {
@@ -137,18 +165,24 @@ export const typography = {
   fontFamily: {
     arabic: ['"IBM Plex Sans Arabic"', 'sans-serif'],
     latin: ['"Manrope"', 'sans-serif'],
-    mono: ['"IBM Plex Mono"', 'monospace'],
+    /** Must match the face actually loaded in src/styles/fonts.ts (JetBrains Mono). */
+    mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
   },
+  /**
+   * Size/line-height only. Letter-spacing stays 0 here so Arabic never inherits
+   * Latin tracking from `text-*` utilities. English tracking is opt-in via
+   * `typographyScale` in src/lib/typography.ts.
+   */
   fontSize: {
     xs: ['0.75rem', { lineHeight: '1.5', letterSpacing: '0' }],
     sm: ['0.875rem', { lineHeight: '1.5', letterSpacing: '0' }],
     base: ['1rem', { lineHeight: '1.6', letterSpacing: '0' }],
-    lg: ['1.125rem', { lineHeight: '1.6', letterSpacing: '-0.01em' }],
-    xl: ['1.25rem', { lineHeight: '1.5', letterSpacing: '-0.01em' }],
-    '2xl': ['1.5rem', { lineHeight: '1.4', letterSpacing: '-0.02em' }],
-    '3xl': ['1.875rem', { lineHeight: '1.3', letterSpacing: '-0.02em' }],
-    '4xl': ['2.25rem', { lineHeight: '1.2', letterSpacing: '-0.03em' }],
-    '5xl': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.03em' }],
+    lg: ['1.125rem', { lineHeight: '1.6', letterSpacing: '0' }],
+    xl: ['1.25rem', { lineHeight: '1.5', letterSpacing: '0' }],
+    '2xl': ['1.5rem', { lineHeight: '1.4', letterSpacing: '0' }],
+    '3xl': ['1.875rem', { lineHeight: '1.3', letterSpacing: '0' }],
+    '4xl': ['2.25rem', { lineHeight: '1.2', letterSpacing: '0' }],
+    '5xl': ['3rem', { lineHeight: '1.1', letterSpacing: '0' }],
   },
   fontWeight: {
     normal: '400',

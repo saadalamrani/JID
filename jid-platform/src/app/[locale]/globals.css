@@ -14,6 +14,7 @@
 
   html {
     @apply scroll-smooth;
+    font-variant-numeric: lining-nums;
   }
 
   /* CRITICAL: never letter-space Arabic — breaks glyph joining */
@@ -27,7 +28,25 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1,
+      'lnum' 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   html[lang='ar'] body {

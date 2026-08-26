@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 
 import {
@@ -66,6 +67,30 @@ describe('Dialog RTL logical direction contract', () => {
     )
     expect(screen.getByRole('dialog')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Close' })).toHaveClass('end-4')
+  })
+
+  it('uses reduced-motion classes and a 44px close target', () => {
+    const source = readFileSync(join(process.cwd(), 'src/components/ui/dialog.tsx'), 'utf8')
+    expect(source).toContain('reducedMotionClass')
+    expect(source).toContain('iconOnlyControlClass')
+    expect(source).toContain('closeLabel')
+  })
+
+  it('keeps the close control keyboard reachable', async () => {
+    const user = userEvent.setup()
+    render(
+      <Dialog open>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Title</DialogTitle>
+            <DialogDescription>Body</DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>,
+    )
+
+    await user.tab()
+    expect(screen.getByRole('button', { name: 'Close' })).toHaveFocus()
   })
 
   it('renders header/footer landmarks when open', () => {

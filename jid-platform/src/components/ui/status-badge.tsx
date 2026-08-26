@@ -1,6 +1,7 @@
 import type { HTMLAttributes } from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 
+import { contractStatusVariant, type ContractStatusBinding } from '@/lib/ui/contract-presentation'
 import { cn } from '@/lib/utils'
 
 const statusBadgeVariants = cva(
@@ -22,24 +23,37 @@ const statusBadgeVariants = cva(
   },
 )
 
-export type StatusBadgeProps = HTMLAttributes<HTMLSpanElement> &
-  VariantProps<typeof statusBadgeVariants> & {
-    /** Visible status label — required; color alone is never sufficient. */
-    children: string
-  }
+type StatusBadgeBaseProps = HTMLAttributes<HTMLSpanElement> & {
+  /** Visible status label — required; color alone is never sufficient. */
+  children: string
+}
+
+export type StatusBadgeProps = StatusBadgeBaseProps &
+  (
+    | (ContractStatusBinding & { variant?: never })
+    | (VariantProps<typeof statusBadgeVariants> & { domain?: never; state?: never })
+  )
 
 /**
  * Shared status chip — text always present; not a decorative pill system.
- * Domain-specific badges (e.g. application pipeline) remain separate.
+ * Contract-backed usage: pass domain + state from `@/types/contracts`.
+ * Visual-only usage remains for non-domain chrome; do not invent domain enums here.
  */
-export function StatusBadge({
-  className,
-  variant,
-  children,
-  ...props
-}: StatusBadgeProps) {
+export function StatusBadge(props: StatusBadgeProps) {
+  const { className, children, ...rest } = props
+  const variant =
+    'domain' in props && props.domain
+      ? contractStatusVariant({ domain: props.domain, state: props.state } as ContractStatusBinding)
+      : props.variant
+
+  const spanProps = Object.fromEntries(
+    Object.entries(rest).filter(
+      ([key]) => key !== 'domain' && key !== 'state' && key !== 'variant',
+    ),
+  )
+
   return (
-    <span className={cn(statusBadgeVariants({ variant }), className)} {...props}>
+    <span className={cn(statusBadgeVariants({ variant }), className)} {...spanProps}>
       {children}
     </span>
   )

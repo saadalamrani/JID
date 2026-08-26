@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { PageHeader } from '@/components/ui/page-header'
+import { PageHeader, SectionHeader } from '@/components/ui/page-header'
 
 describe('PageHeader', () => {
   it('renders title and optional description', () => {
@@ -33,6 +33,13 @@ describe('PageHeader', () => {
   it('keeps zero tracking on the title for Arabic safety', () => {
     render(<PageHeader title="العنوان" />)
     expect(screen.getByRole('heading', { level: 1 })).toHaveClass('tracking-normal')
+  })
+
+  it('exposes section heading grammar without decorative kickers', () => {
+    render(<SectionHeader title="Section" description="Context" />)
+    const heading = screen.getByRole('heading', { level: 2, name: 'Section' })
+    expect(heading).toHaveClass('tracking-normal')
+    expect(heading.className).not.toMatch(/uppercase/)
   })
 
   it('works inside RTL and LTR containers', () => {
