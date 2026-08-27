@@ -2,7 +2,7 @@
 
 **Front:** Wave 2 / Front 2A — Canonical Career Record + CV Projection Core
 
-**Status:** AWAITING EXPLICIT NON-PRODUCTION MIGRATION AUTHORIZATION
+**Status:** READY FOR EXPLICIT NON-PRODUCTION MIGRATION AUTHORIZATION
 
 **Prepared from:** `e60c2bbc8787d3b0ffaaf75f89c4c5d703a16c8c`
 
@@ -18,13 +18,32 @@ Canonical Career Record persistence requires a database change.
 The current database has normalized legacy CV tables but no storage capable of enforcing
 the frozen C2 semantics for stable evidence identity, immutable revision lineage,
 provenance, declared versus verified state, dispute/correction/revocation/expiry,
-per-evidence disclosure references, or lawful artifact linkage. It also has no relation
-that makes a CV select and order canonical evidence, and no purpose-bound application/CV
-snapshot store.
+per-evidence disclosure-policy handling, purpose-bound disclosure authorization, or lawful
+artifact linkage. It also has no relation that makes a CV select and order canonical
+evidence, and no purpose-bound application/CV snapshot store.
 
 Application-only implementation would either keep CV facts canonical, discard lineage, or
 simulate authorization in memory. All three outcomes violate the Wave 1 contract. The
 required path is an expand/contract migration followed by bounded application cutover.
+
+### 1.1 C2/C5 conflict proof and controlling interpretation
+
+Wave 1 C2 requires `disclosure_policy_ref` on every `CareerEvidenceObject` and defines it as
+visibility/disclosure handling. C5 separately defines `DisclosureAuthorization` with an
+exact scope, recipient, purpose, reviewed basis, lifecycle and retention reference. The
+pre-correction TypeScript contract omitted the required policy and instead required
+`disclosure_authorization_ref` on every evidence object. The first version of this packet
+propagated that drift as a non-null authorization FK on every revision.
+
+Those meanings are not interchangeable. Private owner evidence needs an explicit governing
+policy but has not crossed a recipient/use boundary and therefore must not manufacture a C5
+authorization. The controlling model is:
+
+- **Disclosure policy:** required on every canonical evidence root; private-by-default
+  handling, independent of any recipient grant.
+- **Disclosure authorization:** optional on the evidence object in private owner context,
+  but mandatory and exact when an operation discloses evidence to public, Business,
+  University or another recipient for a stated purpose.
 
 ## 2. Current-reality reconciliation
 
@@ -126,64 +145,89 @@ Create these PostgreSQL enums with values exactly matching the frozen contracts:
 - `authorization_basis_type_enum`: `CONSENT`, `CONTRACT`, `LEGAL_OBLIGATION`,
   `LEGITIMATE_AUTHORITY`, `PUBLIC_TASK`, `OTHER_REVIEWED`.
 - `disclosure_authorization_state_enum`: `ACTIVE`, `REVOKED`, `EXPIRED`, `SUPERSEDED`.
-- `cv_snapshot_purpose_enum`: `EXPORT`, `APPLICATION`, `PUBLIC_SHARE`, `PROFILE_PREVIEW`.
+- `cv_snapshot_purpose_enum`: `EXPORT`, `APPLICATION`, `PUBLIC_SHARE`, `PROFILE_PREVIEW`,
+  `RECIPIENT_DISCLOSURE`.
 
 Reference JSON columns use a common check: value is null or a JSON object containing a
 non-blank string `id`; optional `version` must be a string. Fact and presentation payloads
 must be JSON objects. Timestamps are `timestamptz`. All revision numbers and sort orders are
 non-negative/positive as stated below.
 
-### 4.2 `career_evidence`
+### 4.2 `career_evidence_disclosure_policies`
+
+Immutable C2 policy records. They govern default visibility but do not authorize a
+recipient or purpose.
+
+| Column                 | Type / constraint                                                        |
+| ---------------------- | ------------------------------------------------------------------------ |
+| `id`                   | `uuid` PK, default `gen_random_uuid()`                                   |
+| `subject_id`           | `uuid NOT NULL` FK `profiles(id) ON DELETE RESTRICT`                     |
+| `contract_version`     | `text NOT NULL DEFAULT '1.0' CHECK (contract_version = '1.0')`           |
+| `default_visibility`   | `text NOT NULL DEFAULT 'PRIVATE' CHECK (default_visibility = 'PRIVATE')` |
+| `supersedes_policy_id` | nullable self-FK `ON DELETE RESTRICT`                                    |
+| `created_by`           | `uuid NOT NULL` FK `profiles(id) ON DELETE RESTRICT`                     |
+| `created_at`           | `timestamptz NOT NULL DEFAULT now()`                                     |
+
+Unique `supersedes_policy_id` where non-null prevents branching. Rows are immutable. A
+future policy change appends a new policy row and atomically advances the evidence root's
+reference through an audited owner operation. `PRIVATE` is the only Wave 2 default; adding
+another default requires a later governed contract/schema decision. Public or recipient
+disclosure is never inferred from this policy and still requires C5 authorization.
+The domain adapter maps `id` plus `contract_version` to C2 `disclosure_policy_ref`.
+
+### 4.3 `career_evidence`
 
 Stable root identity for one subject-owned career fact lineage.
 
-| Column                | Type / constraint                                                                  |
-| --------------------- | ---------------------------------------------------------------------------------- |
-| `id`                  | `uuid` PK, default `gen_random_uuid()`                                             |
-| `subject_id`          | `uuid NOT NULL` FK `profiles(id) ON DELETE RESTRICT`                               |
-| `category`            | `career_evidence_category_enum NOT NULL`                                           |
-| `current_revision_id` | nullable `uuid`; deferred FK to `career_evidence_revisions(id) ON DELETE RESTRICT` |
-| `lifecycle_state`     | `career_evidence_lifecycle_enum NOT NULL DEFAULT 'ACTIVE'`                         |
-| `archived_at`         | nullable `timestamptz`; owner presentation/archive state only                      |
-| `archived_by`         | nullable `uuid` FK `profiles(id) ON DELETE SET NULL`                               |
-| `created_at`          | `timestamptz NOT NULL DEFAULT now()`                                               |
-| `updated_at`          | `timestamptz NOT NULL DEFAULT now()`                                               |
+| Column                 | Type / constraint                                                                  |
+| ---------------------- | ---------------------------------------------------------------------------------- |
+| `id`                   | `uuid` PK, default `gen_random_uuid()`                                             |
+| `subject_id`           | `uuid NOT NULL` FK `profiles(id) ON DELETE RESTRICT`                               |
+| `category`             | `career_evidence_category_enum NOT NULL`                                           |
+| `disclosure_policy_id` | `uuid NOT NULL` FK `career_evidence_disclosure_policies(id) ON DELETE RESTRICT`    |
+| `current_revision_id`  | nullable `uuid`; deferred FK to `career_evidence_revisions(id) ON DELETE RESTRICT` |
+| `lifecycle_state`      | `career_evidence_lifecycle_enum NOT NULL DEFAULT 'ACTIVE'`                         |
+| `archived_at`          | nullable `timestamptz`; owner presentation/archive state only                      |
+| `archived_by`          | nullable `uuid` FK `profiles(id) ON DELETE SET NULL`                               |
+| `created_at`           | `timestamptz NOT NULL DEFAULT now()`                                               |
+| `updated_at`           | `timestamptz NOT NULL DEFAULT now()`                                               |
 
 Constraints/indexes:
 
 - unique `(id, subject_id)` for composite child ownership FKs;
+- the referenced disclosure policy must have the same `subject_id`; enforce through the
+  write functions and a deferred constraint trigger;
 - index `(subject_id, category, lifecycle_state, updated_at DESC)`;
 - index `(subject_id, archived_at)` where `archived_at IS NULL`;
 - `current_revision_id`, when present, must reference a revision with the same
   `evidence_id` and `subject_id`; enforce through the write functions and a deferred
   constraint trigger.
 
-### 4.3 `career_evidence_revisions`
+### 4.4 `career_evidence_revisions`
 
 Immutable fact/provenance revisions.
 
-| Column                        | Type / constraint                                                                                                               |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                          | `uuid` PK, default `gen_random_uuid()`                                                                                          |
-| `evidence_id`                 | `uuid NOT NULL`                                                                                                                 |
-| `subject_id`                  | `uuid NOT NULL`                                                                                                                 |
-| `revision_no`                 | `integer NOT NULL CHECK (revision_no >= 1)`                                                                                     |
-| `contract_version`            | `text NOT NULL DEFAULT '1.0' CHECK (contract_version = '1.0')`                                                                  |
-| `fact_payload`                | `jsonb NOT NULL`, JSON object                                                                                                   |
-| `source_class`                | `career_evidence_source_class_enum NOT NULL`                                                                                    |
-| `source_ref`                  | nullable checked reference JSON                                                                                                 |
-| `verification_state`          | `career_evidence_state_enum NOT NULL`                                                                                           |
-| `effective_from`              | nullable `timestamptz`                                                                                                          |
-| `effective_to`                | nullable `timestamptz`                                                                                                          |
-| `observed_at`                 | nullable `timestamptz`                                                                                                          |
-| `supersedes_revision_id`      | nullable self-FK `ON DELETE RESTRICT`                                                                                           |
-| `dispute_ref`                 | nullable checked reference JSON                                                                                                 |
-| `revocation_or_expiry_ref`    | nullable checked reference JSON                                                                                                 |
-| `primary_artifact_id`         | nullable `uuid`; deferred FK to `career_evidence_artifacts(id) ON DELETE RESTRICT`                                              |
-| `disclosure_authorization_id` | `uuid NOT NULL` FK `disclosure_authorizations(id) ON DELETE RESTRICT`; private owner/system management by default, never public |
-| `market_context_ref`          | nullable checked reference JSON                                                                                                 |
-| `created_by`                  | `uuid NOT NULL` FK `profiles(id) ON DELETE RESTRICT`                                                                            |
-| `created_at`                  | `timestamptz NOT NULL DEFAULT now()`                                                                                            |
+| Column                     | Type / constraint                                                                  |
+| -------------------------- | ---------------------------------------------------------------------------------- |
+| `id`                       | `uuid` PK, default `gen_random_uuid()`                                             |
+| `evidence_id`              | `uuid NOT NULL`                                                                    |
+| `subject_id`               | `uuid NOT NULL`                                                                    |
+| `revision_no`              | `integer NOT NULL CHECK (revision_no >= 1)`                                        |
+| `contract_version`         | `text NOT NULL DEFAULT '1.0' CHECK (contract_version = '1.0')`                     |
+| `fact_payload`             | `jsonb NOT NULL`, JSON object                                                      |
+| `source_class`             | `career_evidence_source_class_enum NOT NULL`                                       |
+| `source_ref`               | nullable checked reference JSON                                                    |
+| `verification_state`       | `career_evidence_state_enum NOT NULL`                                              |
+| `effective_from`           | nullable `timestamptz`                                                             |
+| `effective_to`             | nullable `timestamptz`                                                             |
+| `observed_at`              | nullable `timestamptz`                                                             |
+| `supersedes_revision_id`   | nullable self-FK `ON DELETE RESTRICT`                                              |
+| `dispute_ref`              | nullable checked reference JSON                                                    |
+| `revocation_or_expiry_ref` | nullable checked reference JSON                                                    |
+| `primary_artifact_id`      | nullable `uuid`; deferred FK to `career_evidence_artifacts(id) ON DELETE RESTRICT` |
+| `market_context_ref`       | nullable checked reference JSON                                                    |
+| `created_by`               | `uuid NOT NULL` FK `profiles(id) ON DELETE RESTRICT`                               |
+| `created_at`               | `timestamptz NOT NULL DEFAULT now()`                                               |
 
 Constraints/indexes:
 
@@ -208,7 +252,7 @@ changes append a new revision and atomically advance `career_evidence.current_re
 The prior revision remains unchanged; the API derives `CORRECTED` history from the
 successor relationship rather than rewriting the old fact.
 
-### 4.4 `career_evidence_artifacts`
+### 4.5 `career_evidence_artifacts`
 
 Private evidence/proof metadata; no public URLs.
 
@@ -233,9 +277,12 @@ Constraints/indexes: unique `(bucket_id, object_path)`, index `(subject_id, evid
 and a constraint trigger proving artifact subject/root/revision ownership matches. Create a
 private `career-evidence` Storage bucket only in disposable/non-production authorization.
 Object paths are `{subject_id}/{evidence_id}/{artifact_id}/{sanitized_filename}`. Access is
-through short-lived signed URLs after server authorization; never `getPublicUrl`.
+through short-lived signed URLs after server authorization; never `getPublicUrl`. Owner
+access relies on ownership plus the evidence policy and needs no fabricated recipient
+authorization. Any non-owner artifact access requires an active C5 authorization matching
+the exact subject, evidence/artifact object, recipient and purpose.
 
-### 4.5 `disclosure_authorizations`
+### 4.6 `disclosure_authorizations`
 
 Purpose-bound C5 authorization records. This table does not declare a legal conclusion; it
 records a reviewed basis reference supplied by the responsible policy owner.
@@ -275,14 +322,13 @@ status. A new CV projection and newly created evidence are private by default. E
 Profile visibility remains a compatibility gate until a user-visible disclosure conversion
 flow is authorized; the backfill does not manufacture C5 legal/basis records.
 
-Before backfill, the responsible policy owner must supply real, versioned basis and
-retention references for the private owner/system management authorization. If those
-references are absent, backfill stops; the migration must not insert placeholder legal or
-policy claims. Each evidence revision references that authorization through
-`disclosure_authorization_id`, and the API maps it to C2
-`disclosure_authorization_ref`.
+Private owner evidence references `career_evidence_disclosure_policies`, not this table.
+When an actual disclosure is requested, the service must find or create an exact C5 record
+using real reviewed basis and retention references; if those references or recipient/purpose
+authority are absent, the disclosure fails closed. The API exposes that record as
+`disclosure_authorization_ref` only in the authorized disclosure context.
 
-### 4.6 `career_evidence_legacy_sources`
+### 4.7 `career_evidence_legacy_sources`
 
 Append-only reconciliation ledger ensuring every legacy source is preserved and traceable.
 
@@ -310,7 +356,7 @@ Unique `(source_table, source_locator)`. Allowed sources are `cv_education`,
 `profiles.education`, `profiles.presentation`, and `profile_skills`. Rows in presentation
 sources may be `DEFERRED` with no evidence link; their snapshot still proves preservation.
 
-### 4.7 `cv_projection_sections`
+### 4.8 `cv_projection_sections`
 
 Presentation-only section state attached to the retained `cvs` row.
 
@@ -328,7 +374,7 @@ Presentation-only section state attached to the retained `cvs` row.
 
 Unique `(cv_id, section_key)` and deferrable unique `(cv_id, sort_order)`.
 
-### 4.8 `cv_projection_items`
+### 4.9 `cv_projection_items`
 
 Selection and ordering of canonical evidence. It contains no independent fact payload.
 
@@ -354,7 +400,7 @@ institution/company identity, degree, job title, dates, credential issuer, skill
 proficiency and verification state. Changing formatting, selection or order never writes a
 Career Evidence revision. Editing any fact calls the explicit revise operation.
 
-### 4.9 `cv_projection_snapshots`
+### 4.10 `cv_projection_snapshots`
 
 Immutable historical expression for export, application, explicit share or Profile preview.
 
@@ -381,9 +427,13 @@ Immutable historical expression for export, application, explicit share or Profi
 Checks/indexes:
 
 - `APPLICATION` requires `application_id` and a disclosure authorization valid for the
-  exact recipient/purpose;
+  exact Business recipient and application purpose;
 - `PUBLIC_SHARE` requires an active public disclosure authorization;
-- other purposes prohibit unrelated `application_id`;
+- `RECIPIENT_DISCLOSURE` requires an active authorization for the exact recipient and
+  purpose; University affiliation or employer role is never sufficient;
+- `EXPORT` and `PROFILE_PREVIEW` are owner-only and require
+  `disclosure_authorization_id IS NULL`; they do not cross a recipient boundary;
+- non-`APPLICATION` purposes prohibit unrelated `application_id`;
 - unique `(cv_id, purpose, content_sha256, created_at)` is not required; repeated exports
   remain separately attributable;
 - indexes `(subject_id, created_at DESC)`, `(application_id)` where non-null, and
@@ -393,7 +443,7 @@ Checks/indexes:
 `cv_generations` remains untouched. Existing export snapshots may be linked later through
 the reconciliation ledger; they are not rewritten or deleted.
 
-### 4.10 Application compatibility
+### 4.11 Application compatibility
 
 During EXPAND, add nullable `applications.cv_snapshot_id uuid` referencing
 `cv_projection_snapshots(id) ON DELETE RESTRICT`, plus a partial index where the value is
@@ -407,8 +457,9 @@ before submission.
 Only the following database functions/triggers are justified:
 
 1. `create_career_evidence(...)`: authenticated subject only; inserts root + revision 1 as
-   `DECLARED` for user-authored facts unless an authorized issuer/organization path supplies
-   the stronger state; writes `audit_logs`.
+   `DECLARED` for user-authored facts plus an immutable private-by-default disclosure policy;
+   it does not create a disclosure authorization. An authorized issuer/organization path
+   may supply the stronger evidence state; writes `audit_logs`.
 2. `revise_career_evidence(p_evidence_id, p_expected_revision_no, ...)`: owner-only,
    optimistic concurrency, row lock, append revision N+1, predecessor N, atomic current
    pointer update, immutable audit event. It never carries `VERIFIED` forward unless the
@@ -421,12 +472,17 @@ Only the following database functions/triggers are justified:
    validates subject ownership and active evidence, then atomically selects/reorders without
    changing facts.
 5. `create_cv_projection_snapshot(...)`: validates owner, evidence/revision manifest,
-   purpose and disclosure authorization; inserts one immutable snapshot and audits material
-   disclosures.
+   purpose and conditional disclosure authorization. Owner-only `EXPORT`/`PROFILE_PREVIEW`
+   prohibit a fabricated authorization. `APPLICATION`, `PUBLIC_SHARE` and
+   `RECIPIENT_DISCLOSURE` require an exact active C5 authorization; inserts one immutable
+   snapshot and audits material disclosures.
 6. Immutable triggers for `career_evidence_revisions` and `cv_projection_snapshots`.
-7. Deferred integrity triggers for current revision, artifact ownership and projection
-   owner/subject equality where ordinary FKs cannot express the cross-table invariant.
-8. Reuse `public._write_audit_log`; do not create a competing audit store.
+7. Immutable trigger for `career_evidence_disclosure_policies`; a policy change appends a
+   new row and atomically advances the evidence root.
+8. Deferred integrity triggers for policy/root subject equality, current revision, artifact
+   ownership and projection owner/subject equality where ordinary FKs cannot express the
+   cross-table invariant.
+9. Reuse `public._write_audit_log`; do not create a competing audit store.
 
 All security-definer functions set a fixed `search_path`, revoke execute from `PUBLIC` and
 `anon`, grant only the minimum authenticated/service roles, check `auth.uid()` inside the
@@ -452,14 +508,15 @@ authorization boundary when a material disclosure was attempted.
 
 ## 6. RLS and authorization matrix
 
-| Object                          | Owner                                       | Other Individual | Employer                                               | University                   | Anonymous                                            | Staff                                                 |
-| ------------------------------- | ------------------------------------------- | ---------------- | ------------------------------------------------------ | ---------------------------- | ---------------------------------------------------- | ----------------------------------------------------- |
-| Career Evidence roots/revisions | SELECT own; mutations through RPC           | none             | none by role                                           | none by affiliation          | none                                                 | none by role; audited purpose-bound service path only |
-| Evidence artifacts              | metadata/signed access to own               | none             | only exact active disclosure                           | only exact active disclosure | none                                                 | audited purpose-bound service path only               |
-| Legacy source ledger            | SELECT own; no direct mutation              | none             | none                                                   | none                         | none                                                 | migration service/audited support only                |
-| CV projection sections/items    | CRUD own                                    | none             | none by role                                           | none                         | none                                                 | audited support only                                  |
-| CV snapshots                    | SELECT own; create via RPC                  | none             | exact application/share authorization only             | exact authorization only     | public-share endpoint only with active authorization | audited support only                                  |
-| Disclosure authorizations       | owner can read/manage permitted user grants | none             | recipient sees only grant metadata required for access | same                         | public endpoint evaluates, never lists               | audited policy/support path only                      |
+| Object                          | Owner                                       | Other Individual | Employer                                               | University                                        | Anonymous                                            | Staff                                                 |
+| ------------------------------- | ------------------------------------------- | ---------------- | ------------------------------------------------------ | ------------------------------------------------- | ---------------------------------------------------- | ----------------------------------------------------- |
+| Evidence disclosure policies    | SELECT own; changes through audited RPC     | none             | evaluated server-side only                             | evaluated server-side only                        | none                                                 | audited policy/support path only                      |
+| Career Evidence roots/revisions | SELECT own; mutations through RPC           | none             | exact active purpose/recipient authorization only      | exact active purpose/recipient authorization only | exact active public authorization only               | none by role; audited purpose-bound service path only |
+| Evidence artifacts              | metadata/signed access to own               | none             | only exact active disclosure                           | only exact active disclosure                      | none                                                 | audited purpose-bound service path only               |
+| Legacy source ledger            | SELECT own; no direct mutation              | none             | none                                                   | none                                              | none                                                 | migration service/audited support only                |
+| CV projection sections/items    | CRUD own                                    | none             | none by role                                           | none                                              | none                                                 | audited support only                                  |
+| CV snapshots                    | SELECT own; create via RPC                  | none             | exact application/share authorization only             | exact authorization only                          | public-share endpoint only with active authorization | audited support only                                  |
+| Disclosure authorizations       | owner can read/manage permitted user grants | none             | recipient sees only grant metadata required for access | same                                              | public endpoint evaluates, never lists               | audited policy/support path only                      |
 
 RLS is enabled and forced on every new table. No base-table `anon` grant is allowed. Public
 or recipient projection endpoints return only selected snapshot/projection fields after
@@ -472,8 +529,9 @@ service path is verified.
 
 Storage RLS permits object insert/select/delete only when the first path segment equals
 `auth.uid()` and a matching owner metadata row exists. Recipient downloads require a
-server-created short-lived signed URL after authorization; recipient clients receive no
-bucket listing permission.
+server-created short-lived signed URL after exact active C5 authorization; recipient clients
+receive no bucket listing permission. Owner access to own private artifact does not create
+an authorization row.
 
 ## 7. Deterministic legacy mapping
 
@@ -530,9 +588,15 @@ in the ledger but are not converted into career facts.
 - Header/summary/template/contact values remain on `cvs` during compatibility.
 - A new CV created after EXPAND is private, selects no evidence unless the user chooses or
   explicitly accepts an autofill proposal, and does not copy Profile facts silently.
+- Every backfilled evidence root receives an immutable private-by-default disclosure policy
+  and does not create a disclosure authorization.
 - Existing Profile audience behavior remains on the compatibility read path without being
   broadened. No new public authorization is backfilled from `cvs.status`, `is_primary`,
   university affiliation, employer role or Profile discoverability alone.
+- Canonical Career Evidence must not enter a non-owner Profile projection until an exact
+  active C5 authorization exists. Owner-only Profile preview remains private and needs no
+  fabricated authorization. The legacy compatibility projection is not treated as
+  canonical authorization and must be retired at CONTRACT.
 
 ## 8. Expand/contract execution stages
 
@@ -541,13 +605,15 @@ in the ledger but are not converted into career facts.
 - Obtain explicit non-production migration authorization.
 - Create one new forward-only migration; do not edit 026/068–072.
 - Capture PRE_COUNTS and checksums in a disposable local Supabase database.
-- Confirm named policy-owner references for retention and any non-owner disclosure basis.
+- Confirm real reviewed basis and retention references before enabling any non-owner
+  disclosure flow; they are not needed to store private owner evidence.
 
 ### Stage 1 — EXPAND
 
-- Create in dependency order: enums, `disclosure_authorizations`, Career Evidence roots,
-  revisions/artifacts/ledger, CV projection sections/items/snapshots, the nullable
-  application snapshot FK, deferred circular FKs, indexes, functions, triggers and RLS.
+- Create in dependency order: enums, Career Evidence disclosure policies,
+  `disclosure_authorizations`, Career Evidence roots, revisions/artifacts/ledger, CV
+  projection sections/items/snapshots, the nullable application snapshot FK, deferred
+  circular FKs, indexes, functions, triggers and RLS.
 - Create the private Storage bucket/policies only if artifact upload is included in the
   authorized non-production run.
 - Make no destructive change to legacy tables or policies.
@@ -555,10 +621,10 @@ in the ledger but are not converted into career facts.
 
 ### Stage 2 — deterministic backfill
 
-- Insert private declared roots/revisions and the legacy ledger in bounded, idempotent
-  subject batches.
+- Insert private declared roots/revisions, one private-by-default disclosure policy per
+  evidence root, and the legacy ledger in bounded, idempotent subject batches.
 - Create projection sections/items for existing CVs.
-- Do not create public/verified facts or disclosure authorizations by inference.
+- Do not create public/verified facts or any disclosure authorization during backfill.
 - Record migration batch ID, hashes, conflicts and invalid preserved rows.
 
 ### Stage 3 — application dual-read / guarded dual-write
@@ -571,7 +637,8 @@ in the ledger but are not converted into career facts.
   mirrors only while parity is monitored.
 - Presentation edits write only `cvs`, sections/items and presentation payloads.
 - Profile projection consumes explicit canonical selections while retaining its existing
-  audience gate.
+  audience gate; non-owner canonical evidence additionally requires exact active C5
+  authorization.
 
 ### Stage 4 — parity and snapshot cutover
 
@@ -674,11 +741,13 @@ personal payloads.
 
 ```sql
 SELECT 'career_evidence' AS target, count(*)::bigint AS rows FROM public.career_evidence
+UNION ALL SELECT 'career_evidence_disclosure_policies', count(*) FROM public.career_evidence_disclosure_policies
 UNION ALL SELECT 'career_evidence_revisions', count(*) FROM public.career_evidence_revisions
 UNION ALL SELECT 'career_evidence_legacy_sources', count(*) FROM public.career_evidence_legacy_sources
 UNION ALL SELECT 'cv_projection_sections', count(*) FROM public.cv_projection_sections
 UNION ALL SELECT 'cv_projection_items', count(*) FROM public.cv_projection_items
-UNION ALL SELECT 'cv_projection_snapshots', count(*) FROM public.cv_projection_snapshots;
+UNION ALL SELECT 'cv_projection_snapshots', count(*) FROM public.cv_projection_snapshots
+UNION ALL SELECT 'disclosure_authorizations', count(*) FROM public.disclosure_authorizations;
 ```
 
 Every row-based source must have exactly one ledger entry:
@@ -745,6 +814,24 @@ ORDER BY reconciliation_state;
 ```
 
 ```sql
+SELECT e.id
+FROM public.career_evidence e
+LEFT JOIN public.career_evidence_disclosure_policies p
+  ON p.id = e.disclosure_policy_id
+WHERE p.id IS NULL
+   OR p.subject_id <> e.subject_id
+   OR p.default_visibility <> 'PRIVATE';
+```
+
+The immediate post-backfill result below must be zero. Backfill creates policy handling, not
+a recipient authorization:
+
+```sql
+SELECT count(*) AS fabricated_backfill_authorizations
+FROM public.disclosure_authorizations;
+```
+
+```sql
 SELECT r.evidence_id
 FROM public.career_evidence_revisions r
 GROUP BY r.evidence_id
@@ -770,6 +857,15 @@ WHERE (r.verification_state = 'VERIFIED'
        AND (r.source_class <> 'ORGANIZATION_CONFIRMED' OR r.source_ref IS NULL));
 ```
 
+```sql
+SELECT s.id
+FROM public.cv_projection_snapshots s
+WHERE (s.purpose IN ('APPLICATION', 'PUBLIC_SHARE', 'RECIPIENT_DISCLOSURE')
+       AND s.disclosure_authorization_id IS NULL)
+   OR (s.purpose IN ('EXPORT', 'PROFILE_PREVIEW')
+       AND s.disclosure_authorization_id IS NOT NULL);
+```
+
 Re-run all PRE_COUNTS and legacy checksums after backfill. Counts and checksums for existing
 tables must be identical.
 
@@ -790,8 +886,10 @@ tables must be identical.
 6. No backfilled revision is `VERIFIED`, `CONFIRMED`, `SOURCED` or `DERIVED` unless an
    independently valid source and authority record existed before the migration. The
    baseline legacy CV/Profile backfill is entirely `SELF_DECLARED`/`DECLARED`.
-7. All conflict, invalid and deferred counts are reported; none is hidden as success.
-8. Cross-owner, unauthorized recipient and anonymous base-table reads return zero rows.
+7. Every evidence root has an explicit same-subject private-by-default disclosure policy;
+   backfill creates zero disclosure authorizations.
+8. All conflict, invalid and deferred counts are reported; none is hidden as success.
+9. Cross-owner, unauthorized recipient and anonymous base-table reads return zero rows.
 
 Any failure means `DATA_LOSS` is not zero and blocks contract/cutover.
 
@@ -800,6 +898,8 @@ Any failure means `DATA_LOSS` is not zero and blocks contract/cutover.
 ### Database/RLS
 
 - User A can create/read/revise/archive own evidence; User B cannot select or mutate it.
+- Private Career Evidence exists with a required disclosure policy and no disclosure
+  authorization row.
 - Employer, University, Mentor and anonymous roles receive no Career Record access merely
   because of role, affiliation, discoverability or Profile visibility.
 - Direct update/delete of revisions and snapshots fails.
@@ -814,8 +914,13 @@ Any failure means `DATA_LOSS` is not zero and blocks contract/cutover.
 - Projection reorder changes only projection rows; evidence root/revision checksums remain
   identical.
 - A new CV/projection is private and creates no disclosure authorization.
-- Purpose-bound application/public snapshots require an exact active authorization and
-  reject revoked/expired/superseded grants.
+- Owner-only export/Profile preview snapshots reject a fabricated authorization.
+- Public sharing requires an exact active public authorization.
+- Application/Business disclosure requires the exact Business recipient and purpose.
+- University disclosure requires the exact University recipient and purpose; affiliation
+  alone remains insufficient.
+- Every recipient-bound snapshot rejects missing, mismatched, revoked, expired or superseded
+  authorization.
 - Backfill rerun is idempotent and creates no duplicate roots, revisions, ledger rows or
   projection items.
 
@@ -832,6 +937,10 @@ Any failure means `DATA_LOSS` is not zero and blocks contract/cutover.
 - Preview resolves current evidence revisions and presentation payloads; snapshot preserves
   the exact revision manifest used at creation.
 - Current Profile audience behavior is not expanded during compatibility.
+- Optional authorization on private `CareerEvidence` never weakens the mandatory
+  authorization check at an actual disclosure boundary.
+- Legacy backfill creates a private policy, remains `SELF_DECLARED`/`DECLARED`, and does not
+  fabricate authorization or verification.
 
 Required validation after authorized implementation:
 
@@ -870,6 +979,10 @@ domain operations; route names may follow repository conventions, but semantics 
 - `listCareerEvidence()` — owner-scoped current facts plus explicit lifecycle/provenance.
 - `getCareerEvidence(evidenceId)` — owner-scoped current revision and history.
 - `createDeclaredCareerEvidence(input)` — creates only declared self-authored evidence.
+- `getCareerEvidenceDisclosurePolicy(evidenceId)` — returns the required current
+  private-by-default policy; it is not a recipient authorization.
+- `updateCareerEvidenceDisclosurePolicy(evidenceId, expectedPolicyId, input)` — appends an
+  audited policy revision; Wave 2 supports only private-by-default handling.
 - `reviseCareerEvidence(evidenceId, expectedRevision, input)` — explicit correction with
   lineage; no silent verification carry-forward.
 - `setCareerEvidenceLifecycle(evidenceId, action, reasonRef)` — archive/dispute/revoke/expire
@@ -880,10 +993,28 @@ domain operations; route names may follow repository conventions, but semantics 
 - `setCvEvidenceSelection(cvId, sectionKey, orderedEvidenceIds)` — select/unselect/reorder;
   does not mutate evidence.
 - `previewCvProjection(cvId)` — current projection, missing values preserved as missing.
-- `createCvSnapshot(cvId, purpose, authorizationRef?)` — immutable purpose-bound snapshot.
+- `authorizeCareerEvidenceDisclosure(input)` — creates C5 authorization only from real
+  subject/object scope, recipient, purpose, reviewed basis, lifecycle and retention input;
+  it never runs during evidence creation/backfill.
+- `resolveAuthorizedCareerEvidenceDisclosure(input)` — returns evidence only when policy,
+  exact active authorization and recipient/purpose all permit the disclosure; otherwise
+  fails closed and audits the result.
+- `createCvSnapshot(cvId, purpose, authorizationRef?)` — immutable purpose-bound snapshot;
+  authorization is prohibited for owner-only export/preview and mandatory for application,
+  public-share and recipient-disclosure purposes.
 
 No frontend may write the proposed base tables directly or treat legacy CV/Profile records
 as canonical evidence. Public/Profile reads remain server-authorized and field-minimized.
+
+### 14.1 Remaining legal/policy dependency
+
+No recipient, legal basis, consent, retention reference or recipient authority is needed or
+created merely to store private owner Career Evidence. Before enabling any actual public,
+Business, University, Mentor, vendor or other recipient disclosure, the responsible owner
+must provide real reviewed basis and retention references for that exact purpose and
+recipient. Their values are intentionally not named in this packet. Absence blocks only the
+disclosure operation; it does not block non-production authorization of the corrected schema
+or private Career Record persistence.
 
 ## 15. No-touch confirmation and terminal state
 
@@ -895,4 +1026,4 @@ as canonical evidence. Public/Profile reads remain server-authorized and field-m
 - No migration SQL has been created or applied.
 - No production system or data has been touched.
 
-**Terminal state:** `AWAITING_EXPLICIT_NONPROD_MIGRATION_AUTHORIZATION`
+**Terminal state:** `READY_FOR_NONPROD_MIGRATION_AUTHORIZATION`

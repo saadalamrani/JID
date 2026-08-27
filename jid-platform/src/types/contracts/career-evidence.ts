@@ -1,4 +1,5 @@
 import type { ContractId, ContractReference, IsoTimestamp, VersionedContract } from './common'
+import type { DisclosureAuthorization, DisclosureRecipientType } from './disclosure'
 
 export const CAREER_EVIDENCE_CATEGORIES = [
   'EDUCATION',
@@ -53,6 +54,25 @@ export type CareerEvidence = VersionedContract & {
   dispute_ref?: ContractReference
   revocation_or_expiry_ref?: ContractReference
   evidence_artifact_ref?: ContractReference
-  disclosure_authorization_ref: ContractReference
+  disclosure_policy_ref: ContractReference
+  disclosure_authorization_ref?: ContractReference
   market_context_ref?: ContractReference
+}
+
+/**
+ * Evidence crossing an actual disclosure boundary must carry the exact C5 authorization
+ * evaluated for that recipient and purpose. Private owner access uses CareerEvidence alone.
+ */
+export type CareerEvidenceDisclosureRecipient<TRecipient extends DisclosureRecipientType> =
+  TRecipient extends 'PUBLIC'
+    ? { recipient_type: 'PUBLIC'; recipient_ref?: never }
+    : { recipient_type: TRecipient; recipient_ref: ContractReference }
+
+export type AuthorizedCareerEvidenceDisclosure<
+  TRecipient extends DisclosureRecipientType = DisclosureRecipientType,
+> = {
+  evidence: CareerEvidence & { disclosure_authorization_ref: ContractReference }
+  authorization: Omit<DisclosureAuthorization, 'recipient'> & {
+    recipient: CareerEvidenceDisclosureRecipient<TRecipient>
+  }
 }

@@ -16,6 +16,7 @@ import {
 } from '@/types/contracts'
 import type {
   AssessmentDecisionUse,
+  AuthorizedCareerEvidenceDisclosure,
   AutomationAuthority,
   CareerEvidence,
   CohortLink,
@@ -29,6 +30,7 @@ import type {
   OrganizationReference,
   UniversityAffiliation,
 } from '@/types/contracts'
+import type { ContractReference } from '@/types/contracts/common'
 import type { CvRecord } from '@/types/cv'
 import type { Job } from '@/types/job'
 
@@ -67,8 +69,47 @@ describe('Wave 1 canonical contract invariants', () => {
     expectTypeOf<CareerEvidence>().toHaveProperty('supersedes_evidence_id')
     expectTypeOf<CareerEvidence>().toHaveProperty('dispute_ref')
     expectTypeOf<CareerEvidence>().toHaveProperty('revocation_or_expiry_ref')
-    expectTypeOf<CareerEvidence>().toHaveProperty('disclosure_authorization_ref')
+    expectTypeOf<CareerEvidence['disclosure_policy_ref']>().toEqualTypeOf<ContractReference>()
+    expectTypeOf<CareerEvidence['disclosure_authorization_ref']>().toEqualTypeOf<
+      ContractReference | undefined
+    >()
     expectTypeOf<CareerEvidence>().toHaveProperty('evidence_artifact_ref')
+  })
+
+  it('separates required evidence policy from conditional C5 disclosure authorization', () => {
+    expectTypeOf<CareerEvidence>().toHaveProperty('disclosure_policy_ref')
+    expectTypeOf<CareerEvidence['disclosure_authorization_ref']>().toEqualTypeOf<
+      ContractReference | undefined
+    >()
+
+    expectTypeOf<
+      AuthorizedCareerEvidenceDisclosure<'PUBLIC'>['evidence']['disclosure_authorization_ref']
+    >().toEqualTypeOf<ContractReference>()
+    expectTypeOf<
+      AuthorizedCareerEvidenceDisclosure<'PUBLIC'>['authorization']['purpose_code']
+    >().toEqualTypeOf<string>()
+    expectTypeOf<AuthorizedCareerEvidenceDisclosure<'PUBLIC'>['authorization']>().toHaveProperty(
+      'basis',
+    )
+    expectTypeOf<AuthorizedCareerEvidenceDisclosure<'PUBLIC'>['authorization']>().toHaveProperty(
+      'lifecycle',
+    )
+    expectTypeOf<AuthorizedCareerEvidenceDisclosure<'PUBLIC'>['authorization']>().toHaveProperty(
+      'retention_policy_ref',
+    )
+    expectTypeOf<
+      AuthorizedCareerEvidenceDisclosure<'PUBLIC'>['authorization']['recipient']['recipient_type']
+    >().toEqualTypeOf<'PUBLIC'>()
+
+    expectTypeOf<
+      AuthorizedCareerEvidenceDisclosure<'BUSINESS'>['authorization']['recipient']['recipient_ref']
+    >().toEqualTypeOf<ContractReference>()
+    expectTypeOf<
+      AuthorizedCareerEvidenceDisclosure<'BUSINESS'>['authorization']['purpose_code']
+    >().toEqualTypeOf<string>()
+
+    expectTypeOf<UniversityAffiliation>().not.toHaveProperty('career_evidence')
+    expectTypeOf<UniversityAffiliation>().not.toHaveProperty('disclosure_authorization_ref')
   })
 
   it('supports non-job opportunities and preserves source and apply authority', () => {
@@ -156,6 +197,17 @@ describe('Wave 1 canonical contract invariants', () => {
     expect(barrel).not.toMatch(/from ['"]\.\.\/cv['"]/)
     expect(barrel).not.toContain('composite_score')
     expect(barrel).not.toContain('decline_recommend')
+  })
+
+  it('keeps legacy backfill declared, private by policy, and free of fabricated authorization', () => {
+    const subpacket = readFileSync(
+      join(process.cwd(), 'docs/command-center/wave-2/WAVE_2_CAREER_RECORD_MIGRATION_SUBPACKET.md'),
+      'utf8',
+    )
+
+    expect(subpacket).toContain('`SELF_DECLARED`/`DECLARED`')
+    expect(subpacket).toContain('does not create a disclosure authorization')
+    expect(subpacket).toContain('private-by-default disclosure policy')
   })
 
   it('keeps paid visibility out of organic relevance', () => {
