@@ -45,9 +45,14 @@ describe('Wave 1 — single platform header shell routing', () => {
     expect(isPublicProfilePath('/profile')).toBe(false)
     expect(isPublicProfilePath('/profile/edit')).toBe(false)
     expect(isPublicProfilePath('/profile/cv')).toBe(false)
+    expect(isPublicProfilePath('/profile/career-record')).toBe(false)
+    expect(isPublicProfilePath('/profile/cv-projection')).toBe(false)
+    expect(isPublicProfilePath('/profile/privacy')).toBe(false)
     expect(shouldHideAuthenticatedTopBar('/profile')).toBe(false)
     expect(shouldHideAuthenticatedTopBar('/profile/edit')).toBe(false)
     expect(shouldHideAuthenticatedTopBar('/profile/cv')).toBe(false)
+    expect(shouldHideAuthenticatedTopBar('/profile/career-record')).toBe(false)
+    expect(shouldHideAuthenticatedTopBar('/profile/cv-projection')).toBe(false)
   })
 
   it('treats public profile projections as PublicNav-only', () => {

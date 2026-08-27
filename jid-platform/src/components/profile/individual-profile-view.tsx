@@ -1,4 +1,5 @@
 import { CvBuilderCtaCard } from '@/components/profile/cv-builder-cta-card'
+import { CareerRecordEntryLinks } from '@/features/career-record'
 import { IdentityHeader } from '@/components/profile/identity-header'
 import { CompletionBanner } from '@/components/profile/completion-banner'
 import { CompletionWizard } from '@/components/profile/completion-wizard'
@@ -7,10 +8,7 @@ import { OwnerActionsBar } from '@/components/profile/owner-actions-bar'
 import { PublicContentSection } from '@/components/profile/public-content-section'
 import { RequestMentorshipButton } from '@/components/profile/request-mentorship-button'
 import { TrustSignals } from '@/components/profile/trust-signals'
-import {
-  resolveProfileDisplayState,
-  toWizardInput,
-} from '@/lib/profile/display-state'
+import { resolveProfileDisplayState, toWizardInput } from '@/lib/profile/display-state'
 import type { ProfilePageContext } from '@/lib/profile/queries'
 import type { EarnedUserBadge } from '@/lib/profile/types'
 import { calculateWizardCompletionPct } from '@/lib/profile/wizard-completion'
@@ -59,11 +57,10 @@ export function IndividualProfileView({
         badgeSlot={badgeSlot}
       />
 
+      {isOwner ? <CareerRecordEntryLinks /> : null}
       {isOwner ? <CvBuilderCtaCard /> : null}
 
-      {displayState === 'empty' ? (
-        <CompletionWizard input={wizardInput} />
-      ) : null}
+      {displayState === 'empty' ? <CompletionWizard input={wizardInput} /> : null}
 
       {displayState === 'incomplete' ? (
         <>
