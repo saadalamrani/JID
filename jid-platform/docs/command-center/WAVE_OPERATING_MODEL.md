@@ -50,12 +50,167 @@ evidence supports them. Rebuild journeys, contracts, information architecture, a
 experiences where the current product is fragmented or strategically obsolete.
 
 Delivery remains wave-governed, but the internal steps are logical gates rather than a
-mandatory agent relay. A capability may need research/reuse, architecture/contracts, build,
-validation, review, and closeout, but those concerns should be combined into the smallest
-number of safe closure units rather than automatically split across Claude, Codex, Cursor,
-and a separate closeout session.
+mandatory agent relay. Research/reuse, architecture/contracts, build, validation, review,
+and closeout should be combined into the smallest number of safe closure units whenever
+possible.
 
 There is no binding 90-day roadmap. Dependency and evidence determine progression.
+
+### AI authority
+
+AI is **Assistive + Explainable + Human-Authorized**.
+
+Allowed within granted permissions: search, retrieve, summarize, compare, draft, prepare,
+rehearse, monitor, explain, recommend, and track.
+
+Not allowed without a future explicit high-risk governance decision:
+
+- mass autonomous job applications;
+- fabricated match/employability/potential percentages;
+- autonomous final rejection or hiring;
+- facial, voice, or emotion inference for employment scoring;
+- silent mutation of canonical Career Record facts; or
+- consequential external action without authorized human control.
+
+### Professional / Social Layer
+
+The Professional / Social Layer is approved. JID may support posts, comments, follows,
+reactions, articles, professional achievements, mentor content, organization/university
+publishing, and a professionally relevant feed.
+
+Approved lightweight post contexts:
+
+`مشاركة / إنجاز / مشروع / مقال / سؤال / شهادة / فرصة`
+
+Ordinary content never becomes Career Record evidence automatically. Where content may be
+professional evidence, the user may be asked explicitly whether to add it to the Career
+Record.
+
+The layer must not optimize primarily for addictive engagement, vanity competition,
+fabricated achievement, or pay-to-win organic visibility. Its large-scale build is sequenced
+after the first employer economic loop is proven.
+
+### University product and affiliation
+
+University is a system for managing and understanding transition from education into the
+labor market, not merely a dashboard:
+
+`Cohorts -> Graduate Outcomes -> Program Intelligence -> Employer Alignment -> Career Readiness -> Employer Engagement -> Institutional Reporting`
+
+The founder-approved affiliation contract is:
+
+`Self-Declared Affiliation -> Institutional Verification -> Cohort Linkage`
+
+- University email is optional, never mandatory.
+- Affiliation states support at least `Declared / Verified / Needs Review` semantics.
+- Self-declaration never becomes institutional verification silently.
+- Verification establishes affiliation/cohort relationship, not automatic access to the
+  Individual's full private account or CV.
+- Institutional insight is aggregate/privacy-safe by default; identifiable access requires
+  a specific purpose and valid authority/permission path.
+- KPI/reporting contracts require source, definition, eligible population, numerator,
+  denominator, coverage, period, freshness, and methodology.
+
+University is also a distribution channel: individual utility drives registration; cohort
+coverage improves institutional value; richer verified talent improves employer value.
+
+### Government posture
+
+Government is not a fourth actor. JID may interact with government as:
+
+- authority/regulatory context and official reference source;
+- source of verified programs and professional opportunities;
+- ecosystem/program partner;
+- institutional customer for bounded services.
+
+Long-term capabilities may include Government Integrations, Program Infrastructure,
+Career Transition & Workforce Intelligence, and Program & Policy Evaluation.
+
+Government status never grants automatic access to individual data. JID complements rather
+than claims to replace Jadarat, NLO, or other official systems. Platform-derived intelligence
+must not be presented as official national statistics without valid authority and evidence.
+
+### Hiring Evidence & Selection Workflow
+
+JID owns the selection workflow and evidence chain, not a proprietary psychometric publishing
+business.
+
+JID may own/build:
+
+- role criteria and evidence definition;
+- structured screening questions;
+- work-sample workflow;
+- structured interview kits and anchored scorecards;
+- candidate evidence comparison;
+- decision/audit workflow;
+- assessment orchestration and candidate rights/appeal paths.
+
+Specialized language, coding, cognitive/aptitude, psychometric, proctoring, and video
+infrastructure should normally be partnered/integrated after scientific, legal, privacy,
+security, and Arabic/Saudi suitability review.
+
+No universal `JID Candidate Score`, employability score, culture-fit score, or automated
+personality/emotion inference. Assessment results are purpose-bound evaluation records and
+do not enter the public Career Record automatically.
+
+### Monetization and pricing architecture
+
+The governing model is **Free Core + Paid Intelligence & Workflow**.
+
+- Individual Core remains free: canonical record, privacy/data rights, core CV/projections,
+  core opportunity discovery, basic Radar/tracking, professional identity, and core
+  professional participation.
+- Advanced recurring Individual intelligence/workflow may become JID Plus after repeat
+  utility is proven.
+- Employer is the first principal payer through paid design partnerships and then a hybrid
+  subscription + included capacity + metered specialist usage model.
+- University begins with paid readiness/methodology work, then annual transition/outcomes
+  workspace plus separately visible implementation/integration where needed.
+- Government is contract-only.
+
+Exact SAR prices and final package names are deliberately **not adopted** until real
+willingness-to-pay, cost-to-serve, paid continuation, procurement, and renewal evidence
+exist.
+
+Prohibited commercial patterns include personal-data sale, pay-to-win organic ranking,
+privacy paywalls, fabricated verification, job guarantees, hidden/dark pricing, and
+manipulative career anxiety.
+
+### Capital and execution model
+
+JID follows a **Capital-Light, Proof-Financed Network Build**.
+
+- Do not depend on VC to survive or on paid acquisition to create the first useful network.
+- Every major spend of money, founder time, AI usage, or engineering capacity should buy
+  evidence, revenue, operating leverage, or defensibility.
+- Early acquisition is founder-led and partner-led; employer opportunities and University
+  distribution are the first scalable B2B2C channels to validate.
+- Build density before geography and proof before scale.
+- Fundraising is an accelerator for a working machine, not a substitute for product-market
+  evidence.
+- Do not claim a proven network effect, data moat, or monopoly today. The defensibility path
+  is cumulative trusted evidence, provenance, workflow standards, institutional relations,
+  Saudi semantics, source operations, and coverage-honest outcomes.
+
+Employer economic closure is a higher near-term capital priority than a large Professional /
+Social Layer build.
+
+### Geographic expansion
+
+JID is **Saudi-First, GCC-Ready, Country-by-Country, Customer-Pulled**.
+
+Saudi Arabia is the home market and proving ground. The shared core should avoid needless
+Saudi lock-in, but JID will not build premature multi-country operations or six parallel
+products.
+
+- Portable core contracts should remain country-neutral where practical.
+- Country-specific labor, opportunity, institutional, regulatory, and public-program rules
+  belong behind governed Market Adapters.
+- Cross-border opportunity coverage or an existing employer's GCC need may precede a full
+  country launch.
+- No second GCC country is selected today.
+- A new market requires customer/distribution pull, legal/privacy readiness, authorized
+  opportunity supply, operating capacity, and a credible economics path.
 
 ## Adaptive Closure Model
 
@@ -232,162 +387,6 @@ Each Closure Packet must include, where applicable:
 The packet must request at minimum: base state/SHA, final state/SHA, changed areas, exact test
 results including failures/skips, build/runtime status where relevant, blockers, exact
 remaining work, and confirmation that forbidden areas were untouched.
-
-### AI authority
-
-AI is **Assistive + Explainable + Human-Authorized**.
-
-Allowed within granted permissions: search, retrieve, summarize, compare, draft, prepare,
-rehearse, monitor, explain, recommend, and track.
-
-Not allowed without a future explicit high-risk governance decision:
-
-- mass autonomous job applications;
-- fabricated match/employability/potential percentages;
-- autonomous final rejection or hiring;
-- facial, voice, or emotion inference for employment scoring;
-- silent mutation of canonical Career Record facts; or
-- consequential external action without authorized human control.
-
-### Professional / Social Layer
-
-The Professional / Social Layer is approved. JID may support posts, comments, follows,
-reactions, articles, professional achievements, mentor content, organization/university
-publishing, and a professionally relevant feed.
-
-Approved lightweight post contexts:
-
-`مشاركة / إنجاز / مشروع / مقال / سؤال / شهادة / فرصة`
-
-Ordinary content never becomes Career Record evidence automatically. Where content may be
-professional evidence, the user may be asked explicitly whether to add it to the Career
-Record.
-
-The layer must not optimize primarily for addictive engagement, vanity competition,
-fabricated achievement, or pay-to-win organic visibility. Its large-scale build is sequenced
-after the first employer economic loop is proven.
-
-### University product and affiliation
-
-University is a system for managing and understanding transition from education into the
-labor market, not merely a dashboard:
-
-`Cohorts -> Graduate Outcomes -> Program Intelligence -> Employer Alignment -> Career Readiness -> Employer Engagement -> Institutional Reporting`
-
-The founder-approved affiliation contract is:
-
-`Self-Declared Affiliation -> Institutional Verification -> Cohort Linkage`
-
-- University email is optional, never mandatory.
-- Affiliation states support at least `Declared / Verified / Needs Review` semantics.
-- Self-declaration never becomes institutional verification silently.
-- Verification establishes affiliation/cohort relationship, not automatic access to the
-  Individual's full private account or CV.
-- Institutional insight is aggregate/privacy-safe by default; identifiable access requires
-  a specific purpose and valid authority/permission path.
-- KPI/reporting contracts require source, definition, eligible population, numerator,
-  denominator, coverage, period, freshness, and methodology.
-
-University is also a distribution channel: individual utility drives registration; cohort
-coverage improves institutional value; richer verified talent improves employer value.
-
-### Government posture
-
-Government is not a fourth actor. JID may interact with government as:
-
-- authority/regulatory context and official reference source;
-- source of verified programs and professional opportunities;
-- ecosystem/program partner;
-- institutional customer for bounded services.
-
-Long-term capabilities may include Government Integrations, Program Infrastructure,
-Career Transition & Workforce Intelligence, and Program & Policy Evaluation.
-
-Government status never grants automatic access to individual data. JID complements rather
-than claims to replace Jadarat, NLO, or other official systems. Platform-derived intelligence
-must not be presented as official national statistics without valid authority and evidence.
-
-### Hiring Evidence & Selection Workflow
-
-JID owns the selection workflow and evidence chain, not a proprietary psychometric publishing
-business.
-
-JID may own/build:
-
-- role criteria and evidence definition;
-- structured screening questions;
-- work-sample workflow;
-- structured interview kits and anchored scorecards;
-- candidate evidence comparison;
-- decision/audit workflow;
-- assessment orchestration and candidate rights/appeal paths.
-
-Specialized language, coding, cognitive/aptitude, psychometric, proctoring, and video
-infrastructure should normally be partnered/integrated after scientific, legal, privacy,
-security, and Arabic/Saudi suitability review.
-
-No universal `JID Candidate Score`, employability score, culture-fit score, or automated
-personality/emotion inference. Assessment results are purpose-bound evaluation records and
-do not enter the public Career Record automatically.
-
-### Monetization and pricing architecture
-
-The governing model is **Free Core + Paid Intelligence & Workflow**.
-
-- Individual Core remains free: canonical record, privacy/data rights, core CV/projections,
-  core opportunity discovery, basic Radar/tracking, professional identity, and core
-  professional participation.
-- Advanced recurring Individual intelligence/workflow may become JID Plus after repeat
-  utility is proven.
-- Employer is the first principal payer through paid design partnerships and then a hybrid
-  subscription + included capacity + metered specialist usage model.
-- University begins with paid readiness/methodology work, then annual transition/outcomes
-  workspace plus separately visible implementation/integration where needed.
-- Government is contract-only.
-
-Exact SAR prices and final package names are deliberately **not adopted** until real
-willingness-to-pay, cost-to-serve, paid continuation, procurement, and renewal evidence
-exist.
-
-Prohibited commercial patterns include personal-data sale, pay-to-win organic ranking,
-privacy paywalls, fabricated verification, job guarantees, hidden/dark pricing, and
-manipulative career anxiety.
-
-### Capital and execution model
-
-JID follows a **Capital-Light, Proof-Financed Network Build**.
-
-- Do not depend on VC to survive or on paid acquisition to create the first useful network.
-- Every major spend of money, founder time, AI usage, or engineering capacity should buy
-  evidence, revenue, operating leverage, or defensibility.
-- Early acquisition is founder-led and partner-led; employer opportunities and University
-  distribution are the first scalable B2B2C channels to validate.
-- Build density before geography and proof before scale.
-- Fundraising is an accelerator for a working machine, not a substitute for product-market
-  evidence.
-- Do not claim a proven network effect, data moat, or monopoly today. The defensibility path
-  is cumulative trusted evidence, provenance, workflow standards, institutional relations,
-  Saudi semantics, source operations, and coverage-honest outcomes.
-
-Employer economic closure is a higher near-term capital priority than a large Professional /
-Social Layer build.
-
-### Geographic expansion
-
-JID is **Saudi-First, GCC-Ready, Country-by-Country, Customer-Pulled**.
-
-Saudi Arabia is the home market and proving ground. The shared core should avoid needless
-Saudi lock-in, but JID will not build premature multi-country operations or six parallel
-products.
-
-- Portable core contracts should remain country-neutral where practical.
-- Country-specific labor, opportunity, institutional, regulatory, and public-program rules
-  belong behind governed Market Adapters.
-- Cross-border opportunity coverage or an existing employer's GCC need may precede a full
-  country launch.
-- No second GCC country is selected today.
-- A new market requires customer/distribution pull, legal/privacy readiness, authorized
-  opportunity supply, operating capacity, and a credible economics path.
 
 ## Conditional agent routing
 
