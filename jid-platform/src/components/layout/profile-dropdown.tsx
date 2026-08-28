@@ -1,6 +1,16 @@
 'use client'
 
-import { Bell, BriefcaseBusiness, FileText, LayoutDashboard, LogOut, Radar, Settings, User } from 'lucide-react'
+import {
+  Bell,
+  BriefcaseBusiness,
+  FileText,
+  LayoutDashboard,
+  Library,
+  LogOut,
+  Radar,
+  Settings,
+  User,
+} from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
@@ -71,6 +81,8 @@ function ThemeMenuItems() {
 const ACTION_ICONS = {
   profile: User,
   radar: Radar,
+  careerRecord: Library,
+  cvProjection: FileText,
   cv: FileText,
   dashboard: LayoutDashboard,
   mentorDashboard: LayoutDashboard,

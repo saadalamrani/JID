@@ -22,7 +22,15 @@ export type ShellNavItem = {
 }
 
 export type ShellAccountAction = {
-  key: 'profile' | 'radar' | 'cv' | 'dashboard' | 'mentorDashboard' | 'jobs'
+  key:
+    | 'profile'
+    | 'radar'
+    | 'careerRecord'
+    | 'cvProjection'
+    | 'cv'
+    | 'dashboard'
+    | 'mentorDashboard'
+    | 'jobs'
   href: string
 }
 
@@ -119,6 +127,8 @@ export function getShellAccountActions(options: {
   return [
     { key: 'profile', href: '/profile' },
     { key: 'radar', href: '/radar' },
+    { key: 'careerRecord', href: '/profile/career-record' },
+    { key: 'cvProjection', href: '/profile/cv-projection' },
     { key: 'cv', href: '/profile/cv' },
     { key: 'dashboard', href: dashboardHref },
     ...(hasMentorRole && actor === 'individual'

@@ -109,6 +109,8 @@
         "catalog": "Directory",
         "profile": "My profile",
         "radar": "Radar",
+        "careerRecord": "Career Record",
+        "cvProjection": "CV",
         "cv": "CV Builder",
         "notifications": "Notifications",
         "settings": "Profile settings",
@@ -131,6 +133,8 @@
     "actions": {
       "profile": "My profile",
       "radar": "Radar",
+      "careerRecord": "Career Record",
+      "cvProjection": "CV",
       "cv": "CV Builder",
       "dashboard": "Dashboard",
       "mentorDashboard": "Mentor dashboard",
@@ -5240,10 +5244,7 @@
       "checkoutLoading": "Preparing checkout…",
       "checkoutFailed": "Checkout could not be started.",
       "checkoutUnavailable": "Checkout is not available right now.",
-      "includedBullets": [
-        "CV Builder",
-        "Lammah — Plus external feed"
-      ],
+      "includedBullets": ["CV Builder", "Lammah — Plus external feed"],
       "features": {
         "cv_pro_formats": {
           "headline": "Export CV formats available on your plan."
@@ -5287,10 +5288,7 @@
       "title": "Unlock premium features",
       "subtitle": "Monthly or yearly billing only — no passes or lifetime plans.",
       "featuresTitle": "What is included in Plus?",
-      "featureItems": [
-        "CV Builder",
-        "Lammah — Plus external feed"
-      ],
+      "featureItems": ["CV Builder", "Lammah — Plus external feed"],
       "billingNote": "Cancel anytime at the end of your current billing period.",
       "checkoutCta": "Continue to checkout",
       "checkoutLoading": "Preparing checkout…",

@@ -11,6 +11,8 @@ export const INDIVIDUAL_QUICK_ACTIONS: IndividualQuickAction[] = [
   { key: 'catalog', href: '/catalog', keywords: ['companies'] },
   { key: 'profile', href: '/profile', keywords: ['me', 'account'] },
   { key: 'radar', href: '/radar', keywords: ['meetings', 'sessions'] },
+  { key: 'careerRecord', href: '/profile/career-record', keywords: ['record', 'سجل'] },
+  { key: 'cvProjection', href: '/profile/cv-projection', keywords: ['resume', 'سيرة'] },
   { key: 'cv', href: '/profile/cv', keywords: ['resume', 'builder'] },
   { key: 'notifications', href: '/notifications', keywords: ['alerts', 'inbox'] },
   { key: 'settings', href: '/profile/edit', keywords: ['preferences', 'account'] },

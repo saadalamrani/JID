@@ -17,7 +17,14 @@ import { shouldHideAuthenticatedTopBar } from '@/lib/navigation/authenticated-sh
 import en from '../../../messages/en.json'
 import ar from '../../../messages/ar.json'
 
-const INDIVIDUAL_LEAK_HREFS = ['/radar', '/mentors', '/profile/cv', '/profile'] as const
+const INDIVIDUAL_LEAK_HREFS = [
+  '/radar',
+  '/mentors',
+  '/profile/cv',
+  '/profile/career-record',
+  '/profile/cv-projection',
+  '/profile',
+] as const
 
 describe('Organization shell separation — actor resolution', () => {
   it('maps existing roles without inventing parallel RBAC', () => {
@@ -47,7 +54,14 @@ describe('Organization shell separation — Individual chrome unchanged', () => 
       dashboardHref: '/me',
       hasMentorRole: false,
     })
-    expect(account.map((a) => a.href)).toEqual(['/profile', '/radar', '/profile/cv', '/me'])
+    expect(account.map((a) => a.href)).toEqual([
+      '/profile',
+      '/radar',
+      '/profile/career-record',
+      '/profile/cv-projection',
+      '/profile/cv',
+      '/me',
+    ])
     expect(shellShowsIndividualSettings('individual')).toBe(true)
     expect(shellShowsIndividualCommandPalette('individual')).toBe(true)
   })

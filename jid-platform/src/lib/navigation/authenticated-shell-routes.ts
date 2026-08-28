@@ -26,12 +26,19 @@ export const PUBLIC_SHELL_PREFIXES = [
   '/about',
 ] as const
 
-const PORTAL_PREFIXES = ['/staff', '/sys', '/login', '/signup', '/forgot-password', '/reset-password']
+const PORTAL_PREFIXES = [
+  '/staff',
+  '/sys',
+  '/login',
+  '/signup',
+  '/forgot-password',
+  '/reset-password',
+]
 
 /** Section 10 onboarding shell — dedicated layout, no portal top bar. */
 const ONBOARDING_SHELL_PREFIXES = ['/welcome', '/individual', '/company/entity']
 
-const OWNER_PROFILE_SEGMENTS = new Set(['edit', 'cv'])
+const OWNER_PROFILE_SEGMENTS = new Set(['edit', 'cv', 'career-record', 'cv-projection', 'privacy'])
 
 /** Public individual projection: `/profile/:id` (not owner `/profile` workspace). */
 export function isPublicProfilePath(normalizedPath: string): boolean {
@@ -45,9 +52,7 @@ export function shouldHideAuthenticatedTopBar(pathname: string): boolean {
   const normalized = pathname.replace(/^\/(ar|en)/, '') || '/'
   if (normalized === '/' || normalized === '') return true
   if (
-    PORTAL_PREFIXES.some(
-      (prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`),
-    )
+    PORTAL_PREFIXES.some((prefix) => normalized === prefix || normalized.startsWith(`${prefix}/`))
   ) {
     return true
   }
