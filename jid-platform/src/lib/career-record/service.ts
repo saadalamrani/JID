@@ -15,19 +15,19 @@ import 'server-only'
  *    disclosure boundary requires an exact active C5 authorization or it fails
  *    closed.
  *
- * NOTE: the migration (20260827120000 / 20260827120001) has not yet been applied
- * to a database, so `src/lib/supabase/types.ts` does not yet describe these
- * tables/RPCs. Calls are typed through a narrow local surface until the types
- * are regenerated from the validated non-production database.
+ * Generated `src/lib/supabase/types.ts` is reconciled after the Wave 2 final
+ * closure migration is applied to non-production.
  */
 import { createClient } from '@/lib/supabase/server'
 import type {
   AuthorizeCareerEvidenceDisclosureInput,
+  CareerEvidenceDisclosurePolicy,
   CareerEvidenceLifecycleAction,
   CareerEvidenceRevision,
   CareerEvidenceRoot,
   CareerEvidenceView,
   CareerEvidenceWithHistory,
+  CreateApplicationCvSnapshotInput,
   CreateCvSnapshotInput,
   CreateDeclaredCareerEvidenceInput,
   CvProjection,
@@ -36,22 +36,18 @@ import type {
   ReviseCareerEvidenceInput,
   UpdateCvPresentationInput,
 } from '@/types/career-record'
+import { CareerRecordError, mapRpcError } from './errors'
 
-export class CareerRecordError extends Error {
-  constructor(
-    message: string,
-    readonly status = 400,
-  ) {
-    super(message)
-    this.name = 'CareerRecordError'
-  }
-}
+export { CareerRecordError } from './errors'
 
 /** Narrow structural view of the supabase client for the not-yet-generated schema. */
 type LooseClient = {
   auth: { getUser: () => Promise<{ data: { user: { id: string } | null } }> }
   from: (table: string) => any
-  rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>
+  rpc: (
+    fn: string,
+    args: Record<string, unknown>,
+  ) => Promise<{ data: unknown; error: { message: string; code?: string } | null }>
 }
 
 async function client(): Promise<LooseClient> {
@@ -66,8 +62,8 @@ async function requireUserId(c: LooseClient): Promise<string> {
   return user.id
 }
 
-function rpcData<T>(res: { data: unknown; error: { message: string } | null }): T {
-  if (res.error) throw new CareerRecordError(res.error.message, 400)
+function rpcData<T>(res: { data: unknown; error: { message: string; code?: string } | null }): T {
+  if (res.error) mapRpcError(res.error)
   return res.data as T
 }
 
@@ -253,8 +249,31 @@ export async function getCvProjection(cvId: string): Promise<CvProjection> {
     }
   }
 
+  const { data: cvRow, error: cvErr } = await c
+    .from('cvs')
+    .select('id, title, summary, locale, template_key, updated_at')
+    .eq('id', cvId)
+    .eq('user_id', uid)
+    .maybeSingle()
+  if (cvErr) throw new CareerRecordError(cvErr.message)
+  if (!cvRow) throw new CareerRecordError('السيرة الذاتية غير موجودة', 404)
+
+  const header = cvRow as {
+    id: string
+    title: string | null
+    summary: string | null
+    locale: string
+    template_key: string
+    updated_at: string
+  }
+
   return {
     cv_id: cvId,
+    title: header.title,
+    summary: header.summary,
+    locale: header.locale === 'en' ? 'en' : 'ar',
+    template_key: header.template_key,
+    updated_at: header.updated_at,
     sections: (sections ?? []) as CvProjectionSection[],
     items: typedItems,
     evidence,
@@ -301,6 +320,14 @@ export async function updateCvPresentation(
       .eq('section_key', s.section_key)
     if (error) throw new CareerRecordError(error.message)
   }
+  if (patch.item_presentation) {
+    const { error } = await c
+      .from('cv_projection_items')
+      .update({ presentation_payload: patch.item_presentation.presentation_payload })
+      .eq('cv_id', cvId)
+      .eq('evidence_id', patch.item_presentation.evidence_id)
+    if (error) throw new CareerRecordError(error.message)
+  }
 }
 
 /** Select/unselect/reorder canonical evidence for a section. Does not mutate evidence. */
@@ -328,11 +355,18 @@ export async function previewCvProjection(cvId: string): Promise<CvProjection> {
 /**
  * Immutable purpose-bound snapshot. Authorization is prohibited for owner-only
  * export/preview and mandatory for application / public-share / recipient
- * disclosure purposes.
+ * disclosure purposes. Application linking must use createApplicationCvSnapshot.
  */
 export async function createCvSnapshot(input: CreateCvSnapshotInput): Promise<string> {
   const c = await client()
-  await requireUserId(c)
+  const uid = await requireUserId(c)
+
+  if (input.purpose === 'APPLICATION') {
+    throw new CareerRecordError(
+      'لقطات التقديم تُنشأ حصراً عبر العملية الذرية create_application_cv_snapshot',
+      422,
+    )
+  }
 
   const ownerOnly = input.purpose === 'EXPORT' || input.purpose === 'PROFILE_PREVIEW'
   if (ownerOnly && input.authorization_ref) {
@@ -342,17 +376,59 @@ export async function createCvSnapshot(input: CreateCvSnapshotInput): Promise<st
     throw new CareerRecordError('هذه اللقطة تتطلب تفويض إفصاح نشطًا ومحددًا', 403)
   }
 
+  const projection = await getCvProjection(input.cv_id)
+  const manifest =
+    input.manifest ??
+    projection.items
+      .filter((item) => item.is_selected)
+      .map((item) => {
+        const revision = projection.evidence[item.evidence_id]?.current_revision
+        return revision ? { evidence_id: item.evidence_id, revision_id: revision.id } : null
+      })
+      .filter((row): row is { evidence_id: string; revision_id: string } => row !== null)
+
+  const snapshotPayload =
+    input.snapshot_payload ??
+    ({
+      cv_id: projection.cv_id,
+      title: projection.title,
+      summary: projection.summary,
+      locale: projection.locale,
+      template_key: projection.template_key,
+      assembled_by: uid,
+    } satisfies Record<string, unknown>)
+
   return rpcData<string>(
     await c.rpc('create_cv_projection_snapshot', {
       p_cv_id: input.cv_id,
       p_purpose: input.purpose,
-      p_locale: input.locale,
-      p_template_key: input.template_key,
-      p_snapshot_payload: input.snapshot_payload,
-      p_manifest: input.manifest,
-      p_retention_policy_ref: input.retention_policy_ref,
-      p_application_id: input.application_id ?? null,
+      p_locale: input.locale ?? projection.locale,
+      p_template_key: input.template_key ?? projection.template_key,
+      p_snapshot_payload: snapshotPayload,
+      p_manifest: manifest,
+      p_retention_policy_ref: input.retention_policy_ref ?? { id: 'cv-snapshot-owner', version: '1.0' },
+      p_application_id: null,
       p_authorization_id: input.authorization_ref?.id ?? null,
+      p_expires_at: input.expires_at ?? null,
+    }),
+  )
+}
+
+/** Atomic APPLICATION snapshot + applications.cv_snapshot_id in one database call. */
+export async function createApplicationCvSnapshot(
+  input: CreateApplicationCvSnapshotInput,
+): Promise<string> {
+  const c = await client()
+  await requireUserId(c)
+  return rpcData<string>(
+    await c.rpc('create_application_cv_snapshot', {
+      p_application_id: input.application_id,
+      p_cv_id: input.cv_id,
+      p_authorization_id: input.authorization_id,
+      p_retention_policy_ref: input.retention_policy_ref ?? {
+        id: 'cv-snapshot-application',
+        version: '1.0',
+      },
       p_expires_at: input.expires_at ?? null,
     }),
   )
@@ -399,7 +475,142 @@ export async function authorizeCareerEvidenceDisclosure(
     .maybeSingle()
 
   if (error) throw new CareerRecordError(error.message)
+  if (!data) throw new CareerRecordError('تعذر إنشاء التفويض', 400)
   return (data as { id: string }).id
+}
+
+export async function getCareerEvidenceDisclosurePolicy(
+  evidenceId: string,
+): Promise<CareerEvidenceDisclosurePolicy> {
+  const c = await client()
+  const uid = await requireUserId(c)
+
+  const { data: root, error } = await c
+    .from('career_evidence')
+    .select('id, disclosure_policy_id, subject_id')
+    .eq('id', evidenceId)
+    .eq('subject_id', uid)
+    .maybeSingle()
+  if (error) throw new CareerRecordError(error.message)
+  if (!root) throw new CareerRecordError('الدليل غير موجود', 404)
+
+  const typedRoot = root as { disclosure_policy_id: string }
+  const { data: policy, error: policyErr } = await c
+    .from('career_evidence_disclosure_policies')
+    .select('id, subject_id, contract_version, default_visibility, supersedes_policy_id, created_at')
+    .eq('id', typedRoot.disclosure_policy_id)
+    .eq('subject_id', uid)
+    .maybeSingle()
+  if (policyErr) throw new CareerRecordError(policyErr.message)
+  if (!policy) throw new CareerRecordError('سياسة الإفصاح غير موجودة', 404)
+  return policy as CareerEvidenceDisclosurePolicy
+}
+
+export async function updateCareerEvidenceDisclosurePolicy(
+  evidenceId: string,
+): Promise<CareerEvidenceDisclosurePolicy> {
+  const c = await client()
+  await requireUserId(c)
+  rpcData<string>(
+    await c.rpc('advance_career_evidence_disclosure_policy', { p_evidence_id: evidenceId }),
+  )
+  return getCareerEvidenceDisclosurePolicy(evidenceId)
+}
+
+export async function resolveAuthorizedCareerEvidenceDisclosure(input: {
+  evidence_id: string
+  authorization_id: string
+}): Promise<{
+  authorization_id: string
+  evidence_id: string
+  subject_id: string
+  purpose_code: string
+  recipient_type: string
+  recipient_ref: { id: string; version?: string } | null
+  state: string
+  effective_at: string
+  expires_at: string | null
+  basis_type: string
+  basis_ref: { id: string; version?: string }
+  retention_policy_ref: { id: string; version?: string }
+  object_ref: { id: string; version?: string } | null
+  data_category: string | null
+}> {
+  const c = await client()
+  await requireUserId(c)
+  return rpcData(
+    await c.rpc('resolve_authorized_career_evidence_disclosure', {
+      p_evidence_id: input.evidence_id,
+      p_authorization_id: input.authorization_id,
+    }),
+  )
+}
+
+export async function resolveOwnerCvId(preferredCvId?: string): Promise<string> {
+  const c = await client()
+  const uid = await requireUserId(c)
+  if (preferredCvId) {
+    await assertCvOwner(c, preferredCvId, uid)
+    return preferredCvId
+  }
+
+  const { data: primary, error: primaryErr } = await c
+    .from('cvs')
+    .select('id')
+    .eq('user_id', uid)
+    .eq('is_primary', true)
+    .maybeSingle()
+  if (primaryErr) throw new CareerRecordError(primaryErr.message)
+  if (primary) return (primary as { id: string }).id
+
+  const { data: latest, error: latestErr } = await c
+    .from('cvs')
+    .select('id')
+    .eq('user_id', uid)
+    .order('updated_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+  if (latestErr) throw new CareerRecordError(latestErr.message)
+  if (!latest) throw new CareerRecordError('لا توجد سيرة ذاتية', 404)
+  return (latest as { id: string }).id
+}
+
+export async function listActiveOwnerAuthorizations(): Promise<
+  Array<{
+    id: string
+    purpose_code: string
+    recipient_type: string
+    recipient_ref: { id: string; version?: string } | null
+    object_ref: { id: string; version?: string } | null
+    data_category: string | null
+    state: string
+    effective_at: string
+    expires_at: string | null
+    revoked_at: string | null
+  }>
+> {
+  const c = await client()
+  const uid = await requireUserId(c)
+  const { data, error } = await c
+    .from('disclosure_authorizations')
+    .select(
+      'id, purpose_code, recipient_type, recipient_ref, object_ref, data_category, state, effective_at, expires_at, revoked_at',
+    )
+    .eq('subject_id', uid)
+    .eq('state', 'ACTIVE')
+  if (error) throw new CareerRecordError(error.message)
+  return (data ?? []) as Array<{
+    id: string
+    purpose_code: string
+    recipient_type: string
+    recipient_ref: { id: string; version?: string } | null
+    object_ref: { id: string; version?: string } | null
+    data_category: string | null
+    state: string
+    effective_at: string
+    expires_at: string | null
+    revoked_at: string | null
+  }>
 }
 
 // ---------------------------------------------------------------------------

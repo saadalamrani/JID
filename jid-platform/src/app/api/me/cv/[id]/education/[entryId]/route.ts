@@ -59,6 +59,14 @@ export async function PATCH(request: Request, context: RouteContext) {
     return NextResponse.json({ error: updateError.message }, { status: 500 })
   }
 
+  const { mirrorLegacyFactToCareerRecord } = await import('@/lib/career-record/legacy-mirror')
+  await mirrorLegacyFactToCareerRecord({
+    category: 'EDUCATION',
+    sourceTable: 'cv_education',
+    sourceId: entryId,
+    fact_payload: { ...patch },
+  })
+
   const updated = await fetchCvById(cvId)
   if (!updated) {
     return NextResponse.json({ error: 'Not found' }, { status: 404 })

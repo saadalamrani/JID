@@ -44,17 +44,34 @@ export async function POST(request: Request, context: RouteContext) {
     )
   }
 
-  const { error: insertError } = await supabase.from('cv_experience').insert({
-    cv_id: cvId,
-    company_name: parsed.data.company_name,
-    job_title: parsed.data.job_title,
-    sort_order: parsed.data.sort_order,
-    is_current: false,
-    bullets: [],
-  })
+  const { data: inserted, error: insertError } = await supabase
+    .from('cv_experience')
+    .insert({
+      cv_id: cvId,
+      company_name: parsed.data.company_name,
+      job_title: parsed.data.job_title,
+      sort_order: parsed.data.sort_order,
+      is_current: false,
+      bullets: [],
+    })
+    .select('id')
+    .maybeSingle()
 
   if (insertError) {
     return NextResponse.json({ error: insertError.message }, { status: 500 })
+  }
+
+  if (inserted?.id) {
+    const { mirrorLegacyFactToCareerRecord } = await import('@/lib/career-record/legacy-mirror')
+    await mirrorLegacyFactToCareerRecord({
+      category: 'EXPERIENCE',
+      sourceTable: 'cv_experience',
+      sourceId: inserted.id,
+      fact_payload: {
+        company_name: parsed.data.company_name,
+        job_title: parsed.data.job_title,
+      },
+    })
   }
 
   const updated = await fetchCvById(cvId)

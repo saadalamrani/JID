@@ -16,6 +16,7 @@ import { CareerRecordRoute } from '@/features/career-record/career-record-route'
 import { getCareerRecordCopy } from '@/features/career-record/copy'
 import {
   CAREER_RECORD_CORE_OPERATIONS,
+  boundCareerRecordPort,
   unavailableCareerRecordPort,
 } from '@/features/career-record'
 import { makeCareerEvidence, populatedCareerEvidence } from './fixtures'
@@ -137,12 +138,12 @@ describe('Career Record journey harness — injected port', () => {
     expect(await screen.findByRole('alert')).toHaveTextContent(ar.errorTitle)
   })
 
-  it('keeps the production default port honest and unavailable', async () => {
-    render(<CareerRecordRoute />)
-    expect(await screen.findByText(ar.unavailableMessage)).toBeInTheDocument()
+  it('keeps the unavailable seam honest and binds production to Core', async () => {
     expect(unavailableCareerRecordPort.availability).toBe('unavailable')
+    expect(boundCareerRecordPort.availability).toBe('ready')
     for (const name of CAREER_RECORD_CORE_OPERATIONS) {
       expect(name in unavailableCareerRecordPort).toBe(true)
+      expect(name in boundCareerRecordPort).toBe(true)
     }
     await expect(unavailableCareerRecordPort.updateCareerEvidenceDisclosurePolicy({
       evidence_id: 'x',

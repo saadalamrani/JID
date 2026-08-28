@@ -120,6 +120,11 @@ export interface CvProjectionItem {
 
 export interface CvProjection {
   cv_id: string
+  title: string | null
+  summary: string | null
+  locale: 'ar' | 'en'
+  template_key: string
+  updated_at: string
   sections: CvProjectionSection[]
   items: CvProjectionItem[]
   /** Selected evidence resolved to its current revision, keyed by evidence_id. */
@@ -173,18 +178,30 @@ export interface UpdateCvPresentationInput {
   locale?: 'ar' | 'en'
   section_order?: { section_key: CvProjectionSectionKey; sort_order: number }[]
   section_headings?: { section_key: CvProjectionSectionKey; heading_override: string | null }[]
+  item_presentation?: {
+    evidence_id: string
+    presentation_payload: CvProjectionItem['presentation_payload']
+  }
 }
 
 export interface CreateCvSnapshotInput {
   cv_id: string
   purpose: CvSnapshotPurpose
-  locale: 'ar' | 'en'
-  template_key: string
-  snapshot_payload: Record<string, unknown>
-  manifest: { evidence_id: string; revision_id: string }[]
-  retention_policy_ref: { id: string; version?: string }
+  locale?: 'ar' | 'en'
+  template_key?: string
+  snapshot_payload?: Record<string, unknown>
+  manifest?: { evidence_id: string; revision_id: string }[]
+  retention_policy_ref?: { id: string; version?: string }
   application_id?: string
   authorization_ref?: { id: string; version?: string }
+  expires_at?: string
+}
+
+export interface CreateApplicationCvSnapshotInput {
+  application_id: string
+  cv_id: string
+  authorization_id: string
+  retention_policy_ref?: { id: string; version?: string }
   expires_at?: string
 }
 

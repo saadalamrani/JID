@@ -1,10 +1,6 @@
 import { unavailableCoreResult } from '@/features/career-record/operations'
 import type { CvProjectionPort } from './operations'
 
-/**
- * Default bound port until Codex Core exists.
- * Returns unavailable. Does not invent HTTP, snapshots, or successful shares.
- */
 export const unavailableCvProjectionPort: CvProjectionPort = {
   availability: 'unavailable',
   getCvProjection: () => unavailableCoreResult(),
@@ -14,10 +10,30 @@ export const unavailableCvProjectionPort: CvProjectionPort = {
   createCvSnapshot: () => unavailableCoreResult(),
 }
 
-/** Single swap point for later Core binding. Production stays unavailable until Codex binds Core. */
-export const boundCvProjectionPort: CvProjectionPort = unavailableCvProjectionPort
+export const boundCvProjectionPort: CvProjectionPort = {
+  availability: 'ready',
+  async getCvProjection(cvId) {
+    const actions = await import('@/lib/career-record/actions')
+    return actions.getCvProjectionAction(cvId)
+  },
+  async updateCvPresentation(cvId, patch) {
+    const actions = await import('@/lib/career-record/actions')
+    return actions.updateCvPresentationAction(cvId, patch)
+  },
+  async setCvEvidenceSelection(input) {
+    const actions = await import('@/lib/career-record/actions')
+    return actions.setCvEvidenceSelectionAction(input)
+  },
+  async previewCvProjection(cvId) {
+    const actions = await import('@/lib/career-record/actions')
+    return actions.previewCvProjectionAction(cvId)
+  },
+  async createCvSnapshot(input) {
+    const actions = await import('@/lib/career-record/actions')
+    return actions.createCvSnapshotAction(input)
+  },
+}
 
-/** Test/runtime injection seam. Production callers omit the override. */
 export function resolveCvProjectionPort(override?: CvProjectionPort): CvProjectionPort {
   return override ?? boundCvProjectionPort
 }

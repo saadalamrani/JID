@@ -14,7 +14,8 @@ vi.mock('@/lib/i18n/navigation', () => ({
 
 import { CvProjectionRoute } from '@/features/cv-projection/cv-projection-route'
 import { getCvProjectionCopy } from '@/features/cv-projection/copy'
-import { unavailableCvProjectionPort } from '@/features/cv-projection'
+import { boundCvProjectionPort, unavailableCvProjectionPort } from '@/features/cv-projection'
+import { CV_PROJECTION_CORE_OPERATIONS } from '@/features/cv-projection/operations'
 import { makeCareerEvidence } from '../career-record/fixtures'
 import { makeCvProjection } from './fixtures'
 import { createCvProjectionTestPort } from './test-port'
@@ -210,10 +211,13 @@ describe('CV projection journey harness — injected port', () => {
     expect(screen.getByText(/جهة مستلمة مصرّح بها/)).toBeInTheDocument()
   })
 
-  it('keeps the production default port honest and unavailable', async () => {
-    render(<CvProjectionRoute />)
-    expect(await screen.findByText(ar.unavailableMessage)).toBeInTheDocument()
+  it('keeps the unavailable seam honest and binds production to Core', async () => {
     expect(unavailableCvProjectionPort.availability).toBe('unavailable')
+    expect(boundCvProjectionPort.availability).toBe('ready')
+    for (const name of CV_PROJECTION_CORE_OPERATIONS) {
+      expect(name in unavailableCvProjectionPort).toBe(true)
+      expect(name in boundCvProjectionPort).toBe(true)
+    }
     await expect(unavailableCvProjectionPort.previewCvProjection('cv-1')).resolves.toEqual({
       status: 'unavailable',
     })
