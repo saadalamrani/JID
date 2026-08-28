@@ -377,14 +377,13 @@ SELECT p.seq, p.subject_id, p.category, p.source_table, p.source_locator, p.sour
   END AS evidence_id
 FROM _plan p;
 
+ALTER TABLE _link ADD COLUMN revision_id_col uuid;
+-- A backfilled root has exactly one revision (revision_no = 1), which is also its
+-- current_revision_id. Dedup/conflict links resolve to that same revision.
 UPDATE _link l SET revision_id_col = r.id
 FROM public.career_evidence_revisions r
-WHERE r.evidence_id = l.evidence_id AND r.revision_no = 1;
-
-ALTER TABLE _link ADD COLUMN IF NOT EXISTS revision_id_col uuid;
-UPDATE _link l SET revision_id_col = (
-  SELECT ce.current_revision_id FROM public.career_evidence ce WHERE ce.id = l.evidence_id
-) WHERE l.evidence_id IS NOT NULL;
+WHERE r.evidence_id = l.evidence_id AND r.revision_no = 1
+  AND l.evidence_id IS NOT NULL;
 
 -- ---------------------------------------------------------------------------
 -- 5. Append the reconciliation ledger.
