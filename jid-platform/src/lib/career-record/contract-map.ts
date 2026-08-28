@@ -15,7 +15,10 @@ import type {
   CvProjectionSectionKey,
   CvSharePresentation,
 } from '@/features/cv-projection/operations'
-import { CATEGORY_TO_SECTION, defaultCvProjectionSections } from '@/features/cv-projection/operations'
+import {
+  CATEGORY_TO_SECTION,
+  defaultCvProjectionSections,
+} from '@/features/cv-projection/operations'
 import type { CvExportFormatKey } from '@/lib/cv/formats/registry'
 import type { Locale } from '@/lib/i18n/config'
 import type {
@@ -246,7 +249,7 @@ export function toAuthorizedDisclosure(
 
   return {
     evidence: { ...evidence, disclosure_authorization_ref: { id: row.authorization_id } },
-    authorization,
+    authorization: authorization as AuthorizedCareerEvidenceDisclosure['authorization'],
   }
 }
 

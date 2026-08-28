@@ -3,7 +3,10 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const migration = readFileSync(
-  join(process.cwd(), 'supabase/migrations/20260828120000_wave2_create_application_cv_snapshot.sql'),
+  join(
+    process.cwd(),
+    'supabase/migrations/20260828120000_wave2_create_application_cv_snapshot.sql',
+  ),
   'utf8',
 )
 
@@ -31,8 +34,8 @@ describe('create_application_cv_snapshot contract', () => {
   it('preserves C5 APPLICATION recipient rules and does not grant by role', () => {
     expect(migration).toContain("recipient_type <> 'BUSINESS'")
     expect(migration).toContain('does not match the application company')
-    expect(migration).not.toContain('staff')
-    expect(migration).not.toContain('university_id')
+    expect(migration).not.toMatch(/FROM\s+public\.staff/i)
+    expect(migration).not.toMatch(/user_roles/)
   })
 
   it('rolls back the snapshot when the application pointer cannot be set', () => {

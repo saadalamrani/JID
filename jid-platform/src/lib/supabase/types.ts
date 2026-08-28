@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.5"
+    PostgrestVersion: "14.17"
   }
   public: {
     Tables: {
@@ -74,6 +74,13 @@ export type Database = {
             foreignKeyName: "active_sessions_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "active_sessions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -117,6 +124,13 @@ export type Database = {
             foreignKeyName: "application_intents_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "application_intents_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -136,6 +150,7 @@ export type Database = {
           contact_email: string | null
           cover_letter: string | null
           created_at: string
+          cv_snapshot_id: string | null
           expires_at: string | null
           id: string
           job_id: string | null
@@ -154,6 +169,7 @@ export type Database = {
           contact_email?: string | null
           cover_letter?: string | null
           created_at?: string
+          cv_snapshot_id?: string | null
           expires_at?: string | null
           id?: string
           job_id?: string | null
@@ -172,6 +188,7 @@ export type Database = {
           contact_email?: string | null
           cover_letter?: string | null
           created_at?: string
+          cv_snapshot_id?: string | null
           expires_at?: string | null
           id?: string
           job_id?: string | null
@@ -185,6 +202,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "applications_applicant_id_fkey"
+            columns: ["applicant_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "applications_applicant_id_fkey"
             columns: ["applicant_id"]
@@ -207,10 +231,24 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "applications_cv_snapshot_id_fkey"
+            columns: ["cv_snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "cv_projection_snapshots"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "applications_job_id_fkey"
             columns: ["job_id"]
             isOneToOne: false
             referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_status_changed_by_fkey"
+            columns: ["status_changed_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -270,6 +308,13 @@ export type Database = {
           user_agent?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "audit_logs_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "audit_logs_actor_id_fkey"
             columns: ["actor_id"]
@@ -434,6 +479,499 @@ export type Database = {
           },
         ]
       }
+      career_evidence: {
+        Row: {
+          archived_at: string | null
+          archived_by: string | null
+          category: Database["public"]["Enums"]["career_evidence_category_enum"]
+          created_at: string
+          current_revision_id: string | null
+          disclosure_policy_id: string
+          id: string
+          lifecycle_state: Database["public"]["Enums"]["career_evidence_lifecycle_enum"]
+          subject_id: string
+          updated_at: string
+        }
+        Insert: {
+          archived_at?: string | null
+          archived_by?: string | null
+          category: Database["public"]["Enums"]["career_evidence_category_enum"]
+          created_at?: string
+          current_revision_id?: string | null
+          disclosure_policy_id: string
+          id?: string
+          lifecycle_state?: Database["public"]["Enums"]["career_evidence_lifecycle_enum"]
+          subject_id: string
+          updated_at?: string
+        }
+        Update: {
+          archived_at?: string | null
+          archived_by?: string | null
+          category?: Database["public"]["Enums"]["career_evidence_category_enum"]
+          created_at?: string
+          current_revision_id?: string | null
+          disclosure_policy_id?: string
+          id?: string
+          lifecycle_state?: Database["public"]["Enums"]["career_evidence_lifecycle_enum"]
+          subject_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_evidence_archived_by_fkey"
+            columns: ["archived_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_archived_by_fkey"
+            columns: ["archived_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_archived_by_fkey"
+            columns: ["archived_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "career_evidence_disclosure_policy_id_fkey"
+            columns: ["disclosure_policy_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence_disclosure_policies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "fk_career_evidence_current_revision"
+            columns: ["current_revision_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence_revisions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      career_evidence_artifacts: {
+        Row: {
+          bucket_id: string
+          byte_size: number
+          created_at: string
+          deleted_at: string | null
+          evidence_id: string
+          id: string
+          media_type: string
+          object_path: string
+          retention_policy_ref: Json
+          revision_id: string
+          revoked_at: string | null
+          sha256: string
+          subject_id: string
+          uploaded_by: string
+        }
+        Insert: {
+          bucket_id: string
+          byte_size: number
+          created_at?: string
+          deleted_at?: string | null
+          evidence_id: string
+          id?: string
+          media_type: string
+          object_path: string
+          retention_policy_ref: Json
+          revision_id: string
+          revoked_at?: string | null
+          sha256: string
+          subject_id: string
+          uploaded_by: string
+        }
+        Update: {
+          bucket_id?: string
+          byte_size?: number
+          created_at?: string
+          deleted_at?: string | null
+          evidence_id?: string
+          id?: string
+          media_type?: string
+          object_path?: string
+          retention_policy_ref?: Json
+          revision_id?: string
+          revoked_at?: string | null
+          sha256?: string
+          subject_id?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_evidence_artifacts_evidence_id_fkey"
+            columns: ["evidence_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_artifacts_revision_id_fkey"
+            columns: ["revision_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence_revisions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_artifacts_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_artifacts_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_artifacts_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "career_evidence_artifacts_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_artifacts_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_artifacts_uploaded_by_fkey"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      career_evidence_disclosure_policies: {
+        Row: {
+          contract_version: string
+          created_at: string
+          created_by: string
+          default_visibility: string
+          id: string
+          subject_id: string
+          supersedes_policy_id: string | null
+        }
+        Insert: {
+          contract_version?: string
+          created_at?: string
+          created_by: string
+          default_visibility?: string
+          id?: string
+          subject_id: string
+          supersedes_policy_id?: string | null
+        }
+        Update: {
+          contract_version?: string
+          created_at?: string
+          created_by?: string
+          default_visibility?: string
+          id?: string
+          subject_id?: string
+          supersedes_policy_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_evidence_disclosure_policies_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_disclosure_policies_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_disclosure_policies_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "career_evidence_disclosure_policies_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_disclosure_policies_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_disclosure_policies_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "career_evidence_disclosure_policies_supersedes_policy_id_fkey"
+            columns: ["supersedes_policy_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence_disclosure_policies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      career_evidence_legacy_sources: {
+        Row: {
+          conflict_group_id: string | null
+          created_at: string
+          evidence_id: string | null
+          id: string
+          migration_batch_id: string
+          normalized_identity_key: string | null
+          notes: string | null
+          precedence_rank: number
+          reconciliation_state: Database["public"]["Enums"]["career_reconciliation_state_enum"]
+          revision_id: string | null
+          source_cv_id: string | null
+          source_locator: string
+          source_sha256: string
+          source_snapshot: Json
+          source_table: string
+          subject_id: string
+        }
+        Insert: {
+          conflict_group_id?: string | null
+          created_at?: string
+          evidence_id?: string | null
+          id?: string
+          migration_batch_id: string
+          normalized_identity_key?: string | null
+          notes?: string | null
+          precedence_rank: number
+          reconciliation_state: Database["public"]["Enums"]["career_reconciliation_state_enum"]
+          revision_id?: string | null
+          source_cv_id?: string | null
+          source_locator: string
+          source_sha256: string
+          source_snapshot: Json
+          source_table: string
+          subject_id: string
+        }
+        Update: {
+          conflict_group_id?: string | null
+          created_at?: string
+          evidence_id?: string | null
+          id?: string
+          migration_batch_id?: string
+          normalized_identity_key?: string | null
+          notes?: string | null
+          precedence_rank?: number
+          reconciliation_state?: Database["public"]["Enums"]["career_reconciliation_state_enum"]
+          revision_id?: string | null
+          source_cv_id?: string | null
+          source_locator?: string
+          source_sha256?: string
+          source_snapshot?: Json
+          source_table?: string
+          subject_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_evidence_legacy_sources_evidence_id_fkey"
+            columns: ["evidence_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_legacy_sources_revision_id_fkey"
+            columns: ["revision_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence_revisions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_legacy_sources_source_cv_id_fkey"
+            columns: ["source_cv_id"]
+            isOneToOne: false
+            referencedRelation: "cvs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_legacy_sources_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_legacy_sources_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_legacy_sources_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      career_evidence_revisions: {
+        Row: {
+          contract_version: string
+          created_at: string
+          created_by: string
+          dispute_ref: Json | null
+          effective_from: string | null
+          effective_to: string | null
+          evidence_id: string
+          fact_payload: Json
+          id: string
+          market_context_ref: Json | null
+          observed_at: string | null
+          primary_artifact_id: string | null
+          revision_no: number
+          revocation_or_expiry_ref: Json | null
+          source_class: Database["public"]["Enums"]["career_evidence_source_class_enum"]
+          source_ref: Json | null
+          subject_id: string
+          supersedes_revision_id: string | null
+          verification_state: Database["public"]["Enums"]["career_evidence_state_enum"]
+        }
+        Insert: {
+          contract_version?: string
+          created_at?: string
+          created_by: string
+          dispute_ref?: Json | null
+          effective_from?: string | null
+          effective_to?: string | null
+          evidence_id: string
+          fact_payload: Json
+          id?: string
+          market_context_ref?: Json | null
+          observed_at?: string | null
+          primary_artifact_id?: string | null
+          revision_no: number
+          revocation_or_expiry_ref?: Json | null
+          source_class: Database["public"]["Enums"]["career_evidence_source_class_enum"]
+          source_ref?: Json | null
+          subject_id: string
+          supersedes_revision_id?: string | null
+          verification_state: Database["public"]["Enums"]["career_evidence_state_enum"]
+        }
+        Update: {
+          contract_version?: string
+          created_at?: string
+          created_by?: string
+          dispute_ref?: Json | null
+          effective_from?: string | null
+          effective_to?: string | null
+          evidence_id?: string
+          fact_payload?: Json
+          id?: string
+          market_context_ref?: Json | null
+          observed_at?: string | null
+          primary_artifact_id?: string | null
+          revision_no?: number
+          revocation_or_expiry_ref?: Json | null
+          source_class?: Database["public"]["Enums"]["career_evidence_source_class_enum"]
+          source_ref?: Json | null
+          subject_id?: string
+          supersedes_revision_id?: string | null
+          verification_state?: Database["public"]["Enums"]["career_evidence_state_enum"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_evidence_revisions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_revisions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_evidence_revisions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "career_evidence_revisions_supersedes_revision_id_fkey"
+            columns: ["supersedes_revision_id"]
+            isOneToOne: true
+            referencedRelation: "career_evidence_revisions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_revision_evidence"
+            columns: ["evidence_id", "subject_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence"
+            referencedColumns: ["id", "subject_id"]
+          },
+          {
+            foreignKeyName: "fk_revision_primary_artifact"
+            columns: ["primary_artifact_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence_artifacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       colleges: {
         Row: {
           created_at: string
@@ -504,27 +1042,6 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "universities_catalog"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "colleges_catalog_university_id_fkey"
-            columns: ["university_id"]
-            isOneToOne: false
-            referencedRelation: "university_dashboard_snapshot"
-            referencedColumns: ["university_id"]
-          },
-          {
-            foreignKeyName: "colleges_catalog_university_id_fkey"
-            columns: ["university_id"]
-            isOneToOne: false
-            referencedRelation: "university_dashboard_view"
-            referencedColumns: ["university_id"]
-          },
-          {
-            foreignKeyName: "colleges_catalog_university_id_fkey"
-            columns: ["university_id"]
-            isOneToOne: false
-            referencedRelation: "university_dashboard_view_admin"
-            referencedColumns: ["university_id"]
           },
         ]
       }
@@ -837,6 +1354,13 @@ export type Database = {
             foreignKeyName: "companies_claimed_by_fkey"
             columns: ["claimed_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "companies_claimed_by_fkey"
+            columns: ["claimed_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -909,6 +1433,13 @@ export type Database = {
             foreignKeyName: "contact_messages_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contact_messages_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -972,6 +1503,13 @@ export type Database = {
             foreignKeyName: "content_flags_reporter_id_fkey"
             columns: ["reporter_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_flags_reporter_id_fkey"
+            columns: ["reporter_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -981,6 +1519,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "content_flags_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "content_flags_reviewed_by_fkey"
@@ -1031,6 +1576,13 @@ export type Database = {
             foreignKeyName: "conversations_mentee_id_fkey"
             columns: ["mentee_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "conversations_mentee_id_fkey"
+            columns: ["mentee_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -1040,6 +1592,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "conversations_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "conversations_mentor_id_fkey"
@@ -1344,12 +1903,252 @@ export type Database = {
             foreignKeyName: "cv_generations_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_generations_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "cv_generations_user_id_fkey"
             columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      cv_projection_items: {
+        Row: {
+          created_at: string
+          cv_id: string
+          evidence_id: string
+          id: string
+          is_selected: boolean
+          presentation_payload: Json
+          section_id: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cv_id: string
+          evidence_id: string
+          id?: string
+          is_selected?: boolean
+          presentation_payload?: Json
+          section_id: string
+          sort_order: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cv_id?: string
+          evidence_id?: string
+          id?: string
+          is_selected?: boolean
+          presentation_payload?: Json
+          section_id?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cv_projection_items_cv_id_fkey"
+            columns: ["cv_id"]
+            isOneToOne: false
+            referencedRelation: "cvs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_items_evidence_id_fkey"
+            columns: ["evidence_id"]
+            isOneToOne: false
+            referencedRelation: "career_evidence"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_items_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "cv_projection_sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cv_projection_sections: {
+        Row: {
+          created_at: string
+          cv_id: string
+          heading_override: string | null
+          id: string
+          is_visible: boolean
+          presentation_settings: Json
+          section_key: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cv_id: string
+          heading_override?: string | null
+          id?: string
+          is_visible?: boolean
+          presentation_settings?: Json
+          section_key: string
+          sort_order: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cv_id?: string
+          heading_override?: string | null
+          id?: string
+          is_visible?: boolean
+          presentation_settings?: Json
+          section_key?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cv_projection_sections_cv_id_fkey"
+            columns: ["cv_id"]
+            isOneToOne: false
+            referencedRelation: "cvs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cv_projection_snapshots: {
+        Row: {
+          application_id: string | null
+          content_sha256: string
+          created_at: string
+          created_by: string
+          cv_id: string
+          disclosure_authorization_id: string | null
+          evidence_revision_manifest: Json
+          expires_at: string | null
+          id: string
+          locale: string
+          projection_version: number
+          purpose: Database["public"]["Enums"]["cv_snapshot_purpose_enum"]
+          retention_policy_ref: Json
+          revoked_at: string | null
+          snapshot_payload: Json
+          subject_id: string
+          template_key: string
+        }
+        Insert: {
+          application_id?: string | null
+          content_sha256: string
+          created_at?: string
+          created_by: string
+          cv_id: string
+          disclosure_authorization_id?: string | null
+          evidence_revision_manifest: Json
+          expires_at?: string | null
+          id?: string
+          locale: string
+          projection_version: number
+          purpose: Database["public"]["Enums"]["cv_snapshot_purpose_enum"]
+          retention_policy_ref: Json
+          revoked_at?: string | null
+          snapshot_payload: Json
+          subject_id: string
+          template_key: string
+        }
+        Update: {
+          application_id?: string | null
+          content_sha256?: string
+          created_at?: string
+          created_by?: string
+          cv_id?: string
+          disclosure_authorization_id?: string | null
+          evidence_revision_manifest?: Json
+          expires_at?: string | null
+          id?: string
+          locale?: string
+          projection_version?: number
+          purpose?: Database["public"]["Enums"]["cv_snapshot_purpose_enum"]
+          retention_policy_ref?: Json
+          revoked_at?: string | null
+          snapshot_payload?: Json
+          subject_id?: string
+          template_key?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cv_projection_snapshots_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "radar_cards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_cv_id_fkey"
+            columns: ["cv_id"]
+            isOneToOne: false
+            referencedRelation: "cvs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_disclosure_authorization_id_fkey"
+            columns: ["disclosure_authorization_id"]
+            isOneToOne: false
+            referencedRelation: "disclosure_authorizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cv_projection_snapshots_subject_id_fkey"
+            columns: ["subject_id"]
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
@@ -1474,6 +2273,13 @@ export type Database = {
           user_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "cvs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "cvs_user_id_fkey"
             columns: ["user_id"]
@@ -1612,6 +2418,13 @@ export type Database = {
             columns: ["evidence_id"]
             isOneToOne: false
             referencedRelation: "directory_raw_evidence"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_candidate_facts_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -2026,6 +2839,13 @@ export type Database = {
             foreignKeyName: "directory_review_queue_assigned_to_fkey"
             columns: ["assigned_to"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_review_queue_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -2048,6 +2868,13 @@ export type Database = {
             columns: ["publication_company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_review_queue_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -2159,6 +2986,13 @@ export type Database = {
             foreignKeyName: "directory_sources_responsible_staff_id_fkey"
             columns: ["responsible_staff_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "directory_sources_responsible_staff_id_fkey"
+            columns: ["responsible_staff_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -2250,6 +3084,119 @@ export type Database = {
             columns: ["source_id"]
             isOneToOne: false
             referencedRelation: "directory_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      disclosure_authorizations: {
+        Row: {
+          basis_ref: Json
+          basis_type: Database["public"]["Enums"]["authorization_basis_type_enum"]
+          contract_version: string
+          created_at: string
+          created_by: string
+          data_category: string | null
+          effective_at: string
+          expires_at: string | null
+          id: string
+          object_ref: Json | null
+          purpose_code: string
+          recipient_ref: Json | null
+          recipient_type: Database["public"]["Enums"]["disclosure_recipient_type_enum"]
+          retention_policy_ref: Json
+          revoked_at: string | null
+          state: Database["public"]["Enums"]["disclosure_authorization_state_enum"]
+          subject_id: string
+          supersedes_authorization_id: string | null
+        }
+        Insert: {
+          basis_ref: Json
+          basis_type: Database["public"]["Enums"]["authorization_basis_type_enum"]
+          contract_version?: string
+          created_at?: string
+          created_by: string
+          data_category?: string | null
+          effective_at: string
+          expires_at?: string | null
+          id?: string
+          object_ref?: Json | null
+          purpose_code: string
+          recipient_ref?: Json | null
+          recipient_type: Database["public"]["Enums"]["disclosure_recipient_type_enum"]
+          retention_policy_ref: Json
+          revoked_at?: string | null
+          state?: Database["public"]["Enums"]["disclosure_authorization_state_enum"]
+          subject_id: string
+          supersedes_authorization_id?: string | null
+        }
+        Update: {
+          basis_ref?: Json
+          basis_type?: Database["public"]["Enums"]["authorization_basis_type_enum"]
+          contract_version?: string
+          created_at?: string
+          created_by?: string
+          data_category?: string | null
+          effective_at?: string
+          expires_at?: string | null
+          id?: string
+          object_ref?: Json | null
+          purpose_code?: string
+          recipient_ref?: Json | null
+          recipient_type?: Database["public"]["Enums"]["disclosure_recipient_type_enum"]
+          retention_policy_ref?: Json
+          revoked_at?: string | null
+          state?: Database["public"]["Enums"]["disclosure_authorization_state_enum"]
+          subject_id?: string
+          supersedes_authorization_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "disclosure_authorizations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "disclosure_authorizations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "disclosure_authorizations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "disclosure_authorizations_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "disclosure_authorizations_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "disclosure_authorizations_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "disclosure_authorizations_supersedes_authorization_id_fkey"
+            columns: ["supersedes_authorization_id"]
+            isOneToOne: true
+            referencedRelation: "disclosure_authorizations"
             referencedColumns: ["id"]
           },
         ]
@@ -2415,6 +3362,13 @@ export type Database = {
             foreignKeyName: "email_verification_attempts_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "email_verification_attempts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -2472,6 +3426,13 @@ export type Database = {
             foreignKeyName: "emergency_actions_activated_by_fkey"
             columns: ["activated_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emergency_actions_activated_by_fkey"
+            columns: ["activated_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -2486,6 +3447,13 @@ export type Database = {
             foreignKeyName: "emergency_actions_deactivated_by_fkey"
             columns: ["deactivated_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emergency_actions_deactivated_by_fkey"
+            columns: ["deactivated_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -2495,6 +3463,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "emergency_actions_reverted_by_fkey"
+            columns: ["reverted_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "emergency_actions_reverted_by_fkey"
@@ -2589,6 +3564,13 @@ export type Database = {
             foreignKeyName: "entity_team_invitations_accepted_by_fkey"
             columns: ["accepted_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entity_team_invitations_accepted_by_fkey"
+            columns: ["accepted_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -2604,6 +3586,13 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entity_team_invitations_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -2672,6 +3661,13 @@ export type Database = {
           user_overrides?: Json
         }
         Relationships: [
+          {
+            foreignKeyName: "feature_flags_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "feature_flags_updated_by_fkey"
             columns: ["updated_by"]
@@ -2842,6 +3838,13 @@ export type Database = {
             foreignKeyName: "jobs_created_by_fkey"
             columns: ["created_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "jobs_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -2964,6 +3967,13 @@ export type Database = {
             columns: ["evidence_id"]
             isOneToOne: false
             referencedRelation: "lammah_raw_evidence"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lammah_candidate_facts_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -3122,6 +4132,13 @@ export type Database = {
             columns: ["possible_opportunity_id"]
             isOneToOne: false
             referencedRelation: "lammah_opportunities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lammah_duplicate_candidates_resolved_by_fkey"
+            columns: ["resolved_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -3302,6 +4319,13 @@ export type Database = {
             foreignKeyName: "lammah_import_candidates_assigned_to_fkey"
             columns: ["assigned_to"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lammah_import_candidates_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -3311,6 +4335,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "lammah_import_candidates_decision_by_fkey"
+            columns: ["decision_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "lammah_import_candidates_decision_by_fkey"
@@ -3411,6 +4442,13 @@ export type Database = {
           source_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "lammah_lifecycle_events_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "lammah_lifecycle_events_actor_id_fkey"
             columns: ["actor_id"]
@@ -3760,6 +4798,13 @@ export type Database = {
             foreignKeyName: "lammah_org_mapping_queue_resolved_by_fkey"
             columns: ["resolved_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lammah_org_mapping_queue_resolved_by_fkey"
+            columns: ["resolved_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -3956,6 +5001,13 @@ export type Database = {
             foreignKeyName: "lammah_review_queue_assigned_to_fkey"
             columns: ["assigned_to"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lammah_review_queue_assigned_to_fkey"
+            columns: ["assigned_to"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -4042,6 +5094,7 @@ export type Database = {
       lammah_sources: {
         Row: {
           allowed_apply_hosts: string[]
+          allowed_source_hosts: string[]
           apply_url_pattern: string | null
           approval_state: string
           approved_at: string | null
@@ -4088,6 +5141,7 @@ export type Database = {
         }
         Insert: {
           allowed_apply_hosts?: string[]
+          allowed_source_hosts?: string[]
           apply_url_pattern?: string | null
           approval_state?: string
           approved_at?: string | null
@@ -4134,6 +5188,7 @@ export type Database = {
         }
         Update: {
           allowed_apply_hosts?: string[]
+          allowed_source_hosts?: string[]
           apply_url_pattern?: string | null
           approval_state?: string
           approved_at?: string | null
@@ -4184,6 +5239,13 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lammah_sources_staff_owner_id_fkey"
+            columns: ["staff_owner_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -4412,6 +5474,13 @@ export type Database = {
             foreignKeyName: "mentor_notification_requests_mentor_id_fkey"
             columns: ["mentor_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mentor_notification_requests_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -4421,6 +5490,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "mentor_notification_requests_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "mentor_notification_requests_requester_id_fkey"
@@ -4543,6 +5619,13 @@ export type Database = {
             foreignKeyName: "mentor_profiles_reviewed_by_fkey"
             columns: ["reviewed_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mentor_profiles_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -4552,6 +5635,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "mentor_profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "mentor_profiles_user_id_fkey"
@@ -4658,6 +5748,13 @@ export type Database = {
             foreignKeyName: "mentor_workshops_mentor_id_fkey"
             columns: ["mentor_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mentor_workshops_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -4739,6 +5836,13 @@ export type Database = {
             foreignKeyName: "mentorship_meetings_mentee_id_fkey"
             columns: ["mentee_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mentorship_meetings_mentee_id_fkey"
+            columns: ["mentee_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -4748,6 +5852,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "mentorship_meetings_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "mentorship_meetings_mentor_id_fkey"
@@ -4836,6 +5947,13 @@ export type Database = {
             foreignKeyName: "mentorship_requests_mentee_id_fkey"
             columns: ["mentee_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mentorship_requests_mentee_id_fkey"
+            columns: ["mentee_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -4845,6 +5963,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "mentorship_requests_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "mentorship_requests_mentor_id_fkey"
@@ -4906,6 +6031,13 @@ export type Database = {
             columns: ["meeting_id"]
             isOneToOne: false
             referencedRelation: "mentorship_meetings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -5106,6 +6238,13 @@ export type Database = {
             foreignKeyName: "phone_verification_attempts_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "phone_verification_attempts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -5219,6 +6358,13 @@ export type Database = {
             foreignKeyName: "platform_config_updated_by_fkey"
             columns: ["updated_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "platform_config_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -5252,6 +6398,13 @@ export type Database = {
             foreignKeyName: "profile_skills_profile_id_fkey"
             columns: ["profile_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_skills_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -5261,6 +6414,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "profile_skills_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_skills"
+            referencedColumns: ["skill_id"]
           },
           {
             foreignKeyName: "profile_skills_skill_id_fkey"
@@ -5297,6 +6457,13 @@ export type Database = {
           viewer_company_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "profile_views_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "profile_views_profile_id_fkey"
             columns: ["profile_id"]
@@ -5472,27 +6639,6 @@ export type Database = {
             referencedRelation: "universities_catalog"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "profiles_university_id_fkey"
-            columns: ["university_id"]
-            isOneToOne: false
-            referencedRelation: "university_dashboard_snapshot"
-            referencedColumns: ["university_id"]
-          },
-          {
-            foreignKeyName: "profiles_university_id_fkey"
-            columns: ["university_id"]
-            isOneToOne: false
-            referencedRelation: "university_dashboard_view"
-            referencedColumns: ["university_id"]
-          },
-          {
-            foreignKeyName: "profiles_university_id_fkey"
-            columns: ["university_id"]
-            isOneToOne: false
-            referencedRelation: "university_dashboard_view_admin"
-            referencedColumns: ["university_id"]
-          },
         ]
       }
       public_announcements: {
@@ -5549,6 +6695,13 @@ export type Database = {
             foreignKeyName: "public_announcements_created_by_fkey"
             columns: ["created_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "public_announcements_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -5558,6 +6711,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "public_announcements_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "public_announcements_updated_by_fkey"
@@ -5985,6 +7145,13 @@ export type Database = {
             foreignKeyName: "staff_invitations_accepted_by_fkey"
             columns: ["accepted_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "staff_invitations_accepted_by_fkey"
+            columns: ["accepted_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -5994,6 +7161,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "staff_invitations_invited_by_fkey"
+            columns: ["invited_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "staff_invitations_invited_by_fkey"
@@ -6250,6 +7424,13 @@ export type Database = {
             foreignKeyName: "user_badges_awarded_by_fkey"
             columns: ["awarded_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_badges_awarded_by_fkey"
+            columns: ["awarded_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -6265,6 +7446,13 @@ export type Database = {
             columns: ["badge_id"]
             isOneToOne: false
             referencedRelation: "badges_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_badges_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -6310,6 +7498,13 @@ export type Database = {
             foreignKeyName: "user_encryption_keys_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: true
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_encryption_keys_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -6348,6 +7543,13 @@ export type Database = {
           verified_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "user_verified_emails_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "user_verified_emails_user_id_fkey"
             columns: ["user_id"]
@@ -6461,6 +7663,13 @@ export type Database = {
             foreignKeyName: "claim_requests_reviewed_by_fkey"
             columns: ["reviewed_by"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "claim_requests_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -6470,6 +7679,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "claim_requests_user_id_fkey"
+            columns: ["applicant_user_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "claim_requests_user_id_fkey"
@@ -6489,6 +7705,177 @@ export type Database = {
       }
     }
     Views: {
+      individual_profile_public_projection: {
+        Row: {
+          about_me: string | null
+          allow_contact: boolean | null
+          avatar_url: string | null
+          college_id: string | null
+          full_name: string | null
+          graduation_year: number | null
+          headline: string | null
+          id: string | null
+          major_id: string | null
+          portfolio_url: string | null
+          show_graduate_badge: boolean | null
+          student_status: string | null
+          target_program_types: string[] | null
+          target_regions: string[] | null
+          target_sectors: string[] | null
+          university_id: string | null
+        }
+        Insert: {
+          about_me?: string | null
+          allow_contact?: never
+          avatar_url?: string | null
+          college_id?: string | null
+          full_name?: string | null
+          graduation_year?: number | null
+          headline?: string | null
+          id?: string | null
+          major_id?: string | null
+          portfolio_url?: never
+          show_graduate_badge?: boolean | null
+          student_status?: string | null
+          target_program_types?: string[] | null
+          target_regions?: string[] | null
+          target_sectors?: string[] | null
+          university_id?: string | null
+        }
+        Update: {
+          about_me?: string | null
+          allow_contact?: never
+          avatar_url?: string | null
+          college_id?: string | null
+          full_name?: string | null
+          graduation_year?: number | null
+          headline?: string | null
+          id?: string | null
+          major_id?: string | null
+          portfolio_url?: never
+          show_graduate_badge?: boolean | null
+          student_status?: string | null
+          target_program_types?: string[] | null
+          target_regions?: string[] | null
+          target_sectors?: string[] | null
+          university_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_major_id_fkey"
+            columns: ["major_id"]
+            isOneToOne: false
+            referencedRelation: "majors_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profiles_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      individual_profile_public_skills: {
+        Row: {
+          name: string | null
+          name_ar: string | null
+          profile_id: string | null
+          skill_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profile_skills_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_skills_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "profile_skills_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      mentor_public_projection: {
+        Row: {
+          active_workshop: Json | null
+          avatar_url: string | null
+          bio_long: string | null
+          bio_short: string | null
+          career_history: Json | null
+          expertise_areas: string[] | null
+          expertise_sectors: string[] | null
+          full_name: string | null
+          headline: string | null
+          is_accepting_requests: boolean | null
+          is_mentor_of_month: boolean | null
+          languages: string[] | null
+          nationality: string | null
+          preferred_mediums: string[] | null
+          rating_avg: number | null
+          sessions_count: number | null
+          slug: string | null
+          specializations: string[] | null
+          user_id: string | null
+          years_experience: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mentor_profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mentor_profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mentor_profiles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      mentor_review_public_projection: {
+        Row: {
+          created_at: string | null
+          id: string | null
+          mentor_id: string | null
+          rating: number | null
+          review_text: string | null
+          reviewer_name: string | null
+          visibility:
+            | Database["public"]["Enums"]["review_visibility_enum"]
+            | null
+        }
+        Relationships: []
+      }
       mv_sys_dashboard_metrics: {
         Row: {
           active_sessions_now: number | null
@@ -6560,6 +7947,13 @@ export type Database = {
             foreignKeyName: "applications_applicant_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_applicant_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
@@ -6582,6 +7976,13 @@ export type Database = {
             columns: ["job_id"]
             isOneToOne: false
             referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "applications_status_changed_by_fkey"
+            columns: ["status_changed_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
@@ -6633,7 +8034,15 @@ export type Database = {
           total_students: number | null
           university_id: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       university_dashboard_view: {
         Row: {
@@ -6647,7 +8056,15 @@ export type Database = {
           total_students: number | null
           university_id: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       university_dashboard_view_admin: {
         Row: {
@@ -6661,7 +8078,15 @@ export type Database = {
           total_students: number | null
           university_id: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_university_id_fkey"
+            columns: ["university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       v_staff_personal_metrics: {
         Row: {
@@ -6699,6 +8124,19 @@ export type Database = {
           p_source_id: string
           p_source_record_key: string
           p_worker_identity: string
+        }
+        Returns: Json
+      }
+      _founder_ingest_wrapper: {
+        Args: {
+          p_candidate: Json
+          p_checksum_sha256: string
+          p_evidence_metadata: Json
+          p_facts: Json
+          p_idempotency_key: string
+          p_run_id: string
+          p_source_key: string
+          p_source_record_key: string
         }
         Returns: Json
       }
@@ -6765,6 +8203,10 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      advance_career_evidence_disclosure_policy: {
+        Args: { p_evidence_id: string }
+        Returns: string
+      }
       approve_correction_suggestion: {
         Args: { p_review_notes: string; p_suggestion_id: string }
         Returns: undefined
@@ -6817,6 +8259,18 @@ export type Database = {
         Returns: Json
       }
       assign_claim_to_self: { Args: { p_claim_id: string }; Returns: undefined }
+      attach_career_evidence_artifact: {
+        Args: {
+          p_byte_size: number
+          p_media_type: string
+          p_object_path: string
+          p_retention_policy_ref: Json
+          p_revision_id: string
+          p_set_primary?: boolean
+          p_sha256: string
+        }
+        Returns: string
+      }
       award_entity_badge: {
         Args: {
           p_entity_id: string
@@ -6866,6 +8320,10 @@ export type Database = {
         }
         Returns: Json
       }
+      catalog_claim_review_item: {
+        Args: { p_review_queue_id: string }
+        Returns: Json
+      }
       catalog_finish_gleif_run: {
         Args: {
           p_checkpoint?: Json
@@ -6878,6 +8336,10 @@ export type Database = {
           p_skipped_count: number
           p_status: string
         }
+        Returns: Json
+      }
+      catalog_review_pending_domain: {
+        Args: { p_notes: string; p_review_queue_id: string }
         Returns: Json
       }
       check_email_otp_rate_limit: {
@@ -7041,11 +8503,32 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      create_application_cv_snapshot: {
+        Args: {
+          p_application_id: string
+          p_authorization_id: string
+          p_cv_id: string
+          p_expires_at?: string
+          p_retention_policy_ref: Json
+        }
+        Returns: string
+      }
       create_business_profile: {
         Args: {
           p_display_name_ar: string
           p_display_name_en?: string
           p_verification_id: string
+        }
+        Returns: string
+      }
+      create_career_evidence: {
+        Args: {
+          p_category: Database["public"]["Enums"]["career_evidence_category_enum"]
+          p_effective_from?: string
+          p_effective_to?: string
+          p_fact_payload: Json
+          p_observed_at?: string
+          p_source_ref?: Json
         }
         Returns: string
       }
@@ -7055,6 +8538,21 @@ export type Database = {
           p_kind: Database["public"]["Enums"]["comm_kind_enum"]
           p_recipient_ids: string[]
           p_template_snapshot?: Json
+        }
+        Returns: string
+      }
+      create_cv_projection_snapshot: {
+        Args: {
+          p_application_id?: string
+          p_authorization_id?: string
+          p_cv_id: string
+          p_expires_at?: string
+          p_locale: string
+          p_manifest: Json
+          p_purpose: Database["public"]["Enums"]["cv_snapshot_purpose_enum"]
+          p_retention_policy_ref: Json
+          p_snapshot_payload: Json
+          p_template_key: string
         }
         Returns: string
       }
@@ -7294,6 +8792,15 @@ export type Database = {
         }
         Returns: Json
       }
+      lammah_begin_source_run: {
+        Args: {
+          p_external_run_id: string
+          p_mode?: string
+          p_source_key: string
+          p_worker_identity?: string
+        }
+        Returns: Json
+      }
       lammah_candidate_gate_checklist: {
         Args: { p_candidate_id: string }
         Returns: Json
@@ -7332,6 +8839,12 @@ export type Database = {
           p_lammah_url: string
         }
         Returns: boolean
+      }
+      lammah_resolved_source_hosts: {
+        Args: {
+          p_source: Database["public"]["Tables"]["lammah_sources"]["Row"]
+        }
+        Returns: string[]
       }
       lammah_staff_actor: { Args: never; Returns: string }
       lammah_try_auto_publish: {
@@ -7484,6 +8997,10 @@ export type Database = {
         Args: { p_opportunity_id: string; p_reason: string }
         Returns: Json
       }
+      resolve_authorized_career_evidence_disclosure: {
+        Args: { p_authorization_id: string; p_evidence_id: string }
+        Returns: Json
+      }
       review_claim: {
         Args: {
           p_claim_id: string
@@ -7533,11 +9050,34 @@ export type Database = {
         }
         Returns: Json
       }
+      revise_career_evidence: {
+        Args: {
+          p_effective_from?: string
+          p_effective_to?: string
+          p_evidence_id: string
+          p_expected_revision_no: number
+          p_fact_payload: Json
+          p_observed_at?: string
+        }
+        Returns: string
+      }
       revoke_active_session: {
         Args: { p_session_id: string }
         Returns: undefined
       }
       run_lammah_retention_now: { Args: { p_reason: string }; Returns: Json }
+      set_career_evidence_lifecycle: {
+        Args: { p_action: string; p_evidence_id: string; p_reason_ref?: Json }
+        Returns: undefined
+      }
+      set_cv_projection_items: {
+        Args: {
+          p_cv_id: string
+          p_ordered_evidence_ids: string[]
+          p_section_key: string
+        }
+        Returns: undefined
+      }
       set_lammah_evidence_legal_hold: {
         Args: { p_enabled: boolean; p_evidence_id: string; p_reason: string }
         Returns: Json
@@ -7551,6 +9091,39 @@ export type Database = {
       }
       show_limit: { Args: never; Returns: number }
       show_trgm: { Args: { "": string }; Returns: string[] }
+      staff_claim_lammah_candidate: {
+        Args: { p_candidate_id: string }
+        Returns: Json
+      }
+      staff_publish_directory_candidate: {
+        Args: { p_review_queue_id: string }
+        Returns: Json
+      }
+      staff_publish_lammah_candidate: {
+        Args: { p_candidate_id: string; p_notes: string }
+        Returns: Json
+      }
+      staff_review_directory_candidate: {
+        Args: {
+          p_action: string
+          p_domain?: string
+          p_evidence_url?: string
+          p_name_ar?: string
+          p_notes: string
+          p_review_queue_id: string
+        }
+        Returns: Json
+      }
+      staff_review_lammah_candidate: {
+        Args: {
+          p_action: string
+          p_candidate_id: string
+          p_corrected_type?: Database["public"]["Enums"]["lammah_opportunity_type_enum"]
+          p_notes: string
+          p_resolved_company_id?: string
+        }
+        Returns: Json
+      }
       staff_suspend_user: {
         Args: { p_reason: string; p_user_id: string }
         Returns: undefined
@@ -7690,8 +9263,54 @@ export type Database = {
         | "expired"
         | "saved"
         | "pending"
+      authorization_basis_type_enum:
+        | "CONSENT"
+        | "CONTRACT"
+        | "LEGAL_OBLIGATION"
+        | "LEGITIMATE_AUTHORITY"
+        | "PUBLIC_TASK"
+        | "OTHER_REVIEWED"
       badge_category_enum: "individual" | "company" | "mentor" | "university"
       billing_cycle_enum: "monthly" | "yearly"
+      career_evidence_category_enum:
+        | "EDUCATION"
+        | "EXPERIENCE"
+        | "SKILL"
+        | "PROJECT"
+        | "CREDENTIAL"
+        | "AWARD"
+        | "LANGUAGE"
+        | "VOLUNTEERING"
+        | "PUBLICATION"
+        | "OTHER"
+      career_evidence_lifecycle_enum:
+        | "ACTIVE"
+        | "DISPUTED"
+        | "REVOKED"
+        | "EXPIRED"
+      career_evidence_source_class_enum:
+        | "SELF_DECLARED"
+        | "ISSUER_VERIFIED"
+        | "ORGANIZATION_CONFIRMED"
+        | "SYSTEM_OBSERVED"
+        | "THIRD_PARTY_SOURCED"
+        | "DERIVED_EXPLAINABLE"
+      career_evidence_state_enum:
+        | "DECLARED"
+        | "VERIFIED"
+        | "CONFIRMED"
+        | "SOURCED"
+        | "DERIVED"
+        | "DISPUTED"
+        | "CORRECTED"
+        | "REVOKED"
+        | "EXPIRED"
+      career_reconciliation_state_enum:
+        | "LINKED"
+        | "DEDUPLICATED"
+        | "CONFLICT_NEEDS_REVIEW"
+        | "INVALID_PRESERVED"
+        | "DEFERRED"
       claim_status_enum:
         | "pending"
         | "submitted"
@@ -7725,7 +9344,26 @@ export type Database = {
         | "announcement"
         | "message"
       cv_generation_status_enum: "pending" | "completed" | "failed"
+      cv_snapshot_purpose_enum:
+        | "EXPORT"
+        | "APPLICATION"
+        | "PUBLIC_SHARE"
+        | "PROFILE_PREVIEW"
+        | "RECIPIENT_DISCLOSURE"
       cv_status_enum: "draft" | "published" | "archived"
+      disclosure_authorization_state_enum:
+        | "ACTIVE"
+        | "REVOKED"
+        | "EXPIRED"
+        | "SUPERSEDED"
+      disclosure_recipient_type_enum:
+        | "PUBLIC"
+        | "BUSINESS"
+        | "UNIVERSITY"
+        | "MENTOR"
+        | "VENDOR"
+        | "SYSTEM"
+        | "OTHER_APPROVED"
       email_send_status_enum:
         | "queued"
         | "sent"
@@ -7998,8 +9636,60 @@ export const Constants = {
         "saved",
         "pending",
       ],
+      authorization_basis_type_enum: [
+        "CONSENT",
+        "CONTRACT",
+        "LEGAL_OBLIGATION",
+        "LEGITIMATE_AUTHORITY",
+        "PUBLIC_TASK",
+        "OTHER_REVIEWED",
+      ],
       badge_category_enum: ["individual", "company", "mentor", "university"],
       billing_cycle_enum: ["monthly", "yearly"],
+      career_evidence_category_enum: [
+        "EDUCATION",
+        "EXPERIENCE",
+        "SKILL",
+        "PROJECT",
+        "CREDENTIAL",
+        "AWARD",
+        "LANGUAGE",
+        "VOLUNTEERING",
+        "PUBLICATION",
+        "OTHER",
+      ],
+      career_evidence_lifecycle_enum: [
+        "ACTIVE",
+        "DISPUTED",
+        "REVOKED",
+        "EXPIRED",
+      ],
+      career_evidence_source_class_enum: [
+        "SELF_DECLARED",
+        "ISSUER_VERIFIED",
+        "ORGANIZATION_CONFIRMED",
+        "SYSTEM_OBSERVED",
+        "THIRD_PARTY_SOURCED",
+        "DERIVED_EXPLAINABLE",
+      ],
+      career_evidence_state_enum: [
+        "DECLARED",
+        "VERIFIED",
+        "CONFIRMED",
+        "SOURCED",
+        "DERIVED",
+        "DISPUTED",
+        "CORRECTED",
+        "REVOKED",
+        "EXPIRED",
+      ],
+      career_reconciliation_state_enum: [
+        "LINKED",
+        "DEDUPLICATED",
+        "CONFLICT_NEEDS_REVIEW",
+        "INVALID_PRESERVED",
+        "DEFERRED",
+      ],
       claim_status_enum: [
         "pending",
         "submitted",
@@ -8037,7 +9727,29 @@ export const Constants = {
         "message",
       ],
       cv_generation_status_enum: ["pending", "completed", "failed"],
+      cv_snapshot_purpose_enum: [
+        "EXPORT",
+        "APPLICATION",
+        "PUBLIC_SHARE",
+        "PROFILE_PREVIEW",
+        "RECIPIENT_DISCLOSURE",
+      ],
       cv_status_enum: ["draft", "published", "archived"],
+      disclosure_authorization_state_enum: [
+        "ACTIVE",
+        "REVOKED",
+        "EXPIRED",
+        "SUPERSEDED",
+      ],
+      disclosure_recipient_type_enum: [
+        "PUBLIC",
+        "BUSINESS",
+        "UNIVERSITY",
+        "MENTOR",
+        "VENDOR",
+        "SYSTEM",
+        "OTHER_APPROVED",
+      ],
       email_send_status_enum: [
         "queued",
         "sent",

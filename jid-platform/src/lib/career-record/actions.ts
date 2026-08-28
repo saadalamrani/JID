@@ -53,7 +53,9 @@ async function loadPortProjection(cvId?: string): Promise<CvProjection> {
   })
 }
 
-export async function listCareerEvidenceAction(): ReturnType<CareerRecordPort['listCareerEvidence']> {
+export async function listCareerEvidenceAction(): Promise<
+  Awaited<ReturnType<CareerRecordPort['listCareerEvidence']>>
+> {
   try {
     const rows = await careerRecord.listCareerEvidence()
     const data = rows
@@ -67,7 +69,7 @@ export async function listCareerEvidenceAction(): ReturnType<CareerRecordPort['l
 
 export async function getCareerEvidenceAction(
   evidenceId: string,
-): ReturnType<CareerRecordPort['getCareerEvidence']> {
+): Promise<Awaited<ReturnType<CareerRecordPort['getCareerEvidence']>>> {
   try {
     const history = await careerRecord.getCareerEvidence(evidenceId)
     const mapped = toContractHistory(history)
@@ -80,7 +82,7 @@ export async function getCareerEvidenceAction(
 
 export async function createDeclaredCareerEvidenceAction(
   input: CreateDeclaredCareerEvidenceInput,
-): ReturnType<CareerRecordPort['createDeclaredCareerEvidence']> {
+): Promise<Awaited<ReturnType<CareerRecordPort['createDeclaredCareerEvidence']>>> {
   try {
     const id = await careerRecord.createDeclaredCareerEvidence(input)
     const created = await careerRecord.getCareerEvidence(id)
@@ -94,7 +96,7 @@ export async function createDeclaredCareerEvidenceAction(
 
 export async function getCareerEvidenceDisclosurePolicyAction(
   evidenceId: string,
-): ReturnType<CareerRecordPort['getCareerEvidenceDisclosurePolicy']> {
+): Promise<Awaited<ReturnType<CareerRecordPort['getCareerEvidenceDisclosurePolicy']>>> {
   try {
     const policy = await careerRecord.getCareerEvidenceDisclosurePolicy(evidenceId)
     return okResult({
@@ -108,7 +110,7 @@ export async function getCareerEvidenceDisclosurePolicyAction(
 
 export async function updateCareerEvidenceDisclosurePolicyAction(
   input: UpdateCareerEvidenceDisclosurePolicyInput,
-): ReturnType<CareerRecordPort['updateCareerEvidenceDisclosurePolicy']> {
+): Promise<Awaited<ReturnType<CareerRecordPort['updateCareerEvidenceDisclosurePolicy']>>> {
   try {
     const policy = await careerRecord.updateCareerEvidenceDisclosurePolicy(input.evidence_id)
     return okResult({
@@ -122,7 +124,7 @@ export async function updateCareerEvidenceDisclosurePolicyAction(
 
 export async function reviseCareerEvidenceAction(
   input: ReviseCareerEvidenceInput,
-): ReturnType<CareerRecordPort['reviseCareerEvidence']> {
+): Promise<Awaited<ReturnType<CareerRecordPort['reviseCareerEvidence']>>> {
   try {
     await careerRecord.reviseCareerEvidence(input.evidence_id, input.expected_revision_no, {
       fact_payload: { ...input.fact_payload },
@@ -140,13 +142,9 @@ export async function reviseCareerEvidenceAction(
 
 export async function setCareerEvidenceLifecycleAction(
   input: SetCareerEvidenceLifecycleInput,
-): ReturnType<CareerRecordPort['setCareerEvidenceLifecycle']> {
+): Promise<Awaited<ReturnType<CareerRecordPort['setCareerEvidenceLifecycle']>>> {
   try {
-    await careerRecord.setCareerEvidenceLifecycle(
-      input.evidence_id,
-      input.action,
-      input.reason_ref,
-    )
+    await careerRecord.setCareerEvidenceLifecycle(input.evidence_id, input.action, input.reason_ref)
     const updated = await careerRecord.getCareerEvidence(input.evidence_id)
     const mapped = toContractEvidence(updated)
     if (!mapped) return { status: 'error', message: 'تعذر قراءة الدليل بعد تغيير الحالة' }
@@ -158,7 +156,7 @@ export async function setCareerEvidenceLifecycleAction(
 
 export async function authorizeCareerEvidenceDisclosureAction(
   input: AuthorizeCareerEvidenceDisclosureInput,
-): ReturnType<CareerRecordPort['authorizeCareerEvidenceDisclosure']> {
+): Promise<Awaited<ReturnType<CareerRecordPort['authorizeCareerEvidenceDisclosure']>>> {
   try {
     if (!input.recipient.recipient_type) {
       return { status: 'error', message: 'المستلم غير محدد' }
@@ -174,7 +172,7 @@ export async function authorizeCareerEvidenceDisclosureAction(
 
 export async function resolveAuthorizedCareerEvidenceDisclosureAction(
   input: ResolveAuthorizedCareerEvidenceDisclosureInput,
-): ReturnType<CareerRecordPort['resolveAuthorizedCareerEvidenceDisclosure']> {
+): Promise<Awaited<ReturnType<CareerRecordPort['resolveAuthorizedCareerEvidenceDisclosure']>>> {
   try {
     const history = await careerRecord.getCareerEvidence(input.evidence_id)
     const evidence = toContractEvidence(history)
@@ -191,7 +189,7 @@ export async function resolveAuthorizedCareerEvidenceDisclosureAction(
 
 export async function getCvProjectionAction(
   cvId?: string,
-): ReturnType<CvProjectionPort['getCvProjection']> {
+): Promise<Awaited<ReturnType<CvProjectionPort['getCvProjection']>>> {
   try {
     return okResult(await loadPortProjection(cvId))
   } catch (error) {
@@ -202,7 +200,7 @@ export async function getCvProjectionAction(
 export async function updateCvPresentationAction(
   cvId: string,
   patch: CvPresentationPatch,
-): ReturnType<CvProjectionPort['updateCvPresentation']> {
+): Promise<Awaited<ReturnType<CvProjectionPort['updateCvPresentation']>>> {
   try {
     await careerRecord.updateCvPresentation(cvId, {
       title: patch.title ?? undefined,
@@ -233,13 +231,11 @@ export async function updateCvPresentationAction(
 
 export async function setCvEvidenceSelectionAction(
   input: SetCvEvidenceSelectionInput,
-): ReturnType<CvProjectionPort['setCvEvidenceSelection']> {
+): Promise<Awaited<ReturnType<CvProjectionPort['setCvEvidenceSelection']>>> {
   try {
-    await careerRecord.setCvEvidenceSelection(
-      input.cv_id,
-      input.section_key,
-      [...input.ordered_evidence_ids],
-    )
+    await careerRecord.setCvEvidenceSelection(input.cv_id, input.section_key, [
+      ...input.ordered_evidence_ids,
+    ])
     return okResult(await loadPortProjection(input.cv_id))
   } catch (error) {
     return coreResultFromError(error)
@@ -248,13 +244,13 @@ export async function setCvEvidenceSelectionAction(
 
 export async function previewCvProjectionAction(
   cvId: string,
-): ReturnType<CvProjectionPort['previewCvProjection']> {
+): Promise<Awaited<ReturnType<CvProjectionPort['previewCvProjection']>>> {
   return getCvProjectionAction(cvId)
 }
 
 export async function createCvSnapshotAction(
   input: CreateCvSnapshotInput,
-): ReturnType<CvProjectionPort['createCvSnapshot']> {
+): Promise<Awaited<ReturnType<CvProjectionPort['createCvSnapshot']>>> {
   try {
     if (input.purpose === 'APPLICATION') {
       return { status: 'error', message: 'استخدم العملية الذرية للقطة التقديم' }

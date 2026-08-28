@@ -18,7 +18,9 @@ import 'server-only'
  * Generated `src/lib/supabase/types.ts` is reconciled after the Wave 2 final
  * closure migration is applied to non-production.
  */
+import type { CareerEvidenceCategory } from '@/types/contracts'
 import { createClient } from '@/lib/supabase/server'
+import type { Json } from '@/lib/supabase/types'
 import type {
   AuthorizeCareerEvidenceDisclosureInput,
   CareerEvidenceDisclosurePolicy,
@@ -40,21 +42,13 @@ import { CareerRecordError, mapRpcError } from './errors'
 
 export { CareerRecordError } from './errors'
 
-/** Narrow structural view of the supabase client for the not-yet-generated schema. */
-type LooseClient = {
-  auth: { getUser: () => Promise<{ data: { user: { id: string } | null } }> }
-  from: (table: string) => any
-  rpc: (
-    fn: string,
-    args: Record<string, unknown>,
-  ) => Promise<{ data: unknown; error: { message: string; code?: string } | null }>
+type CareerRecordClient = Awaited<ReturnType<typeof createClient>>
+
+async function client(): Promise<CareerRecordClient> {
+  return createClient()
 }
 
-async function client(): Promise<LooseClient> {
-  return (await createClient()) as unknown as LooseClient
-}
-
-async function requireUserId(c: LooseClient): Promise<string> {
+async function requireUserId(c: CareerRecordClient): Promise<string> {
   const {
     data: { user },
   } = await c.auth.getUser()
@@ -73,7 +67,7 @@ function rpcData<T>(res: { data: unknown; error: { message: string; code?: strin
 
 /** Owner-scoped current facts plus explicit lifecycle/provenance. */
 export async function listCareerEvidence(options?: {
-  category?: string
+  category?: CareerEvidenceCategory
   includeArchived?: boolean
 }): Promise<CareerEvidenceView[]> {
   const c = await client()
@@ -135,8 +129,7 @@ export async function getCareerEvidence(evidenceId: string): Promise<CareerEvide
 
   return {
     ...typedRoot,
-    current_revision:
-      revisions.find((r) => r.id === typedRoot.current_revision_id) ?? null,
+    current_revision: revisions.find((r) => r.id === typedRoot.current_revision_id) ?? null,
     revisions,
   }
 }
@@ -150,11 +143,10 @@ export async function createDeclaredCareerEvidence(
   return rpcData<string>(
     await c.rpc('create_career_evidence', {
       p_category: input.category,
-      p_fact_payload: input.fact_payload,
-      p_effective_from: input.effective_from ?? null,
-      p_effective_to: input.effective_to ?? null,
-      p_observed_at: input.observed_at ?? null,
-      p_source_ref: null,
+      p_fact_payload: input.fact_payload as Json,
+      p_effective_from: input.effective_from,
+      p_effective_to: input.effective_to,
+      p_observed_at: input.observed_at,
     }),
   )
 }
@@ -171,10 +163,10 @@ export async function reviseCareerEvidence(
     await c.rpc('revise_career_evidence', {
       p_evidence_id: evidenceId,
       p_expected_revision_no: expectedRevisionNo,
-      p_fact_payload: input.fact_payload,
-      p_effective_from: input.effective_from ?? null,
-      p_effective_to: input.effective_to ?? null,
-      p_observed_at: input.observed_at ?? null,
+      p_fact_payload: input.fact_payload as Json,
+      p_effective_from: input.effective_from,
+      p_effective_to: input.effective_to,
+      p_observed_at: input.observed_at,
     }),
   )
 }
@@ -191,7 +183,7 @@ export async function setCareerEvidenceLifecycle(
     await c.rpc('set_career_evidence_lifecycle', {
       p_evidence_id: evidenceId,
       p_action: action,
-      p_reason_ref: reasonRef ?? null,
+      p_reason_ref: reasonRef,
     }),
   )
 }
@@ -404,12 +396,14 @@ export async function createCvSnapshot(input: CreateCvSnapshotInput): Promise<st
       p_purpose: input.purpose,
       p_locale: input.locale ?? projection.locale,
       p_template_key: input.template_key ?? projection.template_key,
-      p_snapshot_payload: snapshotPayload,
-      p_manifest: manifest,
-      p_retention_policy_ref: input.retention_policy_ref ?? { id: 'cv-snapshot-owner', version: '1.0' },
-      p_application_id: null,
-      p_authorization_id: input.authorization_ref?.id ?? null,
-      p_expires_at: input.expires_at ?? null,
+      p_snapshot_payload: snapshotPayload as Json,
+      p_manifest: manifest as Json,
+      p_retention_policy_ref: (input.retention_policy_ref ?? {
+        id: 'cv-snapshot-owner',
+        version: '1.0',
+      }) as Json,
+      p_authorization_id: input.authorization_ref?.id,
+      p_expires_at: input.expires_at,
     }),
   )
 }
@@ -425,11 +419,11 @@ export async function createApplicationCvSnapshot(
       p_application_id: input.application_id,
       p_cv_id: input.cv_id,
       p_authorization_id: input.authorization_id,
-      p_retention_policy_ref: input.retention_policy_ref ?? {
+      p_retention_policy_ref: (input.retention_policy_ref ?? {
         id: 'cv-snapshot-application',
         version: '1.0',
-      },
-      p_expires_at: input.expires_at ?? null,
+      }) as Json,
+      p_expires_at: input.expires_at,
     }),
   )
 }
@@ -497,7 +491,9 @@ export async function getCareerEvidenceDisclosurePolicy(
   const typedRoot = root as { disclosure_policy_id: string }
   const { data: policy, error: policyErr } = await c
     .from('career_evidence_disclosure_policies')
-    .select('id, subject_id, contract_version, default_visibility, supersedes_policy_id, created_at')
+    .select(
+      'id, subject_id, contract_version, default_visibility, supersedes_policy_id, created_at',
+    )
     .eq('id', typedRoot.disclosure_policy_id)
     .eq('subject_id', uid)
     .maybeSingle()
@@ -618,21 +614,18 @@ export async function listActiveOwnerAuthorizations(): Promise<
 // ---------------------------------------------------------------------------
 
 async function fetchRevisionsByIds(
-  c: LooseClient,
+  c: CareerRecordClient,
   ids: string[],
 ): Promise<Map<string, CareerEvidenceRevision>> {
   const map = new Map<string, CareerEvidenceRevision>()
   if (ids.length === 0) return map
-  const { data, error } = await c
-    .from('career_evidence_revisions')
-    .select('*')
-    .in('id', ids)
+  const { data, error } = await c.from('career_evidence_revisions').select('*').in('id', ids)
   if (error) throw new CareerRecordError(error.message)
   for (const row of (data ?? []) as CareerEvidenceRevision[]) map.set(row.id, row)
   return map
 }
 
-async function assertCvOwner(c: LooseClient, cvId: string, uid: string): Promise<void> {
+async function assertCvOwner(c: CareerRecordClient, cvId: string, uid: string): Promise<void> {
   const { data, error } = await c
     .from('cvs')
     .select('id')
