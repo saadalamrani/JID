@@ -18,7 +18,7 @@ This is the Wave 2 final closeout. It is not another audit/review packet.
 | `DB_VALIDATION_SHA`       | `fe4feca01840a096c95a8b333ba07785ba704282`     |
 | `EXPERIENCE_SHA`          | `b489e3bbb0d06273691dd03f5a05a3f964df7841`     |
 | `EXPERIENCE_MERGE_SHA`    | `28015bb9c4d3df7f32b729feecab8e693240fdad`     |
-| `FINAL_SHA`               | recorded at the closeout commit on this branch |
+| `FINAL_SHA`               | `509c2bbdb74cea6d16d3d33b6c3508ef2b0ba8b8`     |
 
 Wave 3 canonical starting SHA = `FINAL_SHA` of this branch after the closeout commit.
 
@@ -209,6 +209,6 @@ Production system `znfhladafpajyjwcfzvv` was not contacted, queried, migrated, o
 
 ## Wave 3
 
-Canonical starting SHA = this branch `FINAL_SHA` after the closeout commit (do not start Wave 3 from `main` until this branch is integrated by founder decision).
+Canonical starting SHA = `509c2bbdb74cea6d16d3d33b6c3508ef2b0ba8b8` (do not start Wave 3 from `main` until this branch is integrated by founder decision). The SHA-record commit after this closeout, if present, is documentation-only.
 
 `PRODUCTION_TOUCHED=NO` remains binding for Wave 3 start: production `znfhladafpajyjwcfzvv` was not contacted during Wave 2 closure.
