@@ -36,7 +36,7 @@ describe('normalizeIdentity — pinned deterministic vectors', () => {
 
   it('applies Unicode NFKC normalization (compatibility forms fold)', () => {
     // U+FB01 LATIN SMALL LIGATURE FI -> "fi"
-    expect(normalizeIdentity('oﬁce')).toBe('office')
+    expect(normalizeIdentity('ﬁnance')).toBe('finance')
     // full-width latin -> ascii
     expect(normalizeIdentity('Ｔｓ')).toBe('ts')
   })
@@ -67,6 +67,7 @@ describe('identityKey — composite key', () => {
   })
 
   it('keeps partial keys when at least one part is non-empty', () => {
-    expect(identityKey('React', null, '')).toBe('react|')
+    expect(identityKey('React', null, '')).toBe('react||')
+    expect(identityKey('King Saud University', null)).toBe('king saud university|')
   })
 })

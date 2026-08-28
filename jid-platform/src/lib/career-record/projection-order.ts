@@ -43,7 +43,7 @@ export function deriveDenseProjectionOrder(
     }
   }
 
-  return [...byEvidence.values()]
+  return Array.from(byEvidence.values())
     .sort(compareSources)
     .map((s, index) => ({ evidenceId: s.evidenceId, sortOrder: index }))
 }

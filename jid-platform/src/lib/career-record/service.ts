@@ -226,7 +226,7 @@ export async function getCvProjection(cvId: string): Promise<CvProjection> {
   if (itemErr) throw new CareerRecordError(itemErr.message)
 
   const typedItems = (items ?? []) as CvProjectionItem[]
-  const evidenceIds = [...new Set(typedItems.map((i) => i.evidence_id))]
+  const evidenceIds = Array.from(new Set(typedItems.map((i) => i.evidence_id)))
 
   const { data: roots, error: rootErr } = await c
     .from('career_evidence')

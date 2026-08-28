@@ -75,6 +75,6 @@ describe('deriveDenseProjectionOrder', () => {
       firstSeq: i,
     }))
     const orders = deriveDenseProjectionOrder(sources).map((i) => i.sortOrder)
-    expect(orders).toEqual([...Array(12).keys()])
+    expect(orders).toEqual(Array.from({ length: 12 }, (_, i) => i))
   })
 })
