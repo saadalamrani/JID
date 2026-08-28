@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { FormField } from '@/components/ui/form-field'
@@ -112,6 +112,17 @@ export function CvProjectionView({
   const [wordingTitle, setWordingTitle] = useState('')
   const [wordingSummary, setWordingSummary] = useState('')
   const recordCopy = getCareerRecordCopy(locale)
+
+  useEffect(() => {
+    if (state.status !== 'ready' && state.status !== 'stale') return
+    const next = state.projection
+    setDraftTitle(next.title ?? '')
+    setDraftSummary(next.summary ?? '')
+    setDraftLocale(next.locale)
+    setDraftTemplate(next.template_key)
+    setSections([...next.sections])
+    setItems([...next.items])
+  }, [state])
 
   const evidence = projection ? evidenceFor(projection) : EMPTY_EVIDENCE
   const share: CvSharePresentation = projection?.share ?? { kind: 'private' }

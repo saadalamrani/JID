@@ -7,11 +7,11 @@ import { isValidLocale, localeDirection, type Locale } from '@/lib/i18n/config'
 import { useRouter } from '@/lib/i18n/navigation'
 import { CvProjectionView, type CvProjectionViewState } from './components/cv-projection-view'
 import { getCvProjectionCopy } from './copy'
-import { boundCvProjectionPort } from './port'
+import type { CoreResult } from '@/features/career-record/operations'
+import type { CvProjection, CvProjectionPort } from './operations'
+import { resolveCvProjectionPort } from './port'
 
-function mapProjectionResult(
-  result: Awaited<ReturnType<typeof boundCvProjectionPort.getCvProjection>>,
-): CvProjectionViewState {
+function mapProjectionResult(result: CoreResult<CvProjection>): CvProjectionViewState {
   switch (result.status) {
     case 'unavailable':
       return { status: 'unavailable' }
@@ -26,18 +26,24 @@ function mapProjectionResult(
   }
 }
 
-export function CvProjectionRoute() {
+export type CvProjectionRouteProps = {
+  /** Injected only in tests. Production omits this and uses the bound unavailable port. */
+  port?: CvProjectionPort
+}
+
+export function CvProjectionRoute({ port }: CvProjectionRouteProps) {
   const localeValue = useLocale()
   const locale: Locale = isValidLocale(localeValue) ? localeValue : 'ar'
   const router = useRouter()
   const copy = getCvProjectionCopy(locale)
   const [state, setState] = useState<CvProjectionViewState>({ status: 'loading' })
   const [shareMessage, setShareMessage] = useState<string | null>(null)
+  const activePort = resolveCvProjectionPort(port)
 
   const load = useCallback(async () => {
-    const result = await boundCvProjectionPort.getCvProjection()
+    const result = await activePort.getCvProjection()
     setState(mapProjectionResult(result))
-  }, [])
+  }, [activePort])
 
   useEffect(() => {
     void load()
@@ -58,7 +64,7 @@ export function CvProjectionRoute() {
       }}
       onUpdatePresentation={(patch) => {
         if (!projectionId) return
-        void boundCvProjectionPort.updateCvPresentation(projectionId, patch).then((result) => {
+        void activePort.updateCvPresentation(projectionId, patch).then((result) => {
           if (result.status === 'ok' || result.status === 'stale') {
             setState(mapProjectionResult(result))
             return
@@ -70,7 +76,7 @@ export function CvProjectionRoute() {
       }}
       onSetSelection={(sectionKey, orderedEvidenceIds) => {
         if (!projectionId) return
-        void boundCvProjectionPort
+        void activePort
           .setCvEvidenceSelection({
             cv_id: projectionId,
             section_key: sectionKey,
@@ -90,11 +96,19 @@ export function CvProjectionRoute() {
           setShareMessage(copy.shareUnavailable)
           return
         }
-        void boundCvProjectionPort
+        void activePort
           .createCvSnapshot({ cv_id: projectionId, purpose: 'PUBLIC_SHARE' })
-          .then((result) => {
-            if (result.status === 'ok') {
-              void load()
+          .then(async (result) => {
+            if (result.status !== 'ok') {
+              setShareMessage(copy.shareUnavailable)
+              return
+            }
+            const next = await activePort.getCvProjection(projectionId)
+            setState(mapProjectionResult(next))
+            const share =
+              next.status === 'ok' || next.status === 'stale' ? next.data.share : undefined
+            if (share?.kind === 'authorized') {
+              setShareMessage(null)
               return
             }
             setShareMessage(copy.shareUnavailable)

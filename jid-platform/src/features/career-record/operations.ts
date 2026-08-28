@@ -4,10 +4,12 @@
  */
 
 import type {
+  AuthorizedCareerEvidenceDisclosure,
   CareerEvidence,
   CareerEvidenceCategory,
   ContractId,
   ContractReference,
+  DisclosureRecipient,
   IsoTimestamp,
 } from '@/types/contracts'
 
@@ -75,6 +77,22 @@ export type CareerEvidenceDisclosurePolicyView = {
   default_visibility: 'PRIVATE'
 }
 
+export type UpdateCareerEvidenceDisclosurePolicyInput = {
+  evidence_id: ContractId
+  policy_ref: ContractReference
+}
+
+export type AuthorizeCareerEvidenceDisclosureInput = {
+  evidence_id: ContractId
+  purpose_code: string
+  recipient: DisclosureRecipient
+}
+
+export type ResolveAuthorizedCareerEvidenceDisclosureInput = {
+  evidence_id: ContractId
+  authorization_ref: ContractReference
+}
+
 export type CareerEvidenceLifecycleCapabilities = {
   canArchive: boolean
   canDispute: boolean
@@ -100,10 +118,19 @@ export type CareerRecordPort = {
   getCareerEvidenceDisclosurePolicy(
     evidenceId: ContractId,
   ): Promise<CoreResult<CareerEvidenceDisclosurePolicyView>>
+  updateCareerEvidenceDisclosurePolicy(
+    input: UpdateCareerEvidenceDisclosurePolicyInput,
+  ): Promise<CoreResult<CareerEvidenceDisclosurePolicyView>>
   reviseCareerEvidence(input: ReviseCareerEvidenceInput): Promise<CoreResult<CareerEvidence>>
   setCareerEvidenceLifecycle(
     input: SetCareerEvidenceLifecycleInput,
   ): Promise<CoreResult<CareerEvidence>>
+  authorizeCareerEvidenceDisclosure(
+    input: AuthorizeCareerEvidenceDisclosureInput,
+  ): Promise<CoreResult<AuthorizedCareerEvidenceDisclosure>>
+  resolveAuthorizedCareerEvidenceDisclosure(
+    input: ResolveAuthorizedCareerEvidenceDisclosureInput,
+  ): Promise<CoreResult<AuthorizedCareerEvidenceDisclosure>>
 }
 
 export async function unavailableCoreResult<T>(): Promise<CoreResult<T>> {

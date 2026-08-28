@@ -1,5 +1,9 @@
-export { CAREER_RECORD_CORE_OPERATIONS } from './operations'
-export { boundCareerRecordPort, unavailableCareerRecordPort } from './port'
+export { CAREER_RECORD_CORE_OPERATIONS, type CareerRecordPort } from './operations'
+export {
+  boundCareerRecordPort,
+  resolveCareerRecordPort,
+  unavailableCareerRecordPort,
+} from './port'
 export { getCareerRecordCopy, careerRecordCopy } from './copy'
 export { CareerRecordView } from './components/career-record-view'
 export { CareerRecordRoute } from './career-record-route'

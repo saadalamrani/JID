@@ -14,5 +14,10 @@ export const unavailableCvProjectionPort: CvProjectionPort = {
   createCvSnapshot: () => unavailableCoreResult(),
 }
 
-/** Single swap point for later Core binding. */
+/** Single swap point for later Core binding. Production stays unavailable until Codex binds Core. */
 export const boundCvProjectionPort: CvProjectionPort = unavailableCvProjectionPort
+
+/** Test/runtime injection seam. Production callers omit the override. */
+export function resolveCvProjectionPort(override?: CvProjectionPort): CvProjectionPort {
+  return override ?? boundCvProjectionPort
+}

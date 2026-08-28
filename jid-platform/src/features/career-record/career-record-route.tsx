@@ -6,12 +6,12 @@ import { useLocale } from 'next-intl'
 import { isValidLocale, localeDirection, type Locale } from '@/lib/i18n/config'
 import { CareerRecordView } from './components/career-record-view'
 import { getCareerRecordCopy } from './copy'
-import { boundCareerRecordPort } from './port'
+import type { CareerRecordPort, CoreResult } from './operations'
+import { resolveCareerRecordPort } from './port'
 import type { CareerRecordViewState } from './view-state'
+import type { CareerEvidence } from '@/types/contracts'
 
-function mapListResult(
-  result: Awaited<ReturnType<typeof boundCareerRecordPort.listCareerEvidence>>,
-): CareerRecordViewState {
+function mapListResult(result: CoreResult<readonly CareerEvidence[]>): CareerRecordViewState {
   switch (result.status) {
     case 'unavailable':
       return { status: 'unavailable' }
@@ -30,16 +30,22 @@ function mapListResult(
   }
 }
 
-export function CareerRecordRoute() {
+export type CareerRecordRouteProps = {
+  /** Injected only in tests. Production omits this and uses the bound unavailable port. */
+  port?: CareerRecordPort
+}
+
+export function CareerRecordRoute({ port }: CareerRecordRouteProps) {
   const localeValue = useLocale()
   const locale: Locale = isValidLocale(localeValue) ? localeValue : 'ar'
   const copy = getCareerRecordCopy(locale)
   const [state, setState] = useState<CareerRecordViewState>({ status: 'loading' })
+  const activePort = resolveCareerRecordPort(port)
 
   const load = useCallback(async () => {
-    const result = await boundCareerRecordPort.listCareerEvidence()
+    const result = await activePort.listCareerEvidence()
     setState(mapListResult(result))
-  }, [])
+  }, [activePort])
 
   useEffect(() => {
     void load()
@@ -55,7 +61,7 @@ export function CareerRecordRoute() {
         void load()
       }}
       onCreateDeclared={(payload) => {
-        void boundCareerRecordPort.createDeclaredCareerEvidence(payload).then((result) => {
+        void activePort.createDeclaredCareerEvidence(payload).then((result) => {
           if (result.status === 'ok' || result.status === 'stale') {
             void load()
             return
@@ -64,7 +70,7 @@ export function CareerRecordRoute() {
         })
       }}
       onRevise={(payload) => {
-        void boundCareerRecordPort.reviseCareerEvidence(payload).then((result) => {
+        void activePort.reviseCareerEvidence(payload).then((result) => {
           if (result.status === 'ok' || result.status === 'stale') {
             void load()
             return
@@ -73,7 +79,7 @@ export function CareerRecordRoute() {
         })
       }}
       onLifecycle={(payload) => {
-        void boundCareerRecordPort.setCareerEvidenceLifecycle(payload).then((result) => {
+        void activePort.setCareerEvidenceLifecycle(payload).then((result) => {
           if (result.status === 'ok' || result.status === 'stale') {
             void load()
             return
