@@ -213,8 +213,8 @@ describe('SmartHeader actor boundaries — Individual regression', () => {
       '/radar',
     )
     expect(
-      within(desktopNav).getByRole('link', { name: en.publicShell.nav.mentorship }),
-    ).toHaveAttribute('href', '/mentors')
+      within(desktopNav).getByRole('link', { name: en.publicShell.nav.abhathli }),
+    ).toHaveAttribute('href', '/abhathli')
 
     await user.click(screen.getByRole('button', { name: en.profileDropdown.menuAria }))
     expect(

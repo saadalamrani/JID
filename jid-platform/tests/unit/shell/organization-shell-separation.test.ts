@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   BUSINESS_SHELL_NAV_ITEMS,
+  GUEST_SHELL_NAV_ITEMS,
   getShellAccountActions,
   getSmartHeaderNavItems,
   INDIVIDUAL_SHELL_NAV_ITEMS,
@@ -19,6 +20,7 @@ import ar from '../../../messages/ar.json'
 
 const INDIVIDUAL_LEAK_HREFS = [
   '/radar',
+  '/abhathli',
   '/mentors',
   '/profile/cv',
   '/profile/career-record',
@@ -45,6 +47,7 @@ describe('Organization shell separation — Individual chrome unchanged', () => 
       '/',
       '/opportunities',
       '/radar',
+      '/abhathli',
       '/mentors',
       '/catalog',
     ])
@@ -82,8 +85,9 @@ describe('Organization shell separation — Individual chrome unchanged', () => 
     expect(business).not.toContain('/mentor/dashboard')
   })
 
-  it('preserves guest/public primary nav (same Individual discovery set)', () => {
-    expect(getSmartHeaderNavItems('guest')).toEqual(INDIVIDUAL_SHELL_NAV_ITEMS)
+  it('preserves guest/public primary nav without Abhathli', () => {
+    expect(getSmartHeaderNavItems('guest')).toEqual(GUEST_SHELL_NAV_ITEMS)
+    expect(shellNavHrefs('guest')).not.toContain('/abhathli')
     expect(shellShowsIndividualCommandPalette('guest')).toBe(true)
   })
 })
