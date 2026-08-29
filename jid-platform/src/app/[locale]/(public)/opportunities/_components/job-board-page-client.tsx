@@ -3,6 +3,7 @@
 import { Briefcase } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import type { JobsListResult } from '@/types/job'
 import type { LammahPageState } from '@/types/lammah'
 import { EmptyState } from '@/components/shared/empty-state'
@@ -13,6 +14,7 @@ import { JobBoardHero } from './job-board-hero'
 import { JobCardSkeleton } from './job-card-skeleton'
 import { JobFilterProvider, useJobFilters } from './job-filter-context'
 import { LammahFeed } from './lammah-feed'
+import { OpportunitySourceLegend } from './opportunity-source-legend'
 import { OpportunitiesTabs, type OpportunitiesTab } from './opportunities-tabs'
 import { RegionMultiSelect } from './region-multi-select'
 import { ResultsCountBar } from './results-count-bar'
@@ -104,6 +106,7 @@ function JobBoardContent({
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const t = useTranslations('opportunities')
 
   function selectTab(tab: OpportunitiesTab) {
     setActiveTab(tab)
@@ -125,6 +128,7 @@ function JobBoardContent({
         </div>
       ) : null}
       <JobBoardHero />
+      <OpportunitySourceLegend />
       <OpportunitiesTabs activeTab={activeTab} onTabChange={selectTab} className="mb-4" />
       <StickyFilterBar>
         <ExperienceLevelChips />
@@ -136,7 +140,7 @@ function JobBoardContent({
         {activeTab === 'native' ? <UrgencyFilterChips /> : null}
       </StickyFilterBar>
       <ActiveFiltersBar />
-      <section className="mt-6 space-y-3" aria-label="نتائج الفرص الوظيفية">
+      <section className="mt-6 space-y-3" aria-label={t('resultsAria')}>
         {activeTab === 'native' ? (
           <>
             <ResultsCountBar />

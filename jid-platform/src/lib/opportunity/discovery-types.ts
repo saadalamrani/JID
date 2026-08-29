@@ -70,6 +70,10 @@ export type OpportunityDiscoveryPage = {
   externalEntitled: boolean
   externalAvailable: boolean
   merged: OpportunityDiscoveryItem[]
+  /** Compatibility payload for the existing native filter board (Front B). */
+  nativeJobsResult?: import('@/types/job').JobsListResult
+  /** Compatibility payload for the existing Lammah feed (Front B). */
+  externalLammahState?: import('@/types/lammah').LammahPageState
 }
 
 export function nativeOpportunityId(jobId: string): string {

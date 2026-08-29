@@ -5142,22 +5142,30 @@
   },
   "opportunities": {
     "board": {
-      "title": "Job opportunities",
+      "title": "Opportunities",
       "activeCount": "{count} active opportunities",
       "resultsCount": "{count} results"
     },
     "tabs": {
       "ariaLabel": "Opportunity tabs",
-      "native": "JID jobs",
+      "native": "JID opportunities",
       "lammah": "Lammah ✦"
     },
+    "legend": {
+      "ariaLabel": "How opportunity sources are distinguished",
+      "title": "Opportunity sources on this page",
+      "native": "JID opportunities are posted through an authorized organization workflow on JID.",
+      "external": "Lammah items are externally sourced. JID does not claim the organization posted them here, and does not create an internal application.",
+      "noMatchPercent": "There is no match percentage, recommendation score, or popularity ranking."
+    },
+    "resultsAria": "Opportunity results",
     "lammah": {
       "resultsCount": "{count} external opportunities",
       "loadError": "Could not load Lammah",
       "emptyTitle": "No matching Lammah opportunities",
       "emptyDescription": "Try adjusting the filters or check back after the next verified source refresh.",
       "unavailableTitle": "Lammah is temporarily unavailable",
-      "unavailableDescription": "The verified external-opportunity source is currently disabled. Existing JID jobs are unaffected.",
+      "unavailableDescription": "The verified external-opportunity source is currently disabled. Existing JID opportunities are unaffected.",
       "orderingInfo": "Ordered by source date when available, then first retrieval, evidenced deadline, and ID.",
       "externalOpportunity": "External opportunity",
       "externalApplicationNotice": "Application continues on the official external website. JID does not create or submit an application for you.",
@@ -5197,7 +5205,7 @@
       "clearAll": "Clear all"
     },
     "meta": {
-      "title": "Job opportunities"
+      "title": "Opportunities"
     }
   },
   "monetization": {

@@ -3,6 +3,7 @@ import 'server-only'
 import { fetchJobs } from '@/lib/queries/jobs'
 import { fetchLammahPageState } from '@/lib/lammah/server'
 import { DEFAULT_JOB_FILTERS, type JobFilters } from '@/types/job'
+import type { LammahPageState } from '@/types/lammah'
 import type { OpportunityDiscoveryItem, OpportunityDiscoveryPage } from './discovery-types'
 import { mapLammahCardToDiscoveryItem } from './map-lammah'
 import { mapNativeJobToDiscoveryItem } from './map-native'
@@ -11,6 +12,12 @@ import { sortOpportunityDiscovery } from './sort'
 export type ListOpportunityDiscoveryInput = {
   nativeFilters?: JobFilters
   includeExternal?: boolean
+}
+
+const EMPTY_LAMMAH: LammahPageState = {
+  entitled: false,
+  available: false,
+  data: { items: [], count: 0 },
 }
 
 /**
@@ -34,9 +41,11 @@ export async function listOpportunityDiscovery(
   let external: OpportunityDiscoveryItem[] = []
   let externalEntitled = false
   let externalAvailable = true
+  let externalLammahState: LammahPageState = EMPTY_LAMMAH
 
   if (includeExternal) {
     const lammah = await fetchLammahPageState()
+    externalLammahState = lammah
     externalEntitled = lammah.entitled
     externalAvailable = lammah.available
     if (lammah.entitled) {
@@ -50,6 +59,8 @@ export async function listOpportunityDiscovery(
     externalEntitled,
     externalAvailable,
     merged: sortOpportunityDiscovery([...native, ...external]),
+    nativeJobsResult: nativeResult,
+    externalLammahState,
   }
 }
 
