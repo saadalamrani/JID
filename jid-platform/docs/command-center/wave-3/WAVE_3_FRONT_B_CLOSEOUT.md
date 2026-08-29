@@ -2,7 +2,8 @@
 
 **FRONT:** B — Opportunity Discovery Product Experience  
 **OWNER:** Cursor  
-**BASE_SHA:** `e6edb338` (Front A tip) / lineage `f09ebcb`  
+**BASE_SHA:** `e6edb33d5433b3c61ee64074918854230bc6a344` (Front A tip)  
+**FINAL_SHA:** `08d1ed66efa4158457c8dc5d9668b8db37229a06`  
 **BRANCH:** `agent/cursor-wave3-opportunity-experience`
 
 ## CHANGED_AREAS
@@ -59,4 +60,4 @@ NO
 
 ## COMPLETION_TOKEN
 
-Recorded after commit.
+`WAVE_3_FRONT_B_COMPLETE 08d1ed66efa4158457c8dc5d9668b8db37229a06`
