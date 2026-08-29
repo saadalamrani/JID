@@ -19,6 +19,7 @@ describe('Wave 1 — individual quick actions integrity', () => {
       'catalog',
       'profile',
       'radar',
+      'abhathli',
       'careerRecord',
       'cvProjection',
       'cv',

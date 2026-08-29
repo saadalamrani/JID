@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils'
 import type { LammahOpportunityCard } from '@/types/lammah'
 import { LammahReportButton } from './lammah-report-button'
 import { Pill } from './pill'
+import { TrackOnRadarButton } from '@/components/radar/track-on-radar-button'
+import { externalOpportunityId } from '@/lib/opportunity/discovery-types'
 
 type LammahCardProps = {
   item: LammahOpportunityCard
@@ -103,6 +105,17 @@ export function LammahCard({ item, className }: LammahCardProps) {
             <ExternalLink className="h-3.5 w-3.5" aria-hidden />
             {t('officialApply')}
           </a>
+          <TrackOnRadarButton
+            opportunity={{
+              opportunity_id: externalOpportunityId(item.id),
+              source_class: 'GOVERNED_EXTERNAL',
+              title: { ar: item.titleAr || undefined, en: item.titleEn || undefined },
+              organization_name: item.companyNameRaw,
+              expires_at: item.expiresAt ?? undefined,
+              apply_authority: item.externalUrl ? 'OFFICIAL_EXTERNAL' : 'UNAVAILABLE',
+              apply_url: item.externalUrl || undefined,
+            }}
+          />
           <span className="font-arabic text-xs text-muted-foreground">
             {t('sourceLabel')}: {item.sourceName}
           </span>

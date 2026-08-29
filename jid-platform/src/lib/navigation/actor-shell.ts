@@ -12,6 +12,7 @@ export type ShellNavItem = {
     | 'home'
     | 'exploreOpportunities'
     | 'radar'
+    | 'abhathli'
     | 'mentorship'
     | 'catalog'
     | 'businessDashboard'
@@ -36,6 +37,16 @@ export type ShellAccountAction = {
 
 /** Individual + guest primary nav — unchanged from homepage spec. */
 export const INDIVIDUAL_SHELL_NAV_ITEMS: readonly ShellNavItem[] = [
+  { href: '/', labelKey: 'home' },
+  { href: '/opportunities', labelKey: 'exploreOpportunities' },
+  { href: '/radar', labelKey: 'radar' },
+  { href: '/abhathli', labelKey: 'abhathli' },
+  { href: '/mentors', labelKey: 'mentorship' },
+  { href: '/catalog', labelKey: 'catalog' },
+] as const
+
+/** Guest discovery nav — Abhathli requires an Individual session. */
+export const GUEST_SHELL_NAV_ITEMS: readonly ShellNavItem[] = [
   { href: '/', labelKey: 'home' },
   { href: '/opportunities', labelKey: 'exploreOpportunities' },
   { href: '/radar', labelKey: 'radar' },
@@ -86,10 +97,11 @@ export function getSmartHeaderNavItems(actor: ShellActor): readonly ShellNavItem
       // Staff is internal — never present Individual discovery chrome on public pages.
       return [{ href: '/', labelKey: 'home' }] as const
     case 'individual':
+      return INDIVIDUAL_SHELL_NAV_ITEMS
     case 'guest':
-      return INDIVIDUAL_SHELL_NAV_ITEMS
+      return GUEST_SHELL_NAV_ITEMS
     default:
-      return INDIVIDUAL_SHELL_NAV_ITEMS
+      return GUEST_SHELL_NAV_ITEMS
   }
 }
 
