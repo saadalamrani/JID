@@ -26,10 +26,10 @@ CLI `2.20.12` reported them incorrectly as separate local/remote rows.
 All normal versions through `122` align. The following SQL-bearing remote-only versions were
 recovered exactly using `supabase migration fetch --linked` in a disposable directory:
 
-| Version | Name | Repository SHA-256 |
-| --- | --- | --- |
-| `20260718063438` | `harden_11_risky_tables_rls` | `7FDAE5FBA3C2B274E9659F72E20CC2455AAA6EE5EC0288BDD368462AD1CC4786` |
-| `20260803001636` | `catalog_phase1_foundations` | `270B855CF89D90A3A2BCEB0ABA2CD62156C60A350988ABE1D781850633BB7913` |
+| Version          | Name                          | Repository SHA-256                                                 |
+| ---------------- | ----------------------------- | ------------------------------------------------------------------ |
+| `20260718063438` | `harden_11_risky_tables_rls`  | `7FDAE5FBA3C2B274E9659F72E20CC2455AAA6EE5EC0288BDD368462AD1CC4786` |
+| `20260803001636` | `catalog_phase1_foundations`  | `270B855CF89D90A3A2BCEB0ABA2CD62156C60A350988ABE1D781850633BB7913` |
 | `20260803054613` | `catalog_gleif_review_states` | `8128810DEFE48B672962BCD61D5A4D3788F3D57712DB06BF5A742FEA900A20E8` |
 
 The copied files are byte-identical to the CLI export. Remote history reports respectively
@@ -61,20 +61,20 @@ fails `db push --dry-run` with `LegacyDbPushMissingLocalError` for the same 13 v
 
 Git contains SQL files with matching semantic names, introduced by these commits:
 
-| Local file/version | Creation commit |
-| --- | --- |
-| `123` | `d80556e41476976901618a676881b0283494d85e` |
-| `124` | `8b70b0dd9dbd3b0da8cb4b2ab6516d8998cd2553` |
-| `125` | `7ace81423764dd2752477e07533f75eaace43dfa` |
-| `126` | `6f0ed77225dba07b37abca6a5f580576dda99011` |
-| `127` | `30f809b28cd794569c2208101e11ee2929b7ea59` |
-| `20260719100425` | `a93c06e2c8a31e92e8b27518ee5fc9ead4b2e14a` |
-| `20260720072615` | `3a0ced75aa9e0f470b3d860ece6252313655d64c` |
-| `20260726183230` | `5af8b8aa6786fc45b19e3ea7eba49cdf52c284f1` |
+| Local file/version          | Creation commit                            |
+| --------------------------- | ------------------------------------------ |
+| `123`                       | `d80556e41476976901618a676881b0283494d85e` |
+| `124`                       | `8b70b0dd9dbd3b0da8cb4b2ab6516d8998cd2553` |
+| `125`                       | `7ace81423764dd2752477e07533f75eaace43dfa` |
+| `126`                       | `6f0ed77225dba07b37abca6a5f580576dda99011` |
+| `127`                       | `30f809b28cd794569c2208101e11ee2929b7ea59` |
+| `20260719100425`            | `a93c06e2c8a31e92e8b27518ee5fc9ead4b2e14a` |
+| `20260720072615`            | `3a0ced75aa9e0f470b3d860ece6252313655d64c` |
+| `20260726183230`            | `5af8b8aa6786fc45b19e3ea7eba49cdf52c284f1` |
 | `20260730190000` / `190001` | `45020bb37d652bf0f6362ce5fb95b03515ed75ce` |
-| `20260730190002` | `f6397f27b0fde5717a2df8bf3cae6526c3bdc896` |
-| `20260730190003` | `46244bd43f660f7ac046d23d114d0abb8b65cdcf` |
-| `20260802120000` | `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5` |
+| `20260730190002`            | `f6397f27b0fde5717a2df8bf3cae6526c3bdc896` |
+| `20260730190003`            | `46244bd43f660f7ac046d23d114d0abb8b65cdcf` |
+| `20260802120000`            | `fdaf5d1a1d6325073b890bffdbbfdbf1765893f5` |
 
 Those files are strong semantic candidates, but because the remote rows stored no statements,
 there is no exact evidence that their bytes/statements are what ran. Renaming or duplicating files
