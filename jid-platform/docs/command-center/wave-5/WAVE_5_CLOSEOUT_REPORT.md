@@ -7,17 +7,17 @@
 
 ## Repository outcomes
 
-| Outcome | State | Evidence |
-| --- | --- | --- |
-| EMPLOYER_FOUNDATION | IMPLEMENTED_IN_BRANCH | Hiring team membership and bounded role authority migrations. |
-| HIRING_WORKSPACE | IMPLEMENTED_IN_BRANCH | Role/stage setup, transitions, notes, evidence extension, and API routes. |
-| HIRING_CONTRACT | FROZEN | Contract document and typed interface at checkpoint `70cbc30`. |
-| APPLICATION_MODEL | COHERENT | One native application; immutable Wave 2 CV snapshot preserved; external tracking excluded. |
-| EMPLOYER_PERMISSIONS | STATICALLY_VERIFIED | Profile ownership/team RLS and RPC gates implemented; remote actor matrix blocked. |
-| FIRST_ECONOMIC_LOOP | IMPLEMENTED_IN_BRANCH | Opportunity -> role -> application -> governed workflow -> outcome. |
-| P0 | NONE_FOUND | No production or remote mutation occurred. |
-| P1 | BLOCKED_ON_RUNTIME_PROOF | Shared nonprod migration history is divergent and Docker is unavailable. |
-| PRODUCTION_TOUCHED | NO | No deployment, SQL, or write against production. |
+| Outcome              | State                    | Evidence                                                                                    |
+| -------------------- | ------------------------ | ------------------------------------------------------------------------------------------- |
+| EMPLOYER_FOUNDATION  | IMPLEMENTED_IN_BRANCH    | Hiring team membership and bounded role authority migrations.                               |
+| HIRING_WORKSPACE     | IMPLEMENTED_IN_BRANCH    | Role/stage setup, transitions, notes, evidence extension, and API routes.                   |
+| HIRING_CONTRACT      | FROZEN                   | Contract document and typed interface at checkpoint `70cbc30`.                              |
+| APPLICATION_MODEL    | COHERENT                 | One native application; immutable Wave 2 CV snapshot preserved; external tracking excluded. |
+| EMPLOYER_PERMISSIONS | STATICALLY_VERIFIED      | Profile ownership/team RLS and RPC gates implemented; remote actor matrix blocked.          |
+| FIRST_ECONOMIC_LOOP  | IMPLEMENTED_IN_BRANCH    | Opportunity -> role -> application -> governed workflow -> outcome.                         |
+| P0                   | NONE_FOUND               | No production or remote mutation occurred.                                                  |
+| P1                   | BLOCKED_ON_RUNTIME_PROOF | Shared nonprod migration history is divergent and Docker is unavailable.                    |
+| PRODUCTION_TOUCHED   | NO                       | No deployment, SQL, or write against production.                                            |
 
 ## Changed areas
 
