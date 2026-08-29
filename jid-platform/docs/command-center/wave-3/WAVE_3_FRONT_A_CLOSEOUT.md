@@ -3,6 +3,7 @@
 **FRONT:** A — Opportunity Core / Data / Source Governance  
 **OWNER:** Cursor  
 **BASE_SHA:** `6510fcfadfb59c4bed4c0761501d6332c67655f5`  
+**FINAL_SHA:** `f09ebcb52584da9a4bff07d5ae787d8a004eaa7b`  
 **BRANCH:** `agent/cursor-wave3-opportunity-core-lammah`
 
 ## CHANGED_AREAS
@@ -67,4 +68,4 @@ NO (not yet pushed at closeout write time)
 
 ## COMPLETION_TOKEN
 
-`WAVE_3_FRONT_A_COMPLETE` — record exact SHA after commit.
+`WAVE_3_FRONT_A_COMPLETE f09ebcb52584da9a4bff07d5ae787d8a004eaa7b`
