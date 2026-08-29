@@ -1,6 +1,6 @@
 # Nonprod Migration History Metadata Repair
 
-**Status:** PRE_REPAIR_SNAPSHOT_COMMITTED
+**Status:** BLOCKED_AFTER_AUTHORIZED_REPAIR
 **Authorized project:** `hmjuijmaefajdjrjdsxu` (`jid-nonprod`)
 **Forbidden production project:** `znfhladafpajyjwcfzvv`
 **Base:** `48191a2131a5c11ca3bb93c3128c22f65b6f9e2c`
@@ -44,3 +44,39 @@ collisions, update exactly 13 rows, and roll back on any mismatch.
 Post-repair evidence will append the actual row count, new history hash, unchanged application
 schema fingerprint, CLI migration list/dry-run outcome, data-loss result, and production-touch
 confirmation.
+## POST_REPAIR evidence
+
+- `PROJECT_REF`: `hmjuijmaefajdjrjdsxu` (`jid-nonprod`).
+- `ACTUAL_ROWS_CHANGED`: `13` (transactional `GET DIAGNOSTICS`; the transaction aborted on any
+  count other than 13).
+- `POST_REPAIR_ROWS`: all 13 canonical `version` / `name` pairs exist with `statements IS NULL`.
+- Malformed target rows remaining: `0`.
+- Duplicate migration versions: `0`.
+- Migration-history row count: `147` before and `147` after; non-target row count after: `134`.
+- Post-repair migration-history metadata hash:
+  `3e1cd7fbd7a0aab0d370368a0f463191`.
+- Unrelated-row protection: the exclusive table lock covered the transaction; the single `UPDATE`
+  joined only the exact 13-row mapping, changed only `version` and `name`, and asserted an exact
+  affected-row count of 13 before commit.
+- Application schema: `UNCHANGED_BY_REPAIR`. The committed transaction contained no DDL and no
+  application-schema or application-data statement. The broad post-query catalog fingerprint was
+  `45c4c2b438d1e88ec7b0991da2346b93`, which does not reproduce the pre-query value and is therefore
+  retained as a non-comparable/volatile catalog observation rather than claimed as equality proof.
+- Current Supabase CLI: `2.116.0`.
+- `supabase migration list --linked`: succeeds and lists all 13 repaired versions canonically.
+- `supabase db push --linked --dry-run`: exits `1` with a new
+  `LegacyDbPushMissingRemoteError`. The CLI reports these local files would be inserted before the
+  last remote migration:
+  - `supabase/migrations/20260802205903_catalog_phase1_foundations.sql`
+  - `supabase/migrations/20260803120000_catalog_gleif_review_states.sql`
+- `NEW_BLOCKERS`: the two local-only, out-of-order migrations above. Per founder authority, no
+  `--include-all` run and no expansion of repair scope was attempted.
+- `DATA_LOSS`: `0`.
+- `PRODUCTION_TOUCHED`: `NO` (`znfhladafpajyjwcfzvv` was never queried or mutated).
+- Wave 4 / Wave 5 / Wave 6 feature migrations applied: `NO`.
+
+## Terminal result
+
+`BLOCKED_WITH_EXACT_CAUSE`: the authorized 13-row metadata repair succeeded and removed the former
+malformed-version blocker, but normal dry-run now fails on the distinct local-only, out-of-order
+migrations `20260802205903` and `20260803120000`. This front stopped without applying either file.
