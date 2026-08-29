@@ -1,4 +1,4 @@
-﻿export type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.17"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
@@ -31,6 +31,188 @@ export type Database = {
           company_id?: string
         }
         Relationships: []
+      }
+      abhathli_approvals: {
+        Row: {
+          action: string
+          approved: boolean
+          approved_at: string | null
+          created_at: string
+          id: string
+          opportunity_id: string
+          recommendation_id: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          approved?: boolean
+          approved_at?: string | null
+          created_at?: string
+          id?: string
+          opportunity_id: string
+          recommendation_id: string
+          user_id: string
+        }
+        Update: {
+          action?: string
+          approved?: boolean
+          approved_at?: string | null
+          created_at?: string
+          id?: string
+          opportunity_id?: string
+          recommendation_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "abhathli_approvals_recommendation_id_fkey"
+            columns: ["recommendation_id"]
+            isOneToOne: true
+            referencedRelation: "abhathli_recommendations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      abhathli_drafts: {
+        Row: {
+          created_at: string
+          id: string
+          opportunity_id: string
+          payload: Json
+          recommendation_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          opportunity_id: string
+          payload: Json
+          recommendation_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          opportunity_id?: string
+          payload?: Json
+          recommendation_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "abhathli_drafts_recommendation_id_fkey"
+            columns: ["recommendation_id"]
+            isOneToOne: false
+            referencedRelation: "abhathli_recommendations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      abhathli_mandates: {
+        Row: {
+          cities: string[]
+          created_at: string
+          families: string[]
+          id: string
+          keywords: string[]
+          remote_only: boolean
+          updated_at: string
+          use_career_record: boolean
+          user_id: string
+        }
+        Insert: {
+          cities?: string[]
+          created_at?: string
+          families?: string[]
+          id?: string
+          keywords?: string[]
+          remote_only?: boolean
+          updated_at?: string
+          use_career_record?: boolean
+          user_id: string
+        }
+        Update: {
+          cities?: string[]
+          created_at?: string
+          families?: string[]
+          id?: string
+          keywords?: string[]
+          remote_only?: boolean
+          updated_at?: string
+          use_career_record?: boolean
+          user_id?: string
+        }
+        Relationships: []
+      }
+      abhathli_recommendations: {
+        Row: {
+          created_at: string
+          id: string
+          opportunity_id: string
+          payload: Json
+          run_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          opportunity_id: string
+          payload: Json
+          run_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          opportunity_id?: string
+          payload?: Json
+          run_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "abhathli_recommendations_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "abhathli_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      abhathli_runs: {
+        Row: {
+          created_at: string
+          id: string
+          inventory_size: number
+          mandate_id: string
+          result_count: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          inventory_size?: number
+          mandate_id: string
+          result_count?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          inventory_size?: number
+          mandate_id?: string
+          result_count?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "abhathli_runs_mandate_id_fkey"
+            columns: ["mandate_id"]
+            isOneToOne: false
+            referencedRelation: "abhathli_mandates"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       active_sessions: {
         Row: {
@@ -968,6 +1150,289 @@ export type Database = {
             columns: ["primary_artifact_id"]
             isOneToOne: false
             referencedRelation: "career_evidence_artifacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      career_item_actions: {
+        Row: {
+          career_item_id: string
+          completed_at: string | null
+          created_at: string
+          due_at: string | null
+          id: string
+          is_follow_up: boolean
+          kind: string
+          label: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          career_item_id: string
+          completed_at?: string | null
+          created_at?: string
+          due_at?: string | null
+          id?: string
+          is_follow_up?: boolean
+          kind: string
+          label: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          career_item_id?: string
+          completed_at?: string | null
+          created_at?: string
+          due_at?: string | null
+          id?: string
+          is_follow_up?: boolean
+          kind?: string
+          label?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_item_actions_career_item_id_fkey"
+            columns: ["career_item_id"]
+            isOneToOne: false
+            referencedRelation: "career_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      career_item_contacts: {
+        Row: {
+          career_item_id: string
+          channel: string | null
+          created_at: string
+          id: string
+          name: string
+          role_title: string | null
+          user_id: string
+        }
+        Insert: {
+          career_item_id: string
+          channel?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          role_title?: string | null
+          user_id: string
+        }
+        Update: {
+          career_item_id?: string
+          channel?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          role_title?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_item_contacts_career_item_id_fkey"
+            columns: ["career_item_id"]
+            isOneToOne: false
+            referencedRelation: "career_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      career_item_events: {
+        Row: {
+          actor_kind: string
+          career_item_id: string
+          created_at: string
+          event_type: string
+          id: string
+          occurred_at: string
+          summary: string
+          user_id: string
+        }
+        Insert: {
+          actor_kind: string
+          career_item_id: string
+          created_at?: string
+          event_type: string
+          id?: string
+          occurred_at?: string
+          summary: string
+          user_id: string
+        }
+        Update: {
+          actor_kind?: string
+          career_item_id?: string
+          created_at?: string
+          event_type?: string
+          id?: string
+          occurred_at?: string
+          summary?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_item_events_career_item_id_fkey"
+            columns: ["career_item_id"]
+            isOneToOne: false
+            referencedRelation: "career_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      career_item_interviews: {
+        Row: {
+          career_item_id: string
+          created_at: string
+          id: string
+          location_or_mode: string | null
+          notes: string | null
+          scheduled_at: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          career_item_id: string
+          created_at?: string
+          id?: string
+          location_or_mode?: string | null
+          notes?: string | null
+          scheduled_at: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          career_item_id?: string
+          created_at?: string
+          id?: string
+          location_or_mode?: string | null
+          notes?: string | null
+          scheduled_at?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_item_interviews_career_item_id_fkey"
+            columns: ["career_item_id"]
+            isOneToOne: false
+            referencedRelation: "career_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      career_item_notes: {
+        Row: {
+          body: string
+          career_item_id: string
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          career_item_id: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          career_item_id?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_item_notes_career_item_id_fkey"
+            columns: ["career_item_id"]
+            isOneToOne: false
+            referencedRelation: "career_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      career_items: {
+        Row: {
+          application_id: string | null
+          apply_authority: string | null
+          apply_url: string | null
+          created_at: string
+          deadline_at: string | null
+          id: string
+          last_employer_action_at: string | null
+          last_seen_at: string | null
+          last_system_event_at: string | null
+          last_user_action_at: string | null
+          operational_state: string
+          opportunity_id: string
+          organization_name: string | null
+          outcome_kind: string | null
+          source_class: string
+          title_ar: string | null
+          title_en: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          application_id?: string | null
+          apply_authority?: string | null
+          apply_url?: string | null
+          created_at?: string
+          deadline_at?: string | null
+          id?: string
+          last_employer_action_at?: string | null
+          last_seen_at?: string | null
+          last_system_event_at?: string | null
+          last_user_action_at?: string | null
+          operational_state?: string
+          opportunity_id: string
+          organization_name?: string | null
+          outcome_kind?: string | null
+          source_class: string
+          title_ar?: string | null
+          title_en?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          application_id?: string | null
+          apply_authority?: string | null
+          apply_url?: string | null
+          created_at?: string
+          deadline_at?: string | null
+          id?: string
+          last_employer_action_at?: string | null
+          last_seen_at?: string | null
+          last_system_event_at?: string | null
+          last_user_action_at?: string | null
+          operational_state?: string
+          opportunity_id?: string
+          organization_name?: string | null
+          outcome_kind?: string | null
+          source_class?: string
+          title_ar?: string | null
+          title_en?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "career_items_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "career_items_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "radar_cards"
             referencedColumns: ["id"]
           },
         ]

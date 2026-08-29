@@ -1,8 +1,6 @@
 import 'server-only'
 
-import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
-import type { Database } from '@/lib/supabase/types'
 import { listCareerEvidence } from '@/lib/career-record/service'
 import { listOpportunityDiscovery } from '@/lib/opportunity/discovery'
 import { parseOpportunityId, type OpportunityDiscoveryApplyAuthority } from '@/lib/opportunity/discovery-types'
@@ -17,12 +15,6 @@ import {
   type AbhathliMandateInput,
   type AbhathliRecommendation,
 } from './types'
-
-type UntypedClient = SupabaseClient<Record<string, unknown>>
-
-function asUntyped(client: SupabaseClient<Database>): UntypedClient {
-  return client as unknown as UntypedClient
-}
 
 export class AbhathliServiceError extends Error {
   constructor(
@@ -53,7 +45,7 @@ export async function runAbhathliSearch(input: {
   recommendations: Array<AbhathliRecommendation & { recommendation_id: string }>
 }> {
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const inventory = await listOpportunityDiscovery({ includeExternal: true })
   const evidence = input.mandate.use_career_record
     ? await listCareerEvidence().catch(() => [])
@@ -130,7 +122,7 @@ export async function createAbhathliDraft(input: {
   recommendationId: string
 }): Promise<AbhathliDraft & { draft_id: string }> {
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { data, error } = await client
     .from('abhathli_recommendations')
     .select('id, opportunity_id, payload')
@@ -138,7 +130,7 @@ export async function createAbhathliDraft(input: {
     .eq('user_id', input.userId)
     .maybeSingle()
   if (error || !data) throw new AbhathliServiceError('التوصية غير موجودة', 404)
-  const recommendation = (data as { payload: AbhathliRecommendation }).payload
+  const recommendation = data.payload as unknown as AbhathliRecommendation
   const evidence = await listCareerEvidence().catch(() => [])
   const draft = prepareApplicationDraft({
     recommendation,
@@ -163,7 +155,7 @@ export async function approveAbhathliRecommendation(input: {
   recommendationId: string
 }): Promise<{ approval_id: string }> {
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { data, error } = await client
     .from('abhathli_recommendations')
     .select('id, opportunity_id, payload')
@@ -171,7 +163,7 @@ export async function approveAbhathliRecommendation(input: {
     .eq('user_id', input.userId)
     .maybeSingle()
   if (error || !data) throw new AbhathliServiceError('التوصية غير موجودة', 404)
-  const recommendation = (data as { payload: AbhathliRecommendation }).payload
+  const recommendation = data.payload as unknown as AbhathliRecommendation
   const action =
     recommendation.source_class === 'GOVERNED_EXTERNAL' ? 'redirect_external' : 'apply_native'
   const { data: approval, error: approvalError } = await client
@@ -198,7 +190,7 @@ export async function executeApprovedAbhathliAction(input: {
   recommendationId: string
 }): Promise<{ href: string | null; action: string; career_item_id: string }> {
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { data: rec, error: recError } = await client
     .from('abhathli_recommendations')
     .select('id, opportunity_id, payload')
@@ -206,7 +198,7 @@ export async function executeApprovedAbhathliAction(input: {
     .eq('user_id', input.userId)
     .maybeSingle()
   if (recError || !rec) throw new AbhathliServiceError('التوصية غير موجودة', 404)
-  const recommendation = (rec as { payload: AbhathliRecommendation }).payload
+  const recommendation = rec.payload as unknown as AbhathliRecommendation
 
   const { data: approvalRow } = await client
     .from('abhathli_approvals')
@@ -276,7 +268,7 @@ export async function trackAbhathliRecommendation(input: {
   recommendationId: string
 }): Promise<{ career_item_id: string }> {
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { data, error } = await client
     .from('abhathli_recommendations')
     .select('payload')
@@ -284,7 +276,7 @@ export async function trackAbhathliRecommendation(input: {
     .eq('user_id', input.userId)
     .maybeSingle()
   if (error || !data) throw new AbhathliServiceError('التوصية غير موجودة', 404)
-  const recommendation = (data as { payload: AbhathliRecommendation }).payload
+  const recommendation = data.payload as unknown as AbhathliRecommendation
   const item = await ensureCareerItemFromOpportunity({
     userId: input.userId,
     opportunity: {

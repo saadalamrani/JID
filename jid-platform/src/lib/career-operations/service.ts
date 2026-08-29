@@ -1,8 +1,6 @@
 import 'server-only'
 
-import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
-import type { Database } from '@/lib/supabase/types'
 import { fetchUserApplications } from '@/lib/queries/radar'
 import { listCareerEvidence } from '@/lib/career-record/service'
 import {
@@ -31,11 +29,7 @@ import type {
 } from './types'
 import { isCareerActionKind, isCareerOperationalState, isCareerOutcomeKind } from './types'
 
-type UntypedClient = SupabaseClient<Record<string, unknown>>
-
-function asUntyped(client: SupabaseClient<Database>): UntypedClient {
-  return client as unknown as UntypedClient
-}
+type TypedClient = Awaited<ReturnType<typeof createClient>>
 
 export class CareerOperationsError extends Error {
   constructor(
@@ -194,7 +188,7 @@ function hydrateItems(
   })
 }
 
-async function loadPersistedItems(client: UntypedClient, userId: string): Promise<CareerItem[]> {
+async function loadPersistedItems(client: TypedClient, userId: string): Promise<CareerItem[]> {
   const { data, error } = await client
     .from('career_items')
     .select('*')
@@ -226,7 +220,7 @@ async function loadPersistedItems(client: UntypedClient, userId: string): Promis
 
 export async function loadCareerOperationsBoard(userId: string): Promise<CareerOperationsBoard> {
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const now = new Date()
   const [persisted, applicationsResult, evidence] = await Promise.all([
     loadPersistedItems(client, userId),
@@ -265,7 +259,7 @@ export async function loadCareerOperationsBoard(userId: string): Promise<CareerO
 }
 
 async function insertEvent(
-  client: UntypedClient,
+  client: TypedClient,
   input: {
     career_item_id: string
     user_id: string
@@ -305,7 +299,7 @@ export async function ensureCareerItemFromOpportunity(input: {
   }
 
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { data: existing, error: existingError } = await client
     .from('career_items')
     .select('*')
@@ -365,7 +359,7 @@ export async function ensureCareerItemFromApplication(input: {
   }
 
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const opportunityId = nativeOpportunityId(application.job_id)
   const { data, error } = await client
     .from('career_items')
@@ -420,7 +414,7 @@ export async function addCareerItemNote(input: {
   const body = input.body.trim()
   if (!body) throw new CareerOperationsError('الملاحظة فارغة', 422)
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { error } = await client.from('career_item_notes').insert({
     career_item_id: item.id,
     user_id: input.userId,
@@ -446,7 +440,7 @@ export async function addCareerItemAction(input: {
 }): Promise<void> {
   const item = await resolveCareerItemForUser(input.userId, input.itemId)
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { error } = await client.from('career_item_actions').insert({
     career_item_id: item.id,
     user_id: input.userId,
@@ -478,7 +472,7 @@ export async function completeCareerItemAction(input: {
   actionId: string
 }): Promise<void> {
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { error } = await client
     .from('career_item_actions')
     .update({ completed_at: new Date().toISOString() })
@@ -496,7 +490,7 @@ export async function addCareerInterview(input: {
 }): Promise<void> {
   const item = await resolveCareerItemForUser(input.userId, input.itemId)
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { error } = await client.from('career_item_interviews').insert({
     career_item_id: item.id,
     user_id: input.userId,
@@ -529,7 +523,7 @@ export async function recordCareerOutcome(input: {
 }): Promise<void> {
   const item = await resolveCareerItemForUser(input.userId, input.itemId)
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { error } = await client
     .from('career_items')
     .update({
@@ -562,7 +556,7 @@ export async function markCareerItemApplied(input: {
     throw new CareerOperationsError('لا يمكن ربط فرصة خارجية بطلب داخلي', 409)
   }
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { error } = await client
     .from('career_items')
     .update({
@@ -586,7 +580,7 @@ export async function markCareerItemApplied(input: {
 export async function listCareerItemNotes(userId: string, itemId: string): Promise<{ id: string; body: string; created_at: string }[]> {
   const item = await resolveCareerItemForUser(userId, itemId)
   const supabase = await createClient()
-  const client = asUntyped(supabase)
+  const client = supabase
   const { data, error } = await client
     .from('career_item_notes')
     .select('id, body, created_at')
