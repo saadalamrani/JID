@@ -293,3 +293,61 @@ adverse-impact analytics, any candidate score product.
    `assessment_*` / `scorecard_*`.
 
 Reconciliation output goes into `WAVE_6_EVIDENCE_CONTRACT.md` at closure.
+
+---
+
+## 10. PHASE B RECONCILIATION (2026-08-29)
+
+**Anchor:** `origin/codex/wave5-employer-hiring-workspace@70cbc302a024258789fe5621cc47825b4f58b1b7`
+(user-authorised as the `WAVE_5_HIRING_CONTRACT_FROZEN` checkpoint). Merged into
+`claude/wave6-hiring-evidence` as the contract-freeze commit only — **not** Wave 5's
+in-progress implementation, which carries an unresolved P1 (`jid-nonprod` migration-history
+divergence; Docker unavailable).
+
+### 10.1 Dependency surface — resolved
+
+| Phase-A need | Wave 5 frozen reality | Status |
+| --- | --- | --- |
+| D1 Application | `applications.id` + `applicant_id` + `hiring_role_id` + `current_hiring_stage_id` + `candidate_visible_status` + `outcome` (Wave 5 impl migration) | RESOLVED — Wave 6 FKs `application_id` |
+| D2 Hiring Role | `hiring_roles(id, job_id UNIQUE, business_profile_id, lifecycle_state)` | RESOLVED |
+| D3 Hiring Criteria | `hiring_criteria(id, hiring_role_id, label_ar/en, description_ar/en, evidence_kinds text[], required, sort_order)` | RESOLVED — Wave 6 rubric/observation FK `criterion_id` |
+| D4 Hiring Stage | `hiring_stages(id, hiring_role_id, kind, candidate_visible_status, sort_order, terminal)`; default graph `applied→review→screening→interview→offer→closed` | RESOLVED — Wave 6 attaches `stage_id` nullable |
+| D5 Outcome | `hiring_outcome_enum(hired,not_selected,withdrawn,role_cancelled)` on `applications`, set only via `transition_hiring_application` / `withdraw_hiring_application` | RESOLVED — Wave 6 never writes it; decision-support has no outcome column |
+| D6 Evaluator membership | `hiring_team_memberships(business_profile_id, user_id, role hiring_team_role_enum{owner,hiring_admin,recruiter,interviewer,viewer}, active)` + `can_access_hiring_workspace(bp, write)` + `can_manage_hiring_team(bp)` | RESOLVED — no Wave 6-owned collaborators table needed |
+| D7 Disclosure linkage | Wave 5 contract: employer sees only application-scoped data + immutable authorised CV snapshot; `create_application_cv_snapshot` preserved | RESOLVED for candidate Career Record; Wave 6 owns work-sample submission consent only |
+
+### 10.2 Namespace decision — changed from the draft
+
+Draft proposed `assessment_*` / `scorecard_*`. **Reconciled to the `hiring_*` family**, because
+Wave 5 already ships `hiring_evidence_attachments` as the Wave-6 extension point and the Wave 1
+`src/types/contracts/assessment.ts` already owns `Assessment*` for the Wave 7 provider/instrument
+model. Wave 6 tables: `hiring_rubrics`, `hiring_rubric_versions`, `hiring_rubric_anchors`,
+`hiring_assessment_plans`, `hiring_assessment_plan_items`, `hiring_work_sample_tasks`,
+`hiring_work_sample_submissions`, `hiring_assessment_sessions`, `hiring_observations`,
+`hiring_scorecard_ratings`, `hiring_scorecards`, `hiring_assessment_decision_support`.
+
+### 10.3 Integration with `hiring_evidence_attachments`
+
+`record_hiring_observation` inserts the Wave 6 record **and** an idempotent row in the Wave 5
+`hiring_evidence_attachments` pointer table, mapping `assessment_method_enum → evidence_kind`
+(the Wave 5 CHECK list stays the source of truth). Wave 6 adds no column to the Wave 5 table.
+
+### 10.4 Authority reconciliation
+
+Wave 5 `can_access_hiring_workspace(_, true)` restricts WRITE to owner/hiring_admin/recruiter.
+Wave 6 adds `can_record_hiring_evidence(bp)` = that set **plus `interviewer`**, because
+interviewers must record their own observations/ratings. This is additive; it grants no config
+or team-admin rights. Evaluator independence (`hiring_evidence_peer_visible`) gates peer reads
+until the owning evaluator's scorecard is `submitted`; owner/hiring_admin read anytime.
+
+### 10.5 No genuine conflict with Wave 5
+
+The frozen Wave 5 contract explicitly reserves the Wave 6 evidence extension and forbids the
+same things Wave 6 forbids (no universal score, no culture-fit ranking, no autonomous
+decision, no automatic Career Record mutation). No redefinition, no silent fork.
+
+### 10.6 Deferred to Wave 7 (unchanged)
+
+Recorded-interview capture/playback, transcription, external assessment providers/instruments
+and provider gating (`AssessmentInstrument`/`AssessmentAttempt` in `contracts/assessment.ts`
+stay Wave 7), assessment orchestration automation, adverse-impact analytics (Wave 8).
