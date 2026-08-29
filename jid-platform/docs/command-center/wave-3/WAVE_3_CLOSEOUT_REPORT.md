@@ -71,7 +71,7 @@ Fix in `src/lib/opportunity/discovery-types.ts`:
 
 No ESLint rule disable. Opportunity contract semantics unchanged.
 
-Verification on `7740328`:
+Verification on lint-fix SHA `7740328` (included in FINAL):
 
 ```text
 pnpm lint        → ✔ No ESLint warnings or errors
@@ -115,3 +115,5 @@ pnpm build       → PASS (313 pages)
 ## Terminal token
 
 `WAVE_3_COMPLETE 774032845b19919cf76c2710ca7f667742664937`
+
+Documentation tip after this closeout (if present) is docs-only and does not change product behavior.
