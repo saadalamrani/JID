@@ -157,5 +157,22 @@ Hiring Stage, Outcome. Wave 6 **extends** that model with evidence.
 At Phase-A close, if the checkpoint is absent:
 `STOP IMPLEMENTATION CLEANLY` → emit `WAITING_FOR_WAVE_5_HIRING_CONTRACT`.
 
-Checked at Phase-A completion: **no `wave-5` / hiring-contract branch or checkpoint exists
-on `origin`** (`git ls-remote origin | grep -iE 'wave-?5|hiring'` → empty).
+### Phase-A completion check (2026-08-29)
+
+| Item | Finding |
+| --- | --- |
+| Branch `origin/codex/wave5-employer-hiring-workspace` | **EXISTS** at `70cbc302a024258789fe5621cc47825b4f58b1b7` (single commit `docs(wave5): freeze employer hiring workflow contract`; parent = research base `c51d7d3`) |
+| `jid-platform/docs/command-center/wave-5/WAVE_5_HIRING_CONTRACT.md` | **EXISTS**, titled "Wave 5 — Frozen Employer Hiring Contract", `Status: FROZEN` |
+| `jid-platform/src/types/contracts/hiring.ts` | **EXISTS** — frozen enums (`HIRING_STAGE_KINDS`, `CANDIDATE_VISIBLE_STATUSES`, `HIRING_OUTCOMES`, `HIRING_AUDIT_EVENT_TYPES`, `HIRING_EVIDENCE_KINDS`) + `HiringCriteriaDefinition` / `HiringStageDefinition` / `HiringEvidenceAttachmentRef` + explicit "Wave 6 evidence extension" section |
+| Literal checkpoint token `WAVE_5_HIRING_CONTRACT_FROZEN <SHA>` | **NOT FOUND** on any ref (`git grep`, `git log`, `git ls-remote` → none) |
+| Wave 5 branch merged to an integration branch | **NO** (standalone branch) |
+
+**Disposition:** a frozen Wave 5 contract document and code contract appear to exist, but
+the explicit handoff checkpoint `WAVE_5_HIRING_CONTRACT_FROZEN <SHA>` has not been emitted,
+and Wave 5 is not integrated. Per packet instructions ("Do not invent it"), Phase B is
+**held**. Phase A returns `WAITING_FOR_WAVE_5_HIRING_CONTRACT`, pending an authority
+decision on whether `70cbc30` is the checkpoint. If confirmed, Phase B step 3 reconciles
+this draft against `WAVE_5_HIRING_CONTRACT.md` + `hiring.ts` (already surveyed — the
+`assessment_*` model in the architecture draft maps cleanly onto
+`HiringEvidenceAttachmentRef` / `HIRING_EVIDENCE_KINDS`, and D6 is satisfied by the Wave 5
+team model `OWNER | HIRING_ADMIN | RECRUITER | INTERVIEWER | VIEWER`).
