@@ -15,9 +15,10 @@ Opportunity Graph + Lammah governed source layer — final integration closeout.
 | --- | --- |
 | `BASE_SHA` | `6510fcfadfb59c4bed4c0761501d6332c67655f5` |
 | `WAVE_2_IMPLEMENTATION_SHA` | `509c2bbdb74cea6d16d3d33b6c3508ef2b0ba8b8` |
-| `FRONT_A_SHA` | `f09ebcb52584da9a4bff07d5ae787d8a004eaa7b` (tip docs `e6edb33`) |
-| `FRONT_B_SHA` | `08d1ed66efa4158457c8dc5d9668b8db37229a06` |
-| `FINAL_SHA` | *(set after integration commit)* |
+| `FRONT_A_SHA` | `f09ebcb52584da9a4bff07d5ae787d8a004eaa7b` (docs tip `e6edb33`) |
+| `FRONT_B_SHA` | `08d1ed66efa4158457c8dc5d9668b8db37229a06` (docs tip `307cab3`) |
+| `PREVIEW_LINT_FIX_SHA` | `774032845b19919cf76c2710ca7f667742664937` |
+| `FINAL_SHA` | `774032845b19919cf76c2710ca7f667742664937` |
 
 ---
 
@@ -36,27 +37,51 @@ Opportunity Graph + Lammah governed source layer — final integration closeout.
 | ORGANIZATION_RESOLUTION | VERIFIED | Raw name preserved; optional `company_id`; no Directory/Profile creation in Wave 3 |
 | ENTITLEMENT | VERIFIED | Server-side `lammah_feed` before query; unentitled → empty, no inventory fetch |
 | DISCOVERY_UI | IMPLEMENTED | Page via `listOpportunityDiscovery`; Opportunity-first AR/EN; provenance legend |
-| AR / EN / RTL / LTR | VERIFIED | Copy tests + Wave 2 runtime evidence (Career Record); discovery copy parity |
-| MOBILE | VERIFIED (Wave 2) / PARTIAL (discovery) | Wave 2 375px PASS; discovery board browser smoke not re-run this closeout |
-| ACCESSIBILITY | PARTIAL | Landmarks/legend/tabs; full a11y audit not re-executed |
+| AR | VERIFIED | Opportunity copy + Wave 2 runtime AR evidence |
+| EN | VERIFIED | Opportunity copy + Wave 2 runtime EN evidence |
+| RTL | VERIFIED | Wave 2 runtime `dir=rtl` |
+| LTR | VERIFIED | Wave 2 runtime `dir=ltr` |
+| MOBILE | VERIFIED (Wave 2) / PARTIAL (discovery board) | Wave 2 375px PASS; discovery board browser smoke not re-run on FINAL |
+| ACCESSIBILITY | PARTIAL | Landmarks/legend/tabs; full a11y audit not re-executed on discovery board |
 | TESTS | PASS | Opportunity unit 9 passed; Wave 2 runtime e2e 3 passed; Lammah RLS inherited |
-| TYPECHECK | PASS | `tsc --noEmit` this session |
-| LINT | SEE INTEGRATION LOG | |
-| BUILD | SEE INTEGRATION LOG | |
-| RUNTIME | PASS (Wave 2) / PARTIAL (Wave 3 board) | Authenticated Career Record/CV PASS; discovery board not browser-smoked on FINAL |
+| TYPECHECK | PASS | `pnpm type-check` on `7740328` |
+| LINT | PASS | `pnpm lint` — No ESLint warnings or errors on `7740328` |
+| BUILD | PASS | `pnpm build` — compiled, 313 static pages on `7740328` |
+| RUNTIME | PASS (Wave 2) / PARTIAL (Wave 3 board) | Authenticated Career Record/CV PASS; discovery board browser smoke not re-run on FINAL |
 | RLS | PASS (inherited) | No Wave 3 migration; prior Lammah RLS/ingest denial evidence stands |
 | SECURITY | PASS | Ingest remains non-anon; entitlement fail-closed; production untouched |
 | PRIVACY | PASS | No Career Record sent to external sources; Lammah ≠ applications/comms |
 | DATA_LOSS | 0 | No destructive migration |
 | P0 | NONE | |
 | P1 | NONE | |
-| P2 | See deferred | |
-| P3 | See deferred | |
 | PRODUCTION_TOUCHED | NO | |
 
 ---
 
-## Deferred
+## Preview lint fix (this closeout amendment)
+
+Preview failed on `@typescript-eslint/consistent-type-imports` for inline
+`import('@/types/job').JobsListResult` / `import('@/types/lammah').LammahPageState`.
+
+Fix in `src/lib/opportunity/discovery-types.ts`:
+
+- top-level `import type { JobsListResult } from '@/types/job'`
+- top-level `import type { LammahPageState } from '@/types/lammah'`
+- field types use those imported names
+
+No ESLint rule disable. Opportunity contract semantics unchanged.
+
+Verification on `7740328`:
+
+```text
+pnpm lint        → ✔ No ESLint warnings or errors
+pnpm type-check  → PASS
+pnpm build       → PASS (313 pages)
+```
+
+---
+
+## Deferred (P2/P3)
 
 - Persist distinct `source_url` on published Lammah rows when ≠ apply
 - Native `opportunity_type` column for non-job employer posts
@@ -70,7 +95,7 @@ Opportunity Graph + Lammah governed source layer — final integration closeout.
 
 `PRODUCTION_TOUCHED=NO`  
 `PRODUCTION_DEPLOYMENT=NO`  
-`PREVIEW_DEPLOYMENT_TRIGGERED` — set from git push evidence below.
+`PREVIEW_DEPLOYMENT_TRIGGERED=YES` (git push of agent/experience and integration branches may trigger Vercel preview; not production)
 
 ---
 
@@ -80,6 +105,13 @@ Opportunity Graph + Lammah governed source layer — final integration closeout.
 
 ---
 
+## Front tokens
+
+`WAVE_3_FRONT_A_COMPLETE f09ebcb52584da9a4bff07d5ae787d8a004eaa7b`  
+`WAVE_3_FRONT_B_COMPLETE 08d1ed66efa4158457c8dc5d9668b8db37229a06`
+
+---
+
 ## Terminal token
 
-`WAVE_3_COMPLETE <FINAL_SHA>`
+`WAVE_3_COMPLETE 774032845b19919cf76c2710ca7f667742664937`
