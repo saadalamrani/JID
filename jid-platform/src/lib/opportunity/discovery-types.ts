@@ -3,6 +3,9 @@
  * See docs/command-center/wave-3/WAVE_3_DOMAIN_CONTRACT.md
  */
 
+import type { JobsListResult } from '@/types/job'
+import type { LammahPageState } from '@/types/lammah'
+
 export const OPPORTUNITY_DISCOVERY_FAMILIES = [
   'JOB',
   'INTERNSHIP',
@@ -71,9 +74,9 @@ export type OpportunityDiscoveryPage = {
   externalAvailable: boolean
   merged: OpportunityDiscoveryItem[]
   /** Compatibility payload for the existing native filter board (Front B). */
-  nativeJobsResult?: import('@/types/job').JobsListResult
+  nativeJobsResult?: JobsListResult
   /** Compatibility payload for the existing Lammah feed (Front B). */
-  externalLammahState?: import('@/types/lammah').LammahPageState
+  externalLammahState?: LammahPageState
 }
 
 export function nativeOpportunityId(jobId: string): string {
