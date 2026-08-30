@@ -2,8 +2,8 @@
 -- Wave 6 / Hiring Evidence — Method layer: screening plans, work samples,
 -- interview plans, sessions (EXPAND, forward-only, additive)
 -- =============================================================================
--- Extends Wave 5 frozen hiring contract. REMOTE APPLY IS NOT AUTHORIZED BY THIS
--- FILE (see 20260830120000 header — Wave 5 P1 migration-lane divergence).
+-- Extends Wave 5 frozen hiring contract. APPLIED to jid-nonprod as
+-- schema_migrations version 20260830133532 on 2026-08-30 (forward-only).
 -- No proctoring, camera, microphone, keystroke, or plagiarism-verdict columns
 -- exist or may be added here.
 -- =============================================================================

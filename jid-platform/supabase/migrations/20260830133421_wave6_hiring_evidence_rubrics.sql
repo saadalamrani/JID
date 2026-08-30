@@ -4,11 +4,11 @@
 -- Extends the Wave 5 frozen hiring contract (70cbc30). Does NOT redefine
 -- hiring_roles, hiring_criteria, hiring_stages, applications, or team authority.
 --
--- REMOTE APPLY IS NOT AUTHORIZED BY THIS FILE.
--- The shared jid-nonprod migration history diverges from the canonical repo
--- (Wave 5 P1: WAVE_5_CLOSEOUT_REPORT.md) and the migration lane is single-writer.
--- Apply only after: (1) Wave 5 final integration lineage exists, (2) the lane is
--- reconciled, (3) one independent RLS/schema review, (4) disposable PG17 replay.
+-- APPLIED to jid-nonprod (hmjuijmaefajdjrjdsxu) as schema_migrations version
+-- 20260830133421 on 2026-08-30, on the reconciled Wave 5 final lineage
+-- (WAVE_5_COMPLETE eda1fac). Forward-only; DATA_LOSS=0. See
+-- 20260830141230_wave6_hiring_evidence_policy_fixes.sql for the corrective
+-- follow-up found by the nonprod RLS actor matrix.
 -- =============================================================================
 
 -- ---------------------------------------------------------------------------
