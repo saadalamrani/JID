@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       _deprecated_commitment_scores: {
@@ -508,6 +533,501 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      assessment_assignment_events: {
+        Row: {
+          actor_user_id: string
+          assignment_id: string
+          from_state:
+            | Database["public"]["Enums"]["assessment_assignment_state_enum"]
+            | null
+          id: string
+          occurred_at: string
+          provider_event_ref: string | null
+          reason: string | null
+          to_state: Database["public"]["Enums"]["assessment_assignment_state_enum"]
+        }
+        Insert: {
+          actor_user_id: string
+          assignment_id: string
+          from_state?:
+            | Database["public"]["Enums"]["assessment_assignment_state_enum"]
+            | null
+          id?: string
+          occurred_at?: string
+          provider_event_ref?: string | null
+          reason?: string | null
+          to_state: Database["public"]["Enums"]["assessment_assignment_state_enum"]
+        }
+        Update: {
+          actor_user_id?: string
+          assignment_id?: string
+          from_state?:
+            | Database["public"]["Enums"]["assessment_assignment_state_enum"]
+            | null
+          id?: string
+          occurred_at?: string
+          provider_event_ref?: string | null
+          reason?: string | null
+          to_state?: Database["public"]["Enums"]["assessment_assignment_state_enum"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_assignment_events_actor_user_id_fkey"
+            columns: ["actor_user_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignment_events_actor_user_id_fkey"
+            columns: ["actor_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignment_events_actor_user_id_fkey"
+            columns: ["actor_user_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "assessment_assignment_events_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_assignments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_assignments: {
+        Row: {
+          application_id: string
+          attempt_number: number
+          candidate_id: string
+          completed_at: string | null
+          consent_terms_ref: string | null
+          consented_at: string | null
+          disclosure_snapshot: Json | null
+          expires_at: string | null
+          failure_code: string | null
+          failure_detail: string | null
+          id: string
+          invited_at: string
+          method_id: string
+          method_snapshot:
+            | Database["public"]["Enums"]["assessment_method_enum"]
+            | null
+          provider_id_snapshot: string | null
+          provider_session_ref: string | null
+          recording_ref: string | null
+          requested_by: string
+          retry_of_assignment_id: string | null
+          stage_id: string | null
+          started_at: string | null
+          state: Database["public"]["Enums"]["assessment_assignment_state_enum"]
+          updated_at: string
+          withdrawn_at: string | null
+        }
+        Insert: {
+          application_id: string
+          attempt_number?: number
+          candidate_id: string
+          completed_at?: string | null
+          consent_terms_ref?: string | null
+          consented_at?: string | null
+          disclosure_snapshot?: Json | null
+          expires_at?: string | null
+          failure_code?: string | null
+          failure_detail?: string | null
+          id?: string
+          invited_at?: string
+          method_id: string
+          method_snapshot?:
+            | Database["public"]["Enums"]["assessment_method_enum"]
+            | null
+          provider_id_snapshot?: string | null
+          provider_session_ref?: string | null
+          recording_ref?: string | null
+          requested_by: string
+          retry_of_assignment_id?: string | null
+          stage_id?: string | null
+          started_at?: string | null
+          state?: Database["public"]["Enums"]["assessment_assignment_state_enum"]
+          updated_at?: string
+          withdrawn_at?: string | null
+        }
+        Update: {
+          application_id?: string
+          attempt_number?: number
+          candidate_id?: string
+          completed_at?: string | null
+          consent_terms_ref?: string | null
+          consented_at?: string | null
+          disclosure_snapshot?: Json | null
+          expires_at?: string | null
+          failure_code?: string | null
+          failure_detail?: string | null
+          id?: string
+          invited_at?: string
+          method_id?: string
+          method_snapshot?:
+            | Database["public"]["Enums"]["assessment_method_enum"]
+            | null
+          provider_id_snapshot?: string | null
+          provider_session_ref?: string | null
+          recording_ref?: string | null
+          requested_by?: string
+          retry_of_assignment_id?: string | null
+          stage_id?: string | null
+          started_at?: string | null
+          state?: Database["public"]["Enums"]["assessment_assignment_state_enum"]
+          updated_at?: string
+          withdrawn_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_assignments_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "radar_cards"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_candidate_id_fkey"
+            columns: ["candidate_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_candidate_id_fkey"
+            columns: ["candidate_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_candidate_id_fkey"
+            columns: ["candidate_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_method_id_fkey"
+            columns: ["method_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_methods"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_provider_id_snapshot_fkey"
+            columns: ["provider_id_snapshot"]
+            isOneToOne: false
+            referencedRelation: "assessment_providers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_retry_of_assignment_id_fkey"
+            columns: ["retry_of_assignment_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_assignments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_assignments_stage_id_fkey"
+            columns: ["stage_id"]
+            isOneToOne: false
+            referencedRelation: "hiring_stages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_methods: {
+        Row: {
+          active: boolean
+          created_at: string
+          created_by: string
+          evidence_notice_ar: string
+          evidence_notice_en: string
+          expires_after_hours: number | null
+          hiring_role_id: string
+          id: string
+          method: Database["public"]["Enums"]["assessment_method_enum"]
+          provider_id: string
+          purpose_ar: string
+          purpose_en: string
+          requires_consent: boolean
+          title_ar: string
+          title_en: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          created_by: string
+          evidence_notice_ar: string
+          evidence_notice_en: string
+          expires_after_hours?: number | null
+          hiring_role_id: string
+          id?: string
+          method: Database["public"]["Enums"]["assessment_method_enum"]
+          provider_id: string
+          purpose_ar: string
+          purpose_en: string
+          requires_consent?: boolean
+          title_ar: string
+          title_en: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          created_by?: string
+          evidence_notice_ar?: string
+          evidence_notice_en?: string
+          expires_after_hours?: number | null
+          hiring_role_id?: string
+          id?: string
+          method?: Database["public"]["Enums"]["assessment_method_enum"]
+          provider_id?: string
+          purpose_ar?: string
+          purpose_en?: string
+          requires_consent?: boolean
+          title_ar?: string
+          title_en?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_methods_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_methods_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_methods_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "assessment_methods_hiring_role_id_fkey"
+            columns: ["hiring_role_id"]
+            isOneToOne: false
+            referencedRelation: "hiring_roles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_methods_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessment_providers: {
+        Row: {
+          active: boolean
+          capability_types: Database["public"]["Enums"]["assessment_method_enum"][]
+          code: string
+          configuration_boundary: Json
+          created_at: string
+          created_by: string
+          failure_state: string
+          id: string
+          kind: Database["public"]["Enums"]["assessment_provider_kind_enum"]
+          name_ar: string
+          name_en: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          capability_types: Database["public"]["Enums"]["assessment_method_enum"][]
+          code: string
+          configuration_boundary?: Json
+          created_at?: string
+          created_by: string
+          failure_state?: string
+          id?: string
+          kind: Database["public"]["Enums"]["assessment_provider_kind_enum"]
+          name_ar: string
+          name_en: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          capability_types?: Database["public"]["Enums"]["assessment_method_enum"][]
+          code?: string
+          configuration_boundary?: Json
+          created_at?: string
+          created_by?: string
+          failure_state?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["assessment_provider_kind_enum"]
+          name_ar?: string
+          name_en?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_providers_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_providers_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_providers_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      assessment_results: {
+        Row: {
+          assignment_id: string
+          criterion_id: string
+          id: string
+          ingested_at: string
+          ingested_by: string
+          limitations: Json
+          observation_id: string | null
+          payload: Json
+          provenance_ref: string
+          provider_id: string
+          summary_ar: string | null
+          summary_en: string | null
+        }
+        Insert: {
+          assignment_id: string
+          criterion_id: string
+          id?: string
+          ingested_at?: string
+          ingested_by: string
+          limitations?: Json
+          observation_id?: string | null
+          payload: Json
+          provenance_ref: string
+          provider_id: string
+          summary_ar?: string | null
+          summary_en?: string | null
+        }
+        Update: {
+          assignment_id?: string
+          criterion_id?: string
+          id?: string
+          ingested_at?: string
+          ingested_by?: string
+          limitations?: Json
+          observation_id?: string | null
+          payload?: Json
+          provenance_ref?: string
+          provider_id?: string
+          summary_ar?: string | null
+          summary_en?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_results_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: true
+            referencedRelation: "assessment_assignments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_results_criterion_id_fkey"
+            columns: ["criterion_id"]
+            isOneToOne: false
+            referencedRelation: "hiring_criteria"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_results_ingested_by_fkey"
+            columns: ["ingested_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_results_ingested_by_fkey"
+            columns: ["ingested_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_results_ingested_by_fkey"
+            columns: ["ingested_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "assessment_results_observation_id_fkey"
+            columns: ["observation_id"]
+            isOneToOne: true
+            referencedRelation: "hiring_observations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "assessment_results_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "assessment_providers"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -10282,6 +10802,18 @@ export type Database = {
         Args: { p_job_id: string }
         Returns: Json
       }
+      assessment_payload_has_forbidden_key: {
+        Args: { p_value: Json }
+        Returns: boolean
+      }
+      assign_assessment: {
+        Args: {
+          p_application_id: string
+          p_method_id: string
+          p_stage_id?: string
+        }
+        Returns: string
+      }
       assign_claim_to_self: { Args: { p_claim_id: string }; Returns: undefined }
       assign_work_sample: {
         Args: { p_application_id: string; p_due_at?: string; p_task_id: string }
@@ -10793,6 +11325,22 @@ export type Database = {
       }
       has_entitlement: { Args: { p_feature: string }; Returns: boolean }
       hash_staff_invite_token: { Args: { p_token: string }; Returns: string }
+      hiring_application_applicant: {
+        Args: { p_application_id: string }
+        Returns: string
+      }
+      hiring_application_business_profile: {
+        Args: { p_application_id: string }
+        Returns: string
+      }
+      hiring_application_role: {
+        Args: { p_application_id: string }
+        Returns: string
+      }
+      hiring_criterion_role: {
+        Args: { p_criterion_id: string }
+        Returns: string
+      }
       hiring_evidence_peer_visible: {
         Args: {
           p_application_id: string
@@ -10808,6 +11356,18 @@ export type Database = {
       increment_job_boost_stat: {
         Args: { p_job_id: string; p_metric: string }
         Returns: undefined
+      }
+      ingest_assessment_result: {
+        Args: {
+          p_assignment_id: string
+          p_criterion_id: string
+          p_limitations: Json
+          p_payload: Json
+          p_provenance_ref: string
+          p_summary_ar: string
+          p_summary_en: string
+        }
+        Returns: string
       }
       ingest_directory_candidate: {
         Args: {
@@ -11109,6 +11669,10 @@ export type Database = {
         Args: { p_authorization_id: string; p_evidence_id: string }
         Returns: Json
       }
+      retry_assessment_assignment: {
+        Args: { p_assignment_id: string }
+        Returns: string
+      }
       review_claim: {
         Args: {
           p_claim_id: string
@@ -11318,6 +11882,18 @@ export type Database = {
         Args: { p_enable: boolean; p_job_id: string }
         Returns: undefined
       }
+      transition_assessment_assignment: {
+        Args: {
+          p_action: string
+          p_assignment_id: string
+          p_failure_code?: string
+          p_provider_session_ref?: string
+          p_reason?: string
+          p_recording_ref?: string
+          p_terms_ref?: string
+        }
+        Returns: string
+      }
       transition_closing_soon: { Args: never; Returns: number }
       transition_hiring_application: {
         Args: {
@@ -11411,12 +11987,26 @@ export type Database = {
         | "expired"
         | "saved"
         | "pending"
+      assessment_assignment_state_enum:
+        | "invited"
+        | "ready"
+        | "started"
+        | "completed"
+        | "expired"
+        | "withdrawn"
+        | "cancelled"
+        | "technical_failure"
+        | "provider_failure"
       assessment_method_enum:
         | "structured_screening"
         | "work_sample"
         | "structured_interview"
         | "reference_check"
         | "portfolio_review"
+      assessment_provider_kind_enum:
+        | "internal"
+        | "external"
+        | "recorded_interview"
       authorization_basis_type_enum:
         | "CONSENT"
         | "CONTRACT"
@@ -11791,6 +12381,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       additional_category_enum: [
@@ -11822,12 +12415,28 @@ export const Constants = {
         "saved",
         "pending",
       ],
+      assessment_assignment_state_enum: [
+        "invited",
+        "ready",
+        "started",
+        "completed",
+        "expired",
+        "withdrawn",
+        "cancelled",
+        "technical_failure",
+        "provider_failure",
+      ],
       assessment_method_enum: [
         "structured_screening",
         "work_sample",
         "structured_interview",
         "reference_check",
         "portfolio_review",
+      ],
+      assessment_provider_kind_enum: [
+        "internal",
+        "external",
+        "recorded_interview",
       ],
       authorization_basis_type_enum: [
         "CONSENT",
