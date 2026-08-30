@@ -83,6 +83,12 @@ export default async function CompanyJobsListPage() {
                 >
                   {t('viewApplicants')}
                 </Link>
+                <Link
+                  href={`/jobs/${job.id}/sourcing`}
+                  className="hover:border-primary/40 inline-flex min-h-10 items-center rounded-md border border-border px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  {t('viewSourcing')}
+                </Link>
               </div>
             </li>
           ))}

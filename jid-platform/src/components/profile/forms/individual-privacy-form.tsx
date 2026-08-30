@@ -25,18 +25,22 @@ export function IndividualPrivacyForm({ profile }: IndividualPrivacyFormProps) {
   const form = useForm<IndividualPrivacyValues>({
     resolver: zodResolver(individualPrivacySchema),
     defaultValues: {
-      visibility:
-        profile.visibility === 'private' ? 'private' : ('discoverable' as const),
+      visibility: profile.visibility === 'private' ? 'private' : 'discoverable',
       show_profile_to_companies: profile.show_profile_to_companies,
       show_profile_in_university_stats: profile.show_profile_in_university_stats,
     },
   })
 
   const visibility = form.watch('visibility')
+  const showToCompanies = form.watch('show_profile_to_companies')
 
   async function onSubmit(values: IndividualPrivacyValues) {
     try {
-      await updateIndividualPrivacy(values)
+      const next =
+        values.visibility === 'private'
+          ? { ...values, show_profile_to_companies: false }
+          : values
+      await updateIndividualPrivacy(next)
       toast.success(t('saved'))
       router.refresh()
     } catch (error) {
@@ -48,9 +52,46 @@ export function IndividualPrivacyForm({ profile }: IndividualPrivacyFormProps) {
     <form onSubmit={form.handleSubmit(onSubmit)} className="container-jid max-w-2xl space-y-6 py-8">
       <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
       <p className="text-sm text-muted-foreground">{t('subtitle')}</p>
+      <p className="text-sm text-muted-foreground">{t('doesNotImply')}</p>
 
-      <input type="hidden" {...form.register('visibility')} />
-      <input type="hidden" {...form.register('show_profile_to_companies')} />
+      <fieldset className="space-y-3">
+        <legend className="text-sm font-medium">{t('visibilityLabel')}</legend>
+        <label className="flex items-start gap-3 rounded-xl border border-border p-4">
+          <input
+            type="radio"
+            className="mt-1"
+            checked={visibility === 'private'}
+            onChange={() => {
+              form.setValue('visibility', 'private', { shouldDirty: true })
+              form.setValue('show_profile_to_companies', false, { shouldDirty: true })
+            }}
+          />
+          <span>
+            <span className="block text-sm font-medium">{t('visibilityPrivate')}</span>
+            <span className="mt-1 block text-xs text-muted-foreground">{t('visibilityPrivateHint')}</span>
+          </span>
+        </label>
+        <label className="flex items-start gap-3 rounded-xl border border-border p-4">
+          <input
+            type="radio"
+            className="mt-1"
+            checked={visibility === 'discoverable'}
+            onChange={() => form.setValue('visibility', 'discoverable', { shouldDirty: true })}
+          />
+          <span>
+            <span className="block text-sm font-medium">{t('visibilityDiscoverable')}</span>
+            <span className="mt-1 block text-xs text-muted-foreground">{t('visibilityDiscoverableHint')}</span>
+          </span>
+        </label>
+      </fieldset>
+
+      <ToggleRow
+        checked={showToCompanies}
+        disabled={visibility === 'private'}
+        onChange={(checked) => form.setValue('show_profile_to_companies', checked, { shouldDirty: true })}
+        title={t('showToCompanies')}
+        hint={t('showToCompaniesHint')}
+      />
 
       <ToggleRow
         checked={form.watch('show_profile_in_university_stats')}

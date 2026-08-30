@@ -1069,6 +1069,7 @@
       "empty": "You have not posted any opportunities yet.",
       "applicants": "{count} applicants",
       "viewApplicants": "View applicants",
+      "viewSourcing": "Discover talent",
       "status": {
         "draft": "Draft",
         "published": "Published",
@@ -1076,6 +1077,49 @@
         "closed": "Closed",
         "expired": "Expired",
         "pending_review": "Pending review"
+      }
+    },
+    "talentSourcing": {
+      "title": "Talent discovery",
+      "subtitle": "A verified employer searches published professional evidence against explicit role criteria. Appearing here does not mean the person is seeking work, create an application, or assign a match score.",
+      "backToApplicants": "Back to applicants",
+      "criteriaTitle": "Role criteria",
+      "criteriaHint": "State what you are looking for. Search requires at least one criterion.",
+      "labelAr": "Criterion in Arabic",
+      "labelEn": "Criterion in English",
+      "addCriterion": "Add criterion",
+      "criterionSaved": "Criterion saved",
+      "criterionFailed": "Could not save the criterion",
+      "noCriteria": "No criteria yet — add one to search.",
+      "resultsTitle": "Discovery results",
+      "loading": "Loading…",
+      "empty": "No discoverable people with published evidence supporting the current criteria.",
+      "unnamed": "Professional profile",
+      "compareSelect": "Compare",
+      "inviteCta": "Express hiring interest",
+      "inviteTitle": "Hiring-interest invitation — not an application",
+      "inviteHint": "The individual receives this invitation and decides. It does not create an application for them.",
+      "messageAr": "Message in Arabic",
+      "messageEn": "Message in English",
+      "sendInvite": "Send invitation",
+      "cancel": "Cancel",
+      "inviteSent": "Hiring-interest invitation sent",
+      "inviteFailed": "Could not send the invitation",
+      "compareTitle": "Evidence comparison",
+      "compareHint": "Each cell shows published evidence for one criterion. There is no total, rank, or match percentage.",
+      "compareCta": "Compare selected",
+      "compareFailed": "Could not compare",
+      "candidate": "Person",
+      "intelligenceTitle": "Operational intelligence",
+      "intelligenceHint": "Only counts with a source, population, and time window are shown. These are not quality-of-hire or success probabilities.",
+      "ratioValue": "Share {value} (not a match percentage)",
+      "metricMeta": "Source: {source}. Population: {population}. Window: {window}. Missingness: {missingness}.",
+      "loadFailed": "Could not load talent discovery",
+      "state": {
+        "INVITED": "Invited",
+        "INTERESTED": "Interested",
+        "DECLINED": "Declined",
+        "WITHDRAWN": "Withdrawn"
       }
     },
     "profileSuspended": {
@@ -4252,17 +4296,33 @@
       "visibilityLabel": "Profile visibility",
       "visibilityPrivate": "Private",
       "visibilityPrivateHint": "Only you and JID staff can open your profile from here.",
-      "visibilityDiscoverable": "Open via link",
-      "visibilityDiscoverableHint": "This setting does not turn on employer discovery in the current prototype.",
-      "showToCompanies": "Show to companies",
-      "showToCompaniesHint": "Not active as employer discovery in the current prototype.",
+      "visibilityDiscoverable": "Discoverable to verified employers",
+      "visibilityDiscoverableHint": "Allows a verified employer with an explicit hiring need to see your published professional evidence only. This does not mean you are seeking work, open contact to everyone, or a JID endorsement.",
+      "showToCompanies": "Allow professional discovery by verified employers",
+      "showToCompaniesHint": "You must also choose Discoverable. You can turn this off at any time. Private contact details and operational notes are never shown.",
       "showToCompaniesUnavailableHint": "Not editable in this preview build — your current choice is kept as-is and no new companies gain access from here.",
       "showInUniversityStats": "Include in university statistics",
       "showInUniversityStatsHint": "Your university sees aggregate statistics only — never your personal details.",
       "save": "Save privacy settings",
       "backToProfile": "Back to profile",
       "saved": "Privacy settings saved",
-      "saveFailed": "Could not save privacy settings"
+      "saveFailed": "Could not save privacy settings",
+      "doesNotImply": "Discoverability does not mean you are seeking work, consent to contact by everyone, a JID endorsement, a high match, or guaranteed eligibility."
+    },
+    "sourcingInvitations": {
+      "title": "Hiring-interest invitations",
+      "subtitle": "An employer expressed interest. Responding here does not submit an application for you.",
+      "empty": "No invitations right now.",
+      "interested": "I am interested",
+      "declined": "No thanks",
+      "responded": "Your response was saved",
+      "respondFailed": "Could not save the response",
+      "state": {
+        "INVITED": "Waiting for your response",
+        "INTERESTED": "You expressed interest — no application was created",
+        "DECLINED": "You declined",
+        "WITHDRAWN": "The employer withdrew the invitation"
+      }
     }
   },
   "settings": {
