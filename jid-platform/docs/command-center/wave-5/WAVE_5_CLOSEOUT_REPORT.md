@@ -57,13 +57,20 @@ state do not become Employer applicant truth.
 - `pnpm build`: PASS — 315 static pages.
 - Generated types: PASS.
 - Database lint: Wave 5 objects clean; pre-existing `refresh_company_badges` enum literal defect recorded as P2/P3 and left out of scope.
-- Preview build: READY at `23804cce7632809ff1ae7a00ebca45952742b821`.
-- Runtime browser / Arabic / English / mobile: BLOCKED by Vercel Deployment Protection; the browser is redirected to Vercel login and no automation-bypass secret is configured.
+- Preview build: READY at `d5894a118a6746986b482697633c77626fb477a5`.
+- Authenticated Arabic Employer dashboard and applicant workspace: PASS with RTL content.
+- Authenticated English Employer dashboard and applicant workspace: PASS with LTR content.
+- 375px critical Employer applicant flow: PASS (`innerWidth=375`, `scrollWidth=375`).
+- Cross-org denial: PASS; authenticated University access to the Employer applicant workspace was
+  denied and redirected to `/en/login`.
+- Critical runtime check: PASS; no page exception, HTTP 5xx, Next.js error overlay, or critical
+  console failure occurred during the final browser suite.
+- Final focused browser suite: PASS — 4 tests covering all five required proofs.
 
 ## Risk and boundaries
 
 - `P0=NONE`
-- `P1=NONE_IN_IMPLEMENTATION`
+- `P1=RESOLVED_PREVIEW_ENV_WHITESPACE_NORMALIZATION`
 - `P2_P3=PREEXISTING_BADGE_REFRESH_ENUM_LINT`
 - `DATA_LOSS=0`
 - `PRODUCTION_TOUCHED=NO`
@@ -73,4 +80,4 @@ state do not become Employer applicant truth.
 
 ## Terminal state
 
-`BLOCKED_WITH_EXACT_CAUSE: exact-SHA Preview is READY, but required authenticated AR/EN/mobile browser proof cannot pass Vercel Deployment Protection without an unavailable automation-bypass credential.`
+`WAVE_5_COMPLETE FINAL_SHA_REPORTED_IN_GITHUB_HANDOFF`
