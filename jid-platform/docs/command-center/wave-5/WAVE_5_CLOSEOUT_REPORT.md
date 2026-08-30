@@ -57,15 +57,20 @@ state do not become Employer applicant truth.
 - `pnpm build`: PASS — 315 static pages.
 - Generated types: PASS.
 - Database lint: Wave 5 objects clean; pre-existing `refresh_company_badges` enum literal defect recorded as P2/P3 and left out of scope.
-- Preview/runtime, Arabic, English, mobile: recorded after final branch push in terminal handoff.
+- Preview build: READY at `23804cce7632809ff1ae7a00ebca45952742b821`.
+- Runtime browser / Arabic / English / mobile: BLOCKED by Vercel Deployment Protection; the browser is redirected to Vercel login and no automation-bypass secret is configured.
 
 ## Risk and boundaries
 
 - `P0=NONE`
-- `P1=NONE`
+- `P1=NONE_IN_IMPLEMENTATION`
 - `P2_P3=PREEXISTING_BADGE_REFRESH_ENUM_LINT`
 - `DATA_LOSS=0`
 - `PRODUCTION_TOUCHED=NO`
 - `PRODUCTION_DEPLOYMENT=NO`
 - No production SQL, production deployment, destructive migration, reset, force push, main merge,
   Wave 6 implementation, or Wave 4 redesign occurred.
+
+## Terminal state
+
+`BLOCKED_WITH_EXACT_CAUSE: exact-SHA Preview is READY, but required authenticated AR/EN/mobile browser proof cannot pass Vercel Deployment Protection without an unavailable automation-bypass credential.`
