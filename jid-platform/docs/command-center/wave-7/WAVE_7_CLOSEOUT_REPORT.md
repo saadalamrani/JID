@@ -56,3 +56,10 @@ P0=NONE
 P1=NONE
 DATA_LOSS=0
 PRODUCTION_TOUCHED=NO
+
+## Preview runtime
+
+- Preview `dpl_7r7AT88BBwQ9Djx5ygtKWWuDMHF6`: READY at `https://jid-platform-eqn6ymoyh-jidplatform.vercel.app`; target Preview only.
+- Protected runtime: EN candidate `200`; AR candidate final `200`; unauthorized 375px-mobile employer path `307` to auth; assessment API `401`; no 5xx.
+- In-app visual browser smoke: skipped because the Windows browser sandbox helper exited with `apply deny-read ACLs` twice. Vercel protection-bypass HTTP runtime smoke was used; visual viewport behavior was not claimed as observed.
+- `RUNTIME=PASS`, `AR=PASS`, `EN=PASS`; `MOBILE=CODE/HTTP PASS, VISUAL SKIP (browser sandbox unavailable)`.
