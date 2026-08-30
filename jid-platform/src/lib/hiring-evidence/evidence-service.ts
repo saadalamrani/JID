@@ -192,3 +192,68 @@ export async function generateDecisionSupport(input: {
   if (error || !data) throw new Error(error?.message ?? 'تعذّر إنشاء ملخص دعم القرار')
   return data
 }
+
+/**
+ * Creates the rubric shell for one (criterion, method). There is no RPC for this
+ * — the row is written directly and the `hiring_rubrics_write` RLS policy keeps
+ * it to the Wave 5 write tier (owner / hiring_admin / recruiter). Anchors are
+ * added afterwards with `publishRubricVersion`.
+ */
+export async function createRubric(input: {
+  hiringRoleId: string
+  criterionId: string
+  method: AssessmentMethod
+  nameAr: string
+  nameEn: string
+  createdBy: string
+}): Promise<string> {
+  const client = await createClient()
+  const { data, error } = await client
+    .from('hiring_rubrics')
+    .insert({
+      hiring_role_id: input.hiringRoleId,
+      criterion_id: input.criterionId,
+      method: DB_METHOD[input.method] as never,
+      name_ar: input.nameAr,
+      name_en: input.nameEn,
+      created_by: input.createdBy,
+    })
+    .select('id')
+    .single()
+  if (error || !data) throw new Error(error?.message ?? 'تعذّر إنشاء المعيار')
+  return data.id
+}
+
+/**
+ * Opens (or returns) the caller's own scorecard for an (application, stage).
+ * The `hiring_scorecards_own` RLS policy enforces `evaluator_id = auth.uid()`
+ * and the evidence-recording tier; freezing happens later via `submitScorecard`.
+ */
+export async function openScorecard(input: {
+  applicationId: string
+  stageId: string | null
+  evaluatorId: string
+}): Promise<string> {
+  const client = await createClient()
+  const lookup = client
+    .from('hiring_scorecards')
+    .select('id')
+    .eq('application_id', input.applicationId)
+    .eq('evaluator_id', input.evaluatorId)
+  const hit = await (input.stageId === null
+    ? lookup.is('stage_id', null)
+    : lookup.eq('stage_id', input.stageId)
+  ).maybeSingle()
+  if (hit.data) return hit.data.id
+  const { data, error } = await client
+    .from('hiring_scorecards')
+    .insert({
+      application_id: input.applicationId,
+      stage_id: input.stageId,
+      evaluator_id: input.evaluatorId,
+    })
+    .select('id')
+    .single()
+  if (error || !data) throw new Error(error?.message ?? 'تعذّر فتح بطاقة التقييم')
+  return data.id
+}
