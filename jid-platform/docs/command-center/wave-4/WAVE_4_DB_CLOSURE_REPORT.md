@@ -1,6 +1,6 @@
 # Wave 4 Nonprod DB Closure Report
 
-**Status:** BLOCKED_WITH_EXACT_CAUSE
+**Status:** COMPLETE
 **BASE_SHA:** `cdd6c84774de206dce145a6474e2ebaf46e5a250`
 **WAVE4_SOURCE_SHA:** `b976bc504b379088899451db77dda4b570962068`
 **FINAL_SHA:** branch tip reported in terminal handoff
@@ -52,30 +52,40 @@ The new Wave 4 owner-private tables passed these real database tests under role/
    tables: pass.
 10. Normal owner writes under authenticated JWT context: pass.
 
-However, the current Supabase security advisor exposed a separate, pre-existing P1:
+## P1 remediation closure
 
-- `public.radar_cards` is owned by `postgres` and is a security-definer view over
-  `public.applications`.
-- `anon` has `SELECT` on the view (and excessive additional view privileges).
-- Direct anon access to `public.applications` is denied, but an actual
-  `SET LOCAL ROLE anon; SELECT count(*) FROM public.radar_cards` returned `1`.
-- The exposed projection includes application identity and status fields:
-  `id`, `applicant_id/user_id`, `job_id`, `company_id`, `status`,
-  status actor/timestamps, and creation/update timestamps.
+Repository usage of `public.radar_cards` is read-only. The only runtime SQL dependency is
+`notify_radar_status_change`, which selects a card; no repository insert/update/delete usage exists.
 
-Therefore:
+Forward migration `20260829140001_secure_radar_cards_rls_boundary.sql` was applied exactly once to
+`hmjuijmaefajdjrjdsxu`. It:
 
-- `RLS_NEGATIVE_MATRIX=FAIL`
-- `P0=0`
-- `P1=1`: anonymous application-data exposure through `public.radar_cards`.
-- `P2_P3=1_WAVE4_SCOPED`: advisor warns that `wave4_touch_updated_at` has a mutable
-  `search_path`. Other advisor findings predate and exceed this bounded front.
-- No remediation was attempted because this packet authorizes Wave 4 DB closure, not an unrelated
-  historical-view security migration.
+- sets `security_invoker=true`;
+- revokes all view privileges from `PUBLIC`, `anon`, `authenticated`, and `service_role`;
+- restores only `SELECT` to `authenticated` and `service_role`;
+- leaves the postgres owner, view projection, `applications` RLS, and product semantics unchanged.
 
-Advisor reference:
-https://supabase.com/docs/guides/database/database-linter?lint=0010_security_definer_view
+Actual role/JWT proof:
 
+- anon `SELECT radar_cards`: hard `permission denied`;
+- applicant Individual: exactly their one application row visible;
+- different Individual: zero rows visible;
+- owning Employer: exactly the RLS-authorized application row visible;
+- different-organization Employer: zero rows visible.
+
+Post-proof catalog state:
+
+- `security_invoker=true`;
+- scoped grants are exactly `authenticated: SELECT` and `service_role: SELECT`;
+- `RLS_NEGATIVE_MATRIX=PASS`;
+- `P0=0`;
+- `P1=0`;
+- no unrelated P2/P3 work was performed.
+
+Focused validation:
+
+- notification-dispatcher verifier: 17 passed, 0 failed;
+- application-access and Wave 4 migration-contract tests: 2 files, 12 tests passed.
 ## Generated types and validation
 
 - `GENERATED_TYPES=PASS`: regenerated `src/lib/supabase/types.ts` from actual linked nonprod.
@@ -101,6 +111,4 @@ https://supabase.com/docs/guides/database/database-linter?lint=0010_security_def
 
 ## Terminal result
 
-`BLOCKED_WITH_EXACT_CAUSE`: Wave 4-owned RLS passed, but anonymous users can read one existing
-application identity/status row through the security-definer `public.radar_cards` view. The packet
-requires stopping on any privacy/security P0/P1.
+`WAVE_4_COMPLETE`: the verified `radar_cards` P1 is closed, all Wave 4 DB checks pass, and the normal linked dry run is empty.
