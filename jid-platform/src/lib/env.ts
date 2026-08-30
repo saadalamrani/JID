@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 const supabaseUrlSchema = z
   .string()
+  .trim()
   .url({ message: 'NEXT_PUBLIC_SUPABASE_URL must be a valid URL' })
   .refine((url) => url.includes('supabase.co') || url.includes('127.0.0.1') || url.includes('localhost'), {
     message: 'NEXT_PUBLIC_SUPABASE_URL must point to a Supabase project (cloud or local)',
@@ -11,10 +12,15 @@ const publicEnvSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: supabaseUrlSchema,
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z
     .string()
+    .trim()
     .min(1, { message: 'NEXT_PUBLIC_SUPABASE_ANON_KEY is required' }),
-  NEXT_PUBLIC_SITE_URL: z.string().url({ message: 'NEXT_PUBLIC_SITE_URL must be a valid URL' }),
+  NEXT_PUBLIC_SITE_URL: z
+    .string()
+    .trim()
+    .url({ message: 'NEXT_PUBLIC_SITE_URL must be a valid URL' }),
   NEXT_PUBLIC_APP_URL: z
     .string()
+    .trim()
     .url({ message: 'NEXT_PUBLIC_APP_URL must be a valid URL' })
     .optional(),
 })
