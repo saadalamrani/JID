@@ -11328,6 +11328,28 @@ export type Database = {
         }
         Returns: string
       }
+      create_university_identity_mapping: {
+        Args: {
+          p_audit_reason: string
+          p_audit_reference?: string | null
+          p_catalog_university_id: string
+          p_directory_id: string
+        }
+        Returns: string
+      }
+      current_mapped_catalog_university_id: { Args: never; Returns: string }
+      current_owned_university_directory_id: { Args: never; Returns: string }
+      declare_university_affiliation: {
+        Args: {
+          p_catalog_university_id: string
+          p_college_id?: string | null
+          p_degree_level?: Database["public"]["Enums"]["university_degree_level_enum"] | null
+          p_graduation_year?: number | null
+          p_major_id?: string | null
+          p_person_status: Database["public"]["Enums"]["university_person_status_enum"]
+        }
+        Returns: string
+      }
       current_user_role: {
         Args: never
         Returns: Database["public"]["Enums"]["user_role_enum"]
@@ -11818,6 +11840,20 @@ export type Database = {
         Args: { p_action: string; p_invitation_id: string }
         Returns: undefined
       }
+      record_university_outcome_evidence: {
+        Args: {
+          p_affiliation_id: string
+          p_category: Database["public"]["Enums"]["university_outcome_category_enum"]
+          p_presence: Database["public"]["Enums"]["university_outcome_presence_enum"]
+          p_provenance_ref: string
+          p_source: Database["public"]["Enums"]["university_outcome_source_enum"]
+        }
+        Returns: string
+      }
+      request_university_affiliation_review: {
+        Args: { p_affiliation_id: string; p_review_reason: string }
+        Returns: undefined
+      }
       redrive_catalog_dead_letter: {
         Args: { p_dead_letter_id: string }
         Returns: Json
@@ -11954,6 +11990,14 @@ export type Database = {
         Args: { p_session_id: string }
         Returns: undefined
       }
+      revoke_university_affiliation: {
+        Args: { p_affiliation_id: string; p_reason: string }
+        Returns: undefined
+      }
+      revoke_university_identity_mapping: {
+        Args: { p_audit_reason: string; p_mapping_id: string }
+        Returns: undefined
+      }
       run_lammah_retention_now: { Args: { p_reason: string }; Returns: Json }
       search_discoverable_talent: { Args: { p_job_id: string }; Returns: Json }
       set_career_evidence_lifecycle: {
@@ -12016,6 +12060,33 @@ export type Database = {
       }
       staff_suspend_user: {
         Args: { p_reason: string; p_user_id: string }
+        Returns: undefined
+      }
+      staff_ensure_university_cohort: {
+        Args: {
+          p_catalog_university_id: string
+          p_degree_level?: Database["public"]["Enums"]["university_degree_level_enum"] | null
+          p_graduation_year: number
+          p_major_id?: string | null
+          p_program_text?: string | null
+        }
+        Returns: string
+      }
+      staff_link_cohort_membership: {
+        Args: {
+          p_affiliation_id: string
+          p_cohort_id: string
+          p_source?: Database["public"]["Enums"]["university_cohort_membership_source_enum"]
+        }
+        Returns: string
+      }
+      staff_review_university_affiliation: {
+        Args: {
+          p_affiliation_id: string
+          p_decision: string
+          p_reason: string
+          p_verification_method?: string
+        }
         Returns: undefined
       }
       start_ssis_invitation: {
@@ -12167,6 +12238,7 @@ export type Database = {
         Returns: boolean
       }
       viewer_approved_company_id: { Args: never; Returns: string }
+      university_owner_foundation_snapshot: { Args: never; Returns: Json }
       viewer_approved_university_id: { Args: never; Returns: string }
       viewer_has_approved_company_claim: { Args: never; Returns: boolean }
       withdraw_hiring_application: {
@@ -12482,6 +12554,28 @@ export type Database = {
         | "invited"
         | "invitation_withdrawn"
         | "invitation_responded"
+      university_affiliation_state_enum: "DECLARED" | "VERIFIED" | "NEEDS_REVIEW"
+      university_cohort_membership_source_enum:
+        | "DECLARED_AFFILIATION"
+        | "STAFF_LINK"
+        | "INSTITUTION_ROSTER"
+      university_cohort_membership_state_enum: "ACTIVE" | "ENDED" | "NEEDS_REVIEW"
+      university_degree_level_enum:
+        | "diploma"
+        | "bachelor"
+        | "master"
+        | "doctorate"
+        | "other"
+      university_mapping_state_enum: "active" | "revoked"
+      university_metric_computability_enum: "CONTRACT_ONLY" | "COMPUTABLE"
+      university_outcome_category_enum: "EMPLOYED" | "FURTHER_STUDY" | "OTHER" | "UNKNOWN"
+      university_outcome_presence_enum: "KNOWN" | "UNKNOWN"
+      university_outcome_source_enum:
+        | "USER_DECLARED"
+        | "VERIFIED_EMPLOYER"
+        | "INSTITUTION_GOVERNED"
+        | "EXTERNAL_GOVERNMENT"
+      university_person_status_enum: "STUDENT" | "GRADUATE" | "OTHER"
       user_role_enum:
         | "individual"
         | "entity"
@@ -12951,6 +13045,31 @@ export const Constants = {
         "invitation_withdrawn",
         "invitation_responded",
       ],
+      university_affiliation_state_enum: ["DECLARED", "VERIFIED", "NEEDS_REVIEW"],
+      university_cohort_membership_source_enum: [
+        "DECLARED_AFFILIATION",
+        "STAFF_LINK",
+        "INSTITUTION_ROSTER",
+      ],
+      university_cohort_membership_state_enum: ["ACTIVE", "ENDED", "NEEDS_REVIEW"],
+      university_degree_level_enum: [
+        "diploma",
+        "bachelor",
+        "master",
+        "doctorate",
+        "other",
+      ],
+      university_mapping_state_enum: ["active", "revoked"],
+      university_metric_computability_enum: ["CONTRACT_ONLY", "COMPUTABLE"],
+      university_outcome_category_enum: ["EMPLOYED", "FURTHER_STUDY", "OTHER", "UNKNOWN"],
+      university_outcome_presence_enum: ["KNOWN", "UNKNOWN"],
+      university_outcome_source_enum: [
+        "USER_DECLARED",
+        "VERIFIED_EMPLOYER",
+        "INSTITUTION_GOVERNED",
+        "EXTERNAL_GOVERNMENT",
+      ],
+      university_person_status_enum: ["STUDENT", "GRADUATE", "OTHER"],
       user_role_enum: [
         "individual",
         "entity",

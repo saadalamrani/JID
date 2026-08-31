@@ -38,3 +38,78 @@ export type CohortLink = VersionedContract & {
   ended_at?: IsoTimestamp
   audit_ref: ContractReference
 }
+
+export const UNIVERSITY_IDENTITY_MAPPING_STATES = ['active', 'revoked'] as const
+export type UniversityIdentityMappingState = (typeof UNIVERSITY_IDENTITY_MAPPING_STATES)[number]
+
+/** Explicit Staff reconciliation. Catalog id and Directory id are never interchangeable. */
+export type UniversityIdentityMapping = VersionedContract & {
+  mapping_id: ContractId
+  catalog_university_id: ContractId
+  directory_id: ContractId
+  mapping_state: UniversityIdentityMappingState
+  created_by_staff_id: ContractId
+  created_at: IsoTimestamp
+  revoked_at?: IsoTimestamp
+  revoked_by_staff_id?: ContractId
+  audit_reason: string
+  audit_reference?: string
+}
+
+export const UNIVERSITY_OUTCOME_SOURCES = [
+  'USER_DECLARED',
+  'VERIFIED_EMPLOYER',
+  'INSTITUTION_GOVERNED',
+  'EXTERNAL_GOVERNMENT',
+] as const
+export type UniversityOutcomeSource = (typeof UNIVERSITY_OUTCOME_SOURCES)[number]
+
+export const UNIVERSITY_OUTCOME_PRESENCE = ['KNOWN', 'UNKNOWN'] as const
+export type UniversityOutcomePresence = (typeof UNIVERSITY_OUTCOME_PRESENCE)[number]
+
+export type UniversityOutcomeEvidence = VersionedContract & {
+  outcome_id: ContractId
+  affiliation_id: ContractId
+  source: UniversityOutcomeSource
+  presence: UniversityOutcomePresence
+  provenance_ref: ContractReference
+  recorded_at: IsoTimestamp
+}
+
+export type UniversityOwnerFoundationSnapshot = {
+  mapping_present: boolean
+  fail_closed_reason: 'unauthenticated' | 'no_owned_profile' | 'unmapped' | null
+  mapping_id?: string
+  directory_id?: string
+  catalog_university_id?: string
+  mapped_at?: string
+  verified_affiliation_count?: number
+  declared_affiliation_count_hidden?: boolean
+  cohorts?: Array<{
+    id: string
+    graduation_year: number
+    degree_level: string | null
+    program_text: string | null
+    major_id: string | null
+    active_membership_count: number
+  }>
+  outcome_counts?: Array<{
+    source: UniversityOutcomeSource
+    presence: UniversityOutcomePresence
+    category: string
+    count: number
+  }>
+  metrics?: Array<{
+    metric_key: string
+    name_ar: string
+    name_en: string
+    source_definition: string
+    population_definition: string
+    window_definition: string
+    coverage_rule: string
+    missingness_rule: string
+    privacy_rule: string
+    computability: 'CONTRACT_ONLY' | 'COMPUTABLE'
+    value: number | null
+  }>
+}

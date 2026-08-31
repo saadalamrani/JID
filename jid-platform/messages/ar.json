@@ -112,6 +112,7 @@
         "radar": "الرادار",
         "abhathli": "ابحث لي",
         "careerRecord": "السجل المهني",
+        "universityAffiliation": "الانتماء الجامعي",
         "cvProjection": "السيرة الذاتية",
         "cv": "باني السيرة الذاتية",
         "notifications": "الإشعارات",
@@ -136,6 +137,7 @@
       "profile": "ملفي الشخصي",
       "radar": "الرادار",
       "careerRecord": "السجل المهني",
+      "universityAffiliation": "الانتماء الجامعي",
       "cvProjection": "السيرة الذاتية",
       "cv": "باني السيرة الذاتية",
       "dashboard": "لوحة التحكم",
@@ -1536,6 +1538,32 @@
         "methodologyBody": "لن نعرض مؤشرات قبل أن تتوفر لها بيانات وصلاحيات واضحة.",
         "nextAction": "يمكنك متابعة ملف الجامعة العام في الوقت الحالي.",
         "cta": "عرض ملف الجامعة"
+      },
+      "unmapped": {
+        "title": "هوية الجامعة غير مربوطة بعد",
+        "description": "هوية الجامعة في الدليل الأكاديمي وملف الجامعة المملوك يبقيان منفصلين. يجب أن يربطهما الموظفون قبل ظهور بيانات الأساس المؤسسي. لن نخترع تطابقاً من الأسماء.",
+        "cta": "عرض ملف الجامعة"
+      },
+      "foundation": {
+        "title": "أساس الجامعة",
+        "mappedAt": "تم ربط الهوية",
+        "privacy": "تعرض هذه المساحة بيانات أساس مجمّعة وآمنة للخصوصية فقط. لا تتضمن السجلات المهنية الاسمية أو السير الذاتية أو الطلبات أو بيانات التواصل.",
+        "verifiedTitle": "انتماءات موثّقة",
+        "verifiedHint": "الانتماءات المعلنة لا تُحتسب حتى تكتمل مراجعة الموظفين. البيانات الناقصة تبقى مجهولة وليست نتيجة سلبية.",
+        "cohortsTitle": "الأفواج",
+        "cohortsEmpty": "لا توجد أفواج مسجّلة لهذه الجامعة المربوطة بعد.",
+        "membershipCount": "العضويات الموثّقة النشطة: {count}",
+        "outcomesTitle": "أدلة المخرجات",
+        "outcomesHint": "كل مخرج يحتفظ بمصدره. عدم الرد أو عدم التقديم على جِد أو عدم تحديث الملف لا يُعدّ بطالة.",
+        "outcomesEmpty": "لا توجد أدلة مخرجات بمصدر واضح بعد. المجهول يبقى مجهولاً.",
+        "metricsTitle": "عقود المؤشرات",
+        "metricUnknown": "غير قابل للحساب حالياً",
+        "metricSource": "المصدر",
+        "metricPopulation": "المجتمع",
+        "metricWindow": "النافذة الزمنية",
+        "metricCoverage": "التغطية",
+        "metricMissingness": "البيانات الناقصة",
+        "metricPrivacy": "الخصوصية"
       }
     },
     "profileSuspended": {
@@ -1758,6 +1786,7 @@
         "mentorApplications": "طلبات المرشدين",
         "catalogOperations": "عمليات الدليل",
         "directory": "الدليل",
+        "universityReconciliation": "هوية الجامعة",
         "correctionSuggestions": "اقتراحات التصحيح",
         "profileModeration": "الملفات التعريفية",
         "announcements": "الإعلانات",
@@ -1768,6 +1797,24 @@
         "audit": "سجل تدقيقي",
         "billing": "الفوترة"
       }
+    },
+    "universityFoundation": {
+      "title": "أساس هوية الجامعة",
+      "subtitle": "ربط حصري للموظفين بين هوية الجامعة في الدليل الأكاديمي وملف الجامعة المملوك. لا يُستنتج الربط من الأسماء.",
+      "mapTitle": "إنشاء ربط",
+      "mapHint": "ربط نشط واحد لكل جامعة في الدليل ولكل سجل دليل. لا يمكن لمالك الجامعة ربط الهويتين بنفسه.",
+      "catalogId": "معرّف الجامعة في الدليل الأكاديمي",
+      "directoryId": "معرّف الدليل",
+      "reason": "سبب التدقيق",
+      "createMapping": "إنشاء الربط",
+      "mappingsTitle": "الربط",
+      "mappingsEmpty": "لا يوجد ربط مسجّل بعد.",
+      "state": "الحالة",
+      "revoke": "إلغاء الربط",
+      "reviewTitle": "مراجعة الانتماء",
+      "reviewEmpty": "لا توجد انتماءات تحتاج مراجعة حالياً.",
+      "verify": "توثيق",
+      "keepReview": "إبقاء قيد المراجعة"
     },
     "sidebar": {
       "sessionWarning": "تنتهي الجلسة خلال {time}"
@@ -1809,6 +1856,7 @@
         "dashboard": "الذهاب للوحة التحكم",
         "verification": "فتح طابور التحقق",
         "directory": "الدليل",
+        "universityReconciliation": "ربط هوية الجامعة",
         "correctionSuggestions": "اقتراحات التصحيح",
         "profileModeration": "الملفات التعريفية",
         "mentorApplications": "طلبات المرشدين",
@@ -3920,6 +3968,34 @@
       "avgResponseHours": "متوسط الاستجابة {hours} س",
       "previewTitle": "معاينة مكوّنات الملف"
     },
+    "affiliation": {
+      "title": "الانتماء الجامعي",
+      "description": "إعلان علاقتك بالجامعة لا يشارك سجلك المهني أو سيرتك الذاتية أو طلباتك أو بيانات تواصلك مع الجامعة. التوثيق صريح ومبني على دليل. بريد الجامعة ليس إلزامياً.",
+      "declareTitle": "إعلان العلاقة",
+      "noEmailMandate": "لا يُشترط التحقق عبر بريد الجامعة.",
+      "university": "الجامعة",
+      "universityPlaceholder": "اختر جامعة",
+      "universitySearch": "ابحث عن جامعة",
+      "universityEmpty": "لا توجد جامعة مطابقة",
+      "personStatus": "حالتك",
+      "graduationYear": "سنة التخرج (اختياري)",
+      "declare": "حفظ الإعلان",
+      "currentTitle": "الانتماءات الحالية",
+      "empty": "لم تعلن علاقة جامعية بعد.",
+      "reasonPlaceholder": "سبب المراجعة أو الإلغاء (8 أحرف على الأقل)",
+      "requestReview": "طلب مراجعة",
+      "revoke": "إلغاء",
+      "status": {
+        "STUDENT": "طالب",
+        "GRADUATE": "خريج",
+        "OTHER": "أخرى"
+      },
+      "state": {
+        "DECLARED": "مُعلَن",
+        "VERIFIED": "موثّق",
+        "NEEDS_REVIEW": "يحتاج مراجعة"
+      }
+    },
     "public": {
       "privateGateTitle": "هذا الملف خاص",
       "privateGateMessage": "سجّل الدخول بحساب شركة معتمد أو حساب مرشد لعرض الملفات القابلة للاكتشاف، أو اطلب من صاحب الملف جعله عامًا.",
@@ -3967,6 +4043,7 @@
       "editProfile": "تعديل الملف",
       "profileSettings": "الإعدادات",
       "privacySettings": "الخصوصية",
+      "universityAffiliation": "الانتماء الجامعي",
       "mentorActionsLabel": "الإرشاد",
       "requestMentorship": "طلب إرشاد"
     },

@@ -61,6 +61,7 @@ describe('Organization shell separation — Individual chrome unchanged', () => 
       '/profile',
       '/radar',
       '/profile/career-record',
+      '/profile/university-affiliation',
       '/profile/cv-projection',
       '/profile/cv',
       '/me',

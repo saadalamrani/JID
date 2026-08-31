@@ -1,27 +1,13 @@
 /**
- * Spec 05-B DEF-04 — University dashboard honesty (absent / present / error).
- * Spec 08-B — locale-aware dates + i18n KPI hint regression.
- * JID Design & UX Execution — Correction Pass 1: `university_dashboard_snapshot`
- * aggregates every student who selected the university, without checking
- * `show_profile_in_university_stats` consent. A present snapshot now renders the
- * consent-gate fail-closed state instead of live KPI/chart/PDF-export content —
- * see UniversityConsentGateState and DEPENDENCY_REQUIRED in the evidence report.
+ * Spec 05-B DEF-04 — University dashboard honesty after Wave 10 foundation.
+ * Unmapped owners fail closed. Mapped owners see aggregate foundation, never fake KPIs.
  */
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import en from '../../../messages/en.json'
 import { UniversityDashboard } from '@/app/[locale]/(company)/_components/university-dashboard'
 import { EmptyUniversityState } from '@/app/[locale]/(company)/_components/empty-university-state'
-
-const useUniversityDashboard = vi.fn()
-
-vi.mock('@/lib/queries/university-dashboard', () => ({
-  useUniversityDashboard: (...args: unknown[]) => useUniversityDashboard(...args),
-}))
-
-vi.mock('@/lib/analytics/track', () => ({
-  track: vi.fn(),
-}))
+import type { UniversityOwnerFoundationSnapshot } from '@/types/contracts/university'
 
 vi.mock('@/lib/i18n/navigation', () => ({
   Link: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
@@ -49,94 +35,77 @@ vi.mock('next-intl', () => ({
   },
 }))
 
-describe('Spec 05-B DEF-04 — EmptyUniversityState / snapshot honesty', () => {
-  beforeEach(() => {
-    useUniversityDashboard.mockReset()
-  })
+const unmapped: UniversityOwnerFoundationSnapshot = {
+  mapping_present: false,
+  fail_closed_reason: 'unmapped',
+}
 
-  it('no snapshot → EmptyUniversityState; consent-gate state absent', () => {
-    useUniversityDashboard.mockReturnValue({
-      isLoading: false,
-      isError: false,
-      data: [],
-    })
+const mapped: UniversityOwnerFoundationSnapshot = {
+  mapping_present: true,
+  fail_closed_reason: null,
+  mapping_id: 'map-1',
+  directory_id: 'dir-1',
+  catalog_university_id: 'cat-1',
+  mapped_at: '2026-08-31T09:30:00.000Z',
+  verified_affiliation_count: 2,
+  cohorts: [
+    {
+      id: 'c-1',
+      graduation_year: 2024,
+      degree_level: 'bachelor',
+      program_text: 'Computer Science',
+      major_id: null,
+      active_membership_count: 2,
+    },
+  ],
+  outcome_counts: [{ source: 'USER_DECLARED', presence: 'UNKNOWN', category: 'UNKNOWN', count: 1 }],
+  metrics: [
+    {
+      metric_key: 'verified_affiliation_count',
+      name_ar: 'عدد الانتماءات الموثّقة',
+      name_en: 'Verified affiliation count',
+      source_definition: 'university_affiliations',
+      population_definition: 'verified affiliations',
+      window_definition: 'active',
+      coverage_rule: 'VERIFIED only',
+      missingness_rule: 'unknown stays unknown',
+      privacy_rule: 'aggregate only',
+      computability: 'COMPUTABLE',
+      value: 2,
+    },
+    {
+      metric_key: 'employment_rate',
+      name_ar: 'معدل التوظيف',
+      name_en: 'Employment rate',
+      source_definition: 'not computable',
+      population_definition: 'not defined',
+      window_definition: 'not defined',
+      coverage_rule: 'Wave 10 does not compute this metric',
+      missingness_rule: 'never inferred as unemployed',
+      privacy_rule: 'not displayed as a rate',
+      computability: 'CONTRACT_ONLY',
+      value: null,
+    },
+  ],
+}
 
-    render(<UniversityDashboard />)
-
+describe('Wave 10 University foundation honesty', () => {
+  it('unmapped owner fails closed without KPI numbers', () => {
+    render(<UniversityDashboard foundation={unmapped} />)
     expect(screen.getByTestId('university-dashboard-empty')).toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-consent-gate')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-snapshot')).not.toBeInTheDocument()
-  })
-
-  it('snapshot present renders the honest consent-gate state, not live KPIs', () => {
-    useUniversityDashboard.mockReturnValue({
-      isLoading: false,
-      isError: false,
-      data: [
-        {
-          university_id: 'u-2',
-          total_students: 42,
-          college_distribution: { Engineering: 10 },
-          profile_completion_pct: 12.5,
-          cv_creation_pct: 8,
-          job_applications: 3,
-          mentorship_sessions: 11,
-          status_breakdown: { alumni: 5 },
-          refreshed_at: '2026-07-20T09:30:00.000Z',
-        },
-      ],
-    })
-
-    render(<UniversityDashboard />)
-
-    expect(screen.getByTestId('university-dashboard-snapshot')).toBeInTheDocument()
-    expect(screen.getByTestId('university-dashboard-consent-gate')).toBeInTheDocument()
-    expect(screen.getByText(/Last updated/i)).toBeInTheDocument()
-    // Unconsented aggregate figures must not render as real institutional intelligence.
+    expect(screen.queryByTestId('university-dashboard-foundation')).not.toBeInTheDocument()
     expect(screen.queryByText('42')).not.toBeInTheDocument()
-    expect(screen.queryByText(/Confirmed\/completed mentorship sessions/)).not.toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-export')).not.toBeInTheDocument()
   })
 
-  it('query error renders honest error state (not empty, not consent-gate)', () => {
-    useUniversityDashboard.mockReturnValue({
-      isLoading: false,
-      isError: true,
-      data: undefined,
-      error: new Error('fail'),
-    })
-
-    render(<UniversityDashboard />)
-
-    expect(screen.getByTestId('university-dashboard-error')).toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-empty')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-consent-gate')).not.toBeInTheDocument()
+  it('mapped owner shows aggregate foundation and hides employment rate', () => {
+    render(<UniversityDashboard foundation={mapped} />)
+    expect(screen.getByTestId('university-dashboard-foundation')).toBeInTheDocument()
+    expect(screen.getByTestId('university-verified-count')).toHaveTextContent('2')
+    expect(screen.getByTestId('metric-employment_rate')).toHaveTextContent('Not computable yet')
+    expect(screen.queryByText(/employment rate %/i)).not.toBeInTheDocument()
   })
 
-  it('locale-aware refreshed_at uses Latin digits pattern', () => {
-    useUniversityDashboard.mockReturnValue({
-      isLoading: false,
-      isError: false,
-      data: [
-        {
-          university_id: 'u-3',
-          total_students: 1,
-          college_distribution: {},
-          profile_completion_pct: 0,
-          cv_creation_pct: 0,
-          job_applications: 0,
-          mentorship_sessions: 0,
-          status_breakdown: {},
-          refreshed_at: '2026-07-20T09:30:00.000Z',
-        },
-      ],
-    })
-
-    render(<UniversityDashboard />)
-    expect(screen.getByText(/Last updated/i)).toBeInTheDocument()
-  })
-
-  it('EmptyUniversityState CTA points at university profile edit', () => {
+  it('EmptyUniversityState default CTA still points at university profile edit', () => {
     render(<EmptyUniversityState />)
     const link = screen.getByRole('link')
     expect(link).toHaveAttribute('href', '/university/profile/edit')

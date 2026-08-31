@@ -1,91 +1,141 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
-import { useTranslations, useLocale } from 'next-intl'
-import { track } from '@/lib/analytics/track'
-import {
-  type UniversityDashboardSnapshot,
-  useUniversityDashboard,
-} from '@/lib/queries/university-dashboard'
+import { useLocale, useTranslations } from 'next-intl'
+import type { UniversityOwnerFoundationSnapshot } from '@/types/contracts/university'
 import { EmptyUniversityState } from './empty-university-state'
-import { UniversityConsentGateState } from './university-consent-gate-state'
-
-function pickSnapshot(
-  rows: UniversityDashboardSnapshot[] | undefined,
-): UniversityDashboardSnapshot | null {
-  if (!rows?.length) return null
-  return rows[0] ?? null
-}
 
 function dateLocaleTag(locale: string): string {
   return locale.startsWith('ar') ? 'ar-SA' : 'en-US'
 }
 
-/**
- * Spec 05-B DEF-04/06 — honest snapshot-present / absent / error states with AR/EN parity.
- *
- * The KPI grid, status/college charts, and PDF export that used to render here have
- * been replaced with `UniversityConsentGateState`: `university_dashboard_snapshot`
- * aggregates every student who selected this university, not only students who opted
- * in via `show_profile_in_university_stats` — the per-student consent boundary the
- * platform already enforces on individual profile reads. Until the aggregate is bound
- * to that same consent boundary, these numbers are not authorized to render as real
- * institutional intelligence (see DEPENDENCY_REQUIRED note in the design/UX evidence
- * report). This keeps identity (owner-scoped snapshot presence) and the honest
- * loading/error/empty states unchanged.
- */
-export function UniversityDashboard() {
+type UniversityDashboardProps = {
+  foundation: UniversityOwnerFoundationSnapshot
+}
+
+export function UniversityDashboard({ foundation }: UniversityDashboardProps) {
   const t = useTranslations('university.dashboard')
   const locale = useLocale()
-  const query = useUniversityDashboard()
+  const isAr = locale.startsWith('ar')
 
-  const snapshot = useMemo(() => pickSnapshot(query.data), [query.data])
-
-  useEffect(() => {
-    if (!snapshot) return
-    track('university_dashboard_viewed', { university_id: snapshot.university_id })
-  }, [snapshot])
-
-  if (query.isLoading) {
+  if (!foundation.mapping_present) {
     return (
-      <section className="rounded-2xl border border-border bg-background p-6" role="status">
-        <p className="text-foreground/60 text-sm">{t('loading')}</p>
-      </section>
+      <EmptyUniversityState
+        title={t('unmapped.title')}
+        description={t('unmapped.description')}
+        ctaHref="/university/profile"
+        ctaLabel={t('unmapped.cta')}
+      />
     )
   }
 
-  if (query.isError) {
-    return (
-      <section
-        className="rounded-2xl border border-border bg-background p-6"
-        data-testid="university-dashboard-error"
-      >
-        <p className="text-sm text-destructive" role="alert">
-          {t('error')}
-        </p>
-      </section>
-    )
-  }
-
-  // Spec 05-B DEF-04: absent snapshot → EmptyUniversityState (not zero-filled KPIs).
-  if (!snapshot) {
-    return <EmptyUniversityState />
-  }
-
-  const refreshedLabel = new Date(snapshot.refreshed_at).toLocaleString(dateLocaleTag(locale), {
-    numberingSystem: 'latn',
-  })
+  const mappedAt = foundation.mapped_at
+    ? new Date(foundation.mapped_at).toLocaleString(dateLocaleTag(locale), { numberingSystem: 'latn' })
+    : null
 
   return (
-    <div className="space-y-5" data-testid="university-dashboard-snapshot">
+    <div className="space-y-5" data-testid="university-dashboard-foundation">
       <header className="rounded-2xl border border-border bg-background p-5">
-        <h1 className="text-2xl font-semibold text-foreground">{t('title')}</h1>
-        <p className="text-foreground/65 mt-1 text-sm">
-          {t('refreshedAt')}: {refreshedLabel}
+        <h1 className="text-2xl font-semibold text-foreground">{t('foundation.title')}</h1>
+        {mappedAt ? (
+          <p className="text-foreground/65 mt-1 text-sm">
+            {t('foundation.mappedAt')}: {mappedAt}
+          </p>
+        ) : null}
+        <p className="text-foreground/65 mt-2 max-w-2xl text-sm leading-relaxed">
+          {t('foundation.privacy')}
         </p>
       </header>
 
-      <UniversityConsentGateState />
+      <section className="rounded-2xl border border-border bg-background p-5" data-testid="university-verified-count">
+        <h2 className="text-lg font-semibold text-foreground">{t('foundation.verifiedTitle')}</h2>
+        <p className="mt-2 text-3xl font-semibold text-foreground">
+          {foundation.verified_affiliation_count ?? 0}
+        </p>
+        <p className="text-foreground/65 mt-2 text-sm">{t('foundation.verifiedHint')}</p>
+      </section>
+
+      <section className="rounded-2xl border border-border bg-background p-5">
+        <h2 className="text-lg font-semibold text-foreground">{t('foundation.cohortsTitle')}</h2>
+        {foundation.cohorts && foundation.cohorts.length > 0 ? (
+          <ul className="mt-3 space-y-2">
+            {foundation.cohorts.map((cohort) => (
+              <li
+                key={cohort.id}
+                className="rounded-lg border border-border px-3 py-2 text-sm"
+              >
+                <p className="font-medium text-foreground">
+                  {cohort.graduation_year}
+                  {cohort.program_text ? ` · ${cohort.program_text}` : ''}
+                  {cohort.degree_level ? ` · ${cohort.degree_level}` : ''}
+                </p>
+                <p className="text-foreground/65 mt-1">
+                  {t('foundation.membershipCount', { count: cohort.active_membership_count })}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-foreground/65 mt-2 text-sm">{t('foundation.cohortsEmpty')}</p>
+        )}
+      </section>
+
+      <section className="rounded-2xl border border-border bg-background p-5">
+        <h2 className="text-lg font-semibold text-foreground">{t('foundation.outcomesTitle')}</h2>
+        <p className="text-foreground/65 mt-2 text-sm">{t('foundation.outcomesHint')}</p>
+        {foundation.outcome_counts && foundation.outcome_counts.length > 0 ? (
+          <ul className="mt-3 space-y-2">
+            {foundation.outcome_counts.map((row) => (
+              <li key={`${row.source}-${row.presence}-${row.category}`} className="text-sm">
+                {row.source} · {row.presence} · {row.category}: {row.count}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-foreground/65 mt-2 text-sm">{t('foundation.outcomesEmpty')}</p>
+        )}
+      </section>
+
+      <section className="rounded-2xl border border-border bg-background p-5">
+        <h2 className="text-lg font-semibold text-foreground">{t('foundation.metricsTitle')}</h2>
+        <ul className="mt-3 space-y-4">
+          {(foundation.metrics ?? []).map((metric) => (
+            <li key={metric.metric_key} className="rounded-lg border border-border p-3">
+              <p className="font-medium text-foreground">{isAr ? metric.name_ar : metric.name_en}</p>
+              <p className="mt-1 text-2xl font-semibold text-foreground" data-testid={`metric-${metric.metric_key}`}>
+                {metric.computability === 'CONTRACT_ONLY' || metric.value === null
+                  ? t('foundation.metricUnknown')
+                  : String(metric.value)}
+              </p>
+              <dl className="mt-2 grid gap-1 text-xs text-muted-foreground">
+                <div>
+                  <dt className="font-medium text-foreground">{t('foundation.metricSource')}</dt>
+                  <dd>{metric.source_definition}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-foreground">{t('foundation.metricPopulation')}</dt>
+                  <dd>{metric.population_definition}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-foreground">{t('foundation.metricWindow')}</dt>
+                  <dd>{metric.window_definition}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-foreground">{t('foundation.metricCoverage')}</dt>
+                  <dd>{metric.coverage_rule}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-foreground">{t('foundation.metricMissingness')}</dt>
+                  <dd>{metric.missingness_rule}</dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-foreground">{t('foundation.metricPrivacy')}</dt>
+                  <dd>{metric.privacy_rule}</dd>
+                </div>
+              </dl>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   )
 }

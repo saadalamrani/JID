@@ -8,6 +8,7 @@ import {
   Flag,
   GraduationCap,
   LayoutDashboard,
+  Link2,
   Megaphone,
   Radar,
   ScrollText,
@@ -63,6 +64,7 @@ export const STAFF_NAV_SECTIONS: StaffNavSection[] = [
     items: [
       { key: 'catalogOperations', href: '/staff/catalog', icon: DatabaseZap },
       { key: 'directory', href: '/staff/directory', icon: BookOpen },
+      { key: 'universityReconciliation', href: '/staff/universities', icon: Link2 },
       {
         key: 'correctionSuggestions',
         href: '/staff/directory/suggestions',

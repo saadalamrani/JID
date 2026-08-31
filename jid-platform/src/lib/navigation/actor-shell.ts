@@ -27,6 +27,7 @@ export type ShellAccountAction = {
     | 'profile'
     | 'radar'
     | 'careerRecord'
+    | 'universityAffiliation'
     | 'cvProjection'
     | 'cv'
     | 'dashboard'
@@ -140,6 +141,7 @@ export function getShellAccountActions(options: {
     { key: 'profile', href: '/profile' },
     { key: 'radar', href: '/radar' },
     { key: 'careerRecord', href: '/profile/career-record' },
+    { key: 'universityAffiliation', href: '/profile/university-affiliation' },
     { key: 'cvProjection', href: '/profile/cv-projection' },
     { key: 'cv', href: '/profile/cv' },
     { key: 'dashboard', href: dashboardHref },

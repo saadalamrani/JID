@@ -18,6 +18,12 @@ export function OwnerActionsBar() {
         </Link>
       </Button>
       <Button asChild size="sm" variant="ghost">
+        <Link href="/profile/university-affiliation">
+          <Lock className="h-4 w-4" aria-hidden />
+          {t('universityAffiliation')}
+        </Link>
+      </Button>
+      <Button asChild size="sm" variant="ghost">
         <Link href="/profile/privacy">
           <Lock className="h-4 w-4" aria-hidden />
           {t('privacySettings')}

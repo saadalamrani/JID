@@ -13,6 +13,7 @@ export const INDIVIDUAL_QUICK_ACTIONS: IndividualQuickAction[] = [
   { key: 'radar', href: '/radar', keywords: ['meetings', 'sessions', 'رادار'] },
   { key: 'abhathli', href: '/abhathli', keywords: ['search', 'ابحث'] },
   { key: 'careerRecord', href: '/profile/career-record', keywords: ['record', 'سجل'] },
+  { key: 'universityAffiliation', href: '/profile/university-affiliation', keywords: ['university', 'جامعة'] },
   { key: 'cvProjection', href: '/profile/cv-projection', keywords: ['resume', 'سيرة'] },
   { key: 'cv', href: '/profile/cv', keywords: ['resume', 'builder'] },
   { key: 'notifications', href: '/notifications', keywords: ['alerts', 'inbox'] },

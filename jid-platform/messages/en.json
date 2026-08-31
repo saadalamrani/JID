@@ -112,6 +112,7 @@
         "radar": "Radar",
         "abhathli": "Abhathli",
         "careerRecord": "Career Record",
+        "universityAffiliation": "University affiliation",
         "cvProjection": "CV",
         "cv": "CV Builder",
         "notifications": "Notifications",
@@ -136,6 +137,7 @@
       "profile": "My profile",
       "radar": "Radar",
       "careerRecord": "Career Record",
+      "universityAffiliation": "University affiliation",
       "cvProjection": "CV",
       "cv": "CV Builder",
       "dashboard": "Dashboard",
@@ -1536,6 +1538,32 @@
         "methodologyBody": "We will not show indicators before their data and permissions are clear.",
         "nextAction": "You can continue with the public university Profile for now.",
         "cta": "View university profile"
+      },
+      "unmapped": {
+        "title": "Institutional identity is not mapped yet",
+        "description": "Catalog university identity and the owned University Profile remain separate. Staff must reconcile them before institutional foundation data can appear. We will not invent a match from names.",
+        "cta": "View university profile"
+      },
+      "foundation": {
+        "title": "University foundation",
+        "mappedAt": "Identity mapped",
+        "privacy": "This workspace shows aggregate, privacy-safe foundation data only. Named Individual Career Records, CVs, applications, and contact details are not included.",
+        "verifiedTitle": "Verified affiliations",
+        "verifiedHint": "Declared affiliations are not counted until Staff review is complete. Missing data is unknown, not a negative outcome.",
+        "cohortsTitle": "Cohorts",
+        "cohortsEmpty": "No cohorts are recorded for this mapped university yet.",
+        "membershipCount": "Active verified memberships: {count}",
+        "outcomesTitle": "Outcome evidence",
+        "outcomesHint": "Every outcome keeps its source. No response, no JID application, and no profile update are never treated as unemployment.",
+        "outcomesEmpty": "No provenance-bound outcome evidence is recorded yet. Unknown remains unknown.",
+        "metricsTitle": "Metric contracts",
+        "metricUnknown": "Not computable yet",
+        "metricSource": "Source",
+        "metricPopulation": "Population",
+        "metricWindow": "Time window",
+        "metricCoverage": "Coverage",
+        "metricMissingness": "Missingness",
+        "metricPrivacy": "Privacy"
       }
     },
     "profileSuspended": {
@@ -1758,6 +1786,7 @@
         "mentorApplications": "Mentor applications",
         "catalogOperations": "Catalog operations",
         "directory": "Directory",
+        "universityReconciliation": "University identity",
         "correctionSuggestions": "Correction suggestions",
         "profileModeration": "Profiles",
         "announcements": "Announcements",
@@ -1768,6 +1797,24 @@
         "audit": "My audit log",
         "billing": "Billing"
       }
+    },
+    "universityFoundation": {
+      "title": "University identity foundation",
+      "subtitle": "Staff-only reconciliation between catalog university identity and the owned University Profile. Mapping is never inferred from names.",
+      "mapTitle": "Create mapping",
+      "mapHint": "One active mapping per catalog university and per Directory record. University owners cannot self-link identities.",
+      "catalogId": "Catalog university id",
+      "directoryId": "Directory id",
+      "reason": "Audit reason",
+      "createMapping": "Create mapping",
+      "mappingsTitle": "Mappings",
+      "mappingsEmpty": "No mappings recorded yet.",
+      "state": "State",
+      "revoke": "Revoke mapping",
+      "reviewTitle": "Affiliation review",
+      "reviewEmpty": "No affiliations currently need review.",
+      "verify": "Mark verified",
+      "keepReview": "Keep in review"
     },
     "sidebar": {
       "sessionWarning": "Session expires in {time}"
@@ -1809,6 +1856,7 @@
         "dashboard": "Go to dashboard",
         "verification": "Open verification queue",
         "directory": "Directory",
+        "universityReconciliation": "University identity mapping",
         "correctionSuggestions": "Correction suggestions",
         "profileModeration": "Profile moderation",
         "mentorApplications": "Mentor applications",
@@ -3920,6 +3968,34 @@
       "avgResponseHours": "Avg. response {hours}h",
       "previewTitle": "Profile components preview"
     },
+    "affiliation": {
+      "title": "University affiliation",
+      "description": "Declaring a University relationship does not share your Career Record, CV, applications, or contact details with the University. Verification is explicit and evidence-based. University email is never required.",
+      "declareTitle": "Declare a relationship",
+      "noEmailMandate": "No university-email verification is required.",
+      "university": "University",
+      "universityPlaceholder": "Select a university",
+      "universitySearch": "Search universities",
+      "universityEmpty": "No matching university",
+      "personStatus": "Your status",
+      "graduationYear": "Graduation year (optional)",
+      "declare": "Save declaration",
+      "currentTitle": "Current affiliations",
+      "empty": "You have not declared a University relationship yet.",
+      "reasonPlaceholder": "Reason for review or revocation (min. 8 characters)",
+      "requestReview": "Request review",
+      "revoke": "Revoke",
+      "status": {
+        "STUDENT": "Student",
+        "GRADUATE": "Graduate",
+        "OTHER": "Other"
+      },
+      "state": {
+        "DECLARED": "Declared",
+        "VERIFIED": "Verified",
+        "NEEDS_REVIEW": "Needs review"
+      }
+    },
     "public": {
       "privateGateTitle": "This profile is private",
       "privateGateMessage": "Sign in with an approved company or mentor account to view discoverable profiles, or ask the owner to make their profile public.",
@@ -3967,6 +4043,7 @@
       "editProfile": "Edit profile",
       "profileSettings": "Settings",
       "privacySettings": "Privacy",
+      "universityAffiliation": "University affiliation",
       "mentorActionsLabel": "Mentorship",
       "requestMentorship": "Request mentorship"
     },
