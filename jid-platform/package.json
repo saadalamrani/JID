@@ -14,6 +14,8 @@
     "format:check": "prettier --check .",
     "prepare": "husky",
     "gen-types": "supabase gen types typescript --local > src/lib/supabase/types.ts",
+    "migration:list": "npx --yes supabase@2.116.0 migration list --linked",
+    "migration:dry-run": "npx --yes supabase@2.116.0 db push --linked --dry-run",
     "brand:import": "tsx scripts/import-brand-logos.ts",
     "supabase:start": "supabase start",
     "supabase:stop": "supabase stop",
