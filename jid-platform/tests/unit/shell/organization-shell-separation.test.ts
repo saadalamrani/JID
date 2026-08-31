@@ -121,7 +121,7 @@ describe('Organization shell separation — Business chrome', () => {
 describe('Organization shell separation — University chrome', () => {
   it('excludes Radar, Mentorship, and CV from primary nav', () => {
     const hrefs = shellNavHrefs('university')
-    expect(hrefs).toEqual(['/university/dashboard', '/university/profile'])
+    expect(hrefs).toEqual(['/university/dashboard', '/university/profile', '/university/reports'])
     for (const leak of INDIVIDUAL_LEAK_HREFS) {
       expect(hrefs).not.toContain(leak)
     }
@@ -134,7 +134,7 @@ describe('Organization shell separation — University chrome', () => {
       dashboardHref: '/university/dashboard',
       hasMentorRole: false,
     })
-    expect(hrefs).toEqual(['/university/dashboard', '/university/profile'])
+    expect(hrefs).toEqual(['/university/dashboard', '/university/profile', '/university/reports'])
     expect(hrefs.join(' ')).not.toMatch(/verification|claim|pending|rejected/i)
     expect(shellShowsIndividualSettings('university')).toBe(false)
     expect(shellShowsIndividualCommandPalette('university')).toBe(false)
@@ -148,6 +148,7 @@ describe('Organization shell separation — AR/EN label parity', () => {
     'businessJobs',
     'universityDashboard',
     'universityProfile',
+    'universityReports',
   ] as const
 
   it('exposes org nav keys in EN and AR without Claim/مطالبة labels', () => {

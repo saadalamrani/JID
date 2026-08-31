@@ -89,6 +89,7 @@ const ACTION_ICONS = {
   dashboard: LayoutDashboard,
   mentorDashboard: LayoutDashboard,
   jobs: BriefcaseBusiness,
+  reports: FileText,
 } as const
 
 /** Part 6 — profile menu: avatar, role, quick actions, settings, notifications, theme, language, logout. */

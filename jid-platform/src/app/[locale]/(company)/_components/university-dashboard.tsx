@@ -1,6 +1,7 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
+import { Link } from '@/lib/i18n/navigation'
 import type { UniversityOwnerFoundationSnapshot } from '@/types/contracts/university'
 import { EmptyUniversityState } from './empty-university-state'
 
@@ -44,6 +45,12 @@ export function UniversityDashboard({ foundation }: UniversityDashboardProps) {
         <p className="text-foreground/65 mt-2 max-w-2xl text-sm leading-relaxed">
           {t('foundation.privacy')}
         </p>
+        <Link
+          href="/university/reports"
+          className="mt-4 inline-flex min-h-11 items-center rounded-lg border border-border px-4 text-sm font-medium"
+        >
+          {t('foundation.reportsCta')}
+        </Link>
       </header>
 
       <section className="rounded-2xl border border-border bg-background p-5" data-testid="university-verified-count">

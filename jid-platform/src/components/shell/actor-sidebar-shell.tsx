@@ -6,6 +6,7 @@ import {
   BriefcaseBusiness,
   Building2,
   CreditCard,
+  FileText,
   LayoutDashboard,
   Menu,
 } from 'lucide-react'
@@ -20,6 +21,7 @@ export type ActorSidebarIconName =
   | 'briefcase'
   | 'credit-card'
   | 'bar-chart'
+  | 'file-text'
 
 export type ActorSidebarNavItem = {
   href: string
@@ -33,6 +35,7 @@ const ICONS = {
   briefcase: BriefcaseBusiness,
   'credit-card': CreditCard,
   'bar-chart': BarChart3,
+  'file-text': FileText,
 } as const
 
 type ActorSidebarShellProps = {

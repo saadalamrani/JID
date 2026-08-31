@@ -12239,6 +12239,24 @@ export type Database = {
       }
       viewer_approved_company_id: { Args: never; Returns: string }
       university_owner_foundation_snapshot: { Args: never; Returns: Json }
+      university_report_preview: {
+        Args: {
+          p_cohort_id?: string
+          p_report_type: Database["public"]["Enums"]["university_report_type_enum"]
+        }
+        Returns: Json
+      }
+      university_report_generate: {
+        Args: {
+          p_cohort_id?: string
+          p_report_type: Database["public"]["Enums"]["university_report_type_enum"]
+        }
+        Returns: Json
+      }
+      university_report_get: { Args: { p_report_id: string }; Returns: Json }
+      university_report_export_payload: { Args: { p_report_id: string }; Returns: Json }
+      university_report_list: { Args: never; Returns: Json }
+      university_suppression_min_n: { Args: never; Returns: number }
       viewer_approved_university_id: { Args: never; Returns: string }
       viewer_has_approved_company_claim: { Args: never; Returns: boolean }
       withdraw_hiring_application: {
@@ -12576,6 +12594,14 @@ export type Database = {
         | "INSTITUTION_GOVERNED"
         | "EXTERNAL_GOVERNMENT"
       university_person_status_enum: "STUDENT" | "GRADUATE" | "OTHER"
+      university_report_type_enum:
+        | "cohort_outcome_summary"
+        | "program_employability_evidence"
+        | "employer_alignment_summary"
+        | "career_readiness_activity"
+        | "data_coverage_methodology"
+      university_report_status_enum: "preview" | "generated" | "insufficient" | "suppressed"
+      university_benchmark_status_enum: "UNAVAILABLE" | "AVAILABLE"
       user_role_enum:
         | "individual"
         | "entity"
@@ -13070,6 +13096,15 @@ export const Constants = {
         "EXTERNAL_GOVERNMENT",
       ],
       university_person_status_enum: ["STUDENT", "GRADUATE", "OTHER"],
+      university_report_type_enum: [
+        "cohort_outcome_summary",
+        "program_employability_evidence",
+        "employer_alignment_summary",
+        "career_readiness_activity",
+        "data_coverage_methodology",
+      ],
+      university_report_status_enum: ["preview", "generated", "insufficient", "suppressed"],
+      university_benchmark_status_enum: ["UNAVAILABLE", "AVAILABLE"],
       user_role_enum: [
         "individual",
         "entity",

@@ -20,6 +20,7 @@ export type ShellNavItem = {
     | 'businessJobs'
     | 'universityDashboard'
     | 'universityProfile'
+    | 'universityReports'
 }
 
 export type ShellAccountAction = {
@@ -33,6 +34,7 @@ export type ShellAccountAction = {
     | 'dashboard'
     | 'mentorDashboard'
     | 'jobs'
+    | 'reports'
   href: string
 }
 
@@ -66,6 +68,7 @@ export const BUSINESS_SHELL_NAV_ITEMS: readonly ShellNavItem[] = [
 export const UNIVERSITY_SHELL_NAV_ITEMS: readonly ShellNavItem[] = [
   { href: '/university/dashboard', labelKey: 'universityDashboard' },
   { href: '/university/profile', labelKey: 'universityProfile' },
+  { href: '/university/reports', labelKey: 'universityReports' },
 ] as const
 
 export function resolveShellActor(role: UserRole | null | undefined): ShellActor {
@@ -129,6 +132,7 @@ export function getShellAccountActions(options: {
     return [
       { key: 'dashboard', href: '/university/dashboard' },
       { key: 'profile', href: '/university/profile' },
+      { key: 'reports', href: '/university/reports' },
     ]
   }
 

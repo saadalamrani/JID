@@ -46,6 +46,7 @@
       "businessJobs": "الفرص",
       "universityDashboard": "لوحة التحكم",
       "universityProfile": "ملف الجامعة",
+      "universityReports": "التقارير",
       "opportunities": "الفرص",
       "mentors": "المرشدون",
       "pulse": "نبض المنصة",
@@ -142,7 +143,8 @@
       "cv": "باني السيرة الذاتية",
       "dashboard": "لوحة التحكم",
       "mentorDashboard": "لوحة المرشد",
-      "jobs": "الفرص"
+      "jobs": "الفرص",
+      "reports": "التقارير"
     },
     "roles": {
       "individual": "فرد",
@@ -1489,7 +1491,8 @@
   "university": {
     "nav": {
       "shellTitle": "مساحة الجامعة",
-      "dashboard": "مساحة الجامعة"
+      "dashboard": "مساحة الجامعة",
+      "reports": "التقارير"
     },
     "dashboard": {
       "title": "مساحة الجامعة",
@@ -1563,7 +1566,52 @@
         "metricWindow": "النافذة الزمنية",
         "metricCoverage": "التغطية",
         "metricMissingness": "البيانات الناقصة",
-        "metricPrivacy": "الخصوصية"
+        "metricPrivacy": "الخصوصية",
+        "reportsCta": "فتح التقارير المؤسسية"
+      }
+    },
+    "reports": {
+      "title": "التقارير المؤسسية",
+      "intro": "أصدر تقارير مجمّعة وآمنة للخصوصية من ذكاء الجامعة الموثّق. تبقى المنهجية والتغطية والبيانات الناقصة ظاهرة مع الأرقام.",
+      "accreditation": "هذه المخرجات أدلة مساندة وبيانات داعمة للمراجعة، وقابلة للاستخدام ضمن ملف المراجعة. جِد لا تعتمد الامتثال للاعتماد.",
+      "chooseType": "نوع التقرير",
+      "choosePopulation": "الفوج / البرنامج",
+      "institutionWide": "جميع الانتماءات الموثّقة",
+      "preview": "معاينة",
+      "generate": "إنشاء لقطة",
+      "generating": "جارٍ الإنشاء...",
+      "generated": "تم إنشاء اللقطة.",
+      "openSnapshot": "فتح اللقطة",
+      "historyTitle": "سجل التقارير",
+      "historyEmpty": "لا توجد لقطات مُنشأة بعد.",
+      "generatedAt": "تاريخ الإنشاء",
+      "howComputed": "كيف احتُسبت هذه البيانات؟",
+      "population": "المجتمع",
+      "period": "الفترة",
+      "source": "المصدر",
+      "coverage": "التغطية",
+      "missingness": "البيانات الناقصة",
+      "dataAsOf": "البيانات حتى",
+      "methodologyVersion": "إصدار المنهجية",
+      "resultsTitle": "النتائج",
+      "benchmarkUnavailable": "لا يمكن إجراء مقارنة موثوقة لهذه المجموعة حالياً. لا تنشر جِد ترتيباً جامعياً أو متوسطاً وطنياً.",
+      "contractOnly": "غير قابل للحساب حالياً",
+      "suppressed": "مُخفاة",
+      "unavailable": "غير متاح",
+      "snapshotTitle": "لقطة التقرير",
+      "printTitle": "تقرير مؤسسي قابل للطباعة",
+      "print": "طباعة",
+      "exportCsv": "تصدير CSV",
+      "backToReports": "العودة إلى التقارير",
+      "unmappedTitle": "هوية الجامعة غير مربوطة بعد",
+      "unmappedDescription": "تبقى التقارير مغلقة حتى يربط الموظفون هوية الدليل الأكاديمي بملف الجامعة المملوك. لن نخترع تطابقاً من الأسماء.",
+      "unmappedCta": "عرض ملف الجامعة",
+      "types": {
+        "cohort_outcome_summary": "ملخص مخرجات الفوج",
+        "program_employability_evidence": "تقرير أدلة قابلية التوظيف للبرنامج",
+        "employer_alignment_summary": "ملخص محاذاة جهات التوظيف",
+        "career_readiness_activity": "تقرير نشاط الجاهزية المهنية",
+        "data_coverage_methodology": "تغطية البيانات والمنهجية"
       }
     },
     "profileSuspended": {

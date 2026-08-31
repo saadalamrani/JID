@@ -46,6 +46,7 @@
       "businessJobs": "Opportunities",
       "universityDashboard": "Dashboard",
       "universityProfile": "University profile",
+      "universityReports": "Reports",
       "opportunities": "Opportunities",
       "mentors": "Mentors",
       "pulse": "Platform Pulse",
@@ -142,7 +143,8 @@
       "cv": "CV Builder",
       "dashboard": "Dashboard",
       "mentorDashboard": "Mentor dashboard",
-      "jobs": "Opportunities"
+      "jobs": "Opportunities",
+      "reports": "Reports"
     },
     "roles": {
       "individual": "Individual",
@@ -1489,7 +1491,8 @@
   "university": {
     "nav": {
       "shellTitle": "University workspace",
-      "dashboard": "University workspace"
+      "dashboard": "University workspace",
+      "reports": "Reports"
     },
     "dashboard": {
       "title": "University workspace",
@@ -1563,7 +1566,52 @@
         "metricWindow": "Time window",
         "metricCoverage": "Coverage",
         "metricMissingness": "Missingness",
-        "metricPrivacy": "Privacy"
+        "metricPrivacy": "Privacy",
+        "reportsCta": "Open institutional reports"
+      }
+    },
+    "reports": {
+      "title": "Institutional reports",
+      "intro": "Generate privacy-safe aggregate reports from verified University intelligence. Numbers keep their methodology, coverage, and missingness visible.",
+      "accreditation": "These outputs are supporting evidence for institutional review. JID does not certify accreditation compliance.",
+      "chooseType": "Report type",
+      "choosePopulation": "Cohort / program",
+      "institutionWide": "All verified affiliations",
+      "preview": "Preview",
+      "generate": "Generate snapshot",
+      "generating": "Generating...",
+      "generated": "Snapshot generated.",
+      "openSnapshot": "Open snapshot",
+      "historyTitle": "Report history",
+      "historyEmpty": "No snapshots have been generated yet.",
+      "generatedAt": "Generated",
+      "howComputed": "How was this data calculated?",
+      "population": "Population",
+      "period": "Period",
+      "source": "Source",
+      "coverage": "Coverage",
+      "missingness": "Missing data",
+      "dataAsOf": "Data as of",
+      "methodologyVersion": "Methodology version",
+      "resultsTitle": "Results",
+      "benchmarkUnavailable": "A reliable comparison is not available for this group yet. JID does not publish university rankings or a national average.",
+      "contractOnly": "Not computable yet",
+      "suppressed": "Suppressed",
+      "unavailable": "Not available",
+      "snapshotTitle": "Report snapshot",
+      "printTitle": "Printable institutional report",
+      "print": "Print",
+      "exportCsv": "Export CSV",
+      "backToReports": "Back to reports",
+      "unmappedTitle": "Institutional identity is not mapped yet",
+      "unmappedDescription": "Reports stay closed until Staff reconcile catalog identity with the owned University Profile. We will not invent a match from names.",
+      "unmappedCta": "View university profile",
+      "types": {
+        "cohort_outcome_summary": "Cohort outcome summary",
+        "program_employability_evidence": "Program employability evidence",
+        "employer_alignment_summary": "Employer alignment summary",
+        "career_readiness_activity": "Career readiness activity",
+        "data_coverage_methodology": "Data coverage / methodology"
       }
     },
     "profileSuspended": {

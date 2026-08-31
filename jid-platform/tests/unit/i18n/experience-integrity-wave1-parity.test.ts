@@ -28,6 +28,6 @@ describe('Wave 1 — touched AR/EN message parity', () => {
     const en = load('en')
     const ar = load('ar')
     expect(keysOf(en.university.nav)).toEqual(keysOf(ar.university.nav))
-    expect(keysOf(en.university.nav)).toEqual(['dashboard', 'shellTitle'])
+    expect(keysOf(en.university.nav)).toEqual(['dashboard', 'reports', 'shellTitle'])
   })
 })
