@@ -12,31 +12,6 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json
-          operationName?: string
-          query?: string
-          variables?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
       _deprecated_commitment_scores: {
@@ -6224,6 +6199,363 @@ export type Database = {
           },
         ]
       }
+      integration_audit_events: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          id: string
+          integration_id: string | null
+          metadata: Json
+          organization_id: string
+          organization_type: Database["public"]["Enums"]["integration_org_type"]
+          target_id: string | null
+          target_type: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          integration_id?: string | null
+          metadata?: Json
+          organization_id: string
+          organization_type: Database["public"]["Enums"]["integration_org_type"]
+          target_id?: string | null
+          target_type: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          id?: string
+          integration_id?: string | null
+          metadata?: Json
+          organization_id?: string
+          organization_type?: Database["public"]["Enums"]["integration_org_type"]
+          target_id?: string | null
+          target_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_audit_events_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "integration_audit_events_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "integration_audit_events_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "integration_audit_events_integration_id_fkey"
+            columns: ["integration_id"]
+            isOneToOne: false
+            referencedRelation: "organization_integrations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integration_connectors: {
+        Row: {
+          connector_key: string
+          contract_version: string
+          created_at: string
+          display_name: string
+          enabled: boolean
+          supported_inbound_events: string[]
+          supported_outbound_events: string[]
+          supported_scopes: string[]
+        }
+        Insert: {
+          connector_key: string
+          contract_version?: string
+          created_at?: string
+          display_name: string
+          enabled?: boolean
+          supported_inbound_events?: string[]
+          supported_outbound_events?: string[]
+          supported_scopes: string[]
+        }
+        Update: {
+          connector_key?: string
+          contract_version?: string
+          created_at?: string
+          display_name?: string
+          enabled?: boolean
+          supported_inbound_events?: string[]
+          supported_outbound_events?: string[]
+          supported_scopes?: string[]
+        }
+        Relationships: []
+      }
+      integration_delivery_attempts: {
+        Row: {
+          attempt_number: number
+          delivery_id: string
+          error_code: string | null
+          finished_at: string | null
+          http_status: number | null
+          id: string
+          outcome: string
+          started_at: string
+        }
+        Insert: {
+          attempt_number: number
+          delivery_id: string
+          error_code?: string | null
+          finished_at?: string | null
+          http_status?: number | null
+          id?: string
+          outcome: string
+          started_at?: string
+        }
+        Update: {
+          attempt_number?: number
+          delivery_id?: string
+          error_code?: string | null
+          finished_at?: string | null
+          http_status?: number | null
+          id?: string
+          outcome?: string
+          started_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_delivery_attempts_delivery_id_fkey"
+            columns: ["delivery_id"]
+            isOneToOne: false
+            referencedRelation: "integration_webhook_deliveries"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integration_external_mappings: {
+        Row: {
+          conflict_detail: Json | null
+          created_at: string
+          external_object_id: string
+          external_version: string | null
+          id: string
+          integration_id: string
+          jid_object_id: string
+          last_reconciled_at: string | null
+          object_type: string
+          provenance: Json
+          state: Database["public"]["Enums"]["external_mapping_state"]
+        }
+        Insert: {
+          conflict_detail?: Json | null
+          created_at?: string
+          external_object_id: string
+          external_version?: string | null
+          id?: string
+          integration_id: string
+          jid_object_id: string
+          last_reconciled_at?: string | null
+          object_type: string
+          provenance: Json
+          state?: Database["public"]["Enums"]["external_mapping_state"]
+        }
+        Update: {
+          conflict_detail?: Json | null
+          created_at?: string
+          external_object_id?: string
+          external_version?: string | null
+          id?: string
+          integration_id?: string
+          jid_object_id?: string
+          last_reconciled_at?: string | null
+          object_type?: string
+          provenance?: Json
+          state?: Database["public"]["Enums"]["external_mapping_state"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_external_mappings_integration_id_fkey"
+            columns: ["integration_id"]
+            isOneToOne: false
+            referencedRelation: "organization_integrations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integration_inbound_events: {
+        Row: {
+          event_type: string
+          id: string
+          integration_id: string
+          occurred_at: string
+          payload: Json
+          payload_version: string
+          provider_event_id: string
+          received_at: string
+          rejection_code: string | null
+          status: string
+        }
+        Insert: {
+          event_type: string
+          id?: string
+          integration_id: string
+          occurred_at: string
+          payload: Json
+          payload_version: string
+          provider_event_id: string
+          received_at?: string
+          rejection_code?: string | null
+          status: string
+        }
+        Update: {
+          event_type?: string
+          id?: string
+          integration_id?: string
+          occurred_at?: string
+          payload?: Json
+          payload_version?: string
+          provider_event_id?: string
+          received_at?: string
+          rejection_code?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_inbound_events_integration_id_fkey"
+            columns: ["integration_id"]
+            isOneToOne: false
+            referencedRelation: "organization_integrations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integration_webhook_deliveries: {
+        Row: {
+          attempt_count: number
+          completed_at: string | null
+          created_at: string
+          envelope_version: string
+          event_type: string
+          id: string
+          idempotency_key: string
+          last_error_code: string | null
+          last_http_status: number | null
+          next_attempt_at: string | null
+          payload: Json
+          state: Database["public"]["Enums"]["webhook_delivery_state"]
+          subscription_id: string
+        }
+        Insert: {
+          attempt_count?: number
+          completed_at?: string | null
+          created_at?: string
+          envelope_version?: string
+          event_type: string
+          id?: string
+          idempotency_key: string
+          last_error_code?: string | null
+          last_http_status?: number | null
+          next_attempt_at?: string | null
+          payload: Json
+          state?: Database["public"]["Enums"]["webhook_delivery_state"]
+          subscription_id: string
+        }
+        Update: {
+          attempt_count?: number
+          completed_at?: string | null
+          created_at?: string
+          envelope_version?: string
+          event_type?: string
+          id?: string
+          idempotency_key?: string
+          last_error_code?: string | null
+          last_http_status?: number | null
+          next_attempt_at?: string | null
+          payload?: Json
+          state?: Database["public"]["Enums"]["webhook_delivery_state"]
+          subscription_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_webhook_deliveries_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "integration_webhook_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      integration_webhook_subscriptions: {
+        Row: {
+          active: boolean
+          created_at: string
+          created_by: string
+          destination_url: string
+          event_types: string[]
+          id: string
+          integration_id: string
+          signing_secret_reference: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          created_by: string
+          destination_url: string
+          event_types: string[]
+          id?: string
+          integration_id: string
+          signing_secret_reference: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          created_by?: string
+          destination_url?: string
+          event_types?: string[]
+          id?: string
+          integration_id?: string
+          signing_secret_reference?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "integration_webhook_subscriptions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "integration_webhook_subscriptions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "integration_webhook_subscriptions_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "integration_webhook_subscriptions_integration_id_fkey"
+            columns: ["integration_id"]
+            isOneToOne: false
+            referencedRelation: "organization_integrations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       job_boost_daily_stats: {
         Row: {
           card_opens: number
@@ -8736,6 +9068,101 @@ export type Database = {
           },
         ]
       }
+      organization_integrations: {
+        Row: {
+          authorized_at: string
+          authorized_by: string
+          connector_key: string
+          id: string
+          organization_id: string
+          organization_type: Database["public"]["Enums"]["integration_org_type"]
+          provider_tenant_key: string
+          revoked_at: string | null
+          revoked_by: string | null
+          scopes: string[]
+          secret_reference: string
+          state: Database["public"]["Enums"]["integration_state"]
+        }
+        Insert: {
+          authorized_at?: string
+          authorized_by: string
+          connector_key: string
+          id?: string
+          organization_id: string
+          organization_type: Database["public"]["Enums"]["integration_org_type"]
+          provider_tenant_key: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          scopes: string[]
+          secret_reference: string
+          state?: Database["public"]["Enums"]["integration_state"]
+        }
+        Update: {
+          authorized_at?: string
+          authorized_by?: string
+          connector_key?: string
+          id?: string
+          organization_id?: string
+          organization_type?: Database["public"]["Enums"]["integration_org_type"]
+          provider_tenant_key?: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          scopes?: string[]
+          secret_reference?: string
+          state?: Database["public"]["Enums"]["integration_state"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_integrations_authorized_by_fkey"
+            columns: ["authorized_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organization_integrations_authorized_by_fkey"
+            columns: ["authorized_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organization_integrations_authorized_by_fkey"
+            columns: ["authorized_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "organization_integrations_connector_key_fkey"
+            columns: ["connector_key"]
+            isOneToOne: false
+            referencedRelation: "integration_connectors"
+            referencedColumns: ["connector_key"]
+          },
+          {
+            foreignKeyName: "organization_integrations_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organization_integrations_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "organization_integrations_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
       phone_verification_attempts: {
         Row: {
           attempt_number: number
@@ -10459,6 +10886,36 @@ export type Database = {
           },
         ]
       }
+      university_benchmark_reference_sets: {
+        Row: {
+          comparability_rule: string
+          coverage_requirement: string
+          created_at: string
+          notes_ar: string
+          notes_en: string
+          set_key: string
+          status: Database["public"]["Enums"]["university_benchmark_status_enum"]
+        }
+        Insert: {
+          comparability_rule: string
+          coverage_requirement: string
+          created_at?: string
+          notes_ar: string
+          notes_en: string
+          set_key: string
+          status?: Database["public"]["Enums"]["university_benchmark_status_enum"]
+        }
+        Update: {
+          comparability_rule?: string
+          coverage_requirement?: string
+          created_at?: string
+          notes_ar?: string
+          notes_en?: string
+          set_key?: string
+          status?: Database["public"]["Enums"]["university_benchmark_status_enum"]
+        }
+        Relationships: []
+      }
       university_cohort_memberships: {
         Row: {
           affiliation_id: string
@@ -11183,6 +11640,152 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      university_report_methodology_versions: {
+        Row: {
+          accreditation_boundary_ar: string
+          accreditation_boundary_en: string
+          body_ar: string
+          body_en: string
+          created_at: string
+          title_ar: string
+          title_en: string
+          version_key: string
+        }
+        Insert: {
+          accreditation_boundary_ar: string
+          accreditation_boundary_en: string
+          body_ar: string
+          body_en: string
+          created_at?: string
+          title_ar: string
+          title_en: string
+          version_key: string
+        }
+        Update: {
+          accreditation_boundary_ar?: string
+          accreditation_boundary_en?: string
+          body_ar?: string
+          body_en?: string
+          created_at?: string
+          title_ar?: string
+          title_en?: string
+          version_key?: string
+        }
+        Relationships: []
+      }
+      university_report_snapshots: {
+        Row: {
+          catalog_university_id: string
+          cohort_id: string | null
+          coverage: Json
+          created_at: string
+          data_as_of: string
+          directory_id: string
+          generated_at: string
+          generated_by: string
+          id: string
+          methodology_version: string
+          missingness_notes_ar: string
+          missingness_notes_en: string
+          payload: Json
+          population: Json
+          privacy_rules: Json
+          report_type: Database["public"]["Enums"]["university_report_type_enum"]
+          status: Database["public"]["Enums"]["university_report_status_enum"]
+          time_window: Json
+        }
+        Insert: {
+          catalog_university_id: string
+          cohort_id?: string | null
+          coverage: Json
+          created_at?: string
+          data_as_of: string
+          directory_id: string
+          generated_at?: string
+          generated_by: string
+          id?: string
+          methodology_version: string
+          missingness_notes_ar: string
+          missingness_notes_en: string
+          payload: Json
+          population: Json
+          privacy_rules: Json
+          report_type: Database["public"]["Enums"]["university_report_type_enum"]
+          status: Database["public"]["Enums"]["university_report_status_enum"]
+          time_window: Json
+        }
+        Update: {
+          catalog_university_id?: string
+          cohort_id?: string | null
+          coverage?: Json
+          created_at?: string
+          data_as_of?: string
+          directory_id?: string
+          generated_at?: string
+          generated_by?: string
+          id?: string
+          methodology_version?: string
+          missingness_notes_ar?: string
+          missingness_notes_en?: string
+          payload?: Json
+          population?: Json
+          privacy_rules?: Json
+          report_type?: Database["public"]["Enums"]["university_report_type_enum"]
+          status?: Database["public"]["Enums"]["university_report_status_enum"]
+          time_window?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "university_report_snapshots_catalog_university_id_fkey"
+            columns: ["catalog_university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_report_snapshots_cohort_id_fkey"
+            columns: ["cohort_id"]
+            isOneToOne: false
+            referencedRelation: "university_cohorts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_report_snapshots_directory_id_fkey"
+            columns: ["directory_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_report_snapshots_generated_by_fkey"
+            columns: ["generated_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_report_snapshots_generated_by_fkey"
+            columns: ["generated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_report_snapshots_generated_by_fkey"
+            columns: ["generated_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "university_report_snapshots_methodology_version_fkey"
+            columns: ["methodology_version"]
+            isOneToOne: false
+            referencedRelation: "university_report_methodology_versions"
+            referencedColumns: ["version_key"]
           },
         ]
       }
@@ -12945,6 +13548,10 @@ export type Database = {
         }
         Returns: string
       }
+      redeliver_integration_webhook: {
+        Args: { p_delivery_id: string }
+        Returns: boolean
+      }
       redrive_catalog_dead_letter: {
         Args: { p_dead_letter_id: string }
         Returns: Json
@@ -13322,6 +13929,43 @@ export type Database = {
         Args: { p_cohort_id?: string }
         Returns: Json
       }
+      university_owner_intelligence_snapshot_raw: {
+        Args: { p_cohort_id?: string }
+        Returns: Json
+      }
+      university_report_compose: {
+        Args: {
+          p_cohort_id?: string
+          p_report_type: Database["public"]["Enums"]["university_report_type_enum"]
+        }
+        Returns: Json
+      }
+      university_report_export_payload: {
+        Args: { p_report_id: string }
+        Returns: Json
+      }
+      university_report_generate: {
+        Args: {
+          p_cohort_id?: string
+          p_report_type: Database["public"]["Enums"]["university_report_type_enum"]
+        }
+        Returns: Json
+      }
+      university_report_get: { Args: { p_report_id: string }; Returns: Json }
+      university_report_list: { Args: never; Returns: Json }
+      university_report_preview: {
+        Args: {
+          p_cohort_id?: string
+          p_report_type: Database["public"]["Enums"]["university_report_type_enum"]
+        }
+        Returns: Json
+      }
+      university_report_safe_count: { Args: { p_n: number }; Returns: Json }
+      university_suppression_min_n: { Args: never; Returns: number }
+      university_wave11_intelligence_overlay: {
+        Args: { p_cohort_id?: string }
+        Returns: Json
+      }
       unpublish_business_profile: {
         Args: { p_profile_id: string }
         Returns: Json
@@ -13369,24 +14013,6 @@ export type Database = {
         Returns: boolean
       }
       viewer_approved_company_id: { Args: never; Returns: string }
-      university_report_preview: {
-        Args: {
-          p_cohort_id?: string
-          p_report_type: Database["public"]["Enums"]["university_report_type_enum"]
-        }
-        Returns: Json
-      }
-      university_report_generate: {
-        Args: {
-          p_cohort_id?: string
-          p_report_type: Database["public"]["Enums"]["university_report_type_enum"]
-        }
-        Returns: Json
-      }
-      university_report_get: { Args: { p_report_id: string }; Returns: Json }
-      university_report_export_payload: { Args: { p_report_id: string }; Returns: Json }
-      university_report_list: { Args: never; Returns: Json }
-      university_suppression_min_n: { Args: never; Returns: number }
       viewer_approved_university_id: { Args: never; Returns: string }
       viewer_has_approved_company_claim: { Args: never; Returns: boolean }
       wave9_connected: { Args: { a: string; b: string }; Returns: boolean }
@@ -13576,6 +14202,7 @@ export type Database = {
         | "senior"
         | "lead"
         | "executive"
+      external_mapping_state: "mapped" | "conflict" | "detached"
       flag_reason_enum:
         | "spam"
         | "harassment"
@@ -13610,6 +14237,8 @@ export type Database = {
         | "recruiter"
         | "interviewer"
         | "viewer"
+      integration_org_type: "business" | "university"
+      integration_state: "active" | "revoked"
       job_status_enum:
         | "draft"
         | "published"
@@ -13716,6 +14345,7 @@ export type Database = {
         | "DECLARED"
         | "VERIFIED"
         | "NEEDS_REVIEW"
+      university_benchmark_status_enum: "UNAVAILABLE" | "AVAILABLE"
       university_cohort_membership_source_enum:
         | "DECLARED_AFFILIATION"
         | "STAFF_LINK"
@@ -13755,14 +14385,17 @@ export type Database = {
         | "EMPLOYER_SESSION"
         | "CAREER_EVENT"
         | "READINESS_INTERVENTION"
+      university_report_status_enum:
+        | "preview"
+        | "generated"
+        | "insufficient"
+        | "suppressed"
       university_report_type_enum:
         | "cohort_outcome_summary"
         | "program_employability_evidence"
         | "employer_alignment_summary"
         | "career_readiness_activity"
         | "data_coverage_methodology"
-      university_report_status_enum: "preview" | "generated" | "insufficient" | "suppressed"
-      university_benchmark_status_enum: "UNAVAILABLE" | "AVAILABLE"
       user_role_enum:
         | "individual"
         | "entity"
@@ -13771,6 +14404,12 @@ export type Database = {
         | "super_admin"
         | "company_admin"
         | "university_admin"
+      webhook_delivery_state:
+        | "pending"
+        | "delivering"
+        | "succeeded"
+        | "retry_scheduled"
+        | "terminal_failure"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -13896,9 +14535,6 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {
       additional_category_enum: [
@@ -14094,6 +14730,7 @@ export const Constants = {
         "lead",
         "executive",
       ],
+      external_mapping_state: ["mapped", "conflict", "detached"],
       flag_reason_enum: [
         "spam",
         "harassment",
@@ -14133,6 +14770,8 @@ export const Constants = {
         "interviewer",
         "viewer",
       ],
+      integration_org_type: ["business", "university"],
+      integration_state: ["active", "revoked"],
       job_status_enum: [
         "draft",
         "published",
@@ -14249,6 +14888,7 @@ export const Constants = {
         "VERIFIED",
         "NEEDS_REVIEW",
       ],
+      university_benchmark_status_enum: ["UNAVAILABLE", "AVAILABLE"],
       university_cohort_membership_source_enum: [
         "DECLARED_AFFILIATION",
         "STAFF_LINK",
@@ -14295,6 +14935,12 @@ export const Constants = {
         "CAREER_EVENT",
         "READINESS_INTERVENTION",
       ],
+      university_report_status_enum: [
+        "preview",
+        "generated",
+        "insufficient",
+        "suppressed",
+      ],
       university_report_type_enum: [
         "cohort_outcome_summary",
         "program_employability_evidence",
@@ -14302,8 +14948,6 @@ export const Constants = {
         "career_readiness_activity",
         "data_coverage_methodology",
       ],
-      university_report_status_enum: ["preview", "generated", "insufficient", "suppressed"],
-      university_benchmark_status_enum: ["UNAVAILABLE", "AVAILABLE"],
       user_role_enum: [
         "individual",
         "entity",
@@ -14312,6 +14956,13 @@ export const Constants = {
         "super_admin",
         "company_admin",
         "university_admin",
+      ],
+      webhook_delivery_state: [
+        "pending",
+        "delivering",
+        "succeeded",
+        "retry_scheduled",
+        "terminal_failure",
       ],
     },
   },
