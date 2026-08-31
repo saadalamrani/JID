@@ -11,7 +11,7 @@ export type StaffBillingActionResult = { ok: true; subscriptionId: string } | { 
 
 const activationSchema = z.object({
   companyId: z.string().uuid(),
-  planKey: z.enum(['employer_premium', 'employer_enterprise']),
+  planKey: z.enum(['employer_premium', 'employer_enterprise', 'university_outcomes']),
   billingCycle: z.enum(['monthly', 'yearly']),
   reason: z.string().trim().min(10, 'Reason must be at least 10 characters'),
 })
@@ -65,6 +65,7 @@ export async function activateCompanyPlan(input: unknown): Promise<StaffBillingA
 
     revalidatePath('/staff/billing')
     revalidatePath('/billing')
+    revalidatePath('/university/packaging')
 
     return { ok: true, subscriptionId }
   } catch (error) {

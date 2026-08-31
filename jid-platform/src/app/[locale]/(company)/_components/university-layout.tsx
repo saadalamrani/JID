@@ -18,6 +18,7 @@ export async function UniversityLayout({ children }: UniversityLayoutProps) {
   const items: ActorSidebarNavItem[] = [
     { href: '/university/dashboard', label: t('dashboard'), icon: 'bar-chart' },
     { href: '/university/reports', label: t('reports'), icon: 'file-text' },
+    { href: '/university/packaging', label: t('packaging'), icon: 'credit-card' },
   ]
 
   return (

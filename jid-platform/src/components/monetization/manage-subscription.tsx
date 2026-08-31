@@ -100,7 +100,7 @@ export function ManageSubscription({ className }: ManageSubscriptionProps) {
           <p className="mt-1 font-arabic text-sm text-muted-foreground">{t('subtitle')}</p>
         </div>
         <span className="inline-flex items-center rounded-full bg-accent px-2.5 py-0.5 font-arabic text-xs font-semibold text-primary">
-          بلس
+          {t('badge')}
         </span>
       </div>
 

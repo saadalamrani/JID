@@ -42,7 +42,7 @@ export function PlusTeaser({ feature, className, preview, onUpgradeViewed }: Plu
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="font-arabic text-base font-semibold text-primary">{t('title')}</h3>
               <span className="inline-flex items-center rounded-full bg-accent px-2 py-0.5 font-arabic text-xs font-semibold text-primary">
-                بلس
+                {t('badge')}
               </span>
             </div>
             <p className="mt-1 font-arabic text-sm leading-relaxed text-muted-foreground">

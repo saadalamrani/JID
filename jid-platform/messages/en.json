@@ -1492,7 +1492,8 @@
     "nav": {
       "shellTitle": "University workspace",
       "dashboard": "University workspace",
-      "reports": "Reports"
+      "reports": "Reports",
+      "packaging": "Workspace plan"
     },
     "dashboard": {
       "title": "University workspace",
@@ -1599,6 +1600,13 @@
         "methodologyTitle": "Methodology and limits",
         "source": "Source"
       }
+    },
+    "packaging": {
+      "title": "University workspace plan",
+      "intro": "Commercial packaging for University work. Core reporting stays available. Exact prices are not adopted. Government is not a fourth marketplace actor.",
+      "unmappedTitle": "Identity mapping required",
+      "unmappedDescription": "A Staff identity mapping is required before workspace packaging can be reviewed.",
+      "unmappedCta": "Open university profile"
     },
     "reports": {
       "title": "Institutional reports",
@@ -5557,7 +5565,8 @@
     "teaser": {
       "ariaLabel": "JID Plus locked feature",
       "title": "Unlock with JID Plus",
-      "upgradeCta": "Upgrade to Plus",
+      "badge": "Plus",
+      "upgradeCta": "View Plus packaging",
       "previewLocked": "Plus preview locked",
       "features": {
         "cv_pro_formats": {
@@ -5581,7 +5590,12 @@
     "upgrade": {
       "title": "JID Plus",
       "planFallback": "JID Plus",
-      "billingNote": "Monthly or yearly billing only — cancel anytime at period end.",
+      "badge": "Plus",
+      "coreTitle": "Individual Core",
+      "billingNote": "Plus is paid intelligence after proven utility. Exact prices are not adopted.",
+      "priceNotAdopted": "No published SAR price. Catalog amounts are not product prices.",
+      "priceLabel": "Price not adopted",
+      "designPartnerCta": "Request a design-partner conversation",
       "cycleToggleLabel": "Billing cycle",
       "monthly": "Monthly",
       "yearly": "Yearly",
@@ -5606,6 +5620,7 @@
     "manage": {
       "title": "JID Plus subscription",
       "subtitle": "Your personal Plus plan and renewal details.",
+      "badge": "Plus",
       "loading": "Loading subscription…",
       "empty": "You do not have an active JID Plus subscription yet.",
       "upgradeCta": "View Plus plans",
@@ -5631,11 +5646,11 @@
       }
     },
     "pricing": {
-      "metaTitle": "JID Plus — Subscription plans",
-      "metaDescription": "Unlock professional CV formats and Lammah with JID Plus.",
+      "metaTitle": "JID Plus — Packaging",
+      "metaDescription": "Individual Core stays free. JID Plus is paid intelligence after proven utility. Exact prices are not adopted.",
       "eyebrow": "JID Plus",
-      "title": "Unlock premium features",
-      "subtitle": "Monthly or yearly billing only — no passes or lifetime plans.",
+      "title": "Individual Core stays free",
+      "subtitle": "Plus is a packaging hypothesis, not a published price. No pay-to-win ranking and no privacy paywall.",
       "featuresTitle": "What is included in Plus?",
       "featureItems": ["CV Builder", "Lammah — Plus external feed"],
       "billingNote": "Cancel anytime at the end of your current billing period.",
@@ -5648,7 +5663,7 @@
     "companyBilling": {
       "breadcrumb": "Billing and plans",
       "title": "Company plan",
-      "subtitle": "Your entity subscription status and employer premium features.",
+      "subtitle": "Honest employer packaging. Starter workflow stays available. Growth and Enterprise are design-partner or contract paths. Exact SAR prices are not adopted.",
       "currentPlan": "Current plan",
       "active": "Active",
       "billingCycle": "Billing cycle",
@@ -5668,13 +5683,16 @@
     },
     "staffBilling": {
       "title": "Activate company subscription",
-      "subtitle": "Manual activation for Premium or Enterprise plans — mandatory audit logging.",
+      "subtitle": "Manual activation for Growth, Enterprise, or University Outcomes — mandatory audit logging. Catalog amounts are not adopted public prices.",
+      "priceNotAdopted": "Exact SAR prices are not adopted. Do not quote catalog amounts as published prices.",
+      "catalogTitle": "Commercial package ledger",
       "companyId": "Company ID",
       "companyIdPlaceholder": "Organization identifier",
       "plan": "Plan",
       "plans": {
-        "employer_premium": "Employer Premium",
-        "employer_enterprise": "Employer Enterprise"
+        "employer_premium": "Employer Growth (operational key: employer_premium)",
+        "employer_enterprise": "Employer Enterprise",
+        "university_outcomes": "University Outcomes Workspace"
       },
       "billingCycle": "Billing cycle",
       "monthly": "Monthly",
@@ -5686,6 +5704,23 @@
       "activating": "Activating…",
       "activationSuccess": "Company subscription activated and audit-logged.",
       "auditNote": "Every activation is written to the audit log. There is no direct write path to subscriptions from this screen."
+    }
+  },
+  "commercial": {
+    "catalog": {
+      "priceNotAdopted": "Exact SAR prices are not adopted. What you see is packaging, not a published price list.",
+      "priceLabel": "Price not adopted",
+      "prohibitedNote": "Organic ranking is not for sale. Privacy rights are not a premium feature. Government endorsement is never implied.",
+      "current": "Current",
+      "salesTitle": "Talk with JID",
+      "salesBody": "Paid intelligence, design-partner, and contract packages are activated with an audit record. There is no self-serve checkout while prices are not adopted.",
+      "salesCta": "Contact us",
+      "kinds": {
+        "core_free": "Free core",
+        "paid_intelligence": "Paid intelligence",
+        "design_partner": "Design partner",
+        "contract_only": "Contract only"
+      }
     }
   },
   "onboarding": {

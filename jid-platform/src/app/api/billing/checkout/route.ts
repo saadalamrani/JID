@@ -5,6 +5,7 @@ import {
   getBillingProvider,
   isMoyasarConfigured,
 } from '@/lib/billing'
+import { assertCheckoutRateLimit, CheckoutRateLimitError } from '@/lib/billing/checkout-rate-limit'
 import { priceForCycle } from '@/lib/monetization/format'
 import { createClient } from '@/lib/supabase/server'
 
@@ -35,10 +36,11 @@ export async function POST(request: Request) {
     }
 
     const body = checkoutSchema.parse(await request.json())
+    await assertCheckoutRateLimit(user.id)
 
     const { data: plan, error: planError } = await supabase
       .from('plans')
-      .select('id, key, name_ar, name_en, price_monthly_sar, price_yearly_sar')
+      .select('id, key, name_ar, name_en, price_monthly_sar, price_yearly_sar, price_adoption_status')
       .eq('key', body.planKey)
       .eq('is_active', true)
       .maybeSingle()
@@ -48,6 +50,12 @@ export async function POST(request: Request) {
     }
     if (!plan) {
       return NextResponse.json({ error: 'Plan not found' }, { status: 404 })
+    }
+    if (plan.price_adoption_status !== 'adopted') {
+      return NextResponse.json(
+        { error: 'price_not_adopted', message: 'Public prices are not adopted yet.' },
+        { status: 409 },
+      )
     }
 
     const amountSar = priceForCycle(
@@ -83,6 +91,9 @@ export async function POST(request: Request) {
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Invalid checkout payload' }, { status: 400 })
+    }
+    if (error instanceof CheckoutRateLimitError) {
+      return NextResponse.json({ error: 'rate_limited' }, { status: 429 })
     }
     const message = error instanceof Error ? error.message : 'Checkout failed'
     return NextResponse.json({ error: message }, { status: 500 })

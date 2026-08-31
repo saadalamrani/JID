@@ -1,9 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { Mail, Sparkles } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Link } from '@/lib/i18n/navigation'
+import { PackageCatalog } from '@/components/commercial/package-catalog'
 import type { CompanySubscriptionSummary } from '@/lib/monetization/company-subscription-server'
 
 type CompanyBillingClientProps = {
@@ -57,35 +55,9 @@ export function CompanyBillingClient({ subscription, locale }: CompanyBillingCli
             </div>
           </dl>
         </section>
-      ) : (
-        <section className="rounded-xl border border-accent/30 bg-surface/60 p-6">
-          <div className="flex items-start gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent/15">
-              <Sparkles className="h-5 w-5 text-primary" aria-hidden />
-            </span>
-            <div>
-              <h2 className="font-arabic text-base font-semibold text-primary">{t('teaserTitle')}</h2>
-              <p className="mt-2 font-arabic text-sm leading-relaxed text-muted-foreground">{t('teaserBody')}</p>
-              <ul className="mt-3 space-y-1.5 font-arabic text-sm text-muted-foreground">
-                {(t.raw('teaserBullets') as string[]).map((bullet) => (
-                  <li key={bullet}>• {bullet}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-      )}
+      ) : null}
 
-      <section className="rounded-xl border border-border bg-card p-5">
-        <h2 className="font-arabic text-base font-semibold text-foreground">{t('salesTitle')}</h2>
-        <p className="mt-2 font-arabic text-sm text-muted-foreground">{t('salesBody')}</p>
-        <Button asChild className="mt-4 bg-primary font-arabic text-primary-foreground hover:bg-primary/90">
-          <Link href="/contact">
-            <Mail className="h-4 w-4" aria-hidden />
-            {t('salesCta')}
-          </Link>
-        </Button>
-      </section>
+      <PackageCatalog actor="business" currentPlanKey={subscription?.planKey ?? null} />
     </div>
   )
 }

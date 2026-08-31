@@ -5,7 +5,7 @@ import type { BillingCycle } from '@/lib/monetization/types'
 
 export type ManualCompanyActivationInput = {
   companyId: string
-  planKey: 'employer_premium' | 'employer_enterprise'
+  planKey: 'employer_premium' | 'employer_enterprise' | 'university_outcomes'
   billingCycle: BillingCycle
   activatedBy: string
   reason: string

@@ -12,7 +12,9 @@ import { activateCompanyPlan } from '../actions'
 export function StaffBillingActivationForm() {
   const t = useTranslations('monetization.staffBilling')
   const [companyId, setCompanyId] = useState('')
-  const [planKey, setPlanKey] = useState<'employer_premium' | 'employer_enterprise'>('employer_premium')
+  const [planKey, setPlanKey] = useState<
+    'employer_premium' | 'employer_enterprise' | 'university_outcomes'
+  >('employer_premium')
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly')
   const [reason, setReason] = useState('')
   const [isPending, startTransition] = useTransition()
@@ -62,12 +64,18 @@ export function StaffBillingActivationForm() {
             id="planKey"
             value={planKey}
             onChange={(event) =>
-              setPlanKey(event.target.value as 'employer_premium' | 'employer_enterprise')
+              setPlanKey(
+                event.target.value as
+                  | 'employer_premium'
+                  | 'employer_enterprise'
+                  | 'university_outcomes',
+              )
             }
             className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           >
             <option value="employer_premium">{t('plans.employer_premium')}</option>
             <option value="employer_enterprise">{t('plans.employer_enterprise')}</option>
+            <option value="university_outcomes">{t('plans.university_outcomes')}</option>
           </select>
         </div>
 

@@ -61,6 +61,17 @@ export async function activateUserSubscription(input: {
   }
 
   const admin = createAdminClient()
+
+  if (input.providerRef) {
+    const { data: existing } = await admin
+      .from('subscriptions')
+      .select('id')
+      .eq('payment_provider', input.paymentProvider)
+      .eq('provider_ref', input.providerRef)
+      .maybeSingle()
+    if (existing?.id) return existing.id
+  }
+
   const periodEnd = input.periodEnd ?? periodEndFromCycle(input.billingCycle)
   const now = new Date().toISOString()
 
@@ -107,7 +118,7 @@ export async function activateUserSubscription(input: {
 
 export async function activateCompanySubscription(input: {
   companyId: string
-  planKey: 'employer_premium' | 'employer_enterprise'
+  planKey: 'employer_premium' | 'employer_enterprise' | 'university_outcomes'
   billingCycle: BillingCycle
   activatedBy: string
   periodEnd?: string

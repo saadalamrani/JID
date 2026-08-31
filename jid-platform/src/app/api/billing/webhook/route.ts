@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getBillingProvider, handlePaymentSucceeded } from '@/lib/billing'
-import { createAdminClient } from '@/lib/supabase/admin'
-import type { Json } from '@/lib/supabase/types'
+import { recordBillingEventIdempotent } from '@/lib/billing/idempotency'
 
 export async function POST(request: Request) {
   try {
@@ -15,12 +14,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid webhook' }, { status: 400 })
     }
 
-    const admin = createAdminClient()
-    await admin.from('billing_events').insert({
-      subscription_id: null,
-      event_type: event.eventType,
-      payload: event.payload as Json,
+    const recorded = await recordBillingEventIdempotent({
+      providerEventId: event.providerRef,
+      eventType: event.eventType,
+      payload: event.payload,
     })
+
+    if (!recorded.inserted) {
+      return NextResponse.json({ ok: true, duplicate: true })
+    }
 
     if (!event.paid) {
       return NextResponse.json({ ok: true, handled: false })

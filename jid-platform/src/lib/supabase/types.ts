@@ -1121,6 +1121,7 @@ export type Database = {
           event_type: string
           id: string
           payload: Json | null
+          provider_event_id: string | null
           subscription_id: string | null
         }
         Insert: {
@@ -1128,6 +1129,7 @@ export type Database = {
           event_type: string
           id?: string
           payload?: Json | null
+          provider_event_id?: string | null
           subscription_id?: string | null
         }
         Update: {
@@ -1135,6 +1137,7 @@ export type Database = {
           event_type?: string
           id?: string
           payload?: Json | null
+          provider_event_id?: string | null
           subscription_id?: string | null
         }
         Relationships: [
@@ -9260,6 +9263,7 @@ export type Database = {
           key: string
           name_ar: string
           name_en: string
+          price_adoption_status: Database["public"]["Enums"]["price_adoption_status"]
           price_monthly_sar: number
           price_yearly_sar: number
         }
@@ -9272,6 +9276,7 @@ export type Database = {
           key: string
           name_ar: string
           name_en: string
+          price_adoption_status?: Database["public"]["Enums"]["price_adoption_status"]
           price_monthly_sar: number
           price_yearly_sar: number
         }
@@ -9284,6 +9289,7 @@ export type Database = {
           key?: string
           name_ar?: string
           name_en?: string
+          price_adoption_status?: Database["public"]["Enums"]["price_adoption_status"]
           price_monthly_sar?: number
           price_yearly_sar?: number
         }
@@ -13226,6 +13232,7 @@ export type Database = {
         }
       }
       has_entitlement: { Args: { p_feature: string }; Returns: boolean }
+      plan_price_is_adopted: { Args: { p_plan_key: string }; Returns: boolean }
       hash_staff_invite_token: { Args: { p_token: string }; Returns: string }
       hiring_application_applicant: {
         Args: { p_application_id: string }
@@ -14086,6 +14093,12 @@ export type Database = {
         | "OTHER_REVIEWED"
       badge_category_enum: "individual" | "company" | "mentor" | "university"
       billing_cycle_enum: "monthly" | "yearly"
+      commercial_actor: "individual" | "business" | "university" | "government"
+      commercial_package_kind:
+        | "core_free"
+        | "paid_intelligence"
+        | "design_partner"
+        | "contract_only"
       candidate_visible_status_enum:
         | "submitted"
         | "in_review"
@@ -14322,6 +14335,7 @@ export type Database = {
       ssis_invitation_status_enum: "sent" | "started" | "completed" | "expired"
       ssis_recommendation_enum: "advance" | "review" | "decline_recommend"
       ssis_status_enum: "draft" | "pending_approval" | "active" | "closed"
+      price_adoption_status: "not_adopted" | "adopted"
       subscriber_type_enum: "user" | "company"
       subscription_status_enum:
         | "trialing"
@@ -14599,6 +14613,13 @@ export const Constants = {
       ],
       badge_category_enum: ["individual", "company", "mentor", "university"],
       billing_cycle_enum: ["monthly", "yearly"],
+      commercial_actor: ["individual", "business", "university", "government"],
+      commercial_package_kind: [
+        "core_free",
+        "paid_intelligence",
+        "design_partner",
+        "contract_only",
+      ],
       candidate_visible_status_enum: [
         "submitted",
         "in_review",
@@ -14861,6 +14882,7 @@ export const Constants = {
       ssis_invitation_status_enum: ["sent", "started", "completed", "expired"],
       ssis_recommendation_enum: ["advance", "review", "decline_recommend"],
       ssis_status_enum: ["draft", "pending_approval", "active", "closed"],
+      price_adoption_status: ["not_adopted", "adopted"],
       subscriber_type_enum: ["user", "company"],
       subscription_status_enum: [
         "trialing",
