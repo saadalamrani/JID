@@ -4,6 +4,7 @@
 **Timezone:** Asia/Riyadh · **Closed:** 2026-08-31
 **Integration branch:** `integration/wave14-final-closure`
 **Canonical base (Wave 13, operationally closed):** `d03cda2c7ff0bfb3bc75bf68d5e99f7d768ed51b`
+**Implementation SHA:** `fd4480044b90d1bacff630f1e3031c5a365b28d5`
 **Wave 13 local build:** not rerun. Superseded by the successful Vercel build for that SHA.
 
 Production `znfhladafpajyjwcfzvv` was not touched. `DATA_LOSS=0`.
