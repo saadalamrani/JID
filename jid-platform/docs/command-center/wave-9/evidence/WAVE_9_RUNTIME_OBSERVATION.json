@@ -1,0 +1,18 @@
+{
+  "preview": "https://jid-q97hqewma-jidplatform.vercel.app",
+  "observedAt": "2026-08-31T13:23:23.720Z",
+  "anonApiStatus": 403,
+  "unauthNetworkUrl": "https://jid-q97hqewma-jidplatform.vercel.app/login?next=%2Far%2Fnetwork",
+  "unauthorizedNegativeCase": "PASS",
+  "afterLoginUrl": "https://jid-q97hqewma-jidplatform.vercel.app/me",
+  "ar": "PASS",
+  "en": "PASS",
+  "mobile": {
+    "innerWidth": 375,
+    "clientWidth": 375,
+    "scrollWidth": 375
+  },
+  "mobile375": "PASS",
+  "runtimeErrors": [],
+  "runtime": "PASS"
+}

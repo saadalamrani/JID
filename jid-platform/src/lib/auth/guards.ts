@@ -217,6 +217,11 @@ export const ROUTE_GUARDS: readonly RouteGuard[] = [
     allowedRoles: ['individual'],
   },
   {
+    id: 'individual-professional-network',
+    pattern: new RegExp(`^${L}/network(?:/|$)`),
+    allowedRoles: ['individual'],
+  },
+  {
     id: 'individual-notifications-inbox',
     pattern: new RegExp(`^${L}/notifications(?:/|$)`),
     allowedRoles: ['individual'],

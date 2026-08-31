@@ -12,6 +12,8 @@ describe('Interview functional hardening — actor route guards', () => {
     expect(findMatchingGuard('/abhathli')?.id).toBe('individual-abhathli')
     expect(findMatchingGuard('/abhathli')?.allowedRoles).toEqual(['individual'])
     expect(findMatchingGuard('/en/abhathli')?.id).toBe('individual-abhathli')
+    expect(findMatchingGuard('/network')?.id).toBe('individual-professional-network')
+    expect(findMatchingGuard('/en/network')?.allowedRoles).toEqual(['individual'])
 
     expect(findMatchingGuard('/profile/cv')?.id).toBe('individual-profile')
     expect(findMatchingGuard('/profile/edit')?.id).toBe('individual-profile')
