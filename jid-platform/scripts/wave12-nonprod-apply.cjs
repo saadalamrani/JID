@@ -26,14 +26,10 @@ const VERSIONS = [
 
 async function main() {
   const root = path.resolve(__dirname, '..')
-  const marker = execSync('git log --all --grep=WAVE_11_COMPLETE -1 --format=%H', {
-    cwd: path.resolve(root, '..'),
-    encoding: 'utf8',
-  }).trim()
-  if (!marker) {
-    throw new Error('WAVE_11_COMPLETE not found; refusing Wave 12 apply')
-  }
-  process.stdout.write('WAVE_11_COMPLETE SHA ' + marker + '\n')
+  const wave11 = 'a748fc0e9e2cfee9767def2737ac30ee38978116'
+  const repoRoot = path.resolve(root, '..')
+  execSync(`git merge-base --is-ancestor ${wave11} HEAD`, { cwd: repoRoot })
+  process.stdout.write('WAVE_11_COMPLETE SHA ' + wave11 + '\n')
 
   const env = readEnv(path.join(root, '.env.seed.nonprod'))
   const dbUrl = env.SEED_DATABASE_URL
