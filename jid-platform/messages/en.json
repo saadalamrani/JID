@@ -1564,6 +1564,36 @@
         "metricCoverage": "Coverage",
         "metricMissingness": "Missingness",
         "metricPrivacy": "Privacy"
+      },
+      "intelligence": {
+        "title": "University employability intelligence",
+        "privacy": "Aggregate evidence only. Named graduate records, CVs, applications, hiring evidence, private network activity, notes, and contact details are not returned here.",
+        "cohortLabel": "Program or cohort",
+        "allCohorts": "All recorded cohorts",
+        "unmappedProgram": "Program not mapped",
+        "unknownDegree": "Degree level unknown",
+        "coverageTitle": "Known outcome coverage",
+        "coverageCounts": "Known evidence for {known} of {eligible} eligible cohort members.",
+        "notEmploymentRate": "Coverage describes what is known. It is not an employment rate and unknown cases remain unknown.",
+        "productThreshold": "Groups below {count} eligible members are hidden by a conservative JID product setting. This is not presented as a legal threshold.",
+        "suppressed": "This group is too small to display safely under the current product privacy setting.",
+        "insufficient": "There is not enough data for this group yet.",
+        "distributionTitle": "Known outcome distribution",
+        "categories": {
+          "EMPLOYED": "Known employment outcome",
+          "FURTHER_STUDY": "Continuing education",
+          "OTHER": "Other explicit outcome"
+        },
+        "alignmentTitle": "Program and employer-demand evidence",
+        "alignmentMethod": "Only explicit, provenance-bound links to current published Opportunities appear. No match percentage or employer endorsement is inferred.",
+        "alignmentEmpty": "There is not enough evidence to connect this program with employer demand.",
+        "readinessTitle": "Career-readiness activities",
+        "readinessMethod": "Attendance is an operational record only and is never converted into an individual readiness score.",
+        "readinessEmpty": "No provenance-bound career-readiness activity is recorded for this selection.",
+        "participationUnknown": "Participation count was not recorded.",
+        "participationRecorded": "Recorded participation: {count}",
+        "methodologyTitle": "Methodology and limits",
+        "source": "Source"
       }
     },
     "profileSuspended": {

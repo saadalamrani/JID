@@ -3,11 +3,15 @@ import { UniversityDashboard } from '@/app/[locale]/(company)/_components/univer
 import { requireAuthenticatedUser } from '@/lib/auth/require-authenticated-user'
 import { fetchOrganizationDirectoryReference } from '@/lib/profile/organization-directory-reference'
 import { fetchOwnerUniversityProfile } from '@/lib/profile/owner-university-profile'
-import { fetchUniversityOwnerFoundation } from '@/lib/university/wave10-queries'
+import { fetchUniversityIntelligence } from '@/lib/university/wave10-queries'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
-export default async function UniversityDashboardPage() {
+export default async function UniversityDashboardPage({
+  searchParams,
+}: {
+  searchParams?: { cohort?: string }
+}) {
   const userId = await requireAuthenticatedUser()
   const supabase = await createClient()
 
@@ -32,7 +36,7 @@ export default async function UniversityDashboardPage() {
     )
   }
 
-  const foundation = await fetchUniversityOwnerFoundation()
+  const foundation = await fetchUniversityIntelligence(searchParams?.cohort)
 
   return <UniversityDashboard foundation={foundation} />
 }

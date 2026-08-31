@@ -1,20 +1,18 @@
 'use client'
 
 import { useLocale, useTranslations } from 'next-intl'
-import type { UniversityOwnerFoundationSnapshot } from '@/types/contracts/university'
+import { useRouter } from 'next/navigation'
+import type { UniversityIntelligenceSnapshot } from '@/types/contracts/university'
 import { EmptyUniversityState } from './empty-university-state'
 
-function dateLocaleTag(locale: string): string {
-  return locale.startsWith('ar') ? 'ar-SA' : 'en-US'
-}
-
-type UniversityDashboardProps = {
-  foundation: UniversityOwnerFoundationSnapshot
-}
-
-export function UniversityDashboard({ foundation }: UniversityDashboardProps) {
+export function UniversityDashboard({
+  foundation,
+}: {
+  foundation: UniversityIntelligenceSnapshot
+}) {
   const t = useTranslations('university.dashboard')
   const locale = useLocale()
+  const router = useRouter()
   const isAr = locale.startsWith('ar')
 
   if (!foundation.mapping_present) {
@@ -28,83 +26,173 @@ export function UniversityDashboard({ foundation }: UniversityDashboardProps) {
     )
   }
 
-  const mappedAt = foundation.mapped_at
-    ? new Date(foundation.mapped_at).toLocaleString(dateLocaleTag(locale), { numberingSystem: 'latn' })
-    : null
+  const coverage = foundation.known_outcome_coverage
+  const cohorts = foundation.cohorts ?? []
+  const distribution = foundation.outcome_distribution ?? []
+  const alignment = foundation.alignment_evidence ?? []
+  const activities = foundation.readiness_activities ?? []
 
   return (
-    <div className="space-y-5" data-testid="university-dashboard-foundation">
+    <div className="space-y-5" data-testid="university-intelligence">
       <header className="rounded-2xl border border-border bg-background p-5">
-        <h1 className="text-2xl font-semibold text-foreground">{t('foundation.title')}</h1>
-        {mappedAt ? (
-          <p className="text-foreground/65 mt-1 text-sm">
-            {t('foundation.mappedAt')}: {mappedAt}
-          </p>
-        ) : null}
-        <p className="text-foreground/65 mt-2 max-w-2xl text-sm leading-relaxed">
-          {t('foundation.privacy')}
+        <h1 className="text-2xl font-semibold text-foreground">{t('intelligence.title')}</h1>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+          {t('intelligence.privacy')}
         </p>
       </header>
 
-      <section className="rounded-2xl border border-border bg-background p-5" data-testid="university-verified-count">
-        <h2 className="text-lg font-semibold text-foreground">{t('foundation.verifiedTitle')}</h2>
-        <p className="mt-2 text-3xl font-semibold text-foreground">
-          {foundation.verified_affiliation_count ?? 0}
+      <section className="rounded-2xl border border-border bg-background p-5">
+        <label htmlFor="cohort" className="text-sm font-medium text-foreground">
+          {t('intelligence.cohortLabel')}
+        </label>
+        <select
+          id="cohort"
+          className="mt-2 min-h-11 w-full rounded-lg border border-border bg-background px-3 sm:max-w-xl"
+          value={foundation.selected_cohort_id ?? ''}
+          onChange={(event) =>
+            router.replace(
+              event.target.value
+                ? `/university/dashboard?cohort=${event.target.value}`
+                : '/university/dashboard',
+            )
+          }
+        >
+          <option value="">{t('intelligence.allCohorts')}</option>
+          {cohorts.map((cohort) => (
+            <option key={cohort.id} value={cohort.id}>
+              {cohort.graduation_year} · {cohort.program_text ?? t('intelligence.unmappedProgram')}{' '}
+              · {cohort.degree_level ?? t('intelligence.unknownDegree')}
+            </option>
+          ))}
+        </select>
+      </section>
+
+      <section
+        className="rounded-2xl border border-border bg-background p-5"
+        data-testid="known-outcome-coverage"
+      >
+        <h2 className="text-lg font-semibold text-foreground">{t('intelligence.coverageTitle')}</h2>
+        {foundation.suppressed ? (
+          <p className="mt-2 text-sm text-muted-foreground">{t('intelligence.suppressed')}</p>
+        ) : coverage === null || coverage === undefined ? (
+          <p className="mt-2 text-sm text-muted-foreground">{t('intelligence.insufficient')}</p>
+        ) : (
+          <>
+            <p className="mt-2 text-3xl font-semibold text-foreground">
+              {new Intl.NumberFormat(locale, {
+                style: 'percent',
+                maximumFractionDigits: 1,
+                numberingSystem: 'latn',
+              }).format(coverage)}
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              {t('intelligence.coverageCounts', {
+                known: foundation.known_outcome_count ?? 0,
+                eligible: foundation.eligible_population ?? 0,
+              })}
+            </p>
+          </>
+        )}
+        <p className="mt-3 text-sm text-muted-foreground">{t('intelligence.notEmploymentRate')}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {t('intelligence.productThreshold', { count: foundation.suppression_threshold ?? 5 })}
         </p>
-        <p className="text-foreground/65 mt-2 text-sm">{t('foundation.verifiedHint')}</p>
       </section>
 
       <section className="rounded-2xl border border-border bg-background p-5">
-        <h2 className="text-lg font-semibold text-foreground">{t('foundation.cohortsTitle')}</h2>
-        {foundation.cohorts && foundation.cohorts.length > 0 ? (
+        <h2 className="text-lg font-semibold text-foreground">
+          {t('intelligence.distributionTitle')}
+        </h2>
+        {distribution.length === 0 ? (
+          <p className="mt-2 text-sm text-muted-foreground">{t('intelligence.insufficient')}</p>
+        ) : (
           <ul className="mt-3 space-y-2">
-            {foundation.cohorts.map((cohort) => (
+            {distribution.map((row) => (
               <li
-                key={cohort.id}
-                className="rounded-lg border border-border px-3 py-2 text-sm"
+                key={`${row.source}-${row.category}`}
+                className="rounded-lg border border-border p-3 text-sm"
               >
+                <span className="font-medium">{t(`intelligence.categories.${row.category}`)}</span>{' '}
+                · {row.source}: {row.count}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="rounded-2xl border border-border bg-background p-5">
+        <h2 className="text-lg font-semibold text-foreground">
+          {t('intelligence.alignmentTitle')}
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('intelligence.alignmentMethod')}</p>
+        {alignment.length === 0 ? (
+          <p className="mt-3 text-sm text-muted-foreground">{t('intelligence.alignmentEmpty')}</p>
+        ) : (
+          <ul className="mt-3 space-y-3">
+            {alignment.map((item) => (
+              <li key={item.id} className="rounded-lg border border-border p-3">
                 <p className="font-medium text-foreground">
-                  {cohort.graduation_year}
-                  {cohort.program_text ? ` · ${cohort.program_text}` : ''}
-                  {cohort.degree_level ? ` · ${cohort.degree_level}` : ''}
+                  {isAr ? item.title_ar : (item.title_en ?? item.title_ar)}
                 </p>
-                <p className="text-foreground/65 mt-1">
-                  {t('foundation.membershipCount', { count: cohort.active_membership_count })}
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {isAr ? item.statement_ar : item.statement_en}
+                </p>
+                {item.required_skills.length > 0 ? (
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {item.required_skills.join(' · ')}
+                  </p>
+                ) : null}
+                <p className="mt-2 text-xs text-muted-foreground">
+                  {t('intelligence.source')}: {item.provenance_ref}
                 </p>
               </li>
             ))}
           </ul>
-        ) : (
-          <p className="text-foreground/65 mt-2 text-sm">{t('foundation.cohortsEmpty')}</p>
         )}
       </section>
 
       <section className="rounded-2xl border border-border bg-background p-5">
-        <h2 className="text-lg font-semibold text-foreground">{t('foundation.outcomesTitle')}</h2>
-        <p className="text-foreground/65 mt-2 text-sm">{t('foundation.outcomesHint')}</p>
-        {foundation.outcome_counts && foundation.outcome_counts.length > 0 ? (
-          <ul className="mt-3 space-y-2">
-            {foundation.outcome_counts.map((row) => (
-              <li key={`${row.source}-${row.presence}-${row.category}`} className="text-sm">
-                {row.source} · {row.presence} · {row.category}: {row.count}
+        <h2 className="text-lg font-semibold text-foreground">
+          {t('intelligence.readinessTitle')}
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">{t('intelligence.readinessMethod')}</p>
+        {activities.length === 0 ? (
+          <p className="mt-3 text-sm text-muted-foreground">{t('intelligence.readinessEmpty')}</p>
+        ) : (
+          <ul className="mt-3 space-y-3">
+            {activities.map((activity) => (
+              <li key={activity.id} className="rounded-lg border border-border p-3">
+                <p className="font-medium text-foreground">
+                  {isAr ? activity.title_ar : activity.title_en}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {activity.activity_type} · {activity.status} ·{' '}
+                  {new Date(activity.starts_at).toLocaleDateString(isAr ? 'ar-SA' : 'en-US', {
+                    numberingSystem: 'latn',
+                  })}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {activity.participation_count === null
+                    ? t('intelligence.participationUnknown')
+                    : t('intelligence.participationRecorded', {
+                        count: activity.participation_count,
+                      })}
+                </p>
               </li>
             ))}
           </ul>
-        ) : (
-          <p className="text-foreground/65 mt-2 text-sm">{t('foundation.outcomesEmpty')}</p>
         )}
       </section>
 
       <section className="rounded-2xl border border-border bg-background p-5">
-        <h2 className="text-lg font-semibold text-foreground">{t('foundation.metricsTitle')}</h2>
+        <h2 className="text-lg font-semibold text-foreground">
+          {t('intelligence.methodologyTitle')}
+        </h2>
         <ul className="mt-3 space-y-4">
-          {(foundation.metrics ?? []).map((metric) => (
+          {(foundation.methodology ?? []).map((metric) => (
             <li key={metric.metric_key} className="rounded-lg border border-border p-3">
-              <p className="font-medium text-foreground">{isAr ? metric.name_ar : metric.name_en}</p>
-              <p className="mt-1 text-2xl font-semibold text-foreground" data-testid={`metric-${metric.metric_key}`}>
-                {metric.computability === 'CONTRACT_ONLY' || metric.value === null
-                  ? t('foundation.metricUnknown')
-                  : String(metric.value)}
+              <p className="font-medium text-foreground">
+                {isAr ? metric.name_ar : metric.name_en}
               </p>
               <dl className="mt-2 grid gap-1 text-xs text-muted-foreground">
                 <div>
@@ -112,7 +200,9 @@ export function UniversityDashboard({ foundation }: UniversityDashboardProps) {
                   <dd>{metric.source_definition}</dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-foreground">{t('foundation.metricPopulation')}</dt>
+                  <dt className="font-medium text-foreground">
+                    {t('foundation.metricPopulation')}
+                  </dt>
                   <dd>{metric.population_definition}</dd>
                 </div>
                 <div>
@@ -124,7 +214,9 @@ export function UniversityDashboard({ foundation }: UniversityDashboardProps) {
                   <dd>{metric.coverage_rule}</dd>
                 </div>
                 <div>
-                  <dt className="font-medium text-foreground">{t('foundation.metricMissingness')}</dt>
+                  <dt className="font-medium text-foreground">
+                    {t('foundation.metricMissingness')}
+                  </dt>
                   <dd>{metric.missingness_rule}</dd>
                 </div>
                 <div>

@@ -7,7 +7,9 @@ import { render, screen } from '@testing-library/react'
 import en from '../../../messages/en.json'
 import { UniversityDashboard } from '@/app/[locale]/(company)/_components/university-dashboard'
 import { EmptyUniversityState } from '@/app/[locale]/(company)/_components/empty-university-state'
-import type { UniversityOwnerFoundationSnapshot } from '@/types/contracts/university'
+import type { UniversityIntelligenceSnapshot } from '@/types/contracts/university'
+
+vi.mock('next/navigation', () => ({ useRouter: () => ({ replace: vi.fn() }) }))
 
 vi.mock('@/lib/i18n/navigation', () => ({
   Link: ({ href, children, ...rest }: { href: string; children: React.ReactNode }) => (
@@ -35,19 +37,20 @@ vi.mock('next-intl', () => ({
   },
 }))
 
-const unmapped: UniversityOwnerFoundationSnapshot = {
+const unmapped: UniversityIntelligenceSnapshot = {
   mapping_present: false,
   fail_closed_reason: 'unmapped',
 }
 
-const mapped: UniversityOwnerFoundationSnapshot = {
+const mapped: UniversityIntelligenceSnapshot = {
   mapping_present: true,
   fail_closed_reason: null,
-  mapping_id: 'map-1',
-  directory_id: 'dir-1',
   catalog_university_id: 'cat-1',
-  mapped_at: '2026-08-31T09:30:00.000Z',
-  verified_affiliation_count: 2,
+  eligible_population: 10,
+  known_outcome_count: 2,
+  known_outcome_coverage: 0.2,
+  suppression_threshold: 5,
+  suppressed: false,
   cohorts: [
     {
       id: 'c-1',
@@ -55,53 +58,27 @@ const mapped: UniversityOwnerFoundationSnapshot = {
       degree_level: 'bachelor',
       program_text: 'Computer Science',
       major_id: null,
-      active_membership_count: 2,
+      active_membership_count: 10,
     },
   ],
-  outcome_counts: [{ source: 'USER_DECLARED', presence: 'UNKNOWN', category: 'UNKNOWN', count: 1 }],
-  metrics: [
-    {
-      metric_key: 'verified_affiliation_count',
-      name_ar: 'عدد الانتماءات الموثّقة',
-      name_en: 'Verified affiliation count',
-      source_definition: 'university_affiliations',
-      population_definition: 'verified affiliations',
-      window_definition: 'active',
-      coverage_rule: 'VERIFIED only',
-      missingness_rule: 'unknown stays unknown',
-      privacy_rule: 'aggregate only',
-      computability: 'COMPUTABLE',
-      value: 2,
-    },
-    {
-      metric_key: 'employment_rate',
-      name_ar: 'معدل التوظيف',
-      name_en: 'Employment rate',
-      source_definition: 'not computable',
-      population_definition: 'not defined',
-      window_definition: 'not defined',
-      coverage_rule: 'Wave 10 does not compute this metric',
-      missingness_rule: 'never inferred as unemployed',
-      privacy_rule: 'not displayed as a rate',
-      computability: 'CONTRACT_ONLY',
-      value: null,
-    },
-  ],
+  outcome_distribution: [],
 }
 
 describe('Wave 10 University foundation honesty', () => {
   it('unmapped owner fails closed without KPI numbers', () => {
     render(<UniversityDashboard foundation={unmapped} />)
     expect(screen.getByTestId('university-dashboard-empty')).toBeInTheDocument()
-    expect(screen.queryByTestId('university-dashboard-foundation')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('university-intelligence')).not.toBeInTheDocument()
     expect(screen.queryByText('42')).not.toBeInTheDocument()
   })
 
-  it('mapped owner shows aggregate foundation and hides employment rate', () => {
+  it('mapped owner shows aggregate coverage without presenting an employment rate', () => {
     render(<UniversityDashboard foundation={mapped} />)
-    expect(screen.getByTestId('university-dashboard-foundation')).toBeInTheDocument()
-    expect(screen.getByTestId('university-verified-count')).toHaveTextContent('2')
-    expect(screen.getByTestId('metric-employment_rate')).toHaveTextContent('Not computable yet')
+    expect(screen.getByTestId('university-intelligence')).toBeInTheDocument()
+    expect(screen.getByTestId('known-outcome-coverage')).toHaveTextContent('20%')
+    expect(screen.getByTestId('known-outcome-coverage')).toHaveTextContent(
+      'It is not an employment rate',
+    )
     expect(screen.queryByText(/employment rate %/i)).not.toBeInTheDocument()
   })
 
