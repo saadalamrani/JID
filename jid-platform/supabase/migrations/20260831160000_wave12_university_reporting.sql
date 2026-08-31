@@ -32,9 +32,16 @@ BEGIN
       CREATE FUNCTION public.university_suppression_min_n()
       RETURNS integer
       LANGUAGE sql
-      IMMUTABLE
+      STABLE
       SET search_path = public, pg_catalog
-      AS $body$ SELECT 5 $body$
+      AS $body$
+        SELECT coalesce(
+          (SELECT minimum_group_size
+           FROM public.university_intelligence_privacy_config
+           WHERE config_key = 'aggregate_default'),
+          5
+        )
+      $body$
     $fn$;
     COMMENT ON FUNCTION public.university_suppression_min_n() IS
       'Canonical institutional small-n suppression threshold. Wave 11 owns this contract; Wave 12 reuses it.';
@@ -165,7 +172,7 @@ ON CONFLICT (metric_key) DO NOTHING;
 CREATE OR REPLACE FUNCTION public.university_report_safe_count(p_n integer)
 RETURNS jsonb
 LANGUAGE plpgsql
-IMMUTABLE
+STABLE
 SET search_path = public, pg_catalog
 AS $$
 DECLARE
@@ -184,7 +191,7 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION public.university_wave11_intelligence_overlay()
+CREATE OR REPLACE FUNCTION public.university_wave11_intelligence_overlay(p_cohort_id uuid DEFAULT NULL)
 RETURNS jsonb
 LANGUAGE plpgsql
 STABLE
@@ -198,15 +205,22 @@ BEGIN
     SELECT 1 FROM pg_proc
     WHERE pronamespace = 'public'::regnamespace
       AND proname = 'university_owner_intelligence_snapshot'
-      AND pronargs = 0
   ) THEN
-    EXECUTE 'SELECT public.university_owner_intelligence_snapshot()' INTO v_out;
+    EXECUTE 'SELECT public.university_owner_intelligence_snapshot($1)' USING p_cohort_id INTO v_out;
     RETURN jsonb_build_object(
-      'intelligence_available', true,
-      'employer_alignment_available', coalesce((v_out ->> 'employer_alignment_available')::boolean, false),
-      'career_readiness_available', coalesce((v_out ->> 'career_readiness_available')::boolean, false),
-      'coverage', coalesce(v_out -> 'coverage', '{}'::jsonb),
-      'aggregates', coalesce(v_out -> 'privacy_safe_aggregates', '[]'::jsonb)
+      'intelligence_available', coalesce((v_out ->> 'mapping_present')::boolean, false),
+      'employer_alignment_available',
+        jsonb_typeof(v_out -> 'alignment_evidence') = 'array'
+        AND jsonb_array_length(coalesce(v_out -> 'alignment_evidence', '[]'::jsonb)) > 0,
+      'career_readiness_available',
+        jsonb_typeof(v_out -> 'readiness_activities') = 'array'
+        AND jsonb_array_length(coalesce(v_out -> 'readiness_activities', '[]'::jsonb)) > 0,
+      'coverage', jsonb_build_object(
+        'eligible', v_out -> 'eligible_population',
+        'known', v_out -> 'known_outcome_count',
+        'suppressed', v_out -> 'suppressed'
+      ),
+      'aggregates', coalesce(v_out -> 'outcome_distribution', '[]'::jsonb)
     );
   END IF;
   RETURN jsonb_build_object(
@@ -359,7 +373,7 @@ BEGIN
       )
     );
 
-  v_intel := public.university_wave11_intelligence_overlay();
+  v_intel := public.university_wave11_intelligence_overlay(p_cohort_id);
   IF coalesce((v_intel ->> 'intelligence_available')::boolean, false) THEN
     v_source := 'wave11_overlay';
   END IF;
@@ -771,7 +785,7 @@ END;
 $$;
 
 REVOKE ALL ON FUNCTION public.university_report_safe_count(integer) FROM PUBLIC, anon;
-REVOKE ALL ON FUNCTION public.university_wave11_intelligence_overlay() FROM PUBLIC, anon;
+REVOKE ALL ON FUNCTION public.university_wave11_intelligence_overlay(uuid) FROM PUBLIC, anon;
 REVOKE ALL ON FUNCTION public.university_report_compose(public.university_report_type_enum, uuid) FROM PUBLIC, anon;
 REVOKE ALL ON FUNCTION public.university_report_preview(public.university_report_type_enum, uuid) FROM PUBLIC, anon;
 REVOKE ALL ON FUNCTION public.university_report_generate(public.university_report_type_enum, uuid) FROM PUBLIC, anon;

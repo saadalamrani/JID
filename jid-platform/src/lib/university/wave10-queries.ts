@@ -3,7 +3,10 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import type { Database } from '@/lib/supabase/types'
-import type { UniversityOwnerFoundationSnapshot } from '@/types/contracts/university'
+import type {
+  UniversityIntelligenceSnapshot,
+  UniversityOwnerFoundationSnapshot,
+} from '@/types/contracts/university'
 
 type UntypedClient = SupabaseClient<Record<string, unknown>>
 
@@ -73,6 +76,20 @@ export async function fetchUniversityOwnerFoundation(): Promise<UniversityOwnerF
     throw new Error(error.message)
   }
   return data as UniversityOwnerFoundationSnapshot
+}
+
+export async function fetchUniversityIntelligence(
+  cohortId?: string,
+): Promise<UniversityIntelligenceSnapshot> {
+  const client = untyped(await createClient())
+  const { data, error } = await client.rpc('university_owner_intelligence_snapshot', {
+    p_cohort_id: cohortId ?? null,
+  })
+  if (error) {
+    if (isMissingRelation(error)) return { mapping_present: false, fail_closed_reason: 'unmapped' }
+    throw new Error(error.message)
+  }
+  return data as UniversityIntelligenceSnapshot
 }
 
 export async function fetchStaffUniversityMappings(): Promise<UniversityIdentityMappingRow[]> {

@@ -113,3 +113,57 @@ export type UniversityOwnerFoundationSnapshot = {
     value: number | null
   }>
 }
+
+export type UniversityIntelligenceSnapshot = {
+  mapping_present: boolean
+  fail_closed_reason: 'unauthenticated' | 'no_owned_profile' | 'unmapped' | null
+  catalog_university_id?: string
+  selected_cohort_id?: string | null
+  suppression_threshold?: number
+  suppression_is_product_configuration?: boolean
+  suppressed?: boolean
+  eligible_population?: number | null
+  known_outcome_count?: number | null
+  known_outcome_coverage?: number | null
+  cohorts?: UniversityOwnerFoundationSnapshot['cohorts']
+  outcome_distribution?: Array<{
+    source: UniversityOutcomeSource
+    category: 'EMPLOYED' | 'FURTHER_STUDY' | 'OTHER'
+    count: number
+  }>
+  alignment_evidence?: Array<{
+    id: string
+    cohort_id: string
+    job_id: string
+    title_ar: string
+    title_en: string | null
+    required_skills: string[]
+    statement_ar: string
+    statement_en: string
+    provenance_ref: string
+    recorded_at: string
+  }>
+  readiness_activities?: Array<{
+    id: string
+    cohort_id: string | null
+    activity_type: string
+    title_ar: string
+    title_en: string
+    starts_at: string
+    ends_at: string | null
+    status: string
+    participation_count: number | null
+    provenance_ref: string
+  }>
+  methodology?: Array<{
+    metric_key: string
+    name_ar: string
+    name_en: string
+    source_definition: string
+    population_definition: string
+    window_definition: string
+    coverage_rule: string
+    missingness_rule: string
+    privacy_rule: string
+  }>
+}
