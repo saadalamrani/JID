@@ -12,6 +12,31 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: "14.5"
   }
+  graphql_public: {
+    Tables: {
+      [_ in never]: never
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      graphql: {
+        Args: {
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       _deprecated_commitment_scores: {
@@ -8892,6 +8917,235 @@ export type Database = {
           },
         ]
       }
+      professional_connections: {
+        Row: {
+          created_at: string
+          id: string
+          recipient_id: string
+          requester_id: string
+          responded_at: string | null
+          state: Database["public"]["Enums"]["professional_connection_state_enum"]
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          recipient_id: string
+          requester_id: string
+          responded_at?: string | null
+          state?: Database["public"]["Enums"]["professional_connection_state_enum"]
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          recipient_id?: string
+          requester_id?: string
+          responded_at?: string | null
+          state?: Database["public"]["Enums"]["professional_connection_state_enum"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "professional_connections_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_connections_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_connections_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "professional_connections_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_connections_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_connections_requester_id_fkey"
+            columns: ["requester_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      professional_network_blocks: {
+        Row: {
+          blocked_id: string
+          blocker_id: string
+          created_at: string
+        }
+        Insert: {
+          blocked_id: string
+          blocker_id: string
+          created_at?: string
+        }
+        Update: {
+          blocked_id?: string
+          blocker_id?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "professional_network_blocks_blocked_id_fkey"
+            columns: ["blocked_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_network_blocks_blocked_id_fkey"
+            columns: ["blocked_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_network_blocks_blocked_id_fkey"
+            columns: ["blocked_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "professional_network_blocks_blocker_id_fkey"
+            columns: ["blocker_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_network_blocks_blocker_id_fkey"
+            columns: ["blocker_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_network_blocks_blocker_id_fkey"
+            columns: ["blocker_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      professional_network_preferences: {
+        Row: {
+          accepts_connections: boolean
+          default_audience: Database["public"]["Enums"]["professional_update_audience_enum"]
+          profile_id: string
+          updated_at: string
+          updates_enabled: boolean
+        }
+        Insert: {
+          accepts_connections?: boolean
+          default_audience?: Database["public"]["Enums"]["professional_update_audience_enum"]
+          profile_id: string
+          updated_at?: string
+          updates_enabled?: boolean
+        }
+        Update: {
+          accepts_connections?: boolean
+          default_audience?: Database["public"]["Enums"]["professional_update_audience_enum"]
+          profile_id?: string
+          updated_at?: string
+          updates_enabled?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "professional_network_preferences_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_network_preferences_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_network_preferences_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      professional_updates: {
+        Row: {
+          audience: Database["public"]["Enums"]["professional_update_audience_enum"]
+          author_id: string
+          body: string
+          created_at: string
+          deleted_at: string | null
+          id: string
+          kind: Database["public"]["Enums"]["professional_update_kind_enum"]
+        }
+        Insert: {
+          audience?: Database["public"]["Enums"]["professional_update_audience_enum"]
+          author_id: string
+          body: string
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          kind: Database["public"]["Enums"]["professional_update_kind_enum"]
+        }
+        Update: {
+          audience?: Database["public"]["Enums"]["professional_update_audience_enum"]
+          author_id?: string
+          body?: string
+          created_at?: string
+          deleted_at?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["professional_update_kind_enum"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "professional_updates_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_updates_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "professional_updates_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
       profile_skills: {
         Row: {
           created_at: string
@@ -10048,6 +10302,601 @@ export type Database = {
         }
         Relationships: []
       }
+      university_affiliations: {
+        Row: {
+          catalog_university_id: string
+          college_id: string | null
+          created_at: string
+          declared_at: string
+          degree_level:
+            | Database["public"]["Enums"]["university_degree_level_enum"]
+            | null
+          graduation_year: number | null
+          id: string
+          individual_id: string
+          major_id: string | null
+          person_status: Database["public"]["Enums"]["university_person_status_enum"]
+          review_reason: string | null
+          revoked_at: string | null
+          revoked_by: string | null
+          state: Database["public"]["Enums"]["university_affiliation_state_enum"]
+          updated_at: string
+          verification_method: string | null
+          verification_source_ref: string | null
+          verified_at: string | null
+          verified_by: string | null
+        }
+        Insert: {
+          catalog_university_id: string
+          college_id?: string | null
+          created_at?: string
+          declared_at?: string
+          degree_level?:
+            | Database["public"]["Enums"]["university_degree_level_enum"]
+            | null
+          graduation_year?: number | null
+          id?: string
+          individual_id: string
+          major_id?: string | null
+          person_status: Database["public"]["Enums"]["university_person_status_enum"]
+          review_reason?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          state?: Database["public"]["Enums"]["university_affiliation_state_enum"]
+          updated_at?: string
+          verification_method?: string | null
+          verification_source_ref?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Update: {
+          catalog_university_id?: string
+          college_id?: string | null
+          created_at?: string
+          declared_at?: string
+          degree_level?:
+            | Database["public"]["Enums"]["university_degree_level_enum"]
+            | null
+          graduation_year?: number | null
+          id?: string
+          individual_id?: string
+          major_id?: string | null
+          person_status?: Database["public"]["Enums"]["university_person_status_enum"]
+          review_reason?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          state?: Database["public"]["Enums"]["university_affiliation_state_enum"]
+          updated_at?: string
+          verification_method?: string | null
+          verification_source_ref?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "university_affiliations_catalog_university_id_fkey"
+            columns: ["catalog_university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_college_id_fkey"
+            columns: ["college_id"]
+            isOneToOne: false
+            referencedRelation: "colleges_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_major_id_fkey"
+            columns: ["major_id"]
+            isOneToOne: false
+            referencedRelation: "majors_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_verified_by_fkey"
+            columns: ["verified_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_verified_by_fkey"
+            columns: ["verified_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_affiliations_verified_by_fkey"
+            columns: ["verified_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      university_cohort_memberships: {
+        Row: {
+          affiliation_id: string
+          cohort_id: string
+          created_at: string
+          ended_at: string | null
+          ended_by: string | null
+          id: string
+          individual_id: string
+          linked_at: string
+          source: Database["public"]["Enums"]["university_cohort_membership_source_enum"]
+          state: Database["public"]["Enums"]["university_cohort_membership_state_enum"]
+        }
+        Insert: {
+          affiliation_id: string
+          cohort_id: string
+          created_at?: string
+          ended_at?: string | null
+          ended_by?: string | null
+          id?: string
+          individual_id: string
+          linked_at?: string
+          source: Database["public"]["Enums"]["university_cohort_membership_source_enum"]
+          state?: Database["public"]["Enums"]["university_cohort_membership_state_enum"]
+        }
+        Update: {
+          affiliation_id?: string
+          cohort_id?: string
+          created_at?: string
+          ended_at?: string | null
+          ended_by?: string | null
+          id?: string
+          individual_id?: string
+          linked_at?: string
+          source?: Database["public"]["Enums"]["university_cohort_membership_source_enum"]
+          state?: Database["public"]["Enums"]["university_cohort_membership_state_enum"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "university_cohort_memberships_affiliation_id_fkey"
+            columns: ["affiliation_id"]
+            isOneToOne: false
+            referencedRelation: "university_affiliations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohort_memberships_cohort_id_fkey"
+            columns: ["cohort_id"]
+            isOneToOne: false
+            referencedRelation: "university_cohorts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohort_memberships_ended_by_fkey"
+            columns: ["ended_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohort_memberships_ended_by_fkey"
+            columns: ["ended_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohort_memberships_ended_by_fkey"
+            columns: ["ended_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "university_cohort_memberships_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohort_memberships_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohort_memberships_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      university_cohorts: {
+        Row: {
+          catalog_university_id: string
+          created_at: string
+          created_by: string
+          degree_level:
+            | Database["public"]["Enums"]["university_degree_level_enum"]
+            | null
+          graduation_year: number
+          id: string
+          major_id: string | null
+          program_text: string | null
+        }
+        Insert: {
+          catalog_university_id: string
+          created_at?: string
+          created_by: string
+          degree_level?:
+            | Database["public"]["Enums"]["university_degree_level_enum"]
+            | null
+          graduation_year: number
+          id?: string
+          major_id?: string | null
+          program_text?: string | null
+        }
+        Update: {
+          catalog_university_id?: string
+          created_at?: string
+          created_by?: string
+          degree_level?:
+            | Database["public"]["Enums"]["university_degree_level_enum"]
+            | null
+          graduation_year?: number
+          id?: string
+          major_id?: string | null
+          program_text?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "university_cohorts_catalog_university_id_fkey"
+            columns: ["catalog_university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohorts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohorts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_cohorts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "university_cohorts_major_id_fkey"
+            columns: ["major_id"]
+            isOneToOne: false
+            referencedRelation: "majors_catalog"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      university_identity_mappings: {
+        Row: {
+          audit_reason: string
+          audit_reference: string | null
+          catalog_university_id: string
+          created_at: string
+          created_by: string
+          directory_id: string
+          id: string
+          mapping_state: Database["public"]["Enums"]["university_mapping_state_enum"]
+          revoked_at: string | null
+          revoked_by: string | null
+        }
+        Insert: {
+          audit_reason: string
+          audit_reference?: string | null
+          catalog_university_id: string
+          created_at?: string
+          created_by: string
+          directory_id: string
+          id?: string
+          mapping_state?: Database["public"]["Enums"]["university_mapping_state_enum"]
+          revoked_at?: string | null
+          revoked_by?: string | null
+        }
+        Update: {
+          audit_reason?: string
+          audit_reference?: string | null
+          catalog_university_id?: string
+          created_at?: string
+          created_by?: string
+          directory_id?: string
+          id?: string
+          mapping_state?: Database["public"]["Enums"]["university_mapping_state_enum"]
+          revoked_at?: string | null
+          revoked_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "university_identity_mappings_catalog_university_id_fkey"
+            columns: ["catalog_university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_identity_mappings_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_identity_mappings_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_identity_mappings_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "university_identity_mappings_directory_id_fkey"
+            columns: ["directory_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_identity_mappings_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_identity_mappings_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_identity_mappings_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
+      university_metric_definitions: {
+        Row: {
+          computability: Database["public"]["Enums"]["university_metric_computability_enum"]
+          coverage_rule: string
+          created_at: string
+          id: string
+          metric_key: string
+          missingness_rule: string
+          name_ar: string
+          name_en: string
+          population_definition: string
+          privacy_rule: string
+          source_definition: string
+          window_definition: string
+        }
+        Insert: {
+          computability?: Database["public"]["Enums"]["university_metric_computability_enum"]
+          coverage_rule: string
+          created_at?: string
+          id?: string
+          metric_key: string
+          missingness_rule: string
+          name_ar: string
+          name_en: string
+          population_definition: string
+          privacy_rule: string
+          source_definition: string
+          window_definition: string
+        }
+        Update: {
+          computability?: Database["public"]["Enums"]["university_metric_computability_enum"]
+          coverage_rule?: string
+          created_at?: string
+          id?: string
+          metric_key?: string
+          missingness_rule?: string
+          name_ar?: string
+          name_en?: string
+          population_definition?: string
+          privacy_rule?: string
+          source_definition?: string
+          window_definition?: string
+        }
+        Relationships: []
+      }
+      university_outcome_evidence: {
+        Row: {
+          affiliation_id: string
+          catalog_university_id: string
+          category: Database["public"]["Enums"]["university_outcome_category_enum"]
+          id: string
+          individual_id: string
+          notes: string | null
+          presence: Database["public"]["Enums"]["university_outcome_presence_enum"]
+          provenance_ref: string
+          recorded_at: string
+          recorded_by: string
+          revoked_at: string | null
+          revoked_by: string | null
+          source: Database["public"]["Enums"]["university_outcome_source_enum"]
+        }
+        Insert: {
+          affiliation_id: string
+          catalog_university_id: string
+          category?: Database["public"]["Enums"]["university_outcome_category_enum"]
+          id?: string
+          individual_id: string
+          notes?: string | null
+          presence?: Database["public"]["Enums"]["university_outcome_presence_enum"]
+          provenance_ref: string
+          recorded_at?: string
+          recorded_by: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          source: Database["public"]["Enums"]["university_outcome_source_enum"]
+        }
+        Update: {
+          affiliation_id?: string
+          catalog_university_id?: string
+          category?: Database["public"]["Enums"]["university_outcome_category_enum"]
+          id?: string
+          individual_id?: string
+          notes?: string | null
+          presence?: Database["public"]["Enums"]["university_outcome_presence_enum"]
+          provenance_ref?: string
+          recorded_at?: string
+          recorded_by?: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          source?: Database["public"]["Enums"]["university_outcome_source_enum"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "university_outcome_evidence_affiliation_id_fkey"
+            columns: ["affiliation_id"]
+            isOneToOne: false
+            referencedRelation: "university_affiliations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_catalog_university_id_fkey"
+            columns: ["catalog_university_id"]
+            isOneToOne: false
+            referencedRelation: "universities_catalog"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_individual_id_fkey"
+            columns: ["individual_id"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_recorded_by_fkey"
+            columns: ["recorded_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_recorded_by_fkey"
+            columns: ["recorded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_recorded_by_fkey"
+            columns: ["recorded_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "individual_profile_public_projection"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "university_outcome_evidence_revoked_by_fkey"
+            columns: ["revoked_by"]
+            isOneToOne: false
+            referencedRelation: "v_staff_personal_metrics"
+            referencedColumns: ["staff_user_id"]
+          },
+        ]
+      }
       university_profiles: {
         Row: {
           about_ar: string | null
@@ -11036,6 +11885,10 @@ export type Database = {
         Args: { p_apply?: boolean }
         Returns: number
       }
+      block_professional_profile: {
+        Args: { p_profile_id: string }
+        Returns: string
+      }
       build_daily_digests: { Args: never; Returns: number }
       can_access_hiring_workspace: {
         Args: { p_business_profile_id: string; p_write?: boolean }
@@ -11320,6 +12173,23 @@ export type Database = {
         }
         Returns: string
       }
+      create_professional_update: {
+        Args: {
+          p_audience?: Database["public"]["Enums"]["professional_update_audience_enum"]
+          p_body: string
+          p_kind: Database["public"]["Enums"]["professional_update_kind_enum"]
+        }
+        Returns: string
+      }
+      create_university_identity_mapping: {
+        Args: {
+          p_audit_reason: string
+          p_audit_reference?: string
+          p_catalog_university_id: string
+          p_directory_id: string
+        }
+        Returns: string
+      }
       create_university_profile: {
         Args: {
           p_display_name_ar: string
@@ -11328,9 +12198,30 @@ export type Database = {
         }
         Returns: string
       }
+      current_mapped_catalog_university_id: { Args: never; Returns: string }
+      current_owned_university_directory_id: { Args: never; Returns: string }
       current_user_role: {
         Args: never
         Returns: Database["public"]["Enums"]["user_role_enum"]
+      }
+      declare_university_affiliation: {
+        Args: {
+          p_catalog_university_id: string
+          p_college_id?: string
+          p_degree_level?: Database["public"]["Enums"]["university_degree_level_enum"]
+          p_graduation_year?: number
+          p_major_id?: string
+          p_person_status: Database["public"]["Enums"]["university_person_status_enum"]
+        }
+        Returns: string
+      }
+      delete_professional_update: {
+        Args: { p_update_id: string }
+        Returns: string
+      }
+      disconnect_professional_connection: {
+        Args: { p_connection_id: string }
+        Returns: string
       }
       dispatch_notification: {
         Args: {
@@ -11484,6 +12375,7 @@ export type Database = {
           preference_source: string
         }[]
       }
+      get_professional_network: { Args: never; Returns: Json }
       get_profile_view_stats: {
         Args: { p_profile_id: string }
         Returns: {
@@ -11818,6 +12710,16 @@ export type Database = {
         Args: { p_action: string; p_invitation_id: string }
         Returns: undefined
       }
+      record_university_outcome_evidence: {
+        Args: {
+          p_affiliation_id: string
+          p_category: Database["public"]["Enums"]["university_outcome_category_enum"]
+          p_presence: Database["public"]["Enums"]["university_outcome_presence_enum"]
+          p_provenance_ref: string
+          p_source: Database["public"]["Enums"]["university_outcome_source_enum"]
+        }
+        Returns: string
+      }
       redrive_catalog_dead_letter: {
         Args: { p_dead_letter_id: string }
         Returns: Json
@@ -11878,9 +12780,21 @@ export type Database = {
         Args: { p_opportunity_id: string; p_reason: string }
         Returns: Json
       }
+      request_professional_connection: {
+        Args: { p_recipient_id: string }
+        Returns: string
+      }
+      request_university_affiliation_review: {
+        Args: { p_affiliation_id: string; p_review_reason: string }
+        Returns: undefined
+      }
       resolve_authorized_career_evidence_disclosure: {
         Args: { p_authorization_id: string; p_evidence_id: string }
         Returns: Json
+      }
+      respond_professional_connection: {
+        Args: { p_accept: boolean; p_connection_id: string }
+        Returns: string
       }
       respond_talent_invitation: {
         Args: { p_decision: string; p_invitation_id: string }
@@ -11954,6 +12868,14 @@ export type Database = {
         Args: { p_session_id: string }
         Returns: undefined
       }
+      revoke_university_affiliation: {
+        Args: { p_affiliation_id: string; p_reason: string }
+        Returns: undefined
+      }
+      revoke_university_identity_mapping: {
+        Args: { p_audit_reason: string; p_mapping_id: string }
+        Returns: undefined
+      }
       run_lammah_retention_now: { Args: { p_reason: string }; Returns: Json }
       search_discoverable_talent: { Args: { p_job_id: string }; Returns: Json }
       set_career_evidence_lifecycle: {
@@ -11972,6 +12894,14 @@ export type Database = {
         Args: { p_enabled: boolean; p_evidence_id: string; p_reason: string }
         Returns: Json
       }
+      set_professional_network_preferences: {
+        Args: {
+          p_accepts: boolean
+          p_audience: Database["public"]["Enums"]["professional_update_audience_enum"]
+          p_updates: boolean
+        }
+        Returns: string
+      }
       set_user_role: {
         Args: {
           p_new_role: Database["public"]["Enums"]["user_role_enum"]
@@ -11984,6 +12914,24 @@ export type Database = {
       staff_claim_lammah_candidate: {
         Args: { p_candidate_id: string }
         Returns: Json
+      }
+      staff_ensure_university_cohort: {
+        Args: {
+          p_catalog_university_id: string
+          p_degree_level?: Database["public"]["Enums"]["university_degree_level_enum"]
+          p_graduation_year: number
+          p_major_id?: string
+          p_program_text?: string
+        }
+        Returns: string
+      }
+      staff_link_cohort_membership: {
+        Args: {
+          p_affiliation_id: string
+          p_cohort_id: string
+          p_source?: Database["public"]["Enums"]["university_cohort_membership_source_enum"]
+        }
+        Returns: string
       }
       staff_publish_directory_candidate: {
         Args: { p_review_queue_id: string }
@@ -12013,6 +12961,15 @@ export type Database = {
           p_resolved_company_id?: string
         }
         Returns: Json
+      }
+      staff_review_university_affiliation: {
+        Args: {
+          p_affiliation_id: string
+          p_decision: string
+          p_reason: string
+          p_verification_method?: string
+        }
+        Returns: undefined
       }
       staff_suspend_user: {
         Args: { p_reason: string; p_user_id: string }
@@ -12135,6 +13092,7 @@ export type Database = {
         Args: { p_action: string; p_opportunity_id: string; p_reason: string }
         Returns: Json
       }
+      university_owner_foundation_snapshot: { Args: never; Returns: Json }
       unpublish_business_profile: {
         Args: { p_profile_id: string }
         Returns: Json
@@ -12169,6 +13127,8 @@ export type Database = {
       viewer_approved_company_id: { Args: never; Returns: string }
       viewer_approved_university_id: { Args: never; Returns: string }
       viewer_has_approved_company_claim: { Args: never; Returns: boolean }
+      wave9_connected: { Args: { a: string; b: string }; Returns: boolean }
+      wave9_individual: { Args: { p_id: string }; Returns: boolean }
       withdraw_hiring_application: {
         Args: { p_application_id: string; p_reason?: string }
         Returns: string
@@ -12456,6 +13416,14 @@ export type Database = {
       notification_priority_enum: "low" | "normal" | "high" | "critical"
       opportunity_tier_enum: "normal" | "plus"
       ownership_enum: "government" | "semi_government" | "private"
+      professional_connection_state_enum: "pending" | "accepted" | "declined"
+      professional_update_audience_enum: "connections" | "private"
+      professional_update_kind_enum:
+        | "project"
+        | "achievement"
+        | "learning"
+        | "credential"
+        | "career"
       profile_state_enum: "incomplete" | "active" | "suspended" | "deleted"
       profile_visibility_enum: "private" | "discoverable" | "public"
       review_visibility_enum: "private" | "public_named" | "public_anonymous"
@@ -12482,6 +13450,38 @@ export type Database = {
         | "invited"
         | "invitation_withdrawn"
         | "invitation_responded"
+      university_affiliation_state_enum:
+        | "DECLARED"
+        | "VERIFIED"
+        | "NEEDS_REVIEW"
+      university_cohort_membership_source_enum:
+        | "DECLARED_AFFILIATION"
+        | "STAFF_LINK"
+        | "INSTITUTION_ROSTER"
+      university_cohort_membership_state_enum:
+        | "ACTIVE"
+        | "ENDED"
+        | "NEEDS_REVIEW"
+      university_degree_level_enum:
+        | "diploma"
+        | "bachelor"
+        | "master"
+        | "doctorate"
+        | "other"
+      university_mapping_state_enum: "active" | "revoked"
+      university_metric_computability_enum: "CONTRACT_ONLY" | "COMPUTABLE"
+      university_outcome_category_enum:
+        | "EMPLOYED"
+        | "FURTHER_STUDY"
+        | "OTHER"
+        | "UNKNOWN"
+      university_outcome_presence_enum: "KNOWN" | "UNKNOWN"
+      university_outcome_source_enum:
+        | "USER_DECLARED"
+        | "VERIFIED_EMPLOYER"
+        | "INSTITUTION_GOVERNED"
+        | "EXTERNAL_GOVERNMENT"
+      university_person_status_enum: "STUDENT" | "GRADUATE" | "OTHER"
       user_role_enum:
         | "individual"
         | "entity"
@@ -12615,6 +13615,9 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
+  graphql_public: {
+    Enums: {},
+  },
   public: {
     Enums: {
       additional_category_enum: [
@@ -12922,6 +13925,15 @@ export const Constants = {
       notification_priority_enum: ["low", "normal", "high", "critical"],
       opportunity_tier_enum: ["normal", "plus"],
       ownership_enum: ["government", "semi_government", "private"],
+      professional_connection_state_enum: ["pending", "accepted", "declined"],
+      professional_update_audience_enum: ["connections", "private"],
+      professional_update_kind_enum: [
+        "project",
+        "achievement",
+        "learning",
+        "credential",
+        "career",
+      ],
       profile_state_enum: ["incomplete", "active", "suspended", "deleted"],
       profile_visibility_enum: ["private", "discoverable", "public"],
       review_visibility_enum: ["private", "public_named", "public_anonymous"],
@@ -12951,6 +13963,44 @@ export const Constants = {
         "invitation_withdrawn",
         "invitation_responded",
       ],
+      university_affiliation_state_enum: [
+        "DECLARED",
+        "VERIFIED",
+        "NEEDS_REVIEW",
+      ],
+      university_cohort_membership_source_enum: [
+        "DECLARED_AFFILIATION",
+        "STAFF_LINK",
+        "INSTITUTION_ROSTER",
+      ],
+      university_cohort_membership_state_enum: [
+        "ACTIVE",
+        "ENDED",
+        "NEEDS_REVIEW",
+      ],
+      university_degree_level_enum: [
+        "diploma",
+        "bachelor",
+        "master",
+        "doctorate",
+        "other",
+      ],
+      university_mapping_state_enum: ["active", "revoked"],
+      university_metric_computability_enum: ["CONTRACT_ONLY", "COMPUTABLE"],
+      university_outcome_category_enum: [
+        "EMPLOYED",
+        "FURTHER_STUDY",
+        "OTHER",
+        "UNKNOWN",
+      ],
+      university_outcome_presence_enum: ["KNOWN", "UNKNOWN"],
+      university_outcome_source_enum: [
+        "USER_DECLARED",
+        "VERIFIED_EMPLOYER",
+        "INSTITUTION_GOVERNED",
+        "EXTERNAL_GOVERNMENT",
+      ],
+      university_person_status_enum: ["STUDENT", "GRADUATE", "OTHER"],
       user_role_enum: [
         "individual",
         "entity",
