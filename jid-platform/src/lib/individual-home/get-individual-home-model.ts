@@ -83,6 +83,9 @@ export async function getIndividualHomeModel(): Promise<IndividualHomeModel | nu
   const profile = profileContext?.profile ?? null
   const applications = applicationsResult.applications
 
+  const localized = (ar: string | null | undefined, en: string | null | undefined): string =>
+    (locale === 'en' ? (en ?? ar) : (ar ?? en)) ?? ''
+
   const attention: AttentionItem[] = []
   if (profile && profile.profile_state === 'incomplete') {
     attention.push({ kind: 'incomplete_profile', href: '/profile/edit' })
@@ -92,7 +95,7 @@ export async function getIndividualHomeModel(): Promise<IndividualHomeModel | nu
       attention.push({
         kind: 'application_invited',
         href: `/opportunities/${application.job.id}`,
-        jobTitle: application.job.title_ar,
+        jobTitle: localized(application.job.title_ar, application.job.title_en),
       })
     }
   }
@@ -106,7 +109,7 @@ export async function getIndividualHomeModel(): Promise<IndividualHomeModel | nu
     .slice(0, RECENT_CHANGE_LIMIT)
     .map((application) => ({
       id: application.id,
-      jobTitle: application.job?.title_ar ?? application.job?.title_en ?? '',
+      jobTitle: localized(application.job?.title_ar, application.job?.title_en),
       status: application.status,
       at: application.status_changed_at ?? application.updated_at,
     }))
@@ -115,8 +118,8 @@ export async function getIndividualHomeModel(): Promise<IndividualHomeModel | nu
     .slice(0, APPLICATION_PREVIEW_LIMIT)
     .map((application) => ({
       id: application.id,
-      jobTitle: application.job?.title_ar ?? application.job?.title_en ?? '',
-      companyName: application.company?.name_ar ?? application.company?.name_en ?? null,
+      jobTitle: localized(application.job?.title_ar, application.job?.title_en),
+      companyName: localized(application.company?.name_ar, application.company?.name_en) || null,
       status: application.status,
       href: `/radar`,
     }))

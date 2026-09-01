@@ -37,22 +37,29 @@ export async function OpportunitiesPanel({ model }: OpportunitiesPanelProps) {
         <p className="text-foreground/60 mt-3 text-sm">{t('empty')}</p>
       ) : (
         <ul className="mt-3 divide-y divide-border border-y border-border">
-          {model.opportunities.map((job) => (
-            <li key={job.id}>
-              <Link
-                href={`/opportunities/${job.slug ?? job.id}`}
-                className="flex flex-col gap-1 py-3 hover:bg-surface"
-              >
-                <span className="text-sm font-medium text-foreground">{job.title_ar}</span>
-                <span className="text-foreground/60 text-xs">
-                  {job.company.name_ar ?? job.company.name_en}
-                  {job.is_remote ? ` · ${t('remote')}` : job.city ? ` · ${job.city}` : ''}
-                  {' · '}
-                  {t('deadlineDays', { days: Math.max(job.deadlineDaysLeft, 0) })}
-                </span>
-              </Link>
-            </li>
-          ))}
+          {model.opportunities.map((job) => {
+            const title = model.locale === 'en' ? (job.title_en ?? job.title_ar) : job.title_ar
+            const companyName =
+              model.locale === 'en'
+                ? (job.company.name_en ?? job.company.name_ar)
+                : (job.company.name_ar ?? job.company.name_en)
+            return (
+              <li key={job.id}>
+                <Link
+                  href={`/opportunities/${job.slug ?? job.id}`}
+                  className="flex flex-col gap-1 py-3 hover:bg-surface"
+                >
+                  <span className="text-sm font-medium text-foreground">{title}</span>
+                  <span className="text-foreground/60 text-xs">
+                    {companyName}
+                    {job.is_remote ? ` · ${t('remote')}` : job.city ? ` · ${job.city}` : ''}
+                    {' · '}
+                    {t('deadlineDays', { days: Math.max(job.deadlineDaysLeft, 0) })}
+                  </span>
+                </Link>
+              </li>
+            )
+          })}
         </ul>
       )}
 
