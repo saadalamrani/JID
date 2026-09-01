@@ -1,24 +1,17 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import { ClaimSubmissionForm } from '@/components/entity/claim-submission-form'
+import { OrganizationRegistrationForm } from '@/components/entity/organization-registration-form'
 import { StepAccount } from '@/components/entity/step-account'
-import {
-  StepEntitySelection,
-  type EntitySelectionResult,
-} from '@/components/entity/step-entity-selection'
 import { StepVerifyEmail } from '@/components/entity/step-verify-email'
 import { WizardShell } from '@/components/entity/wizard-shell'
 import { siteConfig } from '@/config/site'
 import { track } from '@/lib/analytics/track'
 import type { EntitySignupType, EntityWizardStep } from '@/lib/entity/constants'
-import { getLatestClaimForUser } from '@/lib/entity/claims'
-import {
-  mapWizardStepToJourneyChapter,
-  type EntityWizardPhase,
-} from '@/lib/entity/journey-chapters'
+import { getLatestVerificationForUser } from '@/lib/entity/claims'
+import { mapWizardStepToJourneyChapter } from '@/lib/entity/journey-chapters'
 import {
   clearWizardState,
   loadWizardState,
@@ -60,9 +53,9 @@ function pendingReviewPath(entityType: EntitySignupType) {
 
 export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
   const t = useTranslations('entity.wizard')
+  const locale = useLocale() as 'ar' | 'en'
   const router = useRouter()
   const [step, setStep] = useState<EntityWizardStep>('account')
-  const [entityPhase, setEntityPhase] = useState<EntityWizardPhase>('selection')
   const [submitting, setSubmitting] = useState(false)
   const [state, setState] = useState<EntityWizardState>({ step: 'account' })
   const [hydrated, setHydrated] = useState(false)
@@ -73,7 +66,7 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
     prepare: t('chapters.prepare'),
   }
 
-  const currentChapter = mapWizardStepToJourneyChapter(step, entityPhase)
+  const currentChapter = mapWizardStepToJourneyChapter(step)
 
   const persist = useCallback(
     (next: EntityWizardState) => {
@@ -111,27 +104,43 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         const user = session?.user ?? null
 
         if (user) {
-          const claim = await withTimeout(
-            getLatestClaimForUser(supabase, user.id),
-            'Timed out while restoring the latest entity claim',
+          const request = await withTimeout(
+            getLatestVerificationForUser(supabase, user.id),
+            'Timed out while restoring the latest verification request',
           )
-          if (claim && ['pending_review', 'pending', 'under_review'].includes(claim.status)) {
+          if (request && ['pending_review', 'pending', 'under_review'].includes(request.status)) {
             router.replace(pendingReviewPath(entityType))
             return
           }
         }
 
-        if (saved) {
-          setState(saved)
-          setStep(saved.step)
-          if (saved.companyId) setEntityPhase('claim')
-        } else if (user) {
+        if (user && !user.email_confirmed_at) {
           const next: EntityWizardState = {
-            step: user.email_confirmed_at ? 'entity' : 'verify_email',
-            accountEmail: user.email ?? undefined,
+            step: 'verify_email',
+            accountEmail: user.email ?? saved?.accountEmail,
+            registrationDraft: saved?.registrationDraft,
           }
-          setState(next)
-          setStep(next.step)
+          persist(next)
+          setStep('verify_email')
+          return
+        }
+
+        if (user?.email_confirmed_at) {
+          const next: EntityWizardState = {
+            step: 'org_details',
+            accountEmail: user.email ?? saved?.accountEmail,
+            registrationDraft: saved?.registrationDraft,
+          }
+          persist(next)
+          setStep('org_details')
+          return
+        }
+
+        if (saved?.step === 'account' || !saved) {
+          if (saved) {
+            setState(saved)
+            setStep(saved.step === 'org_details' || saved.step === 'verify_email' ? 'account' : saved.step)
+          }
         }
       } catch (error) {
         console.error('[entity-signup] Failed to restore signup state', error)
@@ -142,7 +151,7 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
     }
 
     void hydrate()
-  }, [entityType, router, t])
+  }, [entityType, persist, router, t])
 
   useEffect(() => {
     if (step === 'pending') {
@@ -163,7 +172,7 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         password: values.password,
         options: {
           emailRedirectTo: redirectTo,
-          data: { full_name: values.full_name, role: 'entity', locale: 'ar' },
+          data: { full_name: values.full_name, role: 'entity', locale },
         },
       })
 
@@ -176,7 +185,7 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         const { error: profileError } = await supabase.from('profiles').upsert({
           id: data.user.id,
           full_name: values.full_name,
-          locale: 'ar',
+          locale,
           updated_at: new Date().toISOString(),
         })
 
@@ -186,12 +195,12 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         }
       }
 
+      const emailConfirmed = Boolean(data.user?.email_confirmed_at)
       persist({
-        step: 'entity',
+        step: emailConfirmed ? 'org_details' : 'verify_email',
         accountEmail: values.email,
       })
-      setStep('entity')
-      setEntityPhase('selection')
+      setStep(emailConfirmed ? 'org_details' : 'verify_email')
     } catch {
       toast.error(t('account.error'))
     } finally {
@@ -199,22 +208,12 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
     }
   }
 
-  function handleEntitySelected(result: EntitySelectionResult) {
-    persist({
-      ...state,
-      step: 'entity',
-      companyId: result.companyId,
-      companyName: result.companyName,
-      companyDomains: result.companyDomains,
-    })
-    setEntityPhase('claim')
-  }
-
-  function handleClaimSuccess() {
-    goToStep('verify_email')
-  }
-
   function handleEmailVerified() {
+    goToStep('org_details')
+  }
+
+  function handleRegistrationSuccess() {
+    clearWizardState(entityType)
     goToStep('pending')
   }
 
@@ -242,42 +241,15 @@ export function EntitySignupWizard({ entityType }: EntitySignupWizardProps) {
         <StepAccount submitting={submitting} onSubmit={handleAccountSubmit} />
       ) : null}
 
-      {step === 'entity' && entityPhase === 'selection' ? (
-        <StepEntitySelection
-          entityType={entityType}
-          initialCompanyId={state.companyId}
-          onBack={() => goToStep('account')}
-          onContinue={handleEntitySelected}
-        />
-      ) : null}
-
-      {step === 'entity' && entityPhase === 'claim' && state.companyId && state.companyName ? (
-        <div className="space-y-4">
-          <ClaimSubmissionForm
-            companyId={state.companyId}
-            companyName={state.companyName}
-            claimType={entityType}
-            defaultValues={state.claimDraft}
-            onSuccess={() => {
-              clearWizardState(entityType)
-              handleClaimSuccess()
-            }}
-          />
-          <button
-            type="button"
-            className="w-full text-sm text-primary underline-offset-4 hover:underline"
-            onClick={() => setEntityPhase('selection')}
-          >
-            {t('entity.changeCompany')}
-          </button>
-        </div>
-      ) : null}
-
       {step === 'verify_email' ? (
-        <StepVerifyEmail
-          email={state.accountEmail}
-          pendingReviewPath={pendingReviewPath(entityType)}
-          onVerified={handleEmailVerified}
+        <StepVerifyEmail email={state.accountEmail} onVerified={handleEmailVerified} />
+      ) : null}
+
+      {step === 'org_details' ? (
+        <OrganizationRegistrationForm
+          signupType={entityType}
+          defaultValues={state.registrationDraft}
+          onSuccess={handleRegistrationSuccess}
         />
       ) : null}
     </WizardShell>

@@ -36,7 +36,18 @@ vi.mock('@/lib/i18n/navigation', () => ({
 
 vi.mock('@/app/[locale]/(staff)/staff/verification/actions', () => ({
   reviewVerification: vi.fn(async () => ({ ok: true })),
+  reconcileVerificationDirectory: vi.fn(async () => ({ ok: true })),
+  createVerificationDirectory: vi.fn(async () => ({ ok: true })),
+  markNeedsReconciliation: vi.fn(async () => ({ ok: true })),
 }))
+
+vi.mock(
+  '@/app/[locale]/(staff)/staff/verification/[id]/_components/verification-reconciliation-panel',
+  () => ({
+    VerificationReconciliationPanel: () => <div data-testid="staff-reconciliation-panel" />,
+    canApproveVerification: () => true,
+  }),
+)
 
 vi.mock('sonner', () => ({
   toast: { success: vi.fn(), error: vi.fn() },
@@ -72,6 +83,11 @@ function makeData(
       required_documents: [],
       assigned_staff_id: 'other-staff',
       sla_due_at: null,
+      submitted_name_ar: null,
+      submitted_name_en: 'Acme',
+      submitted_website: null,
+      submitted_domain: 'acme.test',
+      reconciliation_state: 'link_existing',
       ...verificationOverrides,
     },
     directory: null,

@@ -142,16 +142,28 @@ function LoginPageContent() {
       if (profile.role === 'entity' && !nextParam) {
         const { data: verification } = await supabase
           .from('verification_requests')
-          .select('verification_type')
+          .select('verification_type, status')
           .eq('applicant_user_id', data.user.id)
           .order('created_at', { ascending: false })
           .limit(1)
           .maybeSingle()
 
-        destination =
-          verification?.verification_type === 'university'
-            ? '/university/pending-review'
-            : '/company/verification-pending'
+        const pending =
+          verification?.status &&
+          ['pending_review', 'pending', 'under_review', 'needs_more_info'].includes(
+            verification.status,
+          )
+        if (pending) {
+          destination =
+            verification?.verification_type === 'university'
+              ? '/university/pending-review'
+              : '/company/verification-pending'
+        } else {
+          destination =
+            verification?.verification_type === 'university'
+              ? '/signup/university'
+              : '/signup/company'
+        }
       }
 
       // Mentor hub RSC requires jid_active_mode=mentor (capability + mode cookie).

@@ -222,17 +222,22 @@ describe('5. No deleted component retains an active import anywhere in src', () 
 })
 
 describe('6. No schema, RLS, or public onboarding files were changed', () => {
-  it('the legitimate public verification submission module is untouched in shape', () => {
+  it('the public verification submission module no longer requires a Directory row', () => {
     const content = read('lib/entity/claims.ts')
-    expect(content).toContain('export async function submitClaimRequest')
-    expect(content).toContain("claimType === 'company' ? 'business' : 'university'")
+    expect(content).toContain('export async function submitVerificationRequest')
+    expect(content).toContain("signupType === 'company' ? 'business' : 'university'")
+    expect(content).toContain('directory_id: null')
   })
 
-  it('EntitySignupWizard and ClaimSubmissionForm still exist and are wired together', () => {
+  it('EntitySignupWizard uses organization registration instead of claim selection', () => {
     expect(existsSync(join(SRC_ROOT, 'components/entity/entity-signup-wizard.tsx'))).toBe(true)
-    expect(existsSync(join(SRC_ROOT, 'components/entity/claim-submission-form.tsx'))).toBe(true)
+    expect(existsSync(join(SRC_ROOT, 'components/entity/organization-registration-form.tsx'))).toBe(
+      true,
+    )
+    expect(existsSync(join(SRC_ROOT, 'components/entity/claim-submission-form.tsx'))).toBe(false)
     const wizard = read('components/entity/entity-signup-wizard.tsx')
-    expect(wizard).toContain('ClaimSubmissionForm')
+    expect(wizard).toContain('OrganizationRegistrationForm')
+    expect(wizard).not.toContain('ClaimSubmissionForm')
   })
 
   it('the retired /api/catalog/claim files from JID-102A2 stay removed, not reintroduced', () => {

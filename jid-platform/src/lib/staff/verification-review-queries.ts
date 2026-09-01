@@ -11,7 +11,7 @@ export type { RelatedVerificationHistoryItem } from '@/lib/staff/verification-re
 export type VerificationDetail = {
   id: string
   applicant_user_id: string
-  directory_id: string
+  directory_id: string | null
   company_name: string
   business_email: string
   claimant_name: string
@@ -25,6 +25,11 @@ export type VerificationDetail = {
   required_documents: string[]
   assigned_staff_id: string | null
   sla_due_at: string | null
+  submitted_name_ar: string | null
+  submitted_name_en: string | null
+  submitted_website: string | null
+  submitted_domain: string | null
+  reconciliation_state: string
 }
 
 export type DirectoryDetail = {
@@ -91,7 +96,7 @@ export async function fetchVerificationReviewWorkspace(
   const { data: verificationRow, error: verificationError } = await supabase
     .from('verification_requests')
     .select(
-      'id, applicant_user_id, directory_id, company_name, business_email, claimant_name, claimant_title, status, verification_type, created_at, reviewed_at, review_notes, rejection_reason, required_documents, assigned_staff_id, sla_due_at',
+      'id, applicant_user_id, directory_id, company_name, business_email, claimant_name, claimant_title, status, verification_type, created_at, reviewed_at, review_notes, rejection_reason, required_documents, assigned_staff_id, sla_due_at, submitted_name_ar, submitted_name_en, submitted_website, submitted_domain, reconciliation_state',
     )
     .eq('id', verificationId)
     .maybeSingle()
@@ -108,13 +113,15 @@ export async function fetchVerificationReviewWorkspace(
   )
 
   const [{ data: directoryRow }, applicant, relatedHistory, assignmentRow] = await Promise.all([
-    supabase
-      .from('companies')
-      .select(
-        'id, name, name_ar, entity_type, entity_state, domains, is_verified, linkedin_url, website_url',
-      )
-      .eq('id', verification.directory_id)
-      .maybeSingle(),
+    verification.directory_id
+      ? supabase
+          .from('companies')
+          .select(
+            'id, name, name_ar, entity_type, entity_state, domains, is_verified, linkedin_url, website_url',
+          )
+          .eq('id', verification.directory_id)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
     fetchProfileForUser(supabase, verification.applicant_user_id),
     fetchRelatedVerificationHistory(
       supabase,
@@ -159,17 +166,20 @@ async function fetchRelatedVerificationHistory(
   supabase: Awaited<ReturnType<typeof createClient>>,
   verificationId: string,
   userId: string,
-  directoryId: string,
+  directoryId: string | null,
 ): Promise<RelatedVerificationHistoryItem[]> {
-  const { data, error } = await supabase
+  let query = supabase
     .from('verification_requests')
     .select(
       'id, company_name, status, verification_type, created_at, reviewed_at, applicant_user_id, directory_id',
     )
-    .or(`applicant_user_id.eq.${userId},directory_id.eq.${directoryId}`)
     .neq('id', verificationId)
-    .order('created_at', { ascending: false })
-    .limit(15)
+
+  query = directoryId
+    ? query.or(`applicant_user_id.eq.${userId},directory_id.eq.${directoryId}`)
+    : query.eq('applicant_user_id', userId)
+
+  const { data, error } = await query.order('created_at', { ascending: false }).limit(15)
 
   if (error) throw new Error(error.message)
 

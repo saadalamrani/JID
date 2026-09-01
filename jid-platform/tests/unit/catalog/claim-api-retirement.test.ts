@@ -32,13 +32,13 @@ describe('JID-102A legacy catalog Claim retirement', () => {
   it('preserves the independent organization verification submission service', () => {
     const submissionService = readFileSync(join(root, 'src/lib/entity/claims.ts'), 'utf8')
     const signupForm = readFileSync(
-      join(root, 'src/components/entity/claim-submission-form.tsx'),
+      join(root, 'src/components/entity/organization-registration-form.tsx'),
       'utf8',
     )
 
     expect(submissionService).toContain(".from('verification_requests')")
     expect(submissionService).not.toContain('/api/catalog/claim')
-    expect(signupForm).toContain('submitClaimRequest')
+    expect(signupForm).toContain('submitVerificationRequest')
     expect(signupForm).not.toContain('/api/catalog/claim')
   })
 })

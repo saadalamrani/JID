@@ -29,8 +29,8 @@ export const FORBIDDEN_CLAIM_COPY = [
 ] as const
 
 export const INSTITUTIONAL_CHAPTER_LABELS_AR = {
-  identify: 'حدد جهتك',
-  verify: 'أثبت صفتك',
+  identify: 'الحساب',
+  verify: 'طلب التحقق',
   prepare: 'جهّز ملف الجهة',
 } as const
 

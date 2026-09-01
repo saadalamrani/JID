@@ -3,7 +3,7 @@ import { Link } from '@/lib/i18n/navigation'
 
 /**
  * Section 5.7 — dual CTA.
- * Entity path uses /catalog (claim flow) — not /signup?type=company (Part A: no direct company_admin signup).
+ * Employer/University path uses organization registration, not Directory claim.
  */
 export async function CtaSection() {
   const t = await getTranslations('landing.cta')
@@ -34,7 +34,7 @@ export async function CtaSection() {
             <h3 className="text-lg font-semibold text-foreground">{t('entity.title')}</h3>
             <p className="mt-2 text-sm text-foreground/65">{t('entity.body')}</p>
             <Link
-              href="/catalog"
+              href="/signup/entity-type"
               className="mt-6 inline-flex items-center justify-center rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-foreground hover:bg-accent/10"
             >
               {t('entity.button')}

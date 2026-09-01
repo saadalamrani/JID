@@ -1,31 +1,36 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@/lib/supabase/types'
-import {
-  buildDomainMismatchMessage,
-  emailDomainMatchesAllowed,
-} from '@/lib/entity/domains'
-import { getCompanyById } from '@/lib/entity/companies'
+import { extractEmailDomain, normalizeDomain } from '@/lib/entity/domains'
 import type { EntitySignupType } from '@/lib/entity/constants'
-import type { ClaimSubmissionFormValues } from '@/lib/validations/entity'
+import type { OrganizationRegistrationFormValues } from '@/lib/validations/entity'
 
 type Client = SupabaseClient<Database>
 
-export type SubmitClaimInput = ClaimSubmissionFormValues & {
-  companyId: string
-  companyName: string
-  claimType: EntitySignupType
+export type SubmitVerificationInput = OrganizationRegistrationFormValues & {
+  signupType: EntitySignupType
   locale?: 'ar' | 'en'
 }
 
 export { SLA_HOURS } from '@/lib/entity/constants'
 
 function toVerificationType(
-  claimType: EntitySignupType,
+  signupType: EntitySignupType,
 ): Database['public']['Enums']['claim_type_enum'] {
-  return claimType === 'company' ? 'business' : 'university'
+  return signupType === 'company' ? 'business' : 'university'
 }
 
-export async function submitClaimRequest(supabase: Client, input: SubmitClaimInput) {
+function normalizeWebsite(value?: string): string | null {
+  const trimmed = value?.trim()
+  if (!trimmed) return null
+  return trimmed.startsWith('http') ? trimmed : `https://${trimmed}`
+}
+
+function submittedDomainFromInput(input: SubmitVerificationInput): string | null {
+  if (input.domain?.trim()) return normalizeDomain(input.domain)
+  return extractEmailDomain(input.business_email)
+}
+
+export async function submitVerificationRequest(supabase: Client, input: SubmitVerificationInput) {
   const {
     data: { user },
     error: userError,
@@ -35,16 +40,15 @@ export async function submitClaimRequest(supabase: Client, input: SubmitClaimInp
     throw new Error('Authentication required')
   }
 
-  const company = await getCompanyById(supabase, input.companyId)
-  if (!company) {
-    throw new Error('Company not found')
+  if (!user.email_confirmed_at) {
+    throw new Error(
+      input.locale === 'en'
+        ? 'Confirm your account email before submitting a verification request'
+        : 'أكد بريد حسابك قبل إرسال طلب التحقق',
+    )
   }
 
   const locale = input.locale ?? 'ar'
-
-  if (!emailDomainMatchesAllowed(input.business_email, company.domains)) {
-    throw new Error(buildDomainMismatchMessage(company.domains, locale))
-  }
 
   const { data: priorRejected } = await supabase
     .from('verification_requests')
@@ -69,18 +73,25 @@ export async function submitClaimRequest(supabase: Client, input: SubmitClaimInp
     )
   }
 
+  const organizationName = input.organization_name.trim()
+  const submittedDomain = submittedDomainFromInput(input)
+
   const { data, error } = await supabase
     .from('verification_requests')
     .insert({
       applicant_user_id: user.id,
-      directory_id: input.companyId,
-      company_name: input.companyName,
+      directory_id: null,
+      company_name: organizationName,
       business_email: input.business_email.trim().toLowerCase(),
-      claimant_name: input.claimant_name.trim(),
-      claimant_title: input.claimant_title.trim(),
+      claimant_name: input.representative_name.trim(),
+      claimant_title: input.representative_title.trim(),
       evidence_urls: [],
       status: 'pending_review',
-      verification_type: toVerificationType(input.claimType),
+      verification_type: toVerificationType(input.signupType),
+      submitted_name_ar: input.organization_name_ar?.trim() || null,
+      submitted_name_en: organizationName,
+      submitted_website: normalizeWebsite(input.website),
+      submitted_domain: submittedDomain,
     })
     .select('id, status, created_at')
     .single()
@@ -91,6 +102,9 @@ export async function submitClaimRequest(supabase: Client, input: SubmitClaimInp
 
   return data
 }
+
+/** @deprecated Use submitVerificationRequest */
+export const submitClaimRequest = submitVerificationRequest
 
 export async function getLatestVerificationForUser(
   supabase: Client,

@@ -55,7 +55,7 @@ export default async function CreateBusinessProfilePage() {
     redirect(gate.path)
   }
 
-  if (!verification || verification.status !== 'approved') {
+  if (!verification || verification.status !== 'approved' || !verification.directory_id) {
     redirect('/signup/entity-type')
   }
 

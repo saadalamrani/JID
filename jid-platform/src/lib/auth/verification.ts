@@ -185,3 +185,37 @@ export async function createUniversityProfile(
 
   return data as string
 }
+
+export async function linkVerificationDirectory(
+  client: Client,
+  input: { verificationId: string; directoryId: string },
+): Promise<void> {
+  const { error } = await client.rpc('link_verification_directory', {
+    p_verification_id: input.verificationId,
+    p_directory_id: input.directoryId,
+  })
+  if (error) throw new Error(error.message)
+}
+
+export async function createDirectoryForVerification(
+  client: Client,
+  verificationId: string,
+): Promise<string> {
+  const { data, error } = await client.rpc('create_directory_for_verification', {
+    p_verification_id: verificationId,
+  })
+  if (error) throw new Error(error.message)
+  if (!data) throw new Error('Directory creation returned no id')
+  return data as string
+}
+
+export async function markVerificationNeedsReconciliation(
+  client: Client,
+  input: { verificationId: string; notes?: string },
+): Promise<void> {
+  const { error } = await client.rpc('mark_verification_needs_reconciliation', {
+    p_verification_id: input.verificationId,
+    p_notes: input.notes ?? undefined,
+  })
+  if (error) throw new Error(error.message)
+}

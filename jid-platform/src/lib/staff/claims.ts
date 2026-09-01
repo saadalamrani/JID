@@ -7,7 +7,7 @@ export const PENDING_CLAIM_STATUSES = ['pending', 'pending_review', 'under_revie
 export type ClaimQueueItem = {
   id: string
   user_id: string
-  company_id: string
+  company_id: string | null
   company_name: string
   business_email: string
   claimant_name: string
@@ -88,11 +88,9 @@ export async function fetchClaimById(
   if (error) throw new Error(error.message)
   if (!claim) return null
 
-  const { data: company } = await supabase
-    .from('companies')
-    .select('domains')
-    .eq('id', claim.directory_id)
-    .maybeSingle()
+  const { data: company } = claim.directory_id
+    ? await supabase.from('companies').select('domains').eq('id', claim.directory_id).maybeSingle()
+    : { data: null }
 
   return {
     id: claim.id,

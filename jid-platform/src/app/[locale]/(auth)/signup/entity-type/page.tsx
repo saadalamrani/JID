@@ -19,7 +19,13 @@ export default async function EntityTypePage() {
         </p>
       }
     >
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-4 sm:grid-cols-3">
+        <EntityTypeCard
+          href="/signup"
+          type="individual"
+          title={t('individual.title')}
+          description={t('individual.description')}
+        />
         <EntityTypeCard
           href="/signup/company"
           type="company"

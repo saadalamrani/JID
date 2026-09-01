@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { submitClaimRequest } from '@/lib/entity/claims'
+import { submitVerificationRequest } from '@/lib/entity/claims'
 import type { Database } from '@/lib/supabase/types'
 import {
   createDirectoryCompany,
@@ -83,6 +83,24 @@ describeRls('JID-102A verification INSERT and Profile-creation boundary', () => 
     } as const
   }
 
+  function registrationInput(
+    signupType: 'company' | 'university',
+    organizationName: string,
+    email: string,
+  ) {
+    return {
+      signupType,
+      organization_name: organizationName,
+      organization_name_ar: organizationName,
+      website: '',
+      domain: '',
+      business_email: email,
+      representative_name: 'Authorized Representative',
+      representative_title: 'Authorized Representative',
+      locale: 'en' as const,
+    }
+  }
+
   it('denies anonymous verification INSERT', async () => {
     if (!env) return
     const { error } = await createAnonClient(env)
@@ -100,24 +118,14 @@ describeRls('JID-102A verification INSERT and Profile-creation boundary', () => 
       universityApplicant.password,
     )
 
-    const business = await submitClaimRequest(client, {
-      companyId: businessDirectory.id,
-      companyName: businessDirectory.name,
-      claimType: 'company',
-      business_email: `representative@${businessDirectory.domain}`,
-      claimant_name: 'Business Representative',
-      claimant_title: 'Authorized Representative',
-      locale: 'en',
-    })
-    const university = await submitClaimRequest(universityClient, {
-      companyId: universityDirectory.id,
-      companyName: universityDirectory.name,
-      claimType: 'university',
-      business_email: `representative@${universityDirectory.domain}`,
-      claimant_name: 'University Representative',
-      claimant_title: 'Authorized Representative',
-      locale: 'en',
-    })
+    const business = await submitVerificationRequest(
+      client,
+      registrationInput('company', 'Submitted Business', 'representative@unrelated.test'),
+    )
+    const university = await submitVerificationRequest(
+      universityClient,
+      registrationInput('university', 'Submitted University', 'representative@campus.test'),
+    )
 
     expect(business.status).toBe('pending_review')
     expect(university.status).toBe('pending_review')
@@ -199,28 +207,32 @@ describeRls('JID-102A verification INSERT and Profile-creation boundary', () => 
     expect(error).not.toBeNull()
   })
 
-  it('denies incompatible type, Directory name, and institutional domain relationships', async () => {
+  it('denies applicant-supplied Directory linkage', async () => {
     if (!env) return
     const client = await createAuthenticatedClient(env, otherApplicant.email, otherApplicant.password)
-    const attempts = [
-      {
-        ...initialRequest(universityDirectory, otherApplicant.id),
-        verification_type: 'business' as const,
-      },
-      {
-        ...initialRequest(businessDirectory, otherApplicant.id),
-        company_name: 'Different Directory Record',
-      },
-      {
-        ...initialRequest(businessDirectory, otherApplicant.id),
-        business_email: 'representative@unrelated.test',
-      },
-    ]
+    const { error } = await client
+      .from('verification_requests')
+      .insert(initialRequest(businessDirectory, otherApplicant.id))
+    expect(error).not.toBeNull()
+  })
 
-    for (const attempt of attempts) {
-      const { error } = await client.from('verification_requests').insert(attempt)
-      expect(error).not.toBeNull()
-    }
+  it('allows a domain mismatch to reach pending review as evidence', async () => {
+    if (!env) return
+    const client = await createAuthenticatedClient(env, otherApplicant.email, otherApplicant.password)
+    const request = await submitVerificationRequest(
+      client,
+      registrationInput('company', 'Mismatched Domain Org', 'representative@unrelated.test'),
+    )
+    expect(request.status).toBe('pending_review')
+    requestIds.add(request.id)
+
+    const { data } = await client
+      .from('verification_requests')
+      .select('directory_id, reconciliation_state')
+      .eq('id', request.id)
+      .single()
+    expect(data?.directory_id).toBeNull()
+    expect(data?.reconciliation_state).toBe('unresolved')
   })
 
   it('denies Profile creation for pending Business and University verification', async () => {
@@ -270,16 +282,24 @@ describeRls('JID-102A verification INSERT and Profile-creation boundary', () => 
       decisionApplicant.password,
     )
     const staffClient = await createAuthenticatedClient(env, staff.email, staff.password)
-    const request = await submitClaimRequest(applicantClient, {
-      companyId: businessDirectory.id,
-      companyName: businessDirectory.name,
-      claimType: 'company',
-      business_email: `decision@${businessDirectory.domain}`,
-      claimant_name: 'Decision Applicant',
-      claimant_title: 'Representative',
-      locale: 'en',
-    })
+    const request = await submitVerificationRequest(
+      applicantClient,
+      registrationInput('company', 'Decision Org', `decision@${businessDirectory.domain}`),
+    )
     requestIds.add(request.id)
+
+    const { error: unlinkedApproveError } = await staffClient.rpc('approve_verification_request', {
+      p_verification_id: request.id,
+      p_review_notes: 'Synthetic approval evidence',
+      p_verified_domains: [businessDirectory.domain],
+    })
+    expect(unlinkedApproveError?.message).toContain('organization_reconciliation_required')
+
+    const { error: linkError } = await staffClient.rpc('link_verification_directory', {
+      p_verification_id: request.id,
+      p_directory_id: businessDirectory.id,
+    })
+    expect(linkError).toBeNull()
 
     const { error } = await staffClient.rpc('approve_verification_request', {
       p_verification_id: request.id,
@@ -320,15 +340,10 @@ describeRls('JID-102A verification INSERT and Profile-creation boundary', () => 
       reapplyApplicant.password,
     )
     const staffClient = await createAuthenticatedClient(env, staff.email, staff.password)
-    const request = await submitClaimRequest(applicantClient, {
-      companyId: universityDirectory.id,
-      companyName: universityDirectory.name,
-      claimType: 'university',
-      business_email: `reapply@${universityDirectory.domain}`,
-      claimant_name: 'Reapply Applicant',
-      claimant_title: 'Representative',
-      locale: 'en',
-    })
+    const request = await submitVerificationRequest(
+      applicantClient,
+      registrationInput('university', 'Reapply University', `reapply@${universityDirectory.domain}`),
+    )
     requestIds.add(request.id)
 
     const { error: rejectError } = await staffClient.rpc('reject_verification_request', {
@@ -345,15 +360,10 @@ describeRls('JID-102A verification INSERT and Profile-creation boundary', () => 
     expect(directCooldownError?.message).toContain('verification_reapplication_cooldown_active')
 
     await expect(
-      submitClaimRequest(applicantClient, {
-        companyId: universityDirectory.id,
-        companyName: universityDirectory.name,
-        claimType: 'university',
-        business_email: `reapply@${universityDirectory.domain}`,
-        claimant_name: 'Reapply Applicant',
-        claimant_title: 'Representative',
-        locale: 'en',
-      }),
+      submitVerificationRequest(
+        applicantClient,
+        registrationInput('university', 'Reapply University', `reapply@${universityDirectory.domain}`),
+      ),
     ).rejects.toThrow(/cannot reapply before/i)
 
     await admin
@@ -361,15 +371,10 @@ describeRls('JID-102A verification INSERT and Profile-creation boundary', () => 
       .update({ can_reapply_after: new Date(Date.now() - 60_000).toISOString() })
       .eq('id', request.id)
 
-    const reapplied = await submitClaimRequest(applicantClient, {
-      companyId: universityDirectory.id,
-      companyName: universityDirectory.name,
-      claimType: 'university',
-      business_email: `reapply@${universityDirectory.domain}`,
-      claimant_name: 'Reapply Applicant',
-      claimant_title: 'Representative',
-      locale: 'en',
-    })
+    const reapplied = await submitVerificationRequest(
+      applicantClient,
+      registrationInput('university', 'Reapply University', `reapply@${universityDirectory.domain}`),
+    )
     requestIds.add(reapplied.id)
     expect(reapplied.status).toBe('pending_review')
 

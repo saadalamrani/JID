@@ -5,7 +5,7 @@ type Client = SupabaseClient<Database>
 
 export type RejectedClaimView = {
   id: string
-  directory_id: string
+  directory_id: string | null
   company_name: string
   rejection_reason: string | null
   required_documents: string[]

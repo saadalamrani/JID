@@ -1,6 +1,6 @@
 export const SLA_HOURS = 24
 
-export const ENTITY_WIZARD_STEPS = ['account', 'entity', 'verify_email', 'pending'] as const
+export const ENTITY_WIZARD_STEPS = ['account', 'verify_email', 'org_details', 'pending'] as const
 
 export type EntityWizardStep = (typeof ENTITY_WIZARD_STEPS)[number]
 

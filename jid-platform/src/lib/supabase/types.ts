@@ -11977,12 +11977,13 @@ export type Database = {
           claimant_title: string | null
           company_name: string
           created_at: string
-          directory_id: string
+          directory_id: string | null
           domain_verified: boolean
           evidence_urls: string[]
           first_viewed_at: string | null
           first_viewed_by: string | null
           id: string
+          reconciliation_state: string
           rejection_reason: string | null
           required_documents: string[]
           resulting_profile_id: string | null
@@ -11992,6 +11993,10 @@ export type Database = {
           reviewed_by: string | null
           sla_due_at: string | null
           status: Database["public"]["Enums"]["claim_status_enum"]
+          submitted_domain: string | null
+          submitted_name_ar: string | null
+          submitted_name_en: string | null
+          submitted_website: string | null
           updated_at: string
           verification_type: Database["public"]["Enums"]["claim_type_enum"]
           verified_domains: string[]
@@ -12005,12 +12010,13 @@ export type Database = {
           claimant_title?: string | null
           company_name: string
           created_at?: string
-          directory_id: string
+          directory_id?: string | null
           domain_verified?: boolean
           evidence_urls?: string[]
           first_viewed_at?: string | null
           first_viewed_by?: string | null
           id?: string
+          reconciliation_state?: string
           rejection_reason?: string | null
           required_documents?: string[]
           resulting_profile_id?: string | null
@@ -12020,6 +12026,10 @@ export type Database = {
           reviewed_by?: string | null
           sla_due_at?: string | null
           status?: Database["public"]["Enums"]["claim_status_enum"]
+          submitted_domain?: string | null
+          submitted_name_ar?: string | null
+          submitted_name_en?: string | null
+          submitted_website?: string | null
           updated_at?: string
           verification_type?: Database["public"]["Enums"]["claim_type_enum"]
           verified_domains?: string[]
@@ -12033,12 +12043,13 @@ export type Database = {
           claimant_title?: string | null
           company_name?: string
           created_at?: string
-          directory_id?: string
+          directory_id?: string | null
           domain_verified?: boolean
           evidence_urls?: string[]
           first_viewed_at?: string | null
           first_viewed_by?: string | null
           id?: string
+          reconciliation_state?: string
           rejection_reason?: string | null
           required_documents?: string[]
           resulting_profile_id?: string | null
@@ -12048,6 +12059,10 @@ export type Database = {
           reviewed_by?: string | null
           sla_due_at?: string | null
           status?: Database["public"]["Enums"]["claim_status_enum"]
+          submitted_domain?: string | null
+          submitted_name_ar?: string | null
+          submitted_name_en?: string | null
+          submitted_website?: string | null
           updated_at?: string
           verification_type?: Database["public"]["Enums"]["claim_type_enum"]
           verified_domains?: string[]
@@ -12657,6 +12672,18 @@ export type Database = {
           p_verification_id: string
           p_verified_domains?: string[]
         }
+        Returns: undefined
+      }
+      create_directory_for_verification: {
+        Args: { p_verification_id: string }
+        Returns: string
+      }
+      link_verification_directory: {
+        Args: { p_directory_id: string; p_verification_id: string }
+        Returns: undefined
+      }
+      mark_verification_needs_reconciliation: {
+        Args: { p_notes?: string; p_verification_id: string }
         Returns: undefined
       }
       assemble_ssis_generation_context: {

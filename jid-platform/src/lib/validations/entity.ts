@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { bilingualNameSchema, strongPasswordSchema } from '@/lib/utils/validators'
-import { parseDomainsInput } from '@/lib/entity/domains'
+import { normalizeDomain } from '@/lib/entity/domains'
 
 export const entityAccountSchema = z.object({
   full_name: bilingualNameSchema,
@@ -13,24 +13,52 @@ export const entityAccountSchema = z.object({
 
 export type EntityAccountFormValues = z.infer<typeof entityAccountSchema>
 
-export const newCompanySchema = z.object({
-  name: bilingualNameSchema,
-  name_ar: bilingualNameSchema,
-  domains: z
-    .string()
-    .trim()
-    .min(1, { message: 'entity.validation.domainsRequired' })
-    .refine((value) => parseDomainsInput(value).length > 0, {
-      message: 'entity.validation.domainsInvalid',
-    }),
-})
+const organizationNameSchema = z
+  .string()
+  .trim()
+  .min(2, { message: 'entity.validation.companyNameMin' })
+  .max(120, { message: 'entity.validation.companyNameMin' })
 
-export type NewCompanyFormValues = z.infer<typeof newCompanySchema>
+const optionalWebsiteSchema = z
+  .string()
+  .trim()
+  .optional()
+  .or(z.literal(''))
+  .refine(
+    (value) => {
+      if (!value) return true
+      try {
+        const url = new URL(value.startsWith('http') ? value : `https://${value}`)
+        return Boolean(url.hostname)
+      } catch {
+        return false
+      }
+    },
+    { message: 'entity.validation.websiteInvalid' },
+  )
 
-export const claimSubmissionSchema = z.object({
+const optionalDomainSchema = z
+  .string()
+  .trim()
+  .optional()
+  .or(z.literal(''))
+  .refine(
+    (value) => {
+      if (!value) return true
+      const domain = normalizeDomain(value)
+      return /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/.test(domain)
+    },
+    { message: 'entity.validation.domainsInvalid' },
+  )
+
+export const organizationRegistrationSchema = z.object({
+  organization_name: organizationNameSchema,
+  organization_name_ar: z.string().trim().optional().or(z.literal('')),
+  website: optionalWebsiteSchema,
+  domain: optionalDomainSchema,
   business_email: z.string().trim().email({ message: 'entity.validation.emailInvalid' }),
-  claimant_name: bilingualNameSchema,
-  claimant_title: z.string().trim().min(2, { message: 'entity.validation.claimantTitleMin' }),
+  representative_name: bilingualNameSchema,
+  representative_title: z.string().trim().min(2, { message: 'entity.validation.claimantTitleMin' }),
 })
 
-export type ClaimSubmissionFormValues = z.infer<typeof claimSubmissionSchema>
+export type OrganizationRegistrationFormValues = z.infer<typeof organizationRegistrationSchema>

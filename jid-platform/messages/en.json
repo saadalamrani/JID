@@ -273,7 +273,7 @@
     },
     "cta": {
       "title": "Start where you are",
-      "subtitle": "Individual? Create an account. Representing an employer or university? Find your entity, request verification, then create your profile.",
+      "subtitle": "Individual? Create an account. Representing an employer or university? Register the organization and your role, then submit verification.",
       "individual": {
         "title": "For individuals",
         "body": "Unified profile, application radar, and mentorship capability — one individual account.",
@@ -281,8 +281,8 @@
       },
       "entity": {
         "title": "For employers & universities",
-        "body": "You cannot create an organization Profile as an admin shortcut — find the Directory record, request verification, then create your Profile.",
-        "button": "Find your entity and request verification"
+        "body": "Register the employer or university, confirm you represent it, then prepare the Profile after approval.",
+        "button": "Create an employer or university account"
       }
     }
   },
@@ -1707,32 +1707,36 @@
     },
     "entityType": {
       "title": "Who do you represent?",
-      "subtitle": "Choose Business or University to begin setup",
+      "subtitle": "Choose Individual, Employer, or University",
       "hasAccount": "Already have an account?",
       "loginLink": "Sign in",
+      "individual": {
+        "title": "Individual",
+        "description": "I am building my career"
+      },
       "company": {
-        "title": "Business",
-        "description": "I represent a company or organization"
+        "title": "Employer",
+        "description": "I represent an employer"
       },
       "university": {
         "title": "University",
-        "description": "I represent a university or higher-education institution"
+        "description": "I represent a university"
       }
     },
     "wizard": {
       "title": {
-        "company": "Business setup",
-        "university": "University setup"
+        "company": "Create an employer account",
+        "university": "Create a university account"
       },
       "subtitle": {
-        "company": "Identify your organization, confirm your role, then prepare its Profile",
-        "university": "Identify your university, confirm your role, then prepare its Profile"
+        "company": "Create your account, confirm your email, then submit representative verification",
+        "university": "Create your account, confirm your email, then submit representative verification"
       },
       "loading": "Loading...",
       "steps": {
         "account": "Account",
-        "entity": "Organization",
         "verifyEmail": "Confirm email",
+        "orgDetails": "Organization details",
         "pending": "Under review"
       },
       "account": {
@@ -1746,39 +1750,29 @@
         "submitting": "Creating account...",
         "error": "Could not create account. Please try again."
       },
-      "entity": {
-        "tabs": {
-          "existing": "Choose from the Directory",
-          "new": "Can't find your organization?",
-          "university": "Select university"
+      "registration": {
+        "intro": {
+          "company": "Enter the employer details and your role as representative. This is verification evidence, not automatic ownership.",
+          "university": "Enter the university details and your role as representative. This is verification evidence, not automatic institutional authority."
         },
-        "searchLabel": "Find the organization you represent",
-        "searchPlaceholder": "Select from the list",
-        "searchInputPlaceholder": "Search by name...",
-        "searchEmpty": "No results",
-        "loading": "Searching...",
-        "approvedDomains": "Approved domains",
-        "back": "Back",
-        "continue": "Continue",
-        "submitting": "Saving...",
-        "newName": "Name (English)",
-        "newNameAr": "Name (Arabic)",
-        "newDomains": "Approved email domains",
-        "newDomainsHint": "Separate domains with commas, e.g. example.com, mail.example.sa",
-        "changeCompany": "Change selected organization",
-        "universitySearchLabel": "Find the university you represent",
-        "universitySearchPlaceholder": "Select your university",
-        "newIntro": "Add its basic reference information. This does not create a Profile or grant ownership."
-      },
-      "verification": {
-        "intro": "Help us confirm that you are authorized to represent this organization.",
-        "domainHint": "Use a work email on one of the organization's approved domains",
-        "businessEmail": "Work email",
-        "claimantName": "Your name",
-        "claimantTitle": "Your role / job title",
-        "submit": "Confirm representation",
+        "evidenceHint": "We review requests internally. A name or domain match does not grant access.",
+        "organizationName": {
+          "company": "Employer name",
+          "university": "University name"
+        },
+        "organizationNameAr": "Arabic name if available",
+        "website": "Official website if available",
+        "domain": "Official domain if available",
+        "domainHint": "A matching domain helps review. It is not automatic approval.",
+        "workEmail": {
+          "company": "Work email",
+          "university": "Institutional email"
+        },
+        "representativeName": "Representative name",
+        "representativeTitle": "Representative role / job title",
+        "submit": "Submit verification request",
         "submitting": "Submitting...",
-        "submitted": "Verification submitted",
+        "submitted": "Verification request received",
         "submitFailed": "Could not submit verification"
       },
       "verifyEmail": {
@@ -1786,36 +1780,31 @@
         "inbucketHint": "If the message does not arrive, check your spam folder.",
         "checkNow": "I've confirmed my email",
         "checking": "Checking...",
-        "continueToPending": "Continue to review status",
         "spamHint": "Check your spam folder if you do not see the email"
       },
       "chapters": {
-        "identify": "Identify your organization",
-        "verify": "Verify your representation",
+        "identify": "Account",
+        "verify": "Verification request",
         "prepare": "Prepare your Profile"
       }
     },
     "pendingReview": {
-      "title": "We're reviewing your representation",
-      "subtitle": "Your details were submitted. Our team is confirming your authority to represent this organization.",
+      "title": "Your request is under review",
+      "subtitle": "Verification request received. We will review your authority to represent this organization.",
       "needsMoreInfoTitle": "Awaiting more information",
       "needsMoreInfoSubtitle": "Review paused until additional information is available",
       "needsMoreInfoBody": "Staff will follow up. There is no self-service response on this page yet.",
       "whatHappened": "What happened?",
-      "whatHappenedBody": "You submitted verification of your authority to represent this organization.",
+      "whatHappenedBody": "You submitted a verification request as a representative of this organization.",
       "whatWeReview": "What are we reviewing?",
-      "whatWeReviewBody": "Your work email, name, and role against the organization you selected.",
+      "whatWeReviewBody": "The organization details you entered, plus your name, role, and work email.",
       "whatYouCanDo": "What can you do now?",
       "whatYouCanDoBody": "Nothing else is required from you right now. We will notify you when the review is complete.",
       "whatNext": "What happens next?",
-      "whatNextBody": "If approved, you can prepare your organization's Profile. Nothing is published automatically.",
+      "whatNextBody": "After review and approval you can prepare the workspace. Nothing is published automatically.",
       "company": "Organization",
       "submittedBy": "Submitted by",
       "businessEmail": "Work email",
-      "slaLabel": "Standard review window ({hours}h)",
-      "remainingMessage": "Approximate time remaining: {hours} hours",
-      "overdueMessage": "Review is taking longer than usual",
-      "overdueAlert": "Your request is taking longer than our standard window. Our team will review it as soon as possible.",
       "staffNote": "No need to resubmit — we will notify you when the review is complete."
     },
     "rejected": {
@@ -1845,7 +1834,8 @@
       "domainsRequired": "Enter at least one domain",
       "domainsInvalid": "Invalid domain format",
       "claimantNameMin": "Name must be at least 2 characters",
-      "claimantTitleMin": "Job title must be at least 2 characters"
+      "claimantTitleMin": "Job title must be at least 2 characters",
+      "websiteInvalid": "Enter a valid website"
     }
   },
   "staff": {
@@ -2082,6 +2072,27 @@
             "approved": "Approved",
             "suspended": "Suspended"
           }
+        },
+        "reconciliation": {
+          "title": "Organization reconciliation",
+          "subtitle": "Applicant details are evidence until a canonical organization is linked.",
+          "submittedName": "Submitted name",
+          "submittedNameAr": "Submitted Arabic name",
+          "submittedWebsite": "Submitted website",
+          "submittedDomain": "Submitted domain",
+          "state": "Reconciliation state",
+          "mustLinkBeforeApprove": "Link or create the organization before approval. Approval without reconciliation is blocked.",
+          "cannotApproveYet": "This request cannot be approved until reconciliation is resolved.",
+          "searchPlaceholder": "Search Directory internally",
+          "searchInput": "Search by name",
+          "searchEmpty": "No Directory matches",
+          "selectRequired": "Select a Directory record to link",
+          "linkExisting": "Link existing",
+          "createFromSubmission": "Create from submission",
+          "markNeeds": "Needs reconciliation",
+          "linked": "Directory linked",
+          "created": "Directory created from submission",
+          "marked": "Marked as needs reconciliation"
         },
         "relatedHistory": {
           "title": "Related history",

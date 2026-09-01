@@ -5,6 +5,9 @@ import type { UserRole } from '@/lib/auth/rbac'
 import {
   approveVerificationRequest,
   approveVerificationRequestOverride,
+  createDirectoryForVerification,
+  linkVerificationDirectory,
+  markVerificationNeedsReconciliation,
   rejectVerificationRequest,
   rejectVerificationRequestOverride,
 } from '@/lib/auth/verification'
@@ -142,5 +145,73 @@ export async function reviewVerification(
   })
   revalidateVerificationPaths(verificationId)
 
+  return { ok: true }
+}
+
+export async function reconcileVerificationDirectory(input: {
+  verificationId: string
+  directoryId: string
+}): Promise<ReviewVerificationActionResult> {
+  const actor = await requireDecisionActor()
+  if (!actor.ok) return { ok: false, error: actor.error }
+
+  const parsed = z
+    .object({
+      verificationId: z.string().uuid(),
+      directoryId: z.string().uuid(),
+    })
+    .safeParse(input)
+  if (!parsed.success) return { ok: false, error: 'Invalid reconciliation payload' }
+
+  const supabase = await createClient()
+  try {
+    await linkVerificationDirectory(supabase, parsed.data)
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : 'Link failed' }
+  }
+
+  revalidateVerificationPaths(parsed.data.verificationId)
+  return { ok: true }
+}
+
+export async function createVerificationDirectory(input: {
+  verificationId: string
+}): Promise<ReviewVerificationActionResult> {
+  const actor = await requireDecisionActor()
+  if (!actor.ok) return { ok: false, error: actor.error }
+
+  const parsed = z.object({ verificationId: z.string().uuid() }).safeParse(input)
+  if (!parsed.success) return { ok: false, error: 'Invalid reconciliation payload' }
+
+  const supabase = await createClient()
+  try {
+    await createDirectoryForVerification(supabase, parsed.data.verificationId)
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : 'Create failed' }
+  }
+
+  revalidateVerificationPaths(parsed.data.verificationId)
+  return { ok: true }
+}
+
+export async function markNeedsReconciliation(input: {
+  verificationId: string
+}): Promise<ReviewVerificationActionResult> {
+  const actor = await requireDecisionActor()
+  if (!actor.ok) return { ok: false, error: actor.error }
+
+  const parsed = z.object({ verificationId: z.string().uuid() }).safeParse(input)
+  if (!parsed.success) return { ok: false, error: 'Invalid reconciliation payload' }
+
+  const supabase = await createClient()
+  try {
+    await markVerificationNeedsReconciliation(supabase, {
+      verificationId: parsed.data.verificationId,
+    })
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : 'Update failed' }
+  }
+
+  revalidateVerificationPaths(parsed.data.verificationId)
   return { ok: true }
 }

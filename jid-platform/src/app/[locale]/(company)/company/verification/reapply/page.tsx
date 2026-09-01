@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
-import { ClaimSubmissionForm } from '@/components/entity/claim-submission-form'
+import { OrganizationRegistrationForm } from '@/components/entity/organization-registration-form'
 import { OrgOutcomePanel } from '@/components/entity/org-outcome-panel'
 import {
   canReapplyNow,
@@ -91,7 +91,7 @@ export default function CompanyVerificationReapplyPage() {
     )
   }
 
-  if (!verification?.directory_id) {
+  if (!verification) {
     return (
       <OrgOutcomePanel tone="blocked" testId="reapply-error">
         <p className="text-sm text-destructive" role="alert">
@@ -106,10 +106,9 @@ export default function CompanyVerificationReapplyPage() {
       <h1 className="text-xl font-semibold text-foreground">{t('title')}</h1>
       <p className="mt-2 text-sm text-muted-foreground">{verification.company_name}</p>
       <div className="mt-6">
-        <ClaimSubmissionForm
-          companyId={verification.directory_id}
-          companyName={verification.company_name}
-          claimType="company"
+        <OrganizationRegistrationForm
+          signupType="company"
+          defaultValues={{ organization_name: verification.company_name }}
           onSuccess={() => router.push('/company/verification-pending')}
         />
       </div>

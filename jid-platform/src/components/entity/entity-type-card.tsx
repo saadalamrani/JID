@@ -1,16 +1,24 @@
-import { Building2, GraduationCap } from 'lucide-react'
+import { Building2, GraduationCap, User } from 'lucide-react'
 import { Link } from '@/lib/i18n/navigation'
 import { Card } from '@/components/ui/card'
 
+type ActorType = 'individual' | 'company' | 'university'
+
 type EntityTypeCardProps = {
-  href: '/signup/company' | '/signup/university'
+  href: '/signup' | '/signup/company' | '/signup/university'
   title: string
   description: string
-  type: 'company' | 'university'
+  type: ActorType
 }
 
+const ICONS = {
+  individual: User,
+  company: Building2,
+  university: GraduationCap,
+} as const
+
 export function EntityTypeCard({ href, title, description, type }: EntityTypeCardProps) {
-  const Icon = type === 'company' ? Building2 : GraduationCap
+  const Icon = ICONS[type]
 
   return (
     <Link href={href} className="block h-full">

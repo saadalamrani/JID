@@ -238,7 +238,7 @@ describe('University reapply page structure (source)', () => {
     )
     expect(page).toMatch(/getLatestRejectedVerification/)
     expect(page).toMatch(/canReapplyNow/)
-    expect(page).toMatch(/claimType="university"/)
+    expect(page).toMatch(/signupType="university"/)
     expect(page).toMatch(/\/university\/pending-review/)
     expect(page).toMatch(/data-testid="university-reapply-form"/)
 

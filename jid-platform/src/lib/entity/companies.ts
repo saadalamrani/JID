@@ -124,7 +124,8 @@ export async function searchUniversitiesCatalog(
 }
 
 /**
- * Creates or reuses the claimable company row for a university catalog entry.
+ * Staff/internal helper only. Never call from public signup.
+ * Catalog presence is not verification. Unknown domain stays unknown.
  */
 export async function ensureUniversityCompany(
   supabase: Client,
@@ -140,18 +141,17 @@ export async function ensureUniversityCompany(
   if (existingError) throw new Error(existingError.message)
   if (existing) return existing as CompanyRecord
 
-  const domain =
-    hostFromUrl(university.website_url) ?? `${university.short_code.toLowerCase()}.edu.sa`
+  const domain = hostFromUrl(university.website_url)
 
   const { data: created, error: createError } = await supabase
     .from('companies')
     .insert({
       name: university.name_en,
       name_ar: university.name_ar,
-      domains: [domain],
+      domains: domain ? [domain] : [],
       entity_type: 'university',
       university_short_code: university.short_code,
-      is_verified: true,
+      is_verified: false,
       entity_state: 'unclaimed',
     })
     .select('id, name, name_ar, domains, entity_type, is_verified')

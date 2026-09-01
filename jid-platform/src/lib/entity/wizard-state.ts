@@ -1,14 +1,11 @@
 import type { EntitySignupType, EntityWizardStep } from '@/lib/entity/constants'
 import { ENTITY_SIGNUP_STORAGE_KEY } from '@/lib/entity/constants'
-import type { ClaimSubmissionFormValues } from '@/lib/validations/entity'
+import type { OrganizationRegistrationFormValues } from '@/lib/validations/entity'
 
 export type EntityWizardState = {
   step: EntityWizardStep
   accountEmail?: string
-  companyId?: string
-  companyName?: string
-  companyDomains?: string[]
-  claimDraft?: ClaimSubmissionFormValues
+  registrationDraft?: Partial<OrganizationRegistrationFormValues>
 }
 
 export function getWizardStorageKey(entityType: EntitySignupType): string {
@@ -20,7 +17,17 @@ export function loadWizardState(entityType: EntitySignupType): EntityWizardState
   const raw = sessionStorage.getItem(getWizardStorageKey(entityType))
   if (!raw) return null
   try {
-    return JSON.parse(raw) as EntityWizardState
+    const parsed = JSON.parse(raw) as EntityWizardState & {
+      companyId?: string
+      claimDraft?: unknown
+    }
+    const legacyStep = parsed.step as string
+    if (legacyStep === 'entity') {
+      parsed.step = 'org_details'
+    }
+    delete parsed.companyId
+    delete parsed.claimDraft
+    return parsed
   } catch {
     return null
   }

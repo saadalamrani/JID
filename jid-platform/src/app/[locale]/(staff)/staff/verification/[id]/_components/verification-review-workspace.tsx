@@ -21,6 +21,10 @@ import {
   VerificationDecisionForm,
   type VerificationDecisionFormState,
 } from './verification-decision-form'
+import {
+  canApproveVerification,
+  VerificationReconciliationPanel,
+} from './verification-reconciliation-panel'
 
 const KNOWN_DIRECTORY_STATES = [
   'unclaimed',
@@ -112,6 +116,9 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
 
   const mutation = useMutation({
     mutationFn: async () => {
+      if (form.decision === 'approved' && !canApproveVerification(verification)) {
+        throw new Error(t('reconciliation.mustLinkBeforeApprove'))
+      }
       const result = await reviewVerification({
         verificationId: verification.id,
         decision: form.decision,
@@ -190,6 +197,11 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
               </div>
             </dl>
           </section>
+
+          <VerificationReconciliationPanel
+            verification={verification}
+            disabled={!pendingReview || isSelfReview || showViewOnlyBanner}
+          />
 
           <section className="rounded-lg border border-border bg-card p-5">
             <h2 className="text-sm font-semibold text-foreground">{t('applicant.title')}</h2>

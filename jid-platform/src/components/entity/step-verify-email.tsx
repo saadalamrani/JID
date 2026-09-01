@@ -3,17 +3,15 @@
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Link } from '@/lib/i18n/navigation'
 import { siteConfig } from '@/config/site'
 import { createClient } from '@/lib/supabase/client'
 
 type StepVerifyEmailProps = {
   email?: string
-  pendingReviewPath: '/company/verification-pending' | '/company/pending-review' | '/university/pending-review'
   onVerified: () => void
 }
 
-export function StepVerifyEmail({ email, pendingReviewPath, onVerified }: StepVerifyEmailProps) {
+export function StepVerifyEmail({ email, onVerified }: StepVerifyEmailProps) {
   const t = useTranslations('entity.wizard.verifyEmail')
   const [checking, setChecking] = useState(false)
 
@@ -77,13 +75,6 @@ export function StepVerifyEmail({ email, pendingReviewPath, onVerified }: StepVe
       >
         {checking ? t('checking') : t('checkNow')}
       </Button>
-
-      <Link
-        href={pendingReviewPath}
-        className="block text-sm font-medium text-primary underline-offset-4 hover:underline"
-      >
-        {t('continueToPending')}
-      </Link>
 
       <p className="text-xs text-muted-foreground">
         {siteConfig.name} — {t('spamHint')}

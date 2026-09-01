@@ -4,9 +4,14 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { getPublicEnv } from '@/lib/env'
 import type { Database } from '@/lib/supabase/types'
 
+function isSafeSignupResumePath(path: string | null): path is '/signup/university' | '/signup/company' {
+  return path === '/signup/university' || path === '/signup/company'
+}
+
 function resolveEntityCallbackPath(
   verificationType: string | null | undefined,
   verificationStatus: string | null | undefined,
+  nextParam: string | null,
 ): string {
   const pending =
     verificationStatus &&
@@ -16,7 +21,10 @@ function resolveEntityCallbackPath(
       ? '/university/pending-review'
       : '/company/pending-review'
   }
-  return verificationType === 'university' ? '/signup/university' : '/signup/company'
+  if (verificationType === 'university') return '/signup/university'
+  if (verificationType === 'business') return '/signup/company'
+  if (isSafeSignupResumePath(nextParam)) return nextParam
+  return '/signup/entity-type'
 }
 
 export async function GET(request: NextRequest) {
@@ -94,6 +102,7 @@ export async function GET(request: NextRequest) {
       destination = resolveEntityCallbackPath(
         verification?.verification_type,
         verification?.status,
+        nextParam,
       )
     } else if (
       profile?.role === 'individual' &&
