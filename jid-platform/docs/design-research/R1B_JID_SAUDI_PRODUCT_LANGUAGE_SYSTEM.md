@@ -8,6 +8,12 @@ examples in Section 21 are illustrations of the rules, not approved strings.
 **Built on:** `R1B_JID_SAUDI_CONTENT_LANGUAGE_RESEARCH.md` and
 `R1A_JID_PRODUCT_USER_HRTECH_RESEARCH.md` (amended, commit `c755b77`). Does
 not reopen anything either report already settled.
+**Amended once (R1-B.1):** Section 1 (Voice), Section 13's terminology
+table, and several Section 19 entries were corrected against direct
+evidence — real JID copy from the just-shipped organization-onboarding
+implementation (commit `2d234d5b514ffc95ac333997370b4d4589cd1052`) and a
+stress test of actual current-copy word usage. See the R1-B.1 notes inline
+at each amended rule, and new Section 22.
 
 **How to read this document.** Every rule below is written to be followed
 without subjective interpretation — by a writer, a designer, an engineer, or
@@ -21,27 +27,51 @@ mechanical enough to apply directly (a table, a word list, a template).
 
 ## 1. JID VOICE
 
-JID's voice is **an institution a professional already trusts, speaking to
-them plainly about their own situation.** It is closer to Nafath or Qiwa in
-authority than to a media brand or a consumer app in personality (R1-B
-research Section 2/3/6).
+**[Amended by R1-B.1]** The original rule here — "closer to Nafath or Qiwa
+in authority than to a media brand; JID does not need to be memorable, it
+needs to be trusted" — was too flat. Trust and distinctiveness are not
+mutually exclusive, and JID's own live copy already proves it: the
+homepage hero ("سوق عمل يستحق الشفافية — لكل متقدّم ولكل جهة توظّف" — "a
+labor market that deserves transparency — for every applicant and every
+employer") is a confident, specific, brand-carrying line, not a
+government-plain one; the Abhathli teaser ("عرّف مهمتك مرة — واستقبل الفرص
+المطابقة تلقائياً") is warm and human without becoming casual. Both are
+already correct, and neither reads like Nafath. **The corrected rule is a
+register that varies by consequence and context, not one fixed register
+platform-wide:**
+
+| Context | Register | Nearest reference point |
+|---|---|---|
+| High-consequence, procedural moments (verification, consent, legal, Staff decisions) | Maximum procedural clarity, institutional trust, plain sequential action language | Nafath/Qiwa-adjacent (Section 3/13) — but only *here*, not everywhere |
+| Individual career experience | Contemporary, human, direct Saudi professional register — more warmth and rhythm than a government service | Closer to Salla's plain confidence (R1-B research Section 5) than to Nafath |
+| Employer decision surfaces | Precise, confident, professional | Structured-hiring register (R1-A S14), never ATS-jargon-heavy |
+| University institutional surfaces | Institutional clarity, comfortable stating unknowns | Plain academic-Arabic register, not bureaucratic |
+| Public/brand-facing surfaces | A distinctive Saudi voice is allowed, while every claim stays checkable (Article 4) | JID's own hero line above is the reference example, not Thmanyah's editorial voice (Section 17) and not Nafath's institutional plainness |
 
 - BAD: "Be clear, human, and confident."
 - USEFUL: *Every sentence states either a fact about the user's own
   situation, an action they can take, or a consequence of that action —
-  and nothing else.* A sentence that does none of these three things (a
-  slogan, an encouragement, an unattributed claim) does not belong in
-  product copy.
+  and nothing else — with the exception of one public/marketing headline
+  per page, which may instead state one checkable claim (Section 6).* A
+  sentence that does none of these does not belong in product copy.
 
 JID's voice is not:
+- a single fixed register copied wholesale from one reference product,
+  government or otherwise (this is the specific thing R1-B.1 corrects) —
+  the register shifts by context per the table above, deliberately.
 - an editorial brand voice (Thmanyah's register — R1-B research Section
-  17) — JID does not need to be memorable, it needs to be trusted.
+  17) on operational surfaces — reserved, if anywhere, for the Public
+  register row only, and even there without imitating Thmanyah's specific
+  sentence patterns.
 - a startup-casual voice — no exclamation stacking, no rhetorical
   questions as headlines, no "you got this!" register.
-- a government-bureaucratic voice — familiar government *vocabulary*
-  (Section 3, Section 13) is adopted; government *sentence construction*
-  (passive stacking, redundant formal address) is rejected (R1-B research
-  Section 6/19).
+- a government-bureaucratic voice, anywhere, including the high-
+  consequence row — familiar government *vocabulary* (Section 3, Section
+  13) is adopted; government *sentence construction* (passive stacking,
+  redundant formal address) is rejected everywhere (R1-B research Section
+  6/19) — this was true before R1-B.1 and remains true; only the
+  don't-be-memorable framing has been corrected, not the
+  don't-be-bureaucratic one.
 
 ## 2. JID TONE RANGE
 
@@ -275,14 +305,29 @@ concrete copy rules.
 ## 13. VERIFICATION LANGUAGE
 
 Directly modeled on the Nafath/Taqat/Jadarat/Qiwa pattern (R1-B research
-Section 5/6) and disambiguating the تحقق/اعتماد/موافقة triad (R1-B research
-Section 10):
+Section 5/6).
 
-| Word | Reserved meaning | Never use for |
+**[Amended by R1-B.1]** The original تحقق/اعتماد/موافقة table below reserved
+each word too strictly — a stress test against JID's own live copy shows
+موافقة and اعتماد are already used **interchangeably** for institutional
+approval decisions in real JID Arabic ("تمت الموافقة على التوثيق" —
+approved a verification; "تمت الموافقة على التصحيح" — approved a
+correction; alongside "اعتماد المرشد" — approve a mentor; "اعتماد إجباري" —
+force-approve, Staff/Sys context). This is also how the words work in
+ordinary Arabic: موافقة is the general, default word for approval or
+agreement in *any* sense (personal consent or institutional decision);
+اعتماد is not semantically walled off from موافقة, it is a more
+formal/authoritative **register**, reached for in higher-ceremony or
+Staff-override contexts, not a different meaning. Inventing a strict
+semantic partition where none exists in natural usage is exactly the
+"artificial ontology" this amendment exists to catch — corrected below.
+
+| Word | Corrected guidance | Register note |
 |---|---|---|
-| تحقق (verify) | Confirming an identity or a stated fact is real | A discretionary approval decision, or a user's data-sharing consent |
-| اعتماد (accredit/approve) | A formal, often higher-stakes authorization decision (e.g., Staff approving a representative, a University's program accreditation) | Routine identity confirmation, or a user consenting to something about their own account |
-| موافقة (consent) | A person agreeing to something happening with their own data/account, always revocable per Article 5 | An institutional approval decision that isn't the user's own consent |
+| تحقق (verify) | Confirming an identity or a stated fact is real — unchanged, this word was not in dispute | The most familiar, load-bearing word in this domain (Section 6) |
+| موافقة (approve/consent) | **The default word for any approval or agreement — both a routine institutional approval and a person's own consent.** Use it as the first choice in both cases. | Plain register; already JID's own most common real usage |
+| اعتماد (accredit/approve, elevated register) | A more formal variant of the same action as موافقة — reach for it in higher-ceremony or override contexts (Staff "force approve," institutional accreditation), not because the *meaning* differs | Elevated/formal register, not a separate meaning |
+| إذن / تفويض (permission / authorization) | Reserve for the narrower, more literal sense of a granted permission or a written authorization (e.g., "خطاب تفويض" — an authorization letter — already used correctly in current legal copy, J1) | Legal/formal-document register specifically |
 
 - A verification flow is written as a **sequence of named actions**
   (request → match/confirm → result), per the Nafath model, not as a
@@ -294,12 +339,18 @@ Section 10):
 - **The organization-onboarding sequence's language must never use
   مطالبة/claim vocabulary anywhere** — this is not a style choice, it
   implements R1-A's closed Founder Decision and the Constitution's banned-
-  term list (R1 Article 6) directly. The replacement vocabulary for each
-  stage: حساب (account) → تحقق من البريد الإلكتروني (email verification) →
-  بيانات المنشأة (organization details, using منشأة per Section 3's finding
-  for the legal-entity moment specifically) → تحقق من الممثل (representative
-  verification) → مطابقة داخلية / مراجعة داخلية (internal reconciliation) →
-  مساحة عمل معتمدة (authorized workspace).
+  term list (R1 Article 6) directly.
+- **[Amended by R1-B.1] The replacement vocabulary is now confirmed
+  against a real, shipped implementation** (commit
+  `2d234d5b514ffc95ac333997370b4d4589cd1052`), not just proposed: حساب
+  (account) → تحقق من البريد الإلكتروني (email verification) → بيانات جهة
+  التوظيف/الجامعة (organization details — the shipped copy uses جهة
+  توظيف/جامعة at this pre-workspace stage, not منشأة; see Section 19's
+  revised منشأة entry) → طلب التحقق من صفة الممثل (representative
+  verification request) → مطابقة داخلية (internal reconciliation, Staff-
+  facing register) → مساحة العمل (workspace — plain, **not** "مساحة عمل
+  معتمدة"; see Section 19's revised entry). Full before/after treatment in
+  Section 21, examples 28-33.
 
 ## 14. AI LANGUAGE
 
@@ -425,26 +476,28 @@ and sampled current copy (J1/J2).
 | ملف تعريفي / Profile | Owned organizational or individual identity | Constitutional lock (R1 Article 6). |
 | تحقق / Verification | Confirming identity or a stated fact | Matches the most familiar Saudi government-service vocabulary (Nafath, R1-B research Section 6/13). |
 | حالة / Status | "Where do I stand" on anything submitted | Load-bearing word across Taqat/Jadarat/Qiwa; matches the Individual JTBD directly (R1-A Section 5). |
-| إثبات / إثباتات / Evidence (singular usage) | A specific piece of evidence-vault content | Resolves the دليل/إثبات collision (R1-B research Section 10) — reserve الدليل for Directory only. |
+| إثبات / إثباتات / Evidence (singular usage) | A specific piece of evidence-vault content, and the Evidence Vault feature name itself ("خزنة الإثباتات") | **[Narrowed by R1-B.1]** Reserve strictly for the Evidence Vault feature; see the revised, softened دليل entry below — ordinary sentence use of دليل as "evidence/clue" elsewhere is fine and does not need to be replaced. |
 | جامعة / University | The University actor | Unambiguous. |
 | متقدم / Applicant | A person viewing their own application | Distinct, correct perspective word (R1-B research Section 10). |
 | مرشح / Candidate | A person as seen from the employer's pipeline view | Distinct, correct perspective word — do not merge with متقدم. |
 | مهارة / Skill | Career Record skill registry | Plain, unambiguous; avoid كفاءة. |
 | مخرجات / Outcomes | University graduate-outcomes concept, once live | Standard academic Arabic; do not use before the capability exists (Section 15). |
-| مساحة عمل معتمدة / Authorized workspace | The end state of org onboarding | Matches R1-A's Founder-decided sequence exactly. |
+| مساحة العمل / Workspace | **[Corrected by R1-B.1]** The plain, user-facing term once org onboarding is approved | The shipped org-onboarding implementation (commit `2d234d5b5...`) uses plain "مساحة العمل"/"the workspace," never "مساحة عمل معتمدة"/"authorized workspace" — see the corrected INTERNAL_ONLY entry below for the qualified form. |
 | مسودة / Draft | AI-generated or unsaved content awaiting approval | Already correctly used in current copy — extend, don't replace. |
 
 ### CONTEXTUAL
 
 | Term | Appropriate context | Wrong context |
 |---|---|---|
-| جهة | Generic reference to "a party/organization" in neutral, registry-adjacent contexts | As the default friendly label for "the employer you represent" in a warm onboarding moment — reads bureaucratic there |
-| منشأة | The legal, registered employer entity specifically (verification/workspace-authorization moment, matching Qiwa's own usage) | Routine day-to-day employer-facing copy once the workspace already exists — too formal there |
+| جهة توظيف | **[Corrected by R1-B.1]** The Employer actor's own name — the pre-workspace, onboarding-stage term ("who are you: individual / جهة توظيف / university"), confirmed by the shipped implementation's `entityType`/registration copy | A generic filler word standing in for "organization" with no actor meaning — use plain جهة for that instead |
+| جهة | Generic reference to "a party/organization" in neutral, registry-adjacent contexts | As the default friendly label for "the employer you represent" in a warm onboarding moment — use جهة توظيف there instead, per the row above |
+| منشأة | **[Corrected by R1-B.1 — real usage found, not the original guess]** The operational, day-to-day term for an already-approved organization's own dashboard/profile/workspace ("لوحة المنشأة," "ملف المنشأة," "مسؤول منشأة" — all real, current, post-approval product copy) | The pre-workspace onboarding/actor-selection moment — use جهة توظيف there (the shipped implementation deliberately avoids منشأة in the new registration flow entirely; it belongs to the *after*, not the *before*) |
 | مؤسسة | Institutional-scale organizations (a University, a large institutional employer) | A small SME employer — implies a scale that may not fit |
-| شركة | Plain reference to a company, once the actor/context is already established | As the platform-wide default label for the Employer actor — JID's employers are not all "شركات" (could be a public-sector body, a non-profit, an SME) |
+| شركة | Plain reference to a company, once the actor/context is already established | As the platform-wide default label for the Employer actor — JID's employers are not all "شركات" (could be a public-sector body, a non-profit, an SME); use جهة توظيف for the actor label |
 | وظيفة | A specific, formal job instance where "فرصة" would be ambiguous (e.g., a government-job-application context, matching Jadarat's own usage) | As the platform's default term for an opportunity listing — the Constitution already locks فرصة as default (R1 Article 6) |
 | سجل | "Career Record" as a proper noun component | Standing alone as a generic word for any data list — ambiguous with سجل تجاري (commercial registration) in an organizational context |
-| اعتماد | A formal, higher-stakes approval decision (Staff approving a representative; institutional accreditation) | Routine identity confirmation (use تحقق) or personal data consent (use موافقة) |
+| اعتماد | **[Loosened by R1-B.1]** An elevated-register variant of موافقة for higher-ceremony or Staff-override approval moments — not a different meaning, a more formal register of the same action (Section 13) | Treating it as semantically exclusive of موافقة — real JID usage already blends the two for institutional approval; don't over-partition |
+| موافقة | **[Added by R1-B.1]** The default word for approval/agreement in both institutional-decision and personal-consent senses — confirmed as JID's own most common real usage ("تمت الموافقة على التوثيق," etc., Section 13) | Nowhere — this is now the CONTEXTUAL default, reach for اعتماد only when a more formal register is specifically wanted |
 | طلب | Any submitted request/application, always with a qualifier naming its type | Bare, unqualified "طلبك" on a multi-request-type surface — always name which طلب |
 | تقييم | Internal Staff/Employer evaluation processes (rubric scoring) | Surfaced to an Individual as an unexplained rating of themselves — must always be paired with what was measured, by whom (Article 4) |
 | ذكاء | A plain technical descriptor, internal engineering/architecture discussion only | Any user-facing feature badge or marketing claim ("ذكاء التوظيف," "AI-powered") — see BANNED-adjacent AVOID entry below |
@@ -456,6 +509,8 @@ and sampled current copy (J1/J2).
 | كيان / entity | Valid internal technical abstraction for a Directory row (R1 Article 2) — never a public actor label; a person or organization is never told "your entity," they are told what they specifically are (their profile, their workspace, their account) |
 | entity_state / claim_status / claimed_by (schema-level terms, any language) | Internal database/RLS vocabulary; must never leak into any user-facing string in either locale |
 | النطاقات المعتمدة / approved domains (Staff-context term for email-domain matching) | Operationally precise for Staff, meaningless (and slightly alarming) if surfaced to a public user without the Staff workflow context |
+| مساحة عمل معتمدة / "authorized workspace" (the qualified form) | **[Added by R1-B.1]** "Authorized"/"معتمدة" is reconciliation-state language — correct in Staff-facing reconciliation copy ("حالة المطابقة," "الجهة المعتمدة") describing *why* the state changed, but the shipped implementation deliberately never shows the qualified form to the organization's own user — they see plain مساحة العمل (Section 19's corrected PREFERRED entry). Treat the qualifier itself as Staff/internal-state vocabulary. |
+| النطاق دليل مساعد / "domain match doesn't grant access" (the underlying mechanism, as distinct from the plain fact of manual review) | **[Added by R1-B.1, per Section 22's technical-truth principle]** The security mechanism itself (name/domain matching does not equal authorization) is real and important — it is already correctly documented for Staff/engineering in `ORG_ONBOARDING_REGISTRATION_VERIFICATION_CLOSEOUT.md`. An applicant does not need the mechanism explained to make their own decision (they have no alternative action either way) — they need the plain fact that review is manual. See Section 21, examples 29-30 and Section 22. |
 
 ### AVOID
 
@@ -466,7 +521,7 @@ and sampled current copy (J1/J2).
 | "talent intelligence" (EN) | Category jargon flagged directly by R1-A's HR-tech research (R1-A S4) as a phrase to avoid | Name the specific capability |
 | Generic catch-all CTA verbs ("متابعة," "التالي," "ابدأ الآن") where a specific verb is available and used elsewhere on the same screen | Vague-CTA anti-pattern (Section 7; a live JID example, R1-B research Section 15 example 3) | The specific action verb |
 | English "entity" as a public actor label | Same INTERNAL_ONLY reasoning as كيان, mirrored in English | The specific actor name, or "organization" in truly generic contexts |
-| "دليل"/"أدلة" for Evidence Vault content | Collides with the constitutionally-locked meaning of الدليل as Directory (R1-B research Section 10) | إثبات / إثباتات |
+| "أدلة" (plural) specifically as the Evidence *Vault feature name* | **[Narrowed by R1-B.1 — do not over-apply this]** Only the feature name/proper-noun usage collides with الدليل/Directory (R1 Article 2) — use "خزنة الإثباتات" there. Ordinary sentence-level Arabic use of دليل/أدلة meaning "evidence/clue" (e.g., "النطاق دليل مساعد للمراجعة" — "the domain is a supporting clue for review," already live and correct in the shipped org-onboarding copy) is natural, unambiguous in context, and must **not** be avoided or replaced — the original R1-B rule over-applied this collision to ordinary Arabic and is corrected here. | إثبات/إثباتات only for the Evidence Vault proper noun; plain دليل is fine elsewhere |
 
 ### BANNED_IN_USER_FACING_CONTEXT
 
@@ -512,17 +567,21 @@ pattern specifically fails one of this system's own rules.
 
 ## 21. BEFORE / BETTER CALIBRATION EXAMPLES
 
-27 examples, sampled from real current JID copy (`messages/ar.json` /
-`messages/en.json`, marked **[LIVE]**) or built as illustrative
-constructions clearly marked **[ILLUSTRATIVE]** where current copy doesn't
-yet cover a needed category. These are calibration material, not
-production-approved strings — implementation belongs to a later phase.
+35 examples (27 from the original R1-B pass, 8 added by R1-B.1 — Section
+21 examples 28-35 — covering the shipped org-onboarding copy, verification,
+technical-truth-vs-user-copy, and terminology corrections). Sampled from
+real current JID copy (`messages/ar.json` / `messages/en.json`, marked
+**[LIVE]**) or built as illustrative constructions clearly marked
+**[ILLUSTRATIVE]** where current copy doesn't yet cover a needed category.
+These are calibration material, not production-approved strings —
+implementation belongs to a later phase.
 
 ---
 
-**1. Public — Homepage claim CTA [LIVE]**
-CURRENT: "باحث عن عمل؟ أنشئ حسابك. تمثّل جهة توظيف؟ ابحث عن كيانك وقدّم
-مطالبة بالملف."
+**1. Public — Homepage claim CTA [LIVE at time of original R1-B research —
+superseded by a real fix, see example 28]**
+CURRENT (as sampled for the original R1-B pass): "باحث عن عمل؟ أنشئ حسابك.
+تمثّل جهة توظيف؟ ابحث عن كيانك وقدّم مطالبة بالملف."
 WHAT IS WRONG: Database-operation language (find a row, claim it) standing
 in for a product moment; uses the constitutionally banned مطالبة/كيان
 pairing; contradicts R1-A's closed Founder Decision.
@@ -530,6 +589,11 @@ INTENT: Tell a representative what happens next if they're here on behalf
 of an organization.
 BETTER DIRECTION: Name the actual first step (creating a verified account),
 not a search-and-claim action.
+**[R1-B.1 note]** This exact string was rewritten and shipped in commit
+`2d234d5b514ffc95ac333997370b4d4589cd1052`, independently of this research
+— see example 28 for the real shipped text and its own calibration
+treatment. This entry is kept for the record; option A/B below were this
+research's own proposal, written before the real fix was known.
 OPTION A: "تبحث عن عمل؟ أنشئ حسابك. تمثّل جهة توظيف؟ ابدأ بإنشاء حساب
 موثّق لمنشأتك."
 OPTION B: "للأفراد: أنشئ حسابك. للمنشآت: تحقق من بريدك الإلكتروني الرسمي
@@ -863,6 +927,192 @@ BETTER DIRECTION: Keep as marketing copy; do not reuse this sentence shape
 inside the authenticated product's own status surfaces.
 OPTION A: (no change, in its current context)
 OPTION B: N/A
+
+---
+
+### R1-B.1 additions (examples 28-35) — the shipped org-onboarding copy
+
+All eight examples below are sampled from the real, shipped implementation
+(commit `2d234d5b514ffc95ac333997370b4d4589cd1052`), not this research's own
+proposals — this is R1-B.1's direct reconciliation of the language system
+against what engineering actually built, per the brief's Part 5.
+
+**28. Public — Homepage CTA, as actually shipped [LIVE — model to preserve,
+supersedes example 1]**
+CURRENT (shipped): "فرد؟ أنشئ حسابك. تمثّل جهة توظيف أو جامعة؟ سجّل بيانات
+الجهة وصفتك كممثل، ثم أرسل طلب التحقق."
+WHAT IS WRONG: Nothing — this is a real, good fix: no كيان, no مطالبة,
+names the actual steps (register organization details and your role as
+representative, then submit a verification request).
+INTENT: N/A — preserve.
+BETTER DIRECTION: Use as the reference model for the rest of the org-
+onboarding surface; classified GOOD.
+OPTION A: (no change)
+OPTION B: (no change)
+
+**29. Employer/University — Registration intro, "ownership" framing [LIVE]**
+CURRENT (shipped): "أدخل بيانات جهة التوظيف وصفتك كممثل. هذه بيانات
+للتحقق وليست ملكية تلقائية." (EN: "Enter the employer details and your
+role as representative. This is verification evidence, not automatic
+ownership.")
+CLASSIFICATION: ACCURATE_BUT_TOO_INTERNAL.
+WHAT IS WRONG: Accurate and well-intentioned, but still frames the
+disclaimer around "ownership" (ملكية) — the exact concept R1-A's Founder
+Decision and the Constitution moved away from (Article 2/6, R1-A Section
+3). Denying ownership in the negative still centers the word.
+INTENT: Tell the applicant that submitting these details doesn't
+automatically grant them anything.
+BETTER DIRECTION: Reframe around verification/authorization rather than
+ownership, per Section 22's technical-truth principle — say what the data
+*is for* rather than what it does *not* grant.
+OPTION A: "أدخل بيانات جهة التوظيف وصفتك كممثل. سنراجع هذه البيانات قبل
+منح أي صلاحية."
+OPTION B: "أدخل بيانات جهة التوظيف وصفتك كممثل. هذه بيانات للمراجعة، ولن
+تُمنح صلاحية إلا بعد اعتمادها."
+
+**30. Employer/University — "Domain match doesn't grant access" hint
+[LIVE]**
+CURRENT (shipped): "سنراجع طلبك داخلياً. المطابقة بالاسم أو النطاق لا
+تمنح صلاحية." (EN: "We review requests internally. A name or domain match
+does not grant access.")
+CLASSIFICATION: TOO_INTERNAL (borderline TOO_LEGALISTIC).
+WHAT IS WRONG: This exposes an internal security mechanism (how the
+matching/reconciliation system works) to an applicant who has no
+alternative action available either way — a direct instance of Section
+22's "technical truth does not require technical copy" principle. The
+underlying fact (review is manual, not automatic) is what the user needs;
+*how* the system would otherwise auto-match is not.
+INTENT: Reassure the applicant that submitting plausible-looking details
+alone won't grant them access they shouldn't have — and, per the closeout
+doc's own engineering rationale, prevent a false sense of automatic
+approval.
+BETTER DIRECTION: State the plain fact (manual review) without narrating
+the matching mechanism; keep the full mechanism explanation in Staff/
+engineering documentation, where it already correctly lives (`ORG_
+ONBOARDING_REGISTRATION_VERIFICATION_CLOSEOUT.md`).
+OPTION A: "سنراجع طلبك يدوياً قبل منح أي صلاحية."
+OPTION B: "لا تُمنح الصلاحية تلقائياً — فريقنا يراجع كل طلب."
+
+**31. Employer/University — Domain field hint [LIVE — model to preserve,
+resolves the دليل stress test]**
+CURRENT (shipped): "النطاق دليل مساعد للمراجعة، وليس موافقة تلقائية." (EN:
+"A matching domain helps review. It is not automatic approval.")
+CLASSIFICATION: GOOD.
+WHAT IS WRONG: Nothing — flagged specifically because it directly resolves
+Part 4B's terminology stress test: دليل is used here in its completely
+natural, ordinary Arabic sense ("a supporting clue/evidence"), and no
+native reader would confuse it with the Directory/الدليل — context
+disambiguates cleanly. The original R1-B rule that treated all دليل usage
+as a collision risk was too strict; this live sentence proves it.
+INTENT: N/A — preserve, and use as the reference example for the corrected
+دليل guidance (Section 19).
+BETTER DIRECTION: None needed.
+OPTION A: (no change)
+OPTION B: (no change)
+
+**32. Employer/University — Pending-review "what happens next" [LIVE —
+model to preserve, resolves the "authorized workspace" stress test]**
+CURRENT (shipped): "بعد المراجعة والموافقة يمكنك تجهيز مساحة العمل. لا
+يُنشر شيء تلقائياً." (EN: "After review and approval you can prepare the
+workspace. Nothing is published automatically.")
+CLASSIFICATION: GOOD.
+WHAT IS WRONG: Nothing — flagged because it directly resolves Part 4C: the
+shipped copy uses plain مساحة العمل/"the workspace," never a qualified
+"مساحة عمل معتمدة"/"authorized workspace." Confirms the corrected Section
+19 entry.
+INTENT: N/A — preserve.
+BETTER DIRECTION: None needed; use as the reference example going forward.
+OPTION A: (no change)
+OPTION B: (no change)
+
+**33. Staff — Reconciliation panel subtitle [LIVE — model to preserve,
+Staff register]**
+CURRENT (shipped): "بيانات مقدّم الطلب دليل للمراجعة حتى ربط الجهة
+المعتمدة." (EN: "Applicant details are evidence until a canonical
+organization is linked.")
+CLASSIFICATION: GOOD.
+WHAT IS WRONG: Nothing — correctly dense, Staff-register (Section 4), and
+another natural, unambiguous use of دليل as "evidence" (see example 31).
+"الجهة المعتمدة" here correctly stays Staff-internal reconciliation
+language (a "canonical/reconciled" organization record), never shown to
+the applicant.
+INTENT: N/A — preserve.
+BETTER DIRECTION: None needed.
+OPTION A: (no change)
+OPTION B: (no change)
+
+**34. Public — Leftover legacy claim-adjacent copy, not yet reconciled
+[LIVE]**
+CURRENT: on an unclaimed public organization profile page — "هل تمثّل هذه
+المنشأة؟" (EN: "Do you represent this organization?") — sampled from the
+same commit's unchanged surrounding code, i.e. this string was **not**
+touched by the org-onboarding rewrite.
+CLASSIFICATION: NEEDS_REWRITE_LATER.
+WHAT IS WRONG: This is exactly the "do you represent this entity" framing
+the rest of the flow just moved away from, still live on the public
+Directory/Catalog profile page — the org-onboarding commit fixed the
+signup wizard but did not sweep this adjacent surface. Confirms R1-A's
+Section 10.1 finding (the claim-adjacent framing is still architecturally
+present in more than one place) with a second, independent piece of copy
+evidence, beyond the Staff command-palette string already found in
+calibration example 16.
+INTENT: Invite a visitor who represents this (unclaimed/unowned) Directory
+listing to start the verification process.
+BETTER DIRECTION: Align with the new flow's framing once this surface is
+in scope for a later implementation phase — not fixed now, per this
+phase's own no-code-changes rule.
+OPTION A (for a later phase): "تمثّل هذه الجهة؟ أنشئ حساباً وابدأ التحقق."
+OPTION B (for a later phase): "هل أنت ممثل هذه الجهة؟ سجّل بياناتك لبدء
+التحقق."
+
+**35. Bilingual — Business/Employer naming inconsistency [LIVE]**
+CURRENT (shipped, EN side only): `nav.panelTitle` = "Employer portal" but
+`profile` = "Business profile" on the same organization's own dashboard.
+CLASSIFICATION: NEEDS_REWRITE_LATER (minor).
+WHAT IS WRONG: The English side did not fully complete the
+Business→Employer rename the Arabic side completed (Arabic consistently
+uses جهة توظيف at the actor-selection stage per example 28's fix) — a
+small English-locale lag, not a structural problem, but exactly the kind
+of AR/EN drift Section 18's bilingual-parity rule exists to catch.
+INTENT: N/A.
+BETTER DIRECTION: Once a later phase touches this surface, align both EN
+labels to the same actor name.
+OPTION A: `panelTitle` = "Employer portal", `profile` = "Employer profile"
+OPTION B: Keep "Business profile" only if "Business" is deliberately kept
+as the broader legal/organizational register there — decide once, apply
+consistently, don't leave both labels live simultaneously.
+
+---
+
+## 22. TECHNICAL TRUTH VS. USER COPY (R1-B.1)
+
+A standing content-design principle, added because example 30 above is a
+live instance of exactly the failure it describes.
+
+**Technical truth does not require technical copy.** A fact can be
+important to the system's integrity without being important for the user
+to read at the moment of their decision.
+
+- BAD (too vague to apply): "Don't over-explain."
+- USEFUL: *Before writing a sentence that explains *how* the system
+  protects against a risk, ask: does the user have a different action
+  available depending on this explanation? If the answer is no — they
+  will fill out the form the same way whether or not they know domain
+  matching isn't authoritative — the mechanism explanation belongs in
+  Staff/engineering/help documentation, not the user-facing sentence. The
+  user-facing sentence states only the plain consequence that does change
+  their expectation (e.g., "review is manual," "you'll be notified"), never
+  the mechanism behind it.*
+
+Applying this retroactively: JID's own `ORG_ONBOARDING_REGISTRATION_
+VERIFICATION_CLOSEOUT.md` (commit `60cdb54f2683995f51a0140273b3a9de9fa5858e`)
+already correctly documents the full domain-matching security rationale —
+for Staff and engineering. That the same rationale then also appeared,
+compressed, in the applicant-facing form (example 30) is the specific
+error this principle exists to catch: the *engineering team's* need to
+reason about the security boundary got mistaken for the *applicant's* need
+to read about it. Truth was preserved either way — Section 22 is about
+where it should live, not whether it should exist.
 
 ---
 

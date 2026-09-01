@@ -23,6 +23,17 @@ below is graded PRIMARY/HIGH-CONFIDENCE or DIRECTIONAL/SECONDARY-SOURCE in
 promoted into marketing copy, a KPI, an investor claim, or a stated
 Saudi-market fact without independent verification first.
 
+**Amended once (R1-B.1):** a targeted supplement corrected four things —
+(1) confirmed Thmanyah's direct sites remain blocked by network egress, so
+its confidence classification is unchanged, not upgraded on weak grounds;
+(2) added direct search for real Saudi verbal-identity/content-strategy
+companies beyond the government-adjacent set; (3) rebalanced the "JID
+voice" finding, which had over-flattened toward Nafath/Qiwa; (4) read the
+just-shipped organization-onboarding implementation and reconciled this
+research against real, live copy. See Section 21 below for the full
+amendment; it does not replace any earlier section, it corrects specific
+claims within them (marked inline where changed).
+
 ---
 
 ## 1. EXECUTIVE FINDING
@@ -96,11 +107,17 @@ by five compounding choices, none of which are about vocabulary alone:
    to be understood has already failed, regardless of whether every word in
    it is correct Arabic.
 
-None of these five require an editorial personality, a slogan, or a
-recognizable "voice" the way a media brand needs one. JID is closer to
-Nafath or Qiwa in its register than it is to Thmanyah (Section 3) — the
-authority to speak plainly is more valuable here than the authority to
-sound distinctive.
+None of these five require an editorial personality tied to one fixed
+register everywhere. **[Corrected by R1-B.1 — see Section 21]** The
+original conclusion here — that JID sits uniformly closer to Nafath/Qiwa
+than to Thmanyah, register-wide — was too flat: trust and distinctiveness
+are not opposed, and JID's own live copy already proves it (Section 21's
+homepage-hero and Abhathli examples). The corrected finding is that
+JID's register **varies by consequence and context** — Nafath/Qiwa-plain
+for high-consequence, procedural moments specifically; warmer and more
+distinctive elsewhere (Individual career language, public/brand surfaces)
+— never Thmanyah's editorial register on any operational surface, but also
+never uniformly institutional everywhere.
 
 ---
 
@@ -390,10 +407,15 @@ and the decision — R1-A's HR-tech research (R1-A S4) already flagged
 "talent intelligence"-style jargon as a pattern to avoid; the Arabic
 equivalent risk is a term like ذكاء used as a badge-word rather than a
 plain description of what a feature does (Section 10 formalizes this as
-AVOID). منشأة (Section 6) is the correct register for the legal-entity
-moment specifically (verification, workspace authorization); it is too
-formal for routine day-to-day employer-facing copy once the workspace
-exists.
+AVOID). **[Corrected by R1-B.1 — see Section 21]** The original guidance
+here placed منشأة at the verification/legal-entity moment specifically;
+direct evidence from the shipped org-onboarding implementation shows the
+real split is the reverse of what was guessed — جهة توظيف is the term used
+throughout onboarding/verification (the *before*), while منشأة is the
+term already used consistently once a workspace exists (the organization's
+own ongoing dashboard/profile — the *after*). Corrected guidance: جهة
+توظيف for the pre-workspace actor-identity question, منشأة for the
+ongoing, day-to-day operational register once inside.
 
 **University:** language should center غير معروف/جزئي (unknown/partial) as
 first-class, expected states, not exceptions to apologize for — directly
@@ -430,20 +452,31 @@ without a decision about which job each word keeps.
    reference catalog vs. an individual's private proof-of-work assets)
    sharing one root word. **Recommendation carried to the Language System:**
    reserve الدليل exclusively for the Directory/Catalog concept (as the
-   Constitution already requires) and standardize Evidence Vault language on
-   إثبات/إثباتات (singular/plural "proof"), which JID's own copy already
-   uses in places (`"kinds": {"education": ...}` under an "إثبات" key, J1) —
-   this is a matter of consistent application, not new-word invention.
-2. **تحقق / اعتماد / موافقة are three related but distinct actions currently
-   at risk of blending.** تحقق (verify) should mean confirming an identity
-   or fact is real; اعتماد (accredit/approve) should mean a formal,
-   often higher-stakes authorization decision (e.g., Staff approving a
-   representative's verification, or a University's own program
-   accreditation); موافقة (consent) should mean a person agreeing to
-   something happening with their own data or account, revocable per
-   R1-A's Article 5 consent doctrine. Current copy uses all three across
-   different flows (J1) without an explicit rule keeping them apart —
-   Section 11/13 of the Language System makes the boundary explicit.
+   Constitution already requires) and standardize the Evidence Vault
+   *feature name* on إثبات/إثباتات (singular/plural "proof"), which JID's
+   own copy already uses in places (`"kinds": {"education": ...}` under an
+   "إثبات" key, J1). **[Narrowed by R1-B.1 — see Section 21]** This applies
+   only to the two proper-noun/feature-name usages (الدليل = Directory,
+   خزنة الإثباتات = Evidence Vault) — ordinary sentence-level Arabic use of
+   دليل meaning "evidence/clue" (e.g., "النطاق دليل مساعد للمراجعة," now
+   live in the shipped org-onboarding copy) is natural, context-
+   disambiguated, and must not be avoided; the original framing here risked
+   reading as a call to eliminate ordinary دليل usage everywhere, which
+   would have damaged natural Arabic for no real gain.
+2. **تحقق stands apart cleanly; موافقة and اعتماد do not need a strict
+   partition between them.** **[Corrected by R1-B.1 — see Section 21]** The
+   original framing here proposed a three-way semantic split (تحقق =
+   identity verification, اعتماد = institutional approval, موافقة = personal
+   consent only). A direct stress test against JID's own live usage
+   ("تمت الموافقة على التوثيق" — approved a verification — sitting
+   alongside "اعتماد المرشد" — approve a mentor, and "اعتماد إجباري" —
+   force-approve) shows موافقة and اعتماد are already used interchangeably
+   for institutional approval in real JID Arabic, which also matches how
+   the words work in ordinary Arabic — موافقة is the general default word
+   for approval/agreement in any sense, and اعتماد is a more formal
+   *register* of the same action, not a separate meaning. تحقق remains
+   correctly distinct (identity/fact confirmation). Section 13 of the
+   Language System now reflects this corrected, less artificial boundary.
 3. **متقدم vs. مرشح mark a real, useful distinction that should be kept, not
    collapsed.** متقدم ("applicant") is the same person seen from their own
    point of view — "my application." مرشح ("candidate") is the same person
@@ -758,6 +791,127 @@ brief).
   deployment** — per the brief, no `messages/*.json` file, component, or
   screen was touched to produce them; R1-C and D1 are where this authority
   gets applied.
+
+---
+
+## 21. R1-B.1 DIRECT SAUDI LANGUAGE AMENDMENT
+
+A targeted supplement, not a restart. Corrections are marked inline at each
+amended finding above (Section 2/9/10); this section records what was
+directly investigated and why each correction was made.
+
+**1. Direct Thamanyah study.** `thmanyah.com` was attempted again directly
+(not only via search) and remains blocked by this session's network egress
+proxy — the same constraint as the original R1-B pass. This is recorded
+honestly rather than left unstated: **Thmanyah's confidence classification
+in `R1B_SOURCE_LEDGER.md` is unchanged (DIRECTIONAL/SECONDARY-SOURCE)**,
+because no new first-party evidence was actually obtained — upgrading the
+classification without new evidence would have been a worse error than
+leaving it as-is. What changed instead is more useful: the JID-voice
+conclusion that leaned on Thmanyah-as-contrast (Section 2) was corrected
+using *JID's own* live copy as direct evidence (Section 21.3 below), which
+did not require Thmanyah access at all.
+
+**2. Direct Saudi content/verbal-identity company study.** Beyond the
+original set, this pass specifically searched for Saudi firms practicing
+verbal identity/content strategy as their core discipline (the brief named
+Touch, Sard/سرد, Majaz/مجاز, Maqamat/مقامات, Fass/فَص as possible starting
+points). Result: **Hawih (هوية)**, a Riyadh creative agency founded 2007,
+was found with a clear public profile — but its own positioning centers on
+*visual* identity (logo systems, typography, color) more than verbal/
+content strategy, making it a partial fit at best. Touch and the other
+named candidates did not surface first-party evidence sufficient to
+analyze within this phase's time budget (a Twitter handle for "استديو
+مجاز" was found but not enough to assess its actual language work). **This
+is recorded as a genuine finding, not a gap papered over:** the original
+R1-B Section 4 finding — that the credible Saudi bar for disciplined
+*product*-language work (as opposed to visual branding or generic content-
+marketing volume) sits with a small number of players — is corroborated
+more rigorously by this direct search, not merely repeated. Hawih is added
+to the reference set as a visual-identity-adjacent data point; it does not
+change any language-system rule.
+
+**3. JID voice rebalance.** Directly tested against two pieces of JID's
+own live copy: the homepage hero ("سوق عمل يستحق الشفافية — لكل متقدّم
+ولكل جهة توظّف") and the Abhathli teaser ("عرّف مهمتك مرة — واستقبل الفرص
+المطابقة تلقائياً"). Neither reads as government-plain, and both are
+already good copy by this research's own rules (Section 15's diagnosis
+already flagged the Abhathli line as a positive model, before this
+amendment). This is direct, first-party evidence — JID's own text — that
+the original "closer to Nafath/Qiwa than to a media brand, doesn't need to
+be memorable" framing was too flat. **Corrected finding:** register varies
+by consequence and context (a table is provided in the Language System
+document, Section 1) — institutional plainness for high-consequence
+moments specifically, more warmth and rhythm for Individual career
+language, a permitted distinctive voice for public/brand surfaces, always
+short of Thmanyah's editorial register and never sliding into government
+bureaucratic sentence construction anywhere.
+
+**4. Terminology stress test.** Four rules from the original Language
+System were re-tested against real usage rather than preserved by default,
+per the brief's explicit instruction not to keep a rule merely because
+R1-B wrote it:
+   - **موافقة/اعتماد** — loosened from a strict semantic partition to a
+     register distinction, evidenced by JID's own copy already blending
+     them for institutional approval (Section 9 correction above).
+   - **دليل/إثبات** — narrowed from a blanket "avoid دليل outside Directory"
+     rule to apply only to the two proper-noun/feature-name usages,
+     evidenced by the shipped org-onboarding copy's natural, unambiguous
+     use of دليل as "evidence/clue" in an ordinary sentence (Section 10
+     correction above).
+   - **"Authorized workspace"/مساحة عمل معتمدة** — downgraded from a
+     PREFERRED user-facing term to Staff/internal-state vocabulary; the
+     shipped implementation uses plain مساحة العمل/"the workspace" for the
+     organization's own user, confirming the brief's own hypothesis that
+     this was exposed architecture, not necessary user-facing language.
+   - **منشأة vs. جهة توظيف** — the original guess (منشأة for the
+     verification/legal moment) was reversed by direct evidence: منشأة is
+     the *already-approved, operational* register; جهة توظيف is the
+     *pre-approval, onboarding* register (Section 2 correction above).
+
+**5. New organization-onboarding copy read and reconciled.** The
+implementation at commit `2d234d5b514ffc95ac333997370b4d4589cd1052` (and
+its closeout doc at `60cdb54f2683995f51a0140273b3a9de9fa5858e`) was read in
+full for its `messages/ar.json`/`messages/en.json` changes, without
+checking out or merging the branch. Findings are folded into Sections 2, 9,
+10 above and given full before/better calibration treatment in the
+Language System document (Section 21 there, examples 28-35). Headline
+result: **the shipped copy is, on the whole, already good** — it correctly
+avoids مطالبة/كيان, correctly uses حالة and طلب-with-qualifier, and (via
+examples 31/32) resolves two of this research's own over-strict rules
+against JID more directly than any hypothetical calibration example could.
+The two real weaknesses found (examples 29/30) both trace to one root
+cause, formalized as Section 22 of the Language System document:
+technical/security truth (domain matching isn't authoritative; submitted
+data isn't automatic ownership) leaking into applicant-facing copy at a
+level of detail the applicant has no use for, when the same truth is
+already correctly documented for Staff/engineering in the closeout doc.
+One pre-existing, unrelated leftover was also found and flagged, not
+fixed: a public organization-profile "do you represent this organization?"
+prompt (unclaimed-listing surface) that the org-onboarding commit did not
+touch, still carrying the pre-Founder-Decision framing — recorded as
+calibration example 34, for a later phase's scope, not this one's.
+
+**6. Content design principle strengthened.** "Technical truth does not
+require technical copy" is now a standing, operational rule (Language
+System document, new Section 22), not just an instruction followed
+implicitly — with a concrete test (does the user's available action change
+based on this explanation?) and a real JID example (30) showing the
+failure mode directly.
+
+**Quality gate, re-answered after amendment:** Saudi without slang — yes
+(Section 3/7's MSA-as-baseline finding is unchanged and still evidenced).
+Distinctive without becoming editorial — yes, now explicitly (Section 21.3
+above). Trustworthy without sounding governmental — yes, more precisely
+than before (register now varies by context rather than defaulting to
+institutional everywhere). Individual register more human than a
+government service — yes (Abhathli example, and the corrected Section 1 of
+the Language System). Employer language professional, not ATS-like —
+unchanged, already covered (Section 9's original AVOID-jargon finding).
+University language institutional without bureaucracy — unchanged, already
+covered (Section 12). Terminology rules natural rather than artificial —
+corrected directly in this amendment (item 4 above). Latest org-onboarding
+copy incorporated — yes (item 5 above).
 
 ---
 
