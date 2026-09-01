@@ -1,7 +1,7 @@
 # R1-A — JID Product, User, Behavior & HR Tech Intelligence
 
 **Phase:** R1-A (Research only — no design, no UI implementation, no frontend code)
-**Status:** Complete
+**Status:** Complete; amended once by the R1-A Governance Correction Addendum (see note below)
 **Companion file:** `R1A_SOURCE_LEDGER.md` (every `[Sx]`/`[Rx]` citation below is defined there)
 **Next phase (not started here):** R1-B — Saudi Content & Product Language Intelligence, then D1 — Experience Architecture / Design synthesis
 
@@ -10,6 +10,32 @@ do, where the current build makes that difficult, how the wider market solves
 adjacent problems, and what JID should learn versus reject. It does not choose a
 visual direction, propose a navigation structure, or write copy. Those belong to
 D1, after this report is combined with R1-B.
+
+**Governance amendment note:** this report was corrected once after initial
+completion to remove three findings that had been mis-filed as open Founder
+decisions (Mentorship's actor status, claim-model removal depth, and whether
+non-live profile layers are "real enough" to design for) and reclassify them
+correctly — as governing product direction, an engineering-scoping task, and
+a standing D1 design constraint, respectively. See Section 18 for the
+corrected framing. No external research was added and no product code,
+database, or UI was touched to produce the amendment.
+
+**Evidence confidence key:** every external finding in this report is
+grounded in sources classified in `R1A_SOURCE_LEDGER.md` as either
+**PRIMARY/HIGH-CONFIDENCE** (the source's own first-party data, or a
+methodology-transparent study) or **DIRECTIONAL/SECONDARY-SOURCE** (an
+aggregator, review site, SEO/growth blog, or a figure the source itself
+attributes to a further citation this pass did not independently verify).
+The overwhelming majority of sources gathered for a research-desk pass of
+this kind are, honestly, the latter — that is disclosed, not hidden. Any
+quantitative figure drawn from a DIRECTIONAL/SECONDARY-SOURCE citation in
+this report (most of the named percentages in Sections 6-10 and 13) is
+**directional evidence of a pattern, not a verified statistic**, and must
+not be promoted into JID marketing copy, a product metric, an investor
+claim, a stated Saudi-market fact, a KPI, or any other public statistic
+without independent, stronger verification first. Where this report states a
+number, treat the surrounding pattern as the finding and the number as
+illustrative support for it, not as a citable fact in its own right.
 
 ---
 
@@ -122,25 +148,43 @@ tree, R1/R6):
 **Internal actors:** Staff (verification, moderation, reconciliation, audit)
 and Super Admin/Sys (platform governance, danger-tier operations).
 
-**One actor the task brief does not name but the live product already has:**
-**Mentor**, exposed as its own route group `(mentor)`, its own onboarding
-("become a mentor"), its own public directory (`/mentors`), and its own staff
-review queue (mentor applications, kept explicitly distinct from entity claims
-per R5's staff-dashboard copy). This is worth flagging now rather than
-discovering it in D1: Mentorship is currently modeled as a fourth, semi-peer
-public destination rather than a capability layered onto the Individual actor
-(an experienced Individual who also mentors). Whether that is correct is an
-open question for Section 18/19, not something this research resolves — but
-it must be named as part of the actor model, because it is real in the
-running product.
+**JID has exactly three public actors — Individual, Employer, University.**
+This is governing, not open. The live product exposes Mentor through its own
+route group `(mentor)`, its own onboarding ("become a mentor"), its own
+public directory (`/mentors`), and its own staff review queue (mentor
+applications, kept explicitly distinct from entity claims per R5's
+staff-dashboard copy) — but this is **current implementation evidence, not
+actor-model authority.** It documents how the current build organizes
+Mentorship, not what JID's actor model is. Per governing clarification, JID's
+actor model is not amended by what the repository happens to expose as a
+route group.
+
+Mentorship is correctly understood as **a capability, mode, or relationship
+layered into the Individual ecosystem** — an experienced Individual who also
+mentors, not a fourth public actor with its own governing question alongside
+Article 0's three. What is genuinely open, and belongs to D1, is *how* the
+current `/mentor` and `/mentors` surfaces should be reorganized to reflect
+that — D1 may radically restructure those routes, but it must not design
+toward a fourth public actor. This is current IA/implementation debt to
+resolve in D1 (see Section 18), not an unresolved question about what JID's
+actor model is.
 
 **Internal reconciliation:** the Founder Decision governing organization
-onboarding (task brief) replaces the old `search → select catalog row → claim`
-flow with `account → email verification → organization details →
-representative verification → internal reconciliation → authorized workspace`.
-The live product still runs the old flow's machinery end-to-end (R3, R5) even
-though it is current product direction, not merely legacy code sitting unused
-— it actively gates jobs, screening, billing, and comms today (R3 §2.1–2.3).
+onboarding (task brief) has already settled the required product behavior —
+`account → email verification → organization details → representative
+verification → internal reconciliation → authorized workspace`, replacing the
+old `search → select catalog row → claim` flow outright. This is not an open
+product question this research is weighing; it is a decision already made
+that the current build has not yet caught up to. The live product still runs
+the old flow's machinery end-to-end (R3, R5) — it actively gates jobs,
+screening, billing, and comms today (R3 §2.1–2.3). The only genuinely open
+question this leaves is an **engineering-implementation** one, not a product
+one: how deep the removal needs to go (a UI/gating-layer change on top of
+existing tables versus a fuller schema migration). That choice belongs to
+engineering, guided by one constraint — choose the smallest coherent
+architecture that removes the public claim dependency without weakening any
+existing security or data contract — and is recorded as such in Section 18,
+not as a Founder decision awaiting resolution.
 This is the single largest gap between stated direction and shipped reality
 found in this research pass.
 
@@ -693,8 +737,9 @@ data with no implied next decision (S12).
 | AI-assisted drafting/summarization/matching (Abhathli, Lammah) | **Supporting capability** |
 | Opportunity discovery / job listings | **Commodity feature** — table stakes across the whole category, not a place to differentiate |
 | CV export/formatting | **Commodity feature** — necessary, replicable, not a moat |
-| Mentorship | **Currently a distraction from the core three-actor model as a peer nav destination** (Section 3) — may be a legitimate capability layered onto the Individual actor, but as a fourth standalone public actor it dilutes rather than sharpens what JID is for. Flagged as an open question, not a verdict (Section 18). |
-| Any social/feed/engagement mechanic | **Explicit distraction, permanently rejected** (R1 Article 3/8, corroborated S15) |
+| Mentorship | **Supporting capability, layered onto the Individual actor** — not a fourth public actor (Section 3, governing, not open). Its current implementation as a peer nav destination is IA/implementation debt (Section 18), not evidence that it belongs at that altitude. |
+| Governed professional identity / connection (e.g., a declared, consent-governed relationship between a graduate and their university, or between an Individual and people/organizations they choose to connect to) | **Supporting capability — preserve, do not delete.** JID's anti-feed doctrine bans the *mechanics* (feed, likes, vanity counters, popularity ranking, engagement bait, algorithmic attention optimization, pay-to-win visibility), not professional identity or governed connection itself where current product truth supports it (R1 Article 3/8). "Not a social network" is a rejection of those mechanics, not of a professional layer. |
+| Any social/feed/engagement mechanic (feed, likes, vanity counters, popularity ranking, engagement bait, algorithmic attention optimization, pay-to-win visibility) | **Explicit distraction, permanently rejected** (R1 Article 3/8, corroborated S15) |
 
 The question that actually locates JID's differentiation is not "how does
 JID out-feature LinkedIn or an ATS" — it's **"what product experience could
@@ -853,38 +898,61 @@ Ten, JID-specific, each derived from a finding above — not generic advice.
 
 ## 18. OPEN QUESTIONS / CONFLICTS
 
-Genuine unresolved issues only — not a restated TODO list.
+This section was corrected by the R1-A Governance Amendment. Three items
+originally listed here were not genuine open Founder decisions — they were
+either already-settled product direction or implementation-level questions
+this research had mis-filed as product-level ones. They are reclassified
+below and removed from the open list. Only genuine unresolved issues remain
+as open questions.
 
-1. **Mentorship's place in the actor model.** It is currently a fourth,
-   near-peer public destination in the live product (Section 3), which this
-   research flags as diluting the three-actor model, but whether Mentorship
-   should become a capability layered onto the Individual actor, remain a
-   distinct actor, or be scoped down is a genuine open decision this phase
-   does not have grounds to resolve — it needs an explicit Founder call, not
-   an inferred one.
-2. **How much of the seven-layer Individual Profile model is actually load-
-   bearing today versus aspirational.** Career Canvas and Evidence Vault are
-   explicitly marked "not live yet" in the product's own copy (R5). D1 needs
-   to know, before designing around the full seven-layer model, which layers
-   are real enough to design for now versus which are directional and should
-   be designed for gracefully-absent states.
-3. **Whether the claim-model removal (Founder Decision) is a full schema
-   migration or a UI-and-gating change on top of existing tables.** This
-   research found the claim machinery deeply wired into RLS across jobs,
-   applications, screening, billing, and comms (R3 §2.1–2.3) — resolving
-   "how deep does this removal go" is an engineering-architecture decision
-   outside this research's scope, but D1/engineering needs to know it exists
-   before scoping the org-onboarding redesign.
-4. **What Saudi-specific behavioral evidence exists beyond inference.** This
-   pass could ground global Gen Z/professional behavior in strong evidence
-   (S1, S17) but could only *infer*, not verify, how Saudi users specifically
-   differ — R1-B is the right place to close this gap with more targeted
-   Saudi/Arabic-market research.
-5. **Whether a public "Mentors" directory and "Catalog" (organization
-   directory) should be understood by users as the same kind of thing
-   (browsable reference lists) or genuinely different — this affects IA, not
-   just labeling, and needs D1-stage user-mental-model testing rather than a
-   research-desk answer.
+**Reclassified (no longer open Founder decisions):**
+
+- **Mentorship's place in the actor model — CLOSED.** JID has exactly three
+  public actors; Mentorship is a capability layered onto the Individual
+  actor, not a fourth actor (Section 3, governing). What remains is **IA/
+  implementation debt**: how the current `/mentor` and `/mentors` route
+  group, onboarding, and staff queue should be reorganized under that model.
+  That is a D1 design task, not a Founder decision awaiting resolution.
+- **Claim-model removal depth — CLOSED as a product question, open only as
+  an engineering-implementation question.** The Founder has already decided
+  the required behavior (Section 3's "Internal reconciliation" paragraph).
+  What is genuinely undetermined is implementation depth: whether removing
+  the public claim dependency requires a UI/gating-layer change on top of
+  existing tables or a fuller schema migration. Engineering should choose
+  the smallest coherent architecture that removes the public claim
+  dependency without weakening any existing security or data contract — this
+  is an engineering-scoping task to hand to implementation planning, not a
+  question for D1 or the Founder.
+- **Which seven-layer Individual Profile layers are "real enough" to design
+  for — REPLACED with a standing design constraint, not a question to ask
+  the Founder.** Career Canvas and Evidence Vault are marked "not live yet"
+  in the product's own copy (R5). D1 does not need Founder input to resolve
+  this; it needs to apply one rule consistently: **live capabilities may
+  receive complete current-product experience design; constitutional-but-
+  not-yet-live capabilities must not be presented to users as
+  completed/live features, must not be backed by fake data or fake empty
+  destinations, but the architecture around them must be built
+  future-compatible with them.** This is a D1 current-truth design
+  constraint (Section 19), not an open item.
+
+**Genuine open questions remaining:**
+
+1. **Saudi-specific user behavior, language, and digital-product
+   expectations beyond inference.** This pass grounded global Gen Z/
+   professional-tool behavior in independently-converging evidence (S1,
+   S17) but could only *infer*, not verify, how Saudi users specifically
+   differ from that global baseline (Section 6's evidence/inference split;
+   Section 9). This is the primary genuine research gap remaining after this
+   amendment, and it is intentionally the scope of **R1-B — Saudi Content &
+   Product Language Intelligence**, not something R1-A or D1 should
+   improvise an answer to.
+2. **Whether a public "Mentors" directory and "Catalog" (organization
+   directory) should read to users as the same kind of thing (browsable
+   reference lists) or genuinely different.** This affects IA, not just
+   labeling, and needs D1-stage user-mental-model consideration rather than
+   a research-desk answer — it is a design question, not a product-decision
+   question, so it stays here as a design open item rather than being
+   escalated to the Founder.
 
 ---
 
@@ -893,21 +961,39 @@ Genuine unresolved issues only — not a restated TODO list.
 What the Experience Architecture / Design phase must resolve, informed but
 not pre-decided by this report:
 
-- **Resolve the actor model's edge case (Mentorship) before designing
-  navigation** — Section 18.1 is a precondition, not a detail to patch in
-  later.
+- **Reorganize Mentorship as an Individual-layered capability, not a fourth
+  actor** — the actor model itself is settled (Section 3); D1's job is the
+  IA/implementation debt of restructuring `/mentor` and `/mentors` under
+  that model, which may be a radical reorganization of those routes but
+  must not reintroduce a fourth public actor.
 - **Design the organization-onboarding sequence as the single, staged path**
   the Founder Decision already specifies — this is not a choice D1 makes, it
   is a specification D1 implements, informed by the staged/short-step
-  evidence in Section 6/15.
+  evidence in Section 6/15. The remaining claim-removal depth question is
+  engineering's to scope (Section 18), not D1's.
 - **Re-derive the Individual actor's navigation from the spine doctrine, not
   from the current sibling-route list** — Career Record as the persistent
   center, with CV/Evidence/Timeline/Canvas as views onto it rather than
-  co-equal nav items (Section 11), respecting which layers are real today
-  versus aspirational (Section 18.2).
+  co-equal nav items (Section 11), applying the live-vs-future-compatible
+  design constraint (Section 18) so Career Canvas and Evidence Vault are
+  architected for without being presented as complete before they are real.
 - **Design dashboards actor-by-actor against "what decision does this point
   at,"** not as a single dashboard template reused across Individual/
   Business/University/Staff (Section 10.5, Section 17.4).
+- **Apply FUTURE_COMPATIBLE_NOT_FAKE_LIVE to every not-yet-live capability**
+  named in this report (Career Canvas, Evidence Vault, and any other
+  constitutional-but-unbuilt layer D1 encounters): architect for it, never
+  fake it as complete, never back it with placeholder data or a dead-end
+  destination (Section 18).
+- **Preserve the governed professional layer; remove only the addictive
+  mechanics.** JID's anti-feed doctrine (R1 Article 3/8) prohibits feed
+  mechanics, likes, vanity counters, popularity ranking, engagement bait,
+  algorithmic attention optimization, and pay-to-win visibility — it does
+  not prohibit professional identity or governed connection capabilities
+  where current product truth supports them. D1 must not treat "JID is not
+  a social network" as grounds to delete a professional-connection
+  capability outright; the correct move is removing the social-media
+  mechanic, not the underlying capability (Section 4, Section 15/16).
 - **Specify AI touchpoints against the tiered-approval model concretely** —
   which actions are auto-apply-with-visible-undo versus which require an
   inspectable preview and explicit approval — for Abhathli, Lammah, and any
@@ -923,8 +1009,9 @@ not pre-decided by this report:
   screen decisions, not just tone.
 - **Wait for R1-B before finalizing any Saudi-specific behavioral claim** —
   this report's Saudi/Arabic findings are UX-structural (Section 9) and
-  evidence-graded (Section 6/18.4); the terminology and content-register
-  work belongs to R1-B and should not be improvised inside D1.
+  evidence-graded (Section 6, Section 18's genuine-open-questions item 1);
+  the terminology and content-register work belongs to R1-B and should not
+  be improvised inside D1.
 
 ---
 

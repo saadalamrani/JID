@@ -7,6 +7,56 @@ Sources that did not change a conclusion are not included — per the research b
 depth discipline, this ledger favors "10 strong conclusions from 20 good sources"
 over an exhaustive bibliography.
 
+**Amendment note:** this ledger was updated once, alongside the main report's
+Governance Correction Addendum, to add the evidence-confidence classification
+below. No new sources were added and no existing entry's substance was
+changed by that amendment.
+
+**Evidence confidence classification.** Every source below is either:
+
+- **PRIMARY/HIGH-CONFIDENCE** — the source's own first-party data (an
+  official announcement, a platform's own published dashboard/documentation,
+  a named institution reporting its own numbers), or a methodology-
+  transparent study.
+- **DIRECTIONAL/SECONDARY-SOURCE** — an aggregator, comparison/review site,
+  SEO or growth-marketing blog, vendor-interested content, or a figure the
+  page itself attributes to a further citation (e.g. "Deloitte found...")
+  that this research pass read at one remove and did not independently pull
+  and verify against the primary report.
+
+This classification is per-source, and within a MIXED source the qualitative
+pattern is usually more trustworthy than any specific number attached to it.
+**Any figure sourced from a DIRECTIONAL/SECONDARY-SOURCE entry is directional
+evidence of a pattern, not a verified statistic, and must not be promoted
+into JID marketing copy, a product metric, an investor claim, a stated
+Saudi-market fact, a KPI, or any other public statistic without independent,
+stronger verification first.** This applies to essentially every percentage
+figure quoted in the main report's Sections 6, 10, and 13.
+
+| ID | Confidence |
+|----|------------|
+| S1 | DIRECTIONAL/SECONDARY-SOURCE — vendor-blog and listicle aggregation of Gen Z UX claims |
+| S2 | MIXED — the progressive-disclosure concept and NN/g's stated 2026 trust-vs-adoption direction are PRIMARY/HIGH-CONFIDENCE (NN/g is a primary UX research authority); the specific 63%/72% figures were read via secondary coverage and are DIRECTIONAL |
+| S3 | DIRECTIONAL/SECONDARY-SOURCE — third-party ATS review/comparison sites |
+| S4 | DIRECTIONAL/SECONDARY-SOURCE — third-party comparison/aggregator sites |
+| S5 | MIXED — platform existence, structure, and government-stated capabilities are PRIMARY/HIGH-CONFIDENCE (my.gov.sa is the official source; the ResearchGate item is an academic review); specific user/service counts were read via a secondary vendor blog and are DIRECTIONAL |
+| S6 | PRIMARY/HIGH-CONFIDENCE for what Handshake states about its own 2025 roadmap (joinhandshake.com is the vendor's own primary material) — read as self-reported vendor material, not independently audited |
+| S7 | MIXED — Linear's own design-philosophy statement (linear.app/now) is PRIMARY/HIGH-CONFIDENCE (first-party); third-party Raycast design-system breakdowns are DIRECTIONAL/SECONDARY-SOURCE |
+| S8 | DIRECTIONAL/SECONDARY-SOURCE — design-agency and Medium commentary, not the fintech companies' own published research |
+| S9 | DIRECTIONAL/SECONDARY-SOURCE — vendor-interested comparison content (including Metaview's own competitive-positioning page) |
+| S10 | PRIMARY/HIGH-CONFIDENCE — official company newsroom releases (Workday newsroom, PRNewswire) |
+| S11 | DIRECTIONAL/SECONDARY-SOURCE — general UX-agency blog commentary |
+| S12 | DIRECTIONAL/SECONDARY-SOURCE — SaaS-design blog commentary |
+| S13 | DIRECTIONAL/SECONDARY-SOURCE — practitioner-blog consensus, not academic or platform-official sourcing |
+| S14 | DIRECTIONAL/SECONDARY-SOURCE — comparison/review blogs (including one vendor's own blog, greenhouse.com) |
+| S15 | DIRECTIONAL/SECONDARY-SOURCE — SEO/growth-marketing blog aggregation |
+| S16 | DIRECTIONAL/SECONDARY-SOURCE — figures attributed to Deloitte and a cited 2025 manager survey, read at one remove via secondary blogs, not pulled from the primary reports |
+| S17 | DIRECTIONAL/SECONDARY-SOURCE — figures attributed to Baymard Institute and a cited UXCam study, read at one remove via secondary blogs |
+| S18 | DIRECTIONAL/SECONDARY-SOURCE — AI-agent UX pattern blogs and practitioner sites, not a formal study |
+| S19 | DIRECTIONAL/SECONDARY-SOURCE — figures attributed to Resume Genius and GoodTime's 2025 report, read at one remove via secondary blogs |
+| S20 | PRIMARY/HIGH-CONFIDENCE — universities' and sector bodies' own published dashboards/pages (Cornell, Johns Hopkins, University of Southampton, Jisc, Universities UK) |
+| S21 | DIRECTIONAL/SECONDARY-SOURCE — comparison sites citing G2/Capterra ratings second-hand |
+
 ---
 
 ## Internal / repository sources (product truth)
@@ -55,3 +105,4 @@ over an exhaustive bibliography.
 - All 2025-2026-dated web sources were accessed in a single research session (session date: 2026-09-01) and reflect commentary/aggregator coverage rather than primary academic studies in most cases; figures quoted from them (percentages, survey ns) are reported as **third-party-cited industry data**, not independently re-verified primary research. Where a figure is used in the main report, it is explicitly framed as directional evidence, consistent with the brief's evidence-vs-inference discipline.
 - Internal repository sources (`R1`–`R6`) are treated as the authoritative "current state" record and take priority over any external pattern when the two conflict, per the Constitution's own priority-of-truth ordering (R1, Article 9).
 - Sources consulted but not retained here (general listicle-style "top N ATS in 2026" roundups with no independent finding beyond what S3/S4/S9/S14 already cover) were excluded to avoid a padded bibliography, per the research brief's explicit instruction.
+- **Downstream use restriction (added by the Governance Correction Addendum):** no figure sourced from a DIRECTIONAL/SECONDARY-SOURCE entry above — which is most of this ledger — may be carried into JID marketing copy, a product metric, an investor claim, a stated Saudi-market fact, a KPI, or any other public statistic without first being independently re-verified against its primary source. This report and ledger exist to inform D1's design judgment, not to certify any number in them as fact.
