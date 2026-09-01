@@ -10,7 +10,8 @@
 | BRANCH | `integration/retire-legacy-org-claim-model` |
 | BASE_SHA | `60cdb54f2683995f51a0140273b3a9de9fa5858e` |
 | ANCESTRY | `2d234d5b514ffc95ac333997370b4d4589cd1052` (implementation) · `60cdb54f2683995f51a0140273b3a9de9fa5858e` (onboarding closeout) |
-| FINAL_SHA | recorded after this file is committed |
+| IMPLEMENTATION_SHA | `60a16ce138b900e3079dd9cfe8696d008c50f765` |
+| FINAL_SHA | `60a16ce138b900e3079dd9cfe8696d008c50f765` |
 | PRODUCTION_TOUCHED | NO |
 | MAIN_MERGED | NO |
 | NONPROD_ONLY | YES (`hmjuijmaefajdjrjdsxu`) |
