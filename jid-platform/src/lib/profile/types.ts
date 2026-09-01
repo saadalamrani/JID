@@ -18,9 +18,9 @@ export type ProfileVisibilityInput = {
 export type ProfileViewer = {
   userId: string | null
   role: UserRole | null
-  /** Approved company claim id (HR viewer). Never used to compare commitment scores. */
+  /** Owned Business directory id (HR viewer). Never used to compare commitment scores. */
   companyId: string | null
-  /** True when the viewer has an approved company ownership claim. */
+  /** True when the viewer owns a non-suspended Business workspace. */
   isVerified: boolean
   /** Privileged staff (staff / admin / super_admin). */
   isAdmin: boolean
@@ -62,7 +62,7 @@ export type CompanyProfileRecord = {
   employee_count_range: string | null
   office_locations: unknown
   entity_type: string
-  entity_state: string
+  is_active: boolean
   is_verified: boolean
   is_on_honor_roll: boolean
   last_activity_at: string | null

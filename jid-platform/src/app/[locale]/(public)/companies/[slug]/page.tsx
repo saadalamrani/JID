@@ -39,7 +39,7 @@ export default async function CompanyProfilePage({ params }: CompanyProfilePageP
 
   const { company } = context
 
-  if (company.entity_state === 'suspended') {
+  if (!company.is_active) {
     notFound()
   }
 
@@ -69,7 +69,7 @@ export async function generateMetadata({ params }: CompanyProfilePageProps) {
   }
 
   const { company } = context
-  if (company.entity_state === 'suspended') {
+  if (!company.is_active) {
     return { title: 'Company' }
   }
   if (shouldHideUniversityFromPublic(company.entity_type, viewer.isAdmin)) {

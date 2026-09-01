@@ -12,7 +12,6 @@ const DIRECTORY_SELECT = `
   name,
   name_ar,
   entity_type,
-  entity_state,
   is_active,
   is_verified,
   city,

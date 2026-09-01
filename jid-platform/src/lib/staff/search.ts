@@ -36,17 +36,17 @@ export async function searchStaffDirectory(query: string): Promise<StaffSearchRe
       .limit(RESULT_LIMIT),
     supabase
       .from('companies')
-      .select('id, name, name_ar, entity_type, entity_state')
-      .in('entity_state', ['approved', 'pending_review'])
+      .select('id, name, name_ar, entity_type, is_verified')
+      .eq('is_verified', true)
       .or(`name.ilike.${pattern},name_ar.ilike.${pattern}`)
       .order('name', { ascending: true })
       .limit(RESULT_LIMIT),
     supabase
       .from('verification_requests')
-      .select('id, company_name, claimant_name, business_email, status')
+      .select('id, company_name, representative_name, business_email, status')
       .in('status', ['pending', 'submitted', 'pending_review', 'under_review'])
       .or(
-        `company_name.ilike.${pattern},claimant_name.ilike.${pattern},business_email.ilike.${pattern}`,
+        `company_name.ilike.${pattern},representative_name.ilike.${pattern},business_email.ilike.${pattern}`,
       )
       .order('created_at', { ascending: true })
       .limit(RESULT_LIMIT),
@@ -70,7 +70,7 @@ export async function searchStaffDirectory(query: string): Promise<StaffSearchRe
     entitiesResult.data?.map((row) => ({
       id: row.id,
       label: row.name_ar?.trim() || row.name,
-      subtitle: `${row.entity_type} · ${row.entity_state}`,
+      subtitle: `${row.entity_type}${row.is_verified ? ' · verified' : ''}`,
       href: `/companies/${row.id}`,
     })) ?? []
 
@@ -78,7 +78,7 @@ export async function searchStaffDirectory(query: string): Promise<StaffSearchRe
     claimsResult.data?.map((row) => ({
       id: row.id,
       label: row.company_name,
-      subtitle: `${row.claimant_name} · ${row.status}`,
+      subtitle: `${row.representative_name} · ${row.status}`,
       href: `/staff/verification/${row.id}`,
     })) ?? []
 

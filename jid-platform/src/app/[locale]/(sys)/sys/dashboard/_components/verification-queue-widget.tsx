@@ -45,7 +45,7 @@ export function VerificationQueueWidget({ items }: VerificationQueueWidgetProps)
                 <li key={item.id} className="flex items-start justify-between gap-3 py-3 first:pt-0">
                   <div className="min-w-0">
                     <p className="truncate font-medium text-foreground">{item.company_name}</p>
-                    <p className="truncate text-xs text-muted-foreground">{item.claimant_name}</p>
+                    <p className="truncate text-xs text-muted-foreground">{item.representative_name}</p>
                   </div>
                   <div className="shrink-0 text-end">
                     <p

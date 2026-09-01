@@ -29,13 +29,11 @@ export default async function StaffEntityDetailPage({ params }: EntityDetailPage
   // ignored (confirmed live: raw key paths rendering as visible text on the equivalent
   // list screen for 'business' rows before this fix added the missing key).
   const KNOWN_ENTITY_TYPES = ['company', 'business', 'university']
-  const KNOWN_ENTITY_STATES = ['unclaimed', 'pending', 'pending_review', 'approved', 'suspended']
+  const directoryStatus = !entity.is_active ? 'inactive' : entity.is_verified ? 'verified' : 'unverified'
   const entityTypeLabel = KNOWN_ENTITY_TYPES.includes(entity.entity_type)
     ? t(`types.${entity.entity_type}`)
     : entity.entity_type
-  const entityStateLabel = KNOWN_ENTITY_STATES.includes(entity.entity_state)
-    ? t(`states.${entity.entity_state}`)
-    : entity.entity_state
+  const entityStateLabel = t(`states.${directoryStatus}`)
 
   const fields: Array<{ label: string; value: string | null }> = [
     { label: t('fields.id'), value: entity.id },
@@ -46,7 +44,7 @@ export default async function StaffEntityDetailPage({ params }: EntityDetailPage
     { label: t('fields.ownership'), value: entity.ownership_type },
     { label: t('fields.sector'), value: entity.sector_name },
     { label: t('fields.region'), value: entity.region_name },
-    { label: t('fields.claimant'), value: entity.claimant_name },
+    { label: t('fields.claimant'), value: entity.representative_name },
     { label: t('fields.website'), value: entity.website_url },
     { label: t('fields.city'), value: entity.city },
     { label: t('fields.domains'), value: entity.domains.join(', ') || null },

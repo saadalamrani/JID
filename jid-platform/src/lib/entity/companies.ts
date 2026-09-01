@@ -152,7 +152,6 @@ export async function ensureUniversityCompany(
       entity_type: 'university',
       university_short_code: university.short_code,
       is_verified: false,
-      entity_state: 'unclaimed',
     })
     .select('id, name, name_ar, domains, entity_type, is_verified')
     .single()

@@ -33,7 +33,6 @@ export function CompanyProfileView({ context, badges, isOwner }: CompanyProfileV
         isVerified={company.is_verified}
         foundedYear={company.founded_year}
         employeeCountRange={company.employee_count_range}
-        entityState={company.entity_state}
         editHref={isOwner ? '/company/profile/edit' : undefined}
       />
 

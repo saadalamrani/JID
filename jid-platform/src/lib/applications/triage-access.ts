@@ -55,21 +55,12 @@ export async function getTriageViewer(client?: Client): Promise<TriageViewer | n
     }
   }
 
-  // Transitional only: Directory claimed_by for pre-Profile jobs (RLS 115/116).
-  // Never used as the primary gate for Profile-anchored opportunities.
-  const { data: company } = await supabase
-    .from('companies')
-    .select('id')
-    .eq('claimed_by', user.id)
-    .eq('entity_state', 'approved')
-    .maybeSingle()
-
   return {
     userId: user.id,
     role,
     isStaff,
     businessProfileId: null,
-    companyId: company?.id ?? null,
+    companyId: null,
   }
 }
 

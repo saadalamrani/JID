@@ -33,7 +33,8 @@ export type StaffEntityDetail = {
   name: string
   name_ar: string | null
   entity_type: string
-  entity_state: string
+  is_verified: boolean
+  is_active: boolean
   ownership_type: string | null
   sector_id: string | null
   sector_name: string | null
@@ -46,9 +47,7 @@ export type StaffEntityDetail = {
   response_rate_pct: number | null
   avg_response_days: number | null
   total_jobs_posted_12mo: number
-  is_verified: boolean
-  claimed_by: string | null
-  claimant_name: string | null
+  representative_name: string | null
   city: string | null
   domains: string[]
   created_at: string

@@ -17,7 +17,11 @@ export type NotificationEmailRenderInput = {
   digestItems?: DigestEmailItem[]
 }
 
-const CLAIM_CATEGORIES = new Set(['claim.approved', 'claim.rejected', 'claim.needs_more_info'])
+const VERIFICATION_CATEGORIES = new Set([
+  'verification.approved',
+  'verification.rejected',
+  'verification.needs_more_info',
+])
 
 /**
  * Section 7.6 — category-aware React Email router.
@@ -44,11 +48,11 @@ export async function renderNotificationEmailTemplate(
     )
   }
 
-  if (input.category === 'claim.approved') {
+  if (input.category === 'verification.approved') {
     return await render(<ClaimApprovedEmail {...common} />)
   }
 
-  if (CLAIM_CATEGORIES.has(input.category) && input.category !== 'claim.approved') {
+  if (VERIFICATION_CATEGORIES.has(input.category) && input.category !== 'verification.approved') {
     return await render(<GenericNotificationEmail {...common} />)
   }
 

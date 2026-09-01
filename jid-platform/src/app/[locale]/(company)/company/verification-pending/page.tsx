@@ -44,7 +44,7 @@ export default async function CompanyVerificationPendingPage() {
         id: verification.id,
         company_name: verification.company_name,
         business_email: verification.business_email,
-        claimant_name: verification.claimant_name,
+        representative_name: verification.representative_name,
         status: verification.status,
         created_at: verification.created_at,
       }}

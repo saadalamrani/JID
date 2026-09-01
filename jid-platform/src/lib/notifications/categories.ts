@@ -12,9 +12,9 @@ export const NOTIFICATION_CATEGORIES = [
   'auth.session_revoked',
   'account.reinstated',
   'account.suspended',
-  'claim.approved',
-  'claim.needs_more_info',
-  'claim.rejected',
+  'verification.approved',
+  'verification.needs_more_info',
+  'verification.rejected',
   'directory.correction_approved',
   'directory.correction_rejected',
   'company.link_broken',
@@ -34,7 +34,7 @@ export const NOTIFICATION_CATEGORIES = [
   'mentorship.request_accepted',
   'mentorship.request_declined',
   'mentorship.request_received',
-  'staff.claim_assigned',
+  'staff.verification_assigned',
   'digest.daily_summary',
 ] as const satisfies readonly NotificationCategory[]
 

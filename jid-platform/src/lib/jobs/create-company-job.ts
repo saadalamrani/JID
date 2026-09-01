@@ -52,7 +52,7 @@ export async function createCompanyJob(
   let publishedAt: string | null = null
 
   if (input.publish) {
-    if (poster.company.entity_state === 'approved') {
+    if (poster.company.is_verified) {
       status = 'published'
       publishedAt = new Date().toISOString()
     } else {

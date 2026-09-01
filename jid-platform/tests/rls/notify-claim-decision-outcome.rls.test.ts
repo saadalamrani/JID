@@ -53,8 +53,8 @@ describeRls('notify_claim_decision outcome URLs (Spec 06-D disposable)', () => {
       company_name: `Fixture ${input.verificationType}`,
       status: input.status ?? 'approved',
       business_email: `${input.verificationType}@jid.local.test`,
-      claimant_name: 'Synthetic Applicant',
-      claimant_title: 'Representative',
+      representative_name: 'Synthetic Applicant',
+      representative_title: 'Representative',
       evidence_urls: [],
     })
     if (error) throw new Error(error.message)
@@ -124,8 +124,8 @@ describeRls('notify_claim_decision outcome URLs (Spec 06-D disposable)', () => {
 
   async function staffNotify(claimId: string, decision: string, reason?: string) {
     const client = await createAuthenticatedClient(env!, staff.email, staff.password)
-    return client.rpc('notify_claim_decision', {
-      p_claim_id: claimId,
+    return client.rpc('notify_verification_decision', {
+      p_verification_id: claimId,
       p_decision: decision,
       p_reason: reason ?? null,
     })
@@ -146,7 +146,7 @@ describeRls('notify_claim_decision outcome URLs (Spec 06-D disposable)', () => {
       .eq('idempotency_key', `verification.decision:${businessApproveId}:approved`)
       .single()
     expect(data?.recipient_id).toBe(applicantBusiness.id)
-    expect(data?.category).toBe('claim.approved')
+    expect(data?.category).toBe('verification.approved')
     expect(data?.action_url).toBe('/company/create-profile')
     expect(data?.body_en).toMatch(/create your owned profile/i)
     expect(data?.body_en?.toLowerCase()).not.toMatch(/automatically created/)
@@ -174,7 +174,7 @@ describeRls('notify_claim_decision outcome URLs (Spec 06-D disposable)', () => {
       .eq('idempotency_key', `verification.decision:${businessRejectId}:rejected`)
       .single()
     expect(data?.recipient_id).toBe(applicantBusiness.id)
-    expect(data?.category).toBe('claim.rejected')
+    expect(data?.category).toBe('verification.rejected')
     expect(data?.action_url).toBe('/company/verification-rejected')
     expect(data?.body_en).toMatch(/Reason: Incomplete evidence/)
   })
@@ -189,7 +189,7 @@ describeRls('notify_claim_decision outcome URLs (Spec 06-D disposable)', () => {
       .single()
     expect(a?.recipient_id).toBe(applicantUniversity.id)
     expect(a?.action_url).toBe('/university/create-profile')
-    expect(a?.category).toBe('claim.approved')
+    expect(a?.category).toBe('verification.approved')
 
     const reject = await staffNotify(universityRejectId, 'rejected', 'Domain mismatch')
     expect(reject.error).toBeNull()

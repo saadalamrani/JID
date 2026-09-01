@@ -47,7 +47,7 @@ export function orgOutcomeRoutes(orgType: OrganizationActor) {
 
 /**
  * Spec 06-D — in-app decision notification destinations (must match
- * `notify_claim_decision` action_url mapping). Uses existing Spec 03 routes only.
+ * `notify_verification_decision` action_url mapping). Uses existing Spec 03 routes only.
  */
 export function verificationDecisionActionUrl(
   orgType: OrganizationActor,

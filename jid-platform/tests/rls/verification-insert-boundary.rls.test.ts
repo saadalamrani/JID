@@ -19,7 +19,7 @@ import {
 
 const env = getRlsTestEnv()
 const describeRls = env ? describe : describe.skip
-type VerificationStatus = Database['public']['Enums']['claim_status_enum']
+type VerificationStatus = Database['public']['Enums']['verification_status_enum']
 
 describeRls('JID-102A verification INSERT and Profile-creation boundary', () => {
   const admin = env ? createServiceRoleClient(env) : null
@@ -75,8 +75,8 @@ describeRls('JID-102A verification INSERT and Profile-creation boundary', () => 
       directory_id: directory.id,
       company_name: directory.name,
       business_email: `security@${directory.domain}`,
-      claimant_name: 'Synthetic Applicant',
-      claimant_title: 'Representative',
+      representative_name: 'Synthetic Applicant',
+      representative_title: 'Representative',
       evidence_urls: [],
       verification_type: directory.entityType,
       status,

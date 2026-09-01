@@ -173,26 +173,26 @@ describe('16. No verification decision-journey file links to the retired /sys/cl
   })
 })
 
-describe('17. External notification/analytics/edge-function contracts are byte-for-byte unchanged', () => {
-  it('notify-verification-decision.ts preserves the claim.* category names and edge function names', () => {
+describe('17. Verification notification and analytics contracts use verification taxonomy', () => {
+  it('notify-verification-decision.ts uses verification.* categories', () => {
     const notify = read('lib/staff/notify-verification-decision.ts')
-    expect(notify).toMatch(/'claim\.approved'/)
-    expect(notify).toMatch(/'claim\.rejected'/)
-    expect(notify).toMatch(/'claim\.needs_more_info'/)
-    expect(notify).toMatch(/claim_id:/)
+    expect(notify).toMatch(/'verification\.approved'/)
+    expect(notify).toMatch(/'verification\.rejected'/)
+    expect(notify).toMatch(/'verification\.needs_more_info'/)
+    expect(notify).toMatch(/verification_id:/)
     expect(notify).toMatch(/'send-claim-approval'/)
     expect(notify).toMatch(/'send-claim-rejection'/)
-    expect(notify).toMatch(/claimId: input\.verificationId/)
+    expect(notify).toMatch(/verificationId: input\.verificationId/)
   })
 
-  it('staff-events.ts still declares staff.claim_reviewed', () => {
+  it('staff-events.ts declares staff.verification_reviewed', () => {
     const events = read('lib/analytics/staff-events.ts')
-    expect(events).toMatch(/'staff\.claim_reviewed'/)
+    expect(events).toMatch(/'staff\.verification_reviewed'/)
   })
 
-  it('the review action still tracks staff.claim_reviewed with a claim_id payload key', () => {
+  it('the review action tracks staff.verification_reviewed with a verification_id payload key', () => {
     const actions = read('app/[locale]/(staff)/staff/verification/actions.ts')
-    expect(actions).toMatch(/trackServer\('staff\.claim_reviewed'/)
-    expect(actions).toMatch(/claim_id: verificationId/)
+    expect(actions).toMatch(/trackServer\('staff\.verification_reviewed'/)
+    expect(actions).toMatch(/verification_id: verificationId/)
   })
 })

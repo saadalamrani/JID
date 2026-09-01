@@ -1955,11 +1955,11 @@
             "label": "إجراءات اليوم",
             "hint": "أحداث التدقيق التي نفذتها اليوم"
           },
-          "claims_approved_today": {
+          "verifications_approved_today": {
             "label": "عمليات تحقق موافق عليها اليوم",
             "hint": "طلبات التحقق التي وافقت عليها اليوم"
           },
-          "claims_rejected_today": {
+          "verifications_rejected_today": {
             "label": "عمليات تحقق مرفوضة اليوم",
             "hint": "طلبات التحقق التي رفضتها اليوم"
           },
@@ -2066,11 +2066,9 @@
           "linkedin": "لينكدإن",
           "missing": "لا يوجد سجل دليل مرتبط",
           "states": {
-            "unclaimed": "بلا ملف تعريفي",
-            "pending": "معلقة",
-            "pending_review": "بانتظار المراجعة",
-            "approved": "معتمدة",
-            "suspended": "موقوفة"
+            "verified": "موثّقة",
+            "unverified": "غير موثّقة",
+            "inactive": "غير نشطة"
           }
         },
         "reconciliation": {
@@ -2711,11 +2709,9 @@
           }
         },
         "states": {
-          "unclaimed": "بلا ملف تعريفي",
-          "pending": "معلقة",
-          "pending_review": "بانتظار المراجعة",
-          "approved": "معتمدة",
-          "suspended": "موقوفة"
+          "verified": "موثّقة",
+          "unverified": "غير موثّقة",
+          "inactive": "غير نشطة"
         }
       },
       "metadataForm": {
@@ -3675,11 +3671,9 @@
         "applying": "جارٍ التطبيق…",
         "states": {
           "all": "كل الحالات",
-          "unclaimed": "بلا ملف تعريفي",
-          "pending": "معلقة",
-          "pending_review": "بانتظار المراجعة",
-          "approved": "معتمدة",
-          "suspended": "موقوفة"
+          "verified": "موثّقة",
+          "unverified": "غير موثّقة",
+          "inactive": "غير نشطة"
         }
       },
       "table": {
@@ -3699,11 +3693,9 @@
           "business": "شركة"
         },
         "states": {
-          "unclaimed": "بلا ملف تعريفي",
-          "pending": "معلقة",
-          "pending_review": "بانتظار المراجعة",
-          "approved": "معتمدة",
-          "suspended": "موقوفة"
+          "verified": "موثّقة",
+          "unverified": "غير موثّقة",
+          "inactive": "غير نشطة"
         }
       },
       "pagination": {
@@ -3768,11 +3760,9 @@
           }
         },
         "states": {
-          "unclaimed": "بلا ملف تعريفي",
-          "pending": "معلقة",
-          "pending_review": "بانتظار المراجعة",
-          "approved": "معتمدة",
-          "suspended": "موقوفة"
+          "verified": "موثّقة",
+          "unverified": "غير موثّقة",
+          "inactive": "غير نشطة"
         }
       }
     },
@@ -3847,11 +3837,11 @@
             "label": "الجلسات النشطة",
             "hint": "جلسات غير ملغاة الآن"
           },
-          "pending_claims": {
+          "pending_verifications": {
             "label": "طلبات تحقق معلقة",
             "hint": "بانتظار مراجعة الموظفين"
           },
-          "overdue_claims": {
+          "overdue_verifications": {
             "label": "طلبات تحقق متأخرة",
             "hint": "تجاوزت نافذة SLA 72 ساعة"
           },
@@ -3867,7 +3857,7 @@
       },
       "alerts": {
         "regionLabel": "تنبيهات المنصة",
-        "overdueClaims": "{count, plural, one {طلب تحقق واحد متأخر} other {# طلبات تحقق متأخرة}}",
+        "overdueVerifications": "{count, plural, one {طلب تحقق واحد متأخر} other {# طلبات تحقق متأخرة}}",
         "maintenance": "وضع الصيانة مفعّل — قد يكون الوصول العام محدوداً",
         "maintenanceWithMessage": "وضع الصيانة مفعّل — {message}",
         "highErrorRate": "{count} أحداث خطأ في الساعة الأخيرة (الحد: {threshold})"
@@ -4542,7 +4532,7 @@
       "groups": {
         "auth": "الأمان والمصادقة",
         "account": "الحساب",
-        "claim": "تحقق الشركات",
+        "verification": "تحقق الشركات",
         "directory": "تصحيحات الدليل",
         "company": "الشركة",
         "job": "الفرص",
@@ -4567,7 +4557,7 @@
           "reinstated": "إعادة تفعيل الحساب",
           "suspended": "تعليق الحساب"
         },
-        "claim": {
+        "verification": {
           "approved": "موافقة على تحقق",
           "needs_more_info": "مطلوب معلومات إضافية",
           "rejected": "رفض تحقق"
@@ -4604,7 +4594,7 @@
           "request_received": "استلام طلب إرشاد"
         },
         "staff": {
-          "claim_assigned": "تعيين طلب تحقق للمراجعة"
+          "verification_assigned": "تعيين طلب تحقق للمراجعة"
         },
         "digest": {
           "daily_summary": "ملخص يومي"
@@ -5443,7 +5433,7 @@
           "reinstated": "إعادة تفعيل الحساب",
           "suspended": "تعليق الحساب"
         },
-        "claim": {
+        "verification": {
           "approved": "موافقة على تحقق",
           "needs_more_info": "مطلوب معلومات إضافية",
           "rejected": "رفض تحقق"
@@ -5480,7 +5470,7 @@
           "request_received": "استلام طلب إرشاد"
         },
         "staff": {
-          "claim_assigned": "تعيين طلب تحقق للمراجعة"
+          "verification_assigned": "تعيين طلب تحقق للمراجعة"
         },
         "digest": {
           "daily_summary": "ملخص يومي"
@@ -5824,7 +5814,7 @@
         "title": "أكمل إعداد جهتك",
         "description": "جهتك موجودة مسبقاً في دليل جِد. أضف الهوية البصرية ووصفاً تفصيلياً — لا نُنشئ جهة مكررة.",
         "prefilledLabel": "جهة من الدليل",
-        "entityState": "الحالة",
+        "verified": "موثّقة",
         "logoLabel": "رابط الشعار",
         "coverLabel": "رابط صورة الغلاف",
         "urlHint": "الصق رابط صورة عام (HTTPS).",

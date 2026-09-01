@@ -59,7 +59,6 @@ const CATALOG_DETAIL_SELECT = `
   name,
   name_ar,
   entity_type,
-  entity_state,
   is_active,
   is_verified,
   city,
@@ -302,7 +301,6 @@ export async function fetchCompanies(
 }
 
 function mapCompanyDetail(row: CatalogListRow & {
-  entity_state: string
   is_active: boolean
   is_verified: boolean
   city: string | null
@@ -333,7 +331,6 @@ function mapCompanyDetail(row: CatalogListRow & {
     name_en: row.name,
     name_ar: row.name_ar,
     entity_type: row.entity_type,
-    entity_state: row.entity_state,
     is_active: row.is_active,
     is_verified: row.is_verified,
     city: row.city,
@@ -376,7 +373,6 @@ export async function fetchCompanyBySlug(slug: string): Promise<Company | null> 
   if (!data) return null
 
   return mapCompanyDetail(data as unknown as CatalogListRow & {
-    entity_state: string
     is_active: boolean
     is_verified: boolean
     city: string | null

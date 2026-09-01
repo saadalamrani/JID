@@ -248,8 +248,8 @@ describe('13. Failed server decisions do not report success', () => {
   })
 })
 
-describe('17. External analytics contract is unchanged', () => {
-  it('tracks the legacy "staff.claim_reviewed" event name on a successful decision', async () => {
+describe('17. Analytics contract uses verification terminology', () => {
+  it('tracks staff.verification_reviewed on a successful decision', async () => {
     approveVerificationRequest.mockResolvedValue(undefined)
     const reviewVerification = await importAction()
 
@@ -260,9 +260,9 @@ describe('17. External analytics contract is unchanged', () => {
     })
 
     expect(trackServer).toHaveBeenCalledWith(
-      'staff.claim_reviewed',
+      'staff.verification_reviewed',
       fakeUser?.id,
-      expect.objectContaining({ claim_id: VERIFICATION_ID, decision: 'approved' }),
+      expect.objectContaining({ verification_id: VERIFICATION_ID, decision: 'approved' }),
     )
   })
 })

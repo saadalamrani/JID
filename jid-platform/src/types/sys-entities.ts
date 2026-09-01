@@ -2,13 +2,7 @@ export const SYS_ENTITIES_PAGE_SIZE = 25
 
 export type SysEntityTypeFilter = 'all' | 'company' | 'university'
 
-export type SysEntityStateFilter =
-  | 'all'
-  | 'unclaimed'
-  | 'pending'
-  | 'pending_review'
-  | 'approved'
-  | 'suspended'
+export type SysEntityStateFilter = 'all' | 'verified' | 'unverified' | 'inactive'
 
 export type SysEntitiesListFilters = {
   q?: string
@@ -22,9 +16,8 @@ export type SysEntityListRow = {
   name: string
   name_ar: string | null
   entity_type: string
-  entity_state: string
   is_verified: boolean
-  claimed_by: string | null
+  is_active: boolean
   created_at: string
   updated_at: string
 }
@@ -42,10 +35,8 @@ export type SysEntityDetail = {
   name: string
   name_ar: string | null
   entity_type: string
-  entity_state: string
   is_verified: boolean
-  claimed_by: string | null
-  claim_requested_at: string | null
+  is_active: boolean
   website_url: string | null
   tagline_en: string | null
   tagline_ar: string | null
@@ -55,7 +46,7 @@ export type SysEntityDetail = {
   city: string | null
   created_at: string
   updated_at: string
-  claimant_name: string | null
+  representative_name: string | null
 }
 
 export type SysEntityVerificationRow = {
@@ -63,7 +54,7 @@ export type SysEntityVerificationRow = {
   applicant_user_id: string
   status: string
   verification_type: string
-  claimant_name: string
+  representative_name: string
   business_email: string
   created_at: string
   reviewed_at: string | null

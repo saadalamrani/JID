@@ -25,8 +25,8 @@ export const CATEGORY_GROUPS = [
     categories: ['account.reinstated', 'account.suspended'],
   },
   {
-    id: 'claim',
-    categories: ['claim.approved', 'claim.needs_more_info', 'claim.rejected'],
+    id: 'verification',
+    categories: ['verification.approved', 'verification.needs_more_info', 'verification.rejected'],
   },
   {
     id: 'directory',
@@ -68,7 +68,7 @@ export const CATEGORY_GROUPS = [
   },
   {
     id: 'staff',
-    categories: ['staff.claim_assigned'],
+    categories: ['staff.verification_assigned'],
   },
   {
     id: 'digest',

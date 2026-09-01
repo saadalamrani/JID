@@ -46,7 +46,7 @@ async function writeEntityAuditLog(input: {
   }
 }
 
-/** Section 9 — staff metadata correction (never changes entity_state). */
+/** Section 9 — staff metadata correction (never changes Directory verification flags). */
 export async function updateEntityMetadata(
   input: unknown,
 ): Promise<StaffEntityActionResult> {
@@ -88,11 +88,9 @@ export async function updateEntityMetadata(
       description_en: before.description_en,
       description_ar: before.description_ar,
       logo_url: before.logo_url,
-      entity_state: before.entity_state,
     },
     after: {
       ...updates,
-      entity_state: before.entity_state,
     },
   })
   if (auditError) return auditError

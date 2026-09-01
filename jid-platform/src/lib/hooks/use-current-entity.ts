@@ -17,7 +17,7 @@ export type CurrentEntity = {
   name: string
   name_ar: string | null
   slug: string | null
-  entity_state: string
+  is_verified: boolean
   entity_type: EntitySignupType
 }
 
@@ -34,12 +34,33 @@ export async function fetchCurrentEntity(): Promise<CurrentEntity | null> {
 
   if (userError || !user) return null
 
+  const { data: business } = await asUntyped(supabase)
+    .from('business_profiles')
+    .select('directory_id, status')
+    .eq('owner_user_id', user.id)
+    .neq('status', 'suspended')
+    .maybeSingle()
+
+  const { data: university } = business?.directory_id
+    ? { data: null }
+    : await asUntyped(supabase)
+        .from('university_profiles')
+        .select('directory_id, status')
+        .eq('owner_user_id', user.id)
+        .neq('status', 'suspended')
+        .maybeSingle()
+
+  const directoryId =
+    (business as { directory_id?: string } | null)?.directory_id ??
+    (university as { directory_id?: string } | null)?.directory_id ??
+    null
+
+  if (!directoryId) return null
+
   const { data, error } = await asUntyped(supabase)
     .from('companies')
-    .select('id, name, name_ar, slug, entity_state, entity_type')
-    .eq('claimed_by', user.id)
-    .order('updated_at', { ascending: false })
-    .limit(1)
+    .select('id, name, name_ar, slug, is_verified, entity_type')
+    .eq('id', directoryId)
     .maybeSingle()
 
   if (error) throw new Error(error.message)

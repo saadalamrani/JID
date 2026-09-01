@@ -26,14 +26,6 @@ import {
   VerificationReconciliationPanel,
 } from './verification-reconciliation-panel'
 
-const KNOWN_DIRECTORY_STATES = [
-  'unclaimed',
-  'pending',
-  'pending_review',
-  'approved',
-  'suspended',
-] as const
-
 const BUSINESS_CHECKLIST_KEYS = [
   'domain_match',
   'entity_exists',
@@ -77,7 +69,7 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
       : buildDefaultVerificationChecklist(
           verification.business_email,
           directory?.domains ?? [],
-          verification.claimant_title,
+          verification.representative_title,
           relatedHistory,
         ),
   )
@@ -189,11 +181,11 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
               </div>
               <div>
                 <dt className="text-muted-foreground">{t('details.claimantName')}</dt>
-                <dd className="font-medium text-foreground">{verification.claimant_name}</dd>
+                <dd className="font-medium text-foreground">{verification.representative_name}</dd>
               </div>
               <div>
                 <dt className="text-muted-foreground">{t('details.claimantTitle')}</dt>
-                <dd className="font-medium text-foreground">{verification.claimant_title ?? '—'}</dd>
+                <dd className="font-medium text-foreground">{verification.representative_title ?? '—'}</dd>
               </div>
             </dl>
           </section>
@@ -244,9 +236,15 @@ export function VerificationReviewWorkspace({ data }: VerificationReviewWorkspac
                 <div>
                   <dt className="text-muted-foreground">{t('directory.state')}</dt>
                   <dd className="font-medium text-foreground">
-                    {(KNOWN_DIRECTORY_STATES as readonly string[]).includes(directory.entity_state)
-                      ? t(`directory.states.${directory.entity_state}`)
-                      : directory.entity_state}
+                    {t(
+                      `directory.states.${
+                        !directory.is_active
+                          ? 'inactive'
+                          : directory.is_verified
+                            ? 'verified'
+                            : 'unverified'
+                      }`,
+                    )}
                   </dd>
                 </div>
                 <div>

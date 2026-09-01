@@ -51,7 +51,7 @@ export async function fetchStaffEntitiesList(
       'id, name, name_ar, entity_type, ownership_type, created_at, updated_at, region_id, regions(name_en, name_ar)',
       { count: 'exact' },
     )
-    .eq('entity_state', 'approved')
+    .eq('is_verified', true)
     .in('entity_type', ['business', 'university'])
     .order('created_at', { ascending: false })
 
@@ -109,7 +109,7 @@ export async function fetchStaffEntityDetail(entityId: string): Promise<StaffEnt
     `,
     )
     .eq('id', entityId)
-    .eq('entity_state', 'approved')
+    .eq('is_verified', true)
     .in('entity_type', ['business', 'university'])
     .maybeSingle()
 
@@ -123,14 +123,27 @@ export async function fetchStaffEntityDetail(entityId: string): Promise<StaffEnt
     data.regions as RegionJoin | RegionJoin[] | null,
   )
 
-  let claimant_name: string | null = null
-  if (data.claimed_by) {
+  let representative_name: string | null = null
+  const { data: businessOwner } = await supabase
+    .from('business_profiles')
+    .select('owner_user_id')
+    .eq('directory_id', entityId)
+    .maybeSingle()
+  const { data: universityOwner } = businessOwner?.owner_user_id
+    ? { data: null }
+    : await supabase
+        .from('university_profiles')
+        .select('owner_user_id')
+        .eq('directory_id', entityId)
+        .maybeSingle()
+  const ownerId = businessOwner?.owner_user_id ?? universityOwner?.owner_user_id ?? null
+  if (ownerId) {
     const { data: profile } = await supabase
       .from('profiles')
       .select('full_name')
-      .eq('id', data.claimed_by)
+      .eq('id', ownerId)
       .maybeSingle()
-    claimant_name = profile?.full_name ?? null
+    representative_name = profile?.full_name ?? null
   }
 
   return {
@@ -138,7 +151,8 @@ export async function fetchStaffEntityDetail(entityId: string): Promise<StaffEnt
     name: data.name,
     name_ar: data.name_ar,
     entity_type: data.entity_type,
-    entity_state: data.entity_state,
+    is_verified: data.is_verified,
+    is_active: data.is_active,
     ownership_type: data.ownership_type,
     sector_id: data.sector_id,
     sector_name: sectors?.name_en ?? null,
@@ -151,9 +165,7 @@ export async function fetchStaffEntityDetail(entityId: string): Promise<StaffEnt
     response_rate_pct: data.response_rate_pct,
     avg_response_days: data.avg_response_days,
     total_jobs_posted_12mo: data.total_jobs_posted_12mo ?? 0,
-    is_verified: data.is_verified,
-    claimed_by: data.claimed_by,
-    claimant_name,
+    representative_name,
     city: data.city,
     domains: data.domains ?? [],
     created_at: data.created_at,

@@ -224,7 +224,7 @@ describeRls('Spec 07-C — publication disposable security matrix', () => {
   it('POSITIVE publish Business: status, published_at, audit, public read, no Directory/owner mutation', async () => {
     const { data: dirBefore } = await admin!
       .from('companies')
-      .select('id,name,is_verified,claimed_by')
+      .select('id,name,is_verified')
       .eq('id', bizDir.id)
       .single()
     const { data: before } = await admin!
@@ -266,7 +266,7 @@ describeRls('Spec 07-C — publication disposable security matrix', () => {
 
     const { data: dirAfter } = await admin!
       .from('companies')
-      .select('id,name,is_verified,claimed_by')
+      .select('id,name,is_verified')
       .eq('id', bizDir.id)
       .single()
     expect(dirAfter).toEqual(dirBefore)

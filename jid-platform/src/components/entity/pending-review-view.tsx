@@ -8,7 +8,7 @@ export type PendingClaimView = {
   id: string
   company_name: string
   business_email: string
-  claimant_name: string
+  representative_name: string
   status: string
   created_at: string
 }
@@ -72,7 +72,7 @@ export function PendingReviewView({ claim }: PendingReviewViewProps) {
         </p>
         <p>
           <span className="text-muted-foreground">{t('submittedBy')}:</span>{' '}
-          <span className="font-medium text-foreground">{claim.claimant_name}</span>
+          <span className="font-medium text-foreground">{claim.representative_name}</span>
         </p>
         <p dir="ltr" className="text-start">
           <span className="text-muted-foreground">{t('businessEmail')}:</span>{' '}

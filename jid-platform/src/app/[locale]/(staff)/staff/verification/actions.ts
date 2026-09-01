@@ -139,8 +139,8 @@ export async function reviewVerification(
     return { ok: false, error: error instanceof Error ? error.message : 'Review failed' }
   }
 
-  await trackServer('staff.claim_reviewed', actor.userId, {
-    claim_id: verificationId,
+  await trackServer('staff.verification_reviewed', actor.userId, {
+    verification_id: verificationId,
     decision,
   })
   revalidateVerificationPaths(verificationId)

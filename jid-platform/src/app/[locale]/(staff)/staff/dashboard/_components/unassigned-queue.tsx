@@ -38,7 +38,7 @@ export function UnassignedQueue({ claims }: UnassignedQueueProps) {
                   >
                     {claim.company_name}
                   </Link>
-                  <p className="truncate text-xs text-muted-foreground">{claim.claimant_name}</p>
+                  <p className="truncate text-xs text-muted-foreground">{claim.representative_name}</p>
                 </div>
                 <p className="shrink-0 text-xs text-muted-foreground">
                   {new Date(claim.created_at).toLocaleDateString()}

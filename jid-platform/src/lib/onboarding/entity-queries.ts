@@ -12,6 +12,7 @@ import {
   type EntitySetupStep,
 } from '@/lib/onboarding/entity-resume'
 import { isOnboardingFinished } from '@/lib/onboarding/welcome-router'
+import { fetchOwnedDirectoryForUser } from '@/lib/entity/owned-directory'
 
 type UntypedClient = SupabaseClient<Record<string, unknown>>
 
@@ -19,12 +20,12 @@ function asUntyped(supabase: SupabaseClient<Database>): UntypedClient {
   return supabase as unknown as UntypedClient
 }
 
-export type ClaimedEntityRecord = {
+export type OwnedEntityRecord = {
   id: string
   name: string
   name_ar: string | null
   entity_type: string
-  entity_state: string
+  is_verified: boolean
   logo_url: string | null
   cover_url: string | null
   description_ar: string | null
@@ -33,34 +34,38 @@ export type ClaimedEntityRecord = {
   tagline_en: string | null
 }
 
+/** @deprecated Use OwnedEntityRecord */
+export type ClaimedEntityRecord = OwnedEntityRecord
+
 const ENTITY_ADMIN_ROLES: UserRole[] = ['company_admin', 'university_admin']
 
 export type EntityOnboardingContext = {
   userId: string
   role: UserRole
   profile: EntityOnboardingProfile
-  company: ClaimedEntityRecord
+  company: OwnedEntityRecord
 }
 
-export async function fetchClaimedEntityForUser(userId: string): Promise<ClaimedEntityRecord | null> {
-  const supabase = await createClient()
-  const { data, error } = await asUntyped(supabase)
-    .from('companies')
-    .select(
-      'id, name, name_ar, entity_type, entity_state, logo_url, cover_url, description_ar, description_en, tagline_ar, tagline_en',
-    )
-    .eq('claimed_by', userId)
-    .eq('entity_state', 'approved')
-    .order('updated_at', { ascending: false })
-    .limit(1)
-    .maybeSingle()
-
-  if (error || !data) {
-    return null
+export async function fetchOwnedEntityForUser(userId: string): Promise<OwnedEntityRecord | null> {
+  const owned = await fetchOwnedDirectoryForUser(userId)
+  if (!owned) return null
+  return {
+    id: owned.id,
+    name: owned.name,
+    name_ar: owned.name_ar,
+    entity_type: owned.entity_type,
+    is_verified: owned.is_verified,
+    logo_url: owned.logo_url,
+    cover_url: owned.cover_url,
+    description_ar: owned.description_ar,
+    description_en: owned.description_en,
+    tagline_ar: owned.tagline_ar,
+    tagline_en: owned.tagline_en,
   }
-
-  return data as unknown as ClaimedEntityRecord
 }
+
+/** @deprecated Use fetchOwnedEntityForUser */
+export const fetchClaimedEntityForUser = fetchOwnedEntityForUser
 
 export async function guardEntityOnboardingStep(step: EntitySetupStep): Promise<EntityOnboardingContext> {
   const supabase = await createClient()
@@ -101,7 +106,7 @@ export async function guardEntityOnboardingStep(step: EntitySetupStep): Promise<
     redirect(resolveEntityResumePath(profile))
   }
 
-  const company = await fetchClaimedEntityForUser(user.id)
+  const company = await fetchOwnedEntityForUser(user.id)
   if (!company) {
     redirect('/dashboard')
   }

@@ -10,8 +10,8 @@ export type ClaimQueueItem = {
   company_id: string | null
   company_name: string
   business_email: string
-  claimant_name: string
-  claimant_title: string | null
+  representative_name: string
+  representative_title: string | null
   status: string
   claim_type: 'business' | 'university'
   created_at: string
@@ -34,7 +34,7 @@ export async function fetchClaimsQueue(supabase: Client): Promise<{
   const { data: claims, error } = await supabase
     .from('verification_requests')
     .select(
-      'id, applicant_user_id, directory_id, company_name, business_email, claimant_name, claimant_title, status, verification_type, created_at, reviewed_at',
+      'id, applicant_user_id, directory_id, company_name, business_email, representative_name, representative_title, status, verification_type, created_at, reviewed_at',
     )
     .order('created_at', { ascending: true })
 
@@ -46,8 +46,8 @@ export async function fetchClaimsQueue(supabase: Client): Promise<{
     company_id: row.directory_id,
     company_name: row.company_name,
     business_email: row.business_email,
-    claimant_name: row.claimant_name,
-    claimant_title: row.claimant_title,
+    representative_name: row.representative_name,
+    representative_title: row.representative_title,
     status: row.status,
     claim_type: row.verification_type as 'business' | 'university',
     created_at: row.created_at,
@@ -80,7 +80,7 @@ export async function fetchClaimById(
   const { data: claim, error } = await supabase
     .from('verification_requests')
     .select(
-      'id, applicant_user_id, directory_id, company_name, business_email, claimant_name, claimant_title, status, verification_type, created_at, reviewed_at',
+      'id, applicant_user_id, directory_id, company_name, business_email, representative_name, representative_title, status, verification_type, created_at, reviewed_at',
     )
     .eq('id', claimId)
     .maybeSingle()
@@ -98,8 +98,8 @@ export async function fetchClaimById(
     company_id: claim.directory_id,
     company_name: claim.company_name,
     business_email: claim.business_email,
-    claimant_name: claim.claimant_name,
-    claimant_title: claim.claimant_title,
+    representative_name: claim.representative_name,
+    representative_title: claim.representative_title,
     status: claim.status,
     claim_type: claim.verification_type as 'business' | 'university',
     created_at: claim.created_at,

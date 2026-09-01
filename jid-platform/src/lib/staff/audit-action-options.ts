@@ -2,8 +2,8 @@ import { getAuditCatalogEntry } from '@/lib/sys/audit-catalog'
 
 /** Actions staff may perform — used for personal audit filter dropdown. */
 const STAFF_AUDIT_ACTIONS = [
-  'claim.approved',
-  'claim.rejected',
+  'verification.approved',
+  'verification.rejected',
   'entity.metadata_updated',
   'content_flag.resolved',
   'content_flag.resolved_hidden',

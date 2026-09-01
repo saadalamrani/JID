@@ -7,12 +7,13 @@ type EntitiesTableProps = {
   rows: SysEntityListRow[]
 }
 
-// next-intl has no `default`/`defaultValue` translator option (unlike i18next) — the same
-// bug confirmed live on the equivalent Staff entities table ("staff.entities.table.types.
-// business" rendered as raw text because only a stale 'company' key existed for the
-// 'business' entity_type value). Explicit membership checks make the fallback real.
 const KNOWN_ENTITY_TYPES = ['company', 'business', 'university'] as const
-const KNOWN_ENTITY_STATES = ['unclaimed', 'pending', 'pending_review', 'approved', 'suspended'] as const
+const KNOWN_DIRECTORY_STATUSES = ['verified', 'unverified', 'inactive'] as const
+
+function directoryStatus(row: SysEntityListRow): 'verified' | 'unverified' | 'inactive' {
+  if (!row.is_active) return 'inactive'
+  return row.is_verified ? 'verified' : 'unverified'
+}
 
 function entityTypeLabel(entityType: string, t: (key: string) => string): string {
   return (KNOWN_ENTITY_TYPES as readonly string[]).includes(entityType)
@@ -20,10 +21,10 @@ function entityTypeLabel(entityType: string, t: (key: string) => string): string
     : entityType
 }
 
-function entityStateLabel(entityState: string, t: (key: string) => string): string {
-  return (KNOWN_ENTITY_STATES as readonly string[]).includes(entityState)
-    ? t(`states.${entityState}`)
-    : entityState
+function directoryStatusLabel(status: string, t: (key: string) => string): string {
+  return (KNOWN_DIRECTORY_STATUSES as readonly string[]).includes(status)
+    ? t(`states.${status}`)
+    : status
 }
 
 export function EntitiesTable({ rows }: EntitiesTableProps) {
@@ -50,35 +51,38 @@ export function EntitiesTable({ rows }: EntitiesTableProps) {
           </tr>
         </thead>
         <tbody className="divide-y divide-border">
-          {rows.map((row) => (
-            <tr key={row.id} className="hover:bg-background/30">
-              <td className="px-4 py-3">
-                <Link href={`/sys/entities/${row.id}`} className="font-medium text-primary hover:underline">
-                  {row.name}
-                </Link>
-                {row.name_ar ? <p className="text-xs text-muted-foreground">{row.name_ar}</p> : null}
-              </td>
-              <td className="px-4 py-3">{entityTypeLabel(row.entity_type, t)}</td>
-              <td className="px-4 py-3">
-                <span
-                  className={cn(
-                    'rounded-full px-2 py-0.5 text-xs font-medium',
-                    row.entity_state === 'approved'
-                      ? 'bg-primary/10 text-primary'
-                      : row.entity_state === 'suspended'
-                        ? 'bg-destructive/10 text-destructive'
-                        : 'bg-background text-muted-foreground',
-                  )}
-                >
-                  {entityStateLabel(row.entity_state, t)}
-                </span>
-              </td>
-              <td className="px-4 py-3">{row.is_verified ? t('yes') : t('no')}</td>
-              <td className="px-4 py-3 text-muted-foreground">
-                {new Date(row.updated_at).toLocaleDateString()}
-              </td>
-            </tr>
-          ))}
+          {rows.map((row) => {
+            const status = directoryStatus(row)
+            return (
+              <tr key={row.id} className="hover:bg-background/30">
+                <td className="px-4 py-3">
+                  <Link href={`/sys/entities/${row.id}`} className="font-medium text-primary hover:underline">
+                    {row.name}
+                  </Link>
+                  {row.name_ar ? <p className="text-xs text-muted-foreground">{row.name_ar}</p> : null}
+                </td>
+                <td className="px-4 py-3">{entityTypeLabel(row.entity_type, t)}</td>
+                <td className="px-4 py-3">
+                  <span
+                    className={cn(
+                      'rounded-full px-2 py-0.5 text-xs font-medium',
+                      status === 'verified'
+                        ? 'bg-primary/10 text-primary'
+                        : status === 'inactive'
+                          ? 'bg-destructive/10 text-destructive'
+                          : 'bg-background text-muted-foreground',
+                    )}
+                  >
+                    {directoryStatusLabel(status, t)}
+                  </span>
+                </td>
+                <td className="px-4 py-3">{row.is_verified ? t('yes') : t('no')}</td>
+                <td className="px-4 py-3 text-muted-foreground">
+                  {new Date(row.updated_at).toLocaleDateString()}
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>

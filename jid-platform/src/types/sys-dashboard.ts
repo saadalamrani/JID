@@ -3,7 +3,7 @@ import type { SysDashboardMetrics } from '@/lib/governance/schemas'
 export type PendingVerificationPreview = {
   id: string
   company_name: string
-  claimant_name: string
+  representative_name: string
   status: string
   created_at: string
   /** Proxy SLA deadline — verification_requests has no sla_due_at (reconciled Day 1). */

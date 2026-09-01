@@ -144,7 +144,6 @@ export type Company = {
   name_en: string
   name_ar: string | null
   entity_type: string
-  entity_state: string
   is_active: boolean
   is_verified: boolean
   city: string | null

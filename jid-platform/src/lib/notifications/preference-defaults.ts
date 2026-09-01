@@ -27,9 +27,9 @@ const DEFAULT_EMAIL_ON = new Set<string>([
   'auth.session_revoked',
   'account.suspended',
   'account.reinstated',
-  'claim.approved',
-  'claim.rejected',
-  'claim.needs_more_info',
+  'verification.approved',
+  'verification.rejected',
+  'verification.needs_more_info',
   'directory.correction_approved',
   'directory.correction_rejected',
   'mentor.application_approved',
@@ -54,7 +54,7 @@ const DEFAULT_DIGEST_ON = new Set<string>([
   'mentorship.meeting_proposed',
   'mentorship.feedback_requested',
   'company.link_broken',
-  'staff.claim_assigned',
+  'staff.verification_assigned',
 ])
 
 export function getDefaultEmailPref(category: NotificationCategory): boolean {

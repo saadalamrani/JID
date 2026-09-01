@@ -50,8 +50,8 @@ export async function fetchDashboardMetrics(): Promise<SysDashboardMetrics> {
         total_users: 0,
         suspended_users: 0,
         active_sessions_now: 0,
-        pending_claims: 0,
-        overdue_claims: 0,
+        pending_verifications: 0,
+        overdue_verifications: 0,
         audit_events_24h: 0,
         pending_mentor_applications: 0,
         pending_staff_invites: 0,
@@ -67,8 +67,8 @@ export async function fetchDashboardMetrics(): Promise<SysDashboardMetrics> {
         total_users: 0,
         suspended_users: 0,
         active_sessions_now: 0,
-        pending_claims: 0,
-        overdue_claims: 0,
+        pending_verifications: 0,
+        overdue_verifications: 0,
         audit_events_24h: 0,
         pending_mentor_applications: 0,
         pending_staff_invites: 0,
@@ -83,8 +83,8 @@ export async function fetchDashboardMetrics(): Promise<SysDashboardMetrics> {
     total_users: Number(data.total_users ?? 0),
     suspended_users: Number(data.suspended_users ?? 0),
     active_sessions_now: Number(data.active_sessions_now ?? 0),
-    pending_claims: Number(data.pending_claims ?? 0),
-    overdue_claims: Number(data.overdue_claims ?? 0),
+    pending_verifications: Number(data.pending_verifications ?? 0),
+    overdue_verifications: Number(data.overdue_verifications ?? 0),
     audit_events_24h: Number(data.audit_events_24h ?? 0),
     pending_mentor_applications: Number(data.pending_mentor_applications ?? 0),
     pending_staff_invites: Number(data.pending_staff_invites ?? 0),
@@ -97,7 +97,7 @@ export async function fetchPendingVerificationsPreview(): Promise<PendingVerific
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('verification_requests')
-    .select('id, company_name, claimant_name, status, created_at')
+    .select('id, company_name, representative_name, status, created_at')
     .in('status', [...PENDING_VERIFICATION_STATUSES])
     .order('created_at', { ascending: true })
     .limit(5)
@@ -110,7 +110,7 @@ export async function fetchPendingVerificationsPreview(): Promise<PendingVerific
   return (data ?? []).map((row) => ({
     id: row.id,
     company_name: row.company_name,
-    claimant_name: row.claimant_name,
+    representative_name: row.representative_name,
     status: row.status,
     created_at: row.created_at,
     sla_due_at: addHours(row.created_at, SLA_HOURS),

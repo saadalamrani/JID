@@ -35,7 +35,7 @@ export default async function SysDashboardPage() {
       </header>
 
       <AlertsBar
-        overdueClaims={metrics.overdue_claims}
+        overdueVerifications={metrics.overdue_verifications}
         maintenanceMode={health.maintenance_mode}
         maintenanceMessage={health.maintenance_message}
         errorEventsLastHour={health.error_events_last_hour}

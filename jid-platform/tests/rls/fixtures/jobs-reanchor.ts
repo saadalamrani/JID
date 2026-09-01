@@ -33,8 +33,6 @@ export async function createDirectoryWithOwner(
     is_verified: true,
     is_active: true,
     slug,
-    claimed_by: ownerUserId,
-    entity_state: 'approved',
   })
 
   if (error) {

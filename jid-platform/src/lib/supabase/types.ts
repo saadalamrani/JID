@@ -2240,15 +2240,12 @@ export type Database = {
           broken_since: string | null
           career_portal_url: string | null
           city: string | null
-          claim_requested_at: string | null
-          claimed_by: string | null
           cover_url: string | null
           created_at: string
           description_ar: string | null
           description_en: string | null
           domains: string[]
           employee_count_range: string | null
-          entity_state: string
           entity_type: Database["public"]["Enums"]["entity_type_enum"]
           founded_year: number | null
           id: string
@@ -2287,15 +2284,12 @@ export type Database = {
           broken_since?: string | null
           career_portal_url?: string | null
           city?: string | null
-          claim_requested_at?: string | null
-          claimed_by?: string | null
           cover_url?: string | null
           created_at?: string
           description_ar?: string | null
           description_en?: string | null
           domains?: string[]
           employee_count_range?: string | null
-          entity_state?: string
           entity_type?: Database["public"]["Enums"]["entity_type_enum"]
           founded_year?: number | null
           id?: string
@@ -2334,15 +2328,12 @@ export type Database = {
           broken_since?: string | null
           career_portal_url?: string | null
           city?: string | null
-          claim_requested_at?: string | null
-          claimed_by?: string | null
           cover_url?: string | null
           created_at?: string
           description_ar?: string | null
           description_en?: string | null
           domains?: string[]
           employee_count_range?: string | null
-          entity_state?: string
           entity_type?: Database["public"]["Enums"]["entity_type_enum"]
           founded_year?: number | null
           id?: string
@@ -2375,27 +2366,6 @@ export type Database = {
           website_url?: string | null
         }
         Relationships: [
-          {
-            foreignKeyName: "companies_claimed_by_fkey"
-            columns: ["claimed_by"]
-            isOneToOne: false
-            referencedRelation: "individual_profile_public_projection"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "companies_claimed_by_fkey"
-            columns: ["claimed_by"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "companies_claimed_by_fkey"
-            columns: ["claimed_by"]
-            isOneToOne: false
-            referencedRelation: "v_staff_personal_metrics"
-            referencedColumns: ["staff_user_id"]
-          },
           {
             foreignKeyName: "companies_region_id_fkey"
             columns: ["region_id"]
@@ -11973,8 +11943,8 @@ export type Database = {
           assigned_staff_id: string | null
           business_email: string
           can_reapply_after: string | null
-          claimant_name: string
-          claimant_title: string | null
+          representative_name: string
+          representative_title: string | null
           company_name: string
           created_at: string
           directory_id: string | null
@@ -11992,13 +11962,13 @@ export type Database = {
           reviewed_at: string | null
           reviewed_by: string | null
           sla_due_at: string | null
-          status: Database["public"]["Enums"]["claim_status_enum"]
+          status: Database["public"]["Enums"]["verification_status_enum"]
           submitted_domain: string | null
           submitted_name_ar: string | null
           submitted_name_en: string | null
           submitted_website: string | null
           updated_at: string
-          verification_type: Database["public"]["Enums"]["claim_type_enum"]
+          verification_type: Database["public"]["Enums"]["verification_type_enum"]
           verified_domains: string[]
         }
         Insert: {
@@ -12006,8 +11976,8 @@ export type Database = {
           assigned_staff_id?: string | null
           business_email: string
           can_reapply_after?: string | null
-          claimant_name: string
-          claimant_title?: string | null
+          representative_name: string
+          representative_title?: string | null
           company_name: string
           created_at?: string
           directory_id?: string | null
@@ -12025,13 +11995,13 @@ export type Database = {
           reviewed_at?: string | null
           reviewed_by?: string | null
           sla_due_at?: string | null
-          status?: Database["public"]["Enums"]["claim_status_enum"]
+          status?: Database["public"]["Enums"]["verification_status_enum"]
           submitted_domain?: string | null
           submitted_name_ar?: string | null
           submitted_name_en?: string | null
           submitted_website?: string | null
           updated_at?: string
-          verification_type?: Database["public"]["Enums"]["claim_type_enum"]
+          verification_type?: Database["public"]["Enums"]["verification_type_enum"]
           verified_domains?: string[]
         }
         Update: {
@@ -12039,8 +12009,8 @@ export type Database = {
           assigned_staff_id?: string | null
           business_email?: string
           can_reapply_after?: string | null
-          claimant_name?: string
-          claimant_title?: string | null
+          representative_name?: string
+          representative_title?: string | null
           company_name?: string
           created_at?: string
           directory_id?: string | null
@@ -12058,60 +12028,60 @@ export type Database = {
           reviewed_at?: string | null
           reviewed_by?: string | null
           sla_due_at?: string | null
-          status?: Database["public"]["Enums"]["claim_status_enum"]
+          status?: Database["public"]["Enums"]["verification_status_enum"]
           submitted_domain?: string | null
           submitted_name_ar?: string | null
           submitted_name_en?: string | null
           submitted_website?: string | null
           updated_at?: string
-          verification_type?: Database["public"]["Enums"]["claim_type_enum"]
+          verification_type?: Database["public"]["Enums"]["verification_type_enum"]
           verified_domains?: string[]
         }
         Relationships: [
           {
-            foreignKeyName: "claim_requests_company_id_fkey"
+            foreignKeyName: "verification_requests_directory_id_fkey"
             columns: ["directory_id"]
             isOneToOne: false
             referencedRelation: "companies"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "claim_requests_reviewed_by_fkey"
+            foreignKeyName: "verification_requests_reviewed_by_fkey"
             columns: ["reviewed_by"]
             isOneToOne: false
             referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "claim_requests_reviewed_by_fkey"
+            foreignKeyName: "verification_requests_reviewed_by_fkey"
             columns: ["reviewed_by"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "claim_requests_reviewed_by_fkey"
+            foreignKeyName: "verification_requests_reviewed_by_fkey"
             columns: ["reviewed_by"]
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
             referencedColumns: ["staff_user_id"]
           },
           {
-            foreignKeyName: "claim_requests_user_id_fkey"
+            foreignKeyName: "verification_requests_applicant_user_id_fkey"
             columns: ["applicant_user_id"]
             isOneToOne: false
             referencedRelation: "individual_profile_public_projection"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "claim_requests_user_id_fkey"
+            foreignKeyName: "verification_requests_applicant_user_id_fkey"
             columns: ["applicant_user_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "claim_requests_user_id_fkey"
+            foreignKeyName: "verification_requests_applicant_user_id_fkey"
             columns: ["applicant_user_id"]
             isOneToOne: false
             referencedRelation: "v_staff_personal_metrics"
@@ -12297,8 +12267,8 @@ export type Database = {
           active_sessions_now: number | null
           audit_events_24h: number | null
           id: number | null
-          overdue_claims: number | null
-          pending_claims: number | null
+          overdue_verifications: number | null
+          pending_verifications: number | null
           pending_mentor_applications: number | null
           pending_staff_invites: number | null
           refreshed_at: string | null
@@ -12508,11 +12478,11 @@ export type Database = {
         Row: {
           actions_today: number | null
           avg_review_hours_7d: number | null
-          claims_approved_today: number | null
-          claims_assigned_open: number | null
-          claims_rejected_today: number | null
-          claims_reviewed: number | null
-          claims_reviewed_today: number | null
+          verifications_approved_today: number | null
+          verifications_assigned_open: number | null
+          verifications_rejected_today: number | null
+          verifications_reviewed: number | null
+          verifications_reviewed_today: number | null
           flags_resolved: number | null
           flags_resolved_today: number | null
           staff_user_id: string | null
@@ -12702,7 +12672,10 @@ export type Database = {
         }
         Returns: string
       }
-      assign_claim_to_self: { Args: { p_claim_id: string }; Returns: undefined }
+      notify_verification_decision: {
+        Args: { p_decision: string; p_reason?: string; p_verification_id: string }
+        Returns: string
+      }
       assign_work_sample: {
         Args: { p_application_id: string; p_due_at?: string; p_task_id: string }
         Returns: string
@@ -13176,8 +13149,8 @@ export type Database = {
           assigned_staff_id: string | null
           business_email: string
           can_reapply_after: string | null
-          claimant_name: string
-          claimant_title: string | null
+          representative_name: string
+          representative_title: string | null
           company_name: string
           created_at: string
           directory_id: string
@@ -13194,9 +13167,9 @@ export type Database = {
           reviewed_at: string | null
           reviewed_by: string | null
           sla_due_at: string | null
-          status: Database["public"]["Enums"]["claim_status_enum"]
+          status: Database["public"]["Enums"]["verification_status_enum"]
           updated_at: string
-          verification_type: Database["public"]["Enums"]["claim_type_enum"]
+          verification_type: Database["public"]["Enums"]["verification_type_enum"]
           verified_domains: string[]
         }[]
         SetofOptions: {
@@ -13241,11 +13214,11 @@ export type Database = {
         Returns: {
           actions_today: number | null
           avg_review_hours_7d: number | null
-          claims_approved_today: number | null
-          claims_assigned_open: number | null
-          claims_rejected_today: number | null
-          claims_reviewed: number | null
-          claims_reviewed_today: number | null
+          verifications_approved_today: number | null
+          verifications_assigned_open: number | null
+          verifications_rejected_today: number | null
+          verifications_reviewed: number | null
+          verifications_reviewed_today: number | null
           flags_resolved: number | null
           flags_resolved_today: number | null
           staff_user_id: string | null
@@ -13452,10 +13425,6 @@ export type Database = {
       }
       normalize_opportunity_title: { Args: { p_text: string }; Returns: string }
       normalize_opportunity_url: { Args: { p_url: string }; Returns: string }
-      notify_claim_decision: {
-        Args: { p_claim_id: string; p_decision: string; p_reason?: string }
-        Returns: string
-      }
       notify_radar_status_change: {
         Args: { p_card_id: string; p_new_status: string; p_old_status: string }
         Returns: string
@@ -13669,24 +13638,6 @@ export type Database = {
       retry_assessment_assignment: {
         Args: { p_assignment_id: string }
         Returns: string
-      }
-      review_claim: {
-        Args: {
-          p_claim_id: string
-          p_decision: string
-          p_reason: string
-          p_required_documents?: string[]
-        }
-        Returns: undefined
-      }
-      review_claim_request: {
-        Args: {
-          p_claim_id: string
-          p_decision: string
-          p_rejection_reason?: string
-          p_review_notes: string
-        }
-        Returns: undefined
       }
       review_directory_candidate: {
         Args: {
@@ -14046,9 +13997,7 @@ export type Database = {
         Args: { p_otp: string; p_phone: string; p_user_id: string }
         Returns: boolean
       }
-      viewer_approved_company_id: { Args: never; Returns: string }
       viewer_approved_university_id: { Args: never; Returns: string }
-      viewer_has_approved_company_claim: { Args: never; Returns: boolean }
       wave9_connected: { Args: { a: string; b: string }; Returns: boolean }
       wave9_individual: { Args: { p_id: string }; Returns: boolean }
       withdraw_hiring_application: {
@@ -14174,7 +14123,7 @@ export type Database = {
         | "CONFLICT_NEEDS_REVIEW"
         | "INVALID_PRESERVED"
         | "DEFERRED"
-      claim_status_enum:
+      verification_status_enum:
         | "pending"
         | "submitted"
         | "pending_review"
@@ -14183,7 +14132,7 @@ export type Database = {
         | "approved"
         | "rejected"
         | "cancelled"
-      claim_type_enum: "business" | "university"
+      verification_type_enum: "business" | "university"
       comm_batch_status_enum:
         | "pending_confirmation"
         | "scheduled"
@@ -14198,7 +14147,7 @@ export type Database = {
         | "acceptance"
         | "rejection"
         | "holding_update"
-      contact_message_source_enum: "onboarding" | "contact_page" | "claim_help"
+      contact_message_source_enum: "onboarding" | "contact_page" | "verification_help"
       content_flag_target_type_enum:
         | "profile"
         | "job"
@@ -14317,9 +14266,9 @@ export type Database = {
         | "auth.session_revoked"
         | "account.reinstated"
         | "account.suspended"
-        | "claim.approved"
-        | "claim.needs_more_info"
-        | "claim.rejected"
+        | "verification.approved"
+        | "verification.needs_more_info"
+        | "verification.rejected"
         | "company.link_broken"
         | "job.application_expired"
         | "job.application_received"
@@ -14337,7 +14286,7 @@ export type Database = {
         | "mentorship.request_accepted"
         | "mentorship.request_declined"
         | "mentorship.request_received"
-        | "staff.claim_assigned"
+        | "staff.verification_assigned"
         | "digest.daily_summary"
         | "_retired_unused_category_a"
         | "ssis.invitation"
@@ -14701,7 +14650,7 @@ export const Constants = {
         "INVALID_PRESERVED",
         "DEFERRED",
       ],
-      claim_status_enum: [
+      verification_status_enum: [
         "pending",
         "submitted",
         "pending_review",
@@ -14711,7 +14660,7 @@ export const Constants = {
         "rejected",
         "cancelled",
       ],
-      claim_type_enum: ["business", "university"],
+      verification_type_enum: ["business", "university"],
       comm_batch_status_enum: [
         "pending_confirmation",
         "scheduled",
@@ -14728,7 +14677,7 @@ export const Constants = {
         "rejection",
         "holding_update",
       ],
-      contact_message_source_enum: ["onboarding", "contact_page", "claim_help"],
+      contact_message_source_enum: ["onboarding", "contact_page", "verification_help"],
       content_flag_target_type_enum: [
         "profile",
         "job",
@@ -14862,9 +14811,9 @@ export const Constants = {
         "auth.session_revoked",
         "account.reinstated",
         "account.suspended",
-        "claim.approved",
-        "claim.needs_more_info",
-        "claim.rejected",
+        "verification.approved",
+        "verification.needs_more_info",
+        "verification.rejected",
         "company.link_broken",
         "job.application_expired",
         "job.application_received",
@@ -14882,7 +14831,7 @@ export const Constants = {
         "mentorship.request_accepted",
         "mentorship.request_declined",
         "mentorship.request_received",
-        "staff.claim_assigned",
+        "staff.verification_assigned",
         "digest.daily_summary",
         "_retired_unused_category_a",
         "ssis.invitation",

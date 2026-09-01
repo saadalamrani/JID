@@ -1955,11 +1955,11 @@
             "label": "Actions today",
             "hint": "Audit events you performed today"
           },
-          "claims_approved_today": {
+          "verifications_approved_today": {
             "label": "Verifications approved today",
             "hint": "Verification requests you approved today"
           },
-          "claims_rejected_today": {
+          "verifications_rejected_today": {
             "label": "Verifications rejected today",
             "hint": "Verification requests you rejected today"
           },
@@ -2066,11 +2066,9 @@
           "linkedin": "LinkedIn",
           "missing": "No linked directory record",
           "states": {
-            "unclaimed": "No owned profile",
-            "pending": "Pending",
-            "pending_review": "Pending review",
-            "approved": "Approved",
-            "suspended": "Suspended"
+            "verified": "Verified",
+            "unverified": "Unverified",
+            "inactive": "Inactive"
           }
         },
         "reconciliation": {
@@ -2711,11 +2709,9 @@
           }
         },
         "states": {
-          "unclaimed": "No owned profile",
-          "pending": "Pending",
-          "pending_review": "Pending review",
-          "approved": "Approved",
-          "suspended": "Suspended"
+          "verified": "Verified",
+          "unverified": "Unverified",
+          "inactive": "Inactive"
         }
       },
       "metadataForm": {
@@ -3675,11 +3671,9 @@
         "applying": "Applying…",
         "states": {
           "all": "All states",
-          "unclaimed": "No owned profile",
-          "pending": "Pending",
-          "pending_review": "Pending review",
-          "approved": "Approved",
-          "suspended": "Suspended"
+          "verified": "Verified",
+          "unverified": "Unverified",
+          "inactive": "Inactive"
         }
       },
       "table": {
@@ -3699,11 +3693,9 @@
           "business": "Business"
         },
         "states": {
-          "unclaimed": "No owned profile",
-          "pending": "Pending",
-          "pending_review": "Pending review",
-          "approved": "Approved",
-          "suspended": "Suspended"
+          "verified": "Verified",
+          "unverified": "Unverified",
+          "inactive": "Inactive"
         }
       },
       "pagination": {
@@ -3768,11 +3760,9 @@
           }
         },
         "states": {
-          "unclaimed": "No owned profile",
-          "pending": "Pending",
-          "pending_review": "Pending review",
-          "approved": "Approved",
-          "suspended": "Suspended"
+          "verified": "Verified",
+          "unverified": "Unverified",
+          "inactive": "Inactive"
         }
       }
     },
@@ -3847,11 +3837,11 @@
             "label": "Active sessions",
             "hint": "Non-revoked sessions right now"
           },
-          "pending_claims": {
+          "pending_verifications": {
             "label": "pending verification requests",
             "hint": "Awaiting staff review"
           },
-          "overdue_claims": {
+          "overdue_verifications": {
             "label": "Overdue verification requests",
             "hint": "Past 72h SLA window"
           },
@@ -3867,7 +3857,7 @@
       },
       "alerts": {
         "regionLabel": "Platform alerts",
-        "overdueClaims": "{count, plural, one {# verification request is overdue} other {# verification requests are overdue}}",
+        "overdueVerifications": "{count, plural, one {# verification request is overdue} other {# verification requests are overdue}}",
         "maintenance": "Maintenance mode is active — public traffic may be limited",
         "maintenanceWithMessage": "Maintenance mode active — {message}",
         "highErrorRate": "{count} error events in the last hour (threshold: {threshold})"
@@ -4542,7 +4532,7 @@
       "groups": {
         "auth": "Security & authentication",
         "account": "Account",
-        "claim": "Company verification",
+        "verification": "Company verification",
         "directory": "Directory corrections",
         "company": "Company",
         "job": "Opportunities",
@@ -4567,7 +4557,7 @@
           "reinstated": "Account reinstated",
           "suspended": "Account suspended"
         },
-        "claim": {
+        "verification": {
           "approved": "Verification approved",
           "needs_more_info": "More info needed",
           "rejected": "Verification rejected"
@@ -4604,7 +4594,7 @@
           "request_received": "Mentorship request received"
         },
         "staff": {
-          "claim_assigned": "Verification assigned"
+          "verification_assigned": "Verification assigned"
         },
         "digest": {
           "daily_summary": "Daily summary"
@@ -5443,7 +5433,7 @@
           "reinstated": "Account reinstated",
           "suspended": "Account suspended"
         },
-        "claim": {
+        "verification": {
           "approved": "Verification approved",
           "needs_more_info": "More info needed",
           "rejected": "Verification rejected"
@@ -5480,7 +5470,7 @@
           "request_received": "Mentorship request received"
         },
         "staff": {
-          "claim_assigned": "Verification assigned"
+          "verification_assigned": "Verification assigned"
         },
         "digest": {
           "daily_summary": "Daily summary"
@@ -5824,7 +5814,7 @@
         "title": "Finish setting up your entity",
         "description": "Your organization is already in the JID Directory. Add visual identity and a fuller description — we do not create a duplicate record.",
         "prefilledLabel": "Directory organization",
-        "entityState": "Status",
+        "verified": "Verified",
         "logoLabel": "Logo URL",
         "coverLabel": "Cover image URL",
         "urlHint": "Paste a public image URL (HTTPS).",

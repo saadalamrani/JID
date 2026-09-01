@@ -14,8 +14,8 @@ export type VerificationDetail = {
   directory_id: string | null
   company_name: string
   business_email: string
-  claimant_name: string
-  claimant_title: string | null
+  representative_name: string
+  representative_title: string | null
   status: string
   verification_type: 'business' | 'university'
   created_at: string
@@ -37,7 +37,7 @@ export type DirectoryDetail = {
   name: string
   name_ar: string | null
   entity_type: string
-  entity_state: string
+  is_active: boolean
   domains: string[]
   is_verified: boolean
   linkedin_url: string | null
@@ -96,7 +96,7 @@ export async function fetchVerificationReviewWorkspace(
   const { data: verificationRow, error: verificationError } = await supabase
     .from('verification_requests')
     .select(
-      'id, applicant_user_id, directory_id, company_name, business_email, claimant_name, claimant_title, status, verification_type, created_at, reviewed_at, review_notes, rejection_reason, required_documents, assigned_staff_id, sla_due_at, submitted_name_ar, submitted_name_en, submitted_website, submitted_domain, reconciliation_state',
+      'id, applicant_user_id, directory_id, company_name, business_email, representative_name, representative_title, status, verification_type, created_at, reviewed_at, review_notes, rejection_reason, required_documents, assigned_staff_id, sla_due_at, submitted_name_ar, submitted_name_en, submitted_website, submitted_domain, reconciliation_state',
     )
     .eq('id', verificationId)
     .maybeSingle()
@@ -117,7 +117,7 @@ export async function fetchVerificationReviewWorkspace(
       ? supabase
           .from('companies')
           .select(
-            'id, name, name_ar, entity_type, entity_state, domains, is_verified, linkedin_url, website_url',
+            'id, name, name_ar, entity_type, is_active, domains, is_verified, linkedin_url, website_url',
           )
           .eq('id', verification.directory_id)
           .maybeSingle()

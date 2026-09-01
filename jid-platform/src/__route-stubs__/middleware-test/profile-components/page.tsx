@@ -82,7 +82,6 @@ export default function ProfileComponentsPreviewPage() {
           isVerified
           foundedYear={1976}
           employeeCountRange="10,000+"
-          entityState="claimed"
           editHref="/company/edit"
         />
       </section>

@@ -99,12 +99,12 @@ describe('decideJobTriageAccess — owned Profile contract', () => {
     ).toBe('allow')
   })
 
-  it('allows transitional claimed_by only when the job has no Profile anchor', () => {
+  it('denies unanchored jobs that have no business Profile', () => {
     expect(
       decideJobTriageAccess({
         viewer: viewer({ businessProfileId: null, companyId: COMPANY_A }),
         job: job({ business_profile_id: null, company_id: COMPANY_A }),
       }),
-    ).toBe('allow')
+    ).toBe('forbidden')
   })
 })

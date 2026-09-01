@@ -2,7 +2,7 @@ import { corsHeaders, jsonResponse } from '../_shared/cors.ts'
 import { sendResendEmail } from '../_shared/resend.ts'
 import { createServiceClient, getUserFromRequest } from '../_shared/supabase.ts'
 
-type Body = { claimId?: string }
+type Body = { verificationId?: string; claimId?: string }
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
@@ -18,21 +18,22 @@ Deno.serve(async (req) => {
       return jsonResponse({ error: 'Forbidden' }, 403)
     }
 
-    const claimId = ((await req.json()) as Body).claimId?.trim()
-    if (!claimId) return jsonResponse({ error: 'Invalid payload' }, 400)
+    const body = (await req.json()) as Body
+    const verificationId = (body.verificationId ?? body.claimId)?.trim()
+    if (!verificationId) return jsonResponse({ error: 'Invalid payload' }, 400)
 
-    const { data: claim } = await supabase
-      .from('claim_requests')
-      .select('business_email, company_name, claimant_name')
-      .eq('id', claimId)
+    const { data: request } = await supabase
+      .from('verification_requests')
+      .select('business_email, company_name, representative_name')
+      .eq('id', verificationId)
       .maybeSingle()
 
-    if (!claim) return jsonResponse({ error: 'Claim not found' }, 404)
+    if (!request) return jsonResponse({ error: 'Verification request not found' }, 404)
 
     await sendResendEmail({
-      to: claim.business_email,
-      subject: `تمت الموافقة على مطالبة ${claim.company_name} — جِد`,
-      html: `<div dir="rtl"><p>مرحباً ${claim.claimant_name}،</p><p>تمت الموافقة على مطالبة ملكية <strong>${claim.company_name}</strong>. يمكنك الآن الدخول إلى بوابة الشركة.</p></div>`,
+      to: request.business_email,
+      subject: `تمت الموافقة على التحقق لـ ${request.company_name} — جِد`,
+      html: `<div dir="rtl"><p>مرحباً ${request.representative_name}،</p><p>تمت الموافقة على طلب التحقق لجهة <strong>${request.company_name}</strong>. يمكنك الآن الدخول إلى مساحة العمل.</p></div>`,
     })
 
     return jsonResponse({ sent: true })

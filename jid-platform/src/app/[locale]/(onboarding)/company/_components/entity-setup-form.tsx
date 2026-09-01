@@ -10,11 +10,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { track } from '@/lib/analytics/track'
 import { saveEntityProfile } from '@/lib/onboarding/entity-actions'
-import type { ClaimedEntityRecord } from '@/lib/onboarding/entity-queries'
+import type { OwnedEntityRecord } from '@/lib/onboarding/entity-queries'
 import { entitySetupSchema, type EntitySetupValues } from '@/lib/validations/entity-onboarding'
 
 type EntitySetupFormProps = {
-  company: ClaimedEntityRecord
+  company: OwnedEntityRecord
 }
 
 /** Task 1-ALT — finish setting up an existing approved catalog entity. */
@@ -54,7 +54,7 @@ export function EntitySetupForm({ company }: EntitySetupFormProps) {
           </p>
         ) : null}
         <p className="mt-2 text-xs text-muted-foreground">
-          {t('entityState')}: <span className="font-mono">{company.entity_state}</span>
+          {t('verified')}: <span className="font-mono">{company.is_verified ? 'yes' : 'no'}</span>
         </p>
       </section>
 

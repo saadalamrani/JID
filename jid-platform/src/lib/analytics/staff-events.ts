@@ -3,7 +3,7 @@ export const STAFF_ANALYTICS_EVENTS = [
   'staff.login_succeeded',
   'staff.mfa_verified',
   'staff.dashboard_viewed',
-  'staff.claim_reviewed',
+  'staff.verification_reviewed',
   'staff.mentor_application_reviewed',
   'staff.user_suspended',
   'staff.user_reinstated',

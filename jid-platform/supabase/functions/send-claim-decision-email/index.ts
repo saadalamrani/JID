@@ -2,6 +2,7 @@ import { corsHeaders, jsonResponse } from '../_shared/cors.ts'
 import { createServiceClient, getUserFromRequest } from '../_shared/supabase.ts'
 
 type DecisionBody = {
+  verificationId?: string
   claimId?: string
   decision?: 'approve' | 'reject'
 }
@@ -22,10 +23,10 @@ Deno.serve(async (req) => {
     }
 
     const body = (await req.json()) as DecisionBody
-    const claimId = body.claimId?.trim()
+    const verificationId = (body.verificationId ?? body.claimId)?.trim()
     const decision = body.decision
 
-    if (!claimId || (decision !== 'approve' && decision !== 'reject')) {
+    if (!verificationId || (decision !== 'approve' && decision !== 'reject')) {
       return jsonResponse({ error: 'Invalid payload' }, 400)
     }
 
@@ -41,30 +42,29 @@ Deno.serve(async (req) => {
       return jsonResponse({ error: 'Forbidden' }, 403)
     }
 
-    const { data: claim, error: claimError } = await supabase
-      .from('claim_requests')
-      .select('business_email, company_name, claimant_name, status, review_notes, rejection_reason')
-      .eq('id', claimId)
+    const { data: request, error: requestError } = await supabase
+      .from('verification_requests')
+      .select('business_email, company_name, representative_name, status, review_notes, rejection_reason')
+      .eq('id', verificationId)
       .maybeSingle()
 
-    if (claimError || !claim) {
-      return jsonResponse({ error: 'Claim not found' }, 404)
+    if (requestError || !request) {
+      return jsonResponse({ error: 'Verification request not found' }, 404)
     }
 
     const subject =
       decision === 'approve'
-        ? `تمت الموافقة على مطالبة ${claim.company_name} — جِد`
-        : `تم رفض مطالبة ${claim.company_name} — جِد`
+        ? `تمت الموافقة على التحقق لـ ${request.company_name} — جِد`
+        : `تم رفض التحقق لـ ${request.company_name} — جِد`
 
-    // Dev/local: log only — wire SMTP provider in production
-    console.log('Claim decision email sent', {
-      to: claim.business_email,
+    console.log('Verification decision email sent', {
+      to: request.business_email,
       subject,
       decision,
-      claimant: claim.claimant_name,
+      representative: request.representative_name,
     })
 
-    return jsonResponse({ sent: true, to: claim.business_email })
+    return jsonResponse({ sent: true, to: request.business_email })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Internal error'
     return jsonResponse({ error: message }, 500)

@@ -168,7 +168,7 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
     const before = await admin!
       .from('companies')
       .select(
-        'city, website_url, career_portal_url, linkedin_url, twitter_url, sector_id, region_id, is_verified, is_active, claimed_by, name, name_ar',
+        'city, website_url, career_portal_url, linkedin_url, twitter_url, sector_id, region_id, is_verified, is_active, name, name_ar',
       )
       .eq('id', directory.id)
       .single()
@@ -182,7 +182,7 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
     const after = await admin!
       .from('companies')
       .select(
-        'city, website_url, career_portal_url, linkedin_url, twitter_url, sector_id, region_id, is_verified, is_active, claimed_by, name, name_ar',
+        'city, website_url, career_portal_url, linkedin_url, twitter_url, sector_id, region_id, is_verified, is_active, name, name_ar',
       )
       .eq('id', directory.id)
       .single()
@@ -195,7 +195,6 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
     expect(after.data?.region_id).toBe(before.data?.region_id)
     expect(after.data?.is_verified).toBe(before.data?.is_verified)
     expect(after.data?.is_active).toBe(before.data?.is_active)
-    expect(after.data?.claimed_by).toBe(before.data?.claimed_by)
     expect(after.data?.name).toBe(before.data?.name)
     expect(after.data?.name_ar).toBe(before.data?.name_ar)
 
@@ -227,7 +226,7 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
   it('POSITIVE B — rejection changes no Directory field and records decision + audit + notification', async () => {
     const before = await admin!
       .from('companies')
-      .select('city, website_url, is_verified, claimed_by')
+      .select('city, website_url, is_verified')
       .eq('id', directory.id)
       .single()
     const client = await createAuthenticatedClient(env!, staff.email, staff.password)
@@ -239,7 +238,7 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
 
     const after = await admin!
       .from('companies')
-      .select('city, website_url, is_verified, claimed_by')
+      .select('city, website_url, is_verified')
       .eq('id', directory.id)
       .single()
     expect(after.data).toEqual(before.data)
@@ -289,7 +288,7 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
     const client = await createAuthenticatedClient(env!, staff.email, staff.password)
     const before = await admin!
       .from('companies')
-      .select('city, claimed_by')
+      .select('city')
       .eq('id', directory.id)
       .single()
     const { error } = await client.rpc('approve_correction_suggestion', {
@@ -299,7 +298,7 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
     expect(error?.message ?? '').toMatch(/field_not_allowed/)
     const after = await admin!
       .from('companies')
-      .select('city, claimed_by')
+      .select('city')
       .eq('id', directory.id)
       .single()
     expect(after.data).toEqual(before.data)
@@ -309,7 +308,7 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
     const client = await createAuthenticatedClient(env!, staff.email, staff.password)
     const before = await admin!
       .from('companies')
-      .select('is_verified, is_active, claimed_by')
+      .select('is_verified, is_active')
       .eq('id', directory.id)
       .single()
     const { error } = await client.rpc('approve_correction_suggestion', {
@@ -319,7 +318,7 @@ describeRls('Directory correction apply path (Spec 06-C disposable matrix)', () 
     expect(error?.message ?? '').toMatch(/field_not_allowed/)
     const after = await admin!
       .from('companies')
-      .select('is_verified, is_active, claimed_by')
+      .select('is_verified, is_active')
       .eq('id', directory.id)
       .single()
     expect(after.data).toEqual(before.data)

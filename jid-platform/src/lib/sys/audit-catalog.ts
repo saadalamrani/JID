@@ -48,8 +48,8 @@ export const AUDIT_ACTION_CATALOG: AuditCatalogEntry[] = [
   { action: 'feature_flag.set_user_override', label: 'Flag user override set', icon: Flag },
   { action: 'feature_flag.remove_user_override', label: 'Flag user override removed', icon: Flag },
   { action: 'platform_config.updated', label: 'Platform config updated', icon: KeyRound },
-  { action: 'claim.approved', label: 'Claim approved (staff)', icon: ClipboardCheck },
-  { action: 'claim.rejected', label: 'Claim rejected (staff)', icon: ClipboardCheck },
+  { action: 'verification.approved', label: 'Verification approved (staff)', icon: ClipboardCheck },
+  { action: 'verification.rejected', label: 'Verification rejected (staff)', icon: ClipboardCheck },
   {
     action: 'entity.force_approved',
     label: 'Entity force-approved (Super Admin)',

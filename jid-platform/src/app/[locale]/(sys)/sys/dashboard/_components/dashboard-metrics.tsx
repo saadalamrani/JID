@@ -22,8 +22,8 @@ type MetricDefinition = {
     SysDashboardMetrics,
     | 'total_users'
     | 'active_sessions_now'
-    | 'pending_claims'
-    | 'overdue_claims'
+    | 'pending_verifications'
+    | 'overdue_verifications'
     | 'audit_events_24h'
     | 'pending_mentor_applications'
   >
@@ -35,8 +35,8 @@ type MetricDefinition = {
 const METRIC_DEFINITIONS: MetricDefinition[] = [
   { key: 'total_users', icon: Users },
   { key: 'active_sessions_now', icon: Activity },
-  { key: 'pending_claims', icon: ClipboardList },
-  { key: 'overdue_claims', icon: AlertTriangle, accent: 'danger' },
+  { key: 'pending_verifications', icon: ClipboardList },
+  { key: 'overdue_verifications', icon: AlertTriangle, accent: 'danger' },
   { key: 'audit_events_24h', icon: Clock },
   { key: 'pending_mentor_applications', icon: GraduationCap, accent: 'warning' },
 ]

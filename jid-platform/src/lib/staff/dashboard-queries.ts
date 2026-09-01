@@ -9,11 +9,11 @@ const EMPTY_METRICS: StaffPersonalMetrics = {
   staff_user_id: '',
   total_actions: 0,
   actions_today: 0,
-  claims_reviewed: 0,
-  claims_reviewed_today: 0,
-  claims_assigned_open: 0,
-  claims_approved_today: 0,
-  claims_rejected_today: 0,
+  verifications_reviewed: 0,
+  verifications_reviewed_today: 0,
+  verifications_assigned_open: 0,
+  verifications_approved_today: 0,
+  verifications_rejected_today: 0,
   avg_review_hours_7d: 0,
   flags_resolved: 0,
   flags_resolved_today: 0,
@@ -32,11 +32,11 @@ export async function fetchStaffPersonalMetrics(userId: string): Promise<StaffPe
     staff_user_id: row.staff_user_id ?? userId,
     total_actions: Number(row.total_actions ?? 0),
     actions_today: Number(row.actions_today ?? 0),
-    claims_reviewed: Number(row.claims_reviewed ?? 0),
-    claims_reviewed_today: Number(row.claims_reviewed_today ?? 0),
-    claims_assigned_open: Number(row.claims_assigned_open ?? 0),
-    claims_approved_today: Number(row.claims_approved_today ?? 0),
-    claims_rejected_today: Number(row.claims_rejected_today ?? 0),
+    verifications_reviewed: Number(row.verifications_reviewed ?? 0),
+    verifications_reviewed_today: Number(row.verifications_reviewed_today ?? 0),
+    verifications_assigned_open: Number(row.verifications_assigned_open ?? 0),
+    verifications_approved_today: Number(row.verifications_approved_today ?? 0),
+    verifications_rejected_today: Number(row.verifications_rejected_today ?? 0),
     avg_review_hours_7d: Number(row.avg_review_hours_7d ?? 0),
     flags_resolved: Number(row.flags_resolved ?? 0),
     flags_resolved_today: Number(row.flags_resolved_today ?? 0),
@@ -50,7 +50,7 @@ export async function fetchAssignedClaimsForStaff(
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('verification_requests')
-    .select('id, company_name, claimant_name, status, sla_due_at, created_at, verification_type')
+    .select('id, company_name, representative_name, status, sla_due_at, created_at, verification_type')
     .eq('assigned_staff_id', userId)
     .in('status', [...PENDING_CLAIM_STATUSES])
     .order('sla_due_at', { ascending: true, nullsFirst: false })
@@ -60,7 +60,7 @@ export async function fetchAssignedClaimsForStaff(
   return (data ?? []).map((row) => ({
     id: row.id,
     company_name: row.company_name,
-    claimant_name: row.claimant_name,
+    representative_name: row.representative_name,
     status: row.status,
     sla_due_at: row.sla_due_at,
     created_at: row.created_at,
@@ -72,7 +72,7 @@ export async function fetchUnassignedClaims(limit = 5): Promise<StaffDashboardCl
   const supabase = await createClient()
   const { data, error } = await supabase
     .from('verification_requests')
-    .select('id, company_name, claimant_name, status, sla_due_at, created_at, verification_type')
+    .select('id, company_name, representative_name, status, sla_due_at, created_at, verification_type')
     .is('assigned_staff_id', null)
     .in('status', [...PENDING_CLAIM_STATUSES])
     .order('created_at', { ascending: true })
@@ -82,7 +82,7 @@ export async function fetchUnassignedClaims(limit = 5): Promise<StaffDashboardCl
   return (data ?? []).map((row) => ({
     id: row.id,
     company_name: row.company_name,
-    claimant_name: row.claimant_name,
+    representative_name: row.representative_name,
     status: row.status,
     sla_due_at: row.sla_due_at,
     created_at: row.created_at,

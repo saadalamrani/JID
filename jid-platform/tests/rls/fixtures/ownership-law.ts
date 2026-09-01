@@ -206,7 +206,7 @@ export async function createVerificationRequestFixture(
       directory_id: directoryId,
       company_name: `RLS Co ${label}`,
       business_email: `verify-${label}@example.test`,
-      claimant_name: `Claimant ${label}`,
+      representative_name: `Claimant ${label}`,
       verification_type: 'business',
       status: 'pending_review',
       evidence_urls: [],

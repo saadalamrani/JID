@@ -16,17 +16,8 @@ type NotifyVerificationInput = {
 }
 
 /**
- * TODO: Replace with `dispatch_notification()` from `src/lib/notifications/` when the
- * Unified Notifications sprint lands (in-app bell + email for high-priority).
- *
- * Current approach: email_outbox queue + claim edge functions.
- *
- * JID-102D1: only the internal function/type names were renamed here. The
- * `category`/`template` values ('claim.approved' etc.), the payload's
- * `claim_id` key, and the edge function names ('send-claim-approval',
- * 'send-claim-rejection') are external contracts — they must match the
- * deployed Supabase Edge Functions and email templates exactly and are
- * deliberately left unchanged.
+ * Queues an email_outbox row and invokes verification decision Edge Functions.
+ * Categories use verification taxonomy (not organization-ownership claim names).
  */
 export async function notifyVerificationDecision(
   client: Client,
@@ -34,10 +25,10 @@ export async function notifyVerificationDecision(
 ): Promise<void> {
   const category =
     input.decision === 'approve'
-      ? 'claim.approved'
+      ? 'verification.approved'
       : input.decision === 'reject'
-        ? 'claim.rejected'
-        : 'claim.needs_more_info'
+        ? 'verification.rejected'
+        : 'verification.needs_more_info'
 
   let rejectionReason: string | null = null
   if (input.decision === 'reject') {
@@ -50,7 +41,7 @@ export async function notifyVerificationDecision(
   }
 
   const payload = {
-    claim_id: input.verificationId,
+    verification_id: input.verificationId,
     decision: input.decision,
     category,
     ...(rejectionReason ? { rejection_reason: rejectionReason } : {}),
@@ -72,7 +63,7 @@ export async function notifyVerificationDecision(
   if (input.decision === 'approve' || input.decision === 'reject') {
     const fn = input.decision === 'approve' ? 'send-claim-approval' : 'send-claim-rejection'
     const { error: emailError } = await client.functions.invoke(fn, {
-      body: { claimId: input.verificationId },
+      body: { verificationId: input.verificationId },
     })
     if (emailError) {
       console.warn(`[${fn}] edge function failed:`, emailError.message)

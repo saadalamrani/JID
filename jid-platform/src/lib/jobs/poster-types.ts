@@ -14,6 +14,6 @@ export type ApprovedCompanyPoster = {
     logo_url: string | null
     ownership_type: OwnershipType | null
     domains: string[]
-    entity_state: string
+    is_verified: boolean
   }
 }

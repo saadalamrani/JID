@@ -15,7 +15,7 @@ export { SLA_HOURS } from '@/lib/entity/constants'
 
 function toVerificationType(
   signupType: EntitySignupType,
-): Database['public']['Enums']['claim_type_enum'] {
+): Database['public']['Enums']['verification_type_enum'] {
   return signupType === 'company' ? 'business' : 'university'
 }
 
@@ -83,8 +83,8 @@ export async function submitVerificationRequest(supabase: Client, input: SubmitV
       directory_id: null,
       company_name: organizationName,
       business_email: input.business_email.trim().toLowerCase(),
-      claimant_name: input.representative_name.trim(),
-      claimant_title: input.representative_title.trim(),
+      representative_name: input.representative_name.trim(),
+      representative_title: input.representative_title.trim(),
       evidence_urls: [],
       status: 'pending_review',
       verification_type: toVerificationType(input.signupType),
@@ -109,7 +109,7 @@ export const submitClaimRequest = submitVerificationRequest
 export async function getLatestVerificationForUser(
   supabase: Client,
   userId: string,
-  verificationType?: Database['public']['Enums']['claim_type_enum'],
+  verificationType?: Database['public']['Enums']['verification_type_enum'],
 ) {
   let query = supabase
     .from('verification_requests')

@@ -10,6 +10,36 @@ import type {
 } from '@/types/sys-entities'
 import { SYS_ENTITIES_PAGE_SIZE } from '@/types/sys-entities'
 
+async function fetchDirectoryOwnerName(directoryId: string): Promise<string | null> {
+  const supabase = await createClient()
+
+  const { data: business } = await supabase
+    .from('business_profiles')
+    .select('owner_user_id')
+    .eq('directory_id', directoryId)
+    .maybeSingle()
+
+  let ownerId = business?.owner_user_id ?? null
+  if (!ownerId) {
+    const { data: university } = await supabase
+      .from('university_profiles')
+      .select('owner_user_id')
+      .eq('directory_id', directoryId)
+      .maybeSingle()
+    ownerId = university?.owner_user_id ?? null
+  }
+
+  if (!ownerId) return null
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('full_name')
+    .eq('id', ownerId)
+    .maybeSingle()
+
+  return profile?.full_name ?? null
+}
+
 export async function fetchSysEntitiesList(
   filters: SysEntitiesListFilters = {},
 ): Promise<SysEntitiesListResult> {
@@ -22,7 +52,7 @@ export async function fetchSysEntitiesList(
   let query = supabase
     .from('companies')
     .select(
-      'id, name, name_ar, entity_type, entity_state, is_verified, claimed_by, created_at, updated_at',
+      'id, name, name_ar, entity_type, is_verified, is_active, created_at, updated_at',
       { count: 'exact' },
     )
     .order('updated_at', { ascending: false })
@@ -37,7 +67,9 @@ export async function fetchSysEntitiesList(
   if (entityType === 'university') query = query.eq('entity_type', 'university')
 
   const state = filters.state ?? 'all'
-  if (state !== 'all') query = query.eq('entity_state', state)
+  if (state === 'verified') query = query.eq('is_verified', true)
+  if (state === 'unverified') query = query.eq('is_verified', false)
+  if (state === 'inactive') query = query.eq('is_active', false)
 
   query = query.range(from, to)
 
@@ -60,25 +92,15 @@ export async function fetchSysEntityDetail(entityId: string): Promise<SysEntityD
   if (error) throw new Error(error.message)
   if (!data) return null
 
-  let claimant_name: string | null = null
-  if (data.claimed_by) {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('full_name')
-      .eq('id', data.claimed_by)
-      .maybeSingle()
-    claimant_name = profile?.full_name ?? null
-  }
+  const representative_name = await fetchDirectoryOwnerName(entityId)
 
   return {
     id: data.id,
     name: data.name,
     name_ar: data.name_ar,
     entity_type: data.entity_type,
-    entity_state: data.entity_state,
     is_verified: data.is_verified,
-    claimed_by: data.claimed_by,
-    claim_requested_at: data.claim_requested_at,
+    is_active: data.is_active,
     website_url: data.website_url,
     tagline_en: data.tagline_en,
     tagline_ar: data.tagline_ar,
@@ -88,7 +110,7 @@ export async function fetchSysEntityDetail(entityId: string): Promise<SysEntityD
     city: data.city,
     created_at: data.created_at,
     updated_at: data.updated_at,
-    claimant_name,
+    representative_name,
   }
 }
 
@@ -99,7 +121,7 @@ export async function fetchSysEntityVerificationHistory(
   const { data, error } = await supabase
     .from('verification_requests')
     .select(
-      'id, applicant_user_id, status, verification_type, claimant_name, business_email, created_at, reviewed_at, reviewed_by, review_notes, rejection_reason',
+      'id, applicant_user_id, status, verification_type, representative_name, business_email, created_at, reviewed_at, reviewed_by, review_notes, rejection_reason',
     )
     .eq('directory_id', entityId)
     .order('created_at', { ascending: false })

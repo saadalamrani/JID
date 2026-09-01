@@ -101,7 +101,7 @@ export function EntityActionsMenu({ entity }: EntityActionsMenuProps) {
           <Button
             type="button"
             variant="outline"
-            disabled={pending || entity.entity_state === 'approved'}
+            disabled={pending || entity.is_verified}
             onClick={() => openAction('approve')}
           >
             {t('forceApprove')}
@@ -109,7 +109,7 @@ export function EntityActionsMenu({ entity }: EntityActionsMenuProps) {
           <Button
             type="button"
             variant="destructive"
-            disabled={pending || entity.entity_state === 'unclaimed'}
+            disabled={pending || !entity.is_verified}
             onClick={() => openAction('reject')}
           >
             {t('forceReject')}

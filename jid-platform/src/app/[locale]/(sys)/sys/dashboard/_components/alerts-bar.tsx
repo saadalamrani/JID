@@ -6,7 +6,7 @@ import { DASHBOARD_ALERT_THRESHOLDS } from '@/lib/sys/dashboard-constants'
 import { cn } from '@/lib/utils'
 
 type AlertsBarProps = {
-  overdueClaims: number
+  overdueVerifications: number
   maintenanceMode: boolean
   maintenanceMessage: string | null
   errorEventsLastHour: number
@@ -21,7 +21,7 @@ type AlertItem = {
 
 /** Section 6 — conditional alerts for SLA breaches, maintenance, and error spikes. */
 export function AlertsBar({
-  overdueClaims,
+  overdueVerifications,
   maintenanceMode,
   maintenanceMessage,
   errorEventsLastHour,
@@ -30,11 +30,11 @@ export function AlertsBar({
 
   const alerts: AlertItem[] = []
 
-  if (overdueClaims > 0) {
+  if (overdueVerifications > 0) {
     alerts.push({
-      id: 'overdue-claims',
-      severity: overdueClaims >= 5 ? 'critical' : 'warning',
-      message: t('overdueClaims', { count: overdueClaims }),
+      id: 'overdue-verifications',
+      severity: overdueVerifications >= 5 ? 'critical' : 'warning',
+      message: t('overdueVerifications', { count: overdueVerifications }),
       icon: AlertTriangle,
     })
   }

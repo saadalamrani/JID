@@ -648,7 +648,7 @@ VALUES
 
 -- Directory rows (Layer 1) — not owned profiles
 INSERT INTO public.companies (
-  id, name, name_ar, domains, entity_type, entity_state,
+  id, name, name_ar, domains, entity_type,
   is_verified, is_active, slug, description_en, description_ar
 )
 VALUES
@@ -658,7 +658,6 @@ VALUES
     'منشأة جِد التجريبية',
     ARRAY['seed-verified.jidseed.test'],
     'business',
-    'approved',
     true,
     true,
     'seed-verified-business-co',
@@ -671,7 +670,6 @@ VALUES
     'منشأة جِد التجريبية (قيد المراجعة)',
     ARRAY['seed-pending.jidseed.test'],
     'business',
-    'unclaimed',
     false,
     true,
     'seed-pending-business-co',
@@ -683,7 +681,6 @@ ON CONFLICT (id) DO UPDATE SET
   name_ar = EXCLUDED.name_ar,
   domains = EXCLUDED.domains,
   entity_type = 'business',
-  entity_state = EXCLUDED.entity_state,
   is_verified = EXCLUDED.is_verified,
   updated_at = now();
 
@@ -727,7 +724,7 @@ ON CONFLICT (id) DO UPDATE SET
 
 INSERT INTO public.verification_requests (
   id, applicant_user_id, directory_id, company_name, business_email,
-  claimant_name, status, verification_type, reviewed_at, verified_domains,
+  representative_name, status, verification_type, reviewed_at, verified_domains,
   resulting_profile_id, resulting_profile_type
 )
 VALUES
@@ -856,7 +853,7 @@ ON CONFLICT (id) DO UPDATE SET
 -- =============================================================================
 
 INSERT INTO public.companies (
-  id, name, name_ar, domains, entity_type, entity_state,
+  id, name, name_ar, domains, entity_type,
   is_verified, is_active, slug, description_en
 )
 VALUES
@@ -866,7 +863,6 @@ VALUES
     'مساحة جامعة تجريبية',
     ARRAY['seed-uni.jidseed.test'],
     'university',
-    'approved',
     true,
     true,
     'seed-verified-university',
@@ -878,7 +874,6 @@ VALUES
     'مساحة جامعة تجريبية (قيد المراجعة)',
     ARRAY['seed-uni-pending.jidseed.test'],
     'university',
-    'unclaimed',
     false,
     true,
     'seed-pending-university',
@@ -888,7 +883,6 @@ ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,
   name_ar = EXCLUDED.name_ar,
   entity_type = EXCLUDED.entity_type,
-  entity_state = EXCLUDED.entity_state,
   domains = EXCLUDED.domains,
   updated_at = now();
 
@@ -932,7 +926,7 @@ ON CONFLICT (id) DO UPDATE SET
 
 INSERT INTO public.verification_requests (
   id, applicant_user_id, directory_id, company_name, business_email,
-  claimant_name, status, verification_type, reviewed_at, verified_domains,
+  representative_name, status, verification_type, reviewed_at, verified_domains,
   resulting_profile_id, resulting_profile_type
 )
 VALUES

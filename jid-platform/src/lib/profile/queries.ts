@@ -147,14 +147,11 @@ export async function getCurrentViewer(): Promise<ProfileViewer> {
 
   const isAdmin = role !== null && (PRIVILEGED_STAFF_ROLES as readonly string[]).includes(role)
 
-  const { data: companyClaim } = await asUntyped(supabase)
-    .from('verification_requests')
-    .select('directory_id, verification_type')
-    .eq('applicant_user_id', user.id)
-    .eq('status', 'approved')
-    .eq('verification_type', 'business')
-    .order('reviewed_at', { ascending: false })
-    .limit(1)
+  const { data: ownedBusiness } = await asUntyped(supabase)
+    .from('business_profiles')
+    .select('directory_id, status')
+    .eq('owner_user_id', user.id)
+    .neq('status', 'suspended')
     .maybeSingle()
 
   const { data: mentorRow } = await asUntyped(supabase)
@@ -163,9 +160,8 @@ export async function getCurrentViewer(): Promise<ProfileViewer> {
     .eq('user_id', user.id)
     .maybeSingle()
 
-  const claimRow = companyClaim as { directory_id?: string } | null
-  const companyId = claimRow?.directory_id ?? null
-  const isVerified = role !== null && (role as string) === 'company_admin' && companyId !== null
+  const companyId = (ownedBusiness as { directory_id?: string } | null)?.directory_id ?? null
+  const isVerified = companyId !== null
 
   const mentorStatus = (mentorRow as { status?: string } | null)?.status
 
@@ -450,7 +446,7 @@ export async function fetchCompany(companyId: string): Promise<CompanyProfileRec
       employee_count_range,
       office_locations,
       entity_type,
-      entity_state,
+      is_active,
       is_verified,
       is_on_honor_roll,
       last_activity_at,
@@ -481,7 +477,7 @@ function mapCompanyRow(row: Record<string, unknown>): CompanyProfileRecord {
     employee_count_range: (row.employee_count_range as string | null) ?? null,
     office_locations: row.office_locations ?? [],
     entity_type: String(row.entity_type ?? 'business'),
-    entity_state: String(row.entity_state ?? 'unclaimed'),
+    is_active: row.is_active !== false,
     is_verified: Boolean(row.is_verified),
     is_on_honor_roll: Boolean(row.is_on_honor_roll),
     last_activity_at: (row.last_activity_at as string | null) ?? null,

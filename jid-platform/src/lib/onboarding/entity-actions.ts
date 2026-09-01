@@ -13,6 +13,7 @@ import {
   type EntityTeamInvitesValues,
 } from '@/lib/validations/entity-onboarding'
 import type { OnboardingActionResult } from '@/lib/onboarding/actions'
+import { fetchOwnedDirectoryForUser } from '@/lib/entity/owned-directory'
 
 type UntypedClient = SupabaseClient<Record<string, unknown>>
 
@@ -48,12 +49,7 @@ async function requireEntityAdmin(): Promise<{
     throw new Error('onboarding.errors.notAuthenticated')
   }
 
-  const { data: company } = await asUntyped(supabase)
-    .from('companies')
-    .select('id')
-    .eq('claimed_by', user.id)
-    .eq('entity_state', 'approved')
-    .maybeSingle()
+  const company = await fetchOwnedDirectoryForUser(user.id)
 
   if (!company) {
     throw new Error('onboarding.errors.notAuthenticated')
@@ -63,7 +59,7 @@ async function requireEntityAdmin(): Promise<{
   return {
     supabase,
     userId: user.id,
-    companyId: String((company as { id: string }).id),
+    companyId: company.id,
     smartLinks:
       row.smart_links && typeof row.smart_links === 'object' ? row.smart_links : {},
   }
@@ -94,7 +90,6 @@ export async function saveEntityProfile(input: EntitySetupValues): Promise<Onboa
       updated_at: now,
     })
     .eq('id', companyId)
-    .eq('claimed_by', userId)
 
   if (companyError) {
     return { ok: false, error: 'onboarding.errors.saveFailed' }

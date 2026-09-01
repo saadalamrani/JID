@@ -46,7 +46,7 @@ export function AssignedClaims({ claims }: AssignedClaimsProps) {
                     >
                       {claim.company_name}
                     </Link>
-                    <p className="truncate text-xs text-muted-foreground">{claim.claimant_name}</p>
+                    <p className="truncate text-xs text-muted-foreground">{claim.representative_name}</p>
                   </div>
                   <div className="shrink-0 text-end">
                     {claim.sla_due_at ? (

@@ -36,7 +36,7 @@ function makeItem(
 ): NotificationListItem {
   return {
     id: 'n-1',
-    category: 'claim.approved',
+    category: 'verification.approved',
     priority: 'high',
     title_ar: 'تمت الموافقة على طلب التحقق',
     title_en: 'Verification approved',
@@ -58,7 +58,7 @@ describe('claim.approved / claim.rejected rendering', () => {
 
   it('renders claim.approved in Arabic', () => {
     useLocale.mockReturnValue('ar')
-    render(<NotificationRow notification={makeItem({ category: 'claim.approved' })} />)
+    render(<NotificationRow notification={makeItem({ category: 'verification.approved' })} />)
     expect(screen.getByText('تمت الموافقة على طلب التحقق')).toBeInTheDocument()
     expect(screen.getByText(/إنشاء ملفك التعريفي/)).toBeInTheDocument()
     expect(screen.getByText('إنشاء الملف التعريفي')).toBeInTheDocument()
@@ -70,7 +70,7 @@ describe('claim.approved / claim.rejected rendering', () => {
 
   it('renders claim.approved in English', () => {
     useLocale.mockReturnValue('en')
-    render(<NotificationRow notification={makeItem({ category: 'claim.approved' })} />)
+    render(<NotificationRow notification={makeItem({ category: 'verification.approved' })} />)
     expect(screen.getByText('Verification approved')).toBeInTheDocument()
     expect(screen.getByText(/create your owned profile/i)).toBeInTheDocument()
     expect(screen.getByText('Create profile')).toBeInTheDocument()
@@ -82,7 +82,7 @@ describe('claim.approved / claim.rejected rendering', () => {
     render(
       <NotificationRow
         notification={makeItem({
-          category: 'claim.rejected',
+          category: 'verification.rejected',
           title_ar: 'تم رفض طلب التحقق',
           title_en: 'Verification rejected',
           body_ar: 'لم يُقبل طلب التحقق.\n\nالسبب: مستندات ناقصة',
@@ -106,7 +106,7 @@ describe('claim.approved / claim.rejected rendering', () => {
     render(
       <NotificationRow
         notification={makeItem({
-          category: 'claim.rejected',
+          category: 'verification.rejected',
           title_ar: 'تم رفض طلب التحقق',
           title_en: 'Verification rejected',
           body_ar: 'لم يُقبل طلب التحقق.\n\nالسبب: مستندات ناقصة',
@@ -128,7 +128,7 @@ describe('claim.approved / claim.rejected rendering', () => {
   it('approval create-Profile continuation never claims automatic Profile creation', () => {
     useLocale.mockReturnValue('en')
     const { container } = render(
-      <NotificationRow notification={makeItem({ category: 'claim.approved' })} />,
+      <NotificationRow notification={makeItem({ category: 'verification.approved' })} />,
     )
     expect(container.textContent?.toLowerCase()).not.toMatch(/automatically created/)
     expect(container.textContent?.toLowerCase()).not.toMatch(/profile was created/)
@@ -174,7 +174,7 @@ describe('NotificationRow fallbacks', () => {
 describe('CategoryIcon', () => {
   it('maps claim.approved and claim.rejected without crashing', () => {
     const { container: a } = render(
-      <CategoryIcon category="claim.approved" priority="high" />,
+      <CategoryIcon category="verification.approved" priority="high" />,
     )
     const { container: r } = render(
       <CategoryIcon category="claim.rejected" priority="high" />,

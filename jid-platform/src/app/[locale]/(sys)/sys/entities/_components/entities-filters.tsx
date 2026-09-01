@@ -15,11 +15,9 @@ type EntitiesFiltersProps = {
 
 const STATE_OPTIONS: SysEntityStateFilter[] = [
   'all',
-  'unclaimed',
-  'pending',
-  'pending_review',
-  'approved',
-  'suspended',
+  'verified',
+  'unverified',
+  'inactive',
 ]
 
 export function EntitiesFilters({ fixedEntityType }: EntitiesFiltersProps) {

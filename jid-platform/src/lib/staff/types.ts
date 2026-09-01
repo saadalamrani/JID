@@ -13,11 +13,11 @@ export type StaffPersonalMetrics = {
   staff_user_id: string
   total_actions: number
   actions_today: number
-  claims_reviewed: number
-  claims_reviewed_today: number
-  claims_assigned_open: number
-  claims_approved_today: number
-  claims_rejected_today: number
+  verifications_reviewed: number
+  verifications_reviewed_today: number
+  verifications_assigned_open: number
+  verifications_approved_today: number
+  verifications_rejected_today: number
   avg_review_hours_7d: number
   flags_resolved: number
   flags_resolved_today: number
@@ -26,7 +26,7 @@ export type StaffPersonalMetrics = {
 export type StaffDashboardClaimRow = {
   id: string
   company_name: string
-  claimant_name: string
+  representative_name: string
   status: string
   sla_due_at: string | null
   created_at: string

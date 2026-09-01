@@ -32,7 +32,7 @@ export async function activateCompanyPlan(input: unknown): Promise<StaffBillingA
 
     const { data: company, error: companyError } = await admin
       .from('companies')
-      .select('id, name, name_ar, entity_state')
+      .select('id, name, name_ar, is_verified')
       .eq('id', companyId)
       .maybeSingle()
 

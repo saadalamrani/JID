@@ -22,7 +22,7 @@ export type StaffClaimsQueueItem = {
 
 type VerificationRow = {
   id: string
-  claimant_name: string
+  representative_name: string
   company_name: string
   verification_type: string
   created_at: string
@@ -40,7 +40,7 @@ function mapVerificationRow(row: VerificationRow): StaffClaimsQueueItem {
   return {
     id: row.id,
     queueType,
-    applicantName: row.claimant_name,
+    applicantName: row.representative_name,
     targetEntityName: row.company_name,
     submittedAt: row.created_at,
     slaDueAt: resolveSlaDueAt(row.sla_due_at, row.created_at),
@@ -81,7 +81,7 @@ export async function fetchPendingClaimsQueue(limit = 100): Promise<StaffClaimsQ
     supabase
       .from('verification_requests')
       .select(
-        'id, claimant_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status',
+        'id, representative_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status',
       )
       .in('status', [...PENDING_CLAIM_STATUSES])
       .order('sla_due_at', { ascending: true, nullsFirst: false })
@@ -107,7 +107,7 @@ export async function fetchMyAssignedClaimsQueue(limit = 100): Promise<StaffClai
   const { data, error } = await supabase
     .from('verification_requests')
     .select(
-      'id, claimant_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status',
+      'id, representative_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status',
     )
     .eq('assigned_staff_id', profile.id)
     .in('status', [...PENDING_CLAIM_STATUSES])
@@ -126,7 +126,7 @@ export async function fetchMyClaimsHistory(limit = 100): Promise<StaffClaimsQueu
   const { data, error } = await supabase
     .from('verification_requests')
     .select(
-      'id, claimant_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status, reviewed_at',
+      'id, representative_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status, reviewed_at',
     )
     .eq('reviewed_by', profile.id)
     .in('status', ['approved', 'rejected'])
@@ -155,7 +155,7 @@ export async function fetchVerificationKanbanBuckets(): Promise<VerificationKanb
     supabase
       .from('verification_requests')
       .select(
-        'id, claimant_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status, reviewed_at',
+        'id, representative_name, company_name, verification_type, created_at, sla_due_at, assigned_staff_id, status, reviewed_at',
       )
       .in('status', ['approved', 'rejected'])
       .gte('reviewed_at', todayStart.toISOString())

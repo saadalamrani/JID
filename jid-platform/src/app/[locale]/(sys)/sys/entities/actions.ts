@@ -23,7 +23,7 @@ function revalidateEntityPaths(entityId: string) {
   revalidatePath(`/sys/entities/${entityId}`)
 }
 
-/** Super Admin override — bypass staff claim review workflow. */
+/** Super Admin override — Directory verification flag only; never grants workspace via Directory. */
 export async function forceApproveEntity(
   entityId: string,
   reason: string,
@@ -41,15 +41,10 @@ export async function forceApproveEntity(
   const supabase = await createClient()
   const now = new Date().toISOString()
 
-  const claimedBy = pendingVerification?.applicant_user_id ?? before.claimed_by
-
   const { error: entityError } = await supabase
     .from('companies')
     .update({
-      entity_state: 'approved',
       is_verified: true,
-      claimed_by: claimedBy,
-      claim_requested_at: null,
       updated_at: now,
     })
     .eq('id', entityId)
@@ -87,19 +82,15 @@ export async function forceApproveEntity(
     entityId,
     reason,
     before: {
-      entity_state: before.entity_state,
       is_verified: before.is_verified,
-      claimed_by: before.claimed_by,
     },
     after: {
-      entity_state: 'approved',
       is_verified: true,
-      claimed_by: claimedBy,
     },
     extraMetadata: {
       super_admin_override: true,
       bypass_staff_review: true,
-      claim_id: pendingVerification?.id ?? null,
+      verification_id: pendingVerification?.id ?? null,
       target_resource_id: entityId,
     },
   })
@@ -128,10 +119,7 @@ export async function forceRejectEntity(
   const { error: entityError } = await supabase
     .from('companies')
     .update({
-      entity_state: 'unclaimed',
       is_verified: false,
-      claimed_by: null,
-      claim_requested_at: null,
       updated_at: now,
     })
     .eq('id', entityId)
@@ -170,14 +158,10 @@ export async function forceRejectEntity(
     entityId,
     reason,
     before: {
-      entity_state: before.entity_state,
       is_verified: before.is_verified,
-      claimed_by: before.claimed_by,
     },
     after: {
-      entity_state: 'unclaimed',
       is_verified: false,
-      claimed_by: null,
     },
     extraMetadata: {
       super_admin_override: true,

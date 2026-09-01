@@ -245,28 +245,25 @@ describe('6. No schema, RLS, or public onboarding files were changed', () => {
     expect(existsSync(join(SRC_ROOT, 'lib/catalog/claim.ts'))).toBe(false)
   })
 
-  it('the Directory-ownership (companies.claimed_by) sys/entities actions are untouched by this patch', () => {
-    // This file legitimately still reads/writes companies.claimed_by / entity_state —
-    // it belongs to the separate Directory-ownership surface this task's
-    // DO-NOT-TOUCH list explicitly excludes. Confirm it is still present and
-    // still uses that model, i.e. nothing here was accidentally renamed.
+  it('the Directory-ownership claim columns are absent from Super Admin entity actions', () => {
     const content = read('app/[locale]/(sys)/sys/entities/actions.ts')
-    expect(content).toContain('claimed_by')
-    expect(content).toContain("entity_state: 'unclaimed'")
+    expect(content).not.toContain('claimed_by')
+    expect(content).not.toContain('entity_state')
+    expect(content).toContain('is_verified: true')
   })
 
-  it('the staff.claim_reviewed analytics event and its RPC-adjacent contracts remain unchanged', () => {
+  it('verification decision notifications use verification taxonomy', () => {
     const events = read('lib/analytics/staff-events.ts')
-    expect(events).toContain("'staff.claim_reviewed'")
+    expect(events).toContain("'staff.verification_reviewed'")
 
     const notify = read('lib/staff/notify-verification-decision.ts')
-    expect(notify).toContain("'claim.approved'")
-    expect(notify).toContain("'claim.rejected'")
-    expect(notify).toContain("'claim.needs_more_info'")
-    expect(notify).toContain('claim_id:')
+    expect(notify).toContain("'verification.approved'")
+    expect(notify).toContain("'verification.rejected'")
+    expect(notify).toContain("'verification.needs_more_info'")
+    expect(notify).toContain('verification_id:')
     expect(notify).toContain("'send-claim-approval'")
     expect(notify).toContain("'send-claim-rejection'")
-    expect(notify).toContain('claimId:')
+    expect(notify).toContain('verificationId:')
   })
 
   it('no supabase/migrations directory changes are part of this source tree diff (structural sanity check)', () => {

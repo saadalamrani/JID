@@ -15,7 +15,6 @@ type CompanyIdentityHeaderProps = {
   isVerified?: boolean
   foundedYear?: number | null
   employeeCountRange?: string | null
-  entityState?: string | null
   editHref?: string
   onEdit?: () => void
   className?: string
@@ -30,7 +29,6 @@ export function CompanyIdentityHeader({
   isVerified = false,
   foundedYear,
   employeeCountRange,
-  entityState,
   editHref,
   onEdit,
   className,
@@ -76,11 +74,6 @@ export function CompanyIdentityHeader({
               <span className="inline-flex items-center gap-1">
                 <Users className="h-3.5 w-3.5 shrink-0" aria-hidden />
                 {employeeCountRange}
-              </span>
-            ) : null}
-            {entityState ? (
-              <span className="rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                {entityState}
               </span>
             ) : null}
           </div>

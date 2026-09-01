@@ -10,7 +10,7 @@ type PersonalMetricsProps = {
 }
 
 type MetricDefinition = {
-  key: 'actions_today' | 'claims_approved_today' | 'claims_rejected_today' | 'avg_review_hours_7d'
+  key: 'actions_today' | 'verifications_approved_today' | 'verifications_rejected_today' | 'avg_review_hours_7d'
   icon: typeof Activity
   format?: (value: number) => string
 }
@@ -18,8 +18,8 @@ type MetricDefinition = {
 /** Section 6.2 — four personal KPI cards for the logged-in staff member. */
 const METRIC_DEFINITIONS: MetricDefinition[] = [
   { key: 'actions_today', icon: Activity },
-  { key: 'claims_approved_today', icon: CheckCircle2 },
-  { key: 'claims_rejected_today', icon: XCircle },
+  { key: 'verifications_approved_today', icon: CheckCircle2 },
+  { key: 'verifications_rejected_today', icon: XCircle },
   {
     key: 'avg_review_hours_7d',
     icon: Clock,

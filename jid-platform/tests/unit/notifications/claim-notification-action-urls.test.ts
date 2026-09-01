@@ -102,11 +102,11 @@ describe('notify_claim_decision outcome-url migration', () => {
       join(ROOT, 'src/lib/staff/notify-verification-decision.ts'),
       'utf8',
     )
-    expect(notifier).toContain("'claim.approved'")
-    expect(notifier).toContain("'claim.rejected'")
-    expect(notifier).toContain("'claim.needs_more_info'")
-    expect(notifier).toContain('claim_id')
-    expect(notifier).toContain('claimId')
+    expect(notifier).toContain("'verification.approved'")
+    expect(notifier).toContain("'verification.rejected'")
+    expect(notifier).toContain("'verification.needs_more_info'")
+    expect(notifier).toContain('verification_id')
+    expect(notifier).toContain('verificationId')
     expect(notifier).toContain('send-claim-approval')
     expect(notifier).toContain('send-claim-rejection')
   })
