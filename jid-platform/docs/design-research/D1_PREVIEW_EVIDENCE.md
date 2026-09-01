@@ -26,8 +26,8 @@ branch produces an immutable preview deployment for that exact commit SHA.
 | Project | `jid-platform` (`prj_Bjn17wPig8Anp2KhNPu5qCEZnWuC`) |
 | Branch alias (moves with the branch head) | `https://jid-platform-git-integration-jid-d1-experien-793675-jidplatform.vercel.app` |
 | Immutable deployment — D1-C2 (`5869ca4`, R1+R2) | `https://jid-platform-92aeec2n3-jidplatform.vercel.app` — state READY (`dpl_F1hnFHtyQS9mK9ePvgABC7TmxrZk`) |
-| Immutable deployment — final SHA | recorded in `D1_CLOSEOUT.md` after the closeout commit is pushed and built |
-| Inspector | `https://vercel.com/jidplatform/jid-platform/<deploymentId>` |
+| **Immutable deployment — FINAL_SHA `f51dcd3`** | **`https://jid-platform-je90aqi3z-jidplatform.vercel.app`** — state READY (`dpl_4t3nscc5szv3JGNNAehScvza93Tr`), Vercel build PASS |
+| Inspector (FINAL_SHA) | `https://vercel.com/jidplatform/jid-platform/4t3nscc5szv3JGNNAehScvza93Tr` |
 
 **Founder access:** open the immutable URL for the final SHA (see `D1_CLOSEOUT.md`).
 The preview sits behind Vercel deployment protection / SSO for this team, so

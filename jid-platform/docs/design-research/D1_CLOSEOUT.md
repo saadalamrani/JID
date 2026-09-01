@@ -14,7 +14,7 @@ implemented as real product code; R3–R7 specified only.
 |---|---|
 | BRANCH | `integration/jid-d1-experience-design-direction` |
 | BASE_SHA | `60cdb54f2683995f51a0140273b3a9de9fa5858e` (`origin/integration/org-registration-representative-verification`; contains org-onboarding correction `2d234d5b514ffc95ac333997370b4d4589cd1052`) |
-| FINAL_SHA | recorded after this file is committed (see "IMMUTABLE PREVIEW" below) |
+| FINAL_SHA | `f51dcd3f411ea2c704657e4a295cb0072852ff54` (this table line is the only edit after that commit; immutable preview built READY — see "IMMUTABLE PREVIEW") |
 | PRODUCTION_TOUCHED | NO |
 | MAIN_MERGED | NO |
 | DATABASE_CHANGED | NO |
@@ -198,14 +198,17 @@ internals — no `PARALLEL_ENGINEERING_DEPENDENCY` encountered.
 Vercel git integration → `jid-platform` project (`prj_Bjn17wPig8Anp2KhNPu5qCEZnWuC`,
 team `jidplatform`). Each branch push builds an immutable per-SHA deployment.
 
-| SHA | Deployment | State |
-|---|---|---|
-| `5869ca4` (C2, R1+R2) | `https://jid-platform-92aeec2n3-jidplatform.vercel.app` | READY |
-| `df553d4` (locale fix) | building on push — check `list_deployments` / branch alias | — |
-| **FINAL_SHA** (this closeout commit) | **recorded here once built:** `______________________________` | — |
+| SHA | Immutable deployment URL | Deployment ID | State |
+|---|---|---|---|
+| `5869ca4` (C2, R1+R2) | `https://jid-platform-92aeec2n3-jidplatform.vercel.app` | `dpl_F1hnFHtyQS9mK9ePvgABC7TmxrZk` | READY |
+| `df553d4` (locale fix) | `https://jid-platform-eu7k35y2j-jidplatform.vercel.app` | `dpl_Bu9LB8sxtY2qEkDcnUKPgUXxFGZz` | READY |
+| **`f51dcd3` — FINAL_SHA (the closeout commit at the time the URL is captured; the only later change is this table line)** | **`https://jid-platform-je90aqi3z-jidplatform.vercel.app`** | `dpl_4t3nscc5szv3JGNNAehScvza93Tr` | **READY** — built `fra1`, buildingAt→ready ≈144s. **Vercel build PASS for the exact final SHA.** |
 
 Branch alias (tracks the head): `https://jid-platform-git-integration-jid-d1-experien-793675-jidplatform.vercel.app`
-Inspector: `https://vercel.com/jidplatform/jid-platform/<deploymentId>`
+Inspector for FINAL_SHA: `https://vercel.com/jidplatform/jid-platform/4t3nscc5szv3JGNNAehScvza93Tr`
+
+**Do not treat the branch alias as authoritative** — it moves with the branch head.
+The immutable URL above (`…je90aqi3z…`) is pinned to `f51dcd3`.
 
 The preview is behind this team's Vercel deployment protection; the Founder opens
 the immutable URL directly to judge R1 (`/`) and R2 (`/home`, after signing in as a
