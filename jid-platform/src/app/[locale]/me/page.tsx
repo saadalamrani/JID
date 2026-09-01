@@ -22,5 +22,9 @@ export default async function IndividualPortalEntryPage() {
     redirect('/mentor/dashboard')
   }
 
-  redirect('/profile')
+  // D1 R2 — real Individual workspace home; previously fell through to
+  // `/profile`, i.e. the person's own public profile projection standing in
+  // for a workspace that did not exist (docs/design-research/
+  // D1_REFERENCE_EXPERIENCES.md#r2).
+  redirect('/home')
 }

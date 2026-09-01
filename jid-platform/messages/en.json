@@ -162,8 +162,7 @@
     "hero": {
       "eyebrow": "Saudi career infrastructure",
       "title": "JID connects individuals, employers, and universities.",
-      "subtitle": "Saudi career infrastructure built around the distinct role each one plays.",
-      "body": "Each actor has a distinct space: the individual for a career, the employer for presence, and the university for its institutional role within clear data bounds.",
+      "subtitle": "One record of professional trust, read differently by each side that relies on it.",
       "primaryCta": "Explore opportunities",
       "primaryCtaGuest": "Explore opportunities",
       "primaryCtaCompleteProfile": "Complete your profile",
@@ -202,88 +201,98 @@
         }
       }
     },
-    "problem": {
-      "title": "A real problem that does not need fabricated numbers",
-      "subtitle": "Recurring experiences in Saudi hiring — addressed with practical transparency, not marketing stats.",
-      "cards": {
-        "applicants": {
-          "headline": "Applicants",
-          "body": "never receive a clear update on their application outcome"
-        },
-        "waiting": {
-          "headline": "Long waiting periods",
-          "body": "with no clear deadline for a response"
-        },
-        "graduates": {
-          "headline": "Graduates",
-          "body": "do not know their application status for weeks"
-        }
-      }
-    },
-    "modules": {
-      "title": "Built for three actors",
-      "subtitle": "Individuals, employers, and universities share one career infrastructure — with opportunities and the Directory.",
-      "explore": "Explore →",
-      "items": {
-        "jobs": {
-          "title": "Opportunities",
-          "description": "Discover native JID roles and Lammah listings without fabricated match scores."
-        },
-        "catalog": {
-          "title": "Directory",
-          "description": "Platform-managed reference records for employers — separate from owned Profiles."
-        },
-        "mentors": {
-          "title": "Mentorship",
-          "description": "Meet approved individual mentors and request a guidance session."
-        },
-        "pulse": {
-          "title": "Platform Pulse",
-          "description": "Public metrics and announcements reflecting platform activity."
-        },
-        "universities": {
-          "title": "University",
-          "description": "Institutional presence after verification and deliberate Profile creation — separate from the Directory record."
-        },
-        "profiles": {
-          "title": "Individuals",
-          "description": "Build a living professional identity, privacy controls, and career tools on your own terms."
-        },
-        "radar": {
-          "title": "Opportunity Radar",
-          "description": "Track your applications in one visual pipeline after sign-up."
-        },
-        "cv": {
-          "title": "CV Builder",
-          "description": "Build your CV and export a professional snapshot."
-        }
-      }
-    },
-    "pdpl": {
-      "title": "Your privacy under Saudi PDPL principles",
-      "body": "JID is designed around data minimisation, access control, and data-subject rights.",
-      "badge": "Designed around personal data protection principles",
-      "cta": "Read our PDPL notice"
-    },
-    "vision2030": {
-      "eyebrow": "Aligned with national ambitions",
-      "title": "Empowering talent and a more transparent labour market",
-      "body": "JID supports a clearer path to opportunity and stronger career journeys — in line with Vision 2030 goals to empower citizens and diversify the economy. This text expresses the platform direction; it is not a verbatim quote from Vision 2030 documents.",
-      "attributionNote": "Platform direction is inspired by Vision 2030 goals — not a direct quotation."
-    },
-    "cta": {
-      "title": "Start where you are",
-      "subtitle": "Individual? Create an account. Representing an employer or university? Register the organization and your role, then submit verification.",
+    "relationship": {
+      "title": "One record. Three vantage points.",
+      "subtitle": "Individuals build a career, employers verify evidence, and universities understand their outcomes — on the same record.",
       "individual": {
-        "title": "For individuals",
-        "body": "Unified profile, application radar, and mentorship capability — one individual account.",
-        "button": "Create individual account"
+        "role": "Individual",
+        "question": "Who am I, and where am I going?",
+        "body": "Builds one evidence-backed professional record, and tracks the real status of everything they've submitted — never re-explaining a career from zero."
+      },
+      "employer": {
+        "role": "Employer",
+        "question": "Who are we, and why should graduates trust us?",
+        "body": "Verified before becoming part of JID, and evaluates candidates against one set of criteria built on evidence — not a keyword list."
+      },
+      "university": {
+        "role": "University",
+        "question": "How are our graduates performing after graduation?",
+        "body": "States plainly what is known and unknown about its outcomes — never a number that claims a completeness it doesn't have."
+      }
+    },
+    "notThis": {
+      "title": "What JID is not",
+      "body": "JID is not a job board, not an applicant tracking system, and not a social network. Those categories end at a posted job or a closed application — JID is the infrastructure the rest is built on."
+    },
+    "trust": {
+      "title": "How trust is built on JID",
+      "items": {
+        "verification": "No employer or university joins JID before its identity is verified.",
+        "dataTruth": "Every number published on JID states its basis — never a figure with no source.",
+        "consent": "Visibility of your data is your decision, and you can withdraw it at any time."
+      },
+      "cta": "Full detail in the PDPL policy"
+    },
+    "entry": {
+      "title": "Start where you are",
+      "individual": {
+        "body": "Individual? Create your account.",
+        "button": "Create account"
       },
       "entity": {
-        "title": "For employers & universities",
-        "body": "Register the employer or university, confirm you represent it, then prepare the Profile after approval.",
-        "button": "Create an employer or university account"
+        "body": "Representing an employer or university? Register its details and start verification.",
+        "button": "Start verification"
       }
+    }
+  },
+  "individualHome": {
+    "meta": {
+      "title": "Home — JID",
+      "description": "Your professional workspace on JID: where you stand, what needs you, and your opportunities."
+    },
+    "greeting": "Hello, {name}.",
+    "standing": {
+      "skills": "{count, plural, =0 {No skills recorded yet} one {# skill recorded} other {# skills recorded}} in your Career Record.",
+      "university": "Affiliated with {university}.",
+      "updated": "Your record was last updated {relativeTime}."
+    },
+    "attention": {
+      "title": "What needs your attention",
+      "empty": "Nothing needs your attention right now.",
+      "incompleteProfile": {
+        "text": "Your Career Record isn't complete yet.",
+        "action": "Complete it now"
+      },
+      "applicationInvited": {
+        "text": "Your application to {jobTitle} needs a response from you.",
+        "action": "View application"
+      }
+    },
+    "changes": {
+      "title": "What changed",
+      "empty": "No changes since your last visit.",
+      "statusUpdate": "Your application to {jobTitle} moved to {status} — {relativeTime}."
+    },
+    "record": {
+      "title": "My Career Record",
+      "viewFull": "View full record",
+      "viewProjection": "How employers see me",
+      "createCv": "Create a CV"
+    },
+    "opportunities": {
+      "title": "Opportunities for you",
+      "subtitle": "The latest opportunities available on JID.",
+      "viewAll": "View all opportunities",
+      "empty": "No opportunities available right now.",
+      "lammahNote": "Lammah adds external opportunities from official sources JID verifies — for Plus subscribers.",
+      "lammahCta": "Learn about Lammah",
+      "remote": "Remote",
+      "deadlineDays": "{days, plural, =0 {Closes today} one {# day left to apply} other {# days left to apply}}"
+    },
+    "applications": {
+      "title": "My applications",
+      "viewAll": "View all applications",
+      "empty": "No applications yet. Applications you apply to will appear here."
     }
   },
   "catalogPage": {

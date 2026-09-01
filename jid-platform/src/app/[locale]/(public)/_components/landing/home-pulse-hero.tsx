@@ -1,21 +1,15 @@
 import { getTranslations } from 'next-intl/server'
-import { HomeHeroFloatingCards } from '@/app/[locale]/(public)/_components/landing/home-hero-floating-cards'
-import { resolveHomeHeroCards } from '@/lib/navigation/home-hero-cards'
 import { resolveHomeHeroContext } from '@/lib/navigation/home-hero-context'
 import { Link } from '@/lib/i18n/navigation'
 
 /**
- * Homepage hero — single-column, JID-owned composition (Master Design Standard §8.1/§12.1).
- * Deliberately not a split SaaS hero with a floating device-frame card: the proposition
- * stands alone on the calm off-white canvas, and any real, query-backed activity renders
- * as a single grounded row beneath it — never a "product panel" prop.
+ * D1 R1 — homepage statement. One headline, one checkable claim, one situational
+ * entry action. No floating activity-card row: a first-time visitor is oriented by
+ * what JID *is* (Section "the relationship" below this section), not by a preview of
+ * dashboard fragments. Deliberately not a split SaaS hero with a device-frame card.
  */
 export async function HomePulseHero() {
-  const [t, hero, cards] = await Promise.all([
-    getTranslations('landing.hero'),
-    resolveHomeHeroContext(),
-    resolveHomeHeroCards(),
-  ])
+  const [t, hero] = await Promise.all([getTranslations('landing.hero'), resolveHomeHeroContext()])
 
   const primaryLabel = t(hero.primaryCta.labelKey)
 
@@ -34,7 +28,6 @@ export async function HomePulseHero() {
             <p className="text-foreground/80 max-w-xl text-base leading-relaxed md:text-lg">
               {t('subtitle')}
             </p>
-            <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">{t('body')}</p>
           </div>
           <div className="flex flex-wrap items-center gap-3 pt-1">
             {!hero.isAuthenticated ? (
@@ -64,12 +57,6 @@ export async function HomePulseHero() {
             )}
           </div>
         </div>
-
-        {cards.length > 0 ? (
-          <div className="mt-10 max-w-3xl border-t border-jid-olive/10 pt-6">
-            <HomeHeroFloatingCards cards={cards} />
-          </div>
-        ) : null}
       </div>
     </section>
   )

@@ -17,7 +17,8 @@ export function isAuthorizedNonprodInterviewTarget(): boolean {
 
 /**
  * Default portal home routes after login (Section 11 Step 7).
- * Individual → /me (capability-aware entry → /profile or mentor hub).
+ * Individual → /me (capability-aware entry → /home or mentor hub — D1 R2,
+ * docs/design-research/D1_REFERENCE_EXPERIENCES.md#r2).
  * Entity → company dashboard.
  */
 export function getPortalHomeForRole(role: UserRole): string {
