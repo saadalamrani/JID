@@ -210,9 +210,16 @@ Inspector for FINAL_SHA: `https://vercel.com/jidplatform/jid-platform/4t3nscc5sz
 **Do not treat the branch alias as authoritative** — it moves with the branch head.
 The immutable URL above (`…je90aqi3z…`) is pinned to `f51dcd3`.
 
-The preview is behind this team's Vercel deployment protection; the Founder opens
+`BROWSER_PREVIEW = BLOCKED_BY_VERCEL_ENDPOINT` for **automated** capture only. The
+deployment is `READY` (confirmed once via the Vercel deployments API —
+`readyState: READY`, region `fra1`, buildingAt→ready ≈144s), but an unauthenticated
+request to the hosted URL returns a `302` from this team's deployment protection, so
+this session could not screenshot the hosted preview. **This does not authorize any
+visual PASS claim for the hosted preview.** The Founder, signed into Vercel, opens
 the immutable URL directly to judge R1 (`/`) and R2 (`/home`, after signing in as a
-seeded nonprod individual). `EVIDENCE_INDEX = docs/design-research/D1_PREVIEW_EVIDENCE.md`.
+seeded nonprod individual). The committed local-dev captures (identical committed
+source) are the visual record for this checkpoint.
+`EVIDENCE_INDEX = docs/design-research/D1_PREVIEW_EVIDENCE.md`.
 
 ---
 
