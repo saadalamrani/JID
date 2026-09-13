@@ -1,8 +1,8 @@
 # JID Founder Visual Reset Amendment
 
-**Effective:** 2026-09-13, Asia/Riyadh  
-**Authority:** the Founder's explicit “CREATIVE RESET + ACTIVE AUTHORITY + THREE DESIGN TERRITORIES” task in this session.  
-**Status:** current task authority transcribed; no territory selected or approved.  
+**Effective:** 2026-09-13, Asia/Riyadh
+**Authority:** the Founder's explicit “CREATIVE RESET + ACTIVE AUTHORITY + THREE DESIGN TERRITORIES” task in this session.
+**Status:** current task authority transcribed; no territory selected or approved.
 **Scope:** design direction and authority reconciliation only. This is neither a constitutional amendment nor an application delivery packet.
 
 ## Founder decision

@@ -1,7 +1,7 @@
 # JID Active Execution Authority
 
-**Date:** 2026-09-13, Asia/Riyadh  
-**Active packet:** Founder creative reset; one design/documentation Front; no subagents.  
+**Date:** 2026-09-13, Asia/Riyadh
+**Active packet:** Founder creative reset; one design/documentation Front; no subagents.
 **Status:** active instructions for this reset; proposed territories remain unselected.
 
 ## Read order and precedence
