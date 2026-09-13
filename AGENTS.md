@@ -8,6 +8,16 @@ These instructions govern every agent working in this repository.
 2. `jid-platform/docs/command-center/WAVE_OPERATING_MODEL.md`
 3. The active wave/task packet and latest GitHub handoff
 
+### Active creative-reset authority — 2026-09-13
+
+For the Founder-authorized creative reset, read
+`jid-platform/docs/design-research/creative-reset/JID_ACTIVE_EXECUTION_AUTHORITY.md`
+and its linked `JID_FOUNDER_VISUAL_RESET_AMENDMENT.md` before historical design
+instructions. This packet is design/documentation only; no application implementation.
+Old UI, D1 palette/type/shell/composition, and inherited Anti-Slop technique bans have
+no prescriptive visual authority. Trust, rights, privacy, product truth, and production
+safeguards remain binding. Territories are proposals pending Founder selection.
+
 The dated Wave Operating Model controls product and delivery decisions that conflict with
 older product-specific Constitution or command-center language. Trust, privacy, security,
 truth, user rights, and production safeguards remain binding. Record genuine conflicts;
